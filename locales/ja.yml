@@ -1,0 +1,8 @@
+components:
+  language_switcher:
+    change_language: 言語を変更
+  theme_switcher:
+    theme: テーマ
+    change_theme: テーマを変更
+pages:
+  wdnmd: 啊巴啊巴啊巴
