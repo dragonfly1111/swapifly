@@ -1,12 +1,15 @@
-import { ThemeManager } from './theme'
-import { LanguageManager } from './lang'
+import {ThemeManager} from './theme'
+import {LanguageManager} from './lang'
+import {AreaManager} from './area'
 
-export function AppSetup() {
+export async function AppSetup() {
   // use theme manager
   const themeManager = ThemeManager()
 
   // use language manager
   const languageManager = LanguageManager()
+
+  const areaManager = AreaManager()
 
   // vue transition bug handle
   const messages = [
@@ -26,5 +29,6 @@ export function AppSetup() {
   return {
     themeManager,
     languageManager,
+    areaManager
   }
 }

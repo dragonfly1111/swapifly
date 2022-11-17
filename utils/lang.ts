@@ -4,7 +4,6 @@ export interface ILocales {
   [key: string]: {
     name: string
     iso: string
-    flag: string
   }
 }
 
@@ -12,28 +11,16 @@ export const availableLocales: ILocales = {
   en: {
     name: 'English',
     iso: 'en',
-    flag: '🇺🇸',
-  },
-  id: {
-    name: 'Bahasa',
-    iso: 'id',
-    flag: '🇮🇩',
-  },
-  ja: {
-    name: '日本語',
-    iso: 'ja',
-    flag: '🇯🇵',
-  },
-  ko: {
-    name: '한국어',
-    iso: 'ko',
-    flag: '🇰🇷',
   },
   zh: {
     name: '简体中文',
     iso: 'zh',
-    flag: '🇨🇳',
   },
+  'zh-HK': {
+    name: '繁體中文',
+    iso: 'zh-HK'
+  },
+
 }
 
 export function LanguageManager() {
@@ -63,6 +50,8 @@ export function LanguageManager() {
   // watchers
   watch(localeSetting, (localeSetting) => {
     localeUserSetting.value = localeSetting
+    console.log('触发语言监听')
+    console.log(localeSetting)
     locale.value = localeSetting
   })
 

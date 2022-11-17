@@ -69,7 +69,6 @@
         </template>
       </a-upload>
     </a-space>
-    <LanguageSwitcher type="select-box" />
 
 
     <div style="margin-top: 50px">{{ $t('pages.wdnmd') }}</div>

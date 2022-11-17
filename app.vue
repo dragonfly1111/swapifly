@@ -2,6 +2,7 @@
 import { AppSetup } from './utils/app'
 AppSetup()
 const locale = useState<string>('locale.setting')
+const area = useState<string>('area.setting')
 const app = useAppConfig()
 useHead({
   title: app.name,

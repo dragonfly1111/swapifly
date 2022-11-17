@@ -4,5 +4,13 @@ components:
   theme_switcher:
     theme: theme
     change_theme: change theme
+head:
+  sign: register
+  login: login
+  searchKey: search...
+  sell: sell
+foot:
+  helpCenter: Help Center
+  media: Media News
 pages:
   wdnmd: wdnmd

@@ -1,16 +1,16 @@
 components:
   language_switcher:
-    change_language: 切换语言
+    change_language: 切換語言
   theme_switcher:
     theme: 主题
     change_theme: 切换主题
 head:
-  sign: 注册
-  login: 登录
+  sign: 註冊
+  login: 登錄
   searchKey: 搜索商品
   sell: 出售
 foot:
-  helpCenter: 帮助中心
-  media: 媒体新闻
+  helpCenter: 幫助中心
+  media: 媒體新聞
 pages:
   wdnmd: 我带你们打
