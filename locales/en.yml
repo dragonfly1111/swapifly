@@ -12,5 +12,16 @@ head:
 foot:
   helpCenter: Help Center
   media: Media News
+footer:
+  AD: AD
+  recentTopSearches: recentTopSearches
 pages:
   wdnmd: wdnmd
+  hotBrands: hotBrands
+  recommendTitle: recommendTitle
+  recommendTag: recommendTag
+  reportProduct: reportProduct
+  seeMore: seeMore
+
+
+
