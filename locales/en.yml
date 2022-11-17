@@ -4,5 +4,16 @@ components:
   theme_switcher:
     theme: theme
     change_theme: change theme
+footer:
+  AD: AD
+  recentTopSearches: recentTopSearches
 pages:
   wdnmd: wdnmd
+  hotBrands: hotBrands
+  recommendTitle: recommendTitle
+  recommendTag: recommendTag
+  reportProduct: reportProduct
+  seeMore: seeMore
+  
+
+

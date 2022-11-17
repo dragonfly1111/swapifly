@@ -9,5 +9,14 @@ head:
   login: 登录
   searchKey: 搜索商品
   sell: 出售
+footer:
+  AD: 广告
+  recentTopSearches: 近期热门搜索
 pages:
   wdnmd: 我带你们打
+  hotBrands: 热门品牌
+  recommendTitle: 为你推荐
+  recommendTag: 推荐商品
+  reportProduct: 举报商品
+  seeMore: 浏览更多
+
