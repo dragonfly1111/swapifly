@@ -4,5 +4,10 @@ components:
   theme_switcher:
     theme: 主题
     change_theme: 切换主题
+head:
+  sign: 注册
+  login: 登录
+  searchKey: 搜索商品
+  sell: 出售
 pages:
   wdnmd: 我带你们打

@@ -21,7 +21,6 @@ export default defineNuxtConfig({
   },
   plugins: ['~/plugins/navbar.ts', '~/plugins/arco.ts'],
   css: [
-    '@unocss/reset/tailwind.css',
     '~/assets/sass/app.scss',
   ],
   colorMode: {
@@ -34,9 +33,9 @@ export default defineNuxtConfig({
   intlify: {
     localeDir: 'locales',
     vueI18n: {
-      locale: 'en',
-      fallbackLocale: 'en',
-      availableLocales: ['en', 'id', 'ja', 'ko'],
+      locale: 'zh',
+      fallbackLocale: 'zh',
+      availableLocales: ['zh', 'en'],
     },
   },
   vite: {

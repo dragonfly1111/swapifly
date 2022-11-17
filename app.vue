@@ -7,7 +7,7 @@ useHead({
   title: app.name,
   link: [
     {
-      rel: 'icon', type: 'image/png', href: '/nuxt.png',
+      rel: 'icon', type: 'image/png', href: '/swapifly-logo.png',
     },
   ],
   meta: [
@@ -30,7 +30,7 @@ useHead({
 
 </template>
 
-<style>
+<style lang="scss">
 html, body , #__nuxt{
   height: 100vh;
   margin: 0;
