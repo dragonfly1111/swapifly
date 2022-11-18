@@ -77,11 +77,9 @@
   }
 }
 .head-search{
-  display: flex;
   padding: 10px 0;
   border-bottom: 1px solid #E5E5E5;
   background: #FFFFFF;
-  height: 50px;
   .common-row{
     display: flex;
     align-items: center;
