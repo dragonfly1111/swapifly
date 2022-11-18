@@ -21,7 +21,7 @@
           <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
           <a-input-search class="search-input" :placeholder="$t('head.searchKey')" search-button/>
         </div>
-        <div>
+        <div class="right">
           <a-button class="sell-but">{{$t('head.sell')}}</a-button>
         </div>
       </div>
@@ -36,6 +36,7 @@
   top: 0;
   text-align: center;
   width: 100%;
+  z-index: 99999;
 }
 .head-bar{
   height: 40px;
@@ -79,6 +80,8 @@
   display: flex;
   padding: 10px 0;
   border-bottom: 1px solid #E5E5E5;
+  background: #FFFFFF;
+  height: 50px;
   .common-row{
     display: flex;
     align-items: center;
@@ -107,16 +110,21 @@
       }
     }
   }
-  .sell-but{
-    height: 35px;
-    width: 82px;
-    background: $main-pink;
-    color: #FFFFFF;
-    :deep(.arco-btn) {
+  .right{
+    display: flex;
+    align-items: center;
+    .sell-but{
       height: 35px;
       width: 82px;
       background: $main-pink;
+      color: #FFFFFF;
+      :deep(.arco-btn) {
+        height: 35px;
+        width: 82px;
+        background: $main-pink;
+      }
     }
+
   }
 
 }

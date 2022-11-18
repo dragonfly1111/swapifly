@@ -20,7 +20,7 @@
 <style scoped lang="scss">
 @import "assets/sass/var";
 .global-foot{
-  position: fixed;
+  //position: fixed;
   bottom: 0;
   width: 100%;
 }
