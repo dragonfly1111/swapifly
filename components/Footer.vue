@@ -17,6 +17,10 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useResize } from '~/stores/resize'
+const resize = useResize()
+</script>
 <style scoped lang="scss">
 @import "assets/sass/var";
 .global-foot{

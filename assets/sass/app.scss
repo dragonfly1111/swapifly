@@ -1,9 +1,37 @@
-.global-content{
-  padding-top: 106px;
+
+// pc
+@media screen and(min-width:1295px){
+  .common-row {
+    max-width: 1295px;
+    margin: 0 auto;
+  }
+  .global-content{
+    padding-top: 106px;
+  }
 }
-.common-row{
-  max-width: 1295px;
-  margin: 0 auto;
+// 中间过度
+@media screen and(max-width:1295px){
+  .common-row {
+    //transform: scale(var(--scale));
+    //transform-origin: top;
+    zoom: var(--scale);
+    margin: 0 auto;
+    max-width: 95%; // 两边留一点空白
+  }
+  .global-content{
+    padding-top: var(--pt);
+  }
+}
+// 移动端
+@media screen and(max-width:1000px){
+  .common-row {
+    //background: red;
+  }
+}
+
+.arco-trigger-popup{
+  //zoom: var(--scale);
+  transform: scale(var(--scale));
 }
 .arco-modal-footer{
   .arco-btn-primary, .arco-btn-primary[type='button'], .arco-btn-primary[type='submit']{
