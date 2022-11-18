@@ -48,9 +48,3 @@ console.log(baseImgPrefix)
   height: 35px;
 }
 </style>
-<!--<style lang="scss">-->
-<!--:deep(.arco-select-dropdown){-->
-<!--  background: unset;-->
-<!--  box-shadow: unset;-->
-<!--}-->
-<!--</style>-->

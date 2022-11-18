@@ -58,6 +58,9 @@
   .right{
     display: flex;
     align-items: center;
+    div{
+      cursor: pointer;
+    }
     .login{
       margin-left: 28px;
     }
@@ -70,6 +73,7 @@
     margin-left: 14px;
     display: flex;
     .class-item{
+      cursor: pointer;
     }
     .class-item + .class-item{
       margin-left: 36px;

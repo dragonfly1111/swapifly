@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { AppSetup } from './utils/app'
+import { useResize } from '~/stores/resize'
+const resize = useResize()
 AppSetup()
 const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
@@ -20,6 +22,17 @@ useHead({
     },
   ],
 })
+onMounted(()=>{
+  console.log('onMounted')
+  // 设置全局缩放属性
+  resize.setWidth(window.innerWidth)
+  window.addEventListener('resize', handleResize)
+})
+function handleResize(){
+  resize.setWidth(window.innerWidth)
+}
+
+// watch()
 </script>
 
 <template>
