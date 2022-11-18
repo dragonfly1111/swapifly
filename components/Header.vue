@@ -36,7 +36,7 @@
   top: 0;
   text-align: center;
   width: 100%;
-  z-index: 99999;
+  z-index: 998;
 }
 .head-bar{
   height: 40px;

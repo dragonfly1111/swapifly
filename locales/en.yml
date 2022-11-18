@@ -6,6 +6,8 @@ components:
     change_theme: change theme
   report:
     reportTheGoods: Report the goods
+    leaveYourContact: Please leave your contact information
+    writeDownReporting: Please write down your reason for reporting
 head:
   sign: register
   login: login
@@ -23,6 +25,14 @@ pages:
   recommendTag: recommendProduct
   reportProduct: reportProduct
   seeMore: seeMore
+  submit: submit
+  classification: classification
+  sort: sort
+  old_new: old and new
+  price_degree: price
+  hand_deliver: hand deliver
+  post_and_courier: post and courier
+  reset: reset
 
 
 

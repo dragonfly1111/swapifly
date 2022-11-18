@@ -29,46 +29,67 @@
       </a-dropdown>
     </div>
 
-    <a-modal v-model:visible="visible" :title="$t('components.report.reportTheGoods')" @cancel="handleCancel" @before-ok="handleBeforeOk">
-    <a-form :model="form">
-      <a-form-item field="name" label="">
-        <a-input v-model="form.name" />
-      </a-form-item>
-      <a-form-item field="post" label="">
-        <a-textarea placeholder="Please enter something" allow-clear/>
-      </a-form-item>
-    </a-form>
-  </a-modal>
+    <a-modal
+      v-model:visible="visible"
+      :title="$t('components.report.reportTheGoods')"
+      :on-before-cancel="handleCancel"
+      @before-ok="handleBeforeOk"
+      :okText="$t('pages.submit')"
+      unmount-on-close
+    >
+      <a-form :model="form" auto-label-width size="large" ref="formRef">
+        <a-form-item field="contact" label="">
+          <a-input
+            v-model="form.contact"
+            :placeholder="$t('components.report.leaveYourContact')"
+            maxLength="100"
+          />
+        </a-form-item>
+        <a-form-item field="why" label="">
+          <a-textarea
+            v-model="form.why"
+            :placeholder="$t('components.report.writeDownReporting')"
+            allow-clear
+            :auto-size="{ minRows: 10, maxRows: 12 }"
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
   </div>
 </template>
 <script>
-import { reactive, ref } from 'vue';
+import { reactive, ref } from "vue";
 export default {
   setup() {
     const testImg =
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 
     const visible = ref(false);
+    const formRef = ref();
     const form = reactive({
-      name: '',
-      post: ''
+      contact: "",
+      why: "",
     });
     const handleClick = () => {
       visible.value = true;
     };
     const handleBeforeOk = (done) => {
-      console.log(form)
+      console.log(form);
       window.setTimeout(() => {
-        done()
-      }, 3000)
+        done();
+      }, 3000);
     };
     const handleCancel = () => {
       visible.value = false;
-    }
+      Object.assign(form, {
+        contact: "",
+        why: "",
+      });
+    };
     // 举报
     const handleReport = () => {
       visible.value = true;
-    }
+    };
     return {
       testImg,
       visible,
@@ -76,7 +97,7 @@ export default {
       handleClick,
       handleBeforeOk,
       handleCancel,
-      handleReport
+      handleReport,
     };
   },
 };
@@ -89,7 +110,7 @@ export default {
   padding: 15px 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
-  color: rgba(56, 56, 56, 1);
+  color: #333333;
   cursor: pointer;
   &:hover {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -116,7 +137,7 @@ export default {
     margin: 10px 0;
     img {
       width: 100%;
-      height: 300px;
+      height: 280px;
       object-fit: cover;
       border-radius: 2px;
     }
@@ -147,7 +168,7 @@ export default {
       margin-left: 3px;
     }
     .arco-btn {
-      color: rgba(56, 56, 56, 1);
+      color: #333333;
       height: 20px;
       padding: 0;
     }

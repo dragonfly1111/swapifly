@@ -28,10 +28,7 @@
       </div>
     </section>
 
-    <section class="ad-wrapper">
-      <div class="ad-title">{{ $t("foot.AD") }}</div>
-      <div class="ad-content"></div>
-    </section>
+    <AD></AD>
 
     <div class="see-more">
       <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
@@ -47,8 +44,9 @@ import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
 import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 import ProductCard from "@/components/ProductCard";
 import PageFooterLink from "@/components/PageFooterLink";
+import AD from "@/components/AD";
 export default {
-  components: { IconPlus, IconEdit, ProductCard, PageFooterLink },
+  components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD },
 
   setup() {
     const testImg =
@@ -159,20 +157,6 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
-.ad-wrapper {
-  width: 80%;
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  .ad-content {
-    width: 100%;
-    height: 120px;
-    border: 1px solid;
-    margin: 10px 0;
-  }
-}
-
 .see-more {
   text-align: center;
   margin: 30px auto;

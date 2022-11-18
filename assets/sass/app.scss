@@ -5,3 +5,8 @@
   max-width: 1295px;
   margin: 0 auto;
 }
+.arco-modal-footer{
+  .arco-btn-primary, .arco-btn-primary[type='button'], .arco-btn-primary[type='submit']{
+    background-color: #333;
+  }
+}
