@@ -6,14 +6,20 @@ const MIN_SCALE = 0.7
 export interface ITypeState {
   curWidth: number,
   screenType: string,
-  scale: number
+  scale: number,
+  contentPT: number,
+  contentPTStr: string,
+
 }
 
+// todo 解决popup错位问题
 export const useResize = defineStore('counter', {
   state: (): ITypeState => ({
     curWidth: 0,
     screenType: 'PC',
-    scale: 1
+    scale: 1,
+    contentPT: 106,
+    contentPTStr: '106px'
   }),
   actions: {
     setWidth(width: number){
@@ -42,6 +48,8 @@ export const useResize = defineStore('counter', {
       // 1295 => 1
       const scale = width / 1295
       this.setScale(scale)
+      this.contentPT = 106 / scale
+      this.contentPTStr = this.contentPT + 'px'
     },
   },
 })
