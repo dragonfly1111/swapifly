@@ -4,6 +4,8 @@ components:
   theme_switcher:
     theme: 主题
     change_theme: 切换主题
+  report:
+    reportTheGoods: 举报该商品
 head:
   sign: 注册
   login: 登录
@@ -12,7 +14,6 @@ head:
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻
-footer:
   AD: 广告
   recentTopSearches: 近期热门搜索
 pages:

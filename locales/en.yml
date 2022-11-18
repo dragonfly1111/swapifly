@@ -4,6 +4,8 @@ components:
   theme_switcher:
     theme: theme
     change_theme: change theme
+  report:
+    reportTheGoods: Report the goods
 head:
   sign: register
   login: login
@@ -12,14 +14,13 @@ head:
 foot:
   helpCenter: Help Center
   media: Media News
-footer:
   AD: AD
-  recentTopSearches: recentTopSearches
+  recentTopSearches: recent Top Searches
 pages:
   wdnmd: wdnmd
-  hotBrands: hotBrands
-  recommendTitle: recommendTitle
-  recommendTag: recommendTag
+  hotBrands: hot Brands
+  recommendTitle: recommend
+  recommendTag: recommendProduct
   reportProduct: reportProduct
   seeMore: seeMore
 

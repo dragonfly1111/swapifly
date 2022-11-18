@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content">
+  <div class="common-row global-content">
     <div class="banner-wrapper">
       <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover">
         <a-carousel-item v-for="image in images">
@@ -29,7 +29,7 @@
     </section>
 
     <section class="ad-wrapper">
-      <div class="ad-title">{{ $t("footer.AD") }}</div>
+      <div class="ad-title">{{ $t("foot.AD") }}</div>
       <div class="ad-content"></div>
     </section>
 

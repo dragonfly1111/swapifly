@@ -1,7 +1,7 @@
 <template>
   <div class="page-footer-link">
     <section class="search-box">
-      <div class="content-title">{{ $t("footer.recentTopSearches") }}</div>
+      <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
         <div class="hot-search-item" v-for="item in 20">
           <a-link href="link">关键词</a-link>

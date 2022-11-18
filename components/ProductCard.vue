@@ -24,20 +24,59 @@
       <a-dropdown :popup-max-height="false">
         <a-button type="text"><icon-more-vertical strokeWidth="6" size="18" /> </a-button>
         <template #content>
-          <a-doption>{{ $t("pages.reportProduct") }}</a-doption>
+          <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
         </template>
       </a-dropdown>
     </div>
+
+    <a-modal v-model:visible="visible" :title="$t('components.report.reportTheGoods')" @cancel="handleCancel" @before-ok="handleBeforeOk">
+    <a-form :model="form">
+      <a-form-item field="name" label="">
+        <a-input v-model="form.name" />
+      </a-form-item>
+      <a-form-item field="post" label="">
+        <a-textarea placeholder="Please enter something" allow-clear/>
+      </a-form-item>
+    </a-form>
+  </a-modal>
   </div>
 </template>
 <script>
+import { reactive, ref } from 'vue';
 export default {
   setup() {
     const testImg =
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 
+    const visible = ref(false);
+    const form = reactive({
+      name: '',
+      post: ''
+    });
+    const handleClick = () => {
+      visible.value = true;
+    };
+    const handleBeforeOk = (done) => {
+      console.log(form)
+      window.setTimeout(() => {
+        done()
+      }, 3000)
+    };
+    const handleCancel = () => {
+      visible.value = false;
+    }
+    // 举报
+    const handleReport = () => {
+      visible.value = true;
+    }
     return {
       testImg,
+      visible,
+      form,
+      handleClick,
+      handleBeforeOk,
+      handleCancel,
+      handleReport
     };
   },
 };
@@ -51,6 +90,7 @@ export default {
   margin-bottom: 15px;
   box-sizing: border-box;
   color: rgba(56, 56, 56, 1);
+  cursor: pointer;
   &:hover {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   }
