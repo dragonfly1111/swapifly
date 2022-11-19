@@ -33,6 +33,10 @@ pages:
   hand_deliver: hand deliver
   post_and_courier: post and courier
   reset: reset
+  maxPrice: maxPrice
+  minPrice: minPrice
+  cancel: cancel
+  confirm: confirm
 
 
 

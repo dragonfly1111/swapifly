@@ -33,5 +33,9 @@ pages:
   hand_deliver: 面交
   post_and_courier: 邮寄及速递
   reset: 重置
+  maxPrice: HK$最高
+  minPrice: HK$最低
+  cancel: 取消
+  confirm: 确定
 
 

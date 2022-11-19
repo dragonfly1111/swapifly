@@ -1,39 +1,12 @@
 <template>
   <div class="common-row global-content">
-    <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover">
-        <a-carousel-item v-for="image in images">
-          <img :src="image" class="carousel-img" />
-        </a-carousel-item>
-      </a-carousel>
-    </div>
-
-    <section class="section-wrapper">
-      <div class="section-content brands-content">
-        <div v-for="item in 8" class="brands-item">
-          <img :src="testImg" alt="" />
-          <div>耐克/nike</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-wrapper">
-      <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content brands-content">
-        <div v-for="item in 8" class="brands-item">
-          <img :src="testImg" alt="" />
-          <div>耐克/nike</div>
-        </div>
-      </div>
-    </section>
+    <AD :hasTitle="false"></AD>
 
     <section class="section-wrapper goods-wrapper">
       <div class="list-header">
-        <a-space direction="vertical">
-          <a-breadcrumb>
-            <a-breadcrumb-item>一级分类标题</a-breadcrumb-item>
-          </a-breadcrumb>
-        </a-space>
+        <div>
+          <h2>有10,000+個搜尋結果</h2>
+        </div>
         <div class="select-wrapper">
           <GoodsFilterSelect @change="handleQuery"></GoodsFilterSelect>
         </div>
@@ -43,18 +16,18 @@
       </div>
     </section>
 
-    <AD></AD>
-
     <div class="see-more">
       <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
     </div>
+
+    <AD></AD>
 
     <PageFooterLink></PageFooterLink>
   </div>
 </template>
 
 <script>
-import { ref, reactive, h} from "vue";
+import { ref, reactive, h } from "vue";
 import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
 import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 import ProductCard from "@/components/ProductCard";
@@ -62,8 +35,8 @@ import PageFooterLink from "@/components/PageFooterLink";
 import GoodsFilterSelect from "@/components/GoodsFilterSelect";
 import AD from "@/components/AD";
 export default {
-  name: "GoodsList",
-  components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD ,GoodsFilterSelect},
+  name: "searchResult",
+  components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD, GoodsFilterSelect },
 
   setup() {
     const testImg =
@@ -72,14 +45,14 @@ export default {
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
     ];
 
-    const handleQuery = (data) =>{
-      console.log('form',data)
-    }
+    const handleQuery = (data) => {
+      console.log("form", data);
+    };
 
     return {
       images,
       testImg,
-      handleQuery
+      handleQuery,
     };
   },
 };
@@ -133,7 +106,7 @@ export default {
 }
 
 .goods-wrapper {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .goods-content {
