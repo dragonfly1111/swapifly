@@ -5,7 +5,7 @@
         <div class="left">
           <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
           <div class="class-bar">
-            <div v-for="i in 6" :key="i" class="class-item">分类名称{{i}}</div>
+            <div v-for="item in classList" :key="item.id" class="class-item" @mouseleave="outClass" @mouseenter="changeCurType(item)">{{ item.title }}</div>
           </div>
         </div>
         <div class="right">
@@ -14,6 +14,20 @@
         </div>
 
       </div>
+    </div>
+    <div v-if="showHeadPanel" class="class-panel">
+<!--    <div class="class-panel">-->
+      <div class="class-wrap">
+        <div v-for="item in curClass.value" :key="item.id" class="class-item">
+          <div class="sec-title">
+            {{ item.title }}
+          </div>
+          <div class="class-sub-item" v-for="sub in item.children" :key="sub.id">
+              {{ sub.title }}
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="head-search">
       <div class="common-row">
@@ -31,9 +45,25 @@
 </template>
 <script setup lang="ts">
 import { useSysData } from '~/stores/sysData'
+import { IGoodsClass } from '~/model/goodsClass'
 const sysData = useSysData()
-console.log('head')
-console.log(sysData)
+const classList = sysData.goodsClass
+const showHeadPanel = ref(false)
+const curClass:IGoodsClass[] = reactive({ value: [] })
+curClass.value = classList[0].children
+function changeCurType(e: IGoodsClass) {
+  if(e.children && e.children.length){
+    showHeadPanel.value = true
+    curClass.value = e.children
+  } else {
+    showHeadPanel.value = false
+    curClass.value = []
+  }
+}
+function outClass(){
+  showHeadPanel.value = false
+}
+console.log(classList)
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
@@ -51,6 +81,7 @@ console.log(sysData)
   font-weight: 400;
   text-align: left;
   color: #FFFFFF;
+  position: relative;
   .common-row{
     display: flex;
     align-items: center;
@@ -76,15 +107,47 @@ console.log(sysData)
     height: 24px;
   }
   .class-bar{
-    margin-left: 14px;
+    //margin-left: 14px;
     display: flex;
     .class-item{
       cursor: pointer;
       font-size: 16px;
+      padding: 0 16px;
+    }
+    //.class-item + .class-item{
+    //  margin-left: 36px;
+    //}
+  }
+}
+.class-panel{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: #FFFFFF;
+  padding: 5px 55px 91px 55px;
+  border: 1px solid rgba(229, 230, 235, 1);
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  .class-wrap{
+    display: flex;
+    text-align: left;
+    color: rgba(29, 33, 41, 1);
+    .sec-title{
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 22px;
+    }
+    .class-sub-item{
+      margin-bottom: 10px;
+      padding-left: 22px;
+      font-size: 14px;
+      line-height: 22px;
     }
     .class-item + .class-item{
-      margin-left: 36px;
+      margin-left: 66px;
     }
+
   }
 }
 .head-search{
