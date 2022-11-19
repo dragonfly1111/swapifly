@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { IRegion } from '~/model/region'
 import { ILang } from '~/model/lang'
-import { IGoodsClass } from '~/model/region'
+import { IGoodsClass } from '~/model/goodsClass'
 export interface ISysDataState {
   region: IRegion[],
   lang: ILang[],
@@ -16,7 +16,6 @@ export const useSysData = defineStore('sysData', {
   }),
   actions: {
     setSysData(e: ISysDataState){
-      console.log('setSysData')
       this.region = e.region
       this.lang = e.lang
       this.goodsClass = e.goodsClass

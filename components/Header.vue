@@ -63,7 +63,6 @@ function changeCurType(e: IGoodsClass) {
 function outClass(){
   showHeadPanel.value = false
 }
-console.log(classList)
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
