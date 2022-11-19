@@ -6,8 +6,8 @@ components:
     change_theme: 切换主题
 head:
   sign: 註冊
-  login: 登錄
-  searchKey: 搜索商品
+  login: 登入
+  searchKey: 搜尋商品
   sell: 出售
 foot:
   helpCenter: 幫助中心

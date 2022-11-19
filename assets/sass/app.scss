@@ -1,27 +1,17 @@
 
 // pc
-@media screen and(min-width:1295px){
+@media screen and(min-width:1000px){
   .common-row {
     max-width: 1295px;
     margin: 0 auto;
+    padding-left: 64px;
+    padding-right: 64px;
   }
   .global-content{
     padding-top: 106px;
   }
 }
-// 中间过度
-@media screen and(max-width:1295px){
-  .common-row {
-    //transform: scale(var(--scale));
-    //transform-origin: top;
-    zoom: var(--scale);
-    margin: 0 auto;
-    max-width: 95%; // 两边留一点空白
-  }
-  .global-content{
-    padding-top: var(--pt);
-  }
-}
+
 // 移动端
 @media screen and(max-width:1000px){
   .common-row {

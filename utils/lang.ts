@@ -1,4 +1,6 @@
 import { useI18n } from 'vue-i18n'
+import { useSysData } from '~/stores/sysData'
+import {availableArea} from "~/utils/area";
 
 export interface ILocales {
   [key: string]: {
@@ -7,21 +9,7 @@ export interface ILocales {
   }
 }
 
-export const availableLocales: ILocales = {
-  en: {
-    name: 'English',
-    iso: 'en',
-  },
-  zh: {
-    name: '简体中文',
-    iso: 'zh',
-  },
-  'zh-HK': {
-    name: '繁體中文',
-    iso: 'zh-HK'
-  },
-
-}
+export const availableLocales: ILocales = {}
 
 export function LanguageManager() {
   // composable
@@ -57,6 +45,10 @@ export function LanguageManager() {
 
   // init locale
   const init = () => {
+    const sysData = useSysData()
+    sysData.lang.forEach(item=>{
+      availableLocales[item.name] = item
+    })
     localeSetting.value = getUserLocale()
   }
   locale.value = localeSetting.value

@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
-const resize = useResize()
-AppSetup()
+import initSysData from '~/utils/sysInit'
+import { useSysData } from '~/stores/sysData'
 const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
+const resize = useResize()
+const sysData = useSysData()
+AppSetup()
+
 const app = useAppConfig()
+useAsyncData(async ()=>{
+  const sysDataRes = await initSysData()
+  sysData.setSysData(sysDataRes)
+})
 useHead({
   title: app.name,
   link: [

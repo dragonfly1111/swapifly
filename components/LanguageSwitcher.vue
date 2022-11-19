@@ -11,9 +11,9 @@ const localeSetting = useState<string>('locale.setting')
               :style="{width:'127px', height: '32px'}" placeholder="Please select ...">
       <a-option
           v-for="lang in availableLocales"
-          :key="lang.iso"
-          :value="lang.iso"
-      >{{ lang.name }}
+          :key="lang.name"
+          :value="lang.name"
+      >{{ lang.title }}
       </a-option>
     </a-select>
   </div>

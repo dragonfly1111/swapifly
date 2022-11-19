@@ -8,11 +8,11 @@ const request = axios.create({
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const token = localStorage.getItem('token')
-    const con: any = config || {}
-    if (token) {
-      con.headers.Authorization = `Bearer ${token}`
-    }
+    // const token = typeof ocalStorage ? localStorage.getItem('token') : ''
+    // const con: any = config || {}
+    // if (token) {
+    //   con.headers.Authorization = `Bearer ${token}`
+    // }
     return config
   },
   (error: any) => {

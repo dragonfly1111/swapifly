@@ -6,3 +6,10 @@ export const getRegion = () => {
     method: 'get'
   })
 }
+
+export const getLang = () => {
+  return request({
+    url: '/index/home/language',
+    method: 'get'
+  })
+}

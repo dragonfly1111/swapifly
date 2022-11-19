@@ -30,7 +30,8 @@ const resize = useResize()
 }
 .common-row{
   border-top: 1px solid #E5E5E5;
-  padding: 25px 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
   display: flex;
   justify-content: space-between;
   .left{
