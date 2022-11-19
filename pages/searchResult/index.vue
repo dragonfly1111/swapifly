@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="section-content goods-content">
-        <ProductCard v-for="(item, index) in 8"></ProductCard>
+        <ProductCard></ProductCard>
       </div>
     </section>
 
@@ -109,11 +109,6 @@ export default {
   margin-top: 30px;
 }
 
-.goods-content {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
 
 .see-more {
   text-align: center;

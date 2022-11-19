@@ -1,34 +1,55 @@
 <template>
-  <div class="recommend-item">
-    <div class="user-box">
-      <img :src="testImg" alt="" />
-      <div class="user-desc">
-        <div>用户名称</div>
-        <div class="time">一天前</div>
-      </div>
-    </div>
-    <div class="product-img">
-      <img :src="testImg" alt="" />
-      <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
-    </div>
-    <div class="product-desc">
-      <div>商品名称</div>
-      <div class="price">HK$999</div>
-      <div class="desc">全新</div>
-    </div>
-    <div class="product-handle">
-      <div>
-        <icon-heart strokeWidth="3" size="16" />
-        <span>999</span>
-      </div>
-      <a-dropdown :popup-max-height="false">
-        <a-button type="text"><icon-more-vertical strokeWidth="6" size="18" /> </a-button>
-        <template #content>
-          <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
-        </template>
-      </a-dropdown>
-    </div>
+  <div>
+    <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
+      <a-row justify="space-between">
+        <a-col :span="5" v-for="item in 4">
+          <a-row justify="start" align="center">
+            <a-col :span="4">
+              <a-skeleton-shape shape="circle" size="small" />
+            </a-col>
+            <a-col :span="6">
+              <a-skeleton-line />
+            </a-col>
+          </a-row>
+          <div style="margin-top: 10px;">
+            <a-skeleton-line lineHeight="200" />
+          </div>
+        </a-col>
+      </a-row>
+    </a-skeleton>
 
+    <div class="goods-list">
+      <div class="recommend-item" v-for="item in 7">
+        <div class="user-box">
+          <img :src="testImg" alt="" />
+          <div class="user-desc">
+            <div>用户名称</div>
+            <div class="time">一天前</div>
+          </div>
+        </div>
+        <div class="product-img">
+          <img :src="testImg" alt="" />
+          <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
+        </div>
+        <div class="product-desc">
+          <div>商品名称</div>
+          <div class="price">HK$999</div>
+          <div class="desc">全新</div>
+        </div>
+        <div class="product-handle">
+          <div>
+            <icon-heart strokeWidth="3" size="16" />
+            <span>999</span>
+          </div>
+          <a-dropdown :popup-max-height="false">
+            <a-button type="text"><icon-more-vertical strokeWidth="6" size="18" /> </a-button>
+            <template #content>
+              <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
+            </template>
+          </a-dropdown>
+        </div>
+      </div>
+    </div>
     <a-modal
       v-model:visible="visible"
       :title="$t('components.report.reportTheGoods')"
@@ -65,6 +86,7 @@ export default {
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 
     const visible = ref(false);
+    const pageLoading = ref(false);
     const formRef = ref();
     const form = reactive({
       contact: "",
@@ -98,23 +120,39 @@ export default {
       handleBeforeOk,
       handleCancel,
       handleReport,
+      pageLoading
     };
   },
 };
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
+.goods-list {
+  display: flex;
+  flex-wrap: wrap;
+  //   grid-template-columns: repeat(auto-fill, 24%);
+  justify-content: space-around;
+  grid-gap: 10px;
+}
+.recommend-item + .recommend-item {
+}
 .recommend-item {
   width: 24%;
+  min-width: 180px;
+  max-width: 310px;
   background: #fff;
   padding: 15px 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
   color: #333333;
   cursor: pointer;
+  &:last-child {
+    margin-right: auto;
+  }
   &:hover {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   }
+
   .user-box {
     display: flex;
     font-size: 12px;
@@ -137,7 +175,9 @@ export default {
     margin: 10px 0;
     img {
       width: 100%;
-      height: 280px;
+      height: 45vw;
+      max-height: 280px;
+      min-height: 180px;
       object-fit: cover;
       border-radius: 2px;
     }

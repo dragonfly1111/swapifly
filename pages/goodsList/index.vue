@@ -38,8 +38,8 @@
           <GoodsFilterSelect @change="handleQuery"></GoodsFilterSelect>
         </div>
       </div>
-      <div class="section-content goods-content">
-        <ProductCard v-for="(item, index) in 8"></ProductCard>
+      <div class="section-content">
+        <ProductCard ></ProductCard>
       </div>
     </section>
 

@@ -23,8 +23,8 @@
 
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header">{{ $t("pages.recommendTitle") }}</h3>
-      <div class="section-content recommend-content">
-        <ProductCard v-for="(item, index) in 8"></ProductCard>
+      <div class="section-content">
+        <ProductCard></ProductCard>
       </div>
     </section>
 
@@ -152,11 +152,6 @@ export default {
   margin-top: 60px;
 }
 
-.recommend-content {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
 .see-more {
   text-align: center;
   margin: 30px auto;
