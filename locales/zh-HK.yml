@@ -4,6 +4,10 @@ components:
   theme_switcher:
     theme: 主题
     change_theme: 切换主题
+  report:
+    reportTheGoods: 舉報該商品
+    leaveYourContact: 請留下你的聯繫方式
+    writeDownReporting: 請描述你的舉報原因
 head:
   sign: 註冊
   login: 登入
@@ -12,5 +16,27 @@ head:
 foot:
   helpCenter: 幫助中心
   media: 媒體新聞
+  AD: 廣告
+  recentTopSearches: 近期熱門搜索
 pages:
-  wdnmd: 我带你们打
+  hotBrands: 熱門品牌
+  recommendTitle: 為你推薦
+  recommendTag: 推介商品
+  reportProduct: 舉報商品
+  seeMore: 瀏覽更多
+  submit: 提交
+  classification: 分類
+  sort: 排序
+  old_new: 新舊程度
+  price_degree: 價位
+  hand_deliver: 面交
+  post_and_courier: 郵寄及速遞
+  reset: 重置
+  maxPrice: HK$最高
+  minPrice: HK$最低
+  clear: 清除
+  cancel: 取消
+  confirm: 應用
+  no_notice: 暫無消息
+  no_notice_tip: 没有收到任何消息哦～
+  like_title: 我like過嘅

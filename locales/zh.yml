@@ -35,7 +35,11 @@ pages:
   reset: 重置
   maxPrice: HK$最高
   minPrice: HK$最低
+  clear: 清除
   cancel: 取消
   confirm: 确定
+  no_notice: 暂无消息
+  no_notice_tip: 没有收到任何消息哦～
+  like_title: 我喜欢的
 
 

@@ -25,7 +25,8 @@
           <template #image>
             <img src="@/assets/images/icon/no_notice_grey.png" alt="" srcset="" />
           </template>
-          沒有收到任何消息哦~
+          <h5>{{ $t.pages.no_notice }}</h5>
+          <p>{{ $t.pages.no_notice_tip }}</p>
         </a-empty>
       </div>
     </div>
@@ -37,15 +38,15 @@ import { ref } from "vue";
 export default {
   setup() {
     const pageLoading = ref(true);
-    const noticeList = ref([]);
+    const noticeList = ref([{}, {}]);
     onMounted(async () => {
-        setTimeout(()=>{
-            pageLoading.value = false
-        },300)
+      setTimeout(() => {
+        pageLoading.value = false;
+      }, 300);
     });
     return {
       pageLoading,
-      noticeList
+      noticeList,
     };
   },
 };
