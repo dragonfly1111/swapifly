@@ -1,6 +1,6 @@
 <template>
-  <main :style="'--scale:' + resize.scale + ';--pt:' + resize.contentPTStr">
-<!--  <main :style="'zoom:' + resize.scale">-->
+<!--  <main :style="'&#45;&#45;scale:' + resize.scale + ';&#45;&#45;pt:' + resize.contentPTStr">-->
+  <main>
     <Header />
     <slot />
     <Footer />

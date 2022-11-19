@@ -1,18 +1,13 @@
-import {getRegion} from "~/api/comon";
-
-export interface Locales {
-  id: number
-  img_url: string
-  title: string
-  title_en: string
-}
+import { IRegion } from '~/model/region'
+import { useSysData } from '~/stores/sysData'
+// console.log(sysData)
 
 export interface ILocales {
-  [key: string]: Locales
+  [key: string]: IRegion
 }
 
 
-export const availableArea: ILocales = {}
+export let availableArea: ILocales = {}
 
 
 export function AreaManager() {
@@ -47,17 +42,18 @@ export function AreaManager() {
 
   // init locale
   const init = async () => {
-    const res = await getRegion()
-    res.data.forEach((item: Locales) => {
-      availableArea[item.title_en] = item
+    console.log('availableArea')
+    const sysData = useSysData()
+    // console.log(sysData)
+    sysData.region.forEach(item=>{
+      availableArea[item.title] = item
     })
     console.log(availableArea)
-
     areaSetting.value = getUseArea()
   }
 
   // lifecycle
-  onBeforeMount(() => init())
+  onMounted(() => init())
 
   return {
     areaSetting,

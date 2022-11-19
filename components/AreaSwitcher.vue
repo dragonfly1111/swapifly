@@ -2,8 +2,6 @@
 import { availableArea } from '~/utils/area'
 import { baseImgPrefix } from '~/config/baseUrl'
 const areaSetting = useState<string>('area.setting')
-console.log(111)
-console.log(baseImgPrefix)
 </script>
 
 <template>

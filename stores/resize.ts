@@ -12,8 +12,7 @@ export interface ITypeState {
 
 }
 
-// todo 解决popup错位问题
-export const useResize = defineStore('counter', {
+export const useResize = defineStore('resize', {
   state: (): ITypeState => ({
     curWidth: 0,
     screenType: 'PC',

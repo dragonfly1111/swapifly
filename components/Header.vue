@@ -29,6 +29,12 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useSysData } from '~/stores/sysData'
+const sysData = useSysData()
+console.log('head')
+console.log(sysData)
+</script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 .global-head{
@@ -74,6 +80,7 @@
     display: flex;
     .class-item{
       cursor: pointer;
+      font-size: 16px;
     }
     .class-item + .class-item{
       margin-left: 36px;

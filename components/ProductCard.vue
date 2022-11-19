@@ -18,11 +18,11 @@
     </div>
     <div class="product-handle">
       <div>
-        <icon-heart strokeWidth="3" size="16" />
+        <icon-heart :strokeWidth="3" size="16" />
         <span>999</span>
       </div>
       <a-dropdown :popup-max-height="false">
-        <a-button type="text"><icon-more-vertical strokeWidth="6" size="18" /> </a-button>
+        <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
         <template #content>
           <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
         </template>

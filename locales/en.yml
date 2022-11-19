@@ -5,7 +5,7 @@ components:
     theme: theme
     change_theme: change theme
   report:
-    reportTheGoods: Report the goods
+    reportTheGoods: Report the goods.ts
     leaveYourContact: Please leave your contact information
     writeDownReporting: Please write down your reason for reporting
 head:
