@@ -18,8 +18,25 @@ foot:
   media: Media News
   AD: AD
   recentTopSearches: recent Top Searches
+loginDialog:
+  title: todo
+  or: todo
+  acc: todo
+  pwd: todo
+  forget: todo
+  noAcc: todo
+  toRegister: todo
+  verification: todo
+  accTip: todo
+  verfiPlaceHolder: todo
+  pwsPlaceHolder: todo
+  confirmRegi: todo
+  haveAcc: todo
+  directLogin: todo
+  policyTip: todo
+  termsOfService: todo
+  privacyPolicy: todo
 pages:
-  wdnmd: wdnmd
   hotBrands: hot Brands
   recommendTitle: recommend
   recommendTag: recommendProduct

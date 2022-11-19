@@ -43,14 +43,14 @@ const resize = useResize()
     }
     .info{
       font-size: 10px;
-      color: #383838;
+      color: $main-grey;
       margin-left: 7px;
     }
     .other{
       margin-left: 43px;
       span{
         font-size: 10px;
-        color: #383838;
+        color: $main-grey;
         cursor: pointer;
         &:hover{
           color: $main-blue;
