@@ -7,6 +7,9 @@ declare module '@nuxt/schema' {
   }
 }
 export default defineNuxtConfig({
+  app:{
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   ssr: true,
   modules: [
     '@intlify/nuxt3',

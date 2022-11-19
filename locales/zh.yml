@@ -18,8 +18,25 @@ foot:
   media: 媒体新闻
   AD: 广告
   recentTopSearches: 近期热门搜索
+loginDialog:
+  title: 使用第三方平台登录
+  or: 或
+  acc: 邮箱账户
+  pwd: 密码
+  forget: 忘记密码？
+  noAcc: 还没有账号？
+  toRegister: 点击注册
+  verification: 验证
+  accTip: 我们会用邮箱账号去确认身份，希望为大家提供一个安全的交易环境。
+  verfiPlaceHolder: 请输入验证码
+  pwsPlaceHolder: 密码（8-20个字）
+  confirmRegi: 注册
+  haveAcc: 已有账户，
+  directLogin: 直接登录
+  policyTip: 注册即标识你同意我们的
+  termsOfService: 服务条款
+  privacyPolicy: 隐私政策
 pages:
-  wdnmd: 我带你们打
   hotBrands: 热门品牌
   recommendTitle: 为你推荐
   recommendTag: 推荐商品

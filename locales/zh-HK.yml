@@ -18,6 +18,24 @@ foot:
   media: 媒體新聞
   AD: 廣告
   recentTopSearches: 近期熱門搜索
+loginDialog:
+  title: 使用第三方平台帳號登入
+  or: 或
+  acc: 郵箱賬戶
+  pwd: 密碼
+  forget: 忘記密碼？
+  noAcc: 還沒有帳號？
+  toRegister: 點擊註冊
+  verification: 驗證
+  accTip: 我哋會用邮箱账户去認證身份，希望為大家提供一個安全嘅交易環境。
+  verfiPlaceHolder: 請輸入驗證碼
+  pwsPlaceHolder: 密碼（8-20個字）
+  confirmRegi: 註冊
+  haveAcc: 已有帳號，
+  directLogin: 直接登入
+  policyTip: 註冊即表示你同意我們的
+  termsOfService: 服務條款
+  privacyPolicy: 隱私政策
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦
