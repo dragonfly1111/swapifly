@@ -111,7 +111,6 @@
       ref="choosePreference"
       @confirmPreference="confirmPreference"
     ></ChoosePreference>
-
     <BindEmail ref="bindEmail"></BindEmail>
   </div>
 </template>
@@ -146,7 +145,43 @@ const editPreference = () => {
 function confirmPreference() {}
 onMounted(() => {
   new TempusDominus(document.getElementById("datetimepicker"), {
-    //put your config here
+    localization: {
+      today: 'Перейти сегодня',
+      clear: 'Очистить выделение',
+      close: 'Закрыть сборщик',
+      selectMonth: 'Выбрать месяц',
+      previousMonth: 'Предыдущий месяц',
+      nextMonth: 'В следующем месяце',
+      selectYear: 'Выбрать год',
+      previousYear: 'Предыдущий год',
+      nextYear: 'В следующем году',
+      selectDecade: 'Выбрать десятилетие',
+      previousDecade: 'Предыдущее десятилетие',
+      nextDecade: 'Следующее десятилетие',
+      previousCentury: 'Предыдущий век',
+      nextCentury: 'Следующий век',
+      pickHour: 'Выберите час',
+      incrementHour: 'Время увеличения',
+      decrementHour: 'Уменьшить час',
+      pickMinute: 'Выбрать минуту',
+      incrementMinute: 'Минута приращения',
+      decrementMinute: 'Уменьшить минуту',
+      pickSecond: 'Выбрать второй',
+      incrementSecond: 'Увеличение секунды',
+      decrementSecond: 'Уменьшение секунды',
+      toggleMeridiem: 'Переключить период',
+      selectTime: 'Выбрать время',
+      selectDate: 'Выбрать дату',
+      locale: 'en', // 如果是中文 日期上面就会带有'日'、'周' 所以使用英文 并且手动配置字段
+    },
+    display: {
+      buttons: {
+        today: true,
+        clear: true,
+        close: true,
+      },
+    },
+
   });
 });
 </script>

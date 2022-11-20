@@ -1,0 +1,44 @@
+@import "./var";
+.tempus-dominus-widget{
+  padding: 0;
+  .calendar-header{
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--color-neutral-3);
+    margin-bottom: 0;
+    font-weight: 400;
+    color: var(--color-text-1);
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .dow{
+    height: 32px;
+    padding: 0;
+    color: #7d7d7f;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+  }
+  .date-container-days{
+    padding: 16px 14px;
+    border-bottom: 1px solid var(--color-neutral-3);
+  }
+  .day{
+    color: var(--color-text-1);
+    font-weight: 500;
+  }
+  .toolbar{
+    color: rgb(var(--link-6));
+    font-size: 16px;
+  }
+}
+.tempus-dominus-widget.light .toolbar div {
+  border-radius: unset;
+}
+.tempus-dominus-widget.light .toolbar div:hover{
+  background-color: var(--color-fill-2);
+}
+
+//.tempus-dominus-widget.light .date-container-days div:not(.no-highlight):hover{
+//  background-color: var(--color-fill-2);
+//}

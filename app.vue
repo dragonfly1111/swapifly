@@ -5,6 +5,7 @@ import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
 import { generateGender } from '~/model/staticDicts'
 import { useI18n } from "vue-i18n";
+// import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 const {t} = useI18n();
 const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
