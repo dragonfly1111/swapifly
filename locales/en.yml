@@ -68,7 +68,12 @@ pages:
   no_notice: no notice
   no_notice_tip: haven't received any messages
   like_title: like
-
+gender:
+  man: todo
+  women: todo
+  nonBinary: todo
+  secrecy: todo
+  other: todo
 
 
 

@@ -97,8 +97,12 @@ profile:
   formValidate:
     opwd: 请输入当前密码
     cpwd: 请输入确认密码
-
-
+gender:
+  man: 男
+  women: 女
+  nonBinary: 非二元
+  secrecy: 不透露
+  other: 其他
 
 
 

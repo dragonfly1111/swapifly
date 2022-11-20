@@ -3,6 +3,9 @@ import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
+import { generateGender } from '~/model/staticDicts'
+import { useI18n } from "vue-i18n";
+const {t} = useI18n();
 const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
 const resize = useResize()
@@ -11,8 +14,9 @@ AppSetup()
 
 const app = useAppConfig()
 useAsyncData(async ()=>{
+  // 服务设置系统属性数据
   const sysDataRes = await initSysData()
-  sysData.setSysData(sysDataRes)
+  sysData.setSysDataServerSide(sysDataRes)
 })
 useHead({
   title: app.name,
@@ -32,6 +36,17 @@ useHead({
 })
 onMounted(()=>{
   console.log('onMounted')
+  // 客户端设置系统属性数据
+  if(process.client){
+    sysData.setSysDataClientSide({
+      gender: generateGender(t),
+      region: [],
+      lang: [],
+      goodsClass: [],
+      goodsSort: [],
+      goodsOan: []
+    })
+  }
   // 设置全局缩放属性
   resize.setWidth(window.innerWidth)
   window.addEventListener('resize', handleResize)
