@@ -41,7 +41,6 @@
 
       </div>
     </div>
-
     <div class="head-search">
       <div class="common-row">
         <div class="left">
@@ -54,12 +53,13 @@
           <a-button class="sell-but">{{ $t('head.sell') }}</a-button>
         </div>
       </div>
-
     </div>
 
     <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
+<!--    <BindEmail ref="bindEmail"></BindEmail>-->
+<!--    <ResetPwd ref="resetPwd"></ResetPwd>-->
   </div>
 </template>
 
@@ -74,7 +74,7 @@ const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
 let curClass: any = reactive({value: []})
-curClass.value =classList.length > 0 ? classList[0].children : []
+curClass.value = (classList && classList.length > 0 ) ? classList[0].children : []
 
 function openRegister(){
   registerModal.value.openDialog()

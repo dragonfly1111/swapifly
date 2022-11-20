@@ -44,7 +44,7 @@
       <a-form-item field="email" :label="$t('profile.email')" :content-flex="false">
         <a-input v-model="form.email" />
         <div style="text-align: right">
-          <a-button type="text">绑定</a-button>
+          <a-button type="text" @click="handleBind">绑定</a-button>
         </div>
       </a-form-item>
       <a-form-item field="post" :label="$t('profile.phone')">
@@ -111,6 +111,8 @@
       ref="choosePreference"
       @confirmPreference="confirmPreference"
     ></ChoosePreference>
+
+    <BindEmail ref="bindEmail"></BindEmail>
   </div>
 </template>
 
@@ -119,6 +121,7 @@ import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 
 const choosePreference = ref(null);
+const bindEmail = ref(null);
 const pageLoading = ref(false);
 const form = reactive({
   nickname: null,
@@ -132,6 +135,10 @@ const uploadSuccess = (e) => {
 };
 // 保存
 const handleSave = () => {};
+// 绑定
+const handleBind = () => {
+    bindEmail.value.openDialog()
+};
 // 更改偏好
 const editPreference = () => {
   choosePreference.value.openDialog();

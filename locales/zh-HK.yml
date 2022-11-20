@@ -72,12 +72,6 @@ pages:
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
-gender:
-  man: 男
-  women: 女
-  nonBinary: 非二元
-  secrecy: 不透露
-  other: 其他
   user_head_portrait: 個人頭像
   user_head_portrait_tip: 清晰的正面照片可以促進買賣雙方的互相了解。
   user_head_upload: 上傳一張照片
@@ -103,7 +97,24 @@ gender:
   formValidate:
     opwd: 請輸入目前密碼
     cpwd: 請輸入確認密碼
-
+  bindEmail: 請綁定郵箱賬戶
+  bindEmailTip: 未綁定郵箱賬戶將會導致你的賬戶密碼無法找回
+  bindEmailOk: 绑定
+  bindEmailCancel: 取消
+  resetPwdTitle: 重新設定密碼
+  resetPwdTitle1: 新密碼
+  confirmEmail: 請驗證你的郵箱賬戶
+  resetPwdNext: 下一步
+  resetPwdSave: 保存
+  resetPwdCancel: 取消
+  newPwd: 新密碼
+  newPwd1: 確認新密碼
+gender:
+  man: 男
+  women: 女
+  nonBinary: 非二元
+  secrecy: 不透露
+  other: 其他
 
 
 

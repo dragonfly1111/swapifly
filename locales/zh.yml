@@ -91,6 +91,18 @@ profile:
   preference_title: 感兴趣的内容：
   edit_preference: 更改偏好
   save: 保存修改
+  bindEmail: 请绑定邮箱账户
+  bindEmailTip: 未绑定邮箱账户将会导致你的账户密码无法找回
+  bindEmailOk: 绑定
+  bindEmailCancel: 取消
+  resetPwdTitle: 重新设定密码
+  resetPwdTitle1: 新密码
+  confirmEmail: 请验证你的邮箱账户
+  resetPwdNext: 下一步
+  resetPwdSave: 保存
+  resetPwdCancel: 取消
+  newPwd: 新密码
+  newPwd1: 确认新密码
   opwd: 当前密码
   pwd: 新密码
   cpwd: 确认密码
