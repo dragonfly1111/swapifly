@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" title-align="start" modal-class="reg-dialog" :footer="false" @ok="handleOk"
+  <a-modal v-model:visible="visible" title-align="start" modal-class="reg-dialog" :footer="false"
            @cancel="handleCancel">
     <template #title>
       <div class="login-title">
@@ -22,7 +22,7 @@
 
     <a-input type="password" class="input-warp input-warp1" :placeholder="$t('loginDialog.verfiPlaceHolder') "></a-input>
     <a-input type="password" class="input-warp input-warp2" :placeholder="$t('loginDialog.pwsPlaceHolder') "></a-input>
-    <a-button class="confirm"> {{ $t('loginDialog.confirmRegi') }}</a-button>
+    <a-button class="confirm" @click="confirm"> {{ $t('loginDialog.confirmRegi') }}</a-button>
     <div class="register">
       {{ $t('loginDialog.haveAcc') }}
       <span @click="handleLogin">{{ $t('loginDialog.directLogin') }}</span>
@@ -35,13 +35,14 @@
 
 <script setup lang="ts">
 const visible = ref(false);
-const toLogin = defineEmits(['toLogin'])
+const emits = defineEmits(['toLogin', 'toPreference'])
 
 const handleLogin = () => {
-  toLogin('toLogin')
+  emits('toLogin')
 };
-const handleOk = () => {
+const confirm = () => {
   visible.value = false;
+  emits('toPreference')
 };
 const handleCancel = () => {
   visible.value = false;

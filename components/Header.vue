@@ -45,7 +45,9 @@
     <div class="head-search">
       <div class="common-row">
         <div class="left">
-          <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
+          <nuxt-link href="/">
+            <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
+          </nuxt-link>
           <a-input-search class="search-input" :placeholder="$t('head.searchKey')" search-button/>
         </div>
         <div class="right">
@@ -67,6 +69,7 @@ import {IGoodsClass} from '~/model/goodsClass'
 const router = useRouter()
 const loginModal = ref(null)
 const registerModal = ref(null)
+const choosePreference = ref(null)
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
@@ -89,6 +92,10 @@ function toRegister(){
 function toLogin(){
   registerModal.value.handleCancel()
   loginModal.value.openDialog()
+}
+
+function toPreference(){
+  choosePreference.value.openDialog()
 }
 
 function confirmPreference(){
