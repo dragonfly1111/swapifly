@@ -39,6 +39,14 @@ loginDialog:
   preferenceTip: 請選擇你感興趣的內容
   jump: 跳過
   done: 完成
+  reSend: 重新發送
+  formValidate:
+    email: 請輸入郵箱帳戶
+    emailErr: 郵箱格式錯誤
+    emailCode: 請輸入驗證碼
+    emailCodeErr: 郵箱驗證碼錯誤
+    password: 請輸入密碼
+    passwordErr: 密碼8-20個字
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦

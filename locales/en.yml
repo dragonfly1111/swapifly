@@ -39,6 +39,14 @@ loginDialog:
   preferenceTip: todo
   jump: todo
   done: todo
+  reSend: todo
+  formValidate:
+    email: todo
+    emailErr: todo
+    emailCode: todo
+    emailCodeErr: todo
+    password: todo
+    passwordErr: todo
 pages:
   hotBrands: hot Brands
   recommendTitle: recommend

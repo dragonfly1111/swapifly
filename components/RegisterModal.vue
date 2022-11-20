@@ -13,36 +13,110 @@
       <img src="@/assets/images/icon/icon_gmail.png" alt="">
     </div>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
-    <a-input class="input-warp" :placeholder="$t('loginDialog.acc') ">
-      <template #append>
-        {{ $t('loginDialog.verification') }}
-      </template>
-    </a-input>
-    <div class="input-tip">{{ $t('loginDialog.accTip') }}</div>
+    <a-form ref="formRef" :model="formData" :rules="rules">
+      <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
+        <a-input class="input-warp" v-model="formData.email" :placeholder="$t('loginDialog.acc') ">
+          <template #append>
+            <div @click="sendVerfi">
+              <a-spin :loading="sendLoading">
+                {{ isSend ? $t('loginDialog.reSend') : $t('loginDialog.verification') }}
+              </a-spin>
+            </div>
+          </template>
+        </a-input>
+      </a-form-item>
+      <div class="input-tip">{{ $t('loginDialog.accTip') }}</div>
+      <a-form-item :hide-label="true" field="code">
+        <a-input v-model="formData.code" class="input-warp input-warp1"
+                 :placeholder="$t('loginDialog.verfiPlaceHolder') "></a-input>
+      </a-form-item>
+      <a-form-item :hide-label="true" field="password">
+        <a-input type="password" v-model="formData.password" class="input-warp input-warp2"
+                 :placeholder="$t('loginDialog.pwsPlaceHolder') "></a-input>
+      </a-form-item>
+    </a-form>
 
-    <a-input type="password" class="input-warp input-warp1" :placeholder="$t('loginDialog.verfiPlaceHolder') "></a-input>
-    <a-input type="password" class="input-warp input-warp2" :placeholder="$t('loginDialog.pwsPlaceHolder') "></a-input>
-    <a-button class="confirm" @click="confirm"> {{ $t('loginDialog.confirmRegi') }}</a-button>
+
+    <a-button :loading="saveLoading" class="confirm" @click="confirm"> {{ $t('loginDialog.confirmRegi') }}</a-button>
     <div class="register">
       {{ $t('loginDialog.haveAcc') }}
       <span @click="handleLogin">{{ $t('loginDialog.directLogin') }}</span>
     </div>
     <div class="policy-wrap">
-      {{ $t('loginDialog.policyTip') }}<span>{{ $t('loginDialog.termsOfService') }}</span>&<span>{{ $t('loginDialog.privacyPolicy') }}</span>
+      {{ $t('loginDialog.policyTip') }}<span>{{
+        $t('loginDialog.termsOfService')
+      }}</span>&<span>{{ $t('loginDialog.privacyPolicy') }}</span>
     </div>
   </a-modal>
 </template>
 
 <script setup lang="ts">
-const visible = ref(false);
-const emits = defineEmits(['toLogin', 'toPreference'])
+import {useI18n} from "vue-i18n";
+import {getEmailCode, register} from '~/api/loginAndRegister'
+import {Message} from '@arco-design/web-vue';
 
+const {t} = useI18n();
+const visible = ref(false);
+const sendLoading = ref(false);
+const saveLoading = ref(false);
+const isSend = ref(false);
+const formRef = ref(null);
+const emits = defineEmits(['toLogin', 'toPreference'])
+const formData = reactive({
+  email: '634401502@qq.com',
+  code: '12312',
+  password: '123121231212312'
+})
+const rules = reactive({
+  email: [
+    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
+    {type: 'email', message: ref<string>(t('loginDialog.formValidate.emailErr'))}
+  ],
+  code: [
+    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+  ],
+  password: [
+    {required: true, message: ref<string>(t('loginDialog.formValidate.password'))},
+    {maxLength: 20, minLength: 8, message: ref<string>(t('loginDialog.formValidate.passwordErr'))},
+  ]
+})
 const handleLogin = () => {
   emits('toLogin')
 };
 const confirm = () => {
-  visible.value = false;
-  emits('toPreference')
+  console.log(formData)
+  formRef.value.validate().then(validate =>{
+    if(validate) return
+    saveLoading.value = true
+    register(formData).then(res=>{
+      if(res.code === 0){
+        Message.error(res.message)
+      } else {
+        Message.error(res.message)
+      }
+      saveLoading.value = false
+    })
+  })
+  // visible.value = false;
+  // emits('toPreference')
+};
+const sendVerfi = () => {
+  formRef.value.validateField('email').then(validate => {
+    if (validate && validate.email) {
+      return
+    }
+    sendLoading.value = true
+    getEmailCode({
+      email: formData.email
+    }).then(res => {
+      Message.success(res.message)
+      sendLoading.value = false
+      isSend.value = true
+    })
+  })
+
+  // visible.value = false;
+  // emits('toPreference')
 };
 const handleCancel = () => {
   visible.value = false;
@@ -57,6 +131,7 @@ defineExpose({
 </script>
 <style lang="scss">
 @import "assets/sass/var";
+
 .reg-dialog {
   padding: 20px 27px;
   width: 446px;
@@ -66,6 +141,7 @@ defineExpose({
     height: unset;
     align-items: start;
     border-bottom: unset;
+
     .login-title {
       text-align: left;
 
@@ -115,15 +191,24 @@ defineExpose({
     .input-warp {
       height: 46px;
       margin-top: 26px;
-      .arco-input-append{
+
+      .arco-input-append {
         color: #FFFFFF;
         background: $main-pink;
-        padding: 0 36px;
         user-select: none;
         cursor: pointer;
+        padding: 0;
+        border: unset;
+        div {
+          width: 100px;
+          text-align: center;
+          height: 100%;
+          line-height: 46px;
+        }
       }
     }
-    .input-tip{
+
+    .input-tip {
       margin-top: 11px;
       line-height: 21px;
       vertical-align: baseline;
@@ -132,33 +217,40 @@ defineExpose({
     .input-warp1 {
       margin-top: 35px;
     }
+
     .input-warp2 {
       margin-top: 22px;
     }
-    .confirm{
+
+    .confirm {
       margin-top: 22px;
       width: 100%;
       background: $main-grey;
       height: 46px;
       color: #FFFFFF;
     }
-    .register{
+
+    .register {
       margin-top: 30px;
       text-align: center;
       cursor: pointer;
       user-select: none;
-      span{
+
+      span {
         color: $main-pink;
       }
     }
-    .policy-wrap{
+
+    .policy-wrap {
       text-align: center;
       margin-top: 22px;
       font-size: 14px;
       user-select: none;
-      span{
+
+      span {
         cursor: pointer;
-        &:hover{
+
+        &:hover {
           color: $main-blue;
         }
       }

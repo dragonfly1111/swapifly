@@ -74,7 +74,7 @@ const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
 let curClass: any = reactive({value: []})
-curClass.value = classList[0].children
+curClass.value =classList.length > 0 ? classList[0].children : []
 
 function openRegister(){
   registerModal.value.openDialog()
