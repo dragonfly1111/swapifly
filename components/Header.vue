@@ -56,7 +56,7 @@
     </div>
 
     <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
-    <RegisterModal ref="registerModal" @toLogin="toLogin"></RegisterModal>
+    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
   </div>
 </template>
@@ -67,6 +67,7 @@ import {IGoodsClass} from '~/model/goodsClass'
 const router = useRouter()
 const loginModal = ref(null)
 const registerModal = ref(null)
+const choosePreference = ref(null)
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
@@ -89,6 +90,10 @@ function toRegister(){
 function toLogin(){
   registerModal.value.handleCancel()
   loginModal.value.openDialog()
+}
+
+function toPreference(){
+  choosePreference.value.openDialog()
 }
 
 function confirmPreference(){
