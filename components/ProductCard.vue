@@ -175,7 +175,7 @@ export default {
     margin: 10px 0;
     img {
       width: 100%;
-      height: 45vw;
+      height: 40vw;
       max-height: 280px;
       min-height: 180px;
       object-fit: cover;

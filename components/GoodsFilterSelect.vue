@@ -2,17 +2,24 @@
   <a-form class="select-wrapper" :modal="form" auto-label-width layout="inline" ref="formRef">
     <a-form-item field="rid">
       <a-tree-select
-        :data="treeData"
+        :data="classList"
         v-model="form.rid"
+        :fieldNames="{
+          key: 'id',
+          title: 'title',
+          children: 'children',
+        }"
         :placeholder="$t('pages.classification')"
+        @change="updateSearch"
       ></a-tree-select>
     </a-form-item>
     <a-form-item field="sort">
-      <a-select :placeholder="$t('pages.sort')" v-model="form.sort">
+      <a-select :placeholder="$t('pages.sort')" v-model="form.sort" @change="updateSearch">
         <template #label="{ data }">
-          <span>{{ $t("pages.sort") }}：{{ data.label }}</span>
+          <span class="select-span">{{ $t("pages.sort") }}：</span>
+          {{ data.label }}
         </template>
-        <a-option v-for="item in sortOptions" :key="item.value">{{ item.label }}</a-option>
+        <a-option v-for="item in sortList" :key="item.id" :value="item.id" :label="item.title">{{ item.title }}</a-option>
       </a-select>
     </a-form-item>
     <a-form-item field="nid">
@@ -22,19 +29,17 @@
         multiple
         class="multiple-select"
         :max-tag-count="1"
+        @change="updateSearch"
       >
         <template #arrow-icon>
           <icon-down />
         </template>
-        <a-option>Beijing</a-option>
-        <a-option>2</a-option>
-        <a-option>3</a-option>
-        <a-option>4</a-option>
+        <a-option v-for="item in newOldList" :key="item.id" :value="item.id" :label="item.title"></a-option>
       </a-select>
     </a-form-item>
     <a-form-item field="price">
       <a-popover title="" trigger="click" position="bottom">
-        <a-select :placeholder="$t('pages.price_degree')" v-model="form.nid" :popup-visible="false">
+        <a-select :placeholder="$t('pages.price_degree')" input-value="" :popup-visible="false">
         </a-select>
         <template #content>
           <a-space style="width: 320px">
@@ -60,10 +65,10 @@
       </a-popover>
     </a-form-item>
     <a-form-item field="offline" style="margin-right: 10px">
-      <a-checkbox value="offline">{{ $t("pages.hand_deliver") }}</a-checkbox>
+      <a-checkbox value="offline" v-model="form.offline" @change="updateSearch">{{ $t("pages.hand_deliver") }}</a-checkbox>
     </a-form-item>
     <a-form-item field="mail">
-      <a-checkbox value="mail">{{ $t("pages.post_and_courier") }}</a-checkbox>
+      <a-checkbox value="mail" v-model="form.mail" @change="updateSearch">{{ $t("pages.post_and_courier") }}</a-checkbox>
     </a-form-item>
     <a-form-item>
       <a-divider direction="vertical" />
@@ -76,49 +81,31 @@
 import { ref, reactive, defineEmits } from "vue";
 import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
 import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
+import { useSysData } from "~/stores/sysData";
+
 export default {
   name: "GoodsFilterSelect",
   components: { IconPlus, IconEdit },
   setup(props, { emit }) {
+    const sysData = useSysData();
+    const classList = sysData.goodsClass;
+    const sortList = sysData.goodsSort;
+    const newOldList = sysData.goodsOan;
     const form = reactive({
       sort: "",
-      nid: "",
+      nid: [],
       rid: "",
+      min:null,
+      max:null,
+      offline:false,
+      mail:false
     });
+
     const formRef = ref(null);
-    const sortOptions = reactive([{ value: 2, label: "价钱高至低" }]);
     const resetForm = () => {
       formRef.value.resetFields();
       console.log(form);
     };
-
-    const treeData = [
-      {
-        key: "node1",
-        title: "Trunk",
-        disabled: true,
-        children: [
-          {
-            key: "node2",
-            title: "Leaf",
-          },
-        ],
-      },
-      {
-        key: "node3",
-        title: "Trunk2",
-        children: [
-          {
-            key: "node4",
-            title: "Leaf",
-          },
-          {
-            key: "node5",
-            title: "Leaf",
-          },
-        ],
-      },
-    ];
 
     // 价格选择取消
     const cancelPrice = () => {};
@@ -130,18 +117,22 @@ export default {
 
     // 传值
     const updateSearch = () => {
-      emit("change", form);
+      let setForm = {...form}
+      setForm.nid = form.nid.join(',')
+      emit("change", setForm);
     };
 
     return {
-      treeData,
+      classList,
       form,
       formRef,
-      sortOptions,
       resetForm,
       confirmPrice,
       cancelPrice,
       emit,
+      sortList,
+      newOldList,
+      updateSearch,
     };
   },
 };
@@ -167,6 +158,9 @@ export default {
   }
   :deep(.arco-form-item-label-col) {
     padding-right: 8px;
+  }
+  .select-span{
+    color: $grey-font-label;
   }
 }
 
@@ -194,4 +188,5 @@ export default {
 :deep(.arco-checkbox-checked .arco-checkbox-icon) {
   background-color: $main-grey;
 }
+
 </style>
