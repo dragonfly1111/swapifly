@@ -68,6 +68,40 @@ pages:
   no_notice: no notice
   no_notice_tip: haven't received any messages
   like_title: like
+profile:
+  edit_profile: todo
+  edit_password: todo
+  user_head_portrait: todo
+  user_head_portrait_tip: todo
+  user_head_upload: todo
+  open_user_profile: todo
+  user_name: todo
+  user_name_empty: todo
+  user_describe: todo
+  user_describe_empty: todo
+  countries_regions: todo
+  countries_regions_empty: todo
+  personal_information: todo
+  email: todo
+  phone: todo
+  sex: todo
+  birthday: todo
+  birth_empty: todo
+  preference_title: todo
+  edit_preference: todo
+  save: todo
+  bindEmail: todo
+  bindEmailTip: todo
+  bindEmailOk: todo
+  bindEmailCancel: todo
+  resetPwdTitle: todo
+  resetPwdTitle1: todo
+  confirmEmail: todo
+  resetPwdNext: todo
+  resetPwdSave: todo
+  resetPwdCancel: todo
+  newPwd: todo
+  newPwd1: todo
 gender:
   man: todo
   women: todo
