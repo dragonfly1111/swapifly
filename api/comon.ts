@@ -1,5 +1,6 @@
 import request from '../utils/request'
 
+// 获取地区
 export const getRegion = () => {
   return request({
     url: '/index/home/region',
@@ -7,9 +8,26 @@ export const getRegion = () => {
   })
 }
 
+// 获取语言
 export const getLang = () => {
   return request({
     url: '/index/home/language',
+    method: 'get'
+  })
+}
+
+// 获取商品排序下拉
+export const getGoodSort = () => {
+  return request({
+    url: '/index/home/ddsort',
+    method: 'get'
+  })
+}
+
+// 获取新旧程度下拉
+export const getOan = () => {
+  return request({
+    url: '/index/home/oan',
     method: 'get'
   })
 }
