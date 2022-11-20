@@ -91,6 +91,14 @@ profile:
   preference_title: 感興趣的內容：
   edit_preference: 更改偏好
   save: 儲存更改
+  opwd: 目前密碼
+  pwd: 新密碼
+  cpwd: 確認密碼
+  formValidate:
+    opwd: 請輸入目前密碼
+    cpwd: 請輸入確認密碼
+
+
 
 
 

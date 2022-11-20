@@ -19,31 +19,14 @@
   </div>
 </template>
 
-<script>
-import { ref, reactive, h } from "vue";
+<script setup>
 import Profile from "./components/Profile";
 import Password from "./components/Password";
-export default {
-  name: "UserProfile",
-  components: { Profile, Password },
 
-  setup() {
-    const activeTab = ref("profile");
-    const handleQuery = (data) => {
-      console.log("form", data);
-    };
+const activeTab = ref("profile");
 
-    const handleTabChange = (e) => {
-      console.log("e", e);
-      activeTab.value = e;
-    };
-
-    return {
-      handleQuery,
-      activeTab,
-      handleTabChange,
-    };
-  },
+const handleTabChange = (e) => {
+  activeTab.value = e;
 };
 </script>
 

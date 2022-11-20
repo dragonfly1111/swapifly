@@ -1,7 +1,7 @@
 <template>
   <div class="profile-box">
     <div class="header">
-      <h2>{{ $t("profile.edit_profile") }}</h2>
+      <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
     <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
     <div class="upload-box">
@@ -75,7 +75,9 @@
             </div>
           </a-col>
           <a-col flex="90px">
-            <a-button type="primary" @click="editPreference">{{ $t("profile.edit_preference") }}</a-button>
+            <a-button type="primary" @click="editPreference">{{
+              $t("profile.edit_preference")
+            }}</a-button>
           </a-col>
         </a-row>
       </a-form-item>
@@ -86,14 +88,23 @@
       </div>
     </a-form>
 
-    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
+    <a-skeleton :loading="pageLoading">
+      <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+        <a-skeleton-line :rows="18" />
+      </a-space>
+    </a-skeleton>
 
+    <ChoosePreference
+      ref="choosePreference"
+      @confirmPreference="confirmPreference"
+    ></ChoosePreference>
   </div>
 </template>
 
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
-const choosePreference = ref(null)
+const choosePreference = ref(null);
+const pageLoading = ref(false);
 const form = reactive({
   nickname: null,
   avatar: null,
@@ -108,11 +119,9 @@ const uploadSuccess = (e) => {
 const handleSave = () => {};
 // 更改偏好
 const editPreference = () => {
-    choosePreference.value.openDialog()
+  choosePreference.value.openDialog();
 };
-function confirmPreference(){
-
-}
+function confirmPreference() {}
 </script>
 
 <style lang="scss" scoped>
@@ -125,7 +134,7 @@ function confirmPreference(){
   .tip {
     color: $grey-font-label;
   }
-  h2 {
+  h1 {
     font-size: 30px;
   }
   h4.title {

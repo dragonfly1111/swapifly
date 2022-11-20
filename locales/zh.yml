@@ -91,6 +91,12 @@ profile:
   preference_title: 感兴趣的内容：
   edit_preference: 更改偏好
   save: 保存修改
+  opwd: 当前密码
+  pwd: 新密码
+  cpwd: 确认密码
+  formValidate:
+    opwd: 请输入当前密码
+    cpwd: 请输入确认密码
 
 
 
