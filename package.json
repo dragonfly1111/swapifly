@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.38.3",
+    "@eonasdan/tempus-dominus": "^6.2.7",
+    "@popperjs/core": "^2.11.6",
     "axios": "^1.1.3"
   }
 }

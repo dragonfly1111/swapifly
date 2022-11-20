@@ -3,7 +3,7 @@
     <h1>{{ $t("profile.edit_password") }}</h1>
     <a-form :model="form" ref="formRef" layout="vertical" size="large"  :rules="rules">
       <a-form-item field="opwd" label="" :content-flex="false"  hide-asterisk>
-        <a-input v-model="form.opwd" placeholder="">
+        <a-input v-model="form.opwd" placeholder="" allow-clear>
           <template #prefix>
             <span class="input-prefix">{{ $t("profile.opwd") }}</span>
           </template>
@@ -13,7 +13,7 @@
       </template>
       </a-form-item>
       <a-form-item field="pwd" label=""  hide-asterisk>
-        <a-input v-model="form.pwd" placeholder="">
+        <a-input v-model="form.pwd" placeholder="" allow-clear>
           <template #prefix>
             <span class="input-prefix">{{ $t("profile.pwd") }}</span>
           </template>

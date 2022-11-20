@@ -56,13 +56,26 @@
         </a-select>
       </a-form-item>
       <a-form-item field="birth_time" :label="$t('profile.birthday')">
-        <a-date-picker
+        <!-- <a-date-picker
           v-model="form.birth_time"
           style="width: 100%"
           value-format="timestamp"
           format="YYYY-MM-DD"
           :placeholder="$t('profile.birth_empty')"
-        />
+        /> -->
+        <div
+          class="input-group log-event"
+          data-td-target-input="nearest"
+          data-td-target-toggle="nearest"
+        >
+          <a-input
+            v-model="form.birthday"
+            allow-clear
+            id="datetimepicker"
+            data-td-target="#datetimepicker"
+            data-td-toggle="datetimepicker"
+          ></a-input>
+      </div>
       </a-form-item>
       <a-form-item>
         <a-row justify="space-between" style="width: 100%" align="center">
@@ -103,6 +116,8 @@
 
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
+import { TempusDominus } from "@eonasdan/tempus-dominus";
+
 const choosePreference = ref(null);
 const pageLoading = ref(false);
 const form = reactive({
@@ -122,6 +137,11 @@ const editPreference = () => {
   choosePreference.value.openDialog();
 };
 function confirmPreference() {}
+onMounted(() => {
+  new TempusDominus(document.getElementById("datetimepicker"), {
+    //put your config here
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -167,12 +187,16 @@ function confirmPreference() {}
   :deep(.arco-form-item-label-col) {
     line-height: 10px;
   }
+  .input-group{
+    width: 100%;
+  }
   .input-box {
     background-color: #fff;
     border: 1px solid #e5e5e5;
     padding-top: 4px;
     padding-bottom: 4px;
     border-radius: 2px;
+    width: 100%;
   }
   :deep(.arco-input-wrapper) {
     @extend .input-box;
