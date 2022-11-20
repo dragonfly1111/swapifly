@@ -39,6 +39,14 @@ loginDialog:
   preferenceTip: 请选择你感兴趣的内容
   jump: 跳过
   done: 完成
+  reSend: 重新发送
+  formValidate:
+    email: 请输入邮箱账户
+    emailErr: 邮箱格式错误
+    emailCode: 请输入验证码
+    emailCodeErr: 邮箱验证码错误
+    password: 请输入密码
+    passwordErr: 密码8-20个字
 pages:
   hotBrands: 热门品牌
   recommendTitle: 为你推荐

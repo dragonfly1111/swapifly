@@ -1,10 +1,11 @@
 import request from '../utils/request'
 
 // 获取验证码-注册
-export const getEmailCode = () => {
+export const getEmailCode = (params) => {
   return request({
     url: '/index/register/getEmailCode',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
@@ -17,10 +18,11 @@ export const bindEmailCode = () => {
 }
 
 // 账号注册注册
-export const register = () => {
+export const register = (data) => {
   return request({
     url: '/index/register/register',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
