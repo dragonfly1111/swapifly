@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { getUserLabel } from '~/api/login'
+import { getUserLabel } from '~/api/loginAndRegister'
 import { baseImgPrefix } from '~/config/baseUrl'
 import {IUserLabel} from "~/model/userLabel";
 const visible = ref(false);

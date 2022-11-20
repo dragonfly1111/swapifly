@@ -45,7 +45,9 @@
     <div class="head-search">
       <div class="common-row">
         <div class="left">
-          <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
+          <nuxt-link href="/">
+            <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
+          </nuxt-link>
           <a-input-search class="search-input" :placeholder="$t('head.searchKey')" search-button/>
         </div>
         <div class="right">
