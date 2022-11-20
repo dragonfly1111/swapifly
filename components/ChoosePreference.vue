@@ -11,22 +11,39 @@
     <div class="card-box">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id" @click="card.checked = !card.checked">
         <img :src="baseImgPrefix + card.background"/>
-        <div>{{ card.title }}</div>
+        <div class="label-title">{{ card.title }}</div>
         <a-checkbox v-if="card.checked" class="check-box" v-model="card.checked"></a-checkbox>
       </div>
+
+      <div class="skeleton-box" v-if="loading">
+        <div v-for="i in 24" :key="i">
+          <a-skeleton :animation="true" class="skeleton">
+            <a-skeleton-shape shape="circle" />
+            <a-skeleton-line :rows="1" />
+          </a-skeleton>
+        </div>
+      </div>
+
+    </div>
+    <div class="foot">
+      <a-button class="but">{{ $t('loginDialog.jump') }}</a-button>
+      <a-button class="confirm-but but">{{ $t('loginDialog.done') }}</a-button>
     </div>
   </a-modal>
 </template>
 
 <script setup lang="ts">
-import { getUserLabel } from '~/api/login'
+import { getUserLabel } from '~/api/loginAndRegister'
 import { baseImgPrefix } from '~/config/baseUrl'
 import {IUserLabel} from "~/model/userLabel";
-const visible = ref(true);
+const visible = ref(false);
+const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
 const confirmPreference = defineEmits(['confirmPreference'])
+loading.value = true
 getUserLabel().then(res=>{
-  res.data.data.forEach(item=>{
+  loading.value = false
+  res.data.data.forEach((item: { checked: boolean; })=>{
     item.checked = false
   })
   labelList.value = res.data.data
@@ -50,7 +67,7 @@ defineExpose({
 <style lang="scss">
 @import "assets/sass/var";
 .preference-dialog {
-  padding: 20px 27px;
+  padding: 20px 27px 40px 20px;
   width: 999px;
   .arco-modal-header {
     padding: 0;
@@ -101,6 +118,12 @@ defineExpose({
         object-fit: cover;
         border-radius: 50%;
       }
+      .label-title{
+        color: #383838;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+      }
       &:hover{
         //background: var(--color-bg-2);
         //box-shadow: 0 4px 10px rgb(var(--gray-2));
@@ -113,10 +136,46 @@ defineExpose({
         top: 5px;
       }
     }
+    .skeleton-box{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      .skeleton{
+        width: 78px;
+        height: 113px;
+        padding: 24px 18px;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        margin-bottom: 36px;
+        margin-right: 10px;
+
+        .arco-skeleton-shape-circle{
+          height: 80px;
+          width: 80px;
+        }
+        .arco-skeleton-line-row{
+          margin-top: 12px;
+        }
+      }
+    }
   }
   .card-item:nth-child(8n){
     margin-right: 0;
   }
-
+  .skeleton:nth-child(8n){
+    margin-right: 0;
+  }
+  .foot{
+    text-align: right;
+    .but{
+      width: 100px;
+      height: 46px;
+    }
+    .confirm-but{
+      margin-left: 26px;
+      background: $main-pink;
+      color: #FFFFFF;
+    }
+  }
 }
 </style>
