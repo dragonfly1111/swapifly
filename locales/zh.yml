@@ -91,8 +91,12 @@ profile:
   preference_title: 感兴趣的内容：
   edit_preference: 更改偏好
   save: 保存修改
-
-
+gender:
+  man: 男
+  women: 女
+  nonBinary: 非二元
+  secrecy: 不透露
+  other: 其他
 
 
 

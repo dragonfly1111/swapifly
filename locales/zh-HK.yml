@@ -72,6 +72,12 @@ pages:
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
+gender:
+  man: 男
+  women: 女
+  nonBinary: 非二元
+  secrecy: 不透露
+  other: 其他
   user_head_portrait: 個人頭像
   user_head_portrait_tip: 清晰的正面照片可以促進買賣雙方的互相了解。
   user_head_upload: 上傳一張照片
