@@ -61,5 +61,28 @@ pages:
   no_notice: 暫無消息
   no_notice_tip: 没有收到任何消息哦～
   like_title: 我like過嘅
+profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
+  user_head_portrait: 個人頭像
+  user_head_portrait_tip: 清晰的正面照片可以促進買賣雙方的互相了解。
+  user_head_upload: 上傳一張照片
+  open_user_profile: 公開檔案
+  user_name: 用戶名稱
+  user_name_empty: 尚未填写用戶名稱...
+  user_describe: 個人簡介
+  user_describe_empty: 尚未填寫個人簡介...
+  countries_regions: 國家/區域
+  countries_regions_empty: 尚未填寫國家/區域...
+  personal_information: 私人資料
+  email: Email
+  phone: 手機號碼
+  sex: 性别
+  birthday: 生日
+  birth_empty: 尚未填寫生日
+  preference_title: 感興趣的內容：
+  edit_preference: 更改偏好
+  save: 儲存更改
+
+
+

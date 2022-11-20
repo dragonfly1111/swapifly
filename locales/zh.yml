@@ -61,7 +61,33 @@ pages:
   no_notice: 暂无消息
   no_notice_tip: 没有收到任何消息哦～
   like_title: 我喜欢的
+profile:
   edit_profile: 编辑档案
   edit_password: 修改密码
+  user_head_portrait: 个人头像
+  user_head_portrait_tip: 清晰的正面照片可以促进买卖双方的互相了解。
+  user_head_upload: 上传一张照片
+  open_user_profile: 公开档案
+  user_name: 用户名称
+  user_name_empty: 尚未填写用户名称...
+  user_describe: 个人简介
+  user_describe_empty: 尚未填写个人简介...
+  countries_regions: 国家/区域
+  countries_regions_empty: 尚未填写国家/区域...
+  personal_information: 私人资料
+  email: 邮箱
+  phone: 手机号码
+  sex: 性别
+  birthday: 生日
+  birth_empty: 尚未填写生日
+  preference_title: 感兴趣的内容：
+  edit_preference: 更改偏好
+  save: 保存修改
+
+
+
+
+
+
 
 
