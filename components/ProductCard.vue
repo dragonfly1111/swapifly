@@ -11,7 +11,7 @@
               <a-skeleton-line />
             </a-col>
           </a-row>
-          <div style="margin-top: 10px;">
+          <div style="margin-top: 10px">
             <a-skeleton-line lineHeight="200" />
           </div>
         </a-col>
@@ -28,7 +28,9 @@
           </div>
         </div>
         <div class="product-img">
-          <img :src="testImg" alt="" />
+          <div class="img-box">
+            <img :src="testImg" alt="" />
+          </div>
           <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
         </div>
         <div class="product-desc">
@@ -120,7 +122,7 @@ export default {
       handleBeforeOk,
       handleCancel,
       handleReport,
-      pageLoading
+      pageLoading,
     };
   },
 };
@@ -131,7 +133,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   //   grid-template-columns: repeat(auto-fill, 24%);
-  justify-content: space-around;
   grid-gap: 10px;
 }
 .recommend-item + .recommend-item {
@@ -173,13 +174,22 @@ export default {
   .product-img {
     position: relative;
     margin: 10px 0;
-    img {
+    .img-box {
       width: 100%;
-      height: 40vw;
-      max-height: 280px;
-      min-height: 180px;
-      object-fit: cover;
+      // height: 40vw;
+      // max-height: 280px;
+      // min-height: 180px;
       border-radius: 2px;
+      height: 0;
+      padding-bottom: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
     }
     .product-tag {
       background-color: $main-pink;
@@ -212,6 +222,14 @@ export default {
       height: 20px;
       padding: 0;
     }
+  }
+}
+
+// 移动端
+@media screen and(max-width:1000px) {
+  .recommend-item {
+    width: 48%;
+    min-width: 150px;
   }
 }
 </style>
