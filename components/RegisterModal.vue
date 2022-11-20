@@ -121,6 +121,8 @@ defineExpose({
         color: #FFFFFF;
         background: $main-pink;
         padding: 0 36px;
+        user-select: none;
+        cursor: pointer;
       }
     }
     .input-tip{
