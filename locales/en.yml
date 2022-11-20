@@ -36,6 +36,9 @@ loginDialog:
   policyTip: todo
   termsOfService: todo
   privacyPolicy: todo
+  preferenceTip: todo
+  jump: todo
+  done: todo
 pages:
   hotBrands: hot Brands
   recommendTitle: recommend

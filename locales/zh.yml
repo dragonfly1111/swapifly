@@ -36,6 +36,9 @@ loginDialog:
   policyTip: 注册即标识你同意我们的
   termsOfService: 服务条款
   privacyPolicy: 隐私政策
+  preferenceTip: 请选择你感兴趣的内容
+  jump: 跳过
+  done: 完成
 pages:
   hotBrands: 热门品牌
   recommendTitle: 为你推荐

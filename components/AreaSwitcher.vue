@@ -10,7 +10,7 @@ const areaSetting = useState<string>('area.setting')
               :bordered="false"
               :style="{width:'60px', height: '35px'}" placeholder="Please select ...">
       <template #label="{ data }">
-        <img class="select-value" :src="baseImgPrefix + '/' + data.label" alt="">
+        <img class="select-value" :src="baseImgPrefix + data.label" alt="">
       </template>
       <a-option
           v-for="area in availableArea"
@@ -18,7 +18,7 @@ const areaSetting = useState<string>('area.setting')
           :value="area.title_en"
           :label="area.img_url"
       >
-        <img class="select-option" :src="baseImgPrefix + '/' + area.img_url" alt="">
+        <img class="select-option" :src="baseImgPrefix + area.img_url" alt="">
       </a-option>
     </a-select>
   </div>

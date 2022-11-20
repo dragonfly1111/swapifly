@@ -36,6 +36,9 @@ loginDialog:
   policyTip: 註冊即表示你同意我們的
   termsOfService: 服務條款
   privacyPolicy: 隱私政策
+  preferenceTip: 請選擇你感興趣的內容
+  jump: 跳過
+  done: 完成
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦

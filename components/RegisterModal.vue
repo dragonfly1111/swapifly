@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" title-align="start" modal-class="login-dialog" :footer="false" @ok="handleOk"
+  <a-modal v-model:visible="visible" title-align="start" modal-class="reg-dialog" :footer="false" @ok="handleOk"
            @cancel="handleCancel">
     <template #title>
       <div class="login-title">
@@ -54,20 +54,9 @@ defineExpose({
   handleCancel
 })
 </script>
-<style lang="scss" scoped>
-.login-title {
-  text-align: left;
-
-  img {
-    width: 152px;
-    height: 36px;
-  }
-}
-
-</style>
 <style lang="scss">
 @import "assets/sass/var";
-.login-dialog {
+.reg-dialog {
   padding: 20px 27px;
   width: 446px;
 
@@ -76,11 +65,19 @@ defineExpose({
     height: unset;
     align-items: start;
     border-bottom: unset;
+    .login-title {
+      text-align: left;
+
+      img {
+        width: 152px;
+        height: 36px;
+      }
+    }
   }
 
   .arco-modal-body {
     padding: 0;
-    color: #AAAAAA;
+    color: $grey-font-label;
 
     .title {
       margin-top: 26px;

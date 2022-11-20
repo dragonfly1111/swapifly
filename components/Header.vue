@@ -57,6 +57,7 @@
 
     <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin"></RegisterModal>
+    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
   </div>
 </template>
 
@@ -88,6 +89,10 @@ function toRegister(){
 function toLogin(){
   registerModal.value.handleCancel()
   loginModal.value.openDialog()
+}
+
+function confirmPreference(){
+
 }
 
 function changeCurType(e: IGoodsClass) {

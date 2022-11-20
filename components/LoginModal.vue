@@ -47,17 +47,7 @@ defineExpose({
   handleCancel
 })
 </script>
-<style lang="scss" scoped>
-.login-title {
-  text-align: left;
 
-  img {
-    width: 152px;
-    height: 36px;
-  }
-}
-
-</style>
 <style lang="scss">
 @import "assets/sass/var";
 .login-dialog {
@@ -69,11 +59,20 @@ defineExpose({
     height: unset;
     align-items: start;
     border-bottom: unset;
+    .login-title {
+      text-align: left;
+
+      img {
+        width: 152px;
+        height: 36px;
+      }
+    }
+
   }
 
   .arco-modal-body {
     padding: 0;
-    color: #AAAAAA;
+    color: $grey-font-label;
 
     .title {
       margin-top: 26px;
