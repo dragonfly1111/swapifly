@@ -56,7 +56,7 @@
     </div>
 
     <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
-    <RegisterModal ref="registerModal" @toLogin="toLogin"></RegisterModal>
+    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
   </div>
 </template>

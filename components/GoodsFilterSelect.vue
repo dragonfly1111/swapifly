@@ -78,7 +78,7 @@ import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
 import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 export default {
   name: "GoodsFilterSelect",
-  components: { IconPlus, IconEdit},
+  components: { IconPlus, IconEdit },
   setup(props, { emit }) {
     const form = reactive({
       sort: "",
@@ -125,13 +125,13 @@ export default {
 
     // 价格选择确定
     const confirmPrice = () => {
-        updateSearch()
+      updateSearch();
     };
 
     // 传值
-    const updateSearch= ()=>{
-        emit("change", form);
-    }
+    const updateSearch = () => {
+      emit("change", form);
+    };
 
     return {
       treeData,
@@ -141,7 +141,7 @@ export default {
       resetForm,
       confirmPrice,
       cancelPrice,
-      emit
+      emit,
     };
   },
 };
@@ -151,38 +151,35 @@ export default {
 @import "assets/sass/var.scss";
 
 .select-wrapper {
-    margin: 10px 5px;
-    :deep(.arco-select-view-single) {
-      background-color: #fff;
-      border-radius: 50px;
-      border: 1px solid #aaaaaa;
-      color: #383838;
-      padding-left: 15px;
-      padding-right: 15px;
-      width: min-content;
-      min-width: 140px;
-    }
-    :deep(.arco-form-item-layout-inline) {
-      margin-right: 0;
-    }
-    :deep(.arco-form-item-label-col) {
-      padding-right: 8px;
-    }
-    :deep(.arco-checkbox-checked .arco-checkbox-icon) {
-      background-color: #333 !important;
-    }
-  }
-
-  :deep(.multiple-select) {
+  margin: 10px 5px;
+  :deep(.arco-select-view-single) {
     background-color: #fff;
     border-radius: 50px;
-    border: 1px solid #aaaaaa;
+    border: 1px solid $grey-font-label;
     color: #383838;
     padding-left: 15px;
     padding-right: 15px;
-    max-width: 240px;
+    width: min-content;
     min-width: 140px;
   }
+  :deep(.arco-form-item-layout-inline) {
+    margin-right: 0;
+  }
+  :deep(.arco-form-item-label-col) {
+    padding-right: 8px;
+  }
+}
+
+:deep(.multiple-select) {
+  background-color: #fff;
+  border-radius: 50px;
+  border: 1px solid #aaaaaa;
+  color: #383838;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 240px;
+  min-width: 140px;
+}
 .handle-price {
   display: flex;
   justify-content: flex-end;
@@ -191,7 +188,10 @@ export default {
     margin-left: 10px;
   }
   .arco-btn-primary {
-    background-color: #333;
+    background-color: $main-grey;
   }
+}
+:deep(.arco-checkbox-checked .arco-checkbox-icon) {
+  background-color: $main-grey;
 }
 </style>

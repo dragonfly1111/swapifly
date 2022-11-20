@@ -156,7 +156,7 @@ export default {
 .list-header {
   margin: 10px 0;
   .arco-breadcrumb {
-    color: #aaaaaa;
+    color: $grey-font-label;
   }
 }
 </style>

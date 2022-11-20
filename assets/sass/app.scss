@@ -1,3 +1,4 @@
+@import "./var";
 
 // pc
 @media screen and(min-width:1000px){
@@ -25,7 +26,7 @@
 }
 .arco-modal-footer{
   .arco-btn-primary, .arco-btn-primary[type='button'], .arco-btn-primary[type='submit']{
-    background-color: #333;
+    background-color: $main-grey;
   }
 }
 //.arco-checkbox-checked .arco-checkbox-icon{
