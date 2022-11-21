@@ -52,7 +52,7 @@
       </a-form-item>
       <a-form-item field="sex" :label="$t('profile.sex')">
         <a-select v-model="form.sex" placeholder="" allow-clear>
-          <a-option>Beijing</a-option>
+          <a-option v-for="item in sexOptions" :value="item.key" :label="item.label"></a-option>
         </a-select>
       </a-form-item>
       <a-form-item field="birth_time" :label="$t('profile.birthday')">
@@ -75,7 +75,7 @@
             data-td-target="#datetimepicker"
             data-td-toggle="datetimepicker"
           ></a-input>
-      </div>
+        </div>
       </a-form-item>
       <a-form-item>
         <a-row justify="space-between" style="width: 100%" align="center">
@@ -118,7 +118,10 @@
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { TempusDominus } from "@eonasdan/tempus-dominus";
-
+import { useSysData } from "~/stores/sysData";
+const sysData = useSysData();
+const sexOptions = sysData.gender;
+console.log(sexOptions)
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const pageLoading = ref(false);
@@ -136,7 +139,7 @@ const uploadSuccess = (e) => {
 const handleSave = () => {};
 // 绑定
 const handleBind = () => {
-    bindEmail.value.openDialog()
+  bindEmail.value.openDialog();
 };
 // 更改偏好
 const editPreference = () => {
@@ -146,33 +149,33 @@ function confirmPreference() {}
 onMounted(() => {
   new TempusDominus(document.getElementById("datetimepicker"), {
     localization: {
-      today: 'Перейти сегодня',
-      clear: 'Очистить выделение',
-      close: 'Закрыть сборщик',
-      selectMonth: 'Выбрать месяц',
-      previousMonth: 'Предыдущий месяц',
-      nextMonth: 'В следующем месяце',
-      selectYear: 'Выбрать год',
-      previousYear: 'Предыдущий год',
-      nextYear: 'В следующем году',
-      selectDecade: 'Выбрать десятилетие',
-      previousDecade: 'Предыдущее десятилетие',
-      nextDecade: 'Следующее десятилетие',
-      previousCentury: 'Предыдущий век',
-      nextCentury: 'Следующий век',
-      pickHour: 'Выберите час',
-      incrementHour: 'Время увеличения',
-      decrementHour: 'Уменьшить час',
-      pickMinute: 'Выбрать минуту',
-      incrementMinute: 'Минута приращения',
-      decrementMinute: 'Уменьшить минуту',
-      pickSecond: 'Выбрать второй',
-      incrementSecond: 'Увеличение секунды',
-      decrementSecond: 'Уменьшение секунды',
-      toggleMeridiem: 'Переключить период',
-      selectTime: 'Выбрать время',
-      selectDate: 'Выбрать дату',
-      locale: 'en', // 如果是中文 日期上面就会带有'日'、'周' 所以使用英文 并且手动配置字段
+      today: "Перейти сегодня",
+      clear: "Очистить выделение",
+      close: "Закрыть сборщик",
+      selectMonth: "Выбрать месяц",
+      previousMonth: "Предыдущий месяц",
+      nextMonth: "В следующем месяце",
+      selectYear: "Выбрать год",
+      previousYear: "Предыдущий год",
+      nextYear: "В следующем году",
+      selectDecade: "Выбрать десятилетие",
+      previousDecade: "Предыдущее десятилетие",
+      nextDecade: "Следующее десятилетие",
+      previousCentury: "Предыдущий век",
+      nextCentury: "Следующий век",
+      pickHour: "Выберите час",
+      incrementHour: "Время увеличения",
+      decrementHour: "Уменьшить час",
+      pickMinute: "Выбрать минуту",
+      incrementMinute: "Минута приращения",
+      decrementMinute: "Уменьшить минуту",
+      pickSecond: "Выбрать второй",
+      incrementSecond: "Увеличение секунды",
+      decrementSecond: "Уменьшение секунды",
+      toggleMeridiem: "Переключить период",
+      selectTime: "Выбрать время",
+      selectDate: "Выбрать дату",
+      locale: "en", // 如果是中文 日期上面就会带有'日'、'周' 所以使用英文 并且手动配置字段
     },
     display: {
       buttons: {
@@ -181,7 +184,6 @@ onMounted(() => {
         close: true,
       },
     },
-
   });
 });
 </script>
@@ -229,7 +231,7 @@ onMounted(() => {
   :deep(.arco-form-item-label-col) {
     line-height: 10px;
   }
-  .input-group{
+  .input-group {
     width: 100%;
   }
   .input-box {
