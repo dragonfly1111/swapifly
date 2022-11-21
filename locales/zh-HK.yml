@@ -47,6 +47,33 @@ loginDialog:
     emailCodeErr: 郵箱驗證碼錯誤
     password: 請輸入密碼
     passwordErr: 密碼8-20個字
+datePicker:
+  today: "今日"
+  clear: "清除"
+  close: "关闭"
+  selectMonth: "选择月份"
+  previousMonth: "上个月"
+  nextMonth: "下个月"
+  selectYear: "选择年份"
+  previousYear: "上一年"
+  nextYear: "下一年"
+  selectDecade: "选择十年"
+  previousDecade: "上十年"
+  nextDecade: "下十年"
+  previousCentury: "Предыдущий век"
+  nextCentury: "Следующий век"
+  pickHour: "选择时"
+  incrementHour: "前一小时"
+  decrementHour: "后一小时"
+  pickMinute: "选择分"
+  incrementMinute: "上分钟"
+  decrementMinute: "下一分钟"
+  pickSecond: "选择秒"
+  incrementSecond: "下一秒"
+  decrementSecond: "下一秒"
+  toggleMeridiem: "中午"
+  selectTime: "选择时间"
+  selectDate: "选择日期"
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦
@@ -69,6 +96,17 @@ pages:
   no_notice: 暫無消息
   no_notice_tip: 没有收到任何消息哦～
   like_title: 我like過嘅
+  searchGoods: 搜尋商品
+  goods: 商品
+  goodsEmpty: 暂无商品
+  goodsEmptyTip: 暂无任何商品～
+  evaluate: 評價
+  businessInformation: 商家資料
+  registeredMerchant: 註冊商戶
+  lookClickRate: 查看點閱率
+  soldOut: 已售出
+  removeGoods: 已下架
+  visitorYourTip: 今天查看了你的個人檔案的人數
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼

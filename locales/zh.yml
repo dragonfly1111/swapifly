@@ -47,6 +47,33 @@ loginDialog:
     emailCodeErr: 邮箱验证码错误
     password: 请输入密码
     passwordErr: 密码8-20个字
+datePicker:
+  today: "今日"
+  clear: "清除"
+  close: "关闭"
+  selectMonth: "选择月份"
+  previousMonth: "上个月"
+  nextMonth: "下个月"
+  selectYear: "选择年份"
+  previousYear: "上一年"
+  nextYear: "下一年"
+  selectDecade: "选择十年"
+  previousDecade: "上十年"
+  nextDecade: "下十年"
+  previousCentury: "Предыдущий век"
+  nextCentury: "Следующий век"
+  pickHour: "选择时"
+  incrementHour: "前一小时"
+  decrementHour: "后一小时"
+  pickMinute: "选择分"
+  incrementMinute: "上分钟"
+  decrementMinute: "下一分钟"
+  pickSecond: "选择秒"
+  incrementSecond: "下一秒"
+  decrementSecond: "下一秒"
+  toggleMeridiem: "中午"
+  selectTime: "选择时间"
+  selectDate: "选择日期"
 pages:
   hotBrands: 热门品牌
   recommendTitle: 为你推荐
@@ -69,6 +96,17 @@ pages:
   no_notice: 暂无消息
   no_notice_tip: 没有收到任何消息哦～
   like_title: 我喜欢的
+  searchGoods: 搜索商品
+  goods: 商品
+  goodsEmpty: 暂无商品
+  goodsEmptyTip: 暂无任何商品～
+  evaluate: 评价
+  businessInformation: 商家资料
+  registeredMerchant: 注册商户
+  lookClickRate: 查看点击率
+  soldOut: 已售出
+  removeGoods: 已下架
+  visitorYourTip: 今天查看了你的个人档案的人数
 profile:
   edit_profile: 编辑档案
   edit_password: 修改密码
@@ -115,6 +153,7 @@ gender:
   nonBinary: 非二元
   secrecy: 不透露
   other: 其他
+  
 
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="ad-wrapper">
+  <div class="ad-wrapper" :style="{width:width}">
     <div class="ad-title" v-if="props.hasTitle">{{ $t("foot.AD") }}</div>
     <div class="ad-content"></div>
   </div>
@@ -9,7 +9,11 @@ const props = defineProps({
   hasTitle:{
     type:Boolean,
     default:true
-  }
+  },
+  width:{
+    type:String,
+    default:'80%'
+  },
 })
 </script>
 <style scoped lang="scss">

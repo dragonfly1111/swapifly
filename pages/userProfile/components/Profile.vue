@@ -52,9 +52,10 @@
       </a-form-item>
       <a-form-item field="sex" :label="$t('profile.sex')">
         <a-select v-model="form.sex" placeholder="" allow-clear>
-          <a-option v-for="item in sexOptions" :value="item.key" :label="item.label"></a-option>
+          <a-option v-for="item in sexOptions" :value="item.key" :key="item.key" :label="item.label"></a-option>
         </a-select>
       </a-form-item>
+
       <a-form-item field="birth_time" :label="$t('profile.birthday')">
         <!-- <a-date-picker
           v-model="form.birth_time"
@@ -63,19 +64,7 @@
           format="YYYY-MM-DD"
           :placeholder="$t('profile.birth_empty')"
         /> -->
-        <div
-          class="input-group log-event"
-          data-td-target-input="nearest"
-          data-td-target-toggle="nearest"
-        >
-          <a-input
-            v-model="form.birthday"
-            allow-clear
-            id="datetimepicker"
-            data-td-target="#datetimepicker"
-            data-td-toggle="datetimepicker"
-          ></a-input>
-        </div>
+        <TempusDatePicker v-model="form.birth_time" @change="form.birth_time = $event" ref="datePicker"></TempusDatePicker>
       </a-form-item>
       <a-form-item>
         <a-row justify="space-between" style="width: 100%" align="center">
@@ -121,14 +110,15 @@ import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useSysData } from "~/stores/sysData";
 const sysData = useSysData();
 const sexOptions = sysData.gender;
-console.log(sexOptions)
+console.log(sysData.gender);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
+const datePicker = ref(null);
 const pageLoading = ref(false);
 const form = reactive({
   nickname: null,
   avatar: null,
-  birth_time: new Date(),
+  birth_time: null,
 });
 const btnLoading = ref(false);
 // 上传成功
@@ -147,44 +137,7 @@ const editPreference = () => {
 };
 function confirmPreference() {}
 onMounted(() => {
-  new TempusDominus(document.getElementById("datetimepicker"), {
-    localization: {
-      today: "Перейти сегодня",
-      clear: "Очистить выделение",
-      close: "Закрыть сборщик",
-      selectMonth: "Выбрать месяц",
-      previousMonth: "Предыдущий месяц",
-      nextMonth: "В следующем месяце",
-      selectYear: "Выбрать год",
-      previousYear: "Предыдущий год",
-      nextYear: "В следующем году",
-      selectDecade: "Выбрать десятилетие",
-      previousDecade: "Предыдущее десятилетие",
-      nextDecade: "Следующее десятилетие",
-      previousCentury: "Предыдущий век",
-      nextCentury: "Следующий век",
-      pickHour: "Выберите час",
-      incrementHour: "Время увеличения",
-      decrementHour: "Уменьшить час",
-      pickMinute: "Выбрать минуту",
-      incrementMinute: "Минута приращения",
-      decrementMinute: "Уменьшить минуту",
-      pickSecond: "Выбрать второй",
-      incrementSecond: "Увеличение секунды",
-      decrementSecond: "Уменьшение секунды",
-      toggleMeridiem: "Переключить период",
-      selectTime: "Выбрать время",
-      selectDate: "Выбрать дату",
-      locale: "en", // 如果是中文 日期上面就会带有'日'、'周' 所以使用英文 并且手动配置字段
-    },
-    display: {
-      buttons: {
-        today: true,
-        clear: true,
-        close: true,
-      },
-    },
-  });
+    datePicker.value.initPicker()
 });
 </script>
 
