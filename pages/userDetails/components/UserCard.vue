@@ -50,14 +50,14 @@ const testImg =
 @import "assets/sass/var";
 
 .user-container {
-  margin-top: -85px;
+  margin-top: -100px;
   position: relative;
   z-index: 50;
 }
 .user-icon {
   img {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid #fff;
@@ -68,6 +68,7 @@ const testImg =
   h2 {
     margin: 10px 0;
     font-weight: 400;
+    font-size: 26px;
   }
   .user-desc {
     .userid {

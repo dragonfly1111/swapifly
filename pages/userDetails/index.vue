@@ -43,7 +43,7 @@ const handleTabChange = (e) => {
 
 .user-banner {
   width: 100%;
-  height: 220px;
+  height: 180px;
   img {
     width: 100%;
     height: 100%;
@@ -51,7 +51,7 @@ const handleTabChange = (e) => {
 }
 
 .user-details {
-  .arco-tabs-nav-tab {
+  :deep(.arco-tabs-nav-tab) {
     padding-left: 320px;
   }
   :deep(.arco-tabs-tab) {
