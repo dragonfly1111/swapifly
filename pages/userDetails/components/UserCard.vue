@@ -37,6 +37,10 @@
           <a-button class="look-btn" type="primary">{{$t('pages.lookClickRate')}}</a-button>
         </a-space>
       </div>
+      <div class="registered-btn">
+        <img src="@/assets/images/swapifly-logo.png" alt="" >
+        {{$t('pages.registeredMerchant')}}
+      </div>
     </div>
 
     <AD width="95%"></AD>
@@ -65,6 +69,7 @@ const testImg =
   }
 }
 .user-body {
+  position: relative;
   h2 {
     margin: 10px 0;
     font-weight: 400;
@@ -103,6 +108,21 @@ const testImg =
         background-color: $main-grey;
         color: #fff;
         margin-top: 20px;
+    }
+  }
+  .registered-btn{
+    position: absolute;
+    cursor: pointer;
+    top: 45px;
+    right: 10px;
+    border-radius: 4px;
+    border: 1px solid $grey-font-label;
+    padding: 8px 15px 8px 48px;
+    img{
+      position: absolute;
+      top: -15px;
+      left: 6px;
+      width: 38px;
     }
   }
 }

@@ -52,7 +52,14 @@
       </a-form-item>
       <a-form-item field="sex" :label="$t('profile.sex')">
         <a-select v-model="form.sex" placeholder="" allow-clear>
-          <a-option v-for="item in sexOptions" :value="item.key" :key="item.key" :label="item.label"></a-option>
+          <a-option
+            v-for="item in sexOptions"
+            :value="item.value"
+            :key="item.value"
+            :label="item.key"
+          >
+            {{ item.key }}
+          </a-option>
         </a-select>
       </a-form-item>
 
@@ -64,7 +71,11 @@
           format="YYYY-MM-DD"
           :placeholder="$t('profile.birth_empty')"
         /> -->
-        <TempusDatePicker v-model="form.birth_time" @change="form.birth_time = $event" ref="datePicker"></TempusDatePicker>
+        <TempusDatePicker
+          v-model="form.birth_time"
+          @change="form.birth_time = $event"
+          ref="datePicker"
+        ></TempusDatePicker>
       </a-form-item>
       <a-form-item>
         <a-row justify="space-between" style="width: 100%" align="center">
@@ -106,11 +117,9 @@
 
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
-import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useSysData } from "~/stores/sysData";
 const sysData = useSysData();
-const sexOptions = sysData.gender;
-console.log(sysData.gender);
+const sexOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const datePicker = ref(null);
@@ -137,7 +146,8 @@ const editPreference = () => {
 };
 function confirmPreference() {}
 onMounted(() => {
-    datePicker.value.initPicker()
+  datePicker.value.initPicker();
+  sexOptions.value = sysData.gender;
 });
 </script>
 

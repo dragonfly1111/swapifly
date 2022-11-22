@@ -79,6 +79,7 @@ pages:
   recommendTitle: 為你推薦
   recommendTag: 推介商品
   reportProduct: 舉報商品
+  report: 舉報
   seeMore: 瀏覽更多
   submit: 提交
   classification: 分類
@@ -105,8 +106,10 @@ pages:
   registeredMerchant: 註冊商戶
   lookClickRate: 查看點閱率
   soldOut: 已售出
-  removeGoods: 已下架
+  isRemoveGoods: 已下架
+  removeGoods: 下架
   visitorYourTip: 今天查看了你的個人檔案的人數
+  follow: Follow
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
@@ -153,6 +156,15 @@ gender:
   nonBinary: 非二元
   secrecy: 不透露
   other: 其他
+evaluate:
+  sourceEvaluation:
+    formBuyer: 来自买家
+    formSeller: 来自卖家
+  sortEvaluation:
+    newest: 最新
+    oldest: 最旧
+    highestScore: 最高评分
+    lowestScore: 最低评分
 
 
 

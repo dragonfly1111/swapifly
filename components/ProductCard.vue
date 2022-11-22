@@ -2,25 +2,25 @@
   <div>
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
-        <a-col :span="5" v-for="item in 4">
-          <a-row justify="start" align="center">
-            <a-col :span="4">
+        <a-col :span="5" v-for="item in 4" style="padding: 10px">
+          <a-row align="center" :gutter="10">
+            <a-col :span="6">
               <a-skeleton-shape shape="circle" size="small" />
             </a-col>
-            <a-col :span="6">
-              <a-skeleton-line />
+            <a-col :span="10">
+              <a-skeleton-line :widths="100" />
             </a-col>
           </a-row>
           <div style="margin-top: 10px">
-            <a-skeleton-line lineHeight="200" />
+            <a-skeleton-line :lineHeight="200" />
           </div>
         </a-col>
       </a-row>
     </a-skeleton>
 
-    <div class="goods-list">
-      <div class="recommend-item" v-for="item in 7">
-        <div class="user-box">
+    <div class="goods-list" v-if="!isEmpty">
+      <div class="recommend-item" v-for="(item, index) in 7" :style="{ width: props.cardWidth }">
+        <div class="user-box" v-if="showUser">
           <img :src="testImg" alt="" />
           <div class="user-desc">
             <div>用户名称</div>
@@ -30,6 +30,7 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="testImg" alt="" />
+            <div class="status-box" v-if="showStatus">{{ $t("pages.soldOut") }}</div>
           </div>
           <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
         </div>
@@ -47,11 +48,25 @@
             <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
             <template #content>
               <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
+              <a-doption v-if="isMySelf" @click="handlRemove">{{
+                $t("pages.removeGoods")
+              }}</a-doption>
             </template>
           </a-dropdown>
         </div>
       </div>
     </div>
+
+    <a-empty class="empty-box" v-if="isEmpty">
+      <template #image>
+        <img src="@/assets/images/icon/empty-goods.png" alt="" />
+      </template>
+      <a-space direction="vertical" fill size="medium">
+        <div class="empty-tip">{{ $t("pages.goodsEmpty") }}</div>
+        <div>{{ $t("pages.goodsEmptyTip") }}</div>
+      </a-space>
+    </a-empty>
+
     <a-modal
       v-model:visible="visible"
       :title="$t('components.report.reportTheGoods')"
@@ -80,52 +95,66 @@
     </a-modal>
   </div>
 </template>
-<script>
-import { reactive, ref } from "vue";
-export default {
-  setup() {
-    const testImg =
-      "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-
-    const visible = ref(false);
-    const pageLoading = ref(false);
-    const formRef = ref();
-    const form = reactive({
-      contact: "",
-      why: "",
-    });
-    const handleClick = () => {
-      visible.value = true;
-    };
-    const handleBeforeOk = (done) => {
-      console.log(form);
-      window.setTimeout(() => {
-        done();
-      }, 3000);
-    };
-    const handleCancel = () => {
-      visible.value = false;
-      Object.assign(form, {
-        contact: "",
-        why: "",
-      });
-    };
-    // 举报
-    const handleReport = () => {
-      visible.value = true;
-    };
-    return {
-      testImg,
-      visible,
-      form,
-      handleClick,
-      handleBeforeOk,
-      handleCancel,
-      handleReport,
-      pageLoading,
-    };
+<script setup>
+const props = defineProps({
+  // card宽度
+  cardWidth: {
+    type: String,
+    default: "24%",
   },
+  // 是否展示用户头像
+  showUser: {
+    type: Boolean,
+    default: true,
+  },
+  // 是否展示当前状态
+  showStatus: {
+    type: Boolean,
+    default: false,
+  },
+  // 是否个人主页
+  isMySelf: {
+    type: Boolean,
+    default: false,
+  },
+  // 是否空
+  isEmpty: {
+    type: Boolean,
+    default: false,
+  },
+});
+const testImg =
+  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+
+const visible = ref(false);
+const pageLoading = ref(false);
+const formRef = ref();
+const form = reactive({
+  contact: "",
+  why: "",
+});
+const handleClick = () => {
+  visible.value = true;
 };
+const handleBeforeOk = (done) => {
+  console.log(form);
+  window.setTimeout(() => {
+    done();
+  }, 3000);
+};
+const handleCancel = () => {
+  visible.value = false;
+  Object.assign(form, {
+    contact: "",
+    why: "",
+  });
+};
+// 举报
+const handleReport = () => {
+  visible.value = true;
+};
+// 下架
+const handlRemove = () => {};
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
@@ -143,7 +172,7 @@ export default {
   max-width: 310px;
   background: #fff;
   padding: 15px 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   box-sizing: border-box;
   color: #333333;
   cursor: pointer;
@@ -157,6 +186,7 @@ export default {
   .user-box {
     display: flex;
     font-size: 12px;
+    margin-bottom: 10px;
     img {
       flex-shrink: 0;
       width: 30px;
@@ -173,7 +203,7 @@ export default {
   }
   .product-img {
     position: relative;
-    margin: 10px 0;
+    margin-bottom: 10px;
     .img-box {
       width: 100%;
       // height: 40vw;
@@ -184,13 +214,23 @@ export default {
       padding-bottom: 100%;
       overflow: hidden;
       position: relative;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .status-box {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333333bc;
+        color: #fff;
+        padding: 8px 15px;
+      }
     }
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-    }
+
     .product-tag {
       background-color: $main-pink;
       color: #fff;
@@ -198,8 +238,9 @@ export default {
       border-radius: 2px;
       display: inline-block;
       position: absolute;
-      top: 14px;
-      left: 14px;
+      top: 10px;
+      left: 10px;
+      font-size: 12px;
     }
   }
   .product-desc {
@@ -222,6 +263,20 @@ export default {
       height: 20px;
       padding: 0;
     }
+  }
+}
+
+.empty-box {
+  color: $grey-font-label;
+  font-size: 12px;
+  margin-top: 10%;
+  img {
+    width: 100px;
+    object-fit: contain;
+  }
+  .empty-tip {
+    color: $main-grey;
+    font-size: 18px;
   }
 }
 
