@@ -1,4 +1,4 @@
-import { IRegion } from '~/model/region'
+import { IRegion } from '~/model/res/region'
 import { useSysData } from '~/stores/sysData'
 // console.log(sysData)
 

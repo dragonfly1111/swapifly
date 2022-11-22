@@ -3,7 +3,7 @@ import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
-import { generateGender } from '~/model/staticDicts'
+import { generateGender } from '~/model/res/staticDicts'
 import { useI18n } from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 const {t} = useI18n();
@@ -15,6 +15,13 @@ AppSetup()
 
 const app = useAppConfig()
 useAsyncData(async ()=>{
+  // const areaSetting = useCookie('area')
+  // const areaSetting = useCookie('locale')
+  console.log('area')
+  // const headers = useRequestHeaders(['cookie'])
+  // console.log(headers)
+  // console.log(area.value)
+  // console.log(locale.value)
   // 服务设置系统属性数据
   const sysDataRes = await initSysData()
   sysData.setSysDataServerSide(sysDataRes)

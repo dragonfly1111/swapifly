@@ -54,6 +54,7 @@
 import {useI18n} from "vue-i18n";
 import {getEmailCode, register} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
+import {IRegisterForm} from "~/model/payload/loginAndRegister.ts";
 
 const {t} = useI18n();
 const visible = ref(false);
@@ -62,7 +63,7 @@ const saveLoading = ref(false);
 const isSend = ref(false);
 const formRef = ref(null);
 const emits = defineEmits(['toLogin', 'toPreference'])
-const formData = reactive({
+const formData = reactive<IRegisterForm>({
   email: '634401502@qq.com',
   code: '12312',
   password: '123121231212312'
@@ -99,7 +100,11 @@ const confirm = () => {
   })
   // visible.value = false;
   // emits('toPreference')
-};
+}
+
+const resetForm = () => {
+  formRef.value.resetFields()
+}
 const sendVerfi = () => {
   formRef.value.validateField('email').then(validate => {
     if (validate && validate.email) {
@@ -117,10 +122,16 @@ const sendVerfi = () => {
 
   // visible.value = false;
   // emits('toPreference')
-};
+}
+
 const handleCancel = () => {
   visible.value = false;
+  // 延迟清空 避免出现先清空了表单 对话框再消失视觉问题
+  setTimeout(()=>{
+    resetForm()
+  }, 100)
 }
+
 const openDialog = () => {
   visible.value = true;
 }

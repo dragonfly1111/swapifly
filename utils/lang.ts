@@ -1,7 +1,6 @@
 import { useI18n } from 'vue-i18n'
 import { useSysData } from '~/stores/sysData'
-import {availableArea} from "~/utils/area";
-import { ILang } from '~/model/lang'
+import { ILang } from '~/model/res/lang'
 export interface ILocales {
   [key: string]: ILang
 }

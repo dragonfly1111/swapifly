@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import {useSysData} from '~/stores/sysData'
-import {IGoodsClass} from '~/model/goodsClass'
+import {IGoodsClass} from '~/model/res/goodsClass'
 const router = useRouter()
 const loginModal = ref(null)
 const registerModal = ref(null)

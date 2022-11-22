@@ -1,11 +1,12 @@
 import request from '../utils/request'
+import { IRegisterForm, IEmailForm } from '~/model/payload/loginAndRegister'
 
 // 获取验证码-注册
-export const getEmailCode = (params) => {
+export const getEmailCode = (data: IEmailForm) => {
   return request({
     url: '/index/register/getEmailCode',
-    method: 'get',
-    params
+    method: 'post',
+    data
   })
 }
 
@@ -18,7 +19,7 @@ export const bindEmailCode = () => {
 }
 
 // 账号注册注册
-export const register = (data) => {
+export const register = (data: IRegisterForm) => {
   return request({
     url: '/index/register/register',
     method: 'post',

@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { getUserLabel } from '~/api/loginAndRegister'
 import { baseImgPrefix } from '~/config/baseUrl'
-import {IUserLabel} from "~/model/userLabel";
+import {IUserLabel} from "~/model/res/userLabel";
 const visible = ref(false);
 const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
@@ -47,14 +47,18 @@ getUserLabel().then(res=>{
     item.checked = false
   })
   labelList.value = res.data.data
-  console.log( labelList.value)
 })
 const handleOk = () => {
   confirmPreference('confirmPreference')
 };
 
+const resetForm = () => {
+
+}
+
 const handleCancel = () => {
   visible.value = false;
+  resetForm()
 }
 const openDialog = () => {
   visible.value = true;

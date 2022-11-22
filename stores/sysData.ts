@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { IRegion } from '~/model/region'
-import { ILang } from '~/model/lang'
-import { IGoodsClass } from '~/model/goodsClass'
-import { IGoodsSort } from '~/model/goodsSort'
-import { IGoodsOan } from '~/model/goodsOan'
-import { Idict } from '~/model/staticDicts'
+import { IRegion } from '~/model/res/region'
+import { ILang } from '~/model/res/lang'
+import { IGoodsClass } from '~/model/res/goodsClass'
+import { IGoodsSort } from '~/model/res/goodsSort'
+import { IGoodsOan } from '~/model/res/goodsOan'
+import { Idict } from '~/model/res/staticDicts'
 export interface ISysDataState {
   region: IRegion[],
   lang: ILang[],
