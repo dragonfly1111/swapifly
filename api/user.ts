@@ -38,3 +38,28 @@ export const getBindEmailCode = (params: object) => {
     params
   })
 }
+
+// 获取通知消息
+export const getNoticeList = () => {
+  return request({
+    url: '/index/user_center/noticelist',
+    method: 'get'
+  })
+}
+
+// 点赞记录
+export const getLikeLog = () => {
+  return request({
+    url: '/index/user_center/like_log',
+    method: 'get'
+  })
+}
+
+// 点赞/取消点赞
+export const likeCancel = () => {
+  return request({
+    url: '/index/user_center/like_cancel',
+    method: 'get'
+  })
+}
+
