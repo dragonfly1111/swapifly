@@ -1,6 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" title-align="start" modal-class="login-dialog" :footer="false" @ok="handleOk"
-           @cancel="handleCancel">
+  <a-modal v-model:visible="visible" title-align="start" modal-class="login-dialog" :footer="false" @close="handleCancel">
     <template #title>
       <div class="login-title">
         <img src="@/assets/images/logo-long.png" alt=""/>
@@ -13,12 +12,18 @@
       <img src="@/assets/images/icon/icon_gmail.png" alt="">
     </div>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
-    <a-input class="input-warp" :placeholder="$t('loginDialog.acc') "></a-input>
-    <a-input type="password" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input>
+    <a-form ref="formRef" :model="formData" :rules="rules">
+      <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
+        <a-input class="input-warp" v-model="formData.email" :placeholder="$t('loginDialog.acc') "></a-input>
+      </a-form-item>
+      <a-form-item :hide-label="true" field="pwd" :validate-trigger="['change','input']">
+        <a-input type="password" v-model="formData.pwd" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input>
+      </a-form-item>
+    </a-form>
     <div class="forget">
       <span>{{ $t('loginDialog.forget') }}</span>
     </div>
-    <a-button class="confirm"> {{ $t('head.login') }}</a-button>
+    <a-button :loading="saveLoading" class="confirm" @click="doLogin"> {{ $t('head.login') }}</a-button>
     <div class="register">
       {{ $t('loginDialog.noAcc') }}
       <span @click="handleReg">{{ $t('loginDialog.toRegister') }}</span>
@@ -27,9 +32,30 @@
 </template>
 
 <script setup lang="ts">
+import {useUserInfo} from "~/stores/userInfo";
+import {ILoginForm} from "~/model/payload/loginAndRegister";
+import {useI18n} from "vue-i18n";
+import {emailLogin} from "~/api/loginAndRegister";
+import {Message} from "@arco-design/web-vue";
+import {IUserInfo} from "~/model/res/userInfo";
+const formRef = ref(null);
+const saveLoading = ref(false);
+const {t} = useI18n();
+const userInfo = useUserInfo();
 const visible = ref(false);
 const toRegister = defineEmits(['toRegister'])
-
+const formData = reactive<ILoginForm>({
+  email: '634401502@qq.com',
+  pwd: '22',
+})
+const rules = reactive({
+  email: [
+    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
+  ],
+  pwd: [
+    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+  ],
+})
 const handleReg = () => {
   toRegister('toRegister')
 };
@@ -38,9 +64,35 @@ const handleOk = () => {
 };
 const handleCancel = () => {
   visible.value = false;
+  // 延迟清空 避免出现先清空了表单 对话框再消失视觉问题
+  setTimeout(() => {
+    resetForm()
+  }, 100)
+}
+
+const resetForm = () => {
+  formRef.value.resetFields()
 }
 const openDialog = () => {
   visible.value = true;
+}
+
+const doLogin = () => {
+  formRef.value.validate().then(validate =>{
+    if(validate) return
+    saveLoading.value = true
+    emailLogin(formData).then(res=>{
+      if(res.code === 0){
+        Message.success(t('loginDialog.loginSuc'))
+        const user:IUserInfo = res.data
+        userInfo.setUserInfo(user)
+        visible.value = false;
+      } else {
+        Message.error(res.message)
+      }
+      saveLoading.value = false
+    })
+  })
 }
 defineExpose({
   openDialog,
@@ -104,19 +156,19 @@ defineExpose({
       margin-top: 24px;
       text-align: center;
       user-select: none;
+      margin-bottom: 26px;
     }
-
+    .arco-form-item{
+      margin-bottom: 26px;
+    }
     .input-warp {
       height: 46px;
-      margin-top: 26px;
     }
 
     .input-warp1 {
-      margin-top: 22px;
     }
 
     .forget {
-      margin-top: 10px;
       padding-left: 11px;
 
       span {

@@ -13,6 +13,10 @@ head:
   login: login
   searchKey: search...
   sell: sell
+  wellcome: Hello,
+  logout: todo
+  setting: todo
+  profile: todo
 foot:
   helpCenter: Help Center
   media: Media News
@@ -40,6 +44,8 @@ loginDialog:
   jump: todo
   done: todo
   reSend: todo
+  regSuc: todo
+  loginSuc: todo
   formValidate:
     email: todo
     emailErr: todo

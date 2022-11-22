@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import { IRegisterForm, IEmailForm } from '~/model/payload/loginAndRegister'
+import { IRegisterForm, IEmailForm, ILoginForm } from '~/model/payload/loginAndRegister'
 
 // 获取验证码-注册
 export const getEmailCode = (data: IEmailForm) => {
@@ -46,10 +46,11 @@ export const setUserLabel = () => {
 
 
 // 账号登录
-export const emailLogin = () => {
+export const emailLogin = (data: ILoginForm) => {
   return request({
     url: '/index/login/emaillogin',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
