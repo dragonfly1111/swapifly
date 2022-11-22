@@ -13,6 +13,10 @@ head:
   login: 登录
   searchKey: 搜索商品
   sell: 出售
+  wellcome: 你好，
+  logout: 退出
+  setting: 设置
+  profile: 个人中心
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻
@@ -40,6 +44,8 @@ loginDialog:
   jump: 跳过
   done: 完成
   reSend: 重新发送
+  regSuc: 注册成功！
+  loginSuc: 登录成功！
   formValidate:
     email: 请输入邮箱账户
     emailErr: 邮箱格式错误
@@ -165,6 +171,7 @@ evaluate:
     oldest: 最旧
     highestScore: 最高评分
     lowestScore: 最低评分
+
 
 
 

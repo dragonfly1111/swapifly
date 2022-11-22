@@ -54,8 +54,10 @@
 import {useI18n} from "vue-i18n";
 import {getEmailCode, register} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
-import {IRegisterForm} from "~/model/payload/loginAndRegister.ts";
-
+import {IRegisterForm} from "~/model/payload/loginAndRegister";
+import {IUserInfo} from "~/model/res/userInfo";
+import {useUserInfo} from "~/stores/userInfo";
+const userInfo = useUserInfo();
 const {t} = useI18n();
 const visible = ref(false);
 const sendLoading = ref(false);
@@ -64,9 +66,10 @@ const isSend = ref(false);
 const formRef = ref(null);
 const emits = defineEmits(['toLogin', 'toPreference'])
 const formData = reactive<IRegisterForm>({
-  email: '634401502@qq.com',
-  code: '12312',
-  password: '123121231212312'
+  email: '',
+  code: '',
+  password: '',
+  key: ''
 })
 const rules = reactive({
   email: [
@@ -85,20 +88,32 @@ const handleLogin = () => {
   emits('toLogin')
 };
 const confirm = () => {
-  console.log(formData)
+
+  // const user: IUserInfo = {
+  //   "id": 20,
+  //   "token": "MjAxNjY5MTIyMTM1",
+  //   "nickname": "63440150216691016775",
+  //   "avatar": "swapifly/avatar.png",
+  //   "email": "634401502@qq.com",
+  //   "type": 1
+  // }
+  // userInfo.setUserInfo(user)
+
   formRef.value.validate().then(validate =>{
     if(validate) return
     saveLoading.value = true
     register(formData).then(res=>{
       if(res.code === 0){
-        Message.error(res.message)
+        Message.success(t('loginDialog.regSuc'))
+        const user:IUserInfo = res.data
+        userInfo.setUserInfo(user)
+        visible.value = false;
       } else {
         Message.error(res.message)
       }
       saveLoading.value = false
     })
   })
-  // visible.value = false;
   // emits('toPreference')
 }
 
@@ -114,9 +129,14 @@ const sendVerfi = () => {
     getEmailCode({
       email: formData.email
     }).then(res => {
-      Message.success(res.message)
+      if (res.code === 0) {
+        Message.success(res.message)
+        formData.key = res.data
+        isSend.value = true
+      } else {
+        Message.error(res.message)
+      }
       sendLoading.value = false
-      isSend.value = true
     })
   })
 
@@ -127,7 +147,7 @@ const sendVerfi = () => {
 const handleCancel = () => {
   visible.value = false;
   // 延迟清空 避免出现先清空了表单 对话框再消失视觉问题
-  setTimeout(()=>{
+  setTimeout(() => {
     resetForm()
   }, 100)
 }
@@ -210,6 +230,7 @@ defineExpose({
         cursor: pointer;
         padding: 0;
         border: unset;
+
         div {
           width: 100px;
           text-align: center;

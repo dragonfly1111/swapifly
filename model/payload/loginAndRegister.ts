@@ -2,6 +2,7 @@ export interface IRegisterForm {
   email: string
   code: number
   password: string
+  key: string
 }
 
 export interface IEmailForm {

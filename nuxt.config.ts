@@ -22,7 +22,11 @@ export default defineNuxtConfig({
     reactivityTransform: true,
     inlineSSRStyles: false,
   },
-  plugins: ['~/plugins/navbar.ts', '~/plugins/arco.ts'],
+  plugins: [
+    '~/plugins/navbar.ts',
+    '~/plugins/piniaPersist.ts',
+    '~/plugins/arco.ts'
+  ],
   css: [
     '~/assets/sass/app.scss',
   ],
