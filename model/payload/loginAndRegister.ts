@@ -1,6 +1,6 @@
 export interface IRegisterForm {
   email: string
-  code: number
+  code: any
   password: string
   key: string
 }

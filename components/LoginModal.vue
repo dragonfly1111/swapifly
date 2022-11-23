@@ -45,8 +45,8 @@ const userInfo = useUserInfo();
 const visible = ref(false);
 const toRegister = defineEmits(['toRegister'])
 const formData = reactive<ILoginForm>({
-  email: '634401502@qq.com',
-  pwd: '22',
+  email: '',
+  pwd: '',
 })
 const rules = reactive({
   email: [

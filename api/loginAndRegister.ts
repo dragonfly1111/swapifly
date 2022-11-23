@@ -36,10 +36,11 @@ export const getUserLabel = () => {
 }
 
 // 提交感兴趣的内容
-export const setUserLabel = () => {
+export const setUserLabel = (data:{rid: any[]}) => {
   return request({
     url: '/index/user_center/user_label',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
