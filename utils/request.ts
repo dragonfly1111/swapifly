@@ -11,21 +11,25 @@ const request = axios.create({
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    console.log(process.client)
     const info = process.client ? sessionStorage.getItem('USER-INFO') : ''
-    let userObj: any
-    let token
     console.log(info)
-    if(info){
+    let userObj: any
+    if (info) {
       userObj = JSON.parse(info)
-      // @ts-ignore
-      config.headers['X-UToken'] = userObj.token
-      // @ts-ignore
-      config.headers['X-Userid'] = userObj.id
-      // @ts-ignore
-      config.headers['X-Region'] = 1
-      // @ts-ignore
-      config.headers['X-lang'] = 'zh'
+      if(userObj.token){
+        // @ts-ignore
+        config.headers['X-UToken'] = userObj.token
+        // @ts-ignore
+        config.headers['X-Userid'] = userObj.id
+      }
     }
+
+    // todo 暂时写死 需要将这两个切换到session储存
+    // @ts-ignore
+    config.headers['X-Region'] = 1
+    // @ts-ignore
+    config.headers['X-lang'] = 'zh'
     console.log(config)
     // // @ts-ignore
     // areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''

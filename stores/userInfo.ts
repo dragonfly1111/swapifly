@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { IUserInfo } from '~/model/res/userInfo'
-
+import { userLogOut } from '~/api/loginAndRegister'
 
 // @ts-ignore
 // @ts-ignore
@@ -23,12 +23,14 @@ export const useUserInfo = defineStore('userInfo', {
       this.type = e.type
     },
     logout(){
-      this.avatar = ''
-      this.email = ''
-      this.id = -1
-      this.nickname = ''
-      this.token = ''
-      this.type = -1
+      userLogOut().then(()=>{
+        this.avatar = ''
+        this.email = ''
+        this.id = -1
+        this.nickname = ''
+        this.token = ''
+        this.type = -1
+      })
     }
   },
   persist: {
