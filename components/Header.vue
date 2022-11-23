@@ -44,7 +44,7 @@
                     </a-doption>
                   </template>
                 </a-dropdown>
-                <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt="">
+                <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt="" @click="router.push('/like')">
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_msg.png" alt="">
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt="">
               </div>
@@ -119,10 +119,10 @@ curClass.value = (classList && classList.length > 0) ? classList[0].children : [
 function selectMenu(e){
   switch (e) {
     case 'profile':
-      console.log('profile')
+      router.push(`/userDetails?userId=${userInfo.id}`)
       break
     case 'setting':
-      console.log('setting')
+      router.push('/userProfile')
       break
     case 'logout':
       console.log('logout')
