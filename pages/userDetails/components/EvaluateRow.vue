@@ -4,10 +4,14 @@
       <a-row justify="space-between" align="center" class="header-select">
         <a-col flex="100px" class="title"> {{ $t("pages.evaluate") }} </a-col>
         <a-col flex="200px">
-          <a-select v-model="queryForm.s_type">
-            <a-option>Beijing</a-option>
-            <a-option>Shanghai</a-option>
-            <a-option>Guangzhou</a-option>
+          <a-select v-model="queryForm.s_type" @change="handleQuery">
+            <a-option
+              v-for="item in evaluationSort"
+              :value="item.value"
+              :key="item.value"
+              :label="item.key"
+            >
+            </a-option>
           </a-select>
         </a-col>
       </a-row>
@@ -22,8 +26,7 @@
           </div>
           <a-space class="evaluate-info-btn">
             <div>{{ $t("evaluate.sourceEvaluation.all") }}</div>
-            <div>{{ $t("evaluate.sourceEvaluation.formBuyer") }}</div>
-            <div>{{ $t("evaluate.sourceEvaluation.formSeller") }}</div>
+            <div v-for="item in evaluationSource" :key="item.value">{{ item.key }}</div>
           </a-space>
         </div>
       </section>
@@ -32,7 +35,7 @@
     <div class="evaluate-box-body">
       <EvaluateList></EvaluateList>
       <div class="see-more">
-        <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
+        <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
   </div>
@@ -40,11 +43,29 @@
 
 <script setup>
 import EvaluateList from "./EvaluateList.vue";
+import { useSysData } from "~/stores/sysData";
+const sysData = useSysData();
+const evaluationSort = ref([]);
+const evaluationSource = ref([]);
+
 const queryForm = reactive({
-  s_type: "",
+  s_type: 1,
 });
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+onMounted(() => {
+  evaluationSort.value = sysData.evaluationSort;
+  evaluationSource.value = sysData.evaluationSource;
+});
+
+const handleQuery = () =>{
+
+}
+
+// 加载更多
+const loadMore = () =>{
+
+}
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";
@@ -116,5 +137,4 @@ const testImg =
     height: 38px;
   }
 }
-
 </style>

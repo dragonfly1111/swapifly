@@ -5,6 +5,7 @@ components:
     theme: 主题
     change_theme: 切换主题
   report:
+    reportTheUser: 舉報該用户
     reportTheGoods: 舉報該商品
     leaveYourContact: 請留下你的聯繫方式
     writeDownReporting: 請描述你的舉報原因
@@ -116,6 +117,7 @@ pages:
   removeGoods: 下架
   visitorYourTip: 今天查看了你的個人檔案的人數
   follow: Follow
+  authenticationApply: 認證申請
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
@@ -177,6 +179,18 @@ evaluate:
   evaluationType:
     formBuyer: 來自買家的評價
     formSeller: 來自賣家的評價
+business:
+  businessTitle: 商家名稱
+  businessAddress: 商家地址
+  businessContact: 聯繫電話
+  businessCertificate: 營業證明
+  authStatus: 認證狀態
+  authStatusNo: 未認證
+  authApply: 認證申請
+  auditResult: 審核意見
+  authApplyForm:
+    businessCertificateTip: 請上傳營業資質相關照片
+    applyBtn: 提交申請
 
 
 

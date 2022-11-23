@@ -5,6 +5,7 @@ components:
     theme: 主题
     change_theme: 切换主题
   report:
+    reportTheUser: 举报该用户
     reportTheGoods: 举报该商品
     leaveYourContact: 请留下您的联系方式
     writeDownReporting: 请写下您的举报理由
@@ -116,6 +117,7 @@ pages:
   removeGoods: 下架
   visitorYourTip: 今天查看了你的个人档案的人数
   follow: Follow
+  authenticationApply: 认证申请
 profile:
   edit_profile: 编辑档案
   edit_password: 修改密码
@@ -174,8 +176,19 @@ evaluate:
     oldest: 最旧
     highestScore: 最高评分
     lowestScore: 最低评分
-
-
+business:
+  businessTitle: 商家名称
+  businessAddress: 商家地址
+  businessContact: 联系电话
+  businessCertificate: 营业证明
+  authStatus: 认证状态
+  authStatusNo: 未认证
+  authApply: 认证申请
+  auditResult: 审核意见
+  authApplyForm:
+    businessCertificateTip: 请上传营业资质相关照片
+    applyBtn: 提交申请
+    
 
 
 
