@@ -163,7 +163,10 @@ gender:
   secrecy: 不透露
   other: 其他
 evaluate:
+  evaluateEmpty: 暂无评论
+  evaluateEmptyTip: 尚未获得任何评论
   sourceEvaluation:
+    all: 全部
     formBuyer: 来自买家
     formSeller: 来自卖家
   sortEvaluation:

@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <AD width="95%"></AD>
+    <AD width="300px"></AD>
   </div>
 </template>
 <script setup>
