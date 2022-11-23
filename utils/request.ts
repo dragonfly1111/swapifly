@@ -11,11 +11,21 @@ const request = axios.create({
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // const token = typeof ocalStorage ? localStorage.getItem('token') : ''
-    // const con: any = config || {}
-    // if (token) {
-    //   con.headers.Authorization = `Bearer ${token}`
-    // }
+    const info = process.client ? sessionStorage.getItem('USER-INFO') : ''
+    let userObj: any
+    let token
+    console.log(info)
+    if(info){
+      userObj = JSON.parse(info)
+      // @ts-ignore
+      config.headers['X-UToken'] = userObj.token
+      // @ts-ignore
+      config.headers['X-Userid'] = userObj.id
+      // @ts-ignore
+      config.headers['X-Region'] = 1
+      // @ts-ignore
+      config.headers['X-lang'] = 'zh'
+    }
     console.log(config)
     // // @ts-ignore
     // areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''

@@ -44,8 +44,8 @@ loginDialog:
   jump: 跳過
   done: 完成
   reSend: 重新發送
-  regSuc: 登入成功！
-  loginSuc: 注册成功！
+  regSuc: 注册成功！
+  loginSuc: 登入成功！
   formValidate:
     email: 請輸入郵箱帳戶
     emailErr: 郵箱格式錯誤

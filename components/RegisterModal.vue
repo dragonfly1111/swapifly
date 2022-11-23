@@ -107,6 +107,7 @@ const confirm = () => {
         Message.success(t('loginDialog.regSuc'))
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
+        emits('toPreference')
         visible.value = false;
       } else {
         Message.error(res.message)
@@ -141,7 +142,6 @@ const sendVerfi = () => {
   })
 
   // visible.value = false;
-  // emits('toPreference')
 }
 
 const handleCancel = () => {
