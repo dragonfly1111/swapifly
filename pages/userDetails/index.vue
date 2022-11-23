@@ -37,7 +37,7 @@ import GoodsRow from "./components/GoodsRow";
 import EvaluateRow from "./components/EvaluateRow";
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const activeTab = ref("goods");
+const activeTab = ref("evaluate");
 
 const handleTabChange = (e) => {
   activeTab.value = e;

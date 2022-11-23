@@ -11,7 +11,9 @@ export interface ISysDataState {
   goodsClass: IGoodsClass[],
   goodsSort: IGoodsSort[],
   goodsOan: IGoodsOan[],
-  gender: Idict[]
+  gender: Idict[],
+  evaluationSort: Idict[],
+  evaluationSource: Idict[],
 }
 
 export const useSysData = defineStore('sysData', {
@@ -21,7 +23,9 @@ export const useSysData = defineStore('sysData', {
     goodsClass: [],
     goodsSort: [],
     goodsOan: [],
-    gender: []
+    gender: [],
+    evaluationSort:[],
+    evaluationSource:[],
   }),
   actions: {
     setSysDataServerSide(e: ISysDataState){
@@ -33,6 +37,8 @@ export const useSysData = defineStore('sysData', {
     },
     setSysDataClientSide(e: ISysDataState){
       this.gender = e.gender
+      this.evaluationSort = e.evaluationSort
+      this.evaluationSource = e.evaluationSource
     }
     },
 })
