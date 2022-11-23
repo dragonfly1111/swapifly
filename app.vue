@@ -3,7 +3,7 @@ import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
-import { generateGender } from '~/model/res/staticDicts'
+import { generateGender, generateEvaluationSort, generateEvaluationSource } from '~/model/res/staticDicts'
 import { useI18n } from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 const {t} = useI18n();
@@ -48,6 +48,8 @@ onMounted(()=>{
   if(process.client){
     sysData.setSysDataClientSide({
       gender: generateGender(t),
+      evaluationSort: generateEvaluationSort(t),
+      evaluationSource: generateEvaluationSource(t),
       region: [],
       lang: [],
       goodsClass: [],
