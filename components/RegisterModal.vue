@@ -8,9 +8,9 @@
     </template>
     <div class="title">{{ $t('loginDialog.title') }}</div>
     <div class="login-type-wrap">
-      <img src="@/assets/images/icon/icon_facebook.png" alt="">
-      <img src="@/assets/images/icon/icon_ins.png" alt="">
-      <img src="@/assets/images/icon/icon_gmail.png" alt="">
+      <img @click="loginThird(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
+      <img @click="loginThird(2)" src="@/assets/images/icon/icon_ins.png" alt="">
+      <img @click="loginThird(3)" src="@/assets/images/icon/icon_gmail.png" alt="">
     </div>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
     <a-form ref="formRef" :model="formData" :rules="rules">
@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {getEmailCode, register} from '~/api/loginAndRegister'
+import {getEmailCode, register, facebookLogin, instagramLogin, googleLogin} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
 import {IRegisterForm} from "~/model/payload/loginAndRegister";
 import {IUserInfo} from "~/model/res/userInfo";
@@ -150,6 +150,20 @@ const handleCancel = () => {
   setTimeout(() => {
     resetForm()
   }, 100)
+}
+
+const loginThird = (type: number) =>{
+  switch (type) {
+    case 1:
+      facebookLogin().then(res=>{
+        console.log(res)
+      })
+      break
+    case 2:
+      break
+    case 3:
+      break
+  }
 }
 
 const openDialog = () => {

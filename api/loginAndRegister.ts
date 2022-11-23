@@ -105,7 +105,7 @@ export const resetPwd = () => {
 }
 
 // 退出登录
-export const logOut = () => {
+export const userLogOut = () => {
   return request({
     url: '/index/login/out',
     method: 'post'
