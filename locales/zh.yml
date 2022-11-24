@@ -118,6 +118,8 @@ pages:
   visitorYourTip: 今天查看了你的个人档案的人数
   follow: Follow
   authenticationApply: 认证申请
+  noImage: 未上传
+  noContent: 未填写
 profile:
   edit_profile: 编辑档案
   edit_password: 修改密码
@@ -188,6 +190,17 @@ business:
   authApplyForm:
     businessCertificateTip: 请上传营业资质相关照片
     applyBtn: 提交申请
+    reApplyBtn: 重新提交
+    undoApply: 撤销申请
+    applySuc: 提交成功
+    undoSuc: 撤销成功
+    applyTitle: 申请认证成为注册商户
+    undoApplyTip: 是否确认撤销申请?
+  formValidate:
+     businessTitle: 请输入商家名称
+     businessAddress: 请输入商家地址
+     businessContact: 请输入联系电话
+
     
 
 
