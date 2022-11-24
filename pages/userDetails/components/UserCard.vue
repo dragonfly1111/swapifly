@@ -30,7 +30,7 @@
           <div class="user-desc-content">個人簡介文本內容</div>
         </a-space>
       </div>
-      <div class="look-click-rate">
+      <div class="look-click-rate" v-if="userInfo.id == form.userId">
         <a-space direction="vertical" fill>
           <div>999</div>
           <div>{{ $t("pages.visitorYourTip") }}</div>
@@ -47,8 +47,16 @@
   </div>
 </template>
 <script setup>
+import { useUserInfo } from "~/stores/userInfo";
+const userInfo = useUserInfo();
+const router = useRouter();
+const form = reactive({userId:''})
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+
+onMounted(() => {
+  form.userId = router.currentRoute.value.query.userId
+})
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";

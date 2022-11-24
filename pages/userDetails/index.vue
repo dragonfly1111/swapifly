@@ -8,9 +8,9 @@
       <a-tabs :active-key="activeTab" @change="handleTabChange">
         <template #extra>
           <a-space class="extra-btn">
-            <a-button type="outline">{{ $t("profile.edit_profile") }}</a-button>
-            <a-button type="outline">{{ $t("pages.follow") }}</a-button>
-            <a-button type="outline">{{ $t("pages.report") }}</a-button>
+            <a-button type="outline" v-if="userInfo.id == form.userId" @click="router.push('/userProfile')">{{ $t("profile.edit_profile") }}</a-button>
+            <a-button type="outline" v-if="userInfo.id != form.userId">{{ $t("pages.follow") }}</a-button>
+            <a-button type="outline" v-if="userInfo.id != form.userId" @click="handleReport">{{ $t("pages.report") }}</a-button>
           </a-space>
         </template>
         <a-tab-pane key="goods" :title="$t('pages.goods')"></a-tab-pane>
@@ -26,22 +26,40 @@
         <div class="right-content">
           <GoodsRow v-show="activeTab == 'goods'"></GoodsRow>
           <EvaluateRow v-show="activeTab == 'evaluate'"></EvaluateRow>
+          <BusinessInformation v-show="activeTab == 'businessInformation'"></BusinessInformation>
         </div>
       </div>
     </div>
+
+    <ReportModal ref="reportModal"></ReportModal>
+
   </div>
 </template>
 <script setup>
 import UserCard from "./components/UserCard";
 import GoodsRow from "./components/GoodsRow";
 import EvaluateRow from "./components/EvaluateRow";
+import BusinessInformation from "./components/BusinessInformation";
+import { useUserInfo } from "~/stores/userInfo";
+const userInfo = useUserInfo();
+const router = useRouter();
+const form = reactive({userId:''})
+const reportModal = ref(null)
+
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const activeTab = ref("evaluate");
+const activeTab = ref("goods");
 
 const handleTabChange = (e) => {
   activeTab.value = e;
 };
+// 举报用户
+const handleReport = ()=>{
+  reportModal.value.openDialog('user')
+}
+onMounted(() => {
+  form.userId = router.currentRoute.value.query.userId
+})
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";

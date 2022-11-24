@@ -67,32 +67,7 @@
       </a-space>
     </a-empty>
 
-    <a-modal
-      v-model:visible="visible"
-      :title="$t('components.report.reportTheGoods')"
-      :on-before-cancel="handleCancel"
-      @before-ok="handleBeforeOk"
-      :okText="$t('pages.submit')"
-      unmount-on-close
-    >
-      <a-form :model="form" auto-label-width size="large" ref="formRef">
-        <a-form-item field="contact" label="">
-          <a-input
-            v-model="form.contact"
-            :placeholder="$t('components.report.leaveYourContact')"
-            maxLength="100"
-          />
-        </a-form-item>
-        <a-form-item field="why" label="">
-          <a-textarea
-            v-model="form.why"
-            :placeholder="$t('components.report.writeDownReporting')"
-            allow-clear
-            :auto-size="{ minRows: 10, maxRows: 12 }"
-          />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+    <ReportModal ref="reportModal"></ReportModal>
   </div>
 </template>
 <script setup>
@@ -125,33 +100,12 @@ const props = defineProps({
 });
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-
-const visible = ref(false);
+const reportModal = ref(null)
 const pageLoading = ref(false);
-const formRef = ref();
-const form = reactive({
-  contact: "",
-  why: "",
-});
-const handleClick = () => {
-  visible.value = true;
-};
-const handleBeforeOk = (done) => {
-  console.log(form);
-  window.setTimeout(() => {
-    done();
-  }, 3000);
-};
-const handleCancel = () => {
-  visible.value = false;
-  Object.assign(form, {
-    contact: "",
-    why: "",
-  });
-};
+
 // 举报
 const handleReport = () => {
-  visible.value = true;
+  reportModal.value.openDialog();
 };
 // 下架
 const handlRemove = () => {};
