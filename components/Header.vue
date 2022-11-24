@@ -59,7 +59,6 @@
             </template>
 
           </div>
-
         </div>
       </div>
       <div v-if="showHeadPanel" class="class-panel">
