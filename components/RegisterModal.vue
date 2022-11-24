@@ -156,16 +156,24 @@ const loginThird = (type: number) =>{
   switch (type) {
     case 1:
       FB.login((response)=>{
-        console.log(response); // 在控制台打印返回的access_token
+        console.log('facebook res');
+        console.log(response);
+        if(response.status === "connected") {
+          facebookLogin({
+            accessToken: response.authResponse.accessToken
+          }).then(res=>{
+            console.log('face_login res')
+            console.log(res)
+            if(res.code === 0){
+              Message.error('登录成功！')
+            } else {
+              Message.error(res.message)
+            }
+          })
+        }
       },{scope: 'email'});
 
-      // facebookLogin().then(res=>{
-      //   if(res.code === 0){
-      //     window.open(res.data, '_blank')
-      //   } else {
-      //     Message.error(res.message)
-      //   }
-      // })
+
       break
     case 2:
       instagramLogin().then(res=>{

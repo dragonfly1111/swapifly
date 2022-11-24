@@ -64,10 +64,11 @@ export const googleLogin = () => {
 }
 
 // facebook授权登录
-export const facebookLogin = () => {
+export const facebookLogin = (params: any) => {
   return request({
-    url: '/index/index/facebook_login',
-    method: 'get'
+    url: '/index/index/face_login',
+    method: 'get',
+    params
   })
 }
 
