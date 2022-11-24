@@ -8,13 +8,22 @@
       <a-tabs :active-key="activeTab" @change="handleTabChange">
         <template #extra>
           <a-space class="extra-btn">
-            <a-button type="outline" v-if="userInfo.id == form.userId" @click="router.push('/userProfile')">{{ $t("profile.edit_profile") }}</a-button>
-            <a-button type="outline" v-if="userInfo.id != form.userId">{{ $t("pages.follow") }}</a-button>
-            <a-button type="outline" v-if="userInfo.id != form.userId" @click="handleReport">{{ $t("pages.report") }}</a-button>
+            <a-button
+              type="outline"
+              v-if="userInfo.id == form.userId"
+              @click="router.push('/userProfile')"
+              >{{ $t("profile.edit_profile") }}</a-button
+            >
+            <a-button type="outline" v-if="userInfo.id != form.userId">{{
+              $t("pages.follow")
+            }}</a-button>
+            <a-button type="outline" v-if="userInfo.id != form.userId" @click="handleReport">{{
+              $t("pages.report")
+            }}</a-button>
           </a-space>
         </template>
-        <a-tab-pane key="goods" :title="$t('pages.goods')"></a-tab-pane>
-        <a-tab-pane key="evaluate" :title="$t('pages.evaluate')"></a-tab-pane>
+        <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
+        <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
         <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')">
         </a-tab-pane>
       </a-tabs>
@@ -24,15 +33,17 @@
           <UserCard></UserCard>
         </div>
         <div class="right-content">
-          <GoodsRow v-show="activeTab == 'goods'"></GoodsRow>
-          <EvaluateRow v-show="activeTab == 'evaluate'"></EvaluateRow>
-          <BusinessInformation v-show="activeTab == 'businessInformation'"></BusinessInformation>
+          <GoodsRow ref="goodsRow" v-show="activeTab == 'goods'"></GoodsRow>
+          <EvaluateRow ref="evaluateRow" v-show="activeTab == 'evaluate'"></EvaluateRow>
+          <BusinessInformation
+            ref="businessInformation"
+            v-show="activeTab == 'businessInformation'"
+          ></BusinessInformation>
         </div>
       </div>
     </div>
 
     <ReportModal ref="reportModal"></ReportModal>
-
   </div>
 </template>
 <script setup>
@@ -43,23 +54,37 @@ import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const router = useRouter();
-const form = reactive({userId:''})
-const reportModal = ref(null)
+const form = reactive({ userId: "" });
+const reportModal = ref(null);
+const evaluateRow = ref(null);
+const goodsRow = ref(null);
+const businessInformation = ref(null);
 
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const activeTab = ref("goods");
+const activeTab = ref("businessInformation");
 
 const handleTabChange = (e) => {
   activeTab.value = e;
+  switch (e) {
+    case "goodsRow":
+      goodsRow.value.handleQuery();
+      break;
+    case "evaluateRow":
+      evaluateRow.value.handleQuery();
+      break;
+    case "businessInformation":
+      businessInformation.value.handleQuery();
+      break;
+  }
 };
 // 举报用户
-const handleReport = ()=>{
-  reportModal.value.openDialog('user')
-}
+const handleReport = () => {
+  reportModal.value.openDialog("user");
+};
 onMounted(() => {
-  form.userId = router.currentRoute.value.query.userId
-})
+  form.userId = router.currentRoute.value.query.userId;
+});
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";

@@ -3,36 +3,56 @@
 @import "./fontawesome.min";
 @import "./solid.min";
 
-body{
+body {
   color: #383838;
 }
 // pc
-@media screen and(min-width:1000px){
+@media screen and(min-width:1000px) {
   .common-row {
     max-width: 1295px;
     margin: 0 auto;
     padding-left: 64px;
     padding-right: 64px;
   }
-  .global-content{
+  .global-content {
     padding-top: 106px;
   }
 }
 
 // 移动端
-@media screen and(max-width:1000px){
+@media screen and(max-width:1000px) {
   .common-row {
     //background: red;
   }
 }
 
-.arco-trigger-popup{
+.arco-trigger-popup {
   //zoom: var(--scale);
   transform: scale(var(--scale));
 }
-.arco-modal-footer{
-  .arco-btn-primary, .arco-btn-primary[type='button'], .arco-btn-primary[type='submit']{
+.arco-modal-footer {
+  .arco-btn-primary,
+  .arco-btn-primary[type="button"],
+  .arco-btn-primary[type="submit"] {
     background-color: $main-grey;
+  }
+}
+.black-btn.arco-btn {
+  background: $main-grey !important;
+  color: #ffffff !important;
+  &:hover {
+    background: #404040 !important;
+    color: #ffffff !important;
+  }
+}
+.black-outline-btn {
+  background-color: #fff !important;
+  color: $main-grey !important;
+  border:1px solid $main-grey !important;
+  &:hover {
+    background: #f7f8fa !important;
+    color: $main-grey !important;
+    border:1px solid $main-grey !important;
   }
 }
 //.arco-checkbox-checked .arco-checkbox-icon{

@@ -118,6 +118,8 @@ pages:
   visitorYourTip: 今天查看了你的個人檔案的人數
   follow: Follow
   authenticationApply: 認證申請
+  noImage: 未上傳
+  noContent: 未填写
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
@@ -191,6 +193,16 @@ business:
   authApplyForm:
     businessCertificateTip: 請上傳營業資質相關照片
     applyBtn: 提交申請
+    reApplyBtn: 重新提交
+    undoApply: 撤銷申請
+    applySuc: 提交成功
+    undoSuc: 撤銷成功
+    applyTitle: 申請認證成為註冊商戶
+    undoApplyTip: 是否确认撤銷申請?
+  formValidate:
+     businessTitle: 請輸入商家名稱
+     businessAddress: 請輸入商家地址
+     businessContact: 請輸入聯繫電話
 
 
 

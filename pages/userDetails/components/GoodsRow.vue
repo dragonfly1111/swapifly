@@ -11,7 +11,18 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+const handleQuery = () =>{
+
+}
+
+// 加载更多
+const loadMore = () =>{
+
+}
+defineExpose({
+    handleQuery,
+});</script>
 <style lang="scss" scoped>
 .goods-box {
   .box-header {

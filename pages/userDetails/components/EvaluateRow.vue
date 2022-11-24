@@ -66,6 +66,9 @@ const handleQuery = () =>{
 const loadMore = () =>{
 
 }
+defineExpose({
+    handleQuery,
+});
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";
