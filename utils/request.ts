@@ -4,7 +4,7 @@ import { baseApiPrefix } from '~/config/baseUrl'
 const request = axios.create({
   baseURL: baseApiPrefix,
   timeout: 30000,
-  withCredentials: true
+  // withCredentials: true
 })
 
 // const localeSetting = useCookie('locale')

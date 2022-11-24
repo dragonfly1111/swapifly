@@ -160,8 +160,14 @@ const loginThird = (type: number) =>{
       })
       break
     case 2:
+      instagramLogin().then(res=>{
+        console.log(res)
+      })
       break
     case 3:
+      googleLogin().then(res=>{
+        console.log(res)
+      })
       break
   }
 }
