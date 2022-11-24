@@ -156,17 +156,29 @@ const loginThird = (type: number) =>{
   switch (type) {
     case 1:
       facebookLogin().then(res=>{
-        console.log(res)
+        if(res.code === 0){
+          window.open(res.data, '_blank')
+        } else {
+          Message.error(res.message)
+        }
       })
       break
     case 2:
       instagramLogin().then(res=>{
-        console.log(res)
+        if(res.code === 0){
+          window.open(res.data, '_blank')
+        } else {
+          Message.error(res.message)
+        }
       })
       break
     case 3:
       googleLogin().then(res=>{
-        console.log(res)
+        if(res.code === 0){
+          window.open(res.data, '_blank')
+        } else {
+          Message.error(res.message)
+        }
       })
       break
   }
