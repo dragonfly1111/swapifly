@@ -6,13 +6,13 @@ import { useSysData } from '~/stores/sysData'
 import { generateGender, generateEvaluationSort, generateEvaluationSource } from '~/model/res/staticDicts'
 import { useI18n } from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
+
 const {t} = useI18n();
 const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
 const resize = useResize()
 const sysData = useSysData()
 AppSetup()
-
 const app = useAppConfig()
 useAsyncData(async ()=>{
   // const areaSetting = useCookie('area')
@@ -41,6 +41,9 @@ useHead({
       content: 'Nuxt 3 Awesome Starter',
     },
   ],
+  script:[{
+    'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
+  }]
 })
 onMounted(()=>{
   console.log('onMounted')
