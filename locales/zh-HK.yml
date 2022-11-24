@@ -120,6 +120,8 @@ pages:
   authenticationApply: 認證申請
   noImage: 未上傳
   noContent: 未填写
+  followIn: Follow緊
+  followers: Followers
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼

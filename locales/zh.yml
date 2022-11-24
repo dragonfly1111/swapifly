@@ -120,6 +120,8 @@ pages:
   authenticationApply: 认证申请
   noImage: 未上传
   noContent: 未填写
+  followIn: 关注
+  followers: 被关注
 profile:
   edit_profile: 编辑档案
   edit_password: 修改密码

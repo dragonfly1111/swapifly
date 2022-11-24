@@ -30,7 +30,7 @@
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard></UserCard>
+          <UserCard @toFollow="toFollow"></UserCard>
         </div>
         <div class="right-content">
           <GoodsRow ref="goodsRow" v-show="activeTab == 'goods'"></GoodsRow>
@@ -39,6 +39,7 @@
             ref="businessInformation"
             v-show="activeTab == 'businessInformation'"
           ></BusinessInformation>
+          <FollowRow v-show="activeTab == 'followRow'" ref="followRow"></FollowRow>
         </div>
       </div>
     </div>
@@ -49,6 +50,7 @@
 <script setup>
 import UserCard from "./components/UserCard";
 import GoodsRow from "./components/GoodsRow";
+import FollowRow from "./components/FollowRow";
 import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
@@ -59,10 +61,11 @@ const reportModal = ref(null);
 const evaluateRow = ref(null);
 const goodsRow = ref(null);
 const businessInformation = ref(null);
+const followRow = ref(null);
 
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const activeTab = ref("businessInformation");
+const activeTab = ref("followRow");
 
 const handleTabChange = (e) => {
   activeTab.value = e;
@@ -81,6 +84,10 @@ const handleTabChange = (e) => {
 // 举报用户
 const handleReport = () => {
   reportModal.value.openDialog("user");
+};
+const toFollow = (e) => {
+  followRow.value.handleQuery(e);
+  activeTab.value = 'followRow'
 };
 onMounted(() => {
   form.userId = router.currentRoute.value.query.userId;

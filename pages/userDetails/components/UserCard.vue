@@ -24,8 +24,8 @@
           </a-space>
           <div>回复频率高</div>
           <a-space class="link-row">
-            <a-link href="link">999 Followers</a-link>
-            <a-link href="link">999 Follow緊</a-link>
+            <div  @click="changeFollow(0)">999 Followers</div>
+            <div  @click="changeFollow(1)">999 Follow緊</div>
           </a-space>
           <div class="user-desc-content">個人簡介文本內容</div>
         </a-space>
@@ -34,12 +34,12 @@
         <a-space direction="vertical" fill>
           <div>999</div>
           <div>{{ $t("pages.visitorYourTip") }}</div>
-          <a-button class="look-btn" type="primary">{{$t('pages.lookClickRate')}}</a-button>
+          <a-button class="look-btn" type="primary">{{ $t("pages.lookClickRate") }}</a-button>
         </a-space>
       </div>
       <div class="registered-btn">
-        <img src="@/assets/images/swapifly-logo.png" alt="" >
-        {{$t('pages.registeredMerchant')}}
+        <img src="@/assets/images/swapifly-logo.png" alt="" />
+        {{ $t("pages.registeredMerchant") }}
       </div>
     </div>
 
@@ -50,13 +50,18 @@
 import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const router = useRouter();
-const form = reactive({userId:''})
+const form = reactive({ userId: "" });
+const emits = defineEmits(["toFollow"]);
+
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 
+const changeFollow = (e) => {
+  emits("toFollow", e);
+};
 onMounted(() => {
-  form.userId = router.currentRoute.value.query.userId
-})
+  form.userId = router.currentRoute.value.query.userId;
+});
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";
@@ -94,11 +99,15 @@ onMounted(() => {
       width: 20px;
     }
     .link-row {
-      :deep(.arco-link) {
+      div{
         color: $main-grey;
         text-decoration: underline;
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 2px;
+        padding-right: 2px;
+        cursor: pointer;
+        &:hover{
+          background-color: #eee;
+        }
       }
     }
     .user-desc-content {
@@ -107,18 +116,18 @@ onMounted(() => {
   }
 
   .look-click-rate {
-    border: 1px solid #F2F2F2;
+    border: 1px solid #f2f2f2;
     border-radius: 2px;
     padding: 20px;
     margin: 20px 0;
-    
-    .look-btn{
-        background-color: $main-grey;
-        color: #fff;
-        margin-top: 20px;
+
+    .look-btn {
+      background-color: $main-grey;
+      color: #fff;
+      margin-top: 20px;
     }
   }
-  .registered-btn{
+  .registered-btn {
     position: absolute;
     cursor: pointer;
     top: 45px;
@@ -126,7 +135,7 @@ onMounted(() => {
     border-radius: 4px;
     border: 1px solid $grey-font-label;
     padding: 8px 15px 8px 48px;
-    img{
+    img {
       position: absolute;
       top: -15px;
       left: 6px;

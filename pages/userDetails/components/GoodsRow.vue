@@ -1,7 +1,7 @@
 <template>
   <div class="goods-box">
     <a-row justify="space-between" align="center" class="box-header">
-      <a-col flex="100px" class="title"> 商品 </a-col>
+      <a-col flex="100px" class="title"> {{$t('pages.goods')}} </a-col>
       <a-col flex="200px">
         <a-input-search :style="{ width: '200px' }" :placeholder="$t('pages.searchGoods')" />
       </a-col>
