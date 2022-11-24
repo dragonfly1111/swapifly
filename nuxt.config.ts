@@ -8,8 +8,7 @@ declare module '@nuxt/schema' {
 }
 export default defineNuxtConfig({
   app:{
-    pageTransition: { name: 'page', mode: 'out-in' },
-    baseURL: '/swapifly/'
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   ssr: true,
   modules: [
