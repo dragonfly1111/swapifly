@@ -153,14 +153,8 @@ const handleCancel = () => {
 }
 
 const loginThird = (type: number) =>{
-  const fbUrl = 'https://www.facebook.com/v3.2/dialog/oauth?client_id=489813939845259&state=b60c1275f33f95b291b81d6748b6522b&response_type=code&sdk=php-sdk-5.7.0&redirect_uri=https%3A%2F%2Fswapiflyapi.honglanshuzi.com%2Findex.php%2Findex%2Findex%2Fface_login&scope=email'
-  const iWidth=500;                         //弹出窗口的宽度;
-  const iHeight=570;                        //弹出窗口的高度;
-  const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
-  const iLeft = (window.screen.width-10-iWidth)/2;
   switch (type) {
     case 1:
-      // window.open(fbUrl,'授权登录','height='+iHeight+',innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizable=no,location=no,status=no');
       FB.login((response)=>{
         console.log(response); // 在控制台打印返回的access_token
       },{scope: 'email'});
