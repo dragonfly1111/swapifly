@@ -200,7 +200,8 @@ const loginThird = (type: number) =>{
       google.accounts.id.initialize({
         client_id: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
         callback: (e:any) =>{
-          console.log(e)
+          const responsePayload = decodeJwtResponse(e.credential)
+          console.log(responsePayload)
         }
       });
       google.accounts.id.prompt();
