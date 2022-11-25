@@ -44,6 +44,8 @@ useHead({
   // todo sdk 支持对语言
   script:[{
     'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
+  },{
+    'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
   }]
 })
 onMounted(()=>{

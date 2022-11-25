@@ -195,8 +195,15 @@ const loginThird = (type: number) =>{
       // })
       break
     case 3:
-      const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
-      window.open(googleUrl,'_blank');
+      // const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
+      // window.open(googleUrl,'_blank');
+      google.accounts.id.initialize({
+        client_id: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
+        callback: (e:any) =>{
+          console.log(e)
+        }
+      });
+      google.accounts.id.prompt();
       break
   }
 }
