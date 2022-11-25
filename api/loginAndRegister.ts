@@ -77,7 +77,8 @@ export const facebookLogin = (params: {accessToken: string}) => {
 export const instagramLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/ins_login',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
