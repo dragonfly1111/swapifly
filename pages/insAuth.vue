@@ -30,9 +30,7 @@ onMounted(()=>{
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         console.log('跳转到首页')
-        $router.push({
-          path: '/'
-        })
+        $router.push('/')
       } else {
         Message.error(res.message)
       }

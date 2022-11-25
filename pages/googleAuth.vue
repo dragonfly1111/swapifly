@@ -19,9 +19,16 @@ onMounted(()=>{
     const $route = useRoute();
     const $router = useRouter();
     console.log('$route')
-    console.log($route.query.code)
+    console.log($route.fullPath)
+    const callbackStr = $route.fullPath.split('#')[1]
+    const accParams = callbackStr.split('&')[0]
+    console.log('accParams')
+    console.log(accParams)
+    const token = accParams.split('=')[1]
+    console.log('token')
+    console.log(token)
     googleLogin({
-      accessToken: $route.query.code
+      accessToken: token
     }).then(res=>{
       console.log('google_login res')
       console.log(res)
@@ -30,9 +37,7 @@ onMounted(()=>{
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         console.log('跳转到首页')
-        $router.push({
-          path: '/'
-        })
+        $router.push('/')
       } else {
         Message.error(res.message)
       }
