@@ -64,7 +64,7 @@ export const googleLogin = () => {
 }
 
 // facebook授权登录
-export const facebookLogin = (params: any) => {
+export const facebookLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/face_login',
     method: 'get',
@@ -74,9 +74,9 @@ export const facebookLogin = (params: any) => {
 
 
 // facebook授权登录
-export const instagramLogin = () => {
+export const instagramLogin = (params: {accessToken: string}) => {
   return request({
-    url: '/index/index/instagram_login',
+    url: '/index/index/ins_login',
     method: 'get'
   })
 }

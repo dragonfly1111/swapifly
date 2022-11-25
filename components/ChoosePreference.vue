@@ -44,6 +44,7 @@ const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
 const confirmPreference = defineEmits(['confirmPreference'])
 loading.value = true
+// todo 放到sysdata里面去 放这里会经常重复请求
 getUserLabel().then(res => {
   loading.value = false
   res.data.data.forEach((item: { checked: boolean; }) => {
