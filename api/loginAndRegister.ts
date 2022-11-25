@@ -73,7 +73,7 @@ export const facebookLogin = (params: {accessToken: string}) => {
 }
 
 
-// facebook授权登录
+// ins授权登录
 export const instagramLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/ins_login',
