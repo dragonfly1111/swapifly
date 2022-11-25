@@ -185,14 +185,6 @@ const loginThird = (type: number) =>{
       // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
       // const iLeft = (window.screen.width-10-iWidth)/2;
       window.open(insUrl,'_blank');
-
-      // instagramLogin().then(res=>{
-      //   if(res.code === 0){
-      //     window.open(res.data, '_blank')
-      //   } else {
-      //     Message.error(res.message)
-      //   }
-      // })
       break
     case 3:
       // const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
@@ -200,8 +192,21 @@ const loginThird = (type: number) =>{
       google.accounts.id.initialize({
         client_id: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
         callback: (e:any) =>{
-          const responsePayload = decodeJwtResponse(e.credential)
-          console.log(responsePayload)
+          const strings = e.credential.split("."); //截取token，获取载体
+          const userInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析
+          console.log(userInfo)
+          googleLogin(userInfo).then(res=>{
+            console.log('google_login res')
+            console.log(res)
+            if(res.code === 0){
+              Message.success(t('loginDialog.loginSuc'))
+              const user:IUserInfo = res.data
+              userInfo.setUserInfo(user)
+              handleCancel()
+            } else {
+              Message.error(res.message)
+            }
+          })
         }
       });
       google.accounts.id.prompt();
