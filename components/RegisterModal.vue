@@ -164,25 +164,35 @@ const loginThird = (type: number) =>{
           }).then(res=>{
             console.log('face_login res')
             console.log(res)
+            debugger
             if(res.code === 0){
-              Message.error('登录成功！')
+              Message.success(t('loginDialog.loginSuc'))
+              const user:IUserInfo = res.data
+              console.log(res.data)
+              userInfo.setUserInfo(user)
             } else {
               Message.error(res.message)
             }
           })
         }
       },{scope: 'email'});
-
-
       break
     case 2:
-      instagramLogin().then(res=>{
-        if(res.code === 0){
-          window.open(res.data, '_blank')
-        } else {
-          Message.error(res.message)
-        }
-      })
+      // const insUrl = 'https://www.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/index.php/index/index/ins_login&scope=user_profile,user_media&response_type=code'
+      // const iWidth=500;                         //弹出窗口的宽度;
+      // const iHeight=570;                        //弹出窗口的高度;
+      // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
+      // const iLeft = (window.screen.width-10-iWidth)/2;
+      // window.open(fbUrl)
+      // window.open(fbUrl,'授权登录','height='+iHeight+',innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizable=no,location=no,status=no');
+
+      // instagramLogin().then(res=>{
+      //   if(res.code === 0){
+      //     window.open(res.data, '_blank')
+      //   } else {
+      //     Message.error(res.message)
+      //   }
+      // })
       break
     case 3:
       googleLogin().then(res=>{
