@@ -114,7 +114,12 @@ pages:
   lookClickRate: 查看点击率
   soldOut: 已售出
   isRemoveGoods: 已下架
-  removeGoods: 下架
+  removeGoods: 下架商品
+  editGoods: 編輯商品
+  exposureGoods: 曝光推廣
+  viewtheResults: 檢視成果
+  markSold: 標記已售出
+  delGoods: 刪除商品
   visitorYourTip: 今天查看了你的个人档案的人数
   follow: Follow
   authenticationApply: 认证申请
@@ -202,8 +207,24 @@ business:
      businessTitle: 请输入商家名称
      businessAddress: 请输入商家地址
      businessContact: 请输入联系电话
+exposure:
+  exposureName: 曝光量
+  chooseTip: 请选择你需要为商品购买的曝光量
+  payType: 支付方式
+  bankCardInfo: 银行卡信息
+  wechat: 微信
+  backCard: 银行卡
+  alipay: 支付宝
+  cardUserName: 卡上的姓名
+  pay: Pay
+  payName: 支付
+  orPayWay: 或用另一方式支付
+  yearOrMonth: 月份/年份
+  countriesRegions: 国家或地区
 
-    
+
+
+  
 
 
 

@@ -33,8 +33,8 @@
           <UserCard @toFollow="toFollow"></UserCard>
         </div>
         <div class="right-content">
-          <GoodsRow ref="goodsRow" v-show="activeTab == 'goods'"></GoodsRow>
-          <EvaluateRow ref="evaluateRow" v-show="activeTab == 'evaluate'"></EvaluateRow>
+          <GoodsRow ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
           <BusinessInformation
             ref="businessInformation"
             v-show="activeTab == 'businessInformation'"
@@ -81,6 +81,7 @@ const handleTabChange = (e) => {
       break;
   }
 };
+
 // 举报用户
 const handleReport = () => {
   reportModal.value.openDialog("user");

@@ -1,28 +1,30 @@
 <template>
   <div class="goods-box">
     <a-row justify="space-between" align="center" class="box-header">
-      <a-col flex="100px" class="title"> {{$t('pages.goods')}} </a-col>
+      <a-col flex="100px" class="title"> {{ $t("pages.goods") }} </a-col>
       <a-col flex="200px">
         <a-input-search :style="{ width: '200px' }" :placeholder="$t('pages.searchGoods')" />
       </a-col>
     </a-row>
     <div class="goods-box-body">
-      <ProductCard :show-user="false" showStatus></ProductCard>
+      <ProductCard :isMySelf="isMySelf" :show-user="false" showStatus></ProductCard>
     </div>
   </div>
 </template>
 <script setup>
-const handleQuery = () =>{
-
-}
-
+import { useUserInfo } from "~/stores/userInfo";
+const userInfo = useUserInfo();
+const handleQuery = () => {};
+const router = useRouter();
+const isMySelf = computed(() => {
+  return userInfo.id == router.currentRoute.value.query.userId;
+});
 // 加载更多
-const loadMore = () =>{
-
-}
+const loadMore = () => {};
 defineExpose({
-    handleQuery,
-});</script>
+  handleQuery,
+});
+</script>
 <style lang="scss" scoped>
 .goods-box {
   .box-header {

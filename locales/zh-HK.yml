@@ -114,7 +114,12 @@ pages:
   lookClickRate: 查看點閱率
   soldOut: 已售出
   isRemoveGoods: 已下架
-  removeGoods: 下架
+  removeGoods: 下架商品
+  editGoods: 編輯商品
+  exposureGoods: 曝光推廣
+  viewtheResults: 檢視成果
+  markSold: 標記已售出
+  delGoods: 刪除商品
   visitorYourTip: 今天查看了你的個人檔案的人數
   follow: Follow
   authenticationApply: 認證申請
@@ -122,6 +127,7 @@ pages:
   noContent: 未填写
   followIn: Follow緊
   followers: Followers
+
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼
@@ -205,7 +211,18 @@ business:
      businessTitle: 請輸入商家名稱
      businessAddress: 請輸入商家地址
      businessContact: 請輸入聯繫電話
-
-
-
+exposure:
+  exposureName: 曝光量
+  chooseTip: 請選擇你需要為該商品購買的曝光量
+  payType: 支付方式
+  bankCardInfo: 银行卡信息
+  wechat: 微信
+  backCard: 银行卡
+  alipay: 支付宝
+  cardUserName: 卡上的姓名
+  pay: Pay
+  payName: 支付
+  orPayWay: 或用另一方式支付
+  yearOrMonth: 月份/年份
+  countriesRegions: 国家或地区
 

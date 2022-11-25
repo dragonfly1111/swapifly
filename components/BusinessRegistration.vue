@@ -23,6 +23,7 @@
         <a-input
           class="input-warp"
           v-model="formData.title"
+          allow-clear
           :placeholder="$t('business.businessTitle')"
         ></a-input>
       </a-form-item>
@@ -44,7 +45,6 @@
         hide-asterisk
         :hide-label="true"
         field="contact"
-        allow-clear
         maxlength="100"
         :validate-trigger="['change', 'input']"
       >

@@ -47,10 +47,17 @@
           <a-dropdown :popup-max-height="false">
             <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
             <template #content>
-              <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
-              <a-doption v-if="isMySelf" @click="handlRemove">{{
-                $t("pages.removeGoods")
-              }}</a-doption>
+              <template v-if="!isMySelf">
+                <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
+              </template>
+              <template v-if="isMySelf">
+                <a-doption @click="handlRemove">{{ $t("pages.editGoods") }}</a-doption>
+                <a-doption @click="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
+                <a-doption @click="handlRemove">{{ $t("pages.viewtheResults") }}</a-doption>
+                <a-doption @click="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
+                <a-doption @click="handlRemove">{{ $t("pages.markSold") }}</a-doption>
+                <a-doption @click="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
+              </template>
             </template>
           </a-dropdown>
         </div>
@@ -68,6 +75,11 @@
     </a-empty>
 
     <ReportModal ref="reportModal"></ReportModal>
+
+    <div v-if="isMySelf">
+      <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
+    </div>
+
   </div>
 </template>
 <script setup>
@@ -100,12 +112,17 @@ const props = defineProps({
 });
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const reportModal = ref(null)
+const reportModal = ref(null);
+const exposurePayModal = ref(null);
 const pageLoading = ref(false);
 
 // 举报
 const handleReport = () => {
   reportModal.value.openDialog();
+};
+// 购买曝光率
+const openExposure = () => {
+  exposurePayModal.value.openDialog()
 };
 // 下架
 const handlRemove = () => {};
