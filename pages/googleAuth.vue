@@ -1,14 +1,14 @@
 <template>
   <div class="common-row global-content">
     <div class="auth-redirect">
-      ins授权回调页面
+      google授权回调页面
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {instagramLogin} from '~/api/loginAndRegister'
+import {googleLogin} from '~/api/loginAndRegister'
 import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
@@ -19,10 +19,10 @@ onMounted(()=>{
     const $route = useRoute();
     console.log('$route')
     console.log($route.query.code)
-    instagramLogin({
+    googleLogin({
       accessToken: $route.query.code
     }).then(res=>{
-      console.log('ins_login res')
+      console.log('google_login res')
       console.log(res)
       if(res.code === 0){
         Message.success(t('loginDialog.loginSuc'))

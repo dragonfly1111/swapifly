@@ -56,10 +56,11 @@ export const emailLogin = (data: ILoginForm) => {
 }
 
 // 谷歌授权登录
-export const googleLogin = () => {
+export const googleLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/googlelogin',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

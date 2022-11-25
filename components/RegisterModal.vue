@@ -195,13 +195,8 @@ const loginThird = (type: number) =>{
       // })
       break
     case 3:
-      googleLogin().then(res=>{
-        if(res.code === 0){
-          window.open(res.data, '_blank')
-        } else {
-          Message.error(res.message)
-        }
-      })
+      const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
+      window.open(googleUrl,'_blank');
       break
   }
 }
