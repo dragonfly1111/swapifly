@@ -41,12 +41,12 @@ useHead({
       content: 'Nuxt 3 Awesome Starter',
     },
   ],
+  // todo sdk 支持对语言
   script:[{
     'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
   }]
 })
 onMounted(()=>{
-  console.log('onMounted')
   // 客户端设置系统属性数据
   if(process.client){
     sysData.setSysDataClientSide({

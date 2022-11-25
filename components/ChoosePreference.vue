@@ -44,13 +44,14 @@ const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
 const confirmPreference = defineEmits(['confirmPreference'])
 loading.value = true
-getUserLabel().then(res => {
-  loading.value = false
-  res.data.data.forEach((item: { checked: boolean; }) => {
-    item.checked = false
-  })
-  labelList.value = res.data.data
-})
+// todo 放到sysdata里面去 放这里会经常重复请求
+// getUserLabel().then(res => {
+//   loading.value = false
+//   res.data.data.forEach((item: { checked: boolean; }) => {
+//     item.checked = false
+//   })
+//   labelList.value = res.data.data
+// })
 const handleOk = () => {
   const ckeckedList: IUserLabel[] = labelList.value.filter(item => {
     return item.checked

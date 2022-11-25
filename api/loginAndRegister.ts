@@ -56,15 +56,16 @@ export const emailLogin = (data: ILoginForm) => {
 }
 
 // 谷歌授权登录
-export const googleLogin = () => {
+export const googleLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/googlelogin',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
 // facebook授权登录
-export const facebookLogin = (params: any) => {
+export const facebookLogin = (params: {accessToken: string}) => {
   return request({
     url: '/index/index/face_login',
     method: 'get',
@@ -73,11 +74,12 @@ export const facebookLogin = (params: any) => {
 }
 
 
-// facebook授权登录
-export const instagramLogin = () => {
+// ins授权登录
+export const instagramLogin = (params: {accessToken: string}) => {
   return request({
-    url: '/index/index/instagram_login',
-    method: 'get'
+    url: '/index/index/ins_login',
+    method: 'get',
+    params
   })
 }
 

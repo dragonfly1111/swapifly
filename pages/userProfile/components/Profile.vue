@@ -118,21 +118,24 @@
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useSysData } from "~/stores/sysData";
+import { useUserInfo } from "~/stores/userInfo";
 const sysData = useSysData();
+const userInfo = useUserInfo();
+console.log(111)
 const sexOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const datePicker = ref(null);
 const pageLoading = ref(false);
 const form = reactive({
-  nickname: null,
-  avatar: null,
+  nickname: userInfo.nickname,
+  avatar: baseImgPrefix + userInfo.avatar,
   birth_time: null,
 });
 const btnLoading = ref(false);
 // 上传成功
 const uploadSuccess = (e) => {
-  form.avatar = baseImgPrefix + "/" + e.response.data;
+  form.avatar = baseImgPrefix + e.response.data;
 };
 // 保存
 const handleSave = () => {};

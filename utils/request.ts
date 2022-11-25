@@ -11,9 +11,7 @@ const request = axios.create({
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    console.log(process.client)
     const info = process.client ? sessionStorage.getItem('USER-INFO') : ''
-    console.log(info)
     let userObj: any
     if (info) {
       userObj = JSON.parse(info)
@@ -30,7 +28,6 @@ request.interceptors.request.use(
     config.headers['X-Region'] = 1
     // @ts-ignore
     config.headers['X-lang'] = 'zh'
-    console.log(config)
     // // @ts-ignore
     // areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''
     // // @ts-ignore

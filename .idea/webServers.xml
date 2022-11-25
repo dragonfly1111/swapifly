@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4363a212-4d3c-4660-9fd4-ea1d0df192ef" name="Xian1024">
+        <fileTransfer rootFolder="/usr/local/src/code/swapifly" accessType="SFTP" host="8.218.152.196" port="22" sshConfigId="b7b7189e-0603-4b43-87e6-413112c85252" sshConfig="root@8.218.152.196:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -177,12 +177,14 @@ const loginThird = (type: number) =>{
       },{scope: 'email'});
       break
     case 2:
-      const insUrl = 'https://www.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
-      const iWidth=500;                         //弹出窗口的宽度;
-      const iHeight=570;                        //弹出窗口的高度;
-      const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
-      const iLeft = (window.screen.width-10-iWidth)/2;
-      window.open(insUrl,'授权登录','height='+iHeight+',innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizable=no,location=no,status=no');
+      // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=514005190742316&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
+      // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
+      const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/insAuth&scope=user_profile,user_media&response_type=code'
+      // const iWidth=500;                         //弹出窗口的宽度;
+      // const iHeight=570;                        //弹出窗口的高度;
+      // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
+      // const iLeft = (window.screen.width-10-iWidth)/2;
+      window.open(insUrl,'_blank');
 
       // instagramLogin().then(res=>{
       //   if(res.code === 0){
@@ -193,13 +195,8 @@ const loginThird = (type: number) =>{
       // })
       break
     case 3:
-      googleLogin().then(res=>{
-        if(res.code === 0){
-          window.open(res.data, '_blank')
-        } else {
-          Message.error(res.message)
-        }
-      })
+      const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
+      window.open(googleUrl,'_blank');
       break
   }
 }

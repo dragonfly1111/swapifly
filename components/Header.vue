@@ -157,7 +157,6 @@ function confirmPreference() {
 }
 
 function changeCurType(e: IGoodsClass) {
-  console.log(e)
   if (e.children && e.children.length) {
     curClass.value = e.children
     showHeadPanel.value = true
