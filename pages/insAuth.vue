@@ -15,20 +15,23 @@ import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const {t} = useI18n();
 const $route = useRoute();
-console.log('$route')
-console.log($route.query.code)
-instagramLogin({
-  accessToken: $route.query.code
-}).then(res=>{
-  console.log('ins_login res')
-  console.log(res)
-  if(res.code === 0){
-    Message.success(t('loginDialog.loginSuc'))
-    const user:IUserInfo = res.data
-    userInfo.setUserInfo(user)
-  } else {
-    Message.error(res.message)
-  }
+onMounted(()=>{
+  console.log('$route')
+  console.log($route.query.code)
+  instagramLogin({
+    accessToken: $route.query.code
+  }).then(res=>{
+    console.log('ins_login res')
+    console.log(res)
+    if(res.code === 0){
+      Message.success(t('loginDialog.loginSuc'))
+      const user:IUserInfo = res.data
+      userInfo.setUserInfo(user)
+      console.log('跳转到首页')
+    } else {
+      Message.error(res.message)
+    }
+  })
 })
 </script>
 
