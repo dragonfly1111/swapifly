@@ -17,6 +17,7 @@ const {t} = useI18n();
 onMounted(()=>{
   if(process.client) {
     const $route = useRoute();
+    const $router = useRouter();
     console.log('$route')
     console.log($route.query.code)
     instagramLogin({
@@ -29,6 +30,9 @@ onMounted(()=>{
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         console.log('跳转到首页')
+        $router.push({
+          path: '/'
+        })
       } else {
         Message.error(res.message)
       }
