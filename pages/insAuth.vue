@@ -8,30 +8,33 @@
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {facebookLogin, instagramLogin} from '~/api/loginAndRegister'
+import {instagramLogin} from '~/api/loginAndRegister'
 import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const {t} = useI18n();
-const $route = useRoute();
 onMounted(()=>{
-  console.log('$route')
-  console.log($route.query.code)
-  instagramLogin({
-    accessToken: $route.query.code
-  }).then(res=>{
-    console.log('ins_login res')
-    console.log(res)
-    if(res.code === 0){
-      Message.success(t('loginDialog.loginSuc'))
-      const user:IUserInfo = res.data
-      userInfo.setUserInfo(user)
-      console.log('跳转到首页')
-    } else {
-      Message.error(res.message)
-    }
-  })
+  if(process.client) {
+    const $route = useRoute();
+    console.log('$route')
+    console.log($route.query.code)
+    instagramLogin({
+      accessToken: $route.query.code
+    }).then(res=>{
+      console.log('ins_login res')
+      console.log(res)
+      if(res.code === 0){
+        Message.success(t('loginDialog.loginSuc'))
+        const user:IUserInfo = res.data
+        userInfo.setUserInfo(user)
+        console.log('跳转到首页')
+      } else {
+        Message.error(res.message)
+      }
+    })
+  }
+
 })
 </script>
 

@@ -47,7 +47,6 @@ useHead({
   }]
 })
 onMounted(()=>{
-  console.log('onMounted')
   // 客户端设置系统属性数据
   if(process.client){
     sysData.setSysDataClientSide({
