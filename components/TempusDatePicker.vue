@@ -20,7 +20,7 @@ import { useI18n } from "vue-i18n";
 import * as moment from "moment";
 const { t, locale } = useI18n();
 const inputValue = ref(null);
-const showPicker = ref(false);
+// const showPicker = ref(false);
 const emits = defineEmits(["change"]);
 
 const props = defineProps({
@@ -92,9 +92,9 @@ const changeInput = (e) => {
     });
 };
 
-onUnmounted(() => {
-  showPicker.value = false;
-});
+// onUnmounted(() => {
+//   showPicker.value = false;
+// });
 
 defineExpose({
   initPicker,
