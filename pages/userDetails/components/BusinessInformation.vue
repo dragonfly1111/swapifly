@@ -69,6 +69,7 @@ const toAuthentication = () => {
 };
 defineExpose({
     handleQuery,
+    toAuthentication
 });
 </script>
 <style lang="scss" scoped>

@@ -68,11 +68,14 @@
           image-preview
           :limit="1"
           :action="uploadUrl"
-          @success="uploadSuccess"
-          with-credentials
-          accept="image/*,.png"
           ref="uploadRef"
           v-if="visible"
+          :on-before-upload="beforeUpload"
+          :on-button-click="uploadClick"
+          @success="uploadSuccess"
+          @error="uploadError"
+          accept="image/*,.png"
+          :headers="headers"
         />
       </a-form-item>
     </a-form>
@@ -105,11 +108,39 @@ import { useI18n } from "vue-i18n";
 import { addBusiness, reApplyBusiness, undoApplyBusiness } from "~/api/business";
 import { Message } from "@arco-design/web-vue";
 import { Modal, Button } from "@arco-design/web-vue";
+import { useUserInfo } from "~/stores/userInfo"
 const formRef = ref(null);
 const uploadRef = ref(null);
 const saveLoading = ref(false);
+const uploadLoading = ref(false);
 const { t } = useI18n();
 const visible = ref(false);
+let headers = reactive({
+  'X-Utoken': null,
+  'X-Userid': null
+});
+if(process.client){
+  const userInfo = useUserInfo()
+  headers['X-Utoken'] = userInfo.token
+  headers['X-Userid'] = userInfo.id
+}
+
+const beforeUpload = (e) =>{
+  uploadLoading.value = true
+  return true
+}
+const uploadClick = () =>{
+  console.log('uploadClick')
+  if(uploadLoading.value) return new Promise(()=>{})
+}
+// 上传成功
+const uploadSuccess = (e) => {
+  formData.image = e.response.data;
+  uploadLoading.value = false
+};
+const uploadError = (e) => {
+  uploadLoading.value = false
+};
 const emits = defineEmits(["change"]);
 const formData = reactive({
   title: "",
@@ -136,10 +167,7 @@ const handleCancel = () => {
   }, 100);
 };
 
-// 上传成功
-const uploadSuccess = (e) => {
-  formData.image = e.response.data;
-};
+
 
 const resetForm = () => {
   formRef.value.resetFields();
@@ -161,8 +189,8 @@ const handleUndo = () => {
         .then((res) => {
           if (res.code === 0) {
             Message.success(t("business.authApplyForm.undoSuc"));
-            handleCancel()
-            updatePage()
+            handleCancel();
+            updatePage();
           } else {
             Message.error(res.message);
           }
@@ -183,8 +211,8 @@ const handleSubmit = () => {
       .then((res) => {
         if (res.code === 0) {
           Message.success(t("business.authApplyForm.applySuc"));
-          handleCancel()
-          updatePage()
+          handleCancel();
+          updatePage();
         } else {
           Message.error(res.message);
         }

@@ -39,7 +39,7 @@
           }}</a-button>
         </a-space>
       </div>
-      <div class="registered-btn">
+      <div class="registered-btn" @click="openRegBusiness">
         <img src="@/assets/images/swapifly-logo.png" alt="" />
         {{ $t("pages.registeredMerchant") }}
       </div>
@@ -56,7 +56,7 @@ const userInfo = useUserInfo();
 const router = useRouter();
 const form = reactive({ userId: "" });
 const clickRateModal = ref(null);
-const emits = defineEmits(["toFollow"]);
+const emits = defineEmits(["toFollow",'openRegBusiness']);
 
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
@@ -65,6 +65,10 @@ const testImg =
 const changeFollow = (e) => {
   emits("toFollow", e);
 };
+// 注册商户
+const openRegBusiness = ()=>{
+  emits("openRegBusiness");
+}
 // 查看点击率
 const openVisitTimes = () => {
   clickRateModal.value.openDialog();

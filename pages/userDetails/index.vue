@@ -30,7 +30,7 @@
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard @toFollow="toFollow"></UserCard>
+          <UserCard @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
         </div>
         <div class="right-content">
           <GoodsRow ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
@@ -87,6 +87,11 @@ const handleTabChange = (e) => {
 const handleReport = () => {
   reportModal.value.openDialog("user");
 };
+// 注册商户
+const openRegBusiness = () => {
+  handleTabChange('businessInformation')
+  businessInformation.value.toAuthentication();
+};
 const toFollow = (e) => {
   followRow.value.handleQuery(e);
   activeTab.value = 'followRow'
@@ -132,6 +137,9 @@ onMounted(() => {
       width: 90px;
       border: 1px solid $main-grey;
       color: $main-grey;
+      &:hover{
+        background-color: #eee;
+      }
     }
   }
 }

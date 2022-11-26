@@ -59,7 +59,6 @@ const changeOnline = (e) => {
 
 const initEchart = () => {
   const chart = echarts.init(document.getElementById("echartBox"));
-  console.log("await", chart);
   const option = {
     tooltip: {
       trigger: "axis",
