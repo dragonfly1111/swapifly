@@ -136,6 +136,7 @@ profile:
   user_head_upload: 上传一张照片
   open_user_profile: 公开档案
   user_name: 用户名称
+  user_name_validate: 用户名称不能为空
   user_name_empty: 尚未填写用户名称...
   user_describe: 个人简介
   user_describe_empty: 尚未填写个人简介...
@@ -147,6 +148,7 @@ profile:
   countries_birth_empty: 年-月-日
   personal_information: 私人资料
   bindSuc: 邮箱绑定成功
+  editSuc: 档案编辑成功
   email: 邮箱
   phone: 手机号码
   sex: 性别

@@ -82,6 +82,7 @@ profile:
   user_head_upload: todo
   open_user_profile: todo
   user_name: todo
+  user_name_validate: todo
   user_name_empty: todo
   user_describe: todo
   user_describe_empty: todo
@@ -93,6 +94,7 @@ profile:
   countries_birth_empty: todo
   personal_information: todo
   bindSuc: todo
+  editSuc: todo
   email: todo
   phone: todo
   sex: todo

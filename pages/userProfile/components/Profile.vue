@@ -3,121 +3,135 @@
     <div class="header">
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
-    <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
-    <div class="upload-box">
-      <img class="avatar" alt="avatar" :src="form.avatar" />
-      <div class="upload-btn">
-        <p class="tip">{{ $t("profile.user_head_portrait_tip") }}</p>
-        <a-upload
-          :action="uploadUrl"
-          :show-file-list="false"
-          @success="uploadSuccess"
-          with-credentials
-          accept="image/*,.png"
+    <div v-if="!pageLoading">
+      <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
+      <div class="upload-box">
+        <a-image
+            class="avatar"
+            width="100"
+            height="100"
+            :src="baseImgPrefix + form.avatar"
+            show-loader
         >
-          <template #upload-button>
-            <a-button type="outline">{{ $t("profile.user_head_upload") }}</a-button>
-          </template>
-        </a-upload>
-      </div>
-    </div>
-    <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
-    <a-form :model="form" layout="vertical" size="large">
-      <a-form-item field="id" label="">
-        <a-input v-model="form.id" placeholder="" disabled />
-      </a-form-item>
-      <a-form-item field="nickname" :label="$t('profile.user_name')">
-        <a-input v-model="form.nickname" :placeholder="$t('profile.user_name_empty')" />
-      </a-form-item>
-      <a-form-item field="describe" :label="$t('profile.user_describe')">
-        <a-textarea
-          v-model="form.describe"
-          :placeholder="$t('profile.user_describe_empty')"
-          allow-clear
-          :auto-size="{ minRows: 7, maxRows: 7 }"
-        />
-      </a-form-item>
-      <a-form-item field="region" :label="$t('profile.countries_regions')">
-        <a-select v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" allow-clear>
-          <a-option
-              v-for="item in regionOptions"
-              :value="item.id"
-              :key="item.id"
-              :label="item.title"
+<!--          <template #loader>-->
+<!--            <div class="loader-animate"/>-->
+<!--          </template>-->
+        </a-image>
+        <div class="upload-btn">
+          <p class="tip">{{ $t("profile.user_head_portrait_tip") }}</p>
+          <a-upload
+              :action="uploadUrl"
+              :show-file-list="false"
+              :on-before-upload="beforeUpload"
+              :on-button-click="uploadClick"
+              @success="uploadSuccess"
+              @error="uploadError"
+              accept="image/*,.png"
+              :headers="headers"
           >
-            {{ item.title }}
-          </a-option>
-        </a-select>
-
-        <!--        <a-input v-model="form.region" :placeholder="" />-->
-      </a-form-item>
-      <h4 class="title mb20">{{ $t("profile.personal_information") }}</h4>
-      <a-form-item field="email" :label="$t('profile.email')" :content-flex="false">
-        <a-input v-model="form.email" :placeholder="$t('profile.countries_email_empty')" disabled />
-        <div v-if="!form.email" style="text-align: right">
-          <a-button type="text" @click="handleBind">绑定</a-button>
+            <template #upload-button>
+              <a-button type="outline" :loading="uploadLoading">{{ $t("profile.user_head_upload") }}</a-button>
+            </template>
+          </a-upload>
         </div>
-      </a-form-item>
-      <a-form-item field="post" :label="$t('profile.phone')">
-        <a-input v-model="form.post" :placeholder="$t('profile.countries_phone_empty')" />
-      </a-form-item>
-      <a-form-item field="sex" :label="$t('profile.sex')">
-        <a-select v-model="form.sex" :placeholder="$t('profile.countries_sex_empty')"  allow-clear>
-          <a-option
-            v-for="item in sexOptions"
-            :value="item.value"
-            :key="item.value"
-            :label="item.key"
-          >
-            {{ item.key }}
-          </a-option>
-        </a-select>
-      </a-form-item>
-
-      <a-form-item field="birth_time" :label="$t('profile.birthday')">
-        <!-- <a-date-picker
-          v-model="form.birth_time"
-          style="width: 100%"
-          value-format="timestamp"
-          format="YYYY-MM-DD"
-          :placeholder="$t('profile.birth_empty')"
-        /> -->
-        <TempusDatePicker
-          v-model="form.birth_time"
-          @change="form.birth_time = $event"
-          ref="datePicker"
-        ></TempusDatePicker>
-      </a-form-item>
-      <a-form-item>
-        <a-row justify="space-between" style="width: 100%" align="center">
-          <a-col flex="auto">
-            <div class="tip">
-              <a-space>
-                <span>{{ $t("profile.preference_title") }}</span>
-                <span class="label-content">{{ form.userlabel }}</span>
-              </a-space>
-            </div>
-          </a-col>
-          <a-col flex="90px">
-            <a-button type="primary" @click="editPreference">{{
-              $t("profile.edit_preference")
-            }}</a-button>
-          </a-col>
-        </a-row>
-      </a-form-item>
-      <div class="save-btn">
-        <a-button size="large" type="primary" :loading="btnLoading" @click="handleSave">{{
-          $t("profile.save")
-        }}</a-button>
       </div>
-    </a-form>
+      <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
+      <a-form ref="formRef" :model="form" layout="vertical" size="large" :rules="rules">
+        <a-form-item field="id" label="">
+          <a-input v-model="form.id" placeholder="" disabled />
+        </a-form-item>
+        <a-form-item field="nickname" :label="$t('profile.user_name')">
+          <a-input v-model="form.nickname" :placeholder="$t('profile.user_name_empty')" />
+        </a-form-item>
+        <a-form-item field="describe" :label="$t('profile.user_describe')">
+          <a-textarea
+              v-model="form.describe"
+              :placeholder="$t('profile.user_describe_empty')"
+              allow-clear
+              :auto-size="{ minRows: 7, maxRows: 7 }"
+          />
+        </a-form-item>
+        <a-form-item field="region" :label="$t('profile.countries_regions')">
+          <a-select v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" allow-clear>
+            <a-option
+                v-for="item in regionOptions"
+                :value="item.id"
+                :key="item.id"
+                :label="item.title"
+            >
+              {{ item.title }}
+            </a-option>
+          </a-select>
+
+          <!--        <a-input v-model="form.region" :placeholder="" />-->
+        </a-form-item>
+        <h4 class="title mb20">{{ $t("profile.personal_information") }}</h4>
+        <a-form-item field="email" :label="$t('profile.email')" :content-flex="false">
+          <a-input v-model="form.email" :placeholder="$t('profile.countries_email_empty')" disabled />
+          <div v-if="!form.email" style="text-align: right">
+            <a-button type="text" @click="handleBind">绑定</a-button>
+          </div>
+        </a-form-item>
+        <a-form-item field="post" :label="$t('profile.phone')">
+          <a-input v-model="form.phone" :placeholder="$t('profile.countries_phone_empty')" />
+        </a-form-item>
+        <a-form-item field="sex" :label="$t('profile.sex')">
+          <a-select v-model="form.sex" :placeholder="$t('profile.countries_sex_empty')"  allow-clear>
+            <a-option
+                v-for="item in sexOptions"
+                :value="item.value"
+                :key="item.value"
+                :label="item.key"
+            >
+              {{ item.key }}
+            </a-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="birth_time" :label="$t('profile.birthday')">
+          <!-- <a-date-picker
+            v-model="form.birth_time"
+            style="width: 100%"
+            value-format="timestamp"
+            format="YYYY-MM-DD"
+            :placeholder="$t('profile.birth_empty')"
+          /> -->
+          <TempusDatePicker
+              v-model="form.birth_time"
+              @change="form.birth_time = $event"
+              ref="datePicker"
+          ></TempusDatePicker>
+        </a-form-item>
+        <a-form-item>
+          <a-row justify="space-between" style="width: 100%" align="center">
+            <a-col flex="auto">
+              <div class="tip">
+                <a-space>
+                  <span>{{ $t("profile.preference_title") }}</span>
+                  <span class="label-content">{{ form.userlabel }}</span>
+                </a-space>
+              </div>
+            </a-col>
+            <a-col flex="90px">
+              <a-button type="primary" @click="editPreference">{{
+                  $t("profile.edit_preference")
+                }}</a-button>
+            </a-col>
+          </a-row>
+        </a-form-item>
+        <div class="save-btn">
+          <a-button size="large" type="primary" :loading="btnLoading" @click="handleSave">{{
+              $t("profile.save")
+            }}</a-button>
+        </div>
+      </a-form>
+    </div>
 
     <a-skeleton :loading="pageLoading">
       <a-space direction="vertical" :style="{ width: '100%' }" size="large">
         <a-skeleton-line :rows="18" />
       </a-space>
     </a-skeleton>
-
     <ChoosePreference
       ref="choosePreference"
       @confirmPreference="confirmPreference"
@@ -127,17 +141,21 @@
 </template>
 
 <script setup>
+import {useI18n} from "vue-i18n";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
+import { useUserInfo } from "~/stores/userInfo"
+import {Message} from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
-import { useUserInfo } from "~/stores/userInfo";
-import { getUserInfo } from "~/api/user"
+import { getUserInfo, updateUserInfo } from "~/api/user"
 const sysData = useSysData();
-const userInfo = useUserInfo();
+const {t} = useI18n();
+
 let form = reactive({
   id: null,
   nickname: null,
   avatar: null,
   describe: null,
+  region: null,
   email: null,
   phone: null,
   sex: null,
@@ -145,23 +163,73 @@ let form = reactive({
   userlabel: null,
   userLabel_id: null
 });
-// const form = ref(null);
+let headers = reactive({
+  'X-Utoken': null,
+  'X-Userid': null
+});
+const rules = reactive({
+  nickname: [
+    {required: true, message: ref(t('profile.user_name_validate'))},
+  ]
+})
 const sexOptions = ref(null);
 const regionOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const datePicker = ref(null);
-const pageLoading = ref(false);
-console.log(form)
+const pageLoading = ref(true);
 const btnLoading = ref(false);
+const uploadLoading = ref(false);
+const formRef = ref(null);
+if(process.client){
+  const userInfo = useUserInfo()
+  headers['X-Utoken'] = userInfo.token
+  headers['X-Userid'] = userInfo.id
+}
 
+const beforeUpload = (e) =>{
+  uploadLoading.value = true
+  return true
+}
+const uploadClick = () =>{
+  console.log('uploadClick')
+  if(uploadLoading.value) return new Promise(()=>{})
+}
 // 上传成功
 const uploadSuccess = (e) => {
-  form.avatar = baseImgPrefix + e.response.data;
+  form.avatar = e.response.data;
+  uploadLoading.value = false
+};
+const uploadError = (e) => {
+  uploadLoading.value = false
 };
 // 保存
 const handleSave = () => {
-  console.log(form)
+  formRef.value.validate().then(validate =>{
+    if(validate) return
+    console.log(form)
+    const data = JSON.parse(JSON.stringify(form))
+    delete data.id
+    data.ularr = data.userLabel_id
+    data.birth_time = new Date(data.birth_time).getTime()
+    console.log(data)
+    btnLoading.value = true
+    for(const item in data){
+      if(data[item] === null){
+        data[item] = ''
+      }
+    }
+    updateUserInfo(data).then(res=>{
+      if(res.code === 0){
+        Message.success(t('profile.editSuc'))
+      } else {
+        Message.error(res.message)
+      }
+      btnLoading.value = false
+    }).catch(()=>{
+      btnLoading.value = false
+    })
+  })
 };
 // 绑定
 const handleBind = () => {
@@ -182,31 +250,35 @@ const confirmPreference = (e) => {
   console.log(form.userLabel_id)
 }
 onMounted(() => {
-  datePicker.value.initPicker();
   if(process.client){
     getUserInfo().then(res=>{
       console.log(res)
       if(res.code === 0){
+        pageLoading.value = false
         const data = res.data
         // for (const label in form){
         //   form[label] = res.data[label]
         // }
         form.id = 'ID: ' + data.id
         form.nickname = data.nickname
-        form.avatar = baseImgPrefix + data.avatar
+        form.avatar = data.avatar
         form.describe = data.describe
         form.email = data.email
         form.phone = data.phone
         form.sex = data.sex
+        const arr = data.region.filter(item=>{
+          return item.type === 1
+        })
+        form.region = arr.length ? arr[0].id : ''
         form.birth_time = data.birth_time
-        datePicker.value.setInput(form.birth_time)
+        nextTick(()=>{
+          datePicker.value.initPicker();
+          datePicker.value.setInput(form.birth_time)
+        })
         form.userlabel = data.userlabel
         form.userLabel_id = data.userLabel_id
         regionOptions.value = data.region
-        // form.nickname = userInfo.nickname
-        // form.userId = 'ID: ' + userInfo.id
-        // // form = userInfo
-        // console.log(form)
+
       }
     })
   }
@@ -252,6 +324,7 @@ onMounted(() => {
       border-radius: 50%;
       border: 1px solid #aaaaaa;
       flex-shrink: 0;
+      overflow: hidden;
       object-fit: cover;
     }
     .upload-btn {
