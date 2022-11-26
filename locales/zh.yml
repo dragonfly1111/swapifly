@@ -243,6 +243,15 @@ achievementModal:
   natureExposure: 自然曝光
   refundTip: 付費曝光量未达到预期?
   refundEmailTip: 如果你需要申诉退款，可发送电邮至邮箱
+dataStatistics:
+  dataStatisticsName: 数据统计
+  visitTimes: 访问次数
+  visitTimesTip: 多少人看过你的个人档案
+  onlineShopData: 网店数据
+  exposureName: 曝光量
+  exposureSub: 将你的店铺展示给买家的次数
+  clickNumber: 点击次数
+  clickNumberSub: 买家点击查看你的个人档案或精选产品，或追踪你的次数
 
 
 

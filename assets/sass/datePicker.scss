@@ -42,3 +42,7 @@
 //.tempus-dominus-widget.light .date-container-days div:not(.no-highlight):hover{
 //  background-color: var(--color-fill-2);
 //}
+
+.tempus-dominus-widget[data-popper-reference-hidden]{
+  display: none !important;
+}

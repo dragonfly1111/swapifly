@@ -25,7 +25,12 @@
         <div class="price-select">
           <div class="select-title">{{ $t("exposure.chooseTip") }}</div>
           <div class="select-content">
-            <div class="select-item" v-for="item in 4">
+            <div
+              class="select-item"
+              v-for="item in payOptions"
+              :class="{ active: formData.payId == item.id }"
+              @click="formData.payId = item.id"
+            >
               <div>500曝光量/七天</div>
               <div class="price">HK$ 5</div>
             </div>
@@ -148,12 +153,14 @@ const uploadRef = ref(null);
 const saveLoading = ref(false);
 const visible = ref(false);
 const emits = defineEmits(["change"]);
+const payOptions = reactive([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]);
 const formData = reactive({
   title: "",
   address: "",
   contact: "",
   image: "",
   payway: 1,
+  payId: null,
 });
 const rules = reactive({
   title: [{ required: true, message: t("exposure.formValidate.businessTitle") }],
@@ -171,13 +178,11 @@ const updatePage = () => {
 };
 const handleCancel = () => {
   visible.value = false;
-  fileList.value = [];
   // 延迟清空 避免出现先清空了表单 对话框再消失视觉问题
   setTimeout(() => {
     resetForm();
   }, 100);
 };
-
 
 const resetForm = () => {
   formRef.value.resetFields();
@@ -372,7 +377,7 @@ defineExpose({
         border: 1px solid #eee;
       }
     }
-    .black-btn{
+    .black-btn {
       width: 100%;
       height: 38px;
     }
