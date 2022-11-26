@@ -182,11 +182,11 @@ const confirmPreference = (e) => {
   console.log(form.userLabel_id)
 }
 onMounted(() => {
-  datePicker.value.initPicker();
   if(process.client){
     getUserInfo().then(res=>{
       console.log(res)
       if(res.code === 0){
+        datePicker.value.initPicker();
         const data = res.data
         // for (const label in form){
         //   form[label] = res.data[label]
@@ -203,6 +203,7 @@ onMounted(() => {
         form.userlabel = data.userlabel
         form.userLabel_id = data.userLabel_id
         regionOptions.value = data.region
+
         // form.nickname = userInfo.nickname
         // form.userId = 'ID: ' + userInfo.id
         // // form = userInfo

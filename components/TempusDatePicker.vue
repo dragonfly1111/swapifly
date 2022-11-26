@@ -1,5 +1,9 @@
 <template>
-  <div class="input-group log-event" data-td-target-input="nearest" data-td-target-toggle="nearest">
+  <div
+    class="input-group log-event"
+    data-td-target-input="nearest"
+    data-td-target-toggle="nearest"
+  >
     <a-input
       :model-value="inputValue"
       id="datetimepicker"
@@ -13,9 +17,10 @@
 <script setup>
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useI18n } from "vue-i18n";
-import * as moment from 'moment';
+import * as moment from "moment";
 const { t, locale } = useI18n();
 const inputValue = ref(null);
+const showPicker = ref(false);
 const emits = defineEmits(["change"]);
 
 const props = defineProps({
@@ -38,55 +43,62 @@ const props = defineProps({
 });
 const picker = ref(null);
 const initPicker = () => {
-  console.log('initPicker')
-  if (document.getElementById("datetimepicker")) {
-    picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-      localization: {
-        locale: locale.value
-      },
-      display: {
-        buttons: {
-          today: true,
-          clear: true,
-          close: true,
+  console.log("initPicker");
+  nextTick(() => {
+    if (document.getElementById("datetimepicker")) {
+      picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+        localization: {
+          locale: locale.value,
         },
-        ...props.pickOptions,
-      },
-    });
-    changeInput();
-    //logs the selected index. This will always be 0 if multipleDates is false
-  }
+        useCurrent: false,
+        display: {
+          buttons: {
+            today: true,
+            clear: true,
+            close: true,
+          },
+          ...props.pickOptions,
+        },
+      });
+      changeInput();
+      //logs the selected index. This will always be 0 if multipleDates is false
+    }
+  });
 };
 
 const setInput = (val) => {
-  console.log('val')
-  console.log(val)
-  if(val){
+  console.log("val");
+  console.log(val);
+  if (val) {
     const parsedDate = picker.value.dates.parseInput(new Date(val));
     picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
   }
 };
 
 const changeInput = (e) => {
-  console.log('changeInput')
-  console.log(e)
+  console.log("changeInput");
+  console.log(e);
   document
     .getElementById("datetimepicker")
     .getElementsByTagName("input")[0]
     .addEventListener("change", function (e) {
-      console.log(e.detail.date)
+      console.log(e.detail.date);
       // inputValue.value = e.target.value;
-      console.log(locale)
-      moment.locale(locale.value)
-      inputValue.value = moment(e.detail.date).format('YYYY-MM-DD')
-      console.log(inputValue.value)
+      console.log(locale);
+      moment.locale(locale.value);
+      inputValue.value = moment(e.detail.date).format("YYYY-MM-DD");
+      console.log(inputValue.value);
       emits("change", inputValue.value);
     });
 };
 
+onUnmounted(() => {
+  showPicker.value = false;
+});
+
 defineExpose({
   initPicker,
-  setInput
+  setInput,
 });
 </script>
 
