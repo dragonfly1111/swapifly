@@ -121,17 +121,14 @@ import { useSysData } from "~/stores/sysData";
 import { useUserInfo } from "~/stores/userInfo";
 const sysData = useSysData();
 const userInfo = useUserInfo();
-console.log(111)
+let form = reactive({});
+// const form = ref(null);
 const sexOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const datePicker = ref(null);
 const pageLoading = ref(false);
-const form = reactive({
-  nickname: userInfo.nickname,
-  avatar: baseImgPrefix + userInfo.avatar,
-  birth_time: null,
-});
+console.log(form)
 const btnLoading = ref(false);
 // 上传成功
 const uploadSuccess = (e) => {
@@ -151,6 +148,15 @@ function confirmPreference() {}
 onMounted(() => {
   datePicker.value.initPicker();
   sexOptions.value = sysData.gender;
+  console.log(userInfo.nickname)
+  // for (const label in userInfo){
+  //   console.log(label)
+  // }
+  // form.nickname = userInfo.nickname
+  // form.userId = 'ID: ' + userInfo.id
+  // // form = userInfo
+  // console.log(form)
+
 });
 </script>
 
@@ -210,6 +216,10 @@ onMounted(() => {
   }
   :deep(.arco-input-wrapper) {
     @extend .input-box;
+  }
+  :deep(.arco-input-disabled){
+    background-color: var(--color-fill-2);
+    border: 1px solid transparent;
   }
   :deep(.arco-textarea-wrapper) {
     @extend .input-box;

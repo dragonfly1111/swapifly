@@ -9,7 +9,9 @@ declare module '@nuxt/schema' {
 export default defineNuxtConfig({
   app:{
     pageTransition: { name: 'page', mode: 'out-in' },
-    baseURL: '/swapifly/'
+    baseURL: '/swapifly/',
+    head:{
+    }
   },
   ssr: true,
   modules: [

@@ -2,8 +2,6 @@ import { defineStore } from 'pinia'
 import { IUserInfo } from '~/model/res/userInfo'
 import { userLogOut } from '~/api/loginAndRegister'
 
-// @ts-ignore
-// @ts-ignore
 export const useUserInfo = defineStore('userInfo', {
   state: (): IUserInfo => ({
     avatar: '',
