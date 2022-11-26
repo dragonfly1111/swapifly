@@ -2,7 +2,6 @@
   <div class="input-group log-event" data-td-target-input="nearest" data-td-target-toggle="nearest">
     <a-input
       :model-value="inputValue"
-      allow-clear
       id="datetimepicker"
       data-td-target="#datetimepicker"
       data-td-toggle="datetimepicker"
@@ -56,6 +55,11 @@ const initPicker = () => {
   }
 };
 
+const setInput = (val) => {
+  const parsedDate = picker.value.dates.parseInput(new Date(val));
+  picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
+};
+
 const changeInput = (e) => {
   console.log('changeInput')
   console.log(e)
@@ -70,6 +74,7 @@ const changeInput = (e) => {
 
 defineExpose({
   initPicker,
+  setInput
 });
 </script>
 
