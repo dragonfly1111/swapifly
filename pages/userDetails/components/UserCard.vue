@@ -34,7 +34,7 @@
         <a-space direction="vertical" fill>
           <div>999</div>
           <div>{{ $t("pages.visitorYourTip") }}</div>
-          <a-button class="look-btn" type="primary">{{ $t("pages.lookClickRate") }}</a-button>
+          <a-button class="look-btn black-btn" type="primary" @click="openVisitTimes">{{ $t("pages.lookClickRate") }}</a-button>
         </a-space>
       </div>
       <div class="registered-btn">
@@ -44,6 +44,8 @@
     </div>
 
     <AD width="300px"></AD>
+
+    <ClickRateModal ref="clickRateModal"></ClickRateModal>
   </div>
 </template>
 <script setup>
@@ -51,14 +53,20 @@ import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const router = useRouter();
 const form = reactive({ userId: "" });
+const clickRateModal = ref(null)
 const emits = defineEmits(["toFollow"]);
 
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 
+// 查看被关注/已关注
 const changeFollow = (e) => {
   emits("toFollow", e);
 };
+// 查看点击率
+const openVisitTimes = () =>{
+  clickRateModal.value.openDialog()
+}
 onMounted(() => {
   form.userId = router.currentRoute.value.query.userId;
 });
@@ -122,8 +130,6 @@ onMounted(() => {
     margin: 20px 0;
 
     .look-btn {
-      background-color: $main-grey;
-      color: #fff;
       margin-top: 20px;
     }
   }
