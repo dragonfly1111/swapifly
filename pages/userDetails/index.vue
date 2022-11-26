@@ -1,7 +1,7 @@
 <template>
   <div class="common-row global-content">
     <div class="user-banner">
-      <img :src="testImg" alt="" srcset="" />
+      <a-image :src="testImg" fit="cover"  show-loader></a-image>
     </div>
 
     <div class="user-details">
@@ -45,6 +45,7 @@
     </div>
 
     <ReportModal ref="reportModal"></ReportModal>
+    
   </div>
 </template>
 <script setup>
@@ -100,7 +101,11 @@ onMounted(() => {
 .user-banner {
   width: 100%;
   height: 130px;
-  img {
+  :deep(.arco-image-img){
+    width: 100%;
+    height: 100%;
+  }
+  :deep(.arco-image){
     width: 100%;
     height: 100%;
   }

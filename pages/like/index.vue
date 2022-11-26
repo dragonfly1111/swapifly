@@ -12,8 +12,6 @@
 </template>
 
 <script setup>
-import ProductCard from "@/components/ProductCard";
-
 const handleQuery = (data) => {
   console.log("form", data);
 };

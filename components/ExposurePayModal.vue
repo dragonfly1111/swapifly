@@ -15,7 +15,7 @@
           <img src="@/assets/images/logo-long.png" alt="" />
         </div>
         <div class="goods-box">
-          <img src="@/assets/images/logo-long.png" alt="" />
+          <a-image :src="`https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp`" show-loader></a-image>
           <div class="goods-desc">
             <div>商品名称</div>
             <div class="grey">hk999</div>
@@ -281,7 +281,6 @@ defineExpose({
         width: 100px;
         height: 100px;
         object-fit: cover;
-        border: 1px solid;
         margin-right: 10px;
       }
       .goods-desc {

@@ -1,7 +1,7 @@
 <template>
   <div class="user-container">
     <div class="user-icon">
-      <img :src="testImg" alt="" srcset="" />
+      <a-image :src="testImg" fit="cover" show-loader></a-image>
     </div>
     <div class="user-body">
       <h2>用戶名稱</h2>
@@ -24,8 +24,8 @@
           </a-space>
           <div>回复频率高</div>
           <a-space class="link-row">
-            <div  @click="changeFollow(0)">999 Followers</div>
-            <div  @click="changeFollow(1)">999 Follow緊</div>
+            <div @click="changeFollow(0)">999 Followers</div>
+            <div @click="changeFollow(1)">999 Follow緊</div>
           </a-space>
           <div class="user-desc-content">個人簡介文本內容</div>
         </a-space>
@@ -34,7 +34,9 @@
         <a-space direction="vertical" fill>
           <div>999</div>
           <div>{{ $t("pages.visitorYourTip") }}</div>
-          <a-button class="look-btn black-btn" type="primary" @click="openVisitTimes">{{ $t("pages.lookClickRate") }}</a-button>
+          <a-button class="look-btn black-btn" type="primary" @click="openVisitTimes">{{
+            $t("pages.lookClickRate")
+          }}</a-button>
         </a-space>
       </div>
       <div class="registered-btn">
@@ -53,7 +55,7 @@ import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const router = useRouter();
 const form = reactive({ userId: "" });
-const clickRateModal = ref(null)
+const clickRateModal = ref(null);
 const emits = defineEmits(["toFollow"]);
 
 const testImg =
@@ -64,9 +66,9 @@ const changeFollow = (e) => {
   emits("toFollow", e);
 };
 // 查看点击率
-const openVisitTimes = () =>{
-  clickRateModal.value.openDialog()
-}
+const openVisitTimes = () => {
+  clickRateModal.value.openDialog();
+};
 onMounted(() => {
   form.userId = router.currentRoute.value.query.userId;
 });
@@ -79,18 +81,26 @@ onMounted(() => {
   position: relative;
   z-index: 50;
 }
+
 .user-icon {
-  img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    margin-left: 8px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  margin-left: 8px;
+  :deep(.arco-image-img) {
+    width: 100%;
+    height: 100%;
+  }
+  :deep(.arco-image) {
+    width: 100%;
+    height: 100%;
   }
 }
 .user-body {
   position: relative;
+  margin-left: 3px;
   h2 {
     margin: 10px 0;
     font-weight: 400;
@@ -107,13 +117,13 @@ onMounted(() => {
       width: 20px;
     }
     .link-row {
-      div{
+      div {
         color: $main-grey;
         text-decoration: underline;
         padding-left: 2px;
         padding-right: 2px;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: #eee;
         }
       }

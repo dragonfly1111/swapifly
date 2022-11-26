@@ -21,7 +21,7 @@
     <div class="goods-list" v-if="!isEmpty">
       <div class="recommend-item" v-for="(item, index) in 7" :style="{ width: props.cardWidth }">
         <div class="user-box" v-if="showUser">
-          <img :src="testImg" alt="" />
+          <a-image :src="testImg" fit="cover" show-loader></a-image>
           <div class="user-desc">
             <div>用户名称</div>
             <div class="time">一天前</div>
@@ -29,7 +29,7 @@
         </div>
         <div class="product-img">
           <div class="img-box">
-            <img :src="testImg" alt="" />
+            <img :src="testImg" alt="">
             <div class="status-box" v-if="showStatus">{{ $t("pages.soldOut") }}</div>
           </div>
           <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
@@ -80,8 +80,6 @@
       <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
       <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
     </div>
-
-
   </div>
 </template>
 <script setup>
@@ -130,9 +128,9 @@ const openExposure = () => {
 // 下架
 const handlRemove = () => {};
 
-const openAchievement = () =>{
-  userAchievementModal.value.openDialog()
-}
+const openAchievement = () => {
+  userAchievementModal.value.openDialog();
+};
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
@@ -165,13 +163,20 @@ const openAchievement = () =>{
     display: flex;
     font-size: 12px;
     margin-bottom: 10px;
-    img {
+    :deep(.arco-image) {
+      width: 100%;
+      height: 100%;
       flex-shrink: 0;
       width: 30px;
       height: 30px;
       border-radius: 50%;
       margin-right: 5px;
+      img{
+        height: 100%;
+        width: 100%;
+      }
     }
+    
     .user-desc {
       .time {
         margin-top: 2px;
