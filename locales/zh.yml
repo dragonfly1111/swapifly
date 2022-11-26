@@ -127,6 +127,7 @@ pages:
   noContent: 未填写
   followIn: 关注
   followers: 被关注
+  know: 我知道了
 profile:
   edit_profile: 编辑档案
   edit_password: 修改密码
@@ -221,6 +222,21 @@ exposure:
   orPayWay: 或用另一方式支付
   yearOrMonth: 月份/年份
   countriesRegions: 国家或地区
+achievementModal:
+  goodsReport:  商品报告
+  sevenDayReport: 7天成效分析
+  exposuresNumber: 曝光数
+  exposureRefund: 申请曝光退款
+  click: 点击
+  clickNumerTip: 用户点击浏览此商品的次数
+  whisper: 私讯
+  whisperTip: 你所收到的私讯与出价数
+  exposureTip: 此商品获得的曝光數
+  payExposure: 付費曝光
+  natureExposure: 自然曝光
+  refundTip: 付費曝光量未达到预期?
+  refundEmailTip: 如果你需要申诉退款，可发送电邮至邮箱
+
 
 
 

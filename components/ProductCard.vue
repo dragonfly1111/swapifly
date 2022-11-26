@@ -53,7 +53,7 @@
               <template v-if="isMySelf">
                 <a-doption @click="handlRemove">{{ $t("pages.editGoods") }}</a-doption>
                 <a-doption @click="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
-                <a-doption @click="handlRemove">{{ $t("pages.viewtheResults") }}</a-doption>
+                <a-doption @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
                 <a-doption @click="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
                 <a-doption @click="handlRemove">{{ $t("pages.markSold") }}</a-doption>
                 <a-doption @click="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
@@ -78,7 +78,9 @@
 
     <div v-if="isMySelf">
       <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
+      <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
     </div>
+
 
   </div>
 </template>
@@ -114,6 +116,7 @@ const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const reportModal = ref(null);
 const exposurePayModal = ref(null);
+const userAchievementModal = ref(null);
 const pageLoading = ref(false);
 
 // 举报
@@ -122,10 +125,14 @@ const handleReport = () => {
 };
 // 购买曝光率
 const openExposure = () => {
-  exposurePayModal.value.openDialog()
+  exposurePayModal.value.openDialog();
 };
 // 下架
 const handlRemove = () => {};
+
+const openAchievement = () =>{
+  userAchievementModal.value.openDialog()
+}
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
