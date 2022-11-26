@@ -193,9 +193,9 @@ const loginThird = (type: number) =>{
         client_id: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
         callback: (e:any) =>{
           const strings = e.credential.split("."); //截取token，获取载体
-          const userInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析
-          console.log(userInfo)
-          googleLogin(userInfo).then(res=>{
+          const googleUserInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析
+          console.log(googleUserInfo)
+          googleLogin(googleUserInfo).then(res=>{
             console.log('google_login res')
             console.log(res)
             if(res.code === 0){
