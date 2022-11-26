@@ -179,7 +179,7 @@ const loginThird = (type: number) =>{
     case 2:
       // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=514005190742316&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
       // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
-      const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/insAuth&scope=user_profile,user_media&response_type=code'
+      const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=514005190742316&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/insAuth&scope=user_profile,user_media&response_type=code'
       // const iWidth=500;                         //弹出窗口的宽度;
       // const iHeight=570;                        //弹出窗口的高度;
       // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
