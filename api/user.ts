@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import {IEmailForm} from "~/model/payload/loginAndRegister";
 
 // 查询个人资料
 export const getUserInfo = () => {
@@ -24,18 +25,19 @@ export const updatePassword = (data: object) => {
   })
 }
 // 绑定邮箱
-export const bindEmail = () => {
+export const bindEmail = (data: any) => {
   return request({
-    url: '/index/up_center/bindEmail',
-    method: 'post'
+    url: '/index/user_center/bindEmail',
+    method: 'post',
+    data
   })
 }
 // 获取绑定邮箱验证码
-export const getBindEmailCode = (params: object) => {
+export const getBindEmailCode = (data: IEmailForm) => {
   return request({
-    url: '/index/up_center/bindEmailCode',
-    method: 'get',
-    params
+    url: '/index/user_center/bindEmailCode',
+    method: 'post',
+    data
   })
 }
 

@@ -141,7 +141,10 @@ profile:
   user_describe_empty: 尚未填写个人简介...
   countries_regions: 国家/区域
   countries_regions_empty: 尚未填写国家/区域...
+  countries_email_empty: 尚未填写Email...
+  countries_phone_empty: 尚未填写手机号码...
   personal_information: 私人资料
+  bindSuc: 邮箱绑定成功
   email: 邮箱
   phone: 手机号码
   sex: 性别
@@ -240,7 +243,7 @@ achievementModal:
 
 
 
-  
+
 
 
 
