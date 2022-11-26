@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="input-group log-event"
-    data-td-target-input="nearest"
-    data-td-target-toggle="nearest"
-  >
+  <div class="input-group log-event" data-td-target-input="nearest" data-td-target-toggle="nearest">
     <a-input
       :model-value="inputValue"
       id="datetimepicker"
@@ -92,9 +88,18 @@ const changeInput = (e) => {
     });
 };
 
-// onUnmounted(() => {
-//   showPicker.value = false;
-// });
+// 删除弹出层
+onBeforeUnmount(() => {
+  var doms = document.getElementsByClassName("tempus-dominus-widget");
+  doms = [].slice.apply(doms); 
+  doms = doms.filter(function (item) {
+    item.remove();
+  });
+});
+
+onUnmounted(() => {
+  // showPicker.value = false;
+});
 
 defineExpose({
   initPicker,
