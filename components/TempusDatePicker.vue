@@ -6,12 +6,14 @@
       data-td-target="#datetimepicker"
       data-td-toggle="datetimepicker"
       @input="changeInput"
+      :placeholder="$t('profile.countries_birth_empty')"
     ></a-input>
   </div>
 </template>
 <script setup>
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useI18n } from "vue-i18n";
+import * as moment from 'moment';
 const { t, locale } = useI18n();
 const inputValue = ref(null);
 const emits = defineEmits(["change"]);
@@ -36,10 +38,11 @@ const props = defineProps({
 });
 const picker = ref(null);
 const initPicker = () => {
+  console.log('initPicker')
   if (document.getElementById("datetimepicker")) {
     picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
       localization: {
-        locale: locale.value,
+        locale: locale.value
       },
       display: {
         buttons: {
@@ -56,8 +59,12 @@ const initPicker = () => {
 };
 
 const setInput = (val) => {
-  const parsedDate = picker.value.dates.parseInput(new Date(val));
-  picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
+  console.log('val')
+  console.log(val)
+  if(val){
+    const parsedDate = picker.value.dates.parseInput(new Date(val));
+    picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
+  }
 };
 
 const changeInput = (e) => {
@@ -67,7 +74,12 @@ const changeInput = (e) => {
     .getElementById("datetimepicker")
     .getElementsByTagName("input")[0]
     .addEventListener("change", function (e) {
-      inputValue.value = e.target.value;
+      console.log(e.detail.date)
+      // inputValue.value = e.target.value;
+      console.log(locale)
+      moment.locale(locale.value)
+      inputValue.value = moment(e.detail.date).format('YYYY-MM-DD')
+      console.log(inputValue.value)
       emits("change", inputValue.value);
     });
 };

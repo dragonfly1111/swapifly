@@ -62,7 +62,7 @@
         <a-input v-model="form.post" :placeholder="$t('profile.countries_phone_empty')" />
       </a-form-item>
       <a-form-item field="sex" :label="$t('profile.sex')">
-        <a-select v-model="form.sex" placeholder="" allow-clear>
+        <a-select v-model="form.sex" :placeholder="$t('profile.countries_sex_empty')"  allow-clear>
           <a-option
             v-for="item in sexOptions"
             :value="item.value"
@@ -122,7 +122,7 @@
       ref="choosePreference"
       @confirmPreference="confirmPreference"
     ></ChoosePreference>
-    <BindEmail ref="bindEmail"></BindEmail>
+    <BindEmail ref="bindEmail" @binSuc="binSuc"></BindEmail>
   </div>
 </template>
 
@@ -155,34 +155,6 @@ const pageLoading = ref(false);
 console.log(form)
 const btnLoading = ref(false);
 
-if(process.client){
-  getUserInfo().then(res=>{
-    console.log(res)
-    if(res.code === 0){
-      const data = res.data
-      // for (const label in form){
-      //   form[label] = res.data[label]
-      // }
-      form.id = 'ID: ' + data.id
-      form.nickname = data.nickname
-      form.avatar = baseImgPrefix + data.avatar
-      form.describe = data.describe
-      form.email = data.email
-      form.phone = data.phone
-      form.sex = data.sex
-      form.birth_time = data.birth_time
-      form.userlabel = data.userlabel
-      form.userLabel_id = data.userLabel_id
-      regionOptions.value = data.region
-      // form.nickname = userInfo.nickname
-      // form.userId = 'ID: ' + userInfo.id
-      // // form = userInfo
-      // console.log(form)
-    }
-  })
-}
-
-
 // 上传成功
 const uploadSuccess = (e) => {
   form.avatar = baseImgPrefix + e.response.data;
@@ -199,13 +171,45 @@ const handleBind = () => {
 const editPreference = () => {
   choosePreference.value.openDialog(form.userLabel_id);
 };
-function confirmPreference(e) {
+
+const binSuc = (email) =>{
+  form.email = email
+}
+
+const confirmPreference = (e) => {
   form.userlabel = e.map(item=>item.title).join(',')
   form.userLabel_id = e.map(item=>item.id).join(',')
   console.log(form.userLabel_id)
 }
 onMounted(() => {
   datePicker.value.initPicker();
+  if(process.client){
+    getUserInfo().then(res=>{
+      console.log(res)
+      if(res.code === 0){
+        const data = res.data
+        // for (const label in form){
+        //   form[label] = res.data[label]
+        // }
+        form.id = 'ID: ' + data.id
+        form.nickname = data.nickname
+        form.avatar = baseImgPrefix + data.avatar
+        form.describe = data.describe
+        form.email = data.email
+        form.phone = data.phone
+        form.sex = data.sex
+        form.birth_time = data.birth_time
+        datePicker.value.setInput(form.birth_time)
+        form.userlabel = data.userlabel
+        form.userLabel_id = data.userLabel_id
+        regionOptions.value = data.region
+        // form.nickname = userInfo.nickname
+        // form.userId = 'ID: ' + userInfo.id
+        // // form = userInfo
+        // console.log(form)
+      }
+    })
+  }
   sexOptions.value = sysData.gender;
 
 });

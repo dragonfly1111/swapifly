@@ -35,7 +35,7 @@ import {useI18n} from "vue-i18n";
 import { getBindEmailCode, bindEmail } from "~/api/user";
 import {Message} from "@arco-design/web-vue";
 const {t} = useI18n();
-
+const emits = defineEmits(['binSuc'])
 const visible = ref(false);
 const okLoading = ref(false);
 const sendLoading = ref(false);
@@ -100,7 +100,7 @@ const onBeforeOk = (done) => {
   })
 }
 const handleOk = () => {
-  console.log(21323)
+  emits('binSuc', formData.email)
 }
 const openDialog = (value) => {
   if(value){
