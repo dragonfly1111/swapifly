@@ -23,8 +23,8 @@
     </div>
     <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
     <a-form :model="form" layout="vertical" size="large">
-      <a-form-item field="userId" label="">
-        <a-input v-model="form.userId" placeholder="" disabled />
+      <a-form-item field="id" label="">
+        <a-input v-model="form.id" placeholder="" disabled />
       </a-form-item>
       <a-form-item field="nickname" :label="$t('profile.user_name')">
         <a-input v-model="form.nickname" :placeholder="$t('profile.user_name_empty')" />
@@ -38,7 +38,18 @@
         />
       </a-form-item>
       <a-form-item field="region" :label="$t('profile.countries_regions')">
-        <a-input v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" />
+        <a-select v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" allow-clear>
+          <a-option
+              v-for="item in regionOptions"
+              :value="item.id"
+              :key="item.id"
+              :label="item.title"
+          >
+            {{ item.title }}
+          </a-option>
+        </a-select>
+
+        <!--        <a-input v-model="form.region" :placeholder="" />-->
       </a-form-item>
       <h4 class="title mb20">{{ $t("profile.personal_information") }}</h4>
       <a-form-item field="email" :label="$t('profile.email')" :content-flex="false">
@@ -83,7 +94,7 @@
             <div class="tip">
               <a-space>
                 <span>{{ $t("profile.preference_title") }}</span>
-                <span>内容</span>
+                <span>{{ form.userlabel }}</span>
               </a-space>
             </div>
           </a-col>
@@ -119,17 +130,57 @@
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useSysData } from "~/stores/sysData";
 import { useUserInfo } from "~/stores/userInfo";
+import { getUserInfo } from "~/api/user"
 const sysData = useSysData();
 const userInfo = useUserInfo();
-let form = reactive({});
+let form = reactive({
+  id: null,
+  nickname: null,
+  avatar: null,
+  describe: null,
+  email: null,
+  phone: null,
+  sex: null,
+  birth_time: null,
+  userlabel: null
+});
 // const form = ref(null);
 const sexOptions = ref(null);
+const regionOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
 const datePicker = ref(null);
 const pageLoading = ref(false);
 console.log(form)
 const btnLoading = ref(false);
+
+if(process.client){
+  getUserInfo().then(res=>{
+    console.log(res)
+    if(res.code === 0){
+      const data = res.data
+      // for (const label in form){
+      //   form[label] = res.data[label]
+      // }
+      form.id = 'ID: ' + data.id
+      form.nickname = data.nickname
+      form.avatar = baseImgPrefix + data.avatar
+      form.describe = data.describe
+      form.email = data.email
+      form.phone = data.phone
+      form.sex = data.sex
+      form.birth_time = data.birth_time
+      form.userlabel = data.userlabel
+      regionOptions.value = data.region
+      // form.nickname = userInfo.nickname
+      // form.userId = 'ID: ' + userInfo.id
+      // // form = userInfo
+      // console.log(form)
+    }
+  })
+}
+
+
 // 上传成功
 const uploadSuccess = (e) => {
   form.avatar = baseImgPrefix + e.response.data;
@@ -148,14 +199,6 @@ function confirmPreference() {}
 onMounted(() => {
   datePicker.value.initPicker();
   sexOptions.value = sysData.gender;
-  console.log(userInfo.nickname)
-  // for (const label in userInfo){
-  //   console.log(label)
-  // }
-  // form.nickname = userInfo.nickname
-  // form.userId = 'ID: ' + userInfo.id
-  // // form = userInfo
-  // console.log(form)
 
 });
 </script>

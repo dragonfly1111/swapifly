@@ -13,7 +13,7 @@
 <script setup>
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const inputValue = ref(null);
 const emits = defineEmits(["change"]);
 
@@ -40,33 +40,7 @@ const initPicker = () => {
   if (document.getElementById("datetimepicker")) {
     picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
       localization: {
-        today: t("datePicker.today"),
-        clear: t("datePicker.clear"),
-        close: t("datePicker.close"),
-        selectMonth: t("datePicker.selectMonth"),
-        previousMonth: t("datePicker.previousMonth"),
-        nextMonth: t("datePicker.nextMonth"),
-        selectYear: t("datePicker.selectYear"),
-        previousYear: t("datePicker.previousYear"),
-        nextYear: t("datePicker.nextYear"),
-        selectDecade: t("datePicker.selectDecade"),
-        previousDecade: t("datePicker.previousDecade"),
-        nextDecade: t("datePicker.nextDecade"),
-        previousCentury: t("datePicker.previousCentury"),
-        nextCentury: t("datePicker.nextCentury"),
-        pickHour: t("datePicker.pickHour"),
-        incrementHour: t("datePicker.incrementHour"),
-        decrementHour: t("datePicker.decrementHour"),
-        pickMinute: t("datePicker.pickMinute"),
-        incrementMinute: t("datePicker.incrementMinute"),
-        decrementMinute: t("datePicker.decrementMinute"),
-        pickSecond: t("datePicker.pickSecond"),
-        incrementSecond: t("datePicker.incrementSecond"),
-        decrementSecond: t("datePicker.decrementSecond"),
-        toggleMeridiem: t("datePicker.toggleMeridiem"),
-        selectTime: t("datePicker.selectTime"),
-        selectDate: t("datePicker.selectDate"),
-        locale: "en", // 如果是中文 日期上面就会带有'日'、'周' 所以使用英文 并且手动配置字段
+        locale: locale.value,
       },
       display: {
         buttons: {
@@ -82,7 +56,9 @@ const initPicker = () => {
   }
 };
 
-const changeInput = () => {
+const changeInput = (e) => {
+  console.log('changeInput')
+  console.log(e)
   document
     .getElementById("datetimepicker")
     .getElementsByTagName("input")[0]
