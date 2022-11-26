@@ -53,16 +53,16 @@
       </a-form-item>
       <h4 class="title mb20">{{ $t("profile.personal_information") }}</h4>
       <a-form-item field="email" :label="$t('profile.email')" :content-flex="false">
-        <a-input v-model="form.email" />
-        <div style="text-align: right">
+        <a-input v-model="form.email" :placeholder="$t('profile.countries_email_empty')" disabled />
+        <div v-if="!form.email" style="text-align: right">
           <a-button type="text" @click="handleBind">绑定</a-button>
         </div>
       </a-form-item>
       <a-form-item field="post" :label="$t('profile.phone')">
-        <a-input v-model="form.post" />
+        <a-input v-model="form.post" :placeholder="$t('profile.countries_phone_empty')" />
       </a-form-item>
       <a-form-item field="sex" :label="$t('profile.sex')">
-        <a-select v-model="form.sex" placeholder="" allow-clear>
+        <a-select v-model="form.sex" :placeholder="$t('profile.countries_sex_empty')"  allow-clear>
           <a-option
             v-for="item in sexOptions"
             :value="item.value"
@@ -94,7 +94,7 @@
             <div class="tip">
               <a-space>
                 <span>{{ $t("profile.preference_title") }}</span>
-                <span>{{ form.userlabel }}</span>
+                <span class="label-content">{{ form.userlabel }}</span>
               </a-space>
             </div>
           </a-col>
@@ -122,7 +122,7 @@
       ref="choosePreference"
       @confirmPreference="confirmPreference"
     ></ChoosePreference>
-    <BindEmail ref="bindEmail"></BindEmail>
+    <BindEmail ref="bindEmail" @binSuc="binSuc"></BindEmail>
   </div>
 </template>
 
@@ -142,7 +142,8 @@ let form = reactive({
   phone: null,
   sex: null,
   birth_time: null,
-  userlabel: null
+  userlabel: null,
+  userLabel_id: null
 });
 // const form = ref(null);
 const sexOptions = ref(null);
@@ -154,50 +155,61 @@ const pageLoading = ref(false);
 console.log(form)
 const btnLoading = ref(false);
 
-if(process.client){
-  getUserInfo().then(res=>{
-    console.log(res)
-    if(res.code === 0){
-      const data = res.data
-      // for (const label in form){
-      //   form[label] = res.data[label]
-      // }
-      form.id = 'ID: ' + data.id
-      form.nickname = data.nickname
-      form.avatar = baseImgPrefix + data.avatar
-      form.describe = data.describe
-      form.email = data.email
-      form.phone = data.phone
-      form.sex = data.sex
-      form.birth_time = data.birth_time
-      form.userlabel = data.userlabel
-      regionOptions.value = data.region
-      // form.nickname = userInfo.nickname
-      // form.userId = 'ID: ' + userInfo.id
-      // // form = userInfo
-      // console.log(form)
-    }
-  })
-}
-
-
 // 上传成功
 const uploadSuccess = (e) => {
   form.avatar = baseImgPrefix + e.response.data;
 };
 // 保存
-const handleSave = () => {};
+const handleSave = () => {
+  console.log(form)
+};
 // 绑定
 const handleBind = () => {
-  bindEmail.value.openDialog();
+  bindEmail.value.openDialog(form.email);
 };
 // 更改偏好
 const editPreference = () => {
-  choosePreference.value.openDialog();
+  choosePreference.value.openDialog(form.userLabel_id);
 };
-function confirmPreference() {}
+
+const binSuc = (email) =>{
+  form.email = email
+}
+
+const confirmPreference = (e) => {
+  form.userlabel = e.map(item=>item.title).join(',')
+  form.userLabel_id = e.map(item=>item.id).join(',')
+  console.log(form.userLabel_id)
+}
 onMounted(() => {
   datePicker.value.initPicker();
+  if(process.client){
+    getUserInfo().then(res=>{
+      console.log(res)
+      if(res.code === 0){
+        const data = res.data
+        // for (const label in form){
+        //   form[label] = res.data[label]
+        // }
+        form.id = 'ID: ' + data.id
+        form.nickname = data.nickname
+        form.avatar = baseImgPrefix + data.avatar
+        form.describe = data.describe
+        form.email = data.email
+        form.phone = data.phone
+        form.sex = data.sex
+        form.birth_time = data.birth_time
+        datePicker.value.setInput(form.birth_time)
+        form.userlabel = data.userlabel
+        form.userLabel_id = data.userLabel_id
+        regionOptions.value = data.region
+        // form.nickname = userInfo.nickname
+        // form.userId = 'ID: ' + userInfo.id
+        // // form = userInfo
+        // console.log(form)
+      }
+    })
+  }
   sexOptions.value = sysData.gender;
 
 });
@@ -210,6 +222,7 @@ onMounted(() => {
   border: 1px solid $grey-font-label;
   padding: 10px 30px 40px;
   border-radius: 10px;
+  max-width: 665px;
   .tip {
     color: $grey-font-label;
   }
@@ -223,6 +236,12 @@ onMounted(() => {
   }
   h4.mb20 {
     margin-bottom: 20px;
+  }
+  .label-content{
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .upload-box {
     display: flex;

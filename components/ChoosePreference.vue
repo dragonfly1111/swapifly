@@ -42,16 +42,16 @@ import {Message} from '@arco-design/web-vue';
 const visible = ref(false);
 const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
-const confirmPreference = defineEmits(['confirmPreference'])
+const emits = defineEmits(['confirmPreference'])
 loading.value = true
 // todo 放到sysdata里面去 放这里会经常重复请求
-// getUserLabel().then(res => {
-//   loading.value = false
-//   res.data.data.forEach((item: { checked: boolean; }) => {
-//     item.checked = false
-//   })
-//   labelList.value = res.data.data
-// })
+getUserLabel().then(res => {
+  loading.value = false
+  res.data.data.forEach((item: { checked: boolean; }) => {
+    item.checked = false
+  })
+  labelList.value = res.data.data
+})
 const handleOk = () => {
   const ckeckedList: IUserLabel[] = labelList.value.filter(item => {
     return item.checked
@@ -63,6 +63,7 @@ const handleOk = () => {
     console.log(res)
     if(res.code === 0){
       Message.success(res.message)
+      emits('confirmPreference', ckeckedList)
       handleCancel()
     } else {
       Message.error(res.message)
@@ -83,7 +84,19 @@ const handleCancel = () => {
     resetForm()
   }, 100)
 }
-const openDialog = () => {
+const openDialog = (value: any) => {
+  console.log('openDialog')
+  console.log(value)
+  if(value){
+    const arr = value.split(',')
+    console.log(labelList.value)
+    console.log(arr)
+    labelList.value.forEach(item=>{
+      if(arr.indexOf(item.id + '') != -1){
+        item.checked = true
+      }
+    })
+  }
   visible.value = true;
 }
 defineExpose({

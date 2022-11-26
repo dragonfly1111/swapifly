@@ -87,7 +87,12 @@ profile:
   user_describe_empty: todo
   countries_regions: todo
   countries_regions_empty: todo
+  countries_email_empty: todo
+  countries_phone_empty: todo
+  countries_sex_empty: todo
+  countries_birth_empty: todo
   personal_information: todo
+  bindSuc: todo
   email: todo
   phone: todo
   sex: todo
