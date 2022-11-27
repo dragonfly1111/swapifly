@@ -176,6 +176,7 @@ profile:
   opwd: 当前密码
   pwd: 新密码
   cpwd: 确认密码
+  changeSuc: 密码修改成功，请重新登录
   formValidate:
     opwd: 请输入当前密码
     cpwd: 请输入确认密码

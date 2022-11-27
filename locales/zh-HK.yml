@@ -179,6 +179,7 @@ profile:
   resetPwdCancel: 取消
   newPwd: 新密碼
   newPwd1: 確認新密碼
+  changeSuc: 密碼修改成功，請重新登入
 gender:
   man: 男
   women: 女

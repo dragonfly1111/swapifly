@@ -119,6 +119,7 @@ profile:
   resetPwdCancel: todo
   newPwd: todo
   newPwd1: todo
+  changeSuc: todo
 gender:
   man: todo
   women: todo

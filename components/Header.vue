@@ -126,6 +126,7 @@ function selectMenu(e){
     case 'logout':
       console.log('logout')
       userInfo.logout()
+      router.replace('/')
       break
   }
 }
