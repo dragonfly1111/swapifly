@@ -1,20 +1,24 @@
 <template>
-  <div class="ad-wrapper" :style="{width:width}">
+  <div class="ad-wrapper" :style="{ width: width }">
     <div class="ad-title" v-if="props.hasTitle">{{ $t("foot.AD") }}</div>
-    <div class="ad-content"></div>
+    <div class="ad-content" :style="{ height: height }"></div>
   </div>
 </template>
-<script setup >
+<script setup>
 const props = defineProps({
-  hasTitle:{
-    type:Boolean,
-    default:true
+  hasTitle: {
+    type: Boolean,
+    default: true,
   },
-  width:{
-    type:String,
-    default:'80%'
+  width: {
+    type: String,
+    default: "80%",
   },
-})
+  height: {
+    type: String,
+    default: "140px",
+  },
+});
 </script>
 <style scoped lang="scss">
 .ad-wrapper {
@@ -24,7 +28,7 @@ const props = defineProps({
   text-align: center;
   .ad-content {
     width: 100%;
-    height: 140px;
+    height: 100%;
     border: 1px solid;
     margin: 10px 0;
   }

@@ -38,10 +38,10 @@ body {
     background-color: $main-grey;
   }
 }
-.grey{
-  color: #AAAAAA;
+.grey {
+  color: #aaaaaa;
 }
-.fs12{
+.fs12 {
   font-size: 12px;
 }
 .black-btn.arco-btn {
@@ -55,11 +55,28 @@ body {
 .black-outline-btn {
   background-color: #fff !important;
   color: $main-grey !important;
-  border:1px solid $main-grey !important;
+  border: 1px solid $main-grey !important;
   &:hover {
     background: #f7f8fa !important;
     color: $main-grey !important;
-    border:1px solid $main-grey !important;
+    border: 1px solid $main-grey !important;
+  }
+}
+.see-more {
+  text-align: center;
+  margin: 30px auto;
+  .arco-btn-outline,
+  .arco-btn-outline[type="button"],
+  .arco-btn-outline[type="submit"] {
+    border: 1px solid $main-grey;
+    color: rgba(56, 56, 56, 1);
+    padding: 0 20px;
+    height: 38px;
+    &:hover {
+      background-color: $main-grey;
+      border: 1px solid $main-grey;
+      color: #fff;
+    }
   }
 }
 
@@ -71,10 +88,10 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-      -60deg,
-      var(--color-fill-2) 25%,
-      var(--color-neutral-3) 40%,
-      var(--color-fill-3) 55%
+    -60deg,
+    var(--color-fill-2) 25%,
+    var(--color-neutral-3) 40%,
+    var(--color-fill-3) 55%
   );
   background-size: 400% 100%;
   animation: loop-circle 1.5s cubic-bezier(0.34, 0.69, 0.1, 1) infinite;

@@ -93,8 +93,8 @@ pages:
   sort: 排序
   old_new: 新舊程度
   price_degree: 價位
-  hand_deliver: 面交
-  post_and_courier: 郵寄及速遞
+  handDeliver: 面交
+  postAndCourier: 郵寄及速遞
   reset: 重置
   maxPrice: HK$最高
   minPrice: HK$最低
@@ -128,6 +128,14 @@ pages:
   followIn: Follow緊
   followers: Followers
   know: 我知道了
+  shouldLoginTip: 登錄以獲取更多服務 
+  bid: 出價
+  viewConversations: 查看對話
+  unfoldMore: 展開了解更多
+  expanded: 收起
+  viewSeller: 瀏覽賣家
+  viewAllComment: 查看所有評價
+  similarGoods: 類似的商品
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼

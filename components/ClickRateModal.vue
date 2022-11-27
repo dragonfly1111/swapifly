@@ -46,8 +46,12 @@ const openDialog = (type) => {
     initEchart();
   })
 };
+
+// 重置
 const handleCancel = () => {
   visible.value = false;
+  activeTab.value = 'visitTimes'
+  activeOnlineTab.value = 'exposure'
 };
 
 const changeTab = (e) => {

@@ -80,12 +80,12 @@
     </a-form-item>
     <a-form-item field="offline" style="margin-right: 10px">
       <a-checkbox value="offline" v-model="form.offline" @change="updateSearch">{{
-        $t("pages.hand_deliver")
+        $t("pages.handDeliver")
       }}</a-checkbox>
     </a-form-item>
     <a-form-item field="mail">
       <a-checkbox value="mail" v-model="form.mail" @change="updateSearch">{{
-        $t("pages.post_and_courier")
+        $t("pages.postAndCourier")
       }}</a-checkbox>
     </a-form-item>
     <a-form-item>

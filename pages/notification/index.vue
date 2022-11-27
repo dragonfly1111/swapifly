@@ -32,24 +32,14 @@
     </div>
   </div>
 </template>
-<script>
-import { ref } from "vue";
-
-export default {
-  setup() {
-    const pageLoading = ref(true);
-    const noticeList = ref([{}, {}]);
-    onMounted(async () => {
-      setTimeout(() => {
-        pageLoading.value = false;
-      }, 300);
-    });
-    return {
-      pageLoading,
-      noticeList,
-    };
-  },
-};
+<script setup>
+const pageLoading = ref(true);
+const noticeList = ref([{}, {}]);
+onMounted(async () => {
+  setTimeout(() => {
+    pageLoading.value = false;
+  }, 300);
+});
 </script>
 <style lang="scss" scoped>
 .notice-list {

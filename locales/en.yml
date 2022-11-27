@@ -64,8 +64,8 @@ pages:
   sort: sort
   old_new: old and new
   price_degree: price
-  hand_deliver: hand deliver
-  post_and_courier: post and courier
+  handDeliver: hand deliver
+  postAndCourier: post and courier
   reset: reset
   maxPrice: maxPrice
   minPrice: minPrice
