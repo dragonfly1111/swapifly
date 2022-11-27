@@ -255,3 +255,10 @@ dataStatistics:
   exposureSub: 將你嘅店鋪顯示畀買家嘅次數
   clickNumber: 點擊次數
   clickNumberSub: 買家點擊查看你嘅個人檔案或精選產品，或追蹤你嘅次數
+helpCenter:
+  hello: 您好！
+  helpInfo: 請問有什麼可以幫助您嗎？
+  search: 搜尋文章
+  theme: 主題
+  problem: 常見問題
+  notice: 公告

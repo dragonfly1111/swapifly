@@ -252,7 +252,13 @@ dataStatistics:
   exposureSub: 将你的店铺展示给买家的次数
   clickNumber: 点击次数
   clickNumberSub: 买家点击查看你的个人档案或精选产品，或追踪你的次数
-
+helpCenter:
+  hello: 您好！
+  helpInfo: 请问有什么可以帮助您吗？
+  search: 搜索文章
+  theme: 主题
+  problem: 常见问题
+  notice: 公告
 
 
 

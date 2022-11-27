@@ -1,17 +1,17 @@
 import { IntlifyModuleOptions } from '@intlify/nuxt3'
 import UnpluginComponentsVite from 'unplugin-vue-components/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+
 declare module '@nuxt/schema' {
   interface NuxtConfig {
     intlify?: IntlifyModuleOptions
   }
 }
 export default defineNuxtConfig({
-  app:{
-    pageTransition: { name: 'page', mode: 'out-in' },
+  app: {
+    pageTransition: {name: 'page', mode: 'out-in'},
     baseURL: '/swapifly/',
-    head:{
-    }
+    head: {}
   },
   ssr: true,
   modules: [
@@ -60,4 +60,4 @@ export default defineNuxtConfig({
       }),
     ],
   },
-})
+});
