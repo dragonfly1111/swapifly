@@ -5,7 +5,7 @@
         <nuxt-link href="/">
           <img class="logo" src="@/assets/images/logo-long.png" alt="">
         </nuxt-link>
-        <span>{{ $t('helpCenter.helpCenter') }}</span>
+        <span @click="$router.push('/helpCenter')">{{ $t('helpCenter.helpCenter') }}</span>
       </div>
       <div class="right">
         <span class="view-home" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
@@ -41,14 +41,17 @@
       height: 36px;
     }
     span{
+      cursor: pointer;
       font-size: 24px;
       margin-left: 25px;
+      font-weight: 600;
     }
   }
   .right{
     display: flex;
     align-items: center;
     .view-home{
+      font-weight: 500;
       cursor: pointer;
       font-size: 16px;
       margin-right: 26px;

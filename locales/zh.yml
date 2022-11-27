@@ -265,6 +265,14 @@ helpCenter:
   theme: 主题
   problem: 常见问题
   notice: 公告
+  sameTheme: 同主题的文章
+  searchResult: 搜索结果
+  articleTheme: 文章主题
+newsCenter:
+  title: 新闻资讯
+  search: 搜索新闻
+  recentNews: 近期新闻
+
 
 
 

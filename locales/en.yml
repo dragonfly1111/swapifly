@@ -126,6 +126,7 @@ gender:
   nonBinary: todo
   secrecy: todo
   other: todo
+
 helpCenter:
   helpCenter: todo
   hello: todo
@@ -133,4 +134,10 @@ helpCenter:
   theme: todo
   problem: todo
   notice: todo
-
+  sameTheme: todo
+  searchResult: todo
+  articleTheme: todo
+newsCenter:
+  title: todo
+  search: todo
+  recentNews: todo

@@ -5,7 +5,7 @@
     <NewsHeader v-else-if="headType === 'news'" />
     <slot />
     <Footer  v-if="headType === 'common'" />
-    <Footer1 v-else-if="headType === 'help'" />
+    <HelpFooter v-else-if="headType === 'help'" />
   </main>
 </template>
 <script setup>
@@ -13,13 +13,14 @@ import { useResize } from '~/stores/resize'
 const router = useRouter()
 const resize = useResize()
 const headType = ref('common')
-const head1Arr = [
+const helpArr = [
     '/helpCenter',
-    '/newsCenter'
+    '/helpCenter/detail',
+    '/helpCenter/search'
 ]
 watch(() =>router.currentRoute.value.path,(newValue,oldValue)=> {
   console.log('watch',newValue);
-  if(newValue === '/helpCenter'){
+  if(helpArr.indexOf(newValue) !== -1){
     headType.value = 'help'
   } else if(newValue === '/newsCenter') {
     headType.value = 'news'

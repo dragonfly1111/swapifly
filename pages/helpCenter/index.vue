@@ -18,10 +18,11 @@
         <a-tree
             :data="treeData"
             :default-expand-all="false"
+            v-model:expanded-keys="expandedKeys"
         >
           <!--由于title插槽会报错 这里用icon插槽来实现-->
           <template #icon="{ node }">
-            <span :class="node.level === 1 ? 'font1' : (node.level === 2 ? 'font2' : 'font3')  ">
+            <span @click="clickNode(node)" :class="node.level === 1 ? 'font1' : (node.level === 2 ? 'font2' : 'font3')  ">
               {{ node.title }}
             </span>
           </template>
@@ -188,8 +189,26 @@ const treeData2 = [
     ],
   }
 ];
+const expandedKeys = ref([]);
+const router = useRouter()
 const searchHandle = (e) =>{
-  console.log(e)
+  router.push('/helpCenter/search')
+}
+const clickNode = (e) =>{
+  console.log(e.key)
+  if(e.level === 3){
+    router.push(`/helpCenter/detail?id=${e.key}`)
+  } else {
+    // 手动实现点击标题展开功能
+    if(expandedKeys.value.indexOf(e.key) !== -1){
+      const index = expandedKeys.value.findIndex(item=> item === e.key)
+      console.log(index)
+      expandedKeys.value.splice(index, 1)
+    } else {
+      expandedKeys.value.push(e.key);
+    }
+  }
+
 }
 </script>
 
@@ -244,6 +263,9 @@ const searchHandle = (e) =>{
       padding: 19px;
       .arco-tree-node-switcher{
         height: 22px;
+        .arco-icon-hover:hover::before{
+          background: unset;
+        }
       }
       .arco-tree-node-title{
         padding: 0;
@@ -265,6 +287,10 @@ const searchHandle = (e) =>{
         }
         .arco-tree-node-title-text{
           display: none;
+        }
+        &:hover{
+          background: unset;
+          color: $main-blue;
         }
       }
       .arco-tree-node-indent-block{
@@ -293,6 +319,10 @@ const searchHandle = (e) =>{
         font-size: 14px;
         color: #1D2129;
         box-shadow: 0px 1px 0px 0px #E5E6E8;
+        cursor: pointer;
+        &:hover{
+          color: $main-blue;
+        }
       }
       .info-bar + .info-bar{
         margin-top: 10px;

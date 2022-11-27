@@ -268,6 +268,9 @@ helpCenter:
   theme: 主題
   problem: 常見問題
   notice: 公告
+  sameTheme: 同主題的文章
+  searchResult: 搜尋結果
+  articleTheme: 文章主題
 newsCenter:
   title: 新聞資訊
   search: 搜尋新聞
