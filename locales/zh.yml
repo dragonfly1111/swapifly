@@ -18,11 +18,15 @@ head:
   logout: 退出
   setting: 设置
   profile: 个人中心
+  viewHome: 浏览网站首页
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻
   AD: 广告
   recentTopSearches: 近期热门搜索
+  home: 首页
+  news: 新闻
+  help: 幫助
 loginDialog:
   title: 使用第三方平台登录
   or: 或
@@ -180,6 +184,7 @@ profile:
   opwd: 当前密码
   pwd: 新密码
   cpwd: 确认密码
+  changeSuc: 密码修改成功，请重新登录
   formValidate:
     opwd: 请输入当前密码
     cpwd: 请输入确认密码
@@ -260,6 +265,21 @@ dataStatistics:
   exposureSub: 将你的店铺展示给买家的次数
   clickNumber: 点击次数
   clickNumberSub: 买家点击查看你的个人档案或精选产品，或追踪你的次数
+helpCenter:
+  helpCenter: 帮助中心
+  hello: 您好！
+  helpInfo: 请问有什么可以帮助您吗？
+  search: 搜索文章
+  theme: 主题
+  problem: 常见问题
+  notice: 公告
+  sameTheme: 同主题的文章
+  searchResult: 搜索结果
+  articleTheme: 文章主题
+newsCenter:
+  title: 新闻资讯
+  search: 搜索新闻
+  recentNews: 近期新闻
 
 
 

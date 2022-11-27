@@ -18,11 +18,15 @@ head:
   logout: 登出
   setting: 設置
   profile: 個人檔案
+  viewHome: 瀏覽網站首頁
 foot:
   helpCenter: 幫助中心
   media: 媒體新聞
   AD: 廣告
   recentTopSearches: 近期熱門搜索
+  home: 首頁
+  news: 新聞
+  help:
 loginDialog:
   title: 使用第三方平台帳號登入
   or: 或
@@ -183,6 +187,7 @@ profile:
   resetPwdCancel: 取消
   newPwd: 新密碼
   newPwd1: 確認新密碼
+  changeSuc: 密碼修改成功，請重新登入
 gender:
   man: 男
   women: 女
@@ -263,3 +268,18 @@ dataStatistics:
   exposureSub: 將你嘅店鋪顯示畀買家嘅次數
   clickNumber: 點擊次數
   clickNumberSub: 買家點擊查看你嘅個人檔案或精選產品，或追蹤你嘅次數
+helpCenter:
+  helpCenter: 幫助中心
+  hello: 您好！
+  helpInfo: 請問有什麼可以幫助您嗎？
+  search: 搜尋文章
+  theme: 主題
+  problem: 常見問題
+  notice: 公告
+  sameTheme: 同主題的文章
+  searchResult: 搜尋結果
+  articleTheme: 文章主題
+newsCenter:
+  title: 新聞資訊
+  search: 搜尋新聞
+  recentNews: 近期新聞

@@ -45,7 +45,9 @@
 import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import { updatePassword } from '~/api/user'
-
+import {useUserInfo} from "~/stores/userInfo";
+const userInfo = useUserInfo()
+const router = useRouter()
 const { t } = useI18n();
 const pageLoading = ref(false);
 const saveLoading = ref(false);
@@ -77,7 +79,9 @@ const handleSave = () => {
     saveLoading.value = true
     updatePassword(form).then(res=>{
       if(res.code === 0){
-        Message.error(res.message)
+        Message.success('密码修改成功，请重新登录')
+        userInfo.logout()
+        router.replace('/')
       } else {
         Message.error(res.message)
       }

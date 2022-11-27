@@ -5,8 +5,8 @@
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
         <span class="info">©2022 Swapifly</span>
         <div class="other">
-          <span>{{$t('foot.helpCenter')}}</span>
-          <span>{{$t('foot.media')}}</span>
+          <span @click="$router.push('/helpCenter')">{{$t('foot.helpCenter')}}</span>
+          <span @click="$router.push('/newsCenter')">{{$t('foot.media')}}</span>
         </div>
       </div>
       <div class="right">
@@ -20,6 +20,11 @@
 <script setup lang="ts">
 import { useResize } from '~/stores/resize'
 const resize = useResize()
+const router = useRouter()
+
+const toHelp = () =>{
+  router.push('/helpCenter')
+}
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var";
