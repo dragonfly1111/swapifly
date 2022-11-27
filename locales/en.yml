@@ -17,11 +17,15 @@ head:
   logout: todo
   setting: todo
   profile: todo
+  viewHome: todo
 foot:
   helpCenter: Help Center
   media: Media News
   AD: AD
   recentTopSearches: recent Top Searches
+  home: todo
+  news: todo
+  help: todo
 loginDialog:
   title: todo
   or: todo
@@ -122,6 +126,7 @@ gender:
   secrecy: todo
   other: todo
 helpCenter:
+  helpCenter: todo
   hello: todo
   helpInfo: todo
   theme: todo

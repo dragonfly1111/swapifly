@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content">
+  <div class="global-content1">
     <div class="help-head">
       <div class="common-row">
         <div class="left">
