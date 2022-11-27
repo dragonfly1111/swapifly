@@ -44,14 +44,6 @@ const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
 const emits = defineEmits(['confirmPreference'])
 loading.value = true
-// todo 放到sysdata里面去 放这里会经常重复请求
-getUserLabel().then(res => {
-  loading.value = false
-  res.data.data.forEach((item: { checked: boolean; }) => {
-    item.checked = false
-  })
-  labelList.value = res.data.data
-})
 const handleOk = () => {
   const ckeckedList: IUserLabel[] = labelList.value.filter(item => {
     return item.checked
@@ -85,19 +77,26 @@ const handleCancel = () => {
   }, 100)
 }
 const openDialog = (value: any) => {
-  console.log('openDialog')
-  console.log(value)
-  if(value){
-    const arr = value.split(',')
-    console.log(labelList.value)
-    console.log(arr)
-    labelList.value.forEach(item=>{
-      if(arr.indexOf(item.id + '') != -1){
-        item.checked = true
-      }
-    })
-  }
   visible.value = true;
+  getUserLabel().then(res => {
+    loading.value = false
+    res.data.data.forEach((item: { checked: boolean; }) => {
+      item.checked = false
+    })
+    labelList.value = res.data.data
+    if(value){
+      const arr = value.split(',')
+      console.log(labelList.value)
+      console.log(arr)
+      labelList.value.forEach(item=>{
+        if(arr.indexOf(item.id + '') != -1){
+          item.checked = true
+        }
+      })
+    }
+    console.log('openDialog')
+    console.log(value)
+  })
 }
 defineExpose({
   openDialog,

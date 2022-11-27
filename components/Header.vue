@@ -81,7 +81,7 @@
           <nuxt-link href="/">
             <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
           </nuxt-link>
-          <a-input-search class="search-input" :placeholder="$t('head.searchKey')" search-button/>
+          <a-input-search class="search-input" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button/>
         </div>
         <div class="right">
           <a-button class="sell-but">{{ $t('head.sell') }}</a-button>
@@ -153,6 +153,19 @@ function toPreference() {
 }
 
 function confirmPreference() {
+
+}
+
+function toSearchResult(e:any) {
+  console.log('search')
+  if(e){
+    router.push({
+      path: '/searchResult',
+      query: {
+        keyword: e
+      }
+    })
+  }
 
 }
 

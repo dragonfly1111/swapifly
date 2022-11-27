@@ -6,11 +6,7 @@
       </div>
     </template>
     <div class="title">{{ $t('loginDialog.title') }}</div>
-    <div class="login-type-wrap">
-      <img src="@/assets/images/icon/icon_facebook.png" alt="">
-      <img src="@/assets/images/icon/icon_ins.png" alt="">
-      <img src="@/assets/images/icon/icon_gmail.png" alt="">
-    </div>
+    <ThirdLoginWrap></ThirdLoginWrap>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
     <a-form ref="formRef" :model="formData" :rules="rules">
       <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
@@ -131,24 +127,6 @@ defineExpose({
       text-align: center;
       font-size: 16px;
       user-select: none;
-    }
-
-    .login-type-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 24px;
-
-      img {
-        width: 50px;
-        height: 50px;
-        -webkit-user-drag: none;
-        cursor: pointer;
-      }
-
-      img + img {
-        margin-left: 27px;
-      }
     }
 
     .or-wrap {

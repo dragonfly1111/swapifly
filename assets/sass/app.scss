@@ -16,6 +16,7 @@ body {
   }
   .global-content {
     padding-top: 106px;
+    min-height: calc(100vh - 86px - 106px);
   }
 }
 
