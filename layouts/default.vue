@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Header v-if="headType === 'common'"/>
+    <Header v-if="headType === 'common' || headType === 'dialogue'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
     <slot/>
@@ -30,6 +30,8 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
     headType.value = 'news'
+  } else if(newValue === '/dialogue'){
+    headType.value = 'dialogue'
   } else {
     headType.value = 'common'
   }

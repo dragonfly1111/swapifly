@@ -285,6 +285,38 @@ newsCenter:
   recent: 近期
   preNews: 上一篇文章
   nextNews: 下一篇文章
+dialogue:
+  newMsg: 新消息
+  noMore: 暂无更多对话
+  counterpartyPrice: 对方出价
+  inputHere: 在此输入...
+  offer: 出价
+  acceptOffer: 接受出价
+  accept: 接受
+  refuse: 驳回
+  noMsg: 暂无消息
+  noMsgTip: 没有收到任何消息哦～
+  rejected: 已驳回出价
+  accepted: 已接受出价
+  checkEvaluate: 查看评价
+  evaluate: 提交评价
+  evaluateDetail: 评价详情
+  evaluateDetailTip: 双方完成互相评价或交易完成15天后方可查看评价详情
+  evaluateContenTip: 评价内通
+  noEvaluateContenTip: 对方已评价
+  rate: 评分
+  evaluateContent: 请输入你的评价内容
+  evaluateTip: 请于交易完成15天内完成评价
+  markSold: 标记已售出
+  markSoldTip: 标记已售出的商品将无法再收到出价，是否标记？
+  inbox: 收信箱
+  onSale: 出售中
+  underPurchase: 购买中
+  sealed: 已封存
+  sealConversation: 封存对话
+  block: 封锁对方
+  deleteConversation: 删除对话
+  report: 举报对方
 
 
 
