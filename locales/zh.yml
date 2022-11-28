@@ -121,6 +121,7 @@ pages:
   soldOut: 已售出
   isRemoveGoods: 已下架
   removeGoods: 下架商品
+  putawayGoods: 上架商品
   editGoods: 編輯商品
   exposureGoods: 曝光推廣
   viewtheResults: 檢視成果
