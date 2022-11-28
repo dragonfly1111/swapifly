@@ -280,7 +280,9 @@ newsCenter:
   title: 新闻资讯
   search: 搜索新闻
   recentNews: 近期新闻
-
+  recent: 近期
+  preNews: 上一篇文章
+  nextNews: 下一篇文章
 
 
 

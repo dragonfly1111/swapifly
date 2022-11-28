@@ -8,7 +8,7 @@
    </div>
     <div class="news-content common-row">
       <div class="left">
-        <div class="news-box">
+        <div class="news-box" @click="toNewsDetail({id: 1})">
           <a-image width="350" height="250" src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp" show-loader></a-image>
           <div class="info-box">
             <div class="time">2022/09/01</div>
@@ -16,7 +16,7 @@
             <div class="des">文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本文章概要文本</div>
           </div>
         </div>
-        <div class="news-box">
+        <div class="news-box" @click="toNewsDetail({id: 1})">
           <a-image width="350" height="250" src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp" show-loader></a-image>
           <div class="info-box">
             <div class="time">2022/09/01</div>
@@ -29,7 +29,7 @@
         <div class="title">
           {{ $t('newsCenter.recentNews') }}
         </div>
-        <div v-for="item in 5" class="news-title">
+        <div v-for="item in 5"  @click="toNewsDetail({id: 1})" class="news-title">
           新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题
         </div>
       </div>
@@ -38,8 +38,14 @@
 </template>
 
 <script setup>
+const router = useRouter()
 const toSearchResult = () => {
   console.log('toSearchResult')
+}
+const toNewsDetail = (e) => {
+  console.log('toNewsDetail')
+  console.log(e)
+  router.push(`/newsCenter/detail?${e.id}`)
 }
 </script>
 
@@ -80,6 +86,7 @@ const toSearchResult = () => {
     .news-box{
       display: flex;
       .info-box{
+        cursor: pointer;
         margin-left: 38px;
         color: $main-grey;
         .time{
@@ -103,6 +110,11 @@ const toSearchResult = () => {
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 5;
           overflow: hidden;
+        }
+        &:hover{
+          .title{
+            color: $main-blue;
+          }
         }
       }
     }

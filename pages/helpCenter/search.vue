@@ -9,7 +9,7 @@
             <a-input-search class="search-box" :placeholder="$t('helpCenter.search')" @search="searchHandle"></a-input-search>
           </div>
           <div class="right">
-            <a-image width="250" height="250" show-loader :src="headImg"></a-image>
+            <img width="250" height="250" src="@/assets/images/help-head.png" alt="">
           </div>
         </div>
       </div>
@@ -41,7 +41,6 @@
 </template>
 
 <script setup>
-import headImg from '@/assets/images/help-head.png'
 const searchHandle = (e) =>{
   console.log(e)
 }

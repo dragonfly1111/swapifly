@@ -132,7 +132,7 @@ pages:
   followIn: Follow緊
   followers: Followers
   know: 我知道了
-  shouldLoginTip: 登錄以獲取更多服務 
+  shouldLoginTip: 登錄以獲取更多服務
   bid: 出價
   viewConversations: 查看對話
   unfoldMore: 展開了解更多
@@ -283,3 +283,6 @@ newsCenter:
   title: 新聞資訊
   search: 搜尋新聞
   recentNews: 近期新聞
+  recent: 近期
+  preNews: 上一篇文章
+  nextNews: 下一篇文章
