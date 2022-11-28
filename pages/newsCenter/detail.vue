@@ -177,7 +177,7 @@ const toNewsDetail = (e) => {
         .next{
           .control-but{
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
           }
           :deep(.arco-icon-left){
             transform: rotate(180deg);
