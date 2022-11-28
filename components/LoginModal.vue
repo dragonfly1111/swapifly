@@ -13,7 +13,7 @@
         <a-input class="input-warp" v-model="formData.email" :placeholder="$t('loginDialog.acc') "></a-input>
       </a-form-item>
       <a-form-item :hide-label="true" field="pwd" :validate-trigger="['change','input']">
-        <a-input type="password" v-model="formData.pwd" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input>
+        <a-input-password v-model="formData.pwd" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input-password>
       </a-form-item>
     </a-form>
     <div class="forget">

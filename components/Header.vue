@@ -81,7 +81,23 @@
           <nuxt-link href="/">
             <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
           </nuxt-link>
-          <a-input-search class="search-input" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button/>
+          <div class="search-input">
+            <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button/>
+            <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
+<!--            <div class="search-suggest">-->
+              <div class="white-wrap wrap">
+                {{ $t('head.searchHis') }}
+              </div>
+              <div class="gray-wrap wrap" v-for="item in 2" @click="handleHis('搜索历史')">一級分類名稱</div>
+              <div class="white-wrap wrap">
+                {{ $t('head.collectionKey') }}
+              </div>
+              <div class="gray-wrap wrap"  v-for="item in 2">
+                <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
+                <icon-close @click="deleteHis" />
+              </div>
+            </div>
+          </div>
         </div>
         <div class="right">
           <a-button class="sell-but">{{ $t('head.sell') }}</a-button>
@@ -109,9 +125,11 @@ const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
 const dropShow = ref(false)
+const suggestShow = ref(false)
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
+const searchKey = ref('')
 let curClass: any = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
 
@@ -168,6 +186,15 @@ function toSearchResult(e:any) {
     })
   }
 
+}
+
+function handleHis(e:string) {
+  console.log(23123)
+  searchKey.value = e
+  toSearchResult(e)
+}
+function deleteHis(e:any) {
+  console.log('deleteHis')
 }
 
 function changeCurType(e: IGoodsClass) {
@@ -365,16 +392,56 @@ function toClassDetail(e: IGoodsClass) {
       width: 500px;
       height: 46px;
       margin-left: 46px;
-
+      position: relative;
       :deep(.arco-btn) {
         background: $main-pink;
         width: 46px;
         height: 46px;
       }
-
       :deep(.arco-icon) {
         width: 15px;
         height: 15px;
+      }
+      .search-suggest{
+        position: absolute;
+        width: calc(100% - 46px);
+        box-shadow: 0px 2px 5px 0px #8d8d8d;
+        transition: max-height 0.5s linear;
+        overflow: hidden;
+        .wrap{
+          padding: 5px 19px 5px 12px;
+          line-height: 22px;
+          font-size: 14px;
+          height: 22px;
+          text-align: left;
+        }
+        .white-wrap{
+          background: #FFFFFF;
+        }
+        .gray-wrap{
+          background: #F2F3F5;
+          color: #86909C;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .his-title{
+            width: 100%;
+          }
+          :deep(.arco-icon){
+            width: 9px;
+            height: 9px;
+          }
+          &:hover{
+            color: $main-blue;
+          }
+        }
+      }
+      .show-suggest{
+        max-height: 350px;
+      }
+      .hide-suggest{
+        max-height: 0;
       }
     }
   }

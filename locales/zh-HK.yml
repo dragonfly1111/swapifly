@@ -19,6 +19,8 @@ head:
   setting: 設置
   profile: 個人檔案
   viewHome: 瀏覽網站首頁
+  searchHis: 歷史搜索
+  collectionKey: 收藏關鍵詞
 foot:
   helpCenter: 幫助中心
   media: 媒體新聞
