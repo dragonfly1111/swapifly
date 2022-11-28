@@ -17,7 +17,23 @@
                 <a-image width="100%" :src="item" />
               </div>
             </div>
-            <div class="swiper-pagination"></div>
+          </div>
+          <!-- 分页 -->
+          <div>
+            <div class="swiper-button-next swiper-button-next-self"></div>
+            <div class="swiper-button-prev swiper-button-prev-self"></div>
+          </div>
+          <a-space class="handle-header">
+            <a-button class="black-btn" @click="handleShare">分享</a-button>
+            <a-button class="black-btn">
+              <!-- <icon-heart-fill class="heart"  /> -->
+              <icon-heart class="heart" />
+              15 like
+            </a-button>
+            <a-button class="black-btn" @click="handleReport">举报</a-button>
+          </a-space>
+          <div class="handle-bottom">
+            <a-button class="black-btn">{{ images.length }} image</a-button>
           </div>
         </div>
         <div class="goods-info">
@@ -153,13 +169,37 @@
                   </template>
                 </a-comment>
                 <a-button class="to-talk">{{ $t("pages.viewConversations") }}</a-button>
-                <div class="center">{{ $t("pages.shouldLoginTip") }}</div>
-                <a-input-search
+                <div class="center" v-if="!userInfo">
+                  {{ $t("pages.shouldLoginTip") }}
+                </div>
+                <!-- <a-input-search
                   placeholder="HK$ 888"
                   :button-text="$t('pages.bid')"
                   search-button
                   class="bid-input"
-                />
+                /> -->
+                <div class="self-handle">
+                  <a-space>
+                    <icon-pen />
+                    <span>{{ $t("pages.editGoods") }}</span>
+                  </a-space>
+                  <!-- <a-space>
+                    <label class="minus-icon">-</label>
+                    <span>{{ $t("pages.removeGoods") }}</span>
+                  </a-space> -->
+                  <a-space>
+                    <icon-upload />
+                    <span>{{ $t("pages.putawayGoods") }}</span>
+                  </a-space>
+                  <a-space class="pink">
+                    <icon-delete />
+                    <span>{{ $t("pages.delGoods") }}</span>
+                  </a-space>
+                </div>
+              </div>
+              <div class="achievement-card">
+                <div>你的商品在過去7天被瀏覽了86次</div>
+                <a-button class="pink-btn" @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-button>
               </div>
               <AD width="86%" height="560px"></AD>
             </a-col>
@@ -179,13 +219,26 @@
       </div>
     </section>
 
+    <!-- 举报 -->
+    <ReportModal ref="reportModal"></ReportModal>
+
+    <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
+
+
     <PageFooterLink></PageFooterLink>
   </div>
 </template>
 
 <script setup>
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
+import { useUserInfo } from "~/stores/userInfo";
+const userInfo = computed(() => {
+  // 传递函数
+  return useUserInfo();
+});
 const swiper = ref(null);
+const userAchievementModal = ref(null);
+const reportModal = ref(null);
 const images = [
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
@@ -195,13 +248,28 @@ const images = [
 ];
 const handleQuery = (data) => {};
 
+// 举报
+const handleReport = () => {
+  reportModal.value.openDialog();
+};
+
+// 分享
+const handleShare = () => {};
+// 检视成果
+const openAchievement = () => {
+  userAchievementModal.value.openDialog();
+};
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
     slidesPerView: 3,
-    spaceBetween: 10,
+    spaceBetween: 6,
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next-self",
+      prevEl: ".swiper-button-prev-self",
     },
   });
 };
@@ -236,18 +304,59 @@ onMounted(async () => {
     margin: 10px 0;
     .goods-swiper {
       // height: 300px;
+      position: relative;
       .arco-image {
         height: 0;
         padding-bottom: 100%;
         cursor: pointer;
-        :deep(.arco-image-img){
-            object-fit: cover;
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
+        background-color: #333;
+        :deep(.arco-image-img) {
+          object-fit: contain;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          top: 0;
+          left: 0;
         }
+      }
+      .swiper-button-next-self,
+      .swiper-button-prev-self {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        font-weight: bold;
+        background-color: #f2f2f2;
+        z-index: 33;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          background-color: $main-grey;
+          color: #fff;
+        }
+      }
+      .swiper-button-prev-self {
+        left: -10px;
+      }
+      .swiper-button-next-self {
+        right: -10px;
+      }
+      .handle-header {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        z-index: 33;
+        :deep(.arco-space-item) {
+          margin-right: 15px !important;
+        }
+      }
+      .handle-bottom {
+        position: absolute;
+        bottom: 20px;
+        right: 15px;
+        z-index: 33;
       }
     }
   }
@@ -349,33 +458,77 @@ onMounted(async () => {
       :deep(.arco-comment-avatar) {
         margin-right: 8px;
       }
-    }
-    .to-talk {
-      color: #fff;
-      width: 100%;
-      background-color: $main-pink;
-      height: 38px;
-      margin: 15px 0 26px;
-      &:hover {
-        background-color: #f53991;
-      }
-    }
-    .center {
-      text-align: center;
-      color: #2a82e4;
-      cursor: pointer;
-      font-size: 14px;
-      &:hover {
-        color: #0d4e99;
-      }
-    }
-    .bid-input {
-      margin-top: 20px;
-      height: 44px;
-      :deep(.arco-input-search-btn) {
-        height: 44px;
-        width: 80px;
+      .to-talk {
+        color: #fff;
+        width: 100%;
         background-color: $main-pink;
+        height: 38px;
+        margin: 15px 0 26px;
+        &:hover {
+          background-color: #f53991;
+        }
+      }
+      .center {
+        text-align: center;
+        color: #2a82e4;
+        cursor: pointer;
+        font-size: 14px;
+        &:hover {
+          color: #0d4e99;
+        }
+      }
+      .bid-input {
+        margin-top: 20px;
+        height: 44px;
+        :deep(.arco-input-search-btn) {
+          height: 44px;
+          width: 80px;
+          background-color: $main-pink;
+          &:hover {
+            background-color: #f53991;
+          }
+        }
+      }
+      .self-handle{
+        .arco-space {
+          display: flex;
+          margin-bottom: 15px;
+          cursor: pointer;
+          &:last-child{
+            margin-bottom: 0;
+          }
+          &:hover{
+            color: $main-blue;
+          }
+          span{
+            margin-left: 10px;
+          }
+        }
+        .minus-icon{
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: 1px solid ;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .pink{
+          color: $main-pink;
+        }
+      }
+    }
+    .achievement-card{
+      border: 1px solid #E5E5E5;
+      border-radius: 2px;
+      padding: 25px 20px 20px;
+      margin-top: -10px;
+      .pink-btn{
+        width: 100%;
+        background-color: $main-pink;
+        color: #fff;
+        height: 38px;
+        margin-top: 22px;
         &:hover {
           background-color: #f53991;
         }
