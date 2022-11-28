@@ -1,7 +1,9 @@
 <template>
   <div class="common-row global-content">
     <div class="auth-redirect">
-      ins授权回调页面
+      <img src="@/assets/images/login-loading.png" alt="">
+      <div class="title">{{ $t('loginDialog.loginLoadingTitle') }}</div>
+      <div class="msg">{{ $t('loginDialog.loginLoadingMsg') }}</div>
     </div>
   </div>
 </template>
@@ -42,10 +44,23 @@ onMounted(()=>{
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+.global-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .auth-redirect{
-  font-size: 42px;
   text-align: center;
-  margin-top: 300px;
-  margin-bottom: 300px;
+  img{
+    width: 95px;
+  }
+  .title{
+    color: #333333;
+    margin-top: 20px;
+  }
+  .msg{
+    color: $grey-font-label;
+    margin-top: 10px;
+  }
 }
 </style>

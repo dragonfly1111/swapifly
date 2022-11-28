@@ -51,6 +51,8 @@ loginDialog:
   reSend: 重新发送
   regSuc: 注册成功！
   loginSuc: 登录成功！
+  loginLoadingTitle: 登录中
+  loginLoadingMsg: 正在登录中，请耐心等待
   formValidate:
     email: 请输入邮箱账户
     emailErr: 邮箱格式错误

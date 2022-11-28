@@ -50,6 +50,8 @@ loginDialog:
   reSend: todo
   regSuc: todo
   loginSuc: todo
+  loginLoadingTitle: todo
+  loginLoadingMsg: todo
   formValidate:
     email: todo
     emailErr: todo

@@ -51,6 +51,8 @@ loginDialog:
   reSend: 重新發送
   regSuc: 注册成功！
   loginSuc: 登入成功！
+  loginLoadingTitle: 登入中
+  loginLoadingMsg: 正在登入中，請耐心等待
   formValidate:
     email: 請輸入郵箱帳戶
     emailErr: 郵箱格式錯誤
