@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$router.push('/goodsDetails')">
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
         <a-col :span="5" v-for="item in 4" style="padding: 10px">
@@ -177,7 +177,7 @@ const openAchievement = () => {
         width: 100%;
       }
     }
-    
+
     .user-desc {
       .time {
         margin-top: 2px;
