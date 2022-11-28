@@ -82,7 +82,11 @@
             <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
           </nuxt-link>
           <div class="search-input">
-            <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button/>
+            <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button>
+              <template #suffix v-if="searchResPage">
+                <img @click="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
+              </template>
+            </a-input-search>
             <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
 <!--            <div class="search-suggest">-->
               <div class="white-wrap wrap">
@@ -129,9 +133,20 @@ const suggestShow = ref(false)
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
+const searchResPage = ref(false)
 const searchKey = ref('')
 let curClass: any = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
+
+// 监听路由 如果是搜索结果页面 搜索框加上星星icon
+watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
+  console.log('header watch', newValue);
+  if(newValue === '/searchResult'){
+    searchResPage.value = true
+  } else {
+    searchResPage.value = false
+  }
+}, {immediate: true})
 
 function selectMenu(e){
   switch (e) {
@@ -193,8 +208,13 @@ function handleHis(e:string) {
   searchKey.value = e
   toSearchResult(e)
 }
+
 function deleteHis(e:any) {
   console.log('deleteHis')
+}
+
+function handleCollection() {
+  console.log('handleCollection')
 }
 
 function changeCurType(e: IGoodsClass) {
@@ -402,11 +422,14 @@ function toClassDetail(e: IGoodsClass) {
         width: 15px;
         height: 15px;
       }
+      .icon-collection{
+        cursor: pointer;
+      }
       .search-suggest{
         position: absolute;
         width: calc(100% - 46px);
         box-shadow: 0px 2px 5px 0px #8d8d8d;
-        transition: max-height 0.5s linear;
+        transition: max-height 0.3s linear;
         overflow: hidden;
         .wrap{
           padding: 5px 19px 5px 12px;
@@ -438,7 +461,7 @@ function toClassDetail(e: IGoodsClass) {
         }
       }
       .show-suggest{
-        max-height: 350px;
+        max-height: 330px;
       }
       .hide-suggest{
         max-height: 0;
