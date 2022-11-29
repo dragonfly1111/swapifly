@@ -179,7 +179,7 @@
                   class="bid-input"
                 /> -->
                 <div class="self-handle">
-                  <a-space>
+                  <a-space @click="handleEdit">
                     <icon-pen />
                     <span>{{ $t("pages.editGoods") }}</span>
                   </a-space>
@@ -232,6 +232,7 @@
 <script setup>
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
 import { useUserInfo } from "~/stores/userInfo";
+const router = useRouter()
 const userInfo = computed(() => {
   // 传递函数
   return useUserInfo();
@@ -248,9 +249,15 @@ const images = [
 ];
 const handleQuery = (data) => {};
 
+
 // 举报
 const handleReport = () => {
   reportModal.value.openDialog();
+};
+
+// 编辑商品
+const handleEdit = () => {
+  router.push('/saleEditGoods')
 };
 
 // 分享
