@@ -51,7 +51,7 @@
                 <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
               </template>
               <template v-if="isMySelf">
-                <a-doption @click="handlRemove">{{ $t("pages.editGoods") }}</a-doption>
+                <a-doption @click="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
                 <a-doption @click="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
                 <a-doption @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
                 <a-doption @click="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
@@ -117,6 +117,7 @@ const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const pageLoading = ref(false);
+const router = useRouter()
 
 // 举报
 const handleReport = () => {
@@ -128,6 +129,11 @@ const openExposure = () => {
 };
 // 下架
 const handlRemove = () => {};
+
+// 编辑商品
+const handleEdit = () => {
+  router.push('/saleEditGoods')
+};
 
 const openAchievement = () => {
   userAchievementModal.value.openDialog();

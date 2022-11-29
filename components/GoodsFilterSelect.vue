@@ -26,7 +26,7 @@
     </a-form-item>
     <a-form-item field="nid">
       <a-select
-        :placeholder="$t('pages.old_new')"
+        :placeholder="$t('pages.oldAndNew')"
         v-model="form.nid"
         multiple
         class="multiple-select"

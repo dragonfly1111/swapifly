@@ -99,7 +99,7 @@ pages:
   submit: 提交
   classification: 分類
   sort: 排序
-  old_new: 新舊程度
+  oldAndNew: 新舊程度
   price_degree: 價位
   handDeliver: 面交
   postAndCourier: 郵寄及速遞
@@ -323,6 +323,25 @@ dialogue:
   block: 封锁对方
   deleteConversation: 删除对话
   report: 举报对方
-
+sale:
+  saleTitle: 你今天想賣出什麼物品？
+  uploadTip: 選擇照片或者將照片移至這裡
+  uploadAlert: 最多上傳10張照片
+  coverTip: 提示：拖拽照片可以更改封面
+  cover: 封面
+  forbidTip: 發現違禁詞，請及時更改
+  goodsDetails: 產品詳情
+  goodsDesc: 商品描述
+  goodsName: 商品名称
+  goodsDescTip: 描述您所銷售的物品，並包含買家可能感興趣的細節
+  price: 價格
+  descSuggest: 建議說明物品規格、長度、種類、購入時間
+  deliverAddress: 面交地点
+  postTip: 是否有額外的郵寄費用或選擇？
+  publish: 立即發佈
+  delete: 删除
+  chooseType: 選擇分類
+  regionTip: 請選擇商品所在國家/區域
+  trading: 交易方式
 
 
