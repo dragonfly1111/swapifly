@@ -1,30 +1,21 @@
 <template>
-  <a-modal v-model:visible="visible" :title="$t('profile.bindEmail')" :ok-text="$t('profile.bindEmailOk')" :cancel-text="$t('profile.bindEmailCancel')" title-align="center"
-           modal-class="bind-email-dialog"
+  <a-modal v-model:visible="visible" :title="$t('dialogue.evaluate')" :ok-text="$t('dialogue.confirm')" :cancel-text="$t('dialogue.cancel')" title-align="start"
+           modal-class="eva-dialog"
+           :render-to-body="false"
            :on-before-ok="onBeforeOk"
            :ok-loading="okLoading"
            @ok="handleOk"
            @cancel="handleCancel">
-    <div class="login-title">
-      <img src="@/assets/images/logo-long.png" alt=""/>
-    </div>
-    <div class="tip">{{ $t('profile.bindEmailTip') }}</div>
     <a-form ref="formRef" :model="formData" :rules="rules">
       <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
-        <a-input class="input-warp" v-model="formData.email" :placeholder="$t('loginDialog.acc') ">
-          <template #append>
-            <div @click="sendVerfi">
-              <a-spin :loading="sendLoading">
-                {{ isSend ? $t('loginDialog.reSend') : $t('loginDialog.verification') }}
-              </a-spin>
-            </div>
-          </template>
-        </a-input>
+        <span style="margin-right: 4px">{{ $t('dialogue.rate') }}</span><Rate></Rate>
       </a-form-item>
+      <div style="margin-bottom: 5px">{{ $t('dialogue.evaluateContenTip') }}</div>
       <a-form-item :hide-label="true" field="code">
-        <a-input v-model="formData.code" class="input-warp input-warp1"
-                 :placeholder="$t('loginDialog.verfiPlaceHolder') "></a-input>
+        <a-textarea v-model="formData.msg" :auto-size="{ minRows: 5, maxRows: 10 }"
+                    :placeholder="$t('dialogue.evaluateContent') "></a-textarea>
       </a-form-item>
+      <div class="tip">{{ $t('dialogue.evaluateTip') }}</div>
     </a-form>
 
   </a-modal>
@@ -36,16 +27,15 @@ import { getBindEmailCode, bindEmail } from "~/api/user";
 import {Message} from "@arco-design/web-vue";
 const {t} = useI18n();
 const emits = defineEmits(['binSuc'])
-const visible = ref(false);
+const visible = ref(true);
 const okLoading = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);
 const isSend = ref(false);
 const formRef = ref(null);
 const formData = reactive({
-  email: '',
-  code: '',
-  key: ''
+  formData: 3,
+  msg: '',
 })
 const rules = reactive({
   email: [
@@ -120,48 +110,19 @@ defineExpose({
 
 <style lang="scss">
 @import "assets/sass/var";
-.bind-email-dialog{
-  .login-title{
-    text-align: center;
-    img{
-      width: 152px;
-      height: 36px;
-      margin: 0 auto;
-    }
-  }
+.eva-dialog{
   .arco-modal-body{
     padding: 40px 36px;
-  }
-  .tip{
-    margin-top: 40px;
-    text-align: center;
-    color: $grey-font-label;
-    margin-bottom: 20px;
-  }
-  .input-warp {
-    height: 46px;
-    .arco-input-append {
-      color: #FFFFFF;
-      background: $main-pink;
-      user-select: none;
-      cursor: pointer;
-      padding: 0;
-      border: unset;
-      div {
-        width: 100px;
-        text-align: center;
-        height: 100%;
-        line-height: 46px;
-      }
-    }
-  }
-  .input-warp1 {
   }
   .arco-modal-footer{
     .arco-btn{
       width: 70px;
       height: 32px;
     }
+  }
+  .tip{
+    color: $grey-font-label;
+    font-size: 14px;
   }
 }
 </style>

@@ -47,7 +47,6 @@
       </div>
     </div>
     <div class="main-content">
-      <EvaluateDialog />
       <div class="info-wrap">
         <div class="main-content-title">
           <div class="left">
@@ -75,7 +74,7 @@
           </div>
           <div class="right">
             <span>對方出價：HK$888</span>
-            <a-button class="but accept">{{ $t('dialogue.accept') }}</a-button>
+            <a-button class="but accept" @click="openEvaluateDialog">{{ $t('dialogue.accept') }}</a-button>
             <a-button class="but reject">{{ $t('dialogue.refuse') }}</a-button>
           </div>
         </div>
@@ -113,12 +112,15 @@
     <div class="right-ad">
       <AD width="160px" height="600px"/>
     </div>
+
+    <EvaluateDialog ref="evaluateDialog" />
+
   </div>
 </template>
 <script setup>
 import {useSysData} from "~/stores/sysData";
 import EvaluateDialog from "./components/EvaluateDialog";
-
+const evaluateDialog = ref(null);
 const sysData = useSysData();
 const msgType = ref([]);
 // 左侧会话列表
@@ -170,6 +172,9 @@ const getListMaxHeight = () => {
 }
 const handleOperationSelect = (val) =>{
   console.log(val)
+}
+const openEvaluateDialog = () =>{
+  evaluateDialog.value.openDialog();
 }
 onMounted(() => {
   msgType.value = sysData.msgType;
