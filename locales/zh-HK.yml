@@ -306,11 +306,13 @@ dialogue:
   accepted: 已接受出價
   checkEvaluate: 查看评价
   evaluate: 提交評價
+  cancel: 取消
+  confirm: 提交
   evaluateDetail: 評價詳情
   evaluateDetailTip: 雙方完成互相評價或交易完成15天後方可查看評價內容
-  evaluateContenTip: 評價內容
+  evaluateContenTip: 評價內容：
   noEvaluateContenTip: 對方尚未評價
-  rate: 評分
+  rate: 評分：
   evaluateContent: 請輸入你的評價內容
   evaluateTip: 請於交易完成15天內完成評價
   markSold: 標記已售出
