@@ -8,7 +8,7 @@
            @cancel="handleCancel">
     <a-form ref="formRef" :model="formData" :rules="rules">
       <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
-        <span style="margin-right: 4px">{{ $t('dialogue.rate') }}</span><Rate></Rate>
+        <span style="margin-right: 4px">{{ $t('dialogue.rate') }}</span><Rate ref="rateComp" @changeCheck="changeCheck"></Rate>
       </a-form-item>
       <div style="margin-bottom: 5px">{{ $t('dialogue.evaluateContenTip') }}</div>
       <a-form-item :hide-label="true" field="code">
@@ -32,17 +32,19 @@ const okLoading = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);
 const isSend = ref(false);
+const rateComp = ref(null);
 const formRef = ref(null);
 const formData = reactive({
-  formData: 3,
+  rate: 3,
   msg: '',
 })
+// todo 修改验证内容
 const rules = reactive({
-  email: [
+  rate: [
     {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
     {type: 'email', message: ref<string>(t('loginDialog.formValidate.emailErr'))}
   ],
-  code: [
+  msg: [
     {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
   ]
 })
@@ -72,6 +74,7 @@ const sendVerfi = () => {
 }
 const onBeforeOk = (done) => {
   // return true
+  rateComp.value.getValue()
   console.log('onBeforeOk')
   formRef.value.validate().then(validate => {
     if(validate) {
@@ -90,7 +93,10 @@ const onBeforeOk = (done) => {
   })
 }
 const handleOk = () => {
-  emits('binSuc', formData.email)
+
+}
+const changeCheck = (e) => {
+  formData.rate = e
 }
 const openDialog = (value) => {
   if(value){
@@ -112,7 +118,7 @@ defineExpose({
 @import "assets/sass/var";
 .eva-dialog{
   .arco-modal-body{
-    padding: 40px 36px;
+    padding: 20px 30px;
   }
   .arco-modal-footer{
     .arco-btn{

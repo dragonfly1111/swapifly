@@ -2,28 +2,36 @@
   <div class="container">
     <div class="feedback">
       <div class="rating">
-        <input type="radio" name="rating" id="rating-5">
+        <input type="radio" name="rating" id="rating-5" @change="changeCheck(1)">
         <label for="rating-5"></label>
-        <input type="radio" name="rating" id="rating-4">
+        <input type="radio" name="rating" id="rating-4" @change="changeCheck(2)">
         <label for="rating-4"></label>
-        <input type="radio" name="rating" id="rating-3">
+        <input type="radio" name="rating" id="rating-3" @change="changeCheck(3)">
         <label for="rating-3"></label>
-        <input type="radio" name="rating" id="rating-2">
+        <input type="radio" name="rating" id="rating-2" @change="changeCheck(4)">
         <label for="rating-2"></label>
-        <input type="radio" name="rating" id="rating-1">
+        <input type="radio" name="rating" id="rating-1" @change="changeCheck(5)">
         <label for="rating-1"></label>
       </div>
     </div>
   </div>
 </template>
 
+<!-- 由于沙雕arco的rate组件在dialog中使用出不来 从codepen搞了一个 -->
 <script setup>
+const emits = defineEmits(['changeVal'])
+const setValue = (e) =>{
+  console.log(e)
+}
+const changeCheck = (e) =>{
+  emits('changeVal', e)
+}
+defineExpose({
+  setValue
+})
 </script>
 
 <style scoped lang="scss">
-
-.container {
-}
 
 .rating {
   display: flex;
