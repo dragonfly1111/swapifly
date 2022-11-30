@@ -32,6 +32,10 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'news'
   } else if(newValue === '/dialogue'){
     headType.value = 'dialogue'
+  } else if (newValue === '/login') {
+    headType.value = 'loginPage'
+  } else if (newValue === '/register') {
+    headType.value = 'registerPage'
   } else {
     headType.value = 'common'
   }
