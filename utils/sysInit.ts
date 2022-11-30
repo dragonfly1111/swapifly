@@ -1,6 +1,5 @@
 import { getRegion, getLang, getGoodSort, getOan } from "~/api/comon";
 import { getGoodsClassList } from "~/api/goods";
-console.log('useAsyncData')
 
 async function initSysData() {
   const regionRes = await getRegion()

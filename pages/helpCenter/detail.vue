@@ -2,27 +2,53 @@
   <div class="global-content1 common-row">
     <div class="detail-content">
       <div class="left">
-        <a-breadcrumb>
-          <template #separator>
-            <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
-          </template>
-          <a-breadcrumb-item>一级主题</a-breadcrumb-item>
-          <a-breadcrumb-item>二级主题</a-breadcrumb-item>
-        </a-breadcrumb>
-        <div class="time">2022/09/01</div>
-        <div class="title">文章標題文本文章標題文本文章標題文本文章標題文本文章標題文本文章標題文本文章標題文本</div>
-        <div class="content">
-          示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容
-          示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容
-          示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容
-          示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容示例文本內容
+        <div v-if="!dataLoading">
+          <a-breadcrumb>
+            <template #separator>
+              <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
+            </template>
+            <a-breadcrumb-item>{{ articleDetail.r1 }}</a-breadcrumb-item>
+            <a-breadcrumb-item>{{ articleDetail.r2 }}</a-breadcrumb-item>
+          </a-breadcrumb>
+          <div class="time">{{ articleDetail.create_time }}</div>
+          <div class="title">{{ articleDetail.title }}</div>
+          <div class="content">
+            <div v-html="articleDetail.details"></div>
+          </div>
         </div>
+        <div v-else>
+          <a-skeleton :animation="true" class="skeleton">
+            <div style="width: 200px">
+              <a-skeleton-line :line-height="22" :rows="1"/>
+            </div>
+            <div style="height: 10px"></div>
+            <div style="width: 120px">
+              <a-skeleton-line :line-height="22" :rows="1"/>
+            </div>
+            <div style="height: 10px"></div>
+            <div style="width: 500px">
+              <a-skeleton-line :line-height="53" :rows="1"/>
+            </div>
+            <div style="height: 17px"></div>
+            <div style="width: 700px">
+              <a-skeleton-line :line-height="300" :rows="1"/>
+            </div>
+          </a-skeleton>
+        </div>
+
       </div>
       <div class="right">
-        <a-input-search class="search-input" :placeholder="$t('newsCenter.search')" search-button/>
+        <a-input-search class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
+                        @press-enter="searchHandleKey" @search="searchHandle" search-button/>
         <div class="same-title">{{ $t('helpCenter.sameTheme') }}</div>
-        <div v-for="item in 3" class="other-title">
-          文章標題文本{{item}}
+        <div v-if="!dataLoading">
+          <div v-for="item in witharticle" class="other-title" @click="toDetail(item)">
+            {{ item.title }}
+          </div>
+        </div>
+        <div v-else>
+          <div style="height: 20px"></div>
+          <a-skeleton-line :line-height="22" :line-spacing="16" :rows="3"/>
         </div>
       </div>
     </div>
@@ -30,23 +56,65 @@
 
 </template>
 <script setup>
+import {helpDetail} from '~/api/helpCenter'
+import {Message} from "@arco-design/web-vue";
+import {timeFormat} from "~/utils/time";
+const searchKey = ref('')
+const route = useRoute();
+const dataLoading = ref(true);
+let articleDetail = ref({});
+let witharticle = ref([])
+const router = useRouter();
+const searchHandleKey = (e) => {
+  searchHandle(searchKey.value)
+}
+const searchHandle = (e) => {
+  router.push(`/helpCenter/search?title=${e}`)
+}
+const getHelpDetail = () => {
+  dataLoading.value = true
+  helpDetail({
+    id: route.query.id
+  }).then(res => {
+    dataLoading.value = false
+    if (res.code === 0) {
+      res.data.article.create_time = timeFormat(res.data.article.create_time);
+      articleDetail.value = res.data.article
+      witharticle.value = res.data.witharticle
+    } else {
+      Message.error(res.message)
+    }
+  })
+}
+const toDetail = (e) => {
+  console.log(e)
+  router.push(`/helpCenter/detail?id=${e.id}`)
+  getHelpDetail()
+}
+
+getHelpDetail()
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-.global-content1{
+
+.global-content1 {
 
 }
-.detail-content{
+
+.detail-content {
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
-  .left{
+
+  .left {
     color: $main-grey;
-    .time{
+
+    .time {
       font-size: 14px;
       margin-top: 10px;
     }
-    .title{
+
+    .title {
       font-size: 36px;
       margin-top: 10px;
       max-width: 750px;
@@ -54,16 +122,20 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .content{
+
+    .content {
       margin-top: 17px;
       max-width: 750px;
     }
   }
-  .right{
+
+  .right {
     width: 305px;
+
     .search-input {
       width: 305px;
       height: 46px;
+
       :deep(.arco-btn) {
         background: $main-pink;
         width: 46px;
@@ -75,27 +147,32 @@
         height: 15px;
       }
     }
-    .same-title{
+
+    .same-title {
       font-size: 16px;
       font-weight: 700;
       margin-top: 30px;
       padding-left: 11px;
     }
-    .other-title{
+
+    .other-title {
       font-size: 14px;
       padding-left: 11px;
       margin-top: 20px;
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         color: $main-blue;
       }
     }
   }
 }
-:deep(.arco-breadcrumb){
+
+:deep(.arco-breadcrumb) {
   color: #333333 !important;
   font-size: 16px;
-  .arco-breadcrumb-item{
+
+  .arco-breadcrumb-item {
     color: #333333 !important;
     font-weight: 400;
   }
