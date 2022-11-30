@@ -8,7 +8,7 @@
       </a-skeleton>
 
       <div v-if="!pageLoading">
-        <div class="notice-item" v-for="item in 4">
+        <div class="notice-item" v-for="item in noticeList">
           <div class="item-header">
             <img class="long-logo" src="@/assets/images/logo-long.png" alt="" />
             <span>2022-09-29 16:24:58</span>
@@ -25,20 +25,37 @@
           <template #image>
             <img src="@/assets/images/icon/no_notice_grey.png" alt="" srcset="" />
           </template>
-          <h5>{{ $t.pages.no_notice }}</h5>
-          <p>{{ $t.pages.no_notice_tip }}</p>
+          <h5>{{ $t('pages.no_notice') }}</h5>
+          <p>{{ $t('pages.no_notice_tip') }}</p>
         </a-empty>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { noticelist } from "~/api/notice";
 const pageLoading = ref(true);
-const noticeList = ref([{}, {}]);
+const noticeList = ref([]);
+const queryParams = reactive({
+  page: 1,
+});
+const total = ref(0);
+const handleQuery = () => {
+  noticelist(queryParams)
+    .then((res) => {
+      if (res.code == 1) {
+        noticeList.value = res.data.data;
+        total.value = res.data.total;
+      }
+    })
+    .finally(() => {
+      if (queryParams.page == 1) {
+        pageLoading.value = false;
+      }
+    });
+};
 onMounted(async () => {
-  setTimeout(() => {
-    pageLoading.value = false;
-  }, 300);
+  handleQuery();
 });
 </script>
 <style lang="scss" scoped>
