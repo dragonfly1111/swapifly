@@ -11,7 +11,12 @@ export default defineNuxtConfig({
   app: {
     pageTransition: {name: 'page', mode: 'out-in'},
     baseURL: '/swapifly/',
-    head: {}
+    head: {},
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0' }
+    ],
   },
   ssr: true,
   modules: [

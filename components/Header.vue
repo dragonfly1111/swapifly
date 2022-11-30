@@ -1,7 +1,7 @@
 <template>
   <div class="global-head">
     <div @mouseleave="outClass">
-      <div class="head-bar">
+      <div v-if="resize.screenType !== 'MOBILE'" class="head-bar">
         <div class="common-row">
           <div class="left">
             <nuxt-link href="/">
@@ -77,35 +77,41 @@
     </div>
     <div class="head-search">
       <div class="common-row">
-        <div class="left">
-          <nuxt-link href="/">
-            <img class="long-logo" src="@/assets/images/logo-long.png" alt="">
-          </nuxt-link>
-          <div class="search-input">
-            <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button>
-              <template #suffix v-if="searchResPage">
-                <img @click="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
-              </template>
-            </a-input-search>
-            <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
-<!--            <div class="search-suggest">-->
-              <div class="white-wrap wrap">
-                {{ $t('head.searchHis') }}
-              </div>
-              <div class="gray-wrap wrap" v-for="item in 2" @click="handleHis('搜索历史')">一級分類名稱</div>
-              <div class="white-wrap wrap">
-                {{ $t('head.collectionKey') }}
-              </div>
-              <div class="gray-wrap wrap"  v-for="item in 2">
-                <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
-                <icon-close @click="deleteHis" />
+        <a-row style="width: 100%">
+          <a-col :span="resize.screenType === 'MOBILE'?2:4" class="img-col">
+            <nuxt-link href="/">
+              <img class="phone-logo" v-if="resize.screenType === 'MOBILE'"  src="@/assets/images/swapifly-logo.png" alt="">
+              <img v-else class="long-logo" src="@/assets/images/logo-long.png" alt="">
+            </nuxt-link>
+          </a-col>
+          <a-col :span="16" class="search-col">
+            <div class="search-input">
+              <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button>
+                <template #suffix v-if="searchResPage">
+                  <img @click="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
+                </template>
+              </a-input-search>
+              <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
+                <!--            <div class="search-suggest">-->
+                <div class="white-wrap wrap">
+                  {{ $t('head.searchHis') }}
+                </div>
+                <div class="gray-wrap wrap" v-for="item in 2" @click="handleHis('搜索历史')">一級分類名稱</div>
+                <div class="white-wrap wrap">
+                  {{ $t('head.collectionKey') }}
+                </div>
+                <div class="gray-wrap wrap"  v-for="item in 2">
+                  <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
+                  <icon-close @click="deleteHis" />
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="right">
-          <a-button class="sell-but">{{ $t('head.sell') }}</a-button>
-        </div>
+          </a-col>
+          <a-col :span="resize.screenType === 'MOBILE'?6:4" class="btn-col">
+            <a-button v-if="resize.screenType === 'MOBILE'" class="sell-but" @click="openLogin">{{ $t('head.login') }}</a-button>
+            <a-button v-else class="sell-but">{{ $t('head.sell') }}</a-button>
+          </a-col>
+        </a-row>
       </div>
     </div>
 
@@ -121,8 +127,8 @@
 import {useSysData} from '~/stores/sysData'
 import {IGoodsClass} from '~/model/res/goodsClass'
 import {useUserInfo} from "~/stores/userInfo";
+import { useResize } from '~/stores/resize'
 import { baseImgPrefix } from "~/config/baseUrl";
-
 const router = useRouter()
 const userInfo = useUserInfo()
 const loginModal = ref(null)
@@ -135,6 +141,7 @@ const classList = sysData.goodsClass
 const showHeadPanel = ref(false)
 const searchResPage = ref(false)
 const searchKey = ref('')
+const resize = useResize();
 let curClass: any = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
 
@@ -147,7 +154,6 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     searchResPage.value = false
   }
 }, {immediate: true})
-
 function selectMenu(e){
   switch (e) {
     case 'profile':
@@ -169,7 +175,11 @@ function openRegister() {
 }
 
 function openLogin() {
-  loginModal.value.openDialog()
+  if (resize.screenType === 'MOBILE'){
+    router.push('/login')
+  }else {
+    loginModal.value.openDialog()
+  }
 }
 
 function toRegister() {
@@ -392,26 +402,23 @@ function toClassDetail(e: IGoodsClass) {
   border-bottom: 1px solid #E5E5E5;
   background: #FFFFFF;
 
-  .common-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .left {
-    display: flex;
-    align-items: center;
-
+  .img-col{
+    .phone-logo{
+      height: 36px;
+      margin-top:5px;
+      object-fit: contain;
+    }
     .long-logo {
       width: 152px;
       height: 36px;
       object-fit: contain;
     }
-
+  }
+  .search-col{
     .search-input {
-      width: 500px;
+      width: 90%;
       height: 46px;
-      margin-left: 46px;
+      margin-left: 10px;
       position: relative;
       :deep(.arco-btn) {
         background: $main-pink;
@@ -468,26 +475,21 @@ function toClassDetail(e: IGoodsClass) {
       }
     }
   }
-
-  .right {
-    display: flex;
-    align-items: center;
-
+  .btn-col{
     .sell-but {
       height: 35px;
       width: 82px;
       background: $main-pink;
       color: #FFFFFF;
-
+      line-height: 46px;
+      margin-top:5px;
       :deep(.arco-btn) {
         height: 35px;
         width: 82px;
         background: $main-pink;
       }
     }
-
   }
-
 }
 </style>
 <style lang="scss">

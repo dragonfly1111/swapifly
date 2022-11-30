@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main :style="{padding: resize.screenType === 'MOBILE' ? '10px' : '0'}">
     <Header v-if="headType === 'common'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>

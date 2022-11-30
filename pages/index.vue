@@ -23,7 +23,7 @@
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
-        <ProductCard></ProductCard>
+        <ProductCard :cardWidth="isMobileRef ? '48%' : '24%'"></ProductCard>
       </div>
     </section>
 
@@ -44,6 +44,7 @@ import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 import ProductCard from "@/components/ProductCard";
 import PageFooterLink from "@/components/PageFooterLink";
 import AD from "@/components/AD";
+import { useResize } from '~/stores/resize'
 export default {
   components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD },
 
@@ -55,6 +56,10 @@ export default {
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
     ];
+    const resize = useResize();
+    let isMobile = resize.screenType !== 'MOBILE'
+    let isMobileRef = ref(isMobile)
+    console.log("====isMobileRef==",isMobileRef)
     const value = ref();
     const data = [
       {
@@ -151,6 +156,7 @@ export default {
       data,
       images,
       testImg,
+      isMobileRef,
     };
   },
 };

@@ -71,6 +71,7 @@ onMounted(()=>{
     })
   }
   // 设置全局缩放属性
+  console.log("===window.innerWidth===",window.innerWidth)
   resize.setWidth(window.innerWidth)
   window.addEventListener('resize', handleResize)
 })

@@ -176,7 +176,7 @@ const openAchievement = () => {
         width: 100%;
       }
     }
-    
+
     .user-desc {
       .time {
         margin-top: 2px;
@@ -260,14 +260,6 @@ const openAchievement = () => {
   .empty-tip {
     color: $main-grey;
     font-size: 18px;
-  }
-}
-
-// 移动端
-@media screen and(max-width:1000px) {
-  .recommend-item {
-    width: 48%;
-    min-width: 150px;
   }
 }
 </style>
