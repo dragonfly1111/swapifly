@@ -256,7 +256,7 @@ achievementModal:
   exposuresNumber: 曝光數
   exposureRefund: 申請曝光退款
   click: 點擊
-  clickNumerTip: 用戶點擊瀏覽此商品的次數
+  clickNumberTip: 用戶點擊瀏覽此商品的次數
   whisper: 私訊
   whisperTip: 你所收到的私訊與出價數
   exposureTip: 此商品獲得的曝光數

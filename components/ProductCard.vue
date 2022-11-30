@@ -44,19 +44,19 @@
             <icon-heart :strokeWidth="3" size="16" />
             <span>999</span>
           </div>
-          <a-dropdown :popup-max-height="false">
-            <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
+          <a-dropdown :popup-max-height="false" @click.stop>
+            <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18"  /> </a-button>
             <template #content>
               <template v-if="!isMySelf">
-                <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
+                <a-doption @click.stop="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
               </template>
               <template v-if="isMySelf">
-                <a-doption @click="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
-                <a-doption @click="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
-                <a-doption @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
-                <a-doption @click="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
-                <a-doption @click="handlRemove">{{ $t("pages.markSold") }}</a-doption>
-                <a-doption @click="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
+                <a-doption @click.stop="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
+                <a-doption @click.stop="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
+                <a-doption @click.stop="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
+                <a-doption @click.stop="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
+                <a-doption @click.stop="handlRemove">{{ $t("pages.markSold") }}</a-doption>
+                <a-doption @click.stop="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
               </template>
             </template>
           </a-dropdown>

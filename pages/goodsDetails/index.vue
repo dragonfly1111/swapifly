@@ -13,27 +13,43 @@
           <!-- Swiper -->
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="item in images">
+              <div class="swiper-slide" v-for="(item, index) in images">
                 <a-image width="100%" :src="item" />
+                <div class="goods-tags" v-if="images.length < 3 && index == images.length - 1">
+                  <a-space class="handle-header">
+                    <a-button class="black-btn" @click="handleShare">分享</a-button>
+                    <a-button class="black-btn">
+                      <!-- <icon-heart-fill class="heart"  /> -->
+                      <icon-heart class="heart" />
+                      15 like
+                    </a-button>
+                    <a-button class="black-btn" @click="handleReport">举报</a-button>
+                  </a-space>
+                  <div class="handle-bottom">
+                    <a-button class="black-btn">{{ images.length }} image</a-button>
+                  </div>
+                </div>
               </div>
             </div>
+            <div v-if="images.length >= 3" class="goods-tags">
+                <a-space class="handle-header">
+                  <a-button class="black-btn" @click="handleShare">分享</a-button>
+                  <a-button class="black-btn">
+                    <!-- <icon-heart-fill class="heart"  /> -->
+                    <icon-heart class="heart" />
+                    15 like
+                  </a-button>
+                  <a-button class="black-btn" @click="handleReport">举报</a-button>
+                </a-space>
+                <div class="handle-bottom">
+                  <a-button class="black-btn">{{ images.length }} image</a-button>
+                </div>
+              </div>
           </div>
           <!-- 分页 -->
           <div>
             <div class="swiper-button-next swiper-button-next-self"></div>
             <div class="swiper-button-prev swiper-button-prev-self"></div>
-          </div>
-          <a-space class="handle-header">
-            <a-button class="black-btn" @click="handleShare">分享</a-button>
-            <a-button class="black-btn">
-              <!-- <icon-heart-fill class="heart"  /> -->
-              <icon-heart class="heart" />
-              15 like
-            </a-button>
-            <a-button class="black-btn" @click="handleReport">举报</a-button>
-          </a-space>
-          <div class="handle-bottom">
-            <a-button class="black-btn">{{ images.length }} image</a-button>
           </div>
         </div>
         <div class="goods-info">
@@ -199,7 +215,9 @@
               </div>
               <div class="achievement-card">
                 <div>你的商品在過去7天被瀏覽了86次</div>
-                <a-button class="pink-btn" @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-button>
+                <a-button class="pink-btn" @click="openAchievement">{{
+                  $t("pages.viewtheResults")
+                }}</a-button>
               </div>
               <AD width="86%" height="560px"></AD>
             </a-col>
@@ -224,7 +242,6 @@
 
     <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
 
-
     <PageFooterLink></PageFooterLink>
   </div>
 </template>
@@ -232,7 +249,7 @@
 <script setup>
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
 import { useUserInfo } from "~/stores/userInfo";
-const router = useRouter()
+const router = useRouter();
 const userInfo = computed(() => {
   // 传递函数
   return useUserInfo();
@@ -249,7 +266,6 @@ const images = [
 ];
 const handleQuery = (data) => {};
 
-
 // 举报
 const handleReport = () => {
   reportModal.value.openDialog();
@@ -257,7 +273,7 @@ const handleReport = () => {
 
 // 编辑商品
 const handleEdit = () => {
-  router.push('/saleEditGoods')
+  router.push("/saleEditGoods");
 };
 
 // 分享
@@ -283,7 +299,10 @@ const initSwiper = () => {
 
 onMounted(async () => {
   await nextTick();
+  setTimeout(() => {
   initSwiper();
+  }, 500);
+
 });
 </script>
 
@@ -309,9 +328,20 @@ onMounted(async () => {
   }
   .section-content {
     margin: 10px 0;
+    .mySwiper{
+      position: relative;
+    }
     .goods-swiper {
       // height: 300px;
       position: relative;
+      .swiper-slide {
+        position: relative;
+        .goods-tag {
+          position: absolute;
+          right: 10px;
+          top: 0;
+        }
+      }
       .arco-image {
         height: 0;
         padding-bottom: 100%;
@@ -496,41 +526,41 @@ onMounted(async () => {
           }
         }
       }
-      .self-handle{
+      .self-handle {
         .arco-space {
           display: flex;
           margin-bottom: 15px;
           cursor: pointer;
-          &:last-child{
+          &:last-child {
             margin-bottom: 0;
           }
-          &:hover{
+          &:hover {
             color: $main-blue;
           }
-          span{
+          span {
             margin-left: 10px;
           }
         }
-        .minus-icon{
+        .minus-icon {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          border: 1px solid ;
+          border: 1px solid;
           display: flex;
           justify-content: center;
           align-items: center;
         }
-        .pink{
+        .pink {
           color: $main-pink;
         }
       }
     }
-    .achievement-card{
-      border: 1px solid #E5E5E5;
+    .achievement-card {
+      border: 1px solid #e5e5e5;
       border-radius: 2px;
       padding: 25px 20px 20px;
       margin-top: -10px;
-      .pink-btn{
+      .pink-btn {
         width: 100%;
         background-color: $main-pink;
         color: #fff;

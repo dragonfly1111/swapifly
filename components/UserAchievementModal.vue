@@ -13,7 +13,10 @@
     <a-row>
       <a-col :span="12" class="left-box">
         <div class="goods-box">
-          <a-image :src="`https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp`" show-loader></a-image>
+          <a-image
+            :src="`https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp`"
+            show-loader
+          ></a-image>
           <div class="goods-desc">
             <div>商品名称</div>
             <div>hk999 - 发布于2020-9-29</div>
@@ -45,7 +48,7 @@
         </div>
       </a-col>
       <a-col :span="12">
-        <a-tabs type="capsule" class="right-box" v-model="activeTab">
+        <a-tabs type="capsule" class="right-box" v-model="activeTab" @change="changeTab">
           <a-tab-pane key="1" :title="$t('achievementModal.exposuresNumber')">
             <div class="tab-title">
               {{ $t("achievementModal.exposureTip") }}
@@ -53,12 +56,18 @@
           </a-tab-pane>
           <a-tab-pane key="2" :title="$t('achievementModal.click')">
             <div class="tab-title">
-              {{ $t("achievementModal.clickNumerTip") }}
+              {{ $t("achievementModal.clickNumberTip") }}
+            </div>
+            <div>
+              <div id="echartBox" style="width: 100%; height: 300px"></div>
             </div>
           </a-tab-pane>
           <a-tab-pane key="3" :title="$t('achievementModal.whisper')">
             <div class="tab-title">
               {{ $t("achievementModal.whisperTip") }}
+            </div>
+            <div>
+              <div id="whisperEchart" style="width: 100%; height: 300px"></div>
             </div>
           </a-tab-pane>
         </a-tabs>
@@ -95,9 +104,106 @@ const comfirmVisible = ref(false);
 const activeTab = ref("1");
 const openDialog = (type) => {
   visible.value = true;
+  nextTick(() => {
+    initClickEchart();
+  });
 };
 const handleCancel = () => {
   visible.value = false;
+};
+
+const changeTab = (e) => {
+  switch (e) {
+    case "1":
+      break;
+    case "2":
+      initClickEchart();
+      break;
+    case "3":
+      initwhisperEchart();
+      break;
+  }
+};
+
+const initClickEchart = () => {
+  const chart = echarts.init(document.getElementById("echartBox"));
+  const option = {
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+    },
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "5%",
+      containLabel: true,
+    },
+    xAxis: [
+      {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        axisTick: {
+          alignWithLabel: true,
+        },
+      },
+    ],
+    yAxis: [
+      {
+        type: "value",
+      },
+    ],
+    series: [
+      {
+        name: "Direct",
+        type: "bar",
+        barWidth: "60%",
+        data: [10, 52, 200, 334, 390, 330, 220],
+      },
+    ],
+  };
+  chart.setOption(option);
+};
+const initwhisperEchart = () => {
+  const chart = echarts.init(document.getElementById("whisperEchart"));
+  const option = {
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+    },
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "5%",
+      containLabel: true,
+    },
+    xAxis: [
+      {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        axisTick: {
+          alignWithLabel: true,
+        },
+      },
+    ],
+    yAxis: [
+      {
+        type: "value",
+      },
+    ],
+    series: [
+      {
+        name: "Direct",
+        type: "bar",
+        barWidth: "60%",
+        data: [10, 52, 200, 334, 390, 330, 220],
+      },
+    ],
+  };
+  chart.setOption(option);
 };
 
 defineExpose({

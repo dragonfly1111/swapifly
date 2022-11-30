@@ -21,8 +21,30 @@
           </a-upload>
         </div>
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
-        <div class="image-preview-list">
-          <div
+        <!-- <div class="image-preview-list"> -->
+        　<draggable
+          v-model="imageList.list"
+          class="image-preview-list"
+          ghost-class="ghost"
+          chosen-class="chosenClass"
+          animation="300"
+          @end="onEnd"
+          :fallback-on-body="true"
+          item-key="id"
+        >
+          <template #item="{ element, index }">
+            <div class="item image-item" :class="{ 'is-cover': index == 0 }">
+              <a-image :src="element.images"> </a-image>
+              <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
+              <icon-close
+                @click="handleDelImage(element)"
+                class="icon-close"
+                :title="$t('sale.delete')"
+              />
+            </div>
+          </template>
+        </draggable>
+        <!-- <div
             class="image-item"
             v-for="(item, index) in images"
             :class="{ 'is-cover': index == 0 }"
@@ -34,8 +56,8 @@
               class="icon-close"
               :title="$t('sale.delete')"
             />
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
       </div>
       <div class="right">
         <a-form size="large" :model="form" layout="vertical" ref="formRef" class="right-form">
@@ -56,7 +78,7 @@
               <div>分类/分类</div>
             </template>
           </a-form-item>
-          <div v-if="form.rid">
+          <div v-if="!form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
               <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" />
               <template #extra>
@@ -120,6 +142,15 @@
                 $t("pages.handDeliver")
               }}</a-checkbox>
               <a-input-search class="input-wrp" :placeholder="$t('sale.deliverAddress')" />
+              <div class="offline-address">
+                <div class="offline-address-item" v-for="item in 3">
+                  <p>MTR Kowloon Tong Station (港鐵九龍塘站)</p>
+                  <span>Kent Rd, Kowloon City</span>
+                  <div class="close-box">
+                    <icon-close />
+                  </div>
+                </div>
+              </div>
             </a-form-item>
             <a-form-item field="mail_note" hide-label :content-flex="false">
               <a-checkbox :model-value="form.postAndCourier" :value="2">{{
@@ -143,6 +174,7 @@
   </div>
 </template>
 <script setup>
+import draggable from "vuedraggable";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
@@ -167,13 +199,26 @@ const form = reactive({
   postAndCourier: null,
 });
 const formRef = ref(null);
-const images = [
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-];
+const imageList = reactive({
+  //需要拖拽的数据，拖拽后数据的顺序也会变化
+  list: [
+    {
+      id: 1,
+      images:
+        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
+    },
+    {
+      id: 2,
+      images:
+        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
+    },
+    {
+      id: 3,
+      images:
+        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
+    },
+  ],
+});
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
@@ -183,6 +228,11 @@ const filterNewOldAdvice = () => {
 
 // 删除图片
 const handleDelImage = (item) => {};
+
+//拖拽结束的事件
+const onEnd = (e) => {
+  console.log("结束拖拽");
+};
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
@@ -239,6 +289,9 @@ const handleDelImage = (item) => {};
       display: flex;
       flex-wrap: wrap;
       margin-top: 50px;
+      .item:hover {
+        cursor: move;
+      }
       .image-item {
         width: 134px;
         height: 134px;
@@ -246,7 +299,6 @@ const handleDelImage = (item) => {};
         margin-bottom: 20px;
         border-radius: 2px;
         position: relative;
-        cursor: pointer;
         .icon-close {
           position: absolute;
           right: 5px;
@@ -338,5 +390,52 @@ const handleDelImage = (item) => {};
     background-color: $main-pink;
     color: #fff;
   }
+}
+
+.ghost {
+  border: solid 1px $main-grey;
+}
+.chosenClass {
+  background-color: #f1f1f1;
+}
+
+.offline-address {
+  display: flex;
+  flex-wrap: wrap;
+
+  .offline-address-item {
+    width: 46%;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 15px 40px 20px 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E5E6E8;
+    &:nth-child(2n){
+      margin-left: 4%;
+    }
+    p{
+      margin: 0 0 10px 0;
+    }
+    span{
+      color: #4E5969;
+    }
+    .close-box {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 50px;
+      line-height: 50px;
+      width: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.address-popover {
+  width: 600px;
 }
 </style>
