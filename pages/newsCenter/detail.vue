@@ -55,12 +55,35 @@
 
 </template>
 <script setup>
+import {newsDetail} from "~/api/newsCenter";
+import {Message} from "@arco-design/web-vue";
 const router = useRouter()
+const dataLoading = ref(true);
+
 const toNewsDetail = (e) => {
   console.log('toNewsDetail')
   console.log(e)
   router.push(`/newsCenter/detail?${e.id}`)
 }
+// const getNewsDetail = () => {
+//   dataLoading.value = true
+//   newsDetail({
+//     id: page.value
+//   }).then(res => {
+//     dataLoading.value = false
+//     if (res.code === 0) {
+//
+//       res.data.data.forEach(item=>{
+//         item.news_time = timeFormat()
+//       })
+//       newsDataList.value = res.data.data
+//       totalRes.value = res.data.total
+//     } else {
+//       Message.error(res.message)
+//     }
+//   })
+// }
+
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";

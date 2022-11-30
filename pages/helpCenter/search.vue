@@ -6,7 +6,8 @@
           <div class="left">
             <div class="info">{{ $t('helpCenter.hello') }}</div>
             <div class="info">{{ $t('helpCenter.helpInfo') }}</div>
-            <a-input-search class="search-box" v-model="searchKey" :placeholder="$t('helpCenter.search')" @press-enter="searchHandleKey" @search="searchHandle"></a-input-search>
+            <a-input-search class="search-box" v-model="searchKey" :placeholder="$t('helpCenter.search')"
+                            @press-enter="searchHandleKey" @search="searchHandle"></a-input-search>
           </div>
           <div class="right">
             <img width="250" height="250" src="@/assets/images/help-head.png" alt="">
@@ -20,7 +21,8 @@
           </div>
           <template v-if="!dataLoading">
             <template v-if="resultList.length > 0">
-              <div v-for="item in resultList" class="help-item" @click="$router.push(`/helpCenter/detail?id=${item.id}`)">
+              <div v-for="item in resultList" class="help-item"
+                   @click="$router.push(`/helpCenter/detail?id=${item.id}`)">
                 <div class="title">{{ item.title }}</div>
                 <div class="des">{{ item.abstract }}</div>
               </div>
@@ -81,8 +83,9 @@
 </template>
 
 <script setup>
-import { helpSearch, helpTheme } from '~/api/helpCenter'
+import {helpSearch, helpTheme} from '~/api/helpCenter'
 import {Message} from "@arco-design/web-vue";
+
 const searchKey = ref('')
 const page = ref(1)
 const totalRes = ref(0)
@@ -93,7 +96,7 @@ const dataLoading = ref(true);
 const dataLoading1 = ref(true);
 searchKey.value = route.query.title
 
-const searchHandleKey = () =>{
+const searchHandleKey = () => {
   searchHandle(searchKey.value)
 }
 
@@ -110,7 +113,7 @@ const searchHandle = (e) => {
 
 const getSearchRes = (title, rid) => {
   dataLoading.value = true
-  if(title){
+  if (title) {
     route.query.title = title
   }
   helpSearch({
@@ -118,9 +121,9 @@ const getSearchRes = (title, rid) => {
     rid: rid ? rid : null,
     page: page.value,
     limit: 4
-  }).then(res=>{
+  }).then(res => {
     dataLoading.value = false
-    if(res.code === 0){
+    if (res.code === 0) {
       resultList.value = res.data.data
       totalRes.value = res.data.total
       console.log(res.total)
@@ -131,9 +134,9 @@ const getSearchRes = (title, rid) => {
 }
 const getHelpTheme = () => {
   dataLoading1.value = true
-  helpTheme().then(res=>{
+  helpTheme().then(res => {
     dataLoading1.value = false
-    if(res.code === 0){
+    if (res.code === 0) {
       themeList.value = res.data
     } else {
       Message.error(res.message)
@@ -153,35 +156,42 @@ const changePage = (e) => {
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-.global-content1{
+
+.global-content1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.help-head{
+
+.help-head {
   background: $main-blue;
   height: 250px;
-  .common-row{
+
+  .common-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .left{
-      .info{
+
+    .left {
+      .info {
         font-size: 42px;
         font-weight: 700;
         font-family: '思源黑体';
         color: #FFFFFF;
         margin-bottom: 16px;
       }
-      .search-box{
+
+      .search-box {
         width: 500px;
         height: 46px;
         background: #0B5499;
         color: $grey-font-label;
-        :deep(.arco-input-suffix){
+
+        :deep(.arco-input-suffix) {
           color: #FFFFFF;
           font-weight: 700;
-          .arco-icon-hover:hover::before{
+
+          .arco-icon-hover:hover::before {
             background: unset;
           }
         }
@@ -189,24 +199,29 @@ const changePage = (e) => {
     }
   }
 }
-.content{
+
+.content {
   margin-top: 27px;
   display: flex;
   justify-content: space-between;
-  .left{
+
+  .left {
     width: 800px;
-    .big-title{
+
+    .big-title {
       color: $main-grey;
       font-size: 36px;
       border-bottom: 1px solid #CCCCCC;
       padding-bottom: 10px;
     }
-    .help-item{
+
+    .help-item {
       padding: 20px 0 20px 16px;
       border-bottom: 1px solid #E5E6E8;
       cursor: pointer;
       max-width: 500px;
-      .title{
+
+      .title {
         color: #1D2129;
         font-size: 20px;
         display: -webkit-box;
@@ -214,7 +229,8 @@ const changePage = (e) => {
         -webkit-line-clamp: 2;
         overflow: hidden;
       }
-      .des{
+
+      .des {
         margin-top: 10px;
         color: $grey-font-label;
         display: -webkit-box;
@@ -222,64 +238,77 @@ const changePage = (e) => {
         -webkit-line-clamp: 2;
         overflow: hidden;
       }
-      &:hover{
-        .title{
+
+      &:hover {
+        .title {
           color: $main-blue;
         }
       }
     }
-    .no-data{
+
+    .no-data {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       margin-top: 200px;
-      img{
+
+      img {
         width: 86px;
       }
-      .title{
+
+      .title {
         margin-top: 11px;
         color: #333333;
         font-size: 18px;
       }
-      .tip{
+
+      .tip {
         color: $grey-font-label;
         margin-top: 10px;
         font-size: 12px;
       }
     }
   }
-  .right{
+
+  .right {
     width: 320px;
-    .theme{
+
+    .theme {
       color: #1D2129;
       font-size: 16px;
       margin-top: 23px;
       font-weight: 700;
       line-height: 22px;
     }
-    .theme-name{
+
+    .theme-name {
       color: #1D2129;
       margin-top: 20px;
       cursor: pointer;
       font-size: 14px;
       line-height: 22px;
-      &:hover{
+
+      &:hover {
         color: $main-blue;
       }
     }
   }
 }
-.pag{
+
+.pag {
   padding-top: 18px;
   padding-bottom: 18px;
-  .arco-pagination-simple{
+
+  .arco-pagination-simple {
     justify-content: center;
-    :deep(.arco-pagination-jumper-input){
+
+    :deep(.arco-pagination-jumper-input) {
       padding: 0;
       width: 32px;
     }
-    :deep(.arco-pagination-jumper-total-page){
+
+    :deep(.arco-pagination-jumper-total-page) {
       color: $grey-font-label;
     }
   }
