@@ -345,5 +345,6 @@ sale:
   chooseType: 選擇分類
   regionTip: 請選擇商品所在國家/區域
   trading: 交易方式
-
+  yourDraft: 你的草稿
+  draft: 草稿
 
