@@ -1,4 +1,5 @@
 
+// 评价
 export function generateGender(t:any){
   return [{
     key: t('gender.man'),
@@ -42,6 +43,40 @@ export function generateEvaluationSource(t:any){
   },{
     key: t('evaluate.sourceEvaluation.formSeller'),
     value: 2
+  }]
+}
+
+// 信息类型
+export function generateMsgType(t:any){
+  return [{
+    key: t('dialogue.inbox'),
+    value: 1
+  },{
+    key: t('dialogue.onSale'),
+    value: 2
+  },{
+    key: t('dialogue.underPurchase'),
+    value: 3
+  },{
+    key: t('dialogue.sealed'),
+    value: 4
+  }]
+}
+
+// 对话页面操作类型
+export function generateDialogueOperationType(t:any){
+  return [{
+    key: t('dialogue.sealConversation'),
+    value: 1
+  },{
+    key: t('dialogue.block'),
+    value: 2
+  },{
+    key: t('dialogue.deleteConversation'),
+    value: 3
+  },{
+    key: t('dialogue.report'),
+    value: 4
   }]
 }
 

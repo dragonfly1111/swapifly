@@ -68,7 +68,7 @@ pages:
   submit: submit
   classification: classification
   sort: sort
-  old_new: old and new
+  oldAndNew: old and new
   price_degree: price
   handDeliver: hand deliver
   postAndCourier: post and courier
@@ -146,3 +146,35 @@ newsCenter:
   recent: todo
   preNews: todo
   nextNews: todo
+dialogue:
+  newMsg: todo
+  noMore: todo
+  counterpartyPrice: todo
+  inputHere: todo
+  offer: todo
+  acceptOffer: todo
+  accept: todo
+  refuse: todo
+  noMsg: todo
+  noMsgTip: todo
+  rejected: todo
+  accepted: todo
+  checkEvaluate: todo
+  evaluate: todo
+  evaluateDetail: todo
+  evaluateDetailTip: todo
+  evaluateContenTip: todo
+  noEvaluateContenTip: todo
+  rate: todo
+  evaluateContent: todo
+  evaluateTip: todo
+  markSold: todo
+  markSoldTip: todo
+  inbox: todo
+  onSale: todo
+  underPurchase: todo
+  sealed: todo
+  sealConversation: todo
+  block: todo
+  deleteConversation: todo
+  report: todo

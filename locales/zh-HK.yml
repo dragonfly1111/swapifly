@@ -99,7 +99,7 @@ pages:
   submit: 提交
   classification: 分類
   sort: 排序
-  old_new: 新舊程度
+  oldAndNew: 新舊程度
   price_degree: 價位
   handDeliver: 面交
   postAndCourier: 郵寄及速遞
@@ -123,6 +123,7 @@ pages:
   soldOut: 已售出
   isRemoveGoods: 已下架
   removeGoods: 下架商品
+  putawayGoods: 上架商品
   editGoods: 編輯商品
   exposureGoods: 曝光推廣
   viewtheResults: 檢視成果
@@ -290,3 +291,59 @@ newsCenter:
   recent: 近期
   preNews: 上一篇文章
   nextNews: 下一篇文章
+dialogue:
+  newMsg: 新消息
+  noMore: 暫無更多對話
+  counterpartyPrice: 對方出價
+  inputHere: 在此輸入...
+  offer: 出價
+  acceptOffer: 接受出價
+  accept: 接受
+  refuse: 駁回
+  noMsg: 暫無消息
+  noMsgTip: 沒有收到任何消息哦~
+  rejected: 已駁回出價
+  accepted: 已接受出價
+  checkEvaluate: 查看评价
+  evaluate: 提交評價
+  cancel: 取消
+  confirm: 提交
+  evaluateDetail: 評價詳情
+  evaluateDetailTip: 雙方完成互相評價或交易完成15天後方可查看評價內容
+  evaluateContenTip: 評價內容：
+  noEvaluateContenTip: 對方尚未評價
+  rate: 評分：
+  evaluateContent: 請輸入你的評價內容
+  evaluateTip: 請於交易完成15天內完成評價
+  markSold: 標記已售出
+  markSoldTip: 標記已售出的商品將無法再收到出價，是否標記？
+  inbox: 收件箱
+  onSale: 出售中
+  underPurchase: 购买中
+  sealed: 已封存
+  sealConversation: 封存对话
+  block: 封锁对方
+  deleteConversation: 删除对话
+  report: 举报对方
+sale:
+  saleTitle: 你今天想賣出什麼物品？
+  uploadTip: 選擇照片或者將照片移至這裡
+  uploadAlert: 最多上傳10張照片
+  coverTip: 提示：拖拽照片可以更改封面
+  cover: 封面
+  forbidTip: 發現違禁詞，請及時更改
+  goodsDetails: 產品詳情
+  goodsDesc: 商品描述
+  goodsName: 商品名称
+  goodsDescTip: 描述您所銷售的物品，並包含買家可能感興趣的細節
+  price: 價格
+  descSuggest: 建議說明物品規格、長度、種類、購入時間
+  deliverAddress: 面交地点
+  postTip: 是否有額外的郵寄費用或選擇？
+  publish: 立即發佈
+  delete: 删除
+  chooseType: 選擇分類
+  regionTip: 請選擇商品所在國家/區域
+  trading: 交易方式
+
+

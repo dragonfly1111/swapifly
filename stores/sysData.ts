@@ -14,6 +14,8 @@ export interface ISysDataState {
   gender: Idict[],
   evaluationSort: Idict[],
   evaluationSource: Idict[],
+  msgType: Idict[],
+  dialogueOperationType: Idict[],
 }
 
 export const useSysData = defineStore('sysData', {
@@ -26,6 +28,8 @@ export const useSysData = defineStore('sysData', {
     gender: [],
     evaluationSort:[],
     evaluationSource:[],
+    msgType:[],
+    dialogueOperationType:[],
   }),
   actions: {
     setSysDataServerSide(e: ISysDataState){
@@ -39,6 +43,8 @@ export const useSysData = defineStore('sysData', {
       this.gender = e.gender
       this.evaluationSort = e.evaluationSort
       this.evaluationSource = e.evaluationSource
+      this.msgType = e.msgType
+      this.dialogueOperationType = e.dialogueOperationType
     }
-    },
+  },
 })

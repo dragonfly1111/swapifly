@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$router.push('/goodsDetails')">
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
         <a-col :span="5" v-for="item in 4" style="padding: 10px">
@@ -51,7 +51,7 @@
                 <a-doption @click="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
               </template>
               <template v-if="isMySelf">
-                <a-doption @click="handlRemove">{{ $t("pages.editGoods") }}</a-doption>
+                <a-doption @click="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
                 <a-doption @click="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
                 <a-doption @click="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
                 <a-doption @click="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
@@ -74,6 +74,7 @@
       </a-space>
     </a-empty>
 
+    <!-- 举报 -->
     <ReportModal ref="reportModal"></ReportModal>
 
     <div v-if="isMySelf">
@@ -116,6 +117,7 @@ const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const pageLoading = ref(false);
+const router = useRouter()
 
 // 举报
 const handleReport = () => {
@@ -127,6 +129,11 @@ const openExposure = () => {
 };
 // 下架
 const handlRemove = () => {};
+
+// 编辑商品
+const handleEdit = () => {
+  router.push('/saleEditGoods')
+};
 
 const openAchievement = () => {
   userAchievementModal.value.openDialog();
