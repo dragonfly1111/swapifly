@@ -284,6 +284,8 @@ helpCenter:
   sameTheme: 同主題的文章
   searchResult: 搜尋結果
   articleTheme: 文章主題
+  noData: 暫無内容
+  noDataTip: 暫無符合條件的文章~
 newsCenter:
   title: 新聞資訊
   search: 搜尋新聞

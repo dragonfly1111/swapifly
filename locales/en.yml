@@ -139,6 +139,8 @@ helpCenter:
   sameTheme: todo
   searchResult: todo
   articleTheme: todo
+  noData: todo
+  noDataTip: todo
 newsCenter:
   title: todo
   search: todo

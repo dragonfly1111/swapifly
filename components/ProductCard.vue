@@ -269,12 +269,4 @@ const openAchievement = () => {
     font-size: 18px;
   }
 }
-
-// 移动端
-@media screen and(max-width:1000px) {
-  .recommend-item {
-    width: 48%;
-    min-width: 150px;
-  }
-}
 </style>

@@ -279,6 +279,8 @@ helpCenter:
   sameTheme: 同主题的文章
   searchResult: 搜索结果
   articleTheme: 文章主题
+  noData: 暂无内容
+  noDataTip: 暂无副歌条件的文章～
 newsCenter:
   title: 新闻资讯
   search: 搜索新闻

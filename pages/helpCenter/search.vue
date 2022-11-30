@@ -6,7 +6,7 @@
           <div class="left">
             <div class="info">{{ $t('helpCenter.hello') }}</div>
             <div class="info">{{ $t('helpCenter.helpInfo') }}</div>
-            <a-input-search class="search-box" :placeholder="$t('helpCenter.search')" @search="searchHandle"></a-input-search>
+            <a-input-search class="search-box" v-model="searchKey" :placeholder="$t('helpCenter.search')" @press-enter="searchHandleKey" @search="searchHandle"></a-input-search>
           </div>
           <div class="right">
             <img width="250" height="250" src="@/assets/images/help-head.png" alt="">
@@ -18,34 +18,136 @@
           <div class="big-title">
             {{ $t('helpCenter.searchResult') }}
           </div>
-          <div v-for="item in 4" class="help-item" @click="$router.push(`/helpCenter/detail?id=${item}`)">
-            <div class="title">文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}文章標題文本{{ item }}</div>
-            <div class="des">文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}文章概要文本{{ item }}</div>
-          </div>
+          <template v-if="!dataLoading">
+            <template v-if="resultList.length > 0">
+              <div v-for="item in resultList" class="help-item" @click="$router.push(`/helpCenter/detail?id=${item.id}`)">
+                <div class="title">{{ item.title }}</div>
+                <div class="des">{{ item.abstract }}</div>
+              </div>
+            </template>
+            <template v-else>
+              <div class="no-data">
+                <img src="@/assets/images/no-data-box.png" alt="">
+                <div class="title">{{ $t('helpCenter.noData') }}</div>
+                <div class="tip">{{ $t('helpCenter.noDataTip') }}</div>
+              </div>
+
+            </template>
+          </template>
+          <template v-else>
+            <a-skeleton :animation="true" class="skeleton">
+              <div style="height: 20px;"></div>
+              <div style="width: 70%;">
+                <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
+              </div>
+              <div style="height: 36px;"></div>
+              <div style="width: 70%;">
+                <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
+              </div>
+              <div style="height: 36px;"></div>
+              <div style="width: 70%;">
+                <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
+              </div>
+              <div style="height: 36px;"></div>
+              <div style="width: 70%;">
+                <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
+              </div>
+            </a-skeleton>
+          </template>
+
         </div>
         <div class="right">
           <div class="theme">
             {{ $t('helpCenter.articleTheme') }}
           </div>
-          <div v-for="item in 3" class="theme-name">
-            一級主題名稱{{item}}
+          <div v-if="!dataLoading1">
+            <div v-for="item in themeList" class="theme-name" @click="changeTheme(item)">
+              {{ item.title }}
+            </div>
           </div>
+          <div v-else>
+            <div style="height: 20px"></div>
+            <a-skeleton-line :line-height="22" :line-spacing="16" :rows="3"/>
+          </div>
+
         </div>
       </div>
     </div>
 
     <div class="pag">
-      <a-pagination :total="200" simple @change="changePage"/>
+      <a-pagination :total="totalRes" v-model:current="page" :page-size="4" simple @change="changePage"/>
     </div>
   </div>
 </template>
 
 <script setup>
-const searchHandle = (e) =>{
-  console.log(e)
+import { helpSearch, helpTheme } from '~/api/helpCenter'
+import {Message} from "@arco-design/web-vue";
+const searchKey = ref('')
+const page = ref(1)
+const totalRes = ref(0)
+const resultList = ref([])
+const themeList = ref([])
+const route = useRoute()
+const dataLoading = ref(true);
+const dataLoading1 = ref(true);
+searchKey.value = route.query.title
+
+const searchHandleKey = () =>{
+  searchHandle(searchKey.value)
 }
-const changePage = (e) =>{
+
+const changeTheme = (e) => {
+  searchKey.value = ''
+  getSearchRes('', e.id)
+}
+
+const searchHandle = (e) => {
+  page.value = 1
+  getSearchRes(e)
+  // getHelpTheme()
+}
+
+const getSearchRes = (title, rid) => {
+  dataLoading.value = true
+  if(title){
+    route.query.title = title
+  }
+  helpSearch({
+    title: title ? title : null,
+    rid: rid ? rid : null,
+    page: page.value,
+    limit: 4
+  }).then(res=>{
+    dataLoading.value = false
+    if(res.code === 0){
+      resultList.value = res.data.data
+      totalRes.value = res.data.total
+      console.log(res.total)
+    } else {
+      Message.error(res.message)
+    }
+  })
+}
+const getHelpTheme = () => {
+  dataLoading1.value = true
+  helpTheme().then(res=>{
+    dataLoading1.value = false
+    if(res.code === 0){
+      themeList.value = res.data
+    } else {
+      Message.error(res.message)
+    }
+  })
+}
+
+getSearchRes(searchKey.value)
+getHelpTheme()
+
+const changePage = (e) => {
   console.log(e)
+  console.log(page.value)
+  getSearchRes(searchKey.value)
 }
 </script>
 
@@ -124,6 +226,26 @@ const changePage = (e) =>{
         .title{
           color: $main-blue;
         }
+      }
+    }
+    .no-data{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 200px;
+      img{
+        width: 86px;
+      }
+      .title{
+        margin-top: 11px;
+        color: #333333;
+        font-size: 18px;
+      }
+      .tip{
+        color: $grey-font-label;
+        margin-top: 10px;
+        font-size: 12px;
       }
     }
   }
