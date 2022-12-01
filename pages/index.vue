@@ -57,7 +57,7 @@ export default {
       "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
     ];
     const resize = useResize();
-    let isMobile = resize.screenType !== 'MOBILE'
+    let isMobile = resize.screenType === 'MOBILE'
     let isMobileRef = ref(isMobile)
     console.log("====isMobileRef==",isMobileRef)
     const value = ref();

@@ -180,3 +180,5 @@ dialogue:
   block: todo
   deleteConversation: todo
   report: todo
+mobile:
+  user_center: my usercenter

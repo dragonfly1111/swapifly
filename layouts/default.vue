@@ -1,5 +1,7 @@
 <template>
-  <main :style="{padding: resize.screenType === 'MOBILE' ? '10px' : '0'}">
+  <main :style="{
+    padding: resize.screenType === 'MOBILE' ? '10px' : '0',
+  }">
     <Header v-if="headType === 'common' || headType === 'dialogue'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
@@ -24,6 +26,13 @@ const newsArr = [
   '/newsCenter/detail',
   '/newsCenter/search'
 ]
+const mobileArr = [
+    '/login',
+    '/register',
+    '/mobileUserProfile',
+    '/mobileLike'
+];
+console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
   if (helpArr.indexOf(newValue) !== -1) {
@@ -32,10 +41,8 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'news'
   } else if(newValue === '/dialogue'){
     headType.value = 'dialogue'
-  } else if (newValue === '/login') {
-    headType.value = 'loginPage'
-  } else if (newValue === '/register') {
-    headType.value = 'registerPage'
+  } else if (mobileArr.includes(newValue)) {
+    headType.value = 'mobilePage'
   } else {
     headType.value = 'common'
   }

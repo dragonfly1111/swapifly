@@ -42,12 +42,12 @@ useHead({
   ],
   // todo sdk 支持对语言
   script:[
-  {
-    'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
-  },
-  {
-    'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
-  },
+  // {
+  //   'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
+  // },
+  // {
+  //   'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
+  // },
   {
     'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
   },
@@ -56,6 +56,7 @@ useHead({
   },
   ]
 })
+console.log("=====onMounted====",resize)
 onMounted(()=>{
   // 客户端设置系统属性数据
   if(process.client){
@@ -74,10 +75,11 @@ onMounted(()=>{
   }
   // 设置全局缩放属性
   console.log("===window.innerWidth===",window.innerWidth)
-  resize.setWidth(window.innerWidth)
+  resize.setWidth("===缩放====",window.innerWidth)
   window.addEventListener('resize', handleResize)
 })
 function handleResize(){
+  console.log("===缩放====")
   resize.setWidth(window.innerWidth)
 }
 

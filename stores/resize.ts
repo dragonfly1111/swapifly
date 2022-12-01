@@ -15,10 +15,10 @@ export interface ITypeState {
 export const useResize = defineStore('resize', {
   state: (): ITypeState => ({
     curWidth: 0,
-    screenType: 'PC',
+    screenType: 'MOBILE',
     scale: 1,
-    contentPT: 106,
-    contentPTStr: '106px'
+    contentPT: 375,
+    contentPTStr: '375px'
   }),
   actions: {
     setWidth(width: number){
@@ -35,6 +35,7 @@ export const useResize = defineStore('resize', {
       }
     },
     changeType(type: string) {
+      console.log("====type====",type)
       this.screenType = type
     },
     setScale(num: number){

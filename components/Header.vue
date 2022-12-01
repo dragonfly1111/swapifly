@@ -108,7 +108,13 @@
             </div>
           </a-col>
           <a-col :span="resize.screenType === 'MOBILE'?6:4" class="btn-col">
-            <a-button v-if="resize.screenType === 'MOBILE'" class="sell-but" @click="openLogin">{{ $t('head.login') }}</a-button>
+            <div v-if="resize.screenType === 'MOBILE'">
+              <template v-if="true" >
+                <icon-message class="icon-message"/>
+                <icon-list class="icon-list"/>
+              </template>
+              <a-button v-else class="sell-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
+            </div>
             <a-button v-else class="sell-but">{{ $t('head.sell') }}</a-button>
           </a-col>
         </a-row>
@@ -144,7 +150,7 @@ const searchKey = ref('')
 const resize = useResize();
 let curClass: any = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
-
+console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('header watch', newValue);
@@ -153,6 +159,9 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   } else {
     searchResPage.value = false
   }
+}, {immediate: true})
+watch(() => resize.screenType, (newValue, oldValue) => {
+  console.log('resize.screenType', newValue);
 }, {immediate: true})
 function selectMenu(e){
   switch (e) {
@@ -175,6 +184,7 @@ function openRegister() {
 }
 
 function openLogin() {
+  console.log("openLogin",resize.screenType)
   if (resize.screenType === 'MOBILE'){
     router.push('/login')
   }else {
@@ -401,7 +411,6 @@ function toClassDetail(e: IGoodsClass) {
   padding: 10px 0;
   border-bottom: 1px solid #E5E5E5;
   background: #FFFFFF;
-
   .img-col{
     .phone-logo{
       height: 36px;
@@ -476,6 +485,19 @@ function toClassDetail(e: IGoodsClass) {
     }
   }
   .btn-col{
+    .sell-but-mobile{
+      height: 35px;
+      width: 100%;
+      background: $main-pink;
+      color: #FFFFFF;
+      line-height: 46px;
+      margin-top:5px;
+      :deep(.arco-btn) {
+        height: 35px;
+        width: 82px;
+        background: $main-pink;
+      }
+    }
     .sell-but {
       height: 35px;
       width: 82px;
@@ -489,6 +511,17 @@ function toClassDetail(e: IGoodsClass) {
         background: $main-pink;
       }
     }
+  }
+  .icon-message{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+  .icon-list{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 8px;
   }
 }
 </style>

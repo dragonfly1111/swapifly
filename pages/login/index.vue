@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-title">
-      <IconLeft  class="back-index" @click="handToIndex"/>
+      <icon-left  class="back-index" @click="handToIndex"/>
       <img src="@/assets/images/logo-long.png" alt=""/>
     </div>
     <div class="title">{{ $t('loginDialog.title') }}</div>
@@ -29,7 +29,6 @@
 <script setup lang="ts">
 import {useUserInfo} from "~/stores/userInfo";
 import {ILoginForm} from "~/model/payload/loginAndRegister";
-import IconLeft from "@arco-design/web-vue/es/icon/icon-plus";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
 import {Message} from "@arco-design/web-vue";

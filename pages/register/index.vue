@@ -1,7 +1,7 @@
 <template>
   <div class="register-page">
     <div class="login-title">
-      <IconLeft  class="back-index" @click="handleLogin"/>
+      <icon-left  class="back-index" @click="handleLogin"/>
       <img src="@/assets/images/logo-long.png" alt=""/>
     </div>
     <div class="title">{{ $t('loginDialog.title') }}</div>
@@ -48,7 +48,6 @@
 import {useI18n} from "vue-i18n";
 import {getEmailCode, register, facebookLogin, instagramLogin, googleLogin} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
-import IconLeft from "@arco-design/web-vue/es/icon/icon-plus";
 import {IRegisterForm} from "~/model/payload/loginAndRegister";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
