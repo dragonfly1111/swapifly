@@ -81,7 +81,7 @@
 import {newsList, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {baseImgPrefix} from '~/config/baseUrl'
-import {timeFormat} from "~/utils/time";
+import {parseTime} from "~/utils/time";
 
 const searchKey = ref('')
 const dataLoading = ref(true);
@@ -92,9 +92,11 @@ let newsDataList = ref([]);
 let recentNewsList = ref([]);
 
 const router = useRouter()
-
+const route = useRoute()
+searchKey.value = route.query.title ? route.query.title : ''
 const searchHandle = () => {
   page.value = 1
+  router.push(`/newsCenter?title=${searchKey.value }`)
   getNewsList()
 }
 const toNewsDetail = (e) => {
@@ -110,9 +112,8 @@ const getNewsList = () => {
   }).then(res => {
     dataLoading.value = false
     if (res.code === 0) {
-
       res.data.data.forEach(item=>{
-        item.news_time = timeFormat()
+        item.news_time = parseTime(item.news_time, '{y}-{m}-{d}')
       })
       newsDataList.value = res.data.data
       totalRes.value = res.data.total

@@ -148,6 +148,7 @@ newsCenter:
   recent: todo
   preNews: todo
   nextNews: todo
+  noNews: todo
 dialogue:
   newMsg: todo
   noMore: todo

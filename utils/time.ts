@@ -1,9 +1,3 @@
-import * as moment from "moment";
-
-export function timeFormat (e: number): string {
- return moment(e * 1000).format("YYYY-MM-DD");
-}
-
 // 日期格式化
 export function parseTime(time: string | number | Date, pattern: string) {
     if (arguments.length === 0 || !time) {
@@ -34,6 +28,7 @@ export function parseTime(time: string | number | Date, pattern: string) {
       a: date.getDay()
     }
     const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result: string | any[], key: string) => {
+      // @ts-ignore
       let value = formatObj[key]
       // Note: getDay() returns 0 on Sunday
       if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }

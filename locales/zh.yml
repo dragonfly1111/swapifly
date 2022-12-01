@@ -288,6 +288,7 @@ newsCenter:
   recent: 近期
   preNews: 上一篇文章
   nextNews: 下一篇文章
+  noNews: 没有了～
 dialogue:
   newMsg: 新消息
   noMore: 暂无更多对话

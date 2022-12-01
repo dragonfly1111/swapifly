@@ -2,7 +2,7 @@
   <div class="global-content1 common-row">
     <div class="detail-content">
       <div class="left">
-        <div v-if="!dataLoading">
+        <template v-if="!dataLoading">
           <a-breadcrumb>
             <template #separator>
               <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
@@ -15,7 +15,7 @@
           <div class="content">
             <div v-html="articleDetail.details"></div>
           </div>
-        </div>
+        </template>
         <div v-else>
           <a-skeleton :animation="true" class="skeleton">
             <div style="width: 200px">
@@ -41,15 +41,15 @@
         <a-input-search class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
                         @press-enter="searchHandleKey" @search="searchHandle" search-button/>
         <div class="same-title">{{ $t('helpCenter.sameTheme') }}</div>
-        <div v-if="!dataLoading">
+        <template v-if="!dataLoading">
           <div v-for="item in witharticle" class="other-title" @click="toDetail(item)">
             {{ item.title }}
           </div>
-        </div>
-        <div v-else>
+        </template>
+        <template v-else>
           <div style="height: 20px"></div>
           <a-skeleton-line :line-height="22" :line-spacing="16" :rows="3"/>
-        </div>
+        </template>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
 <script setup>
 import {helpDetail} from '~/api/helpCenter'
 import {Message} from "@arco-design/web-vue";
-import {timeFormat} from "~/utils/time";
+import {parseTime} from "~/utils/time";
 const searchKey = ref('')
 const route = useRoute();
 const dataLoading = ref(true);
@@ -78,7 +78,7 @@ const getHelpDetail = () => {
   }).then(res => {
     dataLoading.value = false
     if (res.code === 0) {
-      res.data.article.create_time = timeFormat(res.data.article.create_time);
+      res.data.article.create_time = parseTime(res.data.article.create_time);
       articleDetail.value = res.data.article
       witharticle.value = res.data.witharticle
     } else {
