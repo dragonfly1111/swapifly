@@ -131,6 +131,7 @@ pages:
   delGoods: 刪除商品
   visitorYourTip: 今天查看了你的個人檔案的人數
   follow: Follow
+  cancelFollow: 取消关注
   authenticationApply: 認證申請
   noImage: 未上傳
   noContent: 未填写
@@ -351,4 +352,11 @@ sale:
   draft: 草稿
 mobile:
     user_center: 我的賬戶
+authentication:
+  waitAudit: 待審核
+  pass: 已通過
+  notpass: 未通過
+  authenticationing: 认证中
+  opinion: 審核意見
+
 

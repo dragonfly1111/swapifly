@@ -1,7 +1,7 @@
 <template>
   <div class="common-row global-content">
     <div class="user-banner">
-      <a-image :src="testImg" fit="cover"  show-loader></a-image>
+      <a-image :src="testImg" fit="cover" show-loader></a-image>
     </div>
 
     <div class="user-details">
@@ -10,14 +10,14 @@
           <a-space class="extra-btn">
             <a-button
               type="outline"
-              v-if="userInfo.id == form.userId"
+              v-if="userInfo.id == form.id"
               @click="router.push('/userProfile')"
               >{{ $t("profile.edit_profile") }}</a-button
             >
-            <a-button type="outline" v-if="userInfo.id != form.userId">{{
-              $t("pages.follow")
-            }}</a-button>
-            <a-button type="outline" v-if="userInfo.id != form.userId" @click="handleReport">{{
+            <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
+              {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
+            </a-button>
+            <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
               $t("pages.report")
             }}</a-button>
           </a-space>
@@ -30,7 +30,7 @@
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
         </div>
         <div class="right-content">
           <GoodsRow ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
@@ -45,7 +45,6 @@
     </div>
 
     <ReportModal ref="reportModal"></ReportModal>
-    
   </div>
 </template>
 <script setup>
@@ -55,14 +54,17 @@ import FollowRow from "./components/FollowRow";
 import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
+import { getUserDetails, followUser } from "~/api/shop";
+import { Message } from "@arco-design/web-vue";
 const userInfo = useUserInfo();
 const router = useRouter();
-const form = reactive({ userId: "" });
+const form = ref({ id: "", isfollow: 0 });
 const reportModal = ref(null);
 const evaluateRow = ref(null);
 const goodsRow = ref(null);
 const businessInformation = ref(null);
 const followRow = ref(null);
+const btnLoading = ref(false);
 
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
@@ -83,21 +85,51 @@ const handleTabChange = (e) => {
   }
 };
 
+const getInfo = () => {
+  getUserDetails(form.value.id).then((res) => {
+    if (res.code == 0) {
+      form.value = res.data.shop;
+    }
+  });
+};
+
+// 关注取消用户
+const handleFollow = () => {
+  let state = form.value.isfollow == 1 ? 2 : 1;
+  btnLoading.value = true;
+  followUser({
+    id: form.value.id,
+    state,
+  })
+    .then((res) => {
+      if (res.code === 0) {
+        Message.success(res.message);
+        getInfo();
+      } else {
+        Message.error(res.message);
+      }
+    })
+    .finally(() => {
+      btnLoading.value = false;
+    });
+};
+
 // 举报用户
 const handleReport = () => {
   reportModal.value.openDialog("user");
 };
 // 注册商户
 const openRegBusiness = () => {
-  handleTabChange('businessInformation')
+  handleTabChange("businessInformation");
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
   followRow.value.handleQuery(e);
-  activeTab.value = 'followRow'
+  activeTab.value = "followRow";
 };
 onMounted(() => {
-  form.userId = router.currentRoute.value.query.userId;
+  form.value.id = router.currentRoute.value.query.userId;
+  getInfo();
 });
 </script>
 <style lang="scss" scoped>
@@ -106,11 +138,11 @@ onMounted(() => {
 .user-banner {
   width: 100%;
   height: 130px;
-  :deep(.arco-image-img){
+  :deep(.arco-image-img) {
     width: 100%;
     height: 100%;
   }
-  :deep(.arco-image){
+  :deep(.arco-image) {
     width: 100%;
     height: 100%;
   }
@@ -137,7 +169,7 @@ onMounted(() => {
       width: 90px;
       border: 1px solid $main-grey;
       color: $main-grey;
-      &:hover{
+      &:hover {
         background-color: #eee;
       }
     }

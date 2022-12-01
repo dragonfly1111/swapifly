@@ -155,8 +155,8 @@ const openAchievement = () => {
 }
 .recommend-item {
   width: 24%;
-  //min-width: 180px;
-  //max-width: 310px;
+  min-width: 180px;
+  max-width: 350px;
   background: #fff;
   padding: 15px 10px;
   margin-bottom: 10px;

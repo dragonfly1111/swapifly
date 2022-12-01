@@ -16,6 +16,7 @@ export interface ISysDataState {
   evaluationSource: Idict[],
   msgType: Idict[],
   dialogueOperationType: Idict[],
+  authenticationStatus: Idict[],
 }
 
 export const useSysData = defineStore('sysData', {
@@ -30,6 +31,7 @@ export const useSysData = defineStore('sysData', {
     evaluationSource:[],
     msgType:[],
     dialogueOperationType:[],
+    authenticationStatus:[],
   }),
   actions: {
     setSysDataServerSide(e: ISysDataState){
@@ -45,6 +47,7 @@ export const useSysData = defineStore('sysData', {
       this.evaluationSource = e.evaluationSource
       this.msgType = e.msgType
       this.dialogueOperationType = e.dialogueOperationType
+      this.authenticationStatus = e.authenticationStatus
     }
   },
 })

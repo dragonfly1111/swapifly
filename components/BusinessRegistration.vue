@@ -79,7 +79,12 @@
         />
       </a-form-item>
     </a-form>
-    <a-button :loading="saveLoading" class="confirm black-btn" @click="handleSubmit">
+    <a-button
+      v-if="!formData.id"
+      :loading="saveLoading"
+      class="confirm black-btn"
+      @click="handleSubmit"
+    >
       {{ $t("business.authApplyForm.applyBtn") }}</a-button
     >
     <a-button
@@ -108,7 +113,7 @@ import { useI18n } from "vue-i18n";
 import { addBusiness, reApplyBusiness, undoApplyBusiness } from "~/api/business";
 import { Message } from "@arco-design/web-vue";
 import { Modal, Button } from "@arco-design/web-vue";
-import { useUserInfo } from "~/stores/userInfo"
+import { useUserInfo } from "~/stores/userInfo";
 const formRef = ref(null);
 const uploadRef = ref(null);
 const saveLoading = ref(false);
@@ -116,33 +121,33 @@ const uploadLoading = ref(false);
 const { t } = useI18n();
 const visible = ref(false);
 let headers = reactive({
-  'X-Utoken': null,
-  'X-Userid': null
+  "X-Utoken": null,
+  "X-Userid": null,
 });
-if(process.client){
-  const userInfo = useUserInfo()
-  headers['X-Utoken'] = userInfo.token
-  headers['X-Userid'] = userInfo.id
+if (process.client) {
+  const userInfo = useUserInfo();
+  headers["X-Utoken"] = userInfo.token;
+  headers["X-Userid"] = userInfo.id;
 }
 
-const beforeUpload = (e) =>{
-  uploadLoading.value = true
-  return true
-}
-const uploadClick = () =>{
-  console.log('uploadClick')
-  if(uploadLoading.value) return new Promise(()=>{})
-}
+const beforeUpload = (e) => {
+  uploadLoading.value = true;
+  return true;
+};
+const uploadClick = () => {
+  console.log("uploadClick");
+  if (uploadLoading.value) return new Promise(() => {});
+};
 // 上传成功
 const uploadSuccess = (e) => {
   formData.image = e.response.data;
-  uploadLoading.value = false
+  uploadLoading.value = false;
 };
 const uploadError = (e) => {
-  uploadLoading.value = false
+  uploadLoading.value = false;
 };
 const emits = defineEmits(["change"]);
-const formData = reactive({
+const formData = ref({
   title: "",
   address: "",
   contact: "",
@@ -167,13 +172,23 @@ const handleCancel = () => {
   }, 100);
 };
 
-
-
 const resetForm = () => {
   formRef.value.resetFields();
 };
-const openDialog = () => {
+const openDialog = (form) => {
   visible.value = true;
+  if (form) {
+    formData.value = { ...form };
+    if (form.image) {
+      fileList.value = [
+        {
+          uid: "-1",
+          name: form.image,
+          url: baseImgPrefix + form.image,
+        },
+      ];
+    }
+  }
 };
 
 // 撤销申请

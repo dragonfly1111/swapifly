@@ -17,59 +17,72 @@
           <a-input v-model="form.title" :placeholder="$t('pages.noContent')" />
         </a-form-item>
         <a-form-item field="address" :label="$t('business.businessAddress')">
-          <a-input v-model="form.address" :placeholder="$t('pages.noContent')"  />
+          <a-input v-model="form.address" :placeholder="$t('pages.noContent')" />
         </a-form-item>
         <a-form-item field="contact" :label="$t('business.businessContact')">
-          <a-input v-model="form.contact" :placeholder="$t('pages.noContent')"  />
+          <a-input v-model="form.contact" :placeholder="$t('pages.noContent')" />
         </a-form-item>
         <a-form-item field="image" :label="$t('business.businessCertificate')">
           <a-image
             width="270"
             height="180"
             v-if="form.image"
-            src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp"
+            :src="baseImgPrefix + form.image"
+            fit="contain"
           />
-          <span class="grey" v-if="!form.image">{{$t('pages.noImage')}}</span>
+          <span class="grey" v-if="!form.image">{{ $t("pages.noImage") }}</span>
         </a-form-item>
-        <div class="text-danger" v-if="form.auditReson">{{$t('business.auditResult')}}：</div>
-        <div class="auth-status">{{$t('business.authStatus')}}：{{$t('business.authStatusNo')}}</div>
+        <div class="text-danger" v-if="form.opinion">
+          {{ $t("business.auditResult") }}：{{ form.opinion }}
+        </div>
+        <div class="auth-status">{{ $t("business.authStatus") }}：{{ getStatusLabel() || $t('business.authStatusNo') }}</div>
       </a-form>
-      
     </div>
 
-    <BusinessRegistration ref="businessRegistration"></BusinessRegistration>
+    <BusinessRegistration ref="businessRegistration" @change="handleQuery"></BusinessRegistration>
   </div>
 </template>
 
 <script setup>
 import { getBusinessInfo } from "~/api/business";
+import { baseImgPrefix } from "~/config/baseUrl";
+import { useSysData } from "~/stores/sysData";
+const sysData = useSysData();
 const router = useRouter();
-const businessRegistration = ref(null)
-const form = reactive({
+const businessRegistration = ref(null);
+const authenticationStatus = ref([]);
+const form = ref({
   title: null,
   address: null,
   contact: null,
   image: null,
-  auditReson:null
+  opinion: null,
+  state: null,
 });
 
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-onMounted(() => {});
+const getStatusLabel = () => {
+  if (form.value.state != null) {
+    let obj = authenticationStatus.value.find((i) => i.value == form.value.state);
+    return obj ? obj.key : "";
+  }
+};
 
 const handleQuery = () => {
-    getBusinessInfo(router.currentRoute.value.query.userId).then(res=>{
-        if(res.code == 0){
-            form.value = res.data
-        }
-    })
+  getBusinessInfo(router.currentRoute.value.query.userId).then((res) => {
+    if (res.code == 0 && res.data) {
+      form.value = res.data;
+    }
+  });
 };
 const toAuthentication = () => {
-    businessRegistration.value.openDialog()
+  businessRegistration.value.openDialog(form.value);
 };
+onMounted(() => {
+  authenticationStatus.value = sysData.authenticationStatus;
+});
 defineExpose({
-    handleQuery,
-    toAuthentication
+  handleQuery,
+  toAuthentication,
 });
 </script>
 <style lang="scss" scoped>
@@ -102,6 +115,10 @@ defineExpose({
     }
     :deep(.arco-form-item) {
       margin-bottom: 30px;
+      .arco-input-wrapper .arco-input[disabled] {
+        color: #86909c;
+        -webkit-text-fill-color: #86909c;
+      }
     }
     :deep(.arco-form-item-label-col) {
       line-height: 16px;
@@ -114,13 +131,13 @@ defineExpose({
   }
 }
 
-.text-danger{
-    color: #D43030;
-    font-size: 16px;
+.text-danger {
+  color: #d43030;
+  font-size: 16px;
 }
 
-.auth-status{
-    margin: 60px 0 20px;
-    font-size: 16px;
+.auth-status {
+  margin: 60px 0 20px;
+  font-size: 16px;
 }
 </style>

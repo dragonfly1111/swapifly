@@ -79,6 +79,19 @@ export function generateDialogueOperationType(t:any){
     value: 4
   }]
 }
+// 认证状态
+export function generateAuthenticationStatus(t:any){
+  return [{
+    key: t('authentication.waitAudit'),
+    value: 0
+  },{
+    key: t('authentication.pass'),
+    value: 1
+  },{
+    key: t('authentication.notpass'),
+    value: 2
+  }]
+}
 
 export interface Idict {
   key: string,

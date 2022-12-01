@@ -3,7 +3,7 @@ import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
-import { generateGender, generateEvaluationSort, generateEvaluationSource, generateMsgType, generateDialogueOperationType } from '~/model/res/staticDicts'
+import { generateGender, generateEvaluationSort, generateEvaluationSource, generateMsgType, generateDialogueOperationType, generateAuthenticationStatus } from '~/model/res/staticDicts'
 import { useI18n } from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
@@ -66,6 +66,7 @@ onMounted(()=>{
       evaluationSource: generateEvaluationSource(t),
       msgType: generateMsgType(t),
       dialogueOperationType: generateDialogueOperationType(t),
+      authenticationStatus: generateAuthenticationStatus(t),
       region: [],
       lang: [],
       goodsClass: [],
