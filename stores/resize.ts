@@ -22,6 +22,7 @@ export const useResize = defineStore('resize', {
   }),
   actions: {
     setWidth(width: number){
+      console.log("===qqqqq===",width)
       this.curWidth = width
       if(width > 1295){
         this.changeType('PC')

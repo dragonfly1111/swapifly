@@ -1,6 +1,7 @@
 <template>
   <main :style="{
     padding: resize.screenType === 'MOBILE' ? '10px' : '0',
+    overflowX: resize.screenType === 'MOBILE' ? 'hidden' : 'auto',
   }">
     <Header v-if="headType === 'common' || headType === 'dialogue'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
@@ -39,6 +40,10 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
     headType.value = 'news'
+  } else if (newValue === '/notification' && resize.screenType === 'MOBILE'){
+    headType.value = 'MobileNotificationPage'
+  } else if (newValue === '/like' && resize.screenType === 'MOBILE'){
+    headType.value = 'MobileLikePage'
   } else if(newValue === '/dialogue'){
     headType.value = 'dialogue'
   } else if (mobileArr.includes(newValue)) {

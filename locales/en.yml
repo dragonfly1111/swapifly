@@ -78,6 +78,7 @@ pages:
   cancel: cancel
   confirm: confirm
   no_notice: no notice
+  mobile_notice: message
   no_notice_tip: haven't received any messages
   like_title: like
 profile:

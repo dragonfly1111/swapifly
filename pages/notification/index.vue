@@ -1,5 +1,10 @@
 <template>
   <div class="common-row global-content">
+    <div  v-if="resize.screenType === 'MOBILE'" class="page-header-notification">
+      <icon-left  class="back-index" @click="handleIndex"/>
+      <h2>{{ $t("pages.mobile_notice") }}</h2>
+    </div>
+    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <div class="notice-list">
       <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
@@ -36,6 +41,9 @@
 <script setup>
 import { noticelist } from "~/api/notice";
 import { parseTime } from "~/utils/time";
+import { useResize } from '~/stores/resize';
+const router = useRouter();
+const resize = useResize();
 const pageLoading = ref(true);
 const moreLoading = ref(false);
 const noticeList = ref([]);
@@ -59,7 +67,9 @@ const handleQuery = () => {
       moreLoading.value = false;
     });
 };
-
+const handleIndex = () => {
+  router.push("/mobileUserProfile")
+};
 const loadMore = () => {
   if(noticeList.value.length < total.value && !moreLoading.value){
     queryParams.page++
@@ -87,6 +97,28 @@ onMounted(async () => {
 });
 </script>
 <style lang="scss" scoped>
+.null-height{
+  height: 40px;
+  width: 100%;
+}
+.page-header-notification{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  z-index: 2;
+  border-bottom: 1px solid #ccc;
+  .back-index{
+    display: block;
+    position: absolute;
+    left: 0;
+    font-size: 28px;
+    font-weight: bold;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 .notice-list {
   // width: 90%;
   margin: auto;

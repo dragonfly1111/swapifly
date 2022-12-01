@@ -21,11 +21,11 @@ const list = reactive<limitObj>({
   data: [{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
     name:'like记录',
-    path:'/mobileLike',
+    path:'/like',
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
     name:'通知消息',
-    path:'/mobileLike',
+    path:'/notification',
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
     name:'个人档案',
@@ -55,14 +55,18 @@ const toPath = (data) =>{
     text-align: center;
     position: relative;
     padding-bottom: 10px;
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
     .back-index{
       display: block;
       position: absolute;
       left: 0;
+      top: 50%;
       font-size: 25px;
       font-weight: bold;
+      transform: translateY(-50%);
     }
     img {
       width: 152px;

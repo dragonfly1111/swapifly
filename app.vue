@@ -76,11 +76,11 @@ onMounted(()=>{
   }
   // 设置全局缩放属性
   console.log("===window.innerWidth===",window.innerWidth)
-  resize.setWidth("===缩放====",window.innerWidth)
+  resize.setWidth(window.innerWidth)
   window.addEventListener('resize', handleResize)
 })
 function handleResize(){
-  console.log("===缩放====")
+  console.log("===缩放====",window.innerWidth)
   resize.setWidth(window.innerWidth)
 }
 
