@@ -4,7 +4,8 @@ import request from '../utils/request'
 export const noticelist = (params: any) => {
   return request({
     url: '/index/user_center/noticelist',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

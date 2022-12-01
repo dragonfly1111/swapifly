@@ -8,16 +8,17 @@
       </a-skeleton>
 
       <div v-if="!pageLoading">
-        <div class="notice-item" v-for="item in noticeList">
+        <div class="notice-item" v-for="item in noticeList" :key="item.id">
           <div class="item-header">
             <img class="long-logo" src="@/assets/images/logo-long.png" alt="" />
-            <span>2022-09-29 16:24:58</span>
+            <span>{{ parseTime(item.create_time, "{y}-{m}-{d} {h}:{i}:{s}") }}</span>
           </div>
           <div class="item-body">
-            <div class="title">通知標題</div>
-            <div>通知文本內容通知文本內容通知文本內容</div>
+            <div class="title">{{ item.title }}</div>
+            <div>{{ item.content }}</div>
           </div>
         </div>
+        <a-spin class="loading" v-if="moreLoading" />
       </div>
 
       <div class="no-notice" v-if="!noticeList.length && !pageLoading">
@@ -25,8 +26,8 @@
           <template #image>
             <img src="@/assets/images/icon/no_notice_grey.png" alt="" srcset="" />
           </template>
-          <h5>{{ $t('pages.no_notice') }}</h5>
-          <p>{{ $t('pages.no_notice_tip') }}</p>
+          <h5>{{ $t("pages.no_notice") }}</h5>
+          <p>{{ $t("pages.no_notice_tip") }}</p>
         </a-empty>
       </div>
     </div>
@@ -34,17 +35,20 @@
 </template>
 <script setup>
 import { noticelist } from "~/api/notice";
+import { parseTime } from "~/utils/time";
 const pageLoading = ref(true);
+const moreLoading = ref(false);
 const noticeList = ref([]);
 const queryParams = reactive({
   page: 1,
+  limit: 10,
 });
 const total = ref(0);
 const handleQuery = () => {
   noticelist(queryParams)
     .then((res) => {
-      if (res.code == 1) {
-        noticeList.value = res.data.data;
+      if (res.code === 0) {
+        noticeList.value = noticeList.value.concat(res.data.data);
         total.value = res.data.total;
       }
     })
@@ -52,18 +56,42 @@ const handleQuery = () => {
       if (queryParams.page == 1) {
         pageLoading.value = false;
       }
+      moreLoading.value = false;
     });
+};
+
+const loadMore = () => {
+  if(noticeList.value.length < total.value && !moreLoading.value){
+    queryParams.page++
+    moreLoading.value = true
+    handleQuery()
+  }
+};
+
+const pageScroll = () => {
+  // 获取滚动的距离
+  let scrollTop = document.documentElement.scrollTop;
+  // 获取滚动的高度（获取整个html的高度）
+  let scrollHeight = document.documentElement.scrollHeight;
+  // 获取屏幕(浏览器)高度
+  let clienHeight = document.documentElement.clientHeight;
+  // 滚动的距离 + 屏幕高度 - 内容高度 >= 0 表示滚动到底部了      (下拉加载判断条件)
+  if (scrollTop + clienHeight - scrollHeight >= 0) {
+    console.log("我到底了");
+    loadMore()
+  }
 };
 onMounted(async () => {
   handleQuery();
+  window.onscroll = pageScroll;
 });
 </script>
 <style lang="scss" scoped>
 .notice-list {
-  width: 90%;
+  // width: 90%;
   margin: auto;
   max-width: 700px;
-  padding: 30px 0;
+  padding: 30px 5%;
   .notice-item {
     border: 1px solid #aaaaaa44;
     font-size: 14px;
@@ -90,6 +118,12 @@ onMounted(async () => {
       }
     }
   }
+}
+
+.loading {
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .no-notice {
