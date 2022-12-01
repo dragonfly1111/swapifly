@@ -1,25 +1,25 @@
 <template>
-  <div @click="$router.push('/goodsDetails')">
+  <div >
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
-        <a-col :span="5" v-for="item in 4" style="padding: 10px">
-          <a-row align="center" :gutter="10">
+        <a-col :span="5" v-for="item in 8" style="padding: 10px">
+          <a-row align="center" :gutter="20">
             <a-col :span="6">
               <a-skeleton-shape shape="circle" size="small" />
             </a-col>
-            <a-col :span="10">
-              <a-skeleton-line :widths="100" />
+            <a-col :span="13">
+              <a-skeleton-line :widths="120" />
             </a-col>
           </a-row>
           <div style="margin-top: 10px">
-            <a-skeleton-line :lineHeight="200" />
+            <a-skeleton-line :lineHeight="150" />
           </div>
         </a-col>
       </a-row>
     </a-skeleton>
 
     <div class="goods-list" v-if="!isEmpty">
-      <div class="recommend-item" v-for="(item, index) in 7" :style="{ width: props.cardWidth }">
+      <div class="recommend-item" v-for="(item, index) in 7" :style="{ width: props.cardWidth }" @click="$router.push('/goodsDetails')">
         <div class="user-box" v-if="showUser">
           <a-image :src="testImg" fit="cover" show-loader></a-image>
           <div class="user-desc">
@@ -110,13 +110,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // 骨架屏
+  pageLoading:{
+    type: Boolean,
+    default: false,
+  }
 });
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
-const pageLoading = ref(false);
 const router = useRouter()
 
 // 举报
