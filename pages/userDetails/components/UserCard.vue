@@ -22,7 +22,7 @@
             <img class="email-img" src="@/assets/images/icon/email_black.png" alt="" />
             <span>已驗證</span>
           </a-space>
-          <div>回复频率高</div>
+          <div>{{getRStateLabel()}}</div>
           <a-space class="link-row">
             <div @click="changeFollow(0)">{{ form.bfollow }} Followers</div>
             <div @click="changeFollow(1)">{{ form.follow }} Follow緊</div>
@@ -39,7 +39,7 @@
           }}</a-button>
         </a-space>
       </div>
-      <div class="registered-btn" @click="openRegBusiness">
+      <div class="registered-btn">
         <img src="@/assets/images/swapifly-logo.png" alt="" />
         {{ $t("pages.registeredMerchant") }}
       </div>
@@ -53,12 +53,21 @@
 <script setup>
 import { useUserInfo } from "~/stores/userInfo";
 import { baseImgPrefix } from "~/config/baseUrl";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const userInfo = useUserInfo();
 const router = useRouter();
-// const form = ref({ userId: "" });
 const clickRateModal = ref(null);
 const emits = defineEmits(["toFollow", "openRegBusiness"]);
-
+// 回复频率
+const getRStateLabel = () => {
+  let rStateOptions = {
+    1: t("rState.efficient"),
+    2: t("rState.goodEfficiency"),
+    3: t("rState.notReplying"),
+  };
+  return rStateOptions[form.value.r_state] || "";
+};
 const props = defineProps({
   form: {
     type: Object,
@@ -66,9 +75,9 @@ const props = defineProps({
   },
 });
 
-const form = computed(()=>{
-  return props.form
-})
+const form = computed(() => {
+  return props.form;
+});
 
 // 查看被关注/已关注
 const changeFollow = (e) => {
@@ -159,7 +168,7 @@ onMounted(() => {
   }
   .registered-btn {
     position: absolute;
-    cursor: pointer;
+    // cursor: pointer;
     top: 55px;
     right: 5px;
     border-radius: 4px;

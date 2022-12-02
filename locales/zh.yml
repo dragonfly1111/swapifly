@@ -354,7 +354,10 @@ authentication:
   notpass: 未通过
   authenticationing: 认证中
   opinion: 审核意见
-
+rState:
+  efficient: 回复效率高
+  goodEfficiency: 回复效率良好
+  notReplying: 不常回复
 
 
 

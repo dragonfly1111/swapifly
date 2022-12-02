@@ -3,26 +3,85 @@
     <a-row justify="space-between" align="center" class="box-header">
       <a-col flex="100px" class="title"> {{ $t("pages.goods") }} </a-col>
       <a-col flex="200px">
-        <a-input-search :style="{ width: '200px' }" :placeholder="$t('pages.searchGoods')" />
+        <a-input-search
+          v-model="queryParams.title"
+          :style="{ width: '200px' }"
+          :placeholder="$t('pages.searchGoods')"
+          @search="handleSearch"
+          @clear="initData"
+          allow-clear
+        />
       </a-col>
     </a-row>
     <div class="goods-box-body">
-      <ProductCard :isMySelf="isMySelf" :show-user="false" showStatus></ProductCard>
+      <ProductCard
+        :pageLoading="pageLoading"
+        :list="productList"
+        :isMySelf="isMySelf"
+        :show-user="false"
+        showStatus
+      ></ProductCard>
+    </div>
+    <div class="see-more" @click="loadMore" v-if="productList.length < total">
+      <a-button type="outline" :loading="btnLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
   </div>
 </template>
 <script setup>
 import { useUserInfo } from "~/stores/userInfo";
+import { userProduct } from "~/api/shop";
+const pageLoading = ref(true);
+const btnLoading = ref(false);
+const total = ref(0);
+const productList = ref([]);
 const userInfo = useUserInfo();
-const handleQuery = () => {};
 const router = useRouter();
 const isMySelf = computed(() => {
   return userInfo.id == router.currentRoute.value.query.userId;
 });
+const queryParams = ref({
+  page: 1,
+  limit: 10,
+  id: router.currentRoute.value.query.userId,
+  title: null,
+});
+const handleQuery = () => {
+  btnLoading.value = true;
+  userProduct(queryParams.value)
+    .then((res) => {
+      if (res.code == 0) {
+        total.value = res.data.lists.total;
+        productList.value = productList.value.concat(res.data.lists.data);
+        console.log('productList.value',productList.value)
+      }
+    })
+    .finally(() => {
+      pageLoading.value = false;
+      btnLoading.value = false;
+    });
+};
+
+
+const initData = () => {
+  productList.value = [];
+  pageLoading.value = true;
+  queryParams.value.page = 1;
+  handleQuery();
+};
+
+const handleSearch = (val) =>{
+  queryParams.value.title = val
+  initData()
+}
+
 // 加载更多
-const loadMore = () => {};
+const loadMore = () => {
+  queryParams.value.page++;
+  handleQuery();
+};
 defineExpose({
   handleQuery,
+  initData,
 });
 </script>
 <style lang="scss" scoped>

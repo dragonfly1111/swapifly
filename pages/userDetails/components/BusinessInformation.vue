@@ -4,7 +4,7 @@
       <a-row justify="space-between" align="center" class="header-select">
         <a-col flex="100px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
         <a-col flex="100px">
-          <a-button type="outline" @click="toAuthentication">{{
+          <a-button type="outline" @click="toAuthentication" v-if="props.userData.p_type == 2">{{
             $t("pages.authenticationApply")
           }}</a-button>
         </a-col>
@@ -35,7 +35,9 @@
         <div class="text-danger" v-if="form.opinion">
           {{ $t("business.auditResult") }}：{{ form.opinion }}
         </div>
-        <div class="auth-status">{{ $t("business.authStatus") }}：{{ getStatusLabel() || $t('business.authStatusNo') }}</div>
+        <div class="auth-status">
+          {{ $t("business.authStatus") }}：{{ getStatusLabel() || $t("business.authStatusNo") }}
+        </div>
       </a-form>
     </div>
 
@@ -51,6 +53,13 @@ const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
 const authenticationStatus = ref([]);
+
+const props = defineProps({
+  userData: {
+    type: Object,
+    default: () => {},
+  },
+});
 const form = ref({
   title: null,
   address: null,

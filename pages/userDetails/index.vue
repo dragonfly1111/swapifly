@@ -14,7 +14,12 @@
               @click="router.push('/userProfile')"
               >{{ $t("profile.edit_profile") }}</a-button
             >
-            <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
+            <a-button
+              type="outline"
+              v-if="userInfo.id != form.id"
+              :loading="btnLoading"
+              @click="handleFollow"
+            >
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
@@ -33,9 +38,14 @@
           <UserCard :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
         </div>
         <div class="right-content">
-          <GoodsRow ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
+          <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow
+            :userData="form"
+            ref="evaluateRow"
+            v-show="activeTab == 'evaluateRow'"
+          ></EvaluateRow>
           <BusinessInformation
+            :userData="form"
             ref="businessInformation"
             v-show="activeTab == 'businessInformation'"
           ></BusinessInformation>
@@ -74,7 +84,7 @@ const handleTabChange = (e) => {
   activeTab.value = e;
   switch (e) {
     case "goodsRow":
-      goodsRow.value.handleQuery();
+      goodsRow.value.initData();
       break;
     case "evaluateRow":
       evaluateRow.value.handleQuery();
@@ -89,6 +99,7 @@ const getInfo = () => {
   getUserDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data.shop;
+      form.value.p_type = res.data.p_type
     }
   });
 };
@@ -130,6 +141,8 @@ const toFollow = (e) => {
 onMounted(() => {
   form.value.id = router.currentRoute.value.query.userId;
   getInfo();
+  goodsRow.value.initData();
+
 });
 </script>
 <style lang="scss" scoped>

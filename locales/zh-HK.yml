@@ -360,5 +360,8 @@ authentication:
   notpass: 未通過
   authenticationing: 认证中
   opinion: 審核意見
-
+rState:
+  efficient: 回复效率高
+  goodEfficiency: 回复效率良好
+  notReplying: 不常回复
 

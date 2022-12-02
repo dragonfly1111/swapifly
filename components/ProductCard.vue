@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
         <a-col :span="5" v-for="item in 8" style="padding: 10px">
@@ -18,10 +18,15 @@
       </a-row>
     </a-skeleton>
 
-    <div class="goods-list" v-if="!isEmpty">
-      <div class="recommend-item" v-for="(item, index) in 7" :style="{ width: props.cardWidth }" @click="$router.push('/goodsDetails')">
+    <div class="goods-list" v-if="list.length > 0">
+      <div
+        class="recommend-item"
+        v-for="(item, index) in list"
+        :style="{ width: props.cardWidth }"
+        @click="$router.push('/goodsDetails')"
+      >
         <div class="user-box" v-if="showUser">
-          <a-image :src="testImg" fit="cover" show-loader></a-image>
+          <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader></a-image>
           <div class="user-desc">
             <div>用户名称</div>
             <div class="time">一天前</div>
@@ -29,23 +34,23 @@
         </div>
         <div class="product-img">
           <div class="img-box">
-            <img :src="testImg" alt="">
-            <div class="status-box" v-if="showStatus">{{ $t("pages.soldOut") }}</div>
+            <img :src="baseImgPrefix + item.image" alt="" />
+            <div class="status-box" v-if="showStatus && item.state > 1">{{ getStateLabel(item) }}</div>
           </div>
-          <div class="product-tag" v-if="index < 4">{{ $t("pages.recommendTag") }}</div>
+          <div class="product-tag" v-if="item.t_type == 1">{{ $t("pages.recommendTag") }}</div>
         </div>
         <div class="product-desc">
-          <div>商品名称</div>
-          <div class="price">HK$999</div>
-          <div class="desc">全新</div>
+          <div>{{ item.title }}</div>
+          <div class="price">HK${{ item.price }}</div>
+          <div class="desc">{{ item.newold }}</div>
         </div>
         <div class="product-handle">
           <div>
-            <icon-heart :strokeWidth="3" size="16" />
-            <span>999</span>
+            <icon-heart @click="likeProduct(item)" :strokeWidth="3" size="16" />
+            <span>{{ item.like }}</span>
           </div>
           <a-dropdown :popup-max-height="false" @click.stop>
-            <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18"  /> </a-button>
+            <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
             <template #content>
               <template v-if="!isMySelf">
                 <a-doption @click.stop="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
@@ -53,7 +58,9 @@
               <template v-if="isMySelf">
                 <a-doption @click.stop="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
                 <a-doption @click.stop="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
-                <a-doption @click.stop="openAchievement">{{ $t("pages.viewtheResults") }}</a-doption>
+                <a-doption @click.stop="openAchievement">{{
+                  $t("pages.viewtheResults")
+                }}</a-doption>
                 <a-doption @click.stop="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
                 <a-doption @click.stop="handlRemove">{{ $t("pages.markSold") }}</a-doption>
                 <a-doption @click.stop="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
@@ -64,7 +71,7 @@
       </div>
     </div>
 
-    <a-empty class="empty-box" v-if="isEmpty">
+    <a-empty class="empty-box" v-if="!pageLoading && !list.length">
       <template #image>
         <img src="@/assets/images/icon/empty-goods.png" alt="" />
       </template>
@@ -84,7 +91,12 @@
   </div>
 </template>
 <script setup>
+import { baseImgPrefix } from "~/config/baseUrl";
 const props = defineProps({
+  list: {
+    type: Array,
+    default: () => [],
+  },
   // card宽度
   cardWidth: {
     type: String,
@@ -111,17 +123,25 @@ const props = defineProps({
     default: false,
   },
   // 骨架屏
-  pageLoading:{
+  pageLoading: {
     type: Boolean,
-    default: false,
-  }
+    default: true,
+  },
 });
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
-const router = useRouter()
+const router = useRouter();
+
+// 商品状态
+const getStateLabel = (item) => {
+  let stateOptions = {
+    1: t("pages.onOffer"),
+    2: t("pages.soldOut"),
+    3: t("pages.isRemoveGoods"),
+  };
+  return stateOptions[item.state] || "";
+};
 
 // 举报
 const handleReport = () => {
@@ -136,16 +156,21 @@ const handlRemove = () => {};
 
 // 编辑商品
 const handleEdit = () => {
-  router.push('/saleEditGoods')
+  router.push("/saleEditGoods");
+};
+// like商品
+const likeProduct = () => {
+  if(!isMySelf){
+    
+  }
 };
 
 const openAchievement = () => {
   userAchievementModal.value.openDialog(32);
 };
-onMounted(()=>{
+onMounted(() => {
   // exposurePayModal.value.openDialog(32);
-
-})
+});
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
@@ -186,7 +211,7 @@ onMounted(()=>{
       height: 30px;
       border-radius: 50%;
       margin-right: 5px;
-      img{
+      img {
         height: 100%;
         width: 100%;
       }
@@ -253,6 +278,9 @@ onMounted(()=>{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .arco-icon{
+      cursor: pointer;
+    }
     span {
       margin-left: 3px;
     }
