@@ -150,6 +150,7 @@ import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const formRef = ref(null);
 const uploadRef = ref(null);
+const productId = ref(null);
 const saveLoading = ref(false);
 const visible = ref(false);
 const emits = defineEmits(["change"]);
@@ -186,12 +187,13 @@ const handleCancel = () => {
 const resetForm = () => {
   formRef.value.resetFields();
 };
-const openDialog = () => {
+const openDialog = (id) => {
+  productId.value = id
   getExposureList()
   visible.value = true;
 };
 const getExposureList = () =>{
-  getExposureMeal(32).then(res=>{
+  getExposureMeal(productId.value).then(res=>{
     console.log(res)
   })
 }

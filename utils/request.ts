@@ -55,15 +55,13 @@ request.interceptors.request.use(
 // 响应拦截
 request.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log('response')
-    console.log(response)
     if(response.data.code === 999){
       // 登录过期 跳转首页
       Message.error(response.data.message)
       const router = useRouter()
       const openLogin = useState<Boolean>('openLogin')
       const userInfo = useUserInfo()
-      // userInfo.logout()
+      userInfo.logout()
       userInfo.openDialog()
       openLogin.value = true
       console.log(openLogin)

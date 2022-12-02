@@ -142,6 +142,10 @@ const handleEdit = () => {
 const openAchievement = () => {
   userAchievementModal.value.openDialog();
 };
+onMounted(()=>{
+  exposurePayModal.value.openDialog(32);
+
+})
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
