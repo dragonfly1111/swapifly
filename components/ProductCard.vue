@@ -140,10 +140,10 @@ const handleEdit = () => {
 };
 
 const openAchievement = () => {
-  userAchievementModal.value.openDialog();
+  userAchievementModal.value.openDialog(32);
 };
 onMounted(()=>{
-  exposurePayModal.value.openDialog(32);
+  // exposurePayModal.value.openDialog(32);
 
 })
 </script>

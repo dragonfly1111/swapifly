@@ -7,7 +7,7 @@
       </div>
     </template>
     <div class="title">{{ $t('loginDialog.title') }}</div>
-    <ThirdLoginWrap></ThirdLoginWrap>
+    <ThirdLoginWrap @closeDialog="handleCancel"></ThirdLoginWrap>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
     <a-form ref="formRef" :model="formData" :rules="rules">
       <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">

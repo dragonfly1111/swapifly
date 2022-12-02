@@ -10,6 +10,11 @@
 import {facebookLogin, googleLogin} from "../api/loginAndRegister";
 import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "../model/res/userInfo";
+import {useI18n} from "vue-i18n";
+import {useUserInfo} from "~/stores/userInfo";
+const {t} = useI18n();
+const userInfo = useUserInfo()
+const emits = defineEmits(['closeDialog'])
 
 const loginThird = (type: number) =>{
   switch (type) {
@@ -27,7 +32,7 @@ const loginThird = (type: number) =>{
               Message.success(t('loginDialog.loginSuc'))
               const user:IUserInfo = res.data
               userInfo.setUserInfo(user)
-              handleCancel()
+              emits('closeDialog')
             } else {
               Message.error(res.message)
             }
@@ -61,7 +66,7 @@ const loginThird = (type: number) =>{
               Message.success(t('loginDialog.loginSuc'))
               const user:IUserInfo = res.data
               userInfo.setUserInfo(user)
-              handleCancel()
+              emits('closeDialog')
             } else {
               Message.error(res.message)
             }
