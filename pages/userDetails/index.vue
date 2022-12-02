@@ -35,7 +35,7 @@
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard :advert="advert" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
         </div>
         <div class="right-content">
           <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
@@ -75,7 +75,7 @@ const goodsRow = ref(null);
 const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
-
+const advert = ref('')
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const activeTab = ref("goodsRow");
@@ -100,6 +100,7 @@ const getInfo = () => {
     if (res.code == 0) {
       form.value = res.data.shop;
       form.value.p_type = res.data.p_type;
+      advert.value = res.data.advert.content
     }
   });
 };

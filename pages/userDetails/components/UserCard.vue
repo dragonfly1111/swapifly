@@ -22,7 +22,7 @@
             <img class="email-img" src="@/assets/images/icon/email_black.png" alt="" />
             <span>已驗證</span>
           </a-space>
-          <div>{{getRStateLabel()}}</div>
+          <div>{{ getRStateLabel() }}</div>
           <a-space class="link-row">
             <div @click="changeFollow(0)">{{ form.bfollow }} Followers</div>
             <div @click="changeFollow(1)">{{ form.follow }} Follow緊</div>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <AD width="300px"></AD>
+    <AD width="300px" :advert="props.advert"></AD>
 
     <ClickRateModal ref="clickRateModal"></ClickRateModal>
   </div>
@@ -72,6 +72,10 @@ const props = defineProps({
   form: {
     type: Object,
     default: () => ({}),
+  },
+  advert: {
+    type: String,
+    default: '',
   },
 });
 

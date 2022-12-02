@@ -19,7 +19,7 @@
         <div class="evaluate-total">
           <div class="star-number">
             <div>
-              <span class="total">586</span>
+              <span class="total">{{props.userData.stars || 0}}</span>
               <span><icon-star-fill :size="18" /></span>
             </div>
             <div>({{ total }}{{ $t("pages.evaluate") }})</div>
@@ -61,6 +61,15 @@ const evaluationList = ref([]); // 评论列表
 const pageLoading = ref(true);
 const router = useRouter();
 const total = ref(0);
+
+const props = defineProps({
+  userData: {
+    type: Object,
+    default: () => {
+      stars: 0;
+    },
+  },
+});
 const queryParams = ref({
   s_type: 1,
   type: null,
@@ -96,8 +105,8 @@ const initData = () => {
 
 // 加载更多
 const loadMore = () => {
-  queryParams.value.page ++
-  handleQuery()
+  queryParams.value.page++;
+  handleQuery();
 };
 // 改变状态
 const changeType = (e) => {

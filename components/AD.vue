@@ -1,7 +1,7 @@
 <template>
   <div class="ad-wrapper" :style="{ width: width }">
     <div class="ad-title" v-if="props.hasTitle">{{ $t("foot.AD") }}</div>
-    <div class="ad-content" :style="{ height: height }"></div>
+    <div class="ad-content" :style="{ height: height }" v-html="advert"></div>
   </div>
 </template>
 <script setup>
@@ -18,6 +18,10 @@ const props = defineProps({
     type: String,
     default: "140px",
   },
+  advert:{
+    type: String,
+    default:''
+  }
 });
 </script>
 <style scoped lang="scss">
