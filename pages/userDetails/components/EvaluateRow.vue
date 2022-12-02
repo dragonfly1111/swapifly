@@ -4,7 +4,7 @@
       <a-row justify="space-between" align="center" class="header-select">
         <a-col flex="100px" class="title"> {{ $t("pages.evaluate") }} </a-col>
         <a-col flex="200px">
-          <a-select v-model="queryForm.s_type" @change="handleQuery">
+          <a-select v-model="queryParams.s_type" @change="initData">
             <a-option
               v-for="item in evaluationSort"
               :value="item.value"
@@ -19,22 +19,31 @@
         <div class="evaluate-total">
           <div class="star-number">
             <div>
-              <span class="total">586</span>
+              <span class="total">{{props.userData.stars || 0}}</span>
               <span><icon-star-fill :size="18" /></span>
             </div>
-            <div>（99{{ $t("pages.evaluate") }}）</div>
+            <div>({{ total }}{{ $t("pages.evaluate") }})</div>
           </div>
           <a-space class="evaluate-info-btn">
-            <div>{{ $t("evaluate.sourceEvaluation.all") }}</div>
-            <div v-for="item in evaluationSource" :key="item.value">{{ item.key }}</div>
+            <div :class="{ active: queryParams.type == null }" @click="changeType(null)">
+              {{ $t("evaluate.sourceEvaluation.all") }}
+            </div>
+            <div
+              v-for="item in evaluationSource"
+              :key="item.value"
+              @click="changeType(item.value)"
+              :class="{ active: queryParams.type == item.value }"
+            >
+              {{ item.key }}
+            </div>
           </a-space>
         </div>
       </section>
     </div>
 
     <div class="evaluate-box-body">
-      <EvaluateList></EvaluateList>
-      <div class="see-more">
+      <EvaluateList :pageLoading="pageLoading"></EvaluateList>
+      <div class="see-more" v-if="total > evaluationList">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
@@ -44,30 +53,69 @@
 <script setup>
 import EvaluateList from "./EvaluateList.vue";
 import { useSysData } from "~/stores/sysData";
+import { getEvaluationList } from "~/api/shop";
 const sysData = useSysData();
-const evaluationSort = ref([]);
-const evaluationSource = ref([]);
+const evaluationSort = ref([]); // 评论排序
+const evaluationSource = ref([]); // 评论来源
+const evaluationList = ref([]); // 评论列表
+const pageLoading = ref(true);
+const router = useRouter();
+const total = ref(0);
 
-const queryForm = reactive({
-  s_type: 1,
+const props = defineProps({
+  userData: {
+    type: Object,
+    default: () => {
+      stars: 0;
+    },
+  },
 });
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+const queryParams = ref({
+  s_type: 1,
+  type: null,
+  id: router.currentRoute.value.query.userId,
+  page: 1,
+  limit: 10,
+});
+
 onMounted(() => {
   evaluationSort.value = sysData.evaluationSort;
   evaluationSource.value = sysData.evaluationSource;
 });
 
-const handleQuery = () =>{
+const handleQuery = () => {
+  getEvaluationList(queryParams.value)
+    .then((res) => {
+      if (res.code == 0) {
+        evaluationList.value = evaluationList.value.concat(res.data.data);
+        total.value = res.data.total;
+      }
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
+};
 
-}
+const initData = () => {
+  pageLoading.value = true;
+  queryParams.value.page = 1;
+  evaluationList.value = [];
+  handleQuery();
+};
 
 // 加载更多
-const loadMore = () =>{
-
-}
+const loadMore = () => {
+  queryParams.value.page++;
+  handleQuery();
+};
+// 改变状态
+const changeType = (e) => {
+  queryParams.value.type = e;
+  initData();
+};
 defineExpose({
-    handleQuery,
+  handleQuery,
+  initData,
 });
 </script>
 <style lang="scss" scoped>

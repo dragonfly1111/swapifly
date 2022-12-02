@@ -14,7 +14,12 @@
               @click="router.push('/userProfile')"
               >{{ $t("profile.edit_profile") }}</a-button
             >
-            <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
+            <a-button
+              type="outline"
+              v-if="userInfo.id != form.id"
+              :loading="btnLoading"
+              @click="handleFollow"
+            >
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
@@ -30,12 +35,17 @@
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard :advert="advert" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
         </div>
         <div class="right-content">
-          <GoodsRow ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
+          <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow
+            :userData="form"
+            ref="evaluateRow"
+            v-show="activeTab == 'evaluateRow'"
+          ></EvaluateRow>
           <BusinessInformation
+            :userData="form"
             ref="businessInformation"
             v-show="activeTab == 'businessInformation'"
           ></BusinessInformation>
@@ -65,7 +75,7 @@ const goodsRow = ref(null);
 const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
-
+const advert = ref('')
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const activeTab = ref("goodsRow");
@@ -74,10 +84,10 @@ const handleTabChange = (e) => {
   activeTab.value = e;
   switch (e) {
     case "goodsRow":
-      goodsRow.value.handleQuery();
+      goodsRow.value.initData();
       break;
     case "evaluateRow":
-      evaluateRow.value.handleQuery();
+      evaluateRow.value.initData();
       break;
     case "businessInformation":
       businessInformation.value.handleQuery();
@@ -89,6 +99,8 @@ const getInfo = () => {
   getUserDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data.shop;
+      form.value.p_type = res.data.p_type;
+      advert.value = res.data.advert.content
     }
   });
 };
@@ -129,7 +141,10 @@ const toFollow = (e) => {
 };
 onMounted(() => {
   form.value.id = router.currentRoute.value.query.userId;
-  getInfo();
+  if (form.value.id) {
+    getInfo();
+    goodsRow.value.initData();
+  }
 });
 </script>
 <style lang="scss" scoped>

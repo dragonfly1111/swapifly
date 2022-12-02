@@ -2,26 +2,26 @@
 <template>
   <div>
     <section>
-      <div class="evaluate-item" v-for="item in 6" :class="{ line: showLine }">
-        <img class="user-icon" :src="testImg" alt="" />
+      <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
+        <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" />
         <div class="evaluate-content">
           <a-space>
-            <span class="fs16">@用户id</span>
-            <span>一天前</span>
-            <span class="grey" v-if="showSource">来自买家的评价</span>
+            <span class="fs16">@{{item.id}}</span>
+            <span>{{item.create_time}}</span>
+            <span class="grey" v-if="showSource">{{getTypeLabel(item.type)}}</span>
           </a-space>
           <div>
-            <a-rate :default-value="4" readonly />
+            <a-rate :default-value="item.num" readonly />
           </div>
-          <div>文本内容</div>
+          <div>{{item.content}}</div>
           <a-list>
             <a-list-item>
-              <a-list-item-meta title="商品名称" description="hk1000">
+              <a-list-item-meta :title="item.title" :description="`HK$` + item.price">
                 <template #avatar>
                   <a-avatar shape="square">
                     <img
                       alt="avatar"
-                      src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
+                      :src="baseImgPrefix + item.image"
                     />
                   </a-avatar>
                 </template>
@@ -32,8 +32,23 @@
       </div>
     </section>
 
+    <!-- 骨架屏 -->
     <section>
-      <a-empty class="empty-box" v-if="isEmpty">
+      <a-skeleton :animation="true" :loading="pageLoading">
+        <div>
+          <a-space size="large">
+            <a-skeleton-shape />
+            <a-skeleton-line :rows="2" />
+          </a-space>
+        </div>
+        <a-space direction="vertical" :style="{ width: '80%' }" size="large">
+          <a-skeleton-line :rows="3" />
+        </a-space>
+      </a-skeleton>
+    </section>
+
+    <section>
+      <a-empty class="empty-box" v-if="!pageLoading && !list.length">
         <template #image>
           <img src="@/assets/images/icon/evaluate-empty.png" alt="" />
         </template>
@@ -46,19 +61,36 @@
   </div>
 </template>
 <script setup>
+import { baseImgPrefix } from "~/config/baseUrl";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const props = defineProps({
   showSource: {
+    // 显示来源
     type: Boolean,
     default: true,
   },
   showLine: {
+    // 显示下划线
     type: Boolean,
     default: true,
   },
+  pageLoading: {
+    type: Boolean,
+    default: true,
+  },
+  list: {
+    type: Array,
+    default: () => [],
+  },
 });
-const isEmpty = ref(false);
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+
+const getTypeLabel = (type) =>{
+  let typeMap = {
+    1:t('evaluate.evaluationType.formBuyer'),
+    2:t('evaluate.evaluationType.formSeller')
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";

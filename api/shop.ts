@@ -23,7 +23,7 @@ export const userProduct = (params: any) => {
     })
 }
 // 评价
-export const evaluationList = (params: any) => {
+export const getEvaluationList = (params: any) => {
     return request({
         url: '/index/shop/evaluation',
         method: 'get',
