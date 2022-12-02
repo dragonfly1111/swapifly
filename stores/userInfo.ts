@@ -9,7 +9,8 @@ export const useUserInfo = defineStore('userInfo', {
     id: -1,
     nickname: '',
     token: '',
-    type: -1
+    type: -1,
+    openLogin: false
   }),
   actions: {
     setUserInfo(e: IUserInfo){
@@ -19,6 +20,12 @@ export const useUserInfo = defineStore('userInfo', {
       this.nickname = e.nickname
       this.token = e.token
       this.type = e.type
+    },
+    openDialog(){
+      this.openLogin = true
+    },
+    closeDialog(){
+      this.openLogin = false
     },
     logout(){
       userLogOut().then(()=>{

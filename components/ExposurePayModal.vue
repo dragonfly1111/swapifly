@@ -145,7 +145,7 @@
 
 <script setup>
 import { useI18n } from "vue-i18n";
-import { getExposureMeal } from "~/api/pay";
+import { getExposureMeal, buyExposure } from "~/api/pay";
 import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const formRef = ref(null);
@@ -183,14 +183,33 @@ const handleCancel = () => {
     resetForm();
   }, 100);
 };
-
 const resetForm = () => {
   formRef.value.resetFields();
 };
 const openDialog = () => {
+  getExposureList()
   visible.value = true;
 };
+const getExposureList = () =>{
+  getExposureMeal(32).then(res=>{
+    console.log(res)
+  })
+}
+const stripe = Stripe('pk_test_ijpUbWJgsrGW9X1fOTGwfEY5');
 
+console.log('stripe')
+console.log(stripe)
+// const paymentIntent = stripe.paymentIntents.create({
+//   amount: 1099,
+//   currency: 'usd',
+//   automatic_payment_methods: {enabled: true},
+// });
+// const elements = stripe.elements({
+//   clientSecret: 'sk_test_DypAECv8Fe8TNBiI0m8650pt',
+// });
+
+// console.log(paymentIntent)
+// console.log(elements)
 // 撤销申请
 // const handleUndo = () => {
 //   Modal.info({

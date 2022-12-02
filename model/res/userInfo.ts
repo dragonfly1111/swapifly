@@ -5,4 +5,5 @@ export interface IUserInfo {
   nickname: string
   token: string
   type: number
+  openLogin: boolean
 }

@@ -9,3 +9,12 @@ export const getExposureMeal = (id: any) => {
     })
 }
 
+
+// 购买套餐
+export const buyExposure = (data: any) => {
+    return request({
+        url: '/order/buyexposure',
+        method: 'post',
+        data
+    })
+}
