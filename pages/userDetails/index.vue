@@ -87,7 +87,7 @@ const handleTabChange = (e) => {
       goodsRow.value.initData();
       break;
     case "evaluateRow":
-      evaluateRow.value.handleQuery();
+      evaluateRow.value.initData();
       break;
     case "businessInformation":
       businessInformation.value.handleQuery();
@@ -99,7 +99,7 @@ const getInfo = () => {
   getUserDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data.shop;
-      form.value.p_type = res.data.p_type
+      form.value.p_type = res.data.p_type;
     }
   });
 };
@@ -140,9 +140,10 @@ const toFollow = (e) => {
 };
 onMounted(() => {
   form.value.id = router.currentRoute.value.query.userId;
-  getInfo();
-  goodsRow.value.initData();
-
+  if (form.value.id) {
+    getInfo();
+    goodsRow.value.initData();
+  }
 });
 </script>
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
 <template>
   <div>
     <section>
-      <div class="evaluate-item" v-for="item in 6" :class="{ line: showLine }">
+      <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
         <img class="user-icon" :src="testImg" alt="" />
         <div class="evaluate-content">
           <a-space>
@@ -32,8 +32,23 @@
       </div>
     </section>
 
+    <!-- 骨架屏 -->
     <section>
-      <a-empty class="empty-box" v-if="isEmpty">
+      <a-skeleton :animation="true" :loading="pageLoading">
+        <div>
+          <a-space size="large">
+            <a-skeleton-shape />
+            <a-skeleton-line :rows="2" />
+          </a-space>
+        </div>
+        <a-space direction="vertical" :style="{ width: '80%' }" size="large">
+          <a-skeleton-line :rows="3" />
+        </a-space>
+      </a-skeleton>
+    </section>
+
+    <section>
+      <a-empty class="empty-box" v-if="!pageLoading && !list.length">
         <template #image>
           <img src="@/assets/images/icon/evaluate-empty.png" alt="" />
         </template>
@@ -48,15 +63,24 @@
 <script setup>
 const props = defineProps({
   showSource: {
+    // 显示来源
     type: Boolean,
     default: true,
   },
   showLine: {
+    // 显示下划线
     type: Boolean,
     default: true,
   },
+  pageLoading: {
+    type: Boolean,
+    default: true,
+  },
+  list: {
+    type: Array,
+    default: () => [],
+  },
 });
-const isEmpty = ref(false);
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 </script>

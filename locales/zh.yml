@@ -119,6 +119,7 @@ pages:
   businessInformation: 商家资料
   registeredMerchant: 注册商户
   lookClickRate: 查看点击率
+  onOffer: 出售中
   soldOut: 已售出
   isRemoveGoods: 已下架
   removeGoods: 下架商品
@@ -358,6 +359,7 @@ rState:
   efficient: 回复效率高
   goodEfficiency: 回复效率良好
   notReplying: 不常回复
+
 
 
 

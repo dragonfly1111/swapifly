@@ -52,7 +52,6 @@ const handleQuery = () => {
       if (res.code == 0) {
         total.value = res.data.lists.total;
         productList.value = productList.value.concat(res.data.lists.data);
-        console.log('productList.value',productList.value)
       }
     })
     .finally(() => {
@@ -62,16 +61,17 @@ const handleQuery = () => {
 };
 
 
-const initData = () => {
+const initData = (isSearch) => {
   productList.value = [];
   pageLoading.value = true;
   queryParams.value.page = 1;
+  if(!isSearch) queryParams.value.title = null
   handleQuery();
 };
 
 const handleSearch = (val) =>{
   queryParams.value.title = val
-  initData()
+  initData(true)
 }
 
 // 加载更多
