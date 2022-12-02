@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 // 新闻列表
-export const newsList = (params) => {
+export const newsList = (params: any) => {
   return request({
     url: '/index/news/index',
     method: 'get',

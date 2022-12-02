@@ -247,6 +247,16 @@ exposure:
   orPayWay: 或用另一方式支付
   yearOrMonth: 月份/年份
   countriesRegions: 国家或地区
+  exposureNums: 曝光量
+  exposureDays: 天
+  paySuc: 支付成功
+  paySucTip: 成功購買曝光量
+  payFail: 支付失敗
+  payFailTip: 未能完成支付
+  back: 返回
+  orderLoading: 数据查询中...
+  noOrder: 数据不存在
+  overTime: 订单支付超时
 achievementModal:
   goodsReport:  商品报告
   sevenDayReport: 7天成效分析
