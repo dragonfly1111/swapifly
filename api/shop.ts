@@ -31,18 +31,20 @@ export const getEvaluationList = (params: any) => {
     })
 }
 // followers
-export const getFollowers = (id: any) => {
+export const getFollowers = (params: any) => {
     return request({
-        url: '/index/shop/spotlight?id=' + id,
+        url: '/index/shop/spotlight',
         method: 'get',
+        params
     })
 }
 
 // Follow緊
-export const getFollowList = (id: any) => {
+export const getFollowList = (params: any) => {
     return request({
-        url: '/index/shop/focuson?id=' + id,
+        url: '/index/shop/focuson',
         method: 'get',
+        params
     })
 }
 // 关注/取消用户

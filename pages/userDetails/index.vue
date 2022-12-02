@@ -136,7 +136,7 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
-  followRow.value.handleQuery(e);
+  followRow.value.resetQuery(e);
   activeTab.value = "followRow";
 };
 onMounted(() => {

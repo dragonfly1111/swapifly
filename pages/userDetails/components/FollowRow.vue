@@ -5,40 +5,97 @@
     </a-row>
     <div class="follow-box-body">
       <div class="follow-list">
-        <div class="follow-list-item" v-for="item in 7">
-          <img :src="testImg" alt="" />
-          <div class="fs12">用回那个车</div>
-          <div class="fs10">@用户id</div>
-          <div class="fs10">48</div>
+        <div class="follow-list-item" v-for="item in dataList">
+          <img :src="baseImgPrefix + item.avatar" alt="" />
+          <div class="fs12">{{item.nickname}}</div>
+          <div class="fs10">@{{item.realname}}</div>
+          <div class="fs10">{{item.b_follow}} Followers</div>
           <div>
-            <!-- <a-button type="outline" class="black-outline-btn">follow</a-button> -->
-            <a-button class="black-btn">follow</a-button>
+            <a-button type="outline" class="black-outline-btn" v-if="item.type == 0">{{$t("pages.follow")}}</a-button>
+            <a-button class="black-btn" v-if="item.type == 1">{{$t("pages.followIn")}}</a-button>
           </div>
         </div>
       </div>
 
-      <div class="see-more">
+      <div class="see-more" v-if="total < dataList.length">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { getFollowers, getFollowList } from "~/api/shop";
 import { useI18n } from "vue-i18n";
+import { baseImgPrefix } from "~/config/baseUrl";
 const { t } = useI18n();
+const router = useRouter();
 
 const title = ref(t("pages.followIn"));
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+const pageLoading = ref(true);
+const type = ref(null);
+const total = ref(0);
+const dataList = ref([]);
+const queryParams = ref({
+  page: 1,
+  limit: 10,
+  id:router.currentRoute.value.query.userId
+});
 
 const handleQuery = (type) => {
-  title.value = type == 1 ? t("pages.followIn") : t("pages.followers");
+  pageLoading.value = true;
+  if (type.value == 1) {
+    handleQueryFollowList();
+  } else {
+    handleQueryFollowersList();
+  }
+};
+
+const resetQuery = (e) => {
+  dataList.value = [];
+  queryParams.value.page = 1;
+  title.value = e == 1 ? t("pages.followIn") : t("pages.followers");
+  type.value = e;
+  if (type.value == 1) {
+    handleQueryFollowList();
+  } else {
+    handleQueryFollowersList();
+  }
+};
+
+const handleQueryFollowersList = () => {
+  getFollowers(queryParams.value)
+    .then((res) => {
+      dataList.value = dataList.value.concat(res.data.data);
+      total.value = res.data.total;
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
+};
+
+const handleQueryFollowList = () => {
+  getFollowList(queryParams.value)
+    .then((res) => {
+      if (res.code == 0) {
+        dataList.value = dataList.value.concat(res.data.data);
+        total.value = res.data.total;
+      }
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 加载更多
-const loadMore = () => {};
+const loadMore = () => {
+  queryParams.value.page++;
+  handleQuery(type.value);
+};
 defineExpose({
   handleQuery,
+  resetQuery,
 });
 </script>
 <style lang="scss" scoped>
@@ -83,6 +140,7 @@ defineExpose({
     }
     .fs12 {
       font-size: 12px;
+      word-break: break-all;
     }
     :deep(.arco-btn) {
       width: 90%;
