@@ -3,25 +3,25 @@
   <div>
     <section>
       <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
-        <img class="user-icon" :src="testImg" alt="" />
+        <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" />
         <div class="evaluate-content">
           <a-space>
-            <span class="fs16">@用户id</span>
-            <span>一天前</span>
-            <span class="grey" v-if="showSource">来自买家的评价</span>
+            <span class="fs16">@{{item.id}}</span>
+            <span>{{item.create_time}}</span>
+            <span class="grey" v-if="showSource">{{getTypeLabel(item.type)}}</span>
           </a-space>
           <div>
-            <a-rate :default-value="4" readonly />
+            <a-rate :default-value="item.num" readonly />
           </div>
-          <div>文本内容</div>
+          <div>{{item.content}}</div>
           <a-list>
             <a-list-item>
-              <a-list-item-meta title="商品名称" description="hk1000">
+              <a-list-item-meta :title="item.title" :description="`HK$` + item.price">
                 <template #avatar>
                   <a-avatar shape="square">
                     <img
                       alt="avatar"
-                      src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
+                      :src="baseImgPrefix + item.image"
                     />
                   </a-avatar>
                 </template>
@@ -61,6 +61,9 @@
   </div>
 </template>
 <script setup>
+import { baseImgPrefix } from "~/config/baseUrl";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const props = defineProps({
   showSource: {
     // 显示来源
@@ -81,8 +84,13 @@ const props = defineProps({
     default: () => [],
   },
 });
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+
+const getTypeLabel = (type) =>{
+  let typeMap = {
+    1:t('evaluate.evaluationType.formBuyer'),
+    2:t('evaluate.evaluationType.formSeller')
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";

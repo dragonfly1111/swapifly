@@ -203,6 +203,8 @@ gender:
 evaluate:
   evaluateEmpty: 暂无评论
   evaluateEmptyTip: 尚未获得任何评论
+  formBuyer: 来自买家的评论
+  formSeller: 来自卖家的评论
   sourceEvaluation:
     all: 全部
     formBuyer: 来自买家
@@ -212,6 +214,9 @@ evaluate:
     oldest: 最旧
     highestScore: 最高评分
     lowestScore: 最低评分
+  evaluationType:
+    formBuyer: 来自买家的评论
+    formSeller: 来自卖家的评论
 business:
   businessTitle: 商家名称
   businessAddress: 商家地址
