@@ -11,7 +11,7 @@
     <div class="card-box">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id"
            @click="card.checked = !card.checked">
-        <img :src="baseImgPrefix + card.background"/>
+        <a-image :src="baseImgPrefix + card.background" show-loader/>
         <div class="label-title">{{ card.title }}</div>
         <a-checkbox v-if="card.checked" class="check-box" v-model="card.checked"></a-checkbox>
       </div>
