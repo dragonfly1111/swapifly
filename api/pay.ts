@@ -22,7 +22,7 @@ export const buyExposure = (data: any) => {
 // 支付状态查询
 export const exposureStatus = (params: any) => {
   return request({
-    url: '/index/user/exposure',
+    url: '/index/order/queryorder',
     method: 'get',
     params
   })
