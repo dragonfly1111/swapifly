@@ -10,7 +10,7 @@
     modal-class="achievement-dialog"
     :footer="false"
   >
-    <a-row>
+    <a-row v-if="productInfo.product">
       <a-col :span="12" class="left-box">
         <div class="goods-box">
           <a-image
@@ -18,25 +18,29 @@
             show-loader
           ></a-image>
           <div class="goods-desc">
-            <div>商品名称</div>
-            <div>hk999 - 发布于2020-9-29</div>
+            <div>{{ productInfo.product.title }}</div>
+            <div>
+              hk${{ productInfo.product.price }} - 发布于{{
+                parseTime(productInfo.product.create_time, "{y}-{m}-{d}")
+              }}
+            </div>
           </div>
         </div>
         <div class="statistics-box">
           <div class="box-title">{{ $t("achievementModal.sevenDayReport") }}</div>
           <div class="statistics-content">
             <div class="statistics-item">
-              <div>123</div>
+              <div>{{ productInfo.product.exposure_num }}</div>
               <div>{{ $t("achievementModal.exposuresNumber") }}</div>
             </div>
             <icon-left class="left-icon" />
             <div class="statistics-item">
-              <div>123</div>
+              <div>{{ productInfo.product.click_num }}</div>
               <div>{{ $t("achievementModal.click") }}</div>
             </div>
             <icon-left class="left-icon" />
             <div class="statistics-item">
-              <div>123</div>
+              <div>{{ productInfo.product.private_num }}</div>
               <div>{{ $t("achievementModal.whisper") }}</div>
             </div>
           </div>
@@ -52,6 +56,9 @@
           <a-tab-pane key="1" :title="$t('achievementModal.exposuresNumber')">
             <div class="tab-title">
               {{ $t("achievementModal.exposureTip") }}
+            </div>
+            <div>
+              <div id="exposureEchart" style="width: 100%; height: 300px"></div>
             </div>
           </a-tab-pane>
           <a-tab-pane key="2" :title="$t('achievementModal.click')">
@@ -98,15 +105,33 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
+import { getUserProductReport } from "~/api/shop";
+import { parseTime } from "~/utils/time";
+
 const { t } = useI18n();
 const visible = ref(false);
 const comfirmVisible = ref(false);
+const pageLoading = ref(false);
 const activeTab = ref("1");
-const openDialog = (type) => {
+const form = ref({});
+const productInfo = ref({});
+const openDialog = (info) => {
   visible.value = true;
-  nextTick(() => {
-    initClickEchart();
-  });
+  form.value = info;
+  handleQuery();
+};
+const handleQuery = () => {
+  pageLoading.value = true;
+  getUserProductReport(form.value.id)
+    .then((res) => {
+      productInfo.value = res.data;
+      nextTick(() => {
+        initExposureChart();
+      });
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 const handleCancel = () => {
   visible.value = false;
@@ -115,6 +140,7 @@ const handleCancel = () => {
 const changeTab = (e) => {
   switch (e) {
     case "1":
+      initExposureChart();
       break;
     case "2":
       initClickEchart();
@@ -125,8 +151,8 @@ const changeTab = (e) => {
   }
 };
 
-const initClickEchart = () => {
-  const chart = echarts.init(document.getElementById("echartBox"));
+const initExposureChart = () => {
+  const chart = echarts.init(document.getElementById("exposureEchart"));
   const option = {
     tooltip: {
       trigger: "axis",
@@ -143,7 +169,14 @@ const initClickEchart = () => {
     xAxis: [
       {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: productInfo.value.exposure.ffexposure.map((i) => i.date),
+        axisTick: {
+          alignWithLabel: true,
+        },
+      },
+      {
+        type: "category",
+        data: productInfo.value.exposure.zrexposure.map((i) => i.date),
         axisTick: {
           alignWithLabel: true,
         },
@@ -159,14 +192,36 @@ const initClickEchart = () => {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: [10, 52, 200, 334, 390, 330, 220],
+        data: productInfo.value.exposure.ffexposure.map((i) => i.total),
+      },
+      {
+        name: "Direct",
+        type: "bar",
+        barWidth: "60%",
+        data: productInfo.value.exposure.zrexposure.map((i) => i.total),
       },
     ],
   };
   chart.setOption(option);
 };
+
+const initClickEchart = () => {
+  barCharts(
+    productInfo.value.click.map((i) => i.date),
+    productInfo.value.click.map((i) => i.total),
+    "echartBox"
+  );
+};
 const initwhisperEchart = () => {
-  const chart = echarts.init(document.getElementById("whisperEchart"));
+  barCharts(
+    productInfo.value.private.map((i) => i.date),
+    productInfo.value.private.map((i) => i.total),
+    "whisperEchart"
+  );
+};
+
+const barCharts = (x, y, dom) => {
+  const chart = echarts.init(document.getElementById(dom));
   const option = {
     tooltip: {
       trigger: "axis",
@@ -183,7 +238,7 @@ const initwhisperEchart = () => {
     xAxis: [
       {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: x,
         axisTick: {
           alignWithLabel: true,
         },
@@ -199,7 +254,7 @@ const initwhisperEchart = () => {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: [10, 52, 200, 334, 390, 330, 220],
+        data: y,
       },
     ],
   };
@@ -215,6 +270,10 @@ defineExpose({
 @import "assets/sass/var.scss";
 .achievement-dialog {
   width: 700px;
+  .arco-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
   .left-box {
     position: relative;
     padding: 10px;
@@ -291,6 +350,7 @@ defineExpose({
 .refund-comfirm-dialog {
   width: 400px;
   text-align: center;
+
   .arco-modal-header {
     border-bottom: none;
     display: none;

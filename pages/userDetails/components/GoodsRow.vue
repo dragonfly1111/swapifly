@@ -20,6 +20,7 @@
         :isMySelf="isMySelf"
         :show-user="false"
         showStatus
+        @change="refreshPage"
       ></ProductCard>
     </div>
     <div class="see-more" @click="loadMore" v-if="productList.length < total">
@@ -51,7 +52,7 @@ const handleQuery = () => {
     .then((res) => {
       if (res.code == 0) {
         total.value = res.data.lists.total;
-        productList.value = productList.value.concat(res.data.lists.data);
+        productList.value = arrUnique(productList.value.concat(res.data.lists.data));
       }
     })
     .finally(() => {
@@ -60,19 +61,30 @@ const handleQuery = () => {
     });
 };
 
+const arrUnique = (list) => {
+  let obj = {};
+  return list.reduce((cur, next) => {
+    obj[next.id] ? "" : (obj[next.id] = true && cur.push(next));
+    return cur;
+  }, []);
+};
+
+const refreshPage = () => {
+  initData(true);
+};
 
 const initData = (isSearch) => {
   productList.value = [];
   pageLoading.value = true;
   queryParams.value.page = 1;
-  if(!isSearch) queryParams.value.title = null
+  if (!isSearch) queryParams.value.title = null;
   handleQuery();
 };
 
-const handleSearch = (val) =>{
-  queryParams.value.title = val
-  initData(true)
-}
+const handleSearch = (val) => {
+  queryParams.value.title = val;
+  initData(true);
+};
 
 // 加载更多
 const loadMore = () => {

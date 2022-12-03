@@ -63,5 +63,12 @@ export const reportUser = (data: any) => {
         data
     })
 }
+// 检验成效
+export const getUserProductReport = (id: any) => {
+    return request({
+        url: '/index/product/report?id=' + id,
+        method: 'post',
+    })
+}
 
 

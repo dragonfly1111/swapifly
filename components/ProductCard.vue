@@ -64,7 +64,7 @@
                 <a-doption @click.stop="openExposure(item)">{{
                   $t("pages.exposureGoods")
                 }}</a-doption>
-                <a-doption @click.stop="openAchievement">{{
+                <a-doption @click.stop="openAchievement(item)">{{
                   $t("pages.viewtheResults")
                 }}</a-doption>
                 <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
@@ -100,8 +100,9 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Modal, Button } from "@arco-design/web-vue";
+import { Modal, Button,Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct } from "~/api/goods";
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const props = defineProps({
   list: {
@@ -143,7 +144,7 @@ const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const router = useRouter();
-// const emits = defineEmits(["change"]);
+const emits = defineEmits(["change"]);
 // 商品状态
 const getStateLabel = (item) => {
   let stateOptions = {
@@ -164,19 +165,20 @@ const openExposure = (item) => {
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
 const handleRemove = (item) => {
-  let content = item.state == 2 ? $t("pages.putawayGoodsTip") : $t("pages.removeGoodsTip");
+  let content = item.state == 2 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
   Modal.info({
     content: content,
     closable: true,
     hideCancel: false,
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
-    onBeforeOk: () => {
+    onBeforeOk: (done) => {
       upanddownProduct({ id: item.id, state: item.state == 2 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
             Message.success(res.message);
             emits("change");
+            done(true)
           } else {
             Message.error(res.message);
           }
@@ -197,7 +199,7 @@ const handleDelete = (item) => {
       deleteProduct({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Message.success(t("pages.delGoods") + t("pages.success"));
+            Message.success(res.message);
             emits("change");
           } else {
             Message.error(res.message);
@@ -220,8 +222,8 @@ const likeProduct = () => {
   }
 };
 
-const openAchievement = () => {
-  userAchievementModal.value.openDialog(32);
+const openAchievement = (item) => {
+  userAchievementModal.value.openDialog(item);
 };
 onMounted(() => {
   // exposurePayModal.value.openDialog(32);
