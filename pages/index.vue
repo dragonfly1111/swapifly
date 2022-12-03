@@ -6,20 +6,18 @@
           <a-skeleton-line :rows="1" :line-height="260"/>
         </a-skeleton>
       </template>
-      <tenplate v-else>
-        <client-only>
-          <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
-            <a-carousel-item v-for="item in bannerList">
-              <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                       :src="baseImgPrefix + item.img" class="carousel-img">
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-            </a-carousel-item>
-          </a-carousel>
-        </client-only>
-      </tenplate>
+      <template v-else>
+        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+          <a-carousel-item v-for="item in bannerList">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                     :src="baseImgPrefix + item.img" class="carousel-img">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
+          </a-carousel-item>
+        </a-carousel>
+      </template>
 
     </div>
     <section class="section-wrapper">
