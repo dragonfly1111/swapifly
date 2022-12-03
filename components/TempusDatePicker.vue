@@ -13,7 +13,7 @@
 <script setup>
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useI18n } from "vue-i18n";
-import * as moment from "moment";
+import { parseTime } from "~/utils/time"
 const { t, locale } = useI18n();
 const inputValue = ref(null);
 // const showPicker = ref(false);
@@ -80,9 +80,7 @@ const changeInput = (e) => {
     .addEventListener("change", function (e) {
       console.log(e.detail.date);
       // inputValue.value = e.target.value;
-      console.log(locale);
-      moment.locale(locale.value);
-      inputValue.value = moment(e.detail.date).format("YYYY-MM-DD");
+      inputValue.value = parseTime(e.detail.date, "{y}-{m}-{d}");
       console.log(inputValue.value);
       emits("change", inputValue.value);
     });
@@ -91,7 +89,7 @@ const changeInput = (e) => {
 // 删除弹出层
 onBeforeUnmount(() => {
   var doms = document.getElementsByClassName("tempus-dominus-widget");
-  doms = [].slice.apply(doms); 
+  doms = [].slice.apply(doms);
   doms = doms.filter(function (item) {
     item.remove();
   });
