@@ -1,13 +1,15 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <template v-if="bannerLoading">
-        <a-skeleton :animation="true">
-          <a-skeleton-line :rows="1" :line-height="260"/>
-        </a-skeleton>
-      </template>
-      <template v-else>
-        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+        <template v-if="bannerLoading">
+          <a-carousel-item>
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="1" :line-height="260"/>
+            </a-skeleton>
+          </a-carousel-item>
+        </template>
+        <template v-else>
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
                      :src="baseImgPrefix + item.img" class="carousel-img">
@@ -16,8 +18,8 @@
               </template>
             </a-image>
           </a-carousel-item>
-        </a-carousel>
-      </template>
+        </template>
+      </a-carousel>
 
     </div>
     <section class="section-wrapper">
