@@ -8,8 +8,12 @@
       </template>
       <tenplate v-else>
         <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
-          <a-carousel-item v-for="image in images">
-            <img :src="image" class="carousel-img"/>
+          <a-carousel-item v-for="item in bannerList">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false" :src="baseImgPrefix + item.img" class="carousel-img">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
           </a-carousel-item>
         </a-carousel>
       </tenplate>
@@ -90,15 +94,12 @@ const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
 
+const googleAd = ref({})
+const bannerList = ref([])
 const productList = ref([])
 const hotBradList = ref([])
 const bradNextShow = ref(true)
 const curBradPage = ref(0)
-const images = [
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
-];
 const resize = useResize();
 let isMobile = resize.screenType === 'MOBILE'
 let isMobileRef = ref(isMobile)
@@ -133,6 +134,11 @@ onMounted(() => {
     userInfo.closeDialog()
   }
 })
+const openLink = (e) => {
+  console.log(e)
+  if(!e.link) return
+  window.open(e.link, '_blank')
+}
 const toRegister = () => {
   loginModal.value.handleCancel()
   registerModal.value.openDialog()
@@ -170,7 +176,12 @@ const getBanner = () => {
   bannerLoading.value = true
   getHomeAdvert().then(res => {
     bannerLoading.value = false
-    console.log(res)
+    if (res.code === 0) {
+      bannerList.value = res.data.home_advert
+      googleAd.value = res.data.google_advert
+    } else {
+      Message.error(res.message)
+    }
   })
 }
 // 获取热门品牌
@@ -225,6 +236,7 @@ initPageData()
     .carousel-img {
       width: 100%;
       height: 100%;
+      cursor: pointer;
     }
   }
 }
