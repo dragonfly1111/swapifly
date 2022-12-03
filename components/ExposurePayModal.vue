@@ -316,6 +316,8 @@ const handleSubmit = () => {
       Message.error(res.message)
     }
 
+  }).catch(()=>{
+    saveLoading.value = false
   })
   console.log(formData)
 };

@@ -28,7 +28,7 @@ const status = ref(1)
 console.log(status.value)
 const getOrderStatus = ()=> {
   exposureStatus({
-    id: route.query.id
+    orderId: route.query.orderId
   }).then(res=>{
     console.log(res)
     if(res.code === 0){

@@ -54,9 +54,9 @@ useHead({
   {
     'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
   },
-  {
-    'src': 'https://js.stripe.com/v3/', async: true, defer: true
-  },
+  // {
+  //   'src': 'https://js.stripe.com/v3/', async: true, defer: true
+  // },
   ]
 })
 console.log("=====onMounted====",resize)

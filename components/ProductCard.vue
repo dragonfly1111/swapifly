@@ -149,7 +149,7 @@ const handleReport = () => {
 };
 // 购买曝光率
 const openExposure = () => {
-  exposurePayModal.value.openDialog();
+  exposurePayModal.value.openDialog(32);
 };
 // 下架
 const handlRemove = () => {};
