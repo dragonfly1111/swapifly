@@ -11,7 +11,11 @@
     <div class="card-box">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id"
            @click="card.checked = !card.checked">
-        <a-image :src="baseImgPrefix + card.background" show-loader/>
+        <a-image :src="baseImgPrefix + card.background" show-loader>
+          <template #loader>
+            <div class="loader-animate"/>
+          </template>
+        </a-image>
         <div class="label-title">{{ card.title }}</div>
         <a-checkbox v-if="card.checked" class="check-box" v-model="card.checked"></a-checkbox>
       </div>
@@ -53,7 +57,7 @@ const handleOk = () => {
     rid: ids
   }).then((res) => {
     console.log(res)
-    if(res.code === 0){
+    if (res.code === 0) {
       Message.success(res.message)
       emits('confirmPreference', ckeckedList)
       handleCancel()
@@ -84,12 +88,12 @@ const openDialog = (value: any) => {
       item.checked = false
     })
     labelList.value = res.data.data
-    if(value){
+    if (value) {
       const arr = value.split(',')
       console.log(labelList.value)
       console.log(arr)
-      labelList.value.forEach(item=>{
-        if(arr.indexOf(item.id + '') != -1){
+      labelList.value.forEach(item => {
+        if (arr.indexOf(item.id + '') != -1) {
           item.checked = true
         }
       })

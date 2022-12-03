@@ -3,40 +3,92 @@
     <section class="search-box">
       <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
-        <div class="hot-search-item" v-for="item in 20">
-          <a-link href="link">关键词</a-link>
-          <a-divider direction="vertical" />
-        </div>
+        <template v-if="hotSearchLoading">
+            <a-skeleton :animation="true" style="display: flex; flex-wrap: wrap; justify-content: flex-start">
+              <div v-for="item in 40" style="margin-right: 16px; margin-top: 7px">
+                <a-skeleton-line :rows="1" :widths="[50]" :line-height="15"/>
+              </div>
+            </a-skeleton>
+        </template>
+        <template v-else>
+          <div class="hot-search-item" v-for="item in hotSearchList">
+            <a-link @click="toSearch(item)">{{ item.title }}</a-link>
+            <a-divider direction="vertical" />
+          </div>
+        </template>
+
       </div>
     </section>
 
-    <section class="footer-link-box">
-      <div class="content-title bold">限量绝版</div>
+    <section class="footer-link-box" v-for="firstType in classList">
+      <div class="content-title bold">{{ firstType.title }}</div>
       <div class="content">
-        <div class="recommendation-item" v-for="item in 8">
-          <a-link href="link">限量版</a-link>
+        <div class="recommendation-item" v-for="secType in firstType.children">
+          <a-link @click="toGoodsList(item)">{{ secType.title }}</a-link>
         </div>
       </div>
     </section>
-    <section class="footer-link-box">
-      <div class="content-title bold">限量绝版</div>
-      <div class="content">
-        <div class="recommendation-item" v-for="item in 8">
-          <a-link href="link">限量版</a-link>
-        </div>
-      </div>
-    </section>
-    <section class="footer-link-box">
-      <div class="content-title bold">限量绝版</div>
-      <div class="content">
-        <div class="recommendation-item" v-for="item in 8">
-          <a-link href="link">限量版</a-link>
-        </div>
-      </div>
-    </section>
-
   </div>
 </template>
+<script setup>
+import {useSysData} from '~/stores/sysData'
+import {getHotSearch} from '~/api/goods'
+import {Message} from "@arco-design/web-vue";
+const router = useRouter()
+const sysData = useSysData()
+const classList = sysData.goodsClass
+const hotSearchLoading = ref(true)
+const hotSearchList = ref([])
+
+
+const props = defineProps({
+  // hotSearchList: {
+  //   type: Array,
+  //   default: () => [],
+  // },
+  // // 骨架屏
+  // searchLoading: {
+  //   type: Boolean,
+  //   default: true,
+  // },
+});
+
+const toSearch = (item) => {
+  router.push({
+    path: '/searchResult',
+    query: {
+      keyword: item.title
+    }
+  })
+}
+
+const toGoodsList = (item) => {
+  router.push({
+    path: '/goodsList',
+    query: {
+      id: item.id
+    }
+  })
+}
+
+const getHotSearchList = () => {
+  hotSearchLoading.value = true
+  getHotSearch({
+    limit: 40,
+    page: 1
+  }).then(res => {
+    hotSearchLoading.value = false
+    if (res.code === 0) {
+      hotSearchList.value = res.data
+    } else {
+      Message.error(res.message)
+    }
+  })
+}
+
+getHotSearchList()
+</script>
+
 <style scoped lang="scss">
 .page-footer-link{
     padding: 20px 30px;

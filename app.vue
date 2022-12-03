@@ -3,6 +3,7 @@ import { AppSetup } from './utils/app'
 import { useResize } from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import { useSysData } from '~/stores/sysData'
+import { getSearchHistory } from '~/api/goods'
 import { generateGender, generateEvaluationSort, generateEvaluationSource, generateMsgType, generateDialogueOperationType, generateAuthenticationStatus } from '~/model/res/staticDicts'
 import { useI18n } from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
@@ -75,6 +76,14 @@ onMounted(()=>{
       goodsClass: [],
       goodsSort: [],
       goodsOan: []
+    })
+    getSearchHistory().then(res=>{
+      const searchLog = res.data.search_log
+      const collectionList = res.data.scsearch_log
+      sysData.setSearchHis({
+        searchLog,
+        collectionList
+      })
     })
   }
   // 设置全局缩放属性

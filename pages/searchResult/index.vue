@@ -26,36 +26,34 @@
   </div>
 </template>
 
-<script>
-import { ref, reactive, h } from "vue";
-import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
-import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
-import ProductCard from "@/components/ProductCard";
-import PageFooterLink from "@/components/PageFooterLink";
-import GoodsFilterSelect from "@/components/GoodsFilterSelect";
-import AD from "@/components/AD";
-export default {
-  name: "searchResult",
-  components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD, GoodsFilterSelect },
+<script setup>
+import { productSearch } from '~/api/goods'
+import {useSearchKey} from "../../stores/search";
+const route = useRoute()
+const searchKey = useSearchKey()
 
-  setup() {
-    const testImg =
-      "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-    const images = [
-      "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-    ];
+const testImg =
+    "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+const images = [
+  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
+];
 
-    const handleQuery = (data) => {
-      console.log("form", data);
-    };
-
-    return {
-      images,
-      testImg,
-      handleQuery,
-    };
-  },
+const handleQuery = (data) => {
+  console.log("form", data);
+  getSearchData(data)
 };
+
+const getSearchData = (data) => {
+  productSearch({
+    title: searchKey.searchKey,
+    ...data
+  }).then(res=>{
+    console.log(res)
+  })
+}
+
+getSearchData()
+
 </script>
 
 <style lang="scss" scoped>

@@ -9,7 +9,8 @@
       <tenplate v-else>
         <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
-            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false" :src="baseImgPrefix + item.img" class="carousel-img">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                     :src="baseImgPrefix + item.img" class="carousel-img">
               <template #loader>
                 <div class="loader-animate"/>
               </template>
@@ -38,7 +39,7 @@
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
           <div class="brands-content">
-            <div v-for="item in hotBradList" class="brands-item">
+            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
               <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
@@ -76,15 +77,13 @@
 </template>
 
 <script setup>
-// import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
-// import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 import {baseImgPrefix} from "~/config/baseUrl";
 import {getHotBrad, getProductlist} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
 import {Message} from "@arco-design/web-vue";
-
+const router = useRouter()
 const route = useRoute()
 const loginModal = ref(null)
 const registerModal = ref(null)
@@ -98,35 +97,13 @@ const googleAd = ref({})
 const bannerList = ref([])
 const productList = ref([])
 const hotBradList = ref([])
+
 const bradNextShow = ref(true)
 const curBradPage = ref(0)
 const resize = useResize();
 let isMobile = resize.screenType === 'MOBILE'
 let isMobileRef = ref(isMobile)
 console.log("====isMobileRef==", isMobileRef)
-const value = ref();
-const data = [
-  {
-    value: "beijing",
-    label: "Beijing",
-    other: "extra",
-  },
-  {
-    value: "shanghai",
-    label: "Shanghai",
-    other: "extra",
-  },
-  {
-    value: "guangzhou",
-    label: "Guangzhou",
-    other: "extra",
-  },
-  {
-    value: "chengdu",
-    label: "Chengdu",
-    other: "extra",
-  },
-];
 onMounted(() => {
   const userInfo = useUserInfo()
   if (userInfo.openLogin) {
@@ -136,7 +113,7 @@ onMounted(() => {
 })
 const openLink = (e) => {
   console.log(e)
-  if(!e.link) return
+  if (!e.link) return
   window.open(e.link, '_blank')
 }
 const toRegister = () => {
@@ -150,6 +127,15 @@ const toLogin = () => {
 const toPreference = () => {
   choosePreference.value.openDialog()
 }
+const toSearch = (item) => {
+  router.push({
+    path: '/searchResult',
+    query: {
+      keyword: item.title
+    }
+  })
+}
+
 const bradChangePage = (type) => {
   const ele = document.getElementsByClassName('brands-content')[0]
   console.log(ele, type)
@@ -196,7 +182,6 @@ const getBrad = () => {
     }
   })
 }
-
 // 获取商品列表
 const getProduct = () => {
   productLoading.value = true
@@ -212,6 +197,7 @@ const getProduct = () => {
     }
   })
 }
+
 // 页面初始化
 const initPageData = () => {
   getBanner()

@@ -3,7 +3,7 @@
     <div class="header">
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
-    <div v-if="!pageLoading">
+    <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">
         <a-image
@@ -125,20 +125,21 @@
             }}</a-button>
         </div>
       </a-form>
-    </div>
-
-    <a-skeleton :loading="pageLoading" :animation="true">
-      <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
-      <div style="margin-top: 22px">
-        <a-skeleton-shape shape="circle" size="large" />
-      </div>
-      <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
-      <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-        <a-skeleton-line :rows="2" :line-height="46" />
-        <a-skeleton-line :rows="1" :line-height="164" />
-        <a-skeleton-line :rows="5" :line-height="46" />
-      </a-space>
-    </a-skeleton>
+    </template>
+    <temlpate v-else>
+      <a-skeleton :loading="pageLoading" :animation="true">
+        <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
+        <div style="margin-top: 22px">
+          <a-skeleton-shape shape="circle" size="large" />
+        </div>
+        <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
+        <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+          <a-skeleton-line :rows="2" :line-height="46" />
+          <a-skeleton-line :rows="1" :line-height="164" />
+          <a-skeleton-line :rows="5" :line-height="46" />
+        </a-space>
+      </a-skeleton>
+    </temlpate>
     <ChoosePreference
       ref="choosePreference"
       @confirmPreference="confirmPreference"
@@ -301,7 +302,7 @@ onMounted(() => {
   border: 1px solid $grey-font-label;
   padding: 10px 30px 40px;
   border-radius: 10px;
-  max-width: 665px;
+  width: 665px;
   .tip {
     color: $grey-font-label;
   }

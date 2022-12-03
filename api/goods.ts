@@ -35,10 +35,11 @@ export const getProductlist = (params: any) => {
 }
 
 // 获取搜索列表
-export const getHotSearch = () => {
+export const getHotSearch = (params: any) => {
   return request({
     url: '/index/home/hot_search',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
@@ -51,10 +52,11 @@ export const reportProduct = () => {
 }
 
 // 商品搜索
-export const productSearch = () => {
+export const productSearch = (params: any) => {
   return request({
     url: '/index/search/productlist',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

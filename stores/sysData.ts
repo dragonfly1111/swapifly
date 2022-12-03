@@ -17,6 +17,8 @@ export interface ISysDataState {
   msgType: Idict[],
   dialogueOperationType: Idict[],
   authenticationStatus: Idict[],
+  searchLog: any[],
+  collectionList: any[],
 }
 
 export const useSysData = defineStore('sysData', {
@@ -32,22 +34,30 @@ export const useSysData = defineStore('sysData', {
     msgType:[],
     dialogueOperationType:[],
     authenticationStatus:[],
+    searchLog:[],
+    collectionList:[],
   }),
   actions: {
-    setSysDataServerSide(e: ISysDataState){
+    setSysDataServerSide(e: any){
       this.region = e.region
       this.lang = e.lang
       this.goodsClass = e.goodsClass
       this.goodsSort = e.goodsSort
       this.goodsOan = e.goodsOan
     },
-    setSysDataClientSide(e: ISysDataState){
+    setSysDataClientSide(e: any){
       this.gender = e.gender
       this.evaluationSort = e.evaluationSort
       this.evaluationSource = e.evaluationSource
       this.msgType = e.msgType
       this.dialogueOperationType = e.dialogueOperationType
       this.authenticationStatus = e.authenticationStatus
+    },
+    setSearchHis(e: any){
+      console.log('setSearchHis')
+      console.log(e)
+      this.searchLog = e.searchLog
+      this.collectionList = e.collectionList
     }
   },
 })

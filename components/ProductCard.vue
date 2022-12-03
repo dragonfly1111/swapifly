@@ -8,7 +8,7 @@
               <a-skeleton-shape shape="circle" size="small" />
             </a-col>
             <a-col :span="13">
-              <a-skeleton-line :widths="120" />
+              <a-skeleton-line :widths="[120]" />
             </a-col>
           </a-row>
           <div style="margin-top: 10px">

@@ -86,24 +86,34 @@
           </a-col>
           <a-col :span="16" class="search-col">
             <div class="search-input">
-              <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @search="toSearchResult" :placeholder="$t('head.searchKey')" search-button>
+              <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
                 <template #suffix v-if="searchResPage">
                   <img @click="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
                 </template>
               </a-input-search>
               <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
-                <!--            <div class="search-suggest">-->
+<!--              <div class="search-suggest show-suggest">-->
                 <div class="white-wrap wrap">
                   {{ $t('head.searchHis') }}
                 </div>
-                <div class="gray-wrap wrap" v-for="item in 2" @click="handleHis('搜索历史')">一級分類名稱</div>
+                <template v-if="searchLog.length === 0">
+                  <a-empty />
+                </template>
+                <template v-else>
+                  <div class="gray-wrap wrap" v-for="item in searchLog" @click="handleHis('搜索历史')">一級分類名稱</div>
+                </template>
                 <div class="white-wrap wrap">
                   {{ $t('head.collectionKey') }}
                 </div>
-                <div class="gray-wrap wrap"  v-for="item in 2">
-                  <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
-                  <icon-close @click="deleteHis" />
-                </div>
+                <template v-if="searchLog.length === 0">
+                  <a-empty />
+                </template>
+                <template v-else>
+                  <div class="gray-wrap wrap"  v-for="item in collectionList">
+                    <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
+                    <icon-close @click="deleteHis" />
+                  </div>
+                </template>
               </div>
             </div>
           </a-col>
@@ -131,12 +141,15 @@
 
 <script setup lang="ts">
 import {useSysData} from '~/stores/sysData'
+import {useSearchKey} from '~/stores/search'
 import {IGoodsClass} from '~/model/res/goodsClass'
 import {useUserInfo} from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { baseImgPrefix } from "~/config/baseUrl";
 const router = useRouter()
+const route = useRoute()
 const userInfo = useUserInfo()
+const searchKeyState = useSearchKey()
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
@@ -144,9 +157,11 @@ const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
 const classList = sysData.goodsClass
+const searchLog = sysData.searchLog
+const collectionList = sysData.collectionList
 const showHeadPanel = ref(false)
 const searchResPage = ref(false)
-const searchKey = ref('')
+let searchKey = ref('')
 const resize = useResize();
 let curClass: any = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
@@ -158,7 +173,15 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     searchResPage.value = true
   } else {
     searchResPage.value = false
+    // 离开搜索结果路由时 清空搜索key
+    searchKeyState.setKey('')
+    searchKey.value = ''
   }
+}, {immediate: true})
+// 监听路由参数 将地址栏的搜索词放到pina
+watch(() => route.query, (newValue, oldValue) => {
+  searchKeyState.setKey(newValue.keyword)
+  searchKey.value = searchKeyState.searchKey
 }, {immediate: true})
 watch(() => resize.screenType, (newValue, oldValue) => {
   console.log('resize.screenType', newValue);
@@ -196,52 +219,48 @@ function openLogin() {
     loginModal.value.openDialog()
   }
 }
-
 function toRegister() {
   loginModal.value.handleCancel()
   registerModal.value.openDialog()
 }
-
 function toLogin() {
   registerModal.value.handleCancel()
   loginModal.value.openDialog()
 }
-
 function toPreference() {
   choosePreference.value.openDialog()
 }
-
 function confirmPreference() {
 
 }
-
-function toSearchResult(e:any) {
-  console.log('search')
-  if(e){
+function toSearchResult() {
+  console.log('toSearchResult')
+  console.log(searchKey.value)
+  if(searchKey.value){
+    suggestShow.value = false
     router.push({
       path: '/searchResult',
       query: {
-        keyword: e
+        keyword: searchKey.value
       }
     })
   }
 
 }
-
+function changeSearchKey(e) {
+  searchKeyState.setKey(e)
+}
 function handleHis(e:string) {
   console.log(23123)
   searchKey.value = e
   toSearchResult(e)
 }
-
 function deleteHis(e:any) {
   console.log('deleteHis')
 }
-
 function handleCollection() {
   console.log('handleCollection')
 }
-
 function changeCurType(e: IGoodsClass) {
   if (e.children && e.children.length) {
     curClass.value = e.children
@@ -251,17 +270,15 @@ function changeCurType(e: IGoodsClass) {
     curClass.value = []
   }
 }
-
 function outClass() {
   showHeadPanel.value = false
 }
-
 function toClassDetail(e: IGoodsClass) {
   console.log(e)
   router.push({
     path: '/goodsList',
     query: {
-      rid: e.id
+      id: e.id
     }
   })
   showHeadPanel.value = false
@@ -439,10 +456,10 @@ function toClassDetail(e: IGoodsClass) {
         width: 46px;
         height: 46px;
       }
-      :deep(.arco-icon) {
-        width: 15px;
-        height: 15px;
-      }
+      //:deep(.arco-icon) {
+      //  width: 15px;
+      //  height: 15px;
+      //}
       .icon-collection{
         cursor: pointer;
       }
@@ -472,7 +489,7 @@ function toClassDetail(e: IGoodsClass) {
           .his-title{
             width: 100%;
           }
-          :deep(.arco-icon){
+          :deep(.arco-icon-close){
             width: 9px;
             height: 9px;
           }
@@ -528,6 +545,10 @@ function toClassDetail(e: IGoodsClass) {
     margin-left: 20px;
     margin-top: 8px;
   }
+}
+
+.arco-empty{
+  background: #F2F3F5;
 }
 </style>
 <style lang="scss">

@@ -1,20 +1,27 @@
 <template>
   <div class="common-row global-content">
     <div class="page-body">
-      <a-row justify="end">
-        <a-col flex="20%">
-          <a-tabs position="right" :active-key="activeTab" @change="handleTabChange">
-            <a-tab-pane key="profile" :title="$t('profile.edit_profile')"> </a-tab-pane>
-            <a-tab-pane key="password" :title="$t('profile.edit_password')"> </a-tab-pane>
-          </a-tabs>
-        </a-col>
-        <a-col flex="auto">
-          <div class="right-content">
-            <Profile v-show="activeTab == 'profile'" />
-            <Password v-show="activeTab == 'password'" />
-          </div>
-        </a-col>
-      </a-row>
+      <div class="left-content">
+        <a-tabs position="right" :active-key="activeTab" @change="handleTabChange">
+          <a-tab-pane key="profile" :title="$t('profile.edit_profile')"> </a-tab-pane>
+          <a-tab-pane key="password" :title="$t('profile.edit_password')"> </a-tab-pane>
+        </a-tabs>
+      </div>
+      <div class="right-content">
+        <Profile v-if="activeTab == 'profile'" />
+        <Password v-if="activeTab == 'password'" />
+      </div>
+<!--      <a-row justify="end">-->
+<!--        <a-col flex="20%">-->
+<!--     -->
+<!--        </a-col>-->
+<!--        <a-col flex="70%">-->
+<!--          <div class="right-content">-->
+<!--            <Profile v-if="activeTab == 'profile'" />-->
+<!--            <Password v-if="activeTab == 'password'" />-->
+<!--          </div>-->
+<!--        </a-col>-->
+<!--      </a-row>-->
     </div>
   </div>
 </template>
@@ -41,6 +48,8 @@ const handleTabChange = (e) => {
 }
 .page-body {
   padding: 30px 0;
+  display: flex;
+  justify-content: flex-start;
   :deep(.arco-tabs-tab) {
     color: $grey-font-label;
   }
@@ -51,7 +60,10 @@ const handleTabChange = (e) => {
     background-color: $main-grey;
   }
 }
+.left-content{
+  margin-left: 170px;
+}
 .right-content {
-  margin: 0 15vw 0 5vw;
+  margin-left: 150px;
 }
 </style>

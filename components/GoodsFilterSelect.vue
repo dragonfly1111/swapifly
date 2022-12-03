@@ -2,8 +2,9 @@
   <a-form class="select-wrapper" :modal="form" auto-label-width layout="inline" ref="formRef">
     <a-form-item field="rid">
       <a-tree-select
-        :data="classList"
+        :data="classListAsync"
         v-model="form.rid"
+        :load-more="loadMore"
         :fieldNames="{
           key: 'id',
           title: 'title',
@@ -99,11 +100,19 @@
 import { useSysData } from "~/stores/sysData";
 
 const sysData = useSysData();
-const classList = sysData.goodsClass;
+const sourceClassList = sysData.goodsClass
+const classList = sysData.goodsClass.map(item=>{
+  return {
+    id: item.id,
+    title: item.title,
+    children: []
+  }
+});
+const classListAsync = ref(classList)
 const sortList = sysData.goodsSort;
 const newOldList = sysData.goodsOan;
 const showPriceBox = ref(false);
-const form = reactive({
+let form = reactive({
   sort: "",
   nid: [],
   rid: "",
@@ -121,10 +130,15 @@ const emits = defineEmits(["change"]);
 
 const formRef = ref(null);
 const resetForm = () => {
-  priceForm.value = {
-    max: null,
-    min: null,
-  };
+  priceForm.min = null
+  priceForm.max = null
+  form.sort = ''
+  form.nid = []
+  form.rid = ''
+  form.min = ''
+  form.max = ''
+  form.offline = false
+  form.mail = false
   formRef.value.resetFields();
   console.log(form);
 };
@@ -136,17 +150,47 @@ const cancelPrice = () => {
 
 // 价格选择确定
 const confirmPrice = () => {
-  form.value = { ...form, ...priceForm };
+  // form = { ...form, ...priceForm };
+  form.min = priceForm.min
+  form.max = priceForm.max
   cancelPrice()
   updateSearch();
 };
 
 // 传值
 const updateSearch = () => {
-  let setForm = { ...form.value };
+  console.log(form)
+  let setForm = { ...form };
+  console.log(setForm)
   setForm.nid = form.nid.join(",");
   emits("change", setForm);
 };
+
+// 智障arco没有提供默认折叠全部节点功能 并且点击打开面板时非常卡，所以做成"动态"加载数据的样子
+const loadMore = (nodeData) => {
+  const { title, key } = nodeData;
+  // 从sourceClassList中找到id相同的节点 把他的children赋值过来
+  console.log(nodeData)
+  const tmpNode = findNodeById(sourceClassList, nodeData.id)
+  console.log(tmpNode)
+  return new Promise((resolve) => {
+    nodeData.children = tmpNode ? tmpNode.children : [];
+    resolve();
+  });
+};
+
+const findNodeById = (arr, targetId) =>{
+  let node = null
+  arr.forEach(item=>{
+    if(item.id === targetId) {
+      node = item
+    }
+    if(item.children){
+      findNodeById(item.children, targetId)
+    }
+  })
+  return node
+}
 </script>
 
 <style lang="scss" scoped>

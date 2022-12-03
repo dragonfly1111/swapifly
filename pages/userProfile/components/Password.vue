@@ -98,6 +98,7 @@ const handleSave = () => {
   border: 1px solid $grey-font-label;
   padding: 10px 30px 40px;
   border-radius: 10px;
+  width: 665px;
   h1 {
     font-size: 30px;
   }
