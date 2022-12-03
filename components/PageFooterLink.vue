@@ -4,9 +4,12 @@
       <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
         <template v-if="hotSearchLoading">
-          <a-skeleton :animation="true" style="width: 100%;">
-            <a-skeleton-line :rows="2" :line-height="15" :line-spacing="7"/>
-          </a-skeleton>
+          <div style="width: 100%;">
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="2" :line-height="15" :line-spacing="7"/>
+            </a-skeleton>
+          </div>
+
         </template>
         <template v-else>
           <div class="hot-search-item" v-for="item in hotSearchList">
