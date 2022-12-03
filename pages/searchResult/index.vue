@@ -5,19 +5,19 @@
     <section class="section-wrapper goods-wrapper">
       <div class="list-header">
         <div>
-          <h2>有10,000+個搜尋結果</h2>
+          <h2>有{{ productTotal }}個搜尋結果</h2>
         </div>
         <div class="select-wrapper">
           <GoodsFilterSelect @change="handleQuery"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content goods-content">
-        <ProductCard></ProductCard>
+        <ProductCard :list="productList" :pageLoading="pageLoading"></ProductCard>
       </div>
     </section>
 
-    <div class="see-more">
-      <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
+    <div class="see-more" v-if="page < lastPage">
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
     <AD></AD>
@@ -29,27 +29,79 @@
 <script setup>
 import { productSearch } from '~/api/goods'
 import {useSearchKey} from "../../stores/search";
+import {Message} from "@arco-design/web-vue";
 const route = useRoute()
 const searchKey = useSearchKey()
-
-const testImg =
-    "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const images = [
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-];
-
+const page = ref(1)
+const limit = ref(8)
+const lastPage = ref(999)
+const productTotal = ref('')
+const productList = ref([])
+const pageLoading = ref(true)
+const butLoading = ref(false)
+let queryParams = {}
+watch(() => route.query, (newValue, oldValue) => {
+  handleQuery()
+})
 const handleQuery = (data) => {
   console.log("form", data);
+  page.value = 1
+  productList.value = []
   getSearchData(data)
 };
 
 const getSearchData = (data) => {
+  pageLoading.value = true
+  let tmp = null
+  if(data){
+    tmp = JSON.parse(JSON.stringify(data))
+    if(tmp.offline){
+      tmp.offline = 1
+    } else {
+      tmp.offline = 0
+    }
+    if(tmp.mail){
+      tmp.mail = 1
+    } else {
+      tmp.mail = 0
+    }
+  } else {
+    tmp = {}
+  }
   productSearch({
     title: searchKey.searchKey,
-    ...data
+    page: page.value,
+    limit: limit.value,
+    ...tmp
   }).then(res=>{
-    console.log(res)
+    pageLoading.value = false
+    butLoading.value = false
+    if(res.code === 0){
+      productList.value = [...productList.value, ...res.data.data]
+      const num = res.data.total
+      lastPage.value = res.data.last_page
+      if(num <= 10){
+        productTotal.value = num
+      } else if(num > 10 && num <= 100){
+        productTotal.value = '10+'
+      } else if(num > 100 && num <= 1000){
+        productTotal.value = '100+'
+      } else if(num > 1000 && num <= 10000){
+        productTotal.value = '1000+'
+      } else if(num > 10000){
+        productTotal.value = '10000+'
+      }
+    } else {
+      Message.error(res.message)
+    }
+
   })
+}
+
+const loadMore = () =>{
+  page.value ++
+  butLoading.value = true
+  getSearchData(queryParams)
 }
 
 getSearchData()

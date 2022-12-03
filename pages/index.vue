@@ -1,13 +1,15 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <template v-if="bannerLoading">
-        <a-skeleton :animation="true">
-          <a-skeleton-line :rows="1" :line-height="260"/>
-        </a-skeleton>
-      </template>
-      <tenplate v-else>
-        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+        <template v-if="bannerLoading">
+          <a-carousel-item>
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="1" :line-height="260"/>
+            </a-skeleton>
+          </a-carousel-item>
+        </template>
+        <template v-else>
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
                      :src="baseImgPrefix + item.img" class="carousel-img">
@@ -16,8 +18,8 @@
               </template>
             </a-image>
           </a-carousel-item>
-        </a-carousel>
-      </tenplate>
+        </template>
+      </a-carousel>
 
     </div>
     <section class="section-wrapper">
@@ -25,7 +27,7 @@
       <div class="section-content">
         <template v-if="bradLoading">
           <div class="brands-content">
-            <div v-for="item in 10" class="brands-item">
+            <div v-for="item in bradLoading" class="brands-item">
               <a-skeleton :animation="true">
                 <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>
@@ -83,6 +85,7 @@ import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
 import {Message} from "@arco-design/web-vue";
+
 const router = useRouter()
 const route = useRoute()
 const loginModal = ref(null)
@@ -163,8 +166,10 @@ const getBanner = () => {
   getHomeAdvert().then(res => {
     bannerLoading.value = false
     if (res.code === 0) {
-      bannerList.value = res.data.home_advert
-      googleAd.value = res.data.google_advert
+      nextTick(() => {
+        bannerList.value = res.data.home_advert
+        googleAd.value = res.data.google_advert
+      })
     } else {
       Message.error(res.message)
     }
@@ -176,7 +181,9 @@ const getBrad = () => {
   getHotBrad().then(res => {
     bradLoading.value = false
     if (res.code === 0) {
-      hotBradList.value = res.data
+      nextTick(() => {
+        hotBradList.value = res.data
+      })
     } else {
       Message.error(res.message)
     }
@@ -191,7 +198,9 @@ const getProduct = () => {
   }).then(res => {
     productLoading.value = false
     if (res.code === 0) {
-      productList.value = res.data.data
+      nextTick(() => {
+        productList.value = res.data.data
+      })
     } else {
       Message.error(res.message)
     }
@@ -206,6 +215,12 @@ const initPageData = () => {
 }
 
 initPageData()
+
+// onMounted(() => {
+//   initPageData()
+// })
+
+
 </script>
 
 <style lang="scss" scoped>

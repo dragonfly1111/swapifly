@@ -70,28 +70,30 @@ export const delSearchLog = () => {
 }
 
 // 收藏搜索关键词
-export const searchAdd = () => {
+export const searchAdd = (data: any) => {
   return request({
     url: '/index/user_center/search_add',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
 // 收藏搜索关键词
-export const searchScDel = () => {
+export const searchScDel = (params: any) => {
   return request({
     url: '/index/user_center/search_scdel',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
-// 商品分类列表
-export const categoryProductList = () => {
-  return request({
-    url: '/index/user_center/search_scdel',
-    method: 'get'
-  })
-}
+// // 商品分类列表
+// export const categoryProductList = () => {
+//   return request({
+//     url: '/index/user_center/search_scdel',
+//     method: 'get'
+//   })
+// }
 
 // 商品分类列表
 export const categoryHotBrand = () => {

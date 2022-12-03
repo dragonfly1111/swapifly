@@ -4,11 +4,12 @@
       <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
         <template v-if="hotSearchLoading">
-            <a-skeleton :animation="true" style="display: flex; flex-wrap: wrap; justify-content: flex-start">
-              <div v-for="item in 40" style="margin-right: 16px; margin-top: 7px">
-                <a-skeleton-line :rows="1" :widths="[50]" :line-height="15"/>
-              </div>
+          <div style="width: 100%;">
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="2" :line-height="15" :line-spacing="7"/>
             </a-skeleton>
+          </div>
+
         </template>
         <template v-else>
           <div class="hot-search-item" v-for="item in hotSearchList">
@@ -79,7 +80,9 @@ const getHotSearchList = () => {
   }).then(res => {
     hotSearchLoading.value = false
     if (res.code === 0) {
-      hotSearchList.value = res.data
+      nextTick(()=>{
+        hotSearchList.value = res.data
+      })
     } else {
       Message.error(res.message)
     }

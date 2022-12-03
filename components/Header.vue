@@ -86,9 +86,9 @@
           </a-col>
           <a-col :span="16" class="search-col">
             <div class="search-input">
-              <a-input-search v-model="searchKey" @focus="suggestShow = true" @blur="suggestShow = false" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
+              <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
                 <template #suffix v-if="searchResPage">
-                  <img @click="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
+                  <img @click.prevent.stop="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
                 </template>
               </a-input-search>
               <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
@@ -100,18 +100,18 @@
                   <a-empty />
                 </template>
                 <template v-else>
-                  <div class="gray-wrap wrap" v-for="item in searchLog" @click="handleHis('搜索历史')">一級分類名稱</div>
+                  <div class="gray-wrap wrap" v-for="item in searchLog" @click="handleHis(item.title)">{{ item.title }}</div>
                 </template>
                 <div class="white-wrap wrap">
                   {{ $t('head.collectionKey') }}
                 </div>
-                <template v-if="searchLog.length === 0">
+                <template v-if="collectionList.length === 0">
                   <a-empty />
                 </template>
                 <template v-else>
                   <div class="gray-wrap wrap"  v-for="item in collectionList">
-                    <div class="his-title" @click="handleHis('搜索历史')">一級分類名稱</div>
-                    <icon-close @click="deleteHis" />
+                    <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
+                    <icon-close @click="deleteHis(item.id)" />
                   </div>
                 </template>
               </div>
@@ -125,7 +125,7 @@
               </template>
               <a-button v-else class="sell-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
             </div>
-            <a-button v-else class="sell-but">{{ $t('head.sell') }}</a-button>
+            <a-button v-else class="sell-but" @click="toSell">{{ $t('head.sell') }}</a-button>
           </a-col>
         </a-row>
       </div>
@@ -145,11 +145,15 @@ import {useSearchKey} from '~/stores/search'
 import {IGoodsClass} from '~/model/res/goodsClass'
 import {useUserInfo} from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
+import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
 import { baseImgPrefix } from "~/config/baseUrl";
+import {Message} from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
 const userInfo = useUserInfo()
 const searchKeyState = useSearchKey()
+import {useI18n} from "vue-i18n";
+const {t} = useI18n();
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
@@ -157,8 +161,9 @@ const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
 const classList = sysData.goodsClass
-const searchLog = sysData.searchLog
-const collectionList = sysData.collectionList
+const searchLog = ref([])
+const collectionList = ref([])
+
 const showHeadPanel = ref(false)
 const searchResPage = ref(false)
 let searchKey = ref('')
@@ -219,6 +224,9 @@ function openLogin() {
     loginModal.value.openDialog()
   }
 }
+function toSell() {
+  router.push('/saleEditGoods')
+}
 function toRegister() {
   loginModal.value.handleCancel()
   registerModal.value.openDialog()
@@ -234,32 +242,63 @@ function confirmPreference() {
 
 }
 function toSearchResult() {
-  console.log('toSearchResult')
-  console.log(searchKey.value)
-  if(searchKey.value){
-    suggestShow.value = false
-    router.push({
-      path: '/searchResult',
-      query: {
-        keyword: searchKey.value
-      }
-    })
-  }
-
+  suggestShow.value = false
+  router.push({
+    path: '/searchResult',
+    query: {
+      keyword: searchKey.value
+    }
+  })
 }
 function changeSearchKey(e) {
   searchKeyState.setKey(e)
 }
+function openHisPanel(){
+  searchLog.value = sysData.searchLog
+  collectionList.value = sysData.collectionList
+  suggestShow.value = true
+}
+function hideHisPanel(){
+  setTimeout(()=>{
+    suggestShow.value = false
+    getSearchHistory().then(res=>{
+      const searchLog = res.data.search_log
+      const collectionList = res.data.scsearch_log
+      sysData.setSearchHis({
+        searchLog,
+        collectionList
+      })
+    })
+  }, 50)
+}
 function handleHis(e:string) {
-  console.log(23123)
   searchKey.value = e
   toSearchResult(e)
 }
-function deleteHis(e:any) {
-  console.log('deleteHis')
+function deleteHis(id) {
+  searchScDel({
+    id
+  }).then(res=>{
+    if(res.code === 0){
+      Message.success(t('head.deleteSuc'))
+    } else {
+      Message.success(res.message)
+    }
+  })
 }
 function handleCollection() {
-  console.log('handleCollection')
+  if(searchKey.value){
+    searchAdd({
+      title: searchKey.value
+    }).then(res=>{
+      if(res.code === 0){
+        Message.success(t('head.collectionSuc'))
+      } else {
+        Message.success(res.message)
+      }
+    })
+  }
+
 }
 function changeCurType(e: IGoodsClass) {
   if (e.children && e.children.length) {
@@ -487,7 +526,7 @@ function toClassDetail(e: IGoodsClass) {
           justify-content: space-between;
           align-items: center;
           .his-title{
-            width: 100%;
+            width: 80%;
           }
           :deep(.arco-icon-close){
             width: 9px;
