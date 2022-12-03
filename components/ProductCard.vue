@@ -35,7 +35,9 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="baseImgPrefix + item.image" alt="" />
-            <div class="status-box" v-if="showStatus && item.state > 1">{{ getStateLabel(item) }}</div>
+            <div class="status-box" v-if="showStatus && item.state > 1">
+              {{ getStateLabel(item) }}
+            </div>
           </div>
           <div class="product-tag" v-if="item.t_type == 1">{{ $t("pages.recommendTag") }}</div>
         </div>
@@ -53,15 +55,21 @@
             <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
             <template #content>
               <template v-if="!isMySelf">
-                <a-doption @click.stop="handleReport(item)">{{ $t("pages.reportProduct") }}</a-doption>
+                <a-doption @click.stop="handleReport(item)">{{
+                  $t("pages.reportProduct")
+                }}</a-doption>
               </template>
               <template v-if="isMySelf">
                 <a-doption @click.stop="handleEdit(item)">{{ $t("pages.editGoods") }}</a-doption>
-                <a-doption @click.stop="openExposure(item)">{{ $t("pages.exposureGoods") }}</a-doption>
+                <a-doption @click.stop="openExposure(item)">{{
+                  $t("pages.exposureGoods")
+                }}</a-doption>
                 <a-doption @click.stop="openAchievement">{{
                   $t("pages.viewtheResults")
                 }}</a-doption>
-                <a-doption @click.stop="handleRemove(item)">{{ $t("pages.removeGoods") }}</a-doption>
+                <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
+                  item.state == 2 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
+                }}</a-doption>
                 <a-doption @click.stop="handleMark(item)">{{ $t("pages.markSold") }}</a-doption>
                 <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
               </template>
@@ -92,6 +100,9 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
+import { Modal, Button } from "@arco-design/web-vue";
+import { deleteProduct, upanddownProduct } from "~/api/goods";
+const { t } = useI18n();
 const props = defineProps({
   list: {
     type: Array,
@@ -132,7 +143,7 @@ const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const router = useRouter();
-
+// const emits = defineEmits(["change"]);
 // 商品状态
 const getStateLabel = (item) => {
   let stateOptions = {
@@ -151,18 +162,53 @@ const handleReport = (item) => {
 const openExposure = (item) => {
   exposurePayModal.value.openDialog(32);
 };
-// 下架
+// 下架 //商品狀態，1.出售中，2.已售出，3已下架
 const handleRemove = (item) => {
-
+  let content = item.state == 2 ? $t("pages.putawayGoodsTip") : $t("pages.removeGoodsTip");
+  Modal.info({
+    content: content,
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("pages.confirm"),
+    onBeforeOk: () => {
+      upanddownProduct({ id: item.id, state: item.state == 2 ? 1 : 2 })
+        .then((res) => {
+          if (res.code === 0) {
+            Message.success(res.message);
+            emits("change");
+          } else {
+            Message.error(res.message);
+          }
+        })
+        .finally(() => {});
+    },
+  });
 };
 // 删除
 const handleDelete = (item) => {
-
+  Modal.info({
+    content: t("pages.delGoodsTip"),
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("pages.confirm"),
+    onBeforeOk: () => {
+      deleteProduct({ id: item.id })
+        .then((res) => {
+          if (res.code === 0) {
+            Message.success(t("pages.delGoods") + t("pages.success"));
+            emits("change");
+          } else {
+            Message.error(res.message);
+          }
+        })
+        .finally(() => {});
+    },
+  });
 };
 // 标记已售出
-const handleMark = (item) => {
-
-};
+const handleMark = (item) => {};
 
 // 编辑商品
 const handleEdit = () => {
@@ -170,8 +216,7 @@ const handleEdit = () => {
 };
 // like商品
 const likeProduct = () => {
-  if(!isMySelf){
-
+  if (!isMySelf) {
   }
 };
 
@@ -288,7 +333,7 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .arco-icon{
+    .arco-icon {
       cursor: pointer;
     }
     span {
