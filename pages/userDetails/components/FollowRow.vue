@@ -4,15 +4,45 @@
       <a-col flex="100px" class="title"> {{ title }} </a-col>
     </a-row>
     <div class="follow-box-body">
-      <div class="follow-list">
-        <div class="follow-list-item" v-for="item in dataList">
+      <a-skeleton :loading="pageLoading" animation>
+        <a-space :style="{ width: '100%' }" size="large" wrap>
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+        </a-space>
+        <div style="margin-top:20px">
+          <a-space :style="{ width: '100%' }" size="large" wrap>
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+          <a-skeleton-line :widths="[200]" :line-height="250" />
+        </a-space>
+        </div>
+      </a-skeleton>
+
+      <div class="follow-list" v-if="!pageLoading">
+        <div class="follow-list-item" v-for="(item, index) in dataList">
           <img :src="baseImgPrefix + item.avatar" alt="" />
-          <div class="fs12">{{item.nickname}}</div>
-          <div class="fs10">@{{item.realname}}</div>
-          <div class="fs10">{{item.b_follow}} Followers</div>
+          <div class="fs12">{{ item.nickname }}</div>
+          <div class="fs10">@{{ item.realname }}</div>
+          <div class="fs10">{{ item.b_follow }} Followers</div>
           <div>
-            <a-button type="outline" class="black-outline-btn" v-if="item.type == 0">{{$t("pages.follow")}}</a-button>
-            <a-button class="black-btn" v-if="item.type == 1">{{$t("pages.followIn")}}</a-button>
+            <a-button
+              type="outline"
+              class="black-outline-btn"
+              v-if="item.type == 0"
+              :loading="btnLoading"
+              @click="handleFollow(item, index)"
+              >{{ $t("pages.follow") }}</a-button
+            >
+            <a-button
+              class="black-btn"
+              :loading="btnLoading"
+              v-if="item.type == 1"
+              @click="handleFollow(item, index)"
+              >{{ $t("pages.followIn") }}</a-button
+            >
           </div>
         </div>
       </div>
@@ -24,23 +54,23 @@
   </div>
 </template>
 <script setup>
-import { getFollowers, getFollowList } from "~/api/shop";
+import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
+import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const router = useRouter();
-
+const emits = defineEmits(["change"]);
 const title = ref(t("pages.followIn"));
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const pageLoading = ref(true);
+const btnLoading = ref(false);
 const type = ref(null);
 const total = ref(0);
 const dataList = ref([]);
 const queryParams = ref({
   page: 1,
   limit: 10,
-  id:router.currentRoute.value.query.userId
+  id: router.currentRoute.value.query.userId,
 });
 
 const handleQuery = (type) => {
@@ -85,6 +115,28 @@ const handleQueryFollowList = () => {
     })
     .finally(() => {
       pageLoading.value = false;
+    });
+};
+
+// 关注/取消关注
+const handleFollow = (item, index) => {
+  let reqData = {
+    id: item.uid,
+    state: item.type == 1 ? 2 : 1,
+  };
+  btnLoading.value = true;
+  followUser(reqData)
+    .then((res) => {
+      if (res.code == 0) {
+        dataList.value[index].type = item.type == 1 ? 0 : 1;
+        Message.success(res.message);
+        emits("change");
+      } else {
+        Message.error(res.message);
+      }
+    })
+    .finally(() => {
+      btnLoading.value = false;
     });
 };
 

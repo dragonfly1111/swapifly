@@ -53,17 +53,17 @@
             <a-button type="text"><icon-more-vertical :strokeWidth="6" size="18" /> </a-button>
             <template #content>
               <template v-if="!isMySelf">
-                <a-doption @click.stop="handleReport">{{ $t("pages.reportProduct") }}</a-doption>
+                <a-doption @click.stop="handleReport(item)">{{ $t("pages.reportProduct") }}</a-doption>
               </template>
               <template v-if="isMySelf">
-                <a-doption @click.stop="handleEdit">{{ $t("pages.editGoods") }}</a-doption>
-                <a-doption @click.stop="openExposure">{{ $t("pages.exposureGoods") }}</a-doption>
+                <a-doption @click.stop="handleEdit(item)">{{ $t("pages.editGoods") }}</a-doption>
+                <a-doption @click.stop="openExposure(item)">{{ $t("pages.exposureGoods") }}</a-doption>
                 <a-doption @click.stop="openAchievement">{{
                   $t("pages.viewtheResults")
                 }}</a-doption>
-                <a-doption @click.stop="handlRemove">{{ $t("pages.removeGoods") }}</a-doption>
-                <a-doption @click.stop="handlRemove">{{ $t("pages.markSold") }}</a-doption>
-                <a-doption @click.stop="handlRemove">{{ $t("pages.delGoods") }}</a-doption>
+                <a-doption @click.stop="handleRemove(item)">{{ $t("pages.removeGoods") }}</a-doption>
+                <a-doption @click.stop="handleMark(item)">{{ $t("pages.markSold") }}</a-doption>
+                <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
               </template>
             </template>
           </a-dropdown>
@@ -144,15 +144,25 @@ const getStateLabel = (item) => {
 };
 
 // 举报
-const handleReport = () => {
-  reportModal.value.openDialog();
+const handleReport = (item) => {
+  reportModal.value.openDialog(item);
 };
 // 购买曝光率
-const openExposure = () => {
+const openExposure = (item) => {
   exposurePayModal.value.openDialog(32);
 };
 // 下架
-const handlRemove = () => {};
+const handleRemove = (item) => {
+
+};
+// 删除
+const handleDelete = (item) => {
+
+};
+// 标记已售出
+const handleMark = (item) => {
+
+};
 
 // 编辑商品
 const handleEdit = () => {

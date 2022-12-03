@@ -8,9 +8,9 @@ export const getUserDetails = (id: any) => {
     })
 }
 // 查看點閱率
-export const userClicRate = (id: any) => {
+export const getUserClicRate = (id: any) => {
     return request({
-        url: '/index/shop_to/clickrate?id=',
+        url: '/index/shop_to/clickrate',
         method: 'get',
     })
 }
@@ -51,6 +51,14 @@ export const getFollowList = (params: any) => {
 export const followUser = (data: any) => {
     return request({
         url: '/index/user/follow',
+        method: 'post',
+        data
+    })
+}
+// 举报用户
+export const reportUser = (data: any) => {
+    return request({
+        url: '/index/user_center/report_user',
         method: 'post',
         data
     })

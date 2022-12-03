@@ -44,10 +44,11 @@ export const getHotSearch = (params: any) => {
 }
 
 // 举报商品
-export const reportProduct = () => {
+export const reportProduct = (data: any) => {
   return request({
     url: '/index/user_center/report_product',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
@@ -97,6 +98,23 @@ export const categoryHotBrand = () => {
   return request({
     url: '/category/hot_brand',
     method: 'get'
+  })
+}
+
+// 删除商品
+export const deleteProduct = (data: any) => {
+  return request({
+    url: '/index/product/delete',
+    method: 'post',
+    data
+  })
+}
+// 上架/下架
+export const upanddownProduct = (data: any) => {
+  return request({
+    url: '/index/product_detail/upanddown',
+    method: 'post',
+    data
   })
 }
 

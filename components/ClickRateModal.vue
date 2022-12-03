@@ -12,7 +12,7 @@
   >
     <a-tabs v-model="activeTab" @change="changeTab">
       <a-tab-pane key="visitTimes" :title="$t('dataStatistics.visitTimes')">
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px">
           {{ $t("dataStatistics.visitTimesTip") }}
         </div>
       </a-tab-pane>
@@ -37,32 +37,69 @@
   </a-modal>
 </template>
 <script setup>
+import { getUserClicRate } from "~/api/shop";
 const visible = ref(false);
+const chart = ref(null);
+const pageLoading = ref(true);
 const activeTab = ref("visitTimes");
 const activeOnlineTab = ref("exposure");
-const openDialog = (type) => {
+const router = useRouter();
+const shoptotalList = ref([]);
+const bgtotalList = ref([]);
+const djbgtotalList = ref([]);
+const openDialog = () => {
   visible.value = true;
-  nextTick(()=>{
-    initEchart();
-  })
+  handleQuery();
+};
+
+const handleQuery = () => {
+  pageLoading.value = true;
+  getUserClicRate()
+    .then((res) => {
+      if (res.code == 0) {
+        console.log("res", res.data);
+        shoptotalList.value = res.data.shoptotal; // 訪問次數
+        bgtotalList.value = res.data.product.bgtotal; // 曝光量
+        djbgtotalList.value = res.data.product.djbgtotal; // 點擊次數
+        nextTick(() => {
+          initEchart(shoptotalList.value);
+        });
+      }
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 重置
 const handleCancel = () => {
+  chart.value.dispose() // 销毁实例
   visible.value = false;
-  activeTab.value = 'visitTimes'
-  activeOnlineTab.value = 'exposure'
+  activeTab.value = "visitTimes";
+  activeOnlineTab.value = "exposure";
 };
 
+// 改变table
 const changeTab = (e) => {
   activeTab.value = e;
+  activeOnlineTab.value = "exposure";
+  if(e == 'visitTimes'){
+    initEchart(shoptotalList.value);
+  }else{
+    initEchart(bgtotalList.value);
+  }
 };
 const changeOnline = (e) => {
   activeOnlineTab.value = e;
+  if(e == "exposure"){
+    initEchart(bgtotalList.value);
+  }else{
+    initEchart(djbgtotalList.value);
+  }
 };
 
-const initEchart = () => {
-  const chart = echarts.init(document.getElementById("echartBox"));
+const initEchart = (list) => {
+  chart.value = echarts.init(document.getElementById("echartBox"));
   const option = {
     tooltip: {
       trigger: "axis",
@@ -79,7 +116,7 @@ const initEchart = () => {
     xAxis: [
       {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: list.map((i) => i.date),
         axisTick: {
           alignWithLabel: true,
         },
@@ -92,14 +129,13 @@ const initEchart = () => {
     ],
     series: [
       {
-        name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: [10, 52, 200, 334, 390, 330, 220],
+        data: list.map((i) => i.total),
       },
     ],
   };
-  chart.setOption(option);
+  chart.value.setOption(option);
 };
 
 defineExpose({
@@ -136,7 +172,7 @@ defineExpose({
   }
 }
 
-.chart-warp{
-    margin-top: -20px;
+.chart-warp {
+  margin-top: -20px;
 }
 </style>

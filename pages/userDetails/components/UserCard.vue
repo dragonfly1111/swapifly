@@ -39,7 +39,7 @@
           }}</a-button>
         </a-space>
       </div>
-      <div class="registered-btn">
+      <div class="registered-btn" v-if="form.shop == 1">
         <img src="@/assets/images/swapifly-logo.png" alt="" />
         {{ $t("pages.registeredMerchant") }}
       </div>
@@ -75,7 +75,7 @@ const props = defineProps({
   },
   advert: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 

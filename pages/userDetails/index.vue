@@ -29,13 +29,22 @@
         </template>
         <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
         <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
-        <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')">
+        <a-tab-pane
+          key="businessInformation"
+          :title="$t('pages.businessInformation')"
+          v-if="form.shop == 1 || form.p_type == 2"
+        >
         </a-tab-pane>
       </a-tabs>
 
       <div class="tab-content">
         <div class="left-content">
-          <UserCard :advert="advert" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard
+            :advert="advert"
+            :form="form"
+            @toFollow="toFollow"
+            @openRegBusiness="openRegBusiness"
+          ></UserCard>
         </div>
         <div class="right-content">
           <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
@@ -49,12 +58,17 @@
             ref="businessInformation"
             v-show="activeTab == 'businessInformation'"
           ></BusinessInformation>
-          <FollowRow v-show="activeTab == 'followRow'" ref="followRow"></FollowRow>
+          <FollowRow
+            v-show="activeTab == 'followRow'"
+            ref="followRow"
+            @change="getInfo"
+          ></FollowRow>
         </div>
       </div>
     </div>
 
-    <ReportModal ref="reportModal"></ReportModal>
+    <!-- 举报用户 -->
+    <ReportModal ref="reportModal" ></ReportModal>
   </div>
 </template>
 <script setup>
@@ -75,7 +89,7 @@ const goodsRow = ref(null);
 const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
-const advert = ref('')
+const advert = ref("");
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
 const activeTab = ref("goodsRow");
@@ -100,7 +114,7 @@ const getInfo = () => {
     if (res.code == 0) {
       form.value = res.data.shop;
       form.value.p_type = res.data.p_type;
-      advert.value = res.data.advert.content
+      advert.value = res.data.advert.content;
     }
   });
 };
@@ -128,7 +142,7 @@ const handleFollow = () => {
 
 // 举报用户
 const handleReport = () => {
-  reportModal.value.openDialog("user");
+  reportModal.value.openDialog(form.value,"user");
 };
 // 注册商户
 const openRegBusiness = () => {

@@ -124,12 +124,17 @@ pages:
   soldOut: 已售出
   isRemoveGoods: 已下架
   removeGoods: 下架商品
+  removeGoodsTip: 是否確認下架商品
   putawayGoods: 上架商品
+  putawayGoodsTip: 是否確認上架商品
   editGoods: 編輯商品
   exposureGoods: 曝光推廣
   viewtheResults: 檢視成果
   markSold: 標記已售出
+  markSoldTip: 是否確認標記已售出
   delGoods: 刪除商品
+  delGoodsTip: 是否确认删除商品
+  success: 成功
   visitorYourTip: 今天查看了你的個人檔案的人數
   follow: Follow
   cancelFollow: 取消关注
