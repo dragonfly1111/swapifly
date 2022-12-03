@@ -127,9 +127,16 @@
       </a-form>
     </div>
 
-    <a-skeleton :loading="pageLoading">
+    <a-skeleton :loading="pageLoading" :animation="true">
+      <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
+      <div style="margin-top: 22px">
+        <a-skeleton-shape shape="circle" size="large" />
+      </div>
+      <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
       <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-        <a-skeleton-line :rows="18" />
+        <a-skeleton-line :rows="2" :line-height="46" />
+        <a-skeleton-line :rows="1" :line-height="164" />
+        <a-skeleton-line :rows="5" :line-height="46" />
       </a-space>
     </a-skeleton>
     <ChoosePreference
@@ -376,5 +383,10 @@ onMounted(() => {
 .save-btn {
   text-align: right;
   margin-top: 20px;
+}
+
+.arco-skeleton-shape{
+  width: 118px;
+  height: 118px;
 }
 </style>
