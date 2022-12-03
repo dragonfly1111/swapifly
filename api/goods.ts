@@ -26,10 +26,11 @@ export const getHotBrad = () => {
 }
 
 // 获取商品列表
-export const getProductlist = () => {
+export const getProductlist = (params: any) => {
   return request({
     url: '/index/home/productlist',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

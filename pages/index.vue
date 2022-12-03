@@ -1,35 +1,49 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover">
-        <a-carousel-item v-for="image in images">
-          <img :src="image" class="carousel-img"/>
-        </a-carousel-item>
-      </a-carousel>
+      <template v-if="bannerLoading">
+        <a-skeleton :animation="true">
+          <a-skeleton-line :rows="1" :line-height="260"/>
+        </a-skeleton>
+      </template>
+      <tenplate v-else>
+        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+          <a-carousel-item v-for="image in images">
+            <img :src="image" class="carousel-img"/>
+          </a-carousel-item>
+        </a-carousel>
+      </tenplate>
+
     </div>
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content brands-content">
+      <div class="section-content">
         <template v-if="bradLoading">
-          <div v-for="item in 10" class="brands-item">
-            <a-skeleton :animation="true">
-              <a-skeleton-shape shape="circle"/>
-              <div style="height: 5px"></div>
-              <a-skeleton-line :rows="1" :widths="[80]" :line-height="21" />
-            </a-skeleton>
+          <div class="brands-content">
+            <div v-for="item in 10" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+              </a-skeleton>
+            </div>
           </div>
-
         </template>
         <template v-else>
-          <div v-for="item in hotBradList" class="brands-item">
-            <a-image :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
-              <template #loader>
-                <div class="loader-animate"/>
-              </template>
-            </a-image>
-            <div>{{ item.title }}</div>
+          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
-          <div class="arrow-rgiht" @click="bradChangePage('next')">
+          <div class="brands-content">
+            <div v-for="item in hotBradList" class="brands-item">
+              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div>{{ item.title }}</div>
+            </div>
+          </div>
+          <div v-if="bradNextShow" class="arrow arrow-rgiht" @click="bradChangePage('next')">
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
         </template>
@@ -39,7 +53,8 @@
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header section-header1">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
-        <ProductCard :cardWidth="isMobileRef ? '48%' : '24%'"></ProductCard>
+        <ProductCard :list="productList" :pageLoading="productLoading"
+                     :cardWidth="isMobileRef ? '48%' : '24%'"></ProductCard>
       </div>
     </section>
 
@@ -60,7 +75,7 @@
 // import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
 // import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
 import {baseImgPrefix} from "~/config/baseUrl";
-import {getHotBrad} from '~/api/goods'
+import {getHotBrad, getProductlist} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
@@ -70,8 +85,15 @@ const route = useRoute()
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
+
+const bannerLoading = ref(true)
+const bradLoading = ref(true)
+const productLoading = ref(true)
+
+const productList = ref([])
 const hotBradList = ref([])
-const bradLoading = ref(false)
+const bradNextShow = ref(true)
+const curBradPage = ref(0)
 const images = [
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
@@ -125,10 +147,29 @@ const toPreference = () => {
 const bradChangePage = (type) => {
   const ele = document.getElementsByClassName('brands-content')[0]
   console.log(ele, type)
+  if (type === 'next') {
+    curBradPage.value++
+  } else {
+    curBradPage.value--
+  }
+  console.log(curBradPage.value)
+  const toLeft = ele.clientWidth * curBradPage.value
+  ele.scrollTo({
+    left: toLeft,
+    behavior: 'smooth'
+  })
+  if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+    bradNextShow.value = false
+  } else {
+    bradNextShow.value = true
+  }
 }
+
 // 获取banner和谷歌广告
 const getBanner = () => {
+  bannerLoading.value = true
   getHomeAdvert().then(res => {
+    bannerLoading.value = false
     console.log(res)
   })
 }
@@ -144,10 +185,27 @@ const getBrad = () => {
     }
   })
 }
+
+// 获取商品列表
+const getProduct = () => {
+  productLoading.value = true
+  getProductlist({
+    limit: 8,
+    page: 1
+  }).then(res => {
+    productLoading.value = false
+    if (res.code === 0) {
+      productList.value = res.data.data
+    } else {
+      Message.error(res.message)
+    }
+  })
+}
 // 页面初始化
 const initPageData = () => {
   getBanner()
   getBrad()
+  getProduct()
 }
 
 initPageData()
@@ -173,6 +231,7 @@ initPageData()
 
 .section-wrapper {
   margin: 40px 0 40px;
+  overflow: hidden;
 
   .section-header {
     font-size: 24px;
@@ -180,30 +239,16 @@ initPageData()
     margin-bottom: 36px;
     margin-top: 45px;
   }
-  .section-header1{
+
+  .section-header1 {
     margin-bottom: 22px;
   }
 
   .brands-content {
     display: flex;
     font-size: 14px;
-    width: 100%;
+    //width: 100%;
     overflow: hidden;
-    position: relative;
-
-    .arrow-rgiht {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      right: 0;
-      top: 20px;
-      cursor: pointer;
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
 
     .brands-item {
       text-align: center;
@@ -211,12 +256,15 @@ initPageData()
       flex-shrink: 0;
       margin-right: 53px;
       cursor: pointer;
-      *{
+
+      * {
         user-select: none;
       }
-      img{
+
+      img {
         -webkit-user-drag: none;
       }
+
       .arco-image {
         border-radius: 50%;
         object-fit: cover;
@@ -235,14 +283,44 @@ initPageData()
           display: none;
         }
       }
-      .arco-skeleton-shape-circle{
+
+      .arco-skeleton-shape-circle {
         width: 80px;
         height: 80px;
         margin: 0 auto;
       }
-      :deep(.arco-skeleton-line-row){
+
+      :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
+    }
+  }
+
+  .section-content {
+    position: relative;
+
+    .arrow {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      top: 20px;
+      cursor: pointer;
+      z-index: 1;
+      opacity: 0.8;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .arrow-rgiht {
+      right: 0;
+    }
+
+    .arrow-left {
+      left: 0;
+      transform: rotateY(180deg);
     }
   }
 }
