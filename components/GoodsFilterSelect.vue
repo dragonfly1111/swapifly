@@ -139,8 +139,7 @@ const resetForm = () => {
   form.max = ''
   form.offline = false
   form.mail = false
-  formRef.value.resetFields();
-  console.log(form);
+  emits("change", {});
 };
 
 // 价格选择取消

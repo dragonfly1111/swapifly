@@ -11,8 +11,8 @@ import {facebookLogin, googleLogin} from "../api/loginAndRegister";
 import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "../model/res/userInfo";
 import {useI18n} from "vue-i18n";
-import {useUserInfo} from "~/stores/userInfo";
 const {t} = useI18n();
+import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo()
 const emits = defineEmits(['closeDialog'])
 

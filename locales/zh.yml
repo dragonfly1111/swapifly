@@ -19,6 +19,9 @@ head:
   setting: 设置
   profile: 个人中心
   viewHome: 浏览网站首页
+  searchHis: 历史搜索
+  collectionKey: 收藏关键词
+  collectionSuc: 收藏成功
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻

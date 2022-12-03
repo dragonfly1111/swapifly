@@ -21,6 +21,8 @@ head:
   viewHome: 瀏覽網站首頁
   searchHis: 歷史搜索
   collectionKey: 收藏關鍵詞
+  collectionSuc: 收藏成功
+  deleteSuc: 删除成功
 foot:
   helpCenter: 幫助中心
   media: 媒體新聞
