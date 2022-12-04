@@ -166,7 +166,7 @@ const fetchDetailData = () => {
 // 计算左侧列表最大高度
 const getListMaxHeight = () => {
   // 窗口高度 - 头部高度 - 上方选择高度
-  const height = window.innerHeight - 107 - 60
+  const height = window.innerHeight - 107 - 70
   console.log(height)
   listMaxHeight.value = height
 }
@@ -197,11 +197,10 @@ onMounted(() => {
 
 .left-msg-list {
   width: 30%;
-
+  border-top: 1px solid #F2F2F2;;
   .msg-select {
     width: 110px;
-    padding-left: 12px;
-    padding-top: 20px;
+    padding: 20px 12px;
 
     :deep(.arco-select) {
       padding-left: 8px;
@@ -209,7 +208,7 @@ onMounted(() => {
       .arco-select-view-value {
         font-size: 24px;
         overflow: unset;
-        line-height: 32px;
+        line-height: 22px;
       }
 
       .arco-select-view-suffix {
