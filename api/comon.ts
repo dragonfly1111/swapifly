@@ -1,5 +1,15 @@
 import request from '../utils/request'
 
+// 图片上传
+export const uploadToOss = (data: any) => {
+  return request({
+    url: '/index/oss/Upload',
+    method: 'post',
+    data
+  })
+}
+
+
 // 获取地区
 export const getRegion = () => {
   return request({

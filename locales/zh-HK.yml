@@ -317,6 +317,7 @@ newsCenter:
   noNews: 沒有了～
 dialogue:
   newMsg: 新消息
+  imgMsg: 【圖片】
   noMore: 暫無更多對話
   counterpartyPrice: 對方出價
   inputHere: 在此輸入...
@@ -329,6 +330,7 @@ dialogue:
   rejected: 已駁回出價
   accepted: 已接受出價
   checkEvaluate: 查看评价
+  evaluateBut: 評價
   evaluate: 提交評價
   cancel: 取消
   confirm: 提交
@@ -340,23 +342,37 @@ dialogue:
   evaluateContent: 請輸入你的評價內容
   evaluateTip: 請於交易完成15天內完成評價
   markSold: 標記已售出
-  markSoldTip: 標記已售出的商品將無法再收到出價，是否標記？
+  markSoldSuc: 商品已標記售出
+  markSoldTip: 標記已售出的商品將無法再收到出價，
+  markSoldTip1: 是否標記？
   inbox: 收件箱
   onSale: 出售中
   underPurchase: 购买中
   sealed: 已封存
   sealConversation: 封存对话
   block: 封锁对方
+  unBlock: 解封对方
   deleteConversation: 删除对话
   report: 举报对方
   dialogue: 圖片
-  hisProce: 對方出價HK$
+  hisPrice: 對方出價HK$
   yourPrice: 你出價HK$
   operationOffer: 出價
   operationEditOffer: 编辑出价
+  confirmEditOffer: 確認編輯
   operationCancelOffer: 取消出价
   operationRejectOffer: 驳回出价
   operationAcceptOffer: 接受出价
+  offerSuc: 出價成功
+  cancelOfferSuc: 已取消出價
+  editOfferSuc: 出價已編輯
+  acceptSuc: 已接受對方出價
+  rejectSuc: 已駁回對方出價
+  sealeSuc: 對話已封存
+  blockSuc: 已封鎖對方
+  unBlockSuc: 已解封對方
+  reportSuc: 對話已删除
+
 sale:
   saleTitle: 你今天想賣出什麼物品？
   uploadTip: 選擇照片或者將照片移至這裡

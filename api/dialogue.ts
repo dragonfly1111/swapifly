@@ -9,6 +9,14 @@ export const getChatList = (params: any) => {
   })
 }
 
+// 获取对话元信息
+export const getChatMeta= (params: any) => {
+  return request({
+    url: '/index/chat/dialoguestate',
+    method: 'get',
+    params
+  })
+}
 
 // 获取对话详情
 export const getChatDetail = (params: any) => {

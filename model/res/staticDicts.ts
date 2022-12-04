@@ -50,16 +50,16 @@ export function generateEvaluationSource(t:any){
 export function generateMsgType(t:any){
   return [{
     key: t('dialogue.inbox'),
-    value: 1
+    value: 0
   },{
     key: t('dialogue.onSale'),
-    value: 2
+    value: 1
   },{
     key: t('dialogue.underPurchase'),
-    value: 3
+    value: 2
   },{
     key: t('dialogue.sealed'),
-    value: 4
+    value: 3
   }]
 }
 
@@ -72,11 +72,14 @@ export function generateDialogueOperationType(t:any){
     key: t('dialogue.block'),
     value: 2
   },{
-    key: t('dialogue.deleteConversation'),
+    key: t('dialogue.unBlock'),
     value: 3
   },{
-    key: t('dialogue.report'),
+    key: t('dialogue.deleteConversation'),
     value: 4
+  },{
+    key: t('dialogue.report'),
+    value: 5
   }]
 }
 // 认证状态
