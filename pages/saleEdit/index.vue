@@ -5,10 +5,19 @@
       <div>
         <a-upload
           draggable
+          multiple
           :show-file-list="false"
+          :fileList="fileList"
           :action="uploadUrl"
-          accept="image/*,.png"
           :headers="headers"
+          ref="uploadRef"
+          :limit="10"
+          :on-before-upload="beforeUpload"
+          :on-button-click="uploadClick"
+          @success="uploadSuccess"
+          @error="uploadError"
+          @change="uploadChange"
+          accept="image/*,.png"
         >
           <template #upload-button>
             <div class="upload-area">
@@ -37,11 +46,17 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
+import { Modal, Message } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
+import { addProductDraft, delProductDraft, getProductDraftlist } from "~/api/goods";
 const router = useRouter();
+const uploadLoading = ref(false);
+const realFileList = ref([]);
+const fileList = ref([]);
 let headers = reactive({
   "X-Utoken": null,
   "X-Userid": null,
@@ -59,12 +74,49 @@ const images = [
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
 ];
 
+const handleQuery = () => {
+  getProductDraftlist()
+    .then((res) => {})
+    .finally(() => {});
+};
+
 // 删除
 const handleDelDraft = (item) => {};
 // 编辑
 const toEdit = (item) => {
-  router.push('/saleEditGoods')
+  router.push("/saleEditGoods?id=" + item.id);
 };
+
+const beforeUpload = (e) => {
+  console.log("e", e);
+  uploadLoading.value = true;
+  return true;
+};
+const uploadClick = () => {
+  if (uploadLoading.value) return new Promise(() => {});
+};
+// 上传成功
+const uploadSuccess = (e) => {
+  if (e.response.code == 0) {
+    realFileList.value.push(e.response.data);
+  }
+  console.log(fileList.value.length, realFileList.value.length);
+  if (realFileList.value.length == fileList.value.length) {
+    setUserDraft(realFileList.value)
+    router.push({ name: "saleEditGoods", params: { data: realFileList.value } });
+  }
+};
+
+const uploadError = (e) => {
+  uploadLoading.value = false;
+};
+const uploadChange = (_, currentFile) => {
+  fileList.value = _;
+};
+
+onMounted(async () => {
+  handleQuery();
+});
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
@@ -97,8 +149,8 @@ const toEdit = (item) => {
     }
   }
   .draft-title {
-    margin: 60px auto 30px;
-    font-size: 20px;
+    margin: 65px auto 32px;
+    font-size: 24px;
   }
 
   .image-preview-list {

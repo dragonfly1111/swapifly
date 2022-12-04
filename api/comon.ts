@@ -31,5 +31,12 @@ export const getOan = () => {
     method: 'get'
   })
 }
+// 违禁词
+export const getPdw = () => {
+  return request({
+    url: '/index/home/pdw',
+    method: 'get'
+  })
+}
 
 

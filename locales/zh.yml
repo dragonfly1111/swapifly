@@ -366,12 +366,15 @@ sale:
   post: 立即发布
   postTip: 是否有额外的邮寄费用或选择？
   publish: 立即发佈
+  saveDraft: 保存草稿
   delete: 删除
   chooseType: 选择分类
   regionTip: 请选择商品所在的国家/地区
   trading: 交易方式
   yourDraft: 你的草稿
   draft: 草稿
+  saveDraftTitle: 需要儲存草稿嗎?
+  saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
 mobile:
   user_center: 我的账户
 authentication:

@@ -1,4 +1,6 @@
 import request from '../utils/request'
+// @ts-ignore
+import qs from "qs";
 
 // 获取商品分类
 export const getGoodsClassList = () => {
@@ -114,9 +116,66 @@ export const deleteProduct = (data: any) => {
 // 上架/下架
 export const upanddownProduct = (data: any) => {
   return request({
-    url: '/index/product_detail/upanddown',
+    url: '/index/product/upanddown',
     method: 'post',
     data
   })
 }
+
+
+// 编辑商品>>>>>>>>>>>>>>
+
+// 用户面交地址
+export const getProductAddress = () => {
+  return request({
+    url: '/index/product/address',
+    method: 'get'
+  })
+}
+// 草稿列表
+export const getProductDraftlist = () => {
+  return request({
+    url: '/index/product/draftlist',
+    method: 'get'
+  })
+}
+// 草稿详情
+export const getProductDraftDetails = (id: any) => {
+  return request({
+    url: '/index/product/draftdetails?id=' + id,
+    method: 'get'
+  })
+}
+// 删除草稿
+export const delProductDraft = (data: any) => {
+  return request({
+    url: '/index/product/delete_draft',
+    method: 'post',
+    data
+  })
+}
+// 保存草稿
+export const addProductDraft = (data: any) => {
+  return request({
+    url: '/index/product/add_draft',
+    method: 'post',
+    data
+  })
+}
+// 编辑商品
+export const editProduct = (data: any) => {
+  return request({
+    url: '/index/product/edit',
+    method: 'post',
+    data
+  })
+}
+// 编辑商品-查询
+export const getProductInfo = (id: any) => {
+  return request({
+    url: '/index/product/edit?id=' + id,
+    method: 'get',
+  })
+}
+
 

@@ -68,7 +68,7 @@
                   $t("pages.viewtheResults")
                 }}</a-doption>
                 <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
-                  item.state == 2 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
+                  item.state == 3 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
                 }}</a-doption>
                 <a-doption @click.stop="handleMark(item)" v-if="item.state != 2">{{ $t("pages.markSold") }}</a-doption>
                 <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
@@ -166,7 +166,7 @@ const openExposure = (item) => {
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
 const handleRemove = (item) => {
-  let content = item.state == 2 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
+  let content = item.state == 3 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
   Modal.info({
     content: content,
     closable: true,
@@ -174,7 +174,7 @@ const handleRemove = (item) => {
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
     onBeforeOk: (done) => {
-      upanddownProduct({ id: item.id, state: item.state == 2 ? 1 : 2 })
+      upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
             Message.success(res.message);
@@ -239,8 +239,8 @@ const handleMark = (item) => {
 };
 
 // 编辑商品
-const handleEdit = () => {
-  router.push("/saleEditGoods");
+const handleEdit = (item) => {
+  router.push("/saleEditGoods?id=" + item.id);
 };
 // like商品
 const likeProduct = () => {

@@ -19,6 +19,7 @@ export interface ISysDataState {
   authenticationStatus: Idict[],
   searchLog: any[],
   collectionList: any[],
+  goodsPdwList: any[],
 }
 
 export const useSysData = defineStore('sysData', {
@@ -36,6 +37,7 @@ export const useSysData = defineStore('sysData', {
     authenticationStatus:[],
     searchLog:[],
     collectionList:[],
+    goodsPdwList:[]
   }),
   actions: {
     setSysDataServerSide(e: any){
@@ -44,6 +46,7 @@ export const useSysData = defineStore('sysData', {
       this.goodsClass = e.goodsClass
       this.goodsSort = e.goodsSort
       this.goodsOan = e.goodsOan
+      this.goodsPdwList = e.goodsPdwList
     },
     setSysDataClientSide(e: any){
       this.gender = e.gender

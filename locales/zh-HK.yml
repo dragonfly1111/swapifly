@@ -365,12 +365,15 @@ sale:
   deliverAddress: 面交地点
   postTip: 是否有額外的郵寄費用或選擇？
   publish: 立即發佈
+  saveDraft: 保存草稿
   delete: 删除
   chooseType: 選擇分類
   regionTip: 請選擇商品所在國家/區域
   trading: 交易方式
   yourDraft: 你的草稿
   draft: 草稿
+  saveDraftTitle: 需要儲存草稿嗎?
+  saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
 mobile:
     user_center: 我的賬戶
 authentication:
