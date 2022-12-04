@@ -67,8 +67,8 @@
 
     <AD></AD>
 
-    <div class="see-more">
-      <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
+    <div class="see-more" v-if="page < lastPage">
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
     <PageFooterLink></PageFooterLink>
@@ -95,6 +95,7 @@ const choosePreference = ref(null)
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
+const butLoading = ref(false)
 
 const googleAd = ref({})
 const bannerList = ref([])
@@ -103,6 +104,8 @@ const hotBradList = ref([])
 
 const bradNextShow = ref(true)
 const curBradPage = ref(0)
+const page = ref(1)
+const lastPage = ref(999)
 const resize = useResize();
 let isMobile = resize.screenType === 'MOBILE'
 let isMobileRef = ref(isMobile)
@@ -194,17 +197,25 @@ const getProduct = () => {
   productLoading.value = true
   getProductlist({
     limit: 8,
-    page: 1
+    page: page.value
   }).then(res => {
     productLoading.value = false
+    butLoading.value = false
     if (res.code === 0) {
+      lastPage.value = res.data.last_page
       nextTick(() => {
-        productList.value = res.data.data
+        productList.value = [...productList.value, ...res.data.data]
       })
     } else {
       Message.error(res.message)
     }
   })
+}
+// 加载更多
+const loadMore = () => {
+  page.value ++
+  butLoading.value = true
+  getProduct()
 }
 
 // 页面初始化
