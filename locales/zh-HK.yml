@@ -154,6 +154,8 @@ pages:
   viewSeller: 瀏覽賣家
   viewAllComment: 查看所有評價
   similarGoods: 類似的商品
+  emptyContent: 暫無内容
+  emptyContentSub: 暫無符合條件的內容
 profile:
   edit_profile: 編輯檔案
   edit_password: 更改密碼

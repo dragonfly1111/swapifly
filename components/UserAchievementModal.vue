@@ -58,7 +58,7 @@
               {{ $t("achievementModal.exposureTip") }}
             </div>
             <div>
-              <div id="exposureEchart" style="width: 100%; height: 300px"></div>
+              <div id="exposureEchart" style="width: 100%; height: 260px"></div>
             </div>
           </a-tab-pane>
           <a-tab-pane key="2" :title="$t('achievementModal.click')">
@@ -66,7 +66,7 @@
               {{ $t("achievementModal.clickNumberTip") }}
             </div>
             <div>
-              <div id="echartBox" style="width: 100%; height: 300px"></div>
+              <div id="echartBox" style="width: 100%; height: 260px"></div>
             </div>
           </a-tab-pane>
           <a-tab-pane key="3" :title="$t('achievementModal.whisper')">
@@ -74,7 +74,7 @@
               {{ $t("achievementModal.whisperTip") }}
             </div>
             <div>
-              <div id="whisperEchart" style="width: 100%; height: 300px"></div>
+              <div id="whisperEchart" style="width: 100%; height: 260px"></div>
             </div>
           </a-tab-pane>
         </a-tabs>
@@ -160,6 +160,9 @@ const initExposureChart = () => {
         type: "shadow",
       },
     },
+    legend: {
+    data: [t('achievementModal.payExposure'), t('achievementModal.natureExposure')]
+  },
     grid: {
       left: "3%",
       right: "4%",
@@ -174,13 +177,6 @@ const initExposureChart = () => {
           alignWithLabel: true,
         },
       },
-      {
-        type: "category",
-        data: productInfo.value.exposure.zrexposure.map((i) => i.date),
-        axisTick: {
-          alignWithLabel: true,
-        },
-      },
     ],
     yAxis: [
       {
@@ -189,15 +185,13 @@ const initExposureChart = () => {
     ],
     series: [
       {
-        name: "Direct",
+        name: t('achievementModal.payExposure'),
         type: "bar",
-        barWidth: "60%",
         data: productInfo.value.exposure.ffexposure.map((i) => i.total),
       },
       {
-        name: "Direct",
+        name: t('achievementModal.natureExposure'),
         type: "bar",
-        barWidth: "60%",
         data: productInfo.value.exposure.zrexposure.map((i) => i.total),
       },
     ],
@@ -342,7 +336,7 @@ defineExpose({
     }
     .tab-title {
       text-align: center;
-      margin: 10px auto;
+      margin: 10px auto 20px;
     }
   }
 }

@@ -1,8 +1,12 @@
 <template>
   <div class="user-container">
     <div class="user-icon">
-      <a-image :src="baseImgPrefix + form.avatar" fit="cover" show-loader></a-image>
-    </div>
+      <a-image :src="baseImgPrefix + form.avatar" fit="cover" show-loader>
+        <template #loader>
+            <div class="loader-animate"/>
+          </template>
+      </a-image>
+    </div>  
     <div class="user-body">
       <h2>{{ form.nickname }}</h2>
       <div class="user-desc">
