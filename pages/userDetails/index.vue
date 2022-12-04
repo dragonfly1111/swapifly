@@ -1,11 +1,19 @@
 <template>
   <div class="common-row global-content">
     <div class="user-banner">
-      <a-image :src="testImg" fit="cover" show-loader></a-image>
+      <a-image :src="testImg" fit="cover" show-loader>
+        <template #loader>
+            <div class="loader-animate"/>
+          </template>
+      </a-image>
     </div>
 
     <div class="user-details">
-      <a-tabs :active-key="activeTab" @change="handleTabChange">
+      <a-tabs
+        :active-key="activeTab"
+        @change="handleTabChange"
+        :class="{ noline: activeTab == 'followRow' }"
+      >
         <template #extra>
           <a-space class="extra-btn">
             <a-button
@@ -68,7 +76,7 @@
     </div>
 
     <!-- 举报用户 -->
-    <ReportModal ref="reportModal" ></ReportModal>
+    <ReportModal ref="reportModal"></ReportModal>
   </div>
 </template>
 <script setup>
@@ -142,7 +150,7 @@ const handleFollow = () => {
 
 // 举报用户
 const handleReport = () => {
-  reportModal.value.openDialog(form.value,"user");
+  reportModal.value.openDialog(form.value, "user");
 };
 // 注册商户
 const openRegBusiness = () => {
@@ -189,6 +197,11 @@ onMounted(() => {
   }
   :deep(.arco-tabs-nav-ink) {
     background-color: $main-pink;
+  }
+  .noline {
+    :deep(.arco-tabs-nav-ink) {
+      display: none;
+    }
   }
   :deep(.arco-tabs-tab-active, .arco-tabs-tab-active:hover) {
     color: $main-grey;

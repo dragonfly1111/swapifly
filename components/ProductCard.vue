@@ -70,7 +70,7 @@
                 <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
                   item.state == 2 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
                 }}</a-doption>
-                <a-doption @click.stop="handleMark(item)">{{ $t("pages.markSold") }}</a-doption>
+                <a-doption @click.stop="handleMark(item)" v-if="item.state != 2">{{ $t("pages.markSold") }}</a-doption>
                 <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
               </template>
             </template>
@@ -102,6 +102,7 @@
 import { baseImgPrefix } from "~/config/baseUrl";
 import { Modal, Button,Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct } from "~/api/goods";
+import { setSoldOut } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const props = defineProps({
@@ -178,12 +179,13 @@ const handleRemove = (item) => {
           if (res.code === 0) {
             Message.success(res.message);
             emits("change");
-            done(true)
           } else {
             Message.error(res.message);
           }
         })
-        .finally(() => {});
+        .finally(() => {
+          done(true)
+        });
     },
   });
 };
@@ -205,12 +207,36 @@ const handleDelete = (item) => {
             Message.error(res.message);
           }
         })
-        .finally(() => {});
+        .finally(() => {
+          done(true)
+        });
     },
   });
 };
 // 标记已售出
-const handleMark = (item) => {};
+const handleMark = (item) => {
+  Modal.info({
+    content: t("pages.markSoldTip"),
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("pages.confirm"),
+    onBeforeOk: (done) => {
+      setSoldOut({ id: item.id })
+        .then((res) => {
+          if (res.code === 0) {
+            Message.success(res.message);
+            emits("change");
+          } else {
+            Message.error(res.message);
+          }
+        })
+        .finally(() => {
+          done(true)
+        });
+    },
+  });
+};
 
 // 编辑商品
 const handleEdit = () => {

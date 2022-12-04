@@ -11,13 +11,13 @@
           <a-skeleton-line :widths="[200]" :line-height="250" />
           <a-skeleton-line :widths="[200]" :line-height="250" />
         </a-space>
-        <div style="margin-top:20px">
+        <div style="margin-top: 20px">
           <a-space :style="{ width: '100%' }" size="large" wrap>
-          <a-skeleton-line :widths="[200]" :line-height="250" />
-          <a-skeleton-line :widths="[200]" :line-height="250" />
-          <a-skeleton-line :widths="[200]" :line-height="250" />
-          <a-skeleton-line :widths="[200]" :line-height="250" />
-        </a-space>
+            <a-skeleton-line :widths="[200]" :line-height="250" />
+            <a-skeleton-line :widths="[200]" :line-height="250" />
+            <a-skeleton-line :widths="[200]" :line-height="250" />
+            <a-skeleton-line :widths="[200]" :line-height="250" />
+          </a-space>
         </div>
       </a-skeleton>
 
@@ -45,6 +45,16 @@
             >
           </div>
         </div>
+
+        <a-empty class="empty-box" v-if="!dataList.length">
+          <template #image>
+            <img src="@/assets/images/no-follow.png" alt="" />
+          </template>
+          <a-space direction="vertical" fill size="medium">
+            <div class="empty-tip">{{ $t("pages.emptyContent") }}</div>
+            <div>{{ $t("pages.emptyContentSub") }}</div>
+          </a-space>
+        </a-empty>
       </div>
 
       <div class="see-more" v-if="total < dataList.length">
@@ -151,6 +161,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
 .follow-box {
   .box-header {
     padding: 20px 30px 10px;
@@ -208,6 +219,20 @@ defineExpose({
     color: rgba(56, 56, 56, 1);
     padding: 0 20px;
     height: 38px;
+  }
+}
+
+.empty-box {
+  color: $grey-font-label;
+  font-size: 12px;
+  margin-top: 10%;
+  img {
+    width: 100px;
+    object-fit: contain;
+  }
+  .empty-tip {
+    color: $main-grey;
+    font-size: 18px;
   }
 }
 </style>
