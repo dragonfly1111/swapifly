@@ -7,9 +7,15 @@
           <a-upload
             draggable
             :show-file-list="false"
+            :file-list="fileList"
             :action="uploadUrl"
             accept="image/*,.png"
             :headers="headers"
+            :limit="10"
+            :on-before-upload="beforeUpload"
+            :on-button-click="uploadClick"
+            @success="uploadSuccess"
+            @error="uploadError"
           >
             <template #upload-button>
               <div class="upload-area">
@@ -23,7 +29,7 @@
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
         <!-- <div class="image-preview-list"> -->
         　<draggable
-          v-model="imageList.list"
+          v-model="fileList"
           class="image-preview-list"
           ghost-class="ghost"
           chosen-class="chosenClass"
@@ -34,10 +40,10 @@
         >
           <template #item="{ element, index }">
             <div class="item image-item" :class="{ 'is-cover': index == 0 }">
-              <a-image :src="element.images"> </a-image>
+              <a-image :src="element.url"> </a-image>
               <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
               <icon-close
-                @click="handleDelImage(element)"
+                @click="handleDelImage(element, index)"
                 class="icon-close"
                 :title="$t('sale.delete')"
               />
@@ -60,7 +66,14 @@
         <!-- </div> -->
       </div>
       <div class="right">
-        <a-form size="large" :model="form" layout="vertical" ref="formRef" class="right-form">
+        <a-form
+          size="large"
+          :rules="rules"
+          :model="form"
+          layout="vertical"
+          ref="formRef"
+          class="right-form"
+        >
           <a-form-item field="rid" hide-label hide-asterisk>
             <a-tree-select
               :data="typeList"
@@ -78,10 +91,10 @@
               <div>分类/分类</div>
             </template>
           </a-form-item>
-          <div v-if="!form.rid">
+          <div v-if="form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
               <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" />
-              <template #extra>
+              <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
                 </div>
@@ -116,7 +129,9 @@
               <template #extra>
                 <a-row justify="space-between">
                   <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
-                  <a-col flex="138px" class="tip-danger"> {{ $t("sale.forbidTip") }}</a-col>
+                  <a-col flex="138px" v-if="hasBanWord(form.describe)" class="tip-danger">
+                    {{ $t("sale.forbidTip") }}</a-col
+                  >
                 </a-row>
               </template>
             </a-form-item>
@@ -138,14 +153,30 @@
             </a-form-item>
             <div class="form-title">{{ $t("sale.trading") }}</div>
             <a-form-item field="address" hide-label :content-flex="false">
-              <a-checkbox :model-value="form.handDeliver" :value="1">{{
-                $t("pages.handDeliver")
-              }}</a-checkbox>
-              <a-input-search class="input-wrp" :placeholder="$t('sale.deliverAddress')" />
-              <div class="offline-address">
-                <div class="offline-address-item" v-for="item in 3">
-                  <p>MTR Kowloon Tong Station (港鐵九龍塘站)</p>
-                  <span>Kent Rd, Kowloon City</span>
+              <a-checkbox v-model="form.mail" :value="1">{{ $t("pages.handDeliver") }}</a-checkbox>
+              <a-select
+                v-if="form.mail == 1"
+                v-model="offline_address"
+                :placeholder="$t('sale.deliverAddress')"
+                allow-clear
+                allow-search
+                class="input-wrp"
+                @search="handleSearch" :filter-option="false"
+              >
+                <a-option
+                  v-for="item in addressOptions"
+                  :value="item.id"
+                  :key="item.id"
+                  :label="item.title"
+                >
+                  {{ item.title }}
+                </a-option>
+              </a-select>
+              <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
+              <div class="offline-address" v-if="form.mail == 1">
+                <div class="offline-address-item" v-for="item in form.offline_address">
+                  <p>{{ item.title }}</p>
+                  <!-- <span>Kent Rd, Kowloon City</span> -->
                   <div class="close-box">
                     <icon-close />
                   </div>
@@ -153,11 +184,12 @@
               </div>
             </a-form-item>
             <a-form-item field="mail_note" hide-label :content-flex="false">
-              <a-checkbox :model-value="form.postAndCourier" :value="2">{{
+              <a-checkbox v-model="form.offline" :value="1">{{
                 $t("pages.postAndCourier")
               }}</a-checkbox>
               <a-textarea
                 class="input-wrp"
+                v-if="form.offline == 1"
                 :placeholder="$t('sale.postTip')"
                 allow-clear
                 :auto-size="{ minRows: 5, maxRows: 5 }"
@@ -165,6 +197,9 @@
               />
             </a-form-item>
             <div class="publish">
+              <!-- <a-button class="black-btn" style="margin-right: 15px">{{
+                $t("sale.saveDraft")
+              }}</a-button> -->
               <a-button class="publish-btn">{{ $t("sale.publish") }}</a-button>
             </div>
           </div>
@@ -173,17 +208,26 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: "saleEditGoods",
+};
+</script>
 <script setup>
 import draggable from "vuedraggable";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
-
+import { Notification, Modal } from "@arco-design/web-vue";
+import { getProductDraftDetails, getProductInfo, getProductAddress } from "~/api/goods";
+const { t } = useI18n();
+const router = useRouter();
 const sysData = useSysData();
 const typeList = sysData.goodsClass;
 const newOldList = sysData.goodsOan;
 const regionOptions = sysData.region;
+const pdwList = sysData.goodsPdwList || [];
 let headers = reactive({
   "X-Utoken": null,
   "X-Userid": null,
@@ -193,46 +237,157 @@ if (process.client) {
   headers["X-Utoken"] = userInfo.token;
   headers["X-Userid"] = userInfo.id;
 }
-const form = reactive({
+const offline_address = ref(null) // 面交地点
+const form = ref({
+  id: null,
   rid: "",
-  handDeliver: null,
-  postAndCourier: null,
 });
+const fileList = ref([]);
+const addressOptions = ref([]);
 const formRef = ref(null);
-const imageList = reactive({
-  //需要拖拽的数据，拖拽后数据的顺序也会变化
-  list: [
-    {
-      id: 1,
-      images:
-        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-    },
-    {
-      id: 2,
-      images:
-        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
-    },
-    {
-      id: 3,
-      images:
-        "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
-    },
-  ],
-});
+
+const rules = reactive({});
+
+const listAll = () => {
+  // 地址
+  getProductAddress().then((res) => {
+    addressOptions.value = res.data
+  });
+};
+
+// 搜索地址
+const handleSearch = (e) =>{
+
+}
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
-  let obj = newOldList.find((i) => i.id == form.nid);
+  let obj = newOldList.find((i) => i.id == form.value.nid);
   return obj ? obj.advice : "";
 };
 
+// 草稿详情
+const getDraftInfo = () => {
+  getProductDraftDetails();
+};
+
+// 是否含有违禁词汇
+const hasBanWord = (val) => {
+  if (val && pdwList) {
+    return (
+      pdwList.filter((i) => {
+        return val.indexOf(i) > -1;
+      }).length > 0
+    );
+  }
+  return false;
+};
+
+// 商品详情
+const getProduct = () => {
+  getProductInfo(form.value.id).then((res) => {
+    form.value = res.data;
+    fileList.value = res.data.images.map((item, index) => {
+      return {
+        id: index + 1,
+        uid: index + 1,
+        url: baseImgPrefix + item,
+      };
+    });
+  });
+};
+
 // 删除图片
-const handleDelImage = (item) => {};
+const handleDelImage = (item, index) => {
+  fileList.value.splice(index, 1);
+};
 
 //拖拽结束的事件
 const onEnd = (e) => {
   console.log("结束拖拽");
 };
+
+const beforeUpload = (e) => {
+  return true;
+};
+const uploadClick = () => {};
+// 上传成功
+const uploadSuccess = (e) => {
+  if (e.response.code == 0) {
+    fileList.value.push({
+      id: e.uid,
+      uid: e.uid,
+      url: baseImgPrefix + e.response.data,
+    });
+  }
+};
+
+const uploadError = (e) => {};
+
+// 提交表单
+const submitForm = () =>{
+
+}
+
+// 关闭app 记录用户停留时间入库
+const beforeunloadHandler = (e) => {
+  if (router.currentRoute.value.path == "/saleEditGoods") {
+    e = e || window.event;
+    // 兼容IE8和Firefox 4之前的版本
+    if (e) {
+      e.returnValue = "关闭提示";
+    }
+    saveDraftModal();
+    // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+    return "关闭提示222";
+  } else {
+    window.onbeforeunload = null;
+  }
+};
+
+const saveDraftModal = () => {
+  console.log(router);
+};
+
+router.beforeEach((to, from, next) => {
+  if (router.currentRoute.value.path == "/saleEditGoods") {
+    Modal.info({
+      titleAlign: "start",
+      title: t("sale.saveDraftTitle"),
+      content: t("sale.saveDraftContent"),
+      closable: true,
+      hideCancel: false,
+      cancelText: t("pages.cancel"),
+      okText: t("sale.saveDraft"),
+      onBeforeOk: (done) => {},
+      onCancel: () => {
+        next();
+        return true;
+      },
+    });
+  } else {
+    next();
+  }
+});
+
+onMounted(() => {
+  if (setUserDraft().value && setUserDraft().value.length) {
+    fileList.value = setUserDraft().value.map((item, index) => {
+      return {
+        id: index + 1,
+        uid: index + 1,
+        url: baseImgPrefix + item,
+      };
+    });
+  }
+  if (router.currentRoute.value.query.id) {
+    form.value.id = router.currentRoute.value.query.id;
+    getProduct();
+  }
+  listAll();
+  // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
+  console.log("setUserDraft().value", setUserDraft().value, router.currentRoute);
+});
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
@@ -305,7 +460,8 @@ const onEnd = (e) => {
           top: 5px;
           font-size: 16px;
           color: #4e5969;
-          z-index: 22;
+          z-index: 99;
+          cursor: pointer;
         }
         &.is-cover {
           border: 4px solid $main-grey;
@@ -361,6 +517,9 @@ const onEnd = (e) => {
           font-size: 16px;
         }
       }
+      :deep(.arco-select) {
+        @extend .input-wrp;
+      }
       :deep(.arco-select-view-single) {
         @extend .input-wrp;
       }
@@ -409,15 +568,15 @@ const onEnd = (e) => {
     margin-bottom: 10px;
     padding: 15px 40px 20px 15px;
     box-sizing: border-box;
-    border-bottom: 1px solid #E5E6E8;
-    &:nth-child(2n){
+    border-bottom: 1px solid #e5e6e8;
+    &:nth-child(2n) {
       margin-left: 4%;
     }
-    p{
+    p {
       margin: 0 0 10px 0;
     }
-    span{
-      color: #4E5969;
+    span {
+      color: #4e5969;
     }
     .close-box {
       position: absolute;
