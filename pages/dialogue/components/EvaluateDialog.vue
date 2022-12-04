@@ -27,7 +27,7 @@ import { getBindEmailCode, bindEmail } from "~/api/user";
 import {Message} from "@arco-design/web-vue";
 const {t} = useI18n();
 const emits = defineEmits(['binSuc'])
-const visible = ref(true);
+const visible = ref(false);
 const okLoading = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);
