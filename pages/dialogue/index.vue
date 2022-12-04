@@ -2,7 +2,7 @@
   <div class="global-content">
     <div class="left-msg-list">
       <div id="left-msg-list" class="msg-select">
-        <a-select v-model="curMsgType" :style="{width:'100%'}" :bordered="false">
+        <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:'100%'}" :bordered="false">
           <a-option
               v-for="item in msgType"
               :value="item.value"
@@ -23,21 +23,29 @@
           <a-list-item v-for="item in conversationList">
             <div class="msg-item">
               <div class="left-avatar">
-                <img :src="item.avatar" alt="">
+                <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">
+                  <template #loader>
+                    <div class="loader-animate"/>
+                  </template>
+                </a-image>
               </div>
               <div class="conv-main-content">
                 <div class="content-title">
                   <span>{{ item.nickname }}</span>
-                  <span class="time">{{ item.time }}</span>
+                  <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-'}}</span>
                 </div>
                 <div class="content">
                   <div class="left">
-                    <div class="msg-content">{{ item.content }}</div>
-                    <div class="new-msg">{{ $t('dialogue.newMsg') }}</div>
-                    <div class="tip">{{ item.contentTip }}</div>
+                    <div class="msg-content">{{ item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-' }}</div>
+                    <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>
+                    <div class="tip">{{ item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisProce') }}{{ item.price }}</div>
                   </div>
                   <div class="right">
-                    <img :src="item.contentImg" alt="">
+                    <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.p_image" alt="">
+                      <template #loader>
+                        <div class="loader-animate"/>
+                      </template>
+                    </a-image>
                   </div>
                 </div>
               </div>
@@ -47,13 +55,16 @@
       </div>
     </div>
     <div class="main-content">
+<!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
       <div class="info-wrap">
         <div class="main-content-title">
           <div class="left">
-            <img class="user-avatar"
-                 src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp"
-                 alt="">
-            <span>用户名称</span>
+            <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + curConversationMeta.avatar" alt="">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
+            <span>{{ curConversationMeta.nickname }}</span>
           </div>
           <a-dropdown @select="handleOperationSelect">
             <icon-more-vertical/>
@@ -64,12 +75,14 @@
         </div>
         <div class="meta-wrap">
           <div class="left">
-            <img class="goods-img"
-                 src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp"
-                 alt="">
+            <a-image class="goods-img" width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + curConversationMeta.p_image" alt="">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
             <div class="info-box">
-              <div>商品名称</div>
-              <div>HK$888</div>
+              <div>{{ curConversationMeta.p_title }}</div>
+              <div>HK$ {{ curConversationMeta.p_price }}</div>
             </div>
           </div>
           <div class="right">
@@ -87,14 +100,34 @@
         </div>
         <div v-else>
           <div class="time-line">2022/09/01 16:28</div>
-          <div class="conversation-item" :class="item.type === 'left' ? 'conversation-left' : 'conversation-right'"
+          <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                v-for="item in conversationDetail">
-            <div class="content-item" :class="item.type === 'left' ? 'content-left' : 'content-right'">
-              <img class="avatar" :src="item.avatar" alt="">
+            <div class="content-item" :class="item.wz === 'left' ? 'content-left' : 'content-right'">
+              <a-image width="36" height="36" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
               <div class="content">
                 <div class="triangle"></div>
                 <div class="fill"></div>
-                {{ item.content }}
+                <!--消息/文本类型-->
+                <template v-if="item.type === 0">
+                  <div v-if="item.c_type === 0">{{ item.content }}</div>
+                  <div v-else style="cursor: pointer">
+                    <a-image width="120" height="120" show-loader fit="cover" :src="baseImgPrefix + item.content" alt="">
+                      <template #loader>
+                        <div class="loader-animate"/>
+                      </template>
+                    </a-image>
+                  </div>
+                </template>
+                <!--操作类型-->
+                <template v-else>
+                  <div class="operation-msg">{{ parseOperationType(item.type) }}</div>
+                  <div class="operation-msg" v-if="item.type !== 5">HK$ {{ item.price }}</div>
+                </template>
+<!--                <div>c_type: {{ item.c_type }} type: {{ item.type }}</div>-->
               </div>
             </div>
           </div>
@@ -118,50 +151,34 @@
   </div>
 </template>
 <script setup>
-import {useSysData} from "~/stores/sysData";
+import { useSysData } from "~/stores/sysData";
+import { getChatList, getChatDetail } from "~/api/dialogue"
 import EvaluateDialog from "./components/EvaluateDialog";
+import { baseImgPrefix } from "~/config/baseUrl";
+import { parseTime } from "~/utils/time"
+import {useI18n} from "vue-i18n";
+
+const {t} = useI18n();
 const evaluateDialog = ref(null);
 const sysData = useSysData();
 const msgType = ref([]);
 // 左侧会话列表
-const conversationList = reactive([]);
+const conversationList = ref([]);
 // 中间对话详情
-const conversationDetail = reactive([]);
+const conversationDetail = ref([]);
+// 当前对话的元信息
+const curConversationMeta = ref({})
 const dialogueOperationType = ref([]);
 const curMsgType = ref(1)
 const listMaxHeight = ref(0)
 const bottom = ref(false);
 const scrollbar = ref(false);
-const fetchListData = () => {
-  if (conversationList.length >= 20) {
-    bottom.value = true
-    return
-  }
-  setTimeout(() => {
-    console.log(11111)
-    for (let i = 0; i < 10; i++) {
-      conversationList.push({
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
-        nickname: '用户名称' + i,
-        time: '2022/09/01',
-        content: '对话内容对话内容对话内容对话内容对话内容对话内容对话内容对话内容对话内容',
-        contentTip: '對方出價HK$788',
-        hasRead: false,
-        contentImg: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
-      })
-    }
-  }, 0)
-  console.log(conversationList)
-}
-const fetchDetailData = () => {
-  for (let i = 0; i < 50; i++) {
-    conversationDetail.push({
-      avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
-      type: Math.random() > 0.5 ? 'left' : 'right',
-      content: '对话内容对话内容对话内容对话对话内容对话内容对话内容对话对话内容对话内容对话内容对话对话内容对话内容对话内容对话对话内容对话内容对话内容对话'
-    })
-  }
-  console.log(conversationDetail)
+const fetchDetailData = (id) => {
+  getChatDetail({
+    id
+  }).then(res=>{
+    conversationDetail.value = res.data.data
+  })
 }
 // 计算左侧列表最大高度
 const getListMaxHeight = () => {
@@ -176,13 +193,56 @@ const handleOperationSelect = (val) =>{
 const openEvaluateDialog = () =>{
   evaluateDialog.value.openDialog();
 }
+
+// 获取左侧对话列表
+const fetchListData = () =>{
+  getChatList({
+    type: curMsgType.value
+  }).then(res=>{
+    conversationList.value = res.data
+    console.log('---------')
+    console.log(conversationList)
+    // 获取到对话列表后 默认获取第一个消息对话详情
+    fetchDetailData(res.data[0].id)
+    curConversationMeta.value = res.data[0]
+    bottom.value = true
+  })
+}
+// 切换消息类型
+const changeMsgType = () =>{
+  bottom.value = false
+  fetchListData()
+}
+// 转换消息操作类型
+const parseOperationType = (e) =>{
+  let str = ''
+  switch (e) {
+    case 1:
+      str = t('dialogue.operationOffer')
+      break
+    case 2:
+      str = t('dialogue.operationEditOffer')
+      break
+    case 3:
+      str = t('dialogue.operationCancelOffer')
+      break
+    case 4:
+      str = t('dialogue.operationRejectOffer')
+      break
+    case 5:
+      str = t('dialogue.operationAcceptOffer')
+      break
+  }
+  return str
+}
+
 onMounted(() => {
   msgType.value = sysData.msgType;
   dialogueOperationType.value = sysData.dialogueOperationType;
   // 先计算高度再填充数据 防止高度被撑开
   getListMaxHeight()
-  fetchListData()
-  fetchDetailData()
+  // fetchListData()
+  // fetchDetailData()
 });
 
 </script>
@@ -232,12 +292,8 @@ onMounted(() => {
       display: flex;
       justify-content: space-between;
 
-      .left-avatar {
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-        }
+      .arco-image {
+        border-radius: 50%;
       }
 
       .conv-main-content {
@@ -321,18 +377,15 @@ onMounted(() => {
     .left {
       display: flex;
       align-items: flex-start;
+      .arco-image{
+        border-radius: 50%;
 
+      }
       span {
         margin-left: 15px;
         font-size: 14px;
         color: #333333;
       }
-    }
-
-    .user-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
     }
 
     :deep(.arco-icon-more-vertical) {
@@ -436,7 +489,7 @@ onMounted(() => {
     }
 
     .conversation-item {
-      .avatar {
+      .arco-image-img {
         border-radius: 50%;
         width: 36px;
         height: 36px;
@@ -454,11 +507,14 @@ onMounted(() => {
           line-height: 22px;
           font-size: 14px;
           color: #333333;
+          .operation-msg{
+            font-weight: bold;
+          }
         }
       }
 
       .content-left {
-        .avatar {
+        .arco-image {
           margin-right: 16px;
         }
 
@@ -482,7 +538,7 @@ onMounted(() => {
       .content-right {
         flex-direction: row-reverse;
 
-        .avatar {
+        .arco-image {
           margin-left: 16px;
         }
 

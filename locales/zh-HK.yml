@@ -349,6 +349,14 @@ dialogue:
   block: 封锁对方
   deleteConversation: 删除对话
   report: 举报对方
+  dialogue: 圖片
+  hisProce: 對方出價HK$
+  yourPrice: 你出價HK$
+  operationOffer: 出價
+  operationEditOffer: 编辑出价
+  operationCancelOffer: 取消出价
+  operationRejectOffer: 驳回出价
+  operationAcceptOffer: 接受出价
 sale:
   saleTitle: 你今天想賣出什麼物品？
   uploadTip: 選擇照片或者將照片移至這裡
