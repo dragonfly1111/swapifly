@@ -102,8 +102,8 @@ const uploadSuccess = (e) => {
   }
   console.log(fileList.value.length, realFileList.value.length);
   if (realFileList.value.length == fileList.value.length) {
-    setUserDraft(realFileList.value)
-    router.push({ name: "saleEditGoods", params: { data: realFileList.value } });
+    setUserDraft(realFileList.value);
+    router.push({ name: "saleEditGoods", query: { type: "draft" } });
   }
 };
 

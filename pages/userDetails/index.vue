@@ -127,6 +127,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
 import { useResize } from '~/stores/resize'
 import { Message } from "@arco-design/web-vue";
+import testBanner from "@/assets/images/test-banner.png"
 const userInfo = useUserInfo();
 const router = useRouter();
 const resize = useResize();
@@ -138,8 +139,7 @@ const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
 const advert = ref("");
-const testImg =
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
+const testImg = testBanner
 const activeTab = ref("goodsRow");//goodsRow
 
 const handleTabChange = (e) => {

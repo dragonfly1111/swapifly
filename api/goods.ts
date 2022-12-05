@@ -162,6 +162,14 @@ export const addProductDraft = (data: any) => {
     data
   })
 }
+// 保存草稿-出售
+export const addProduct = (data: any) => {
+  return request({
+    url: '/index/product/add',
+    method: 'post',
+    data
+  })
+}
 // 编辑商品
 export const editProduct = (data: any) => {
   return request({

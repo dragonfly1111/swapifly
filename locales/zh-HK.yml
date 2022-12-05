@@ -381,6 +381,7 @@ sale:
   saleTitle: 你今天想賣出什麼物品？
   uploadTip: 選擇照片或者將照片移至這裡
   uploadAlert: 最多上傳10張照片
+  shouldUpload: 请上传商品图片
   coverTip: 提示：拖拽照片可以更改封面
   cover: 封面
   forbidTip: 發現違禁詞，請及時更改
@@ -393,6 +394,7 @@ sale:
   deliverAddress: 面交地点
   postTip: 是否有額外的郵寄費用或選擇？
   publish: 立即發佈
+  publishSucc: 發佈成功！
   publishBtnComfirm: 是否确认要立即發佈？
   saveDraft: 保存草稿
   delete: 删除
@@ -408,6 +410,7 @@ sale:
     goodsNameValidate: 請填寫商品名稱
     oldAndNewValidate: 請選擇新舊程度
     priceValidate: 請輸入價格
+    describeValidate: 请填写商品描述
 mobile:
     user_center: 我的賬戶
 authentication:
