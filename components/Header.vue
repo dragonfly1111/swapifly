@@ -84,7 +84,7 @@
               <img v-else class="long-logo" src="@/assets/images/logo-long.png" alt="">
             </nuxt-link>
           </a-col>
-          <a-col :span="16" class="search-col">
+          <a-col :span="resize.screenType === 'MOBILE'?16:10" class="search-col">
             <div class="search-input">
               <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
                 <template #suffix v-if="searchResPage">
@@ -117,7 +117,7 @@
               </div>
             </div>
           </a-col>
-          <a-col :span="resize.screenType === 'MOBILE'?6:4" class="btn-col">
+          <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: left" class="btn-col">
             <div v-if="resize.screenType === 'MOBILE'">
               <template v-if="userInfo.token" >
                 <icon-message class="icon-message" @click="toNotification"/>
@@ -486,7 +486,6 @@ function toClassDetail(e: IGoodsClass) {
   }
   .search-col{
     .search-input {
-      width: 90%;
       height: 46px;
       margin-left: 10px;
       position: relative;
@@ -548,7 +547,6 @@ function toClassDetail(e: IGoodsClass) {
   .btn-col{
     .sell-but-mobile{
       height: 35px;
-      width: 100%;
       background: $main-pink;
       color: #FFFFFF;
       line-height: 46px;

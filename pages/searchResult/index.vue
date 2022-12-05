@@ -8,7 +8,8 @@
           <h2>有{{ productTotal }}個搜尋結果</h2>
         </div>
         <div class="select-wrapper">
-          <GoodsFilterSelect @change="handleQuery"></GoodsFilterSelect>
+          <MobileGoodsFilterSelect v-if="resize.screenType === 'MOBILE'" @change="handleQuery"></MobileGoodsFilterSelect>
+          <GoodsFilterSelect v-else @change="handleQuery"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content goods-content">
@@ -29,8 +30,10 @@
 <script setup>
 import { productSearch } from '~/api/goods'
 import {useSearchKey} from "../../stores/search";
+import { useResize } from '~/stores/resize'
 import {Message} from "@arco-design/web-vue";
 const route = useRoute()
+const resize = useResize();
 const searchKey = useSearchKey()
 const page = ref(1)
 const limit = ref(8)

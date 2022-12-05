@@ -60,8 +60,7 @@
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header section-header1">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
-        <ProductCard :list="productList" :pageLoading="productLoading"
-                     :cardWidth="isMobileRef ? '48%' : '24%'"></ProductCard>
+        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
       </div>
     </section>
 

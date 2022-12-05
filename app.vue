@@ -109,12 +109,22 @@ function handleResize(){
 </template>
 
 <style lang="scss">
+@import "assets/sass/mediaCss.scss";
 html, body , #__nuxt{
   height: 100vh;
   margin: 0;
   padding: 0;
 }
-
+.search-data-mobile{
+  height: 60px;
+  background-color: #fff;
+  .arco-col-8{
+    .arco-select-view-single{
+      background-color: #fff;
+      color: #000;
+    }
+  }
+}
 html.dark {
   background: #222;
   color: white;

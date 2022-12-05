@@ -1,0 +1,26 @@
+@media screen and (min-width:1000px){
+  .recommend-item{
+    width: 24%;
+    min-width: 180px;
+    max-width: 350px;
+  }
+}
+@media screen and (min-width:0px) and (max-width:1000px){
+  .recommend-item{
+    width: 48%;
+  }
+}
+@media screen and (min-width:1000px){
+  .search-col{
+    .search-input{
+      width: 500px;
+    }
+  }
+}
+@media screen and (min-width:0px) and (max-width:1000px){
+  .search-col{
+    .search-input{
+      width: 90%;
+    }
+  }
+}

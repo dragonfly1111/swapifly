@@ -22,7 +22,6 @@
       <div
         class="recommend-item"
         v-for="(item, index) in list"
-        :style="{ width: props.cardWidth }"
         @click="$router.push('/goodsDetails')"
       >
         <div class="user-box" v-if="showUser">
@@ -266,9 +265,6 @@ onMounted(() => {
 .recommend-item + .recommend-item {
 }
 .recommend-item {
-  width: 24%;
-  min-width: 180px;
-  max-width: 350px;
   background: #fff;
   padding: 15px 10px;
   margin-bottom: 10px;

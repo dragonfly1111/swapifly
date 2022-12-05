@@ -31,7 +31,7 @@ const mobileArr = [
     '/login',
     '/register',
     '/mobileUserProfile',
-    '/mobileLike'
+    '/moreSearchFilter'
 ];
 console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
