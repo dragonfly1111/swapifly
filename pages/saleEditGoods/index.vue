@@ -421,7 +421,7 @@ const saveDraftModal = (next) => {
     okText: t("sale.saveDraft"),
     onBeforeOk: (done) => {
       done(true);
-      reqUrl(setReqForm()).then((res) => {
+      addProductDraft(setReqForm()).then((res) => {
         if (res.code === 0) {
           Notification.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
