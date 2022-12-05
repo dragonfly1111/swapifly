@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { baseApiPrefix } from '~/config/baseUrl'
-import {Message} from "@arco-design/web-vue";
-import {useUserInfo} from "~/stores/userInfo";
+import { Message } from "@arco-design/web-vue";
+import { useUserInfo } from "~/stores/userInfo";
 // import { useCookie } from "nuxt/app";
 const request = axios.create({
   baseURL: baseApiPrefix,
@@ -17,7 +17,7 @@ request.interceptors.request.use(
     let userObj: any
     if (info) {
       userObj = JSON.parse(info)
-      if(userObj.token){
+      if (userObj.token) {
         // @ts-ignore
         config.headers['X-UToken'] = userObj.token
         // @ts-ignore
@@ -35,11 +35,20 @@ request.interceptors.request.use(
     // // @ts-ignore
     // localeSetting.value ? config.headers['X-Lang'] = localeSetting.value : ''
 
-    if((config.method === 'post' || config.method === 'POST') && config.data){
+    if ((config.method === 'post' || config.method === 'POST') && config.data) {
       // 如果是post请求 全部转成formData
       const formData = new FormData()
-      for(const key in config.data){
-        formData.append(key, config.data[key])
+      for (const key in config.data) {
+        // 处理数组
+        if (Object.prototype.toString.call(config.data[key]) === '[object Array]' && config.data[key].length) {
+          var arr = config.data[key]
+          // @ts-ignore
+          arr.map((item, i) => {
+            formData.append(`${key}[${i}]`, item)
+          });
+        } else {
+          formData.append(key, config.data[key])
+        }
       }
       config.data = formData
       // @ts-ignore
@@ -55,7 +64,7 @@ request.interceptors.request.use(
 // 响应拦截
 request.interceptors.response.use(
   (response: AxiosResponse) => {
-    if(response.data.code === 999){
+    if (response.data.code === 999) {
       // 登录过期 跳转首页
       Message.error(response.data.message)
       const router = useRouter()

@@ -1,6 +1,4 @@
 import request from '../utils/request'
-// @ts-ignore
-import qs from "qs";
 
 // 获取商品分类
 export const getGoodsClassList = () => {
@@ -158,6 +156,14 @@ export const delProductDraft = (data: any) => {
 export const addProductDraft = (data: any) => {
   return request({
     url: '/index/product/add_draft',
+    method: 'post',
+    data,
+  })
+}
+// 保存草稿-出售
+export const addProduct = (data: any) => {
+  return request({
+    url: '/index/product/add',
     method: 'post',
     data
   })

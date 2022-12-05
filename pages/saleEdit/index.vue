@@ -30,13 +30,13 @@
       </div>
       <div class="draft-title">{{ $t("sale.yourDraft") }}</div>
       <div class="image-preview-list">
-        <div class="image-item" v-for="(item, index) in images" @click="toEdit">
-          <a-image :src="item" :preview="false"> </a-image>
+        <div class="image-item" v-for="(item, index) in draftList" >
+          <a-image :src="baseImgPrefix + item.images" :preview="false" @click="toEdit(item)"> </a-image>
           <span class="draft">{{ $t("sale.draft") }}</span>
           <div class="image-info">
-            <span class="goods-name">商品名称</span>
+            <span class="goods-name">{{ item.title }}</span>
             <icon-close
-              @click="handleDelDraft(item)"
+              @click.stop="handleDelDraft(item)"
               class="icon-close"
               :title="$t('sale.delete')"
             />
@@ -50,11 +50,13 @@
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
-import { Modal, Message } from "@arco-design/web-vue";
+import { Notification, Modal } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
-import { addProductDraft, delProductDraft, getProductDraftlist } from "~/api/goods";
+import { delProductDraft, getProductDraftlist } from "~/api/goods";
+const { t } = useI18n();
 const router = useRouter();
 const uploadLoading = ref(false);
+const pageLoading = ref(true);
 const realFileList = ref([]);
 const fileList = ref([]);
 let headers = reactive({
@@ -66,29 +68,46 @@ if (process.client) {
   headers["X-Utoken"] = userInfo.token;
   headers["X-Userid"] = userInfo.id;
 }
-const images = [
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-];
+const draftList = ref([]);
 
 const handleQuery = () => {
   getProductDraftlist()
-    .then((res) => {})
-    .finally(() => {});
+    .then((res) => {
+      draftList.value = res.data;
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 删除
-const handleDelDraft = (item) => {};
+const handleDelDraft = (item) => {
+  Modal.info({
+    titleAlign: "start",
+    content: t("sale.deleteDraftComfirm"),
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("sale.delete"),
+    onBeforeOk: (done) => {
+      done(true);
+      delProductDraft({id:item.id}).then((res) => {
+        if (res.code === 0) {
+          Notification.success(res.message);
+          handleQuery()
+        } else {
+          Notification.error(res.message);
+        }
+      });
+    },
+  });
+};
 // 编辑
 const toEdit = (item) => {
-  router.push("/saleEditGoods?id=" + item.id);
+  router.push("/saleEditGoods?draftId=" + item.id);
 };
 
 const beforeUpload = (e) => {
-  console.log("e", e);
   uploadLoading.value = true;
   return true;
 };
@@ -102,8 +121,8 @@ const uploadSuccess = (e) => {
   }
   console.log(fileList.value.length, realFileList.value.length);
   if (realFileList.value.length == fileList.value.length) {
-    setUserDraft(realFileList.value)
-    router.push({ name: "saleEditGoods", params: { data: realFileList.value } });
+    setUserDraft(realFileList.value);
+    router.push({ name: "saleEditGoods", query: { type: "draft" } });
   }
 };
 

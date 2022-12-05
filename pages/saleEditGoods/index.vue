@@ -4,9 +4,18 @@
     <div class="edit-box border-box">
       <div class="left">
         <div>
-          <a-upload draggable :show-file-list="false" :file-list="fileList" :action="uploadUrl" accept="image/*,.png"
-            :headers="headers" :limit="10" :on-before-upload="beforeUpload" @success="uploadSuccess"
-            @error="uploadError">
+          <a-upload
+            draggable
+            :show-file-list="false"
+            :file-list="fileList"
+            :action="uploadUrl"
+            accept="image/*,.png"
+            :headers="headers"
+            :limit="10"
+            :on-before-upload="beforeUpload"
+            @success="uploadSuccess"
+            @error="uploadError"
+          >
             <template #upload-button>
               <div class="upload-area">
                 <icon-plus :strokeWidth="10" :size="18" />
@@ -18,13 +27,25 @@
         </div>
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
         <!-- <div class="image-preview-list"> -->
-        　<draggable v-model="fileList" class="image-preview-list" ghost-class="ghost" chosen-class="chosenClass"
-          animation="300" @end="onEnd" :fallback-on-body="true" item-key="id">
+        　<draggable
+          v-model="fileList"
+          class="image-preview-list"
+          ghost-class="ghost"
+          chosen-class="chosenClass"
+          animation="300"
+          @end="onEnd"
+          :fallback-on-body="true"
+          item-key="id"
+        >
           <template #item="{ element, index }">
             <div class="item image-item" :class="{ 'is-cover': index == 0 }">
               <a-image :src="element.url"> </a-image>
               <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
-              <icon-close @click="handleDelImage(element, index)" class="icon-close" :title="$t('sale.delete')" />
+              <icon-close
+                @click="handleDelImage(element, index)"
+                class="icon-close"
+                :title="$t('sale.delete')"
+              />
             </div>
           </template>
         </draggable>
@@ -44,13 +65,27 @@
         <!-- </div> -->
       </div>
       <div class="right">
-        <a-form size="large" :rules="rules" :model="form" layout="vertical" ref="formRef" class="right-form">
+        <a-form
+          size="large"
+          :rules="rules"
+          :model="form"
+          layout="vertical"
+          ref="formRef"
+          class="right-form"
+        >
           <a-form-item field="rid" hide-label hide-asterisk>
-            <a-tree-select :data="typeList" v-model="form.rid" :fieldNames="{
-              key: 'id',
-              title: 'title',
-              children: 'children',
-            }" :placeholder="$t('sale.chooseType')" selectable="leaf" class="input-wrp"></a-tree-select>
+            <a-tree-select
+              :data="typeList"
+              v-model="form.rid"
+              :fieldNames="{
+                key: 'id',
+                title: 'title',
+                children: 'children',
+              }"
+              :placeholder="$t('sale.chooseType')"
+              selectable="leaf"
+              class="input-wrp"
+            ></a-tree-select>
             <template #extra>
               <div>分类/分类</div>
             </template>
@@ -83,34 +118,64 @@
               </a-input>
             </a-form-item>
             <a-form-item field="describe" :label="$t('sale.goodsDesc')" hide-asterisk>
-              <a-textarea class="input-wrp" :placeholder="$t('sale.goodsDescTip')" allow-clear
-                :auto-size="{ minRows: 8, maxRows: 8 }" v-model="form.describe" />
+              <a-textarea
+                class="input-wrp"
+                :placeholder="$t('sale.goodsDescTip')"
+                allow-clear
+                :auto-size="{ minRows: 8, maxRows: 8 }"
+                v-model="form.describe"
+              />
               <template #extra>
                 <a-row justify="space-between">
                   <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
                   <a-col flex="138px" v-if="hasBanWord(form.describe)" class="tip-danger">
-                    {{ $t("sale.forbidTip") }}</a-col>
+                    {{ $t("sale.forbidTip") }}</a-col
+                  >
                 </a-row>
               </template>
             </a-form-item>
             <a-form-item field="region" :label="$t('profile.countries_regions')" hide-asterisk>
-              <a-select v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" allow-clear>
-                <a-option v-for="item in regionOptions" :value="item.id" :key="item.id" :label="item.title">
+              <a-select
+                v-model="form.region"
+                :placeholder="$t('profile.countries_regions_empty')"
+                allow-clear
+              >
+                <a-option
+                  v-for="item in regionOptions"
+                  :value="item.id"
+                  :key="item.id"
+                  :label="item.title"
+                >
                   {{ item.title }}
                 </a-option>
               </a-select>
             </a-form-item>
             <div class="form-title">{{ $t("sale.trading") }}</div>
             <a-form-item field="address" hide-label hide-asterisk :content-flex="false">
-              <a-checkbox v-model="form.mail" :value="1">{{ $t("pages.handDeliver") }}</a-checkbox>
-              <a-select v-if="form.mail == 1" v-model="offline_address" :placeholder="$t('sale.deliverAddress')"
-                allow-clear allow-search class="input-wrp" @search="handleSearch" :filter-option="false">
-                <a-option v-for="item in addressOptions" :value="item.id" :key="item.id" :label="item.title">
+              <a-checkbox v-model="form.offline" :value="1">{{
+                $t("pages.handDeliver")
+              }}</a-checkbox>
+              <a-select
+                v-if="form.offline == 1"
+                v-model="offline_address"
+                :placeholder="$t('sale.deliverAddress')"
+                allow-clear
+                allow-search
+                class="input-wrp"
+                @search="handleSearch"
+                :filter-option="false"
+              >
+                <a-option
+                  v-for="item in addressOptions"
+                  :value="item.id"
+                  :key="item.id"
+                  :label="item.title"
+                >
                   {{ item.title }}
                 </a-option>
               </a-select>
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
-              <div class="offline-address" v-if="form.mail == 1">
+              <div class="offline-address" v-if="form.offline == 1">
                 <div class="offline-address-item" v-for="item in form.offline_address">
                   <p>{{ item.title }}</p>
                   <!-- <span>Kent Rd, Kowloon City</span> -->
@@ -121,11 +186,17 @@
               </div>
             </a-form-item>
             <a-form-item field="mail_note" hide-label :content-flex="false" hide-asterisk>
-              <a-checkbox v-model="form.offline" :value="1">{{
-                  $t("pages.postAndCourier")
+              <a-checkbox v-model="form.mail" :value="1">{{
+                $t("pages.postAndCourier")
               }}</a-checkbox>
-              <a-textarea class="input-wrp" v-if="form.offline == 1" :placeholder="$t('sale.postTip')" allow-clear
-                :auto-size="{ minRows: 5, maxRows: 5 }" v-model="form.mail_note" />
+              <a-textarea
+                class="input-wrp"
+                v-if="form.mail == 1"
+                :placeholder="$t('sale.postTip')"
+                allow-clear
+                :auto-size="{ minRows: 5, maxRows: 5 }"
+                v-model="form.mail_note"
+              />
             </a-form-item>
             <div class="publish">
               <!-- <a-button class="black-btn" style="margin-right: 15px">{{
@@ -151,7 +222,14 @@ import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
 import { Notification, Modal } from "@arco-design/web-vue";
-import { getProductDraftDetails, getProductInfo, getProductAddress, editProduct, addProductDraft } from "~/api/goods";
+import {
+  getProductDraftDetails,
+  getProductInfo,
+  getProductAddress,
+  editProduct,
+  addProductDraft,
+  addProduct,
+} from "~/api/goods";
 const { t } = useI18n();
 const router = useRouter();
 const sysData = useSysData();
@@ -159,42 +237,44 @@ const typeList = sysData.goodsClass;
 const newOldList = sysData.goodsOan;
 const regionOptions = sysData.region;
 const pdwList = sysData.goodsPdwList || [];
+const userInfo = useUserInfo();
 let headers = reactive({
   "X-Utoken": null,
   "X-Userid": null,
 });
 if (process.client) {
-  const userInfo = useUserInfo();
   headers["X-Utoken"] = userInfo.token;
   headers["X-Userid"] = userInfo.id;
 }
-const offline_address = ref(null) // 面交地点
+const offline_address = ref(null); // 面交地点
 const form = ref({
   id: null,
   rid: "",
+  nid: 1,
 });
 const fileList = ref([]);
 const addressOptions = ref([]);
 const formRef = ref(null);
+const btnType = ref("draft");
 
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
   title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
+  describe: [{ required: true, message: t("sale.formValidate.describeValidate") }],
   oldAndNewValidate: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
   price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
+  region: [{ required: true, message: t("sale.regionTip") }],
 });
 
 const listAll = () => {
   // 地址
   getProductAddress().then((res) => {
-    addressOptions.value = res.data
+    addressOptions.value = res.data;
   });
 };
 
 // 搜索地址
-const handleSearch = (e) => {
-
-}
+const handleSearch = (e) => {};
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
@@ -216,20 +296,37 @@ const hasBanWord = (val) => {
 
 // 草稿详情
 const getDraftInfo = () => {
-  getProductDraftDetails();
+  getProductDraftDetails(form.value.id).then(res=>{
+    if (res.code == 0) {
+      form.value = res.data;
+      form.value.mail = res.data.mail ? 1 : false;
+      form.value.offline = res.data.offline ? 1 : false;
+      fileList.value = res.data.images.map((item, index) => {
+        return {
+          id: index + 1,
+          uid: index + 1,
+          url: baseImgPrefix + item,
+        };
+      });
+    }
+  })
 };
 
 // 商品详情
 const getProduct = () => {
   getProductInfo(form.value.id).then((res) => {
-    form.value = res.data;
-    fileList.value = res.data.images.map((item, index) => {
-      return {
-        id: index + 1,
-        uid: index + 1,
-        url: baseImgPrefix + item,
-      };
-    });
+    if (res.code == 0) {
+      form.value = res.data;
+      form.value.mail = res.data.mail ? 1 : false;
+      form.value.offline = res.data.offline ? 1 : false;
+      fileList.value = res.data.images.map((item, index) => {
+        return {
+          id: index + 1,
+          uid: index + 1,
+          url: baseImgPrefix + item,
+        };
+      });
+    }
   });
 };
 
@@ -257,10 +354,24 @@ const uploadSuccess = (e) => {
   }
 };
 
-const uploadError = (e) => { };
+const uploadError = (e) => {};
 
 // 提交表单
 const submitForm = () => {
+  formRef.value.validate().then((validate) => {
+    if (validate) {
+      return;
+    }
+    if (!fileList.value.length) {
+      Notification.error(t("sale.shouldUpload"));
+      return;
+    }
+    publishProduct();
+  });
+};
+
+// 立即发布
+const publishProduct = (type) => {
   Modal.info({
     titleAlign: "start",
     content: t("sale.publishBtnComfirm"),
@@ -269,35 +380,33 @@ const submitForm = () => {
     cancelText: t("pages.cancel"),
     okText: t("sale.publish"),
     onBeforeOk: (done) => {
-      saveProduct('publish')
-      done(true)
+      done(true);
+      let reqUrl = form.value.id ? editProduct : addProduct;
+      reqUrl(setReqForm()).then((res) => {
+        if (res.code === 0) {
+          Notification.success(res.message);
+          btnType.value = "publish"; // 防止触发弹出保存草稿
+          router.push(`/userDetails?userId=${userInfo.id}`);
+        } else {
+          Notification.error(res.message);
+        }
+      });
     },
   });
+};
 
-}
-
-// 立即发布 或 保存草稿
-const saveProduct = (type) => {
-  let reqUrl = type == 'publish' ? editProduct : addProductDraft
+// 提交的数据
+const setReqForm = () => {
   let formData = {
     ...form.value,
-    images: fileList.value.map(i => {
-      return i.url.replace(baseImgPrefix, '')
-    })
-  }
-  formRef.value.validate().then(validate => {
-    if (validate) {
-      return
-    }
-    reqUrl(formData).then(res => {
-      if (res.code === 0) {
-        Message.success(res.message)
-      } else {
-        Message.error(res.message)
-      }
-    })
-  })
-}
+    offline: form.value.offline ? 1 : 0,
+    mail: form.value.mail ? 1 : 0,
+    images: fileList.value.map((i) => {
+      return i.url.replace(baseImgPrefix, "");
+    }),
+  };
+  return formData;
+};
 
 // 关闭浏览器 判断保存
 const beforeunloadHandler = (e) => {
@@ -315,26 +424,43 @@ const beforeunloadHandler = (e) => {
   }
 };
 
-const saveDraftModal = () => {
-  console.log(router);
+// 保存草稿
+const saveDraftModal = (next) => {
+  Modal.info({
+    titleAlign: "start",
+    title: t("sale.saveDraftTitle"),
+    content: t("sale.saveDraftContent"),
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("sale.saveDraft"),
+    onBeforeOk: (done) => {
+      done(true);
+      addProductDraft(setReqForm()).then((res) => {
+        if (res.code === 0) {
+          btnType.value = "isSaveDraft";
+          Notification.success(res.message);
+          router.push(`/userDetails?userId=${userInfo.id}`);
+        } else {
+          Notification.error(res.message);
+        }
+      });
+    },
+    onCancel: () => {
+      next();
+    },
+  });
 };
 
 router.beforeEach((to, from, next) => {
-  if (router.currentRoute.value.path == "/saleEditGoods") {
-    Modal.info({
-      titleAlign: "start",
-      title: t("sale.saveDraftTitle"),
-      content: t("sale.saveDraftContent"),
-      closable: true,
-      hideCancel: false,
-      cancelText: t("pages.cancel"),
-      okText: t("sale.saveDraft"),
-      onBeforeOk: (done) => { },
-      onCancel: () => {
-        next();
-        return true;
-      },
-    });
+  if (
+    router.currentRoute.value.path == "/saleEditGoods" &&
+    from.path != to.path &&
+    from.path == "/saleEditGoods" &&
+    btnType.value != "publish" &&
+    btnType.value != "isSaveDraft"
+  ) {
+    saveDraftModal(next);
   } else {
     next();
   }
@@ -354,6 +480,11 @@ onMounted(() => {
     form.value.id = router.currentRoute.value.query.id;
     getProduct();
   }
+  if (router.currentRoute.value.query.draftId) {
+    form.value.id = router.currentRoute.value.query.draftId;
+    getDraftInfo();
+  }
+
   listAll();
   // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
   console.log("setUserDraft().value", setUserDraft().value, router.currentRoute);
@@ -384,7 +515,6 @@ onMounted(() => {
   justify-content: space-between;
 
   &.border-box {
-
     .left,
     .right {
       border: 1px solid #e5e5e5;
@@ -505,7 +635,7 @@ onMounted(() => {
       :deep(.arco-form-item-label-col) {
         line-height: 16px;
 
-        &>.arco-form-item-label {
+        & > .arco-form-item-label {
           color: $grey-font-label;
           font-size: 16px;
         }

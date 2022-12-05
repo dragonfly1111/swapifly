@@ -356,6 +356,7 @@ dialogue:
 sale:
   saleTitle: 你今天想卖出什么物品？
   uploadTip: 选择照片或者将照片移至这里
+  shouldUpload: 请上传商品图片
   uploadAlert: 最多上传10张照片
   coverTip: 提示：拖拽照片可以更改封面
   cover: 封面
@@ -369,8 +370,9 @@ sale:
   deliverAddress: 面交地点
   post: 立即发布
   postTip: 是否有额外的邮寄费用或选择？
-  publish: 立即发佈
-  publishBtnComfirm: 是否确认要立即發佈？
+  publish: 立即发布
+  publishSucc: 发布成功！
+  publishBtnComfirm: 是否确认要立即发布？
   saveDraft: 保存草稿
   delete: 删除
   chooseType: 选择分类
@@ -378,6 +380,7 @@ sale:
   trading: 交易方式
   yourDraft: 你的草稿
   draft: 草稿
+  deleteDraftComfirm: 是否确定要删除草稿？
   saveDraftTitle: 需要保存草稿吗?
   saveDraftContent: 如果不保存草稿，将不会保存已填的商品信息。
   formValidate:
@@ -385,6 +388,7 @@ sale:
     goodsNameValidate: 请填写商品名称
     oldAndNewValidate: 请选择新旧程度
     priceValidate: 请输入价格
+    describeValidate: 请填写商品描述
 mobile:
   user_center: 我的账户
 authentication:
