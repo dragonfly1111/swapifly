@@ -389,6 +389,7 @@ sale:
   deliverAddress: 面交地点
   postTip: 是否有額外的郵寄費用或選擇？
   publish: 立即發佈
+  publishBtnComfirm: 是否确认要立即發佈？
   saveDraft: 保存草稿
   delete: 删除
   chooseType: 選擇分類
@@ -398,6 +399,11 @@ sale:
   draft: 草稿
   saveDraftTitle: 需要儲存草稿嗎?
   saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
+  formValidate:
+    typeValidate: 請選擇分類
+    goodsNameValidate: 請填寫商品名稱
+    oldAndNewValidate: 請選擇新舊程度
+    priceValidate: 請輸入價格
 mobile:
     user_center: 我的賬戶
 authentication:
