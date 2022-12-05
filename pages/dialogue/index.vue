@@ -790,7 +790,7 @@ onMounted(() => {
 onUnmounted(() => {
   console.log('onUnmounted')
   clearInterval(pageTask)
-  mainContentEle.removeEventListener("scroll", scrollListen)
+  // mainContentEle.removeEventListener("scroll", scrollListen)
 })
 </script>
 <style lang="scss" scoped>
