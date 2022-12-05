@@ -255,6 +255,7 @@ const form = ref({
 const fileList = ref([]);
 const addressOptions = ref([]);
 const formRef = ref(null);
+const btnType = ref("draft");
 
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
@@ -295,7 +296,20 @@ const hasBanWord = (val) => {
 
 // 草稿详情
 const getDraftInfo = () => {
-  getProductDraftDetails();
+  getProductDraftDetails(form.value.id).then(res=>{
+    if (res.code == 0) {
+      form.value = res.data;
+      form.value.mail = res.data.mail ? 1 : false;
+      form.value.offline = res.data.offline ? 1 : false;
+      fileList.value = res.data.images.map((item, index) => {
+        return {
+          id: index + 1,
+          uid: index + 1,
+          url: baseImgPrefix + item,
+        };
+      });
+    }
+  })
 };
 
 // 商品详情
@@ -371,6 +385,7 @@ const publishProduct = (type) => {
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
           Notification.success(res.message);
+          btnType.value = "publish"; // 防止触发弹出保存草稿
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
           Notification.error(res.message);
@@ -423,6 +438,7 @@ const saveDraftModal = (next) => {
       done(true);
       addProductDraft(setReqForm()).then((res) => {
         if (res.code === 0) {
+          btnType.value = "isSaveDraft";
           Notification.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
@@ -440,7 +456,9 @@ router.beforeEach((to, from, next) => {
   if (
     router.currentRoute.value.path == "/saleEditGoods" &&
     from.path != to.path &&
-    from.path == "/saleEditGoods"
+    from.path == "/saleEditGoods" &&
+    btnType.value != "publish" &&
+    btnType.value != "isSaveDraft"
   ) {
     saveDraftModal(next);
   } else {
@@ -461,6 +479,10 @@ onMounted(() => {
   if (router.currentRoute.value.query.id) {
     form.value.id = router.currentRoute.value.query.id;
     getProduct();
+  }
+  if (router.currentRoute.value.query.draftId) {
+    form.value.id = router.currentRoute.value.query.draftId;
+    getDraftInfo();
   }
 
   listAll();

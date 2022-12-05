@@ -196,7 +196,7 @@ const handleDelete = (item) => {
     hideCancel: false,
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
-    onBeforeOk: () => {
+    onBeforeOk: (done) => {
       deleteProduct({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
