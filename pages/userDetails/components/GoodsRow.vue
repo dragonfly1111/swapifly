@@ -1,8 +1,8 @@
 <template>
   <div class="goods-box">
     <a-row justify="space-between" align="center" class="box-header">
-      <a-col flex="100px" class="title"> {{ $t("pages.goods") }} </a-col>
-      <a-col flex="200px">
+      <a-col :flex="resize.screenType !== 'MOBILE'?'100px':'1'" class="title"> {{ $t("pages.goods") }} </a-col>
+      <a-col :flex="resize.screenType !== 'MOBILE'?'200px':'2'">
         <a-input-search
           v-model="queryParams.title"
           :style="{ width: '200px' }"
@@ -31,12 +31,14 @@
 <script setup>
 import { useUserInfo } from "~/stores/userInfo";
 import { userProduct } from "~/api/shop";
+import { useResize } from '~/stores/resize'
 const pageLoading = ref(true);
 const btnLoading = ref(false);
 const total = ref(0);
 const productList = ref([]);
 const userInfo = useUserInfo();
 const router = useRouter();
+const resize = useResize();
 const isMySelf = computed(() => {
   return userInfo.id == router.currentRoute.value.query.userId;
 });

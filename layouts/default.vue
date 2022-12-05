@@ -3,7 +3,7 @@
     padding: resize.screenType === 'MOBILE' ? '10px' : '0',
     overflowX: resize.screenType === 'MOBILE' ? 'hidden' : 'auto',
   }">
-    <Header v-if="headType === 'common' || headType === 'dialogue'"/>
+    <Header v-if="['common','dialogue','commonMobileAndPcPage'].includes(headType)"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
     <slot/>
@@ -27,11 +27,18 @@ const newsArr = [
   '/newsCenter/detail',
   '/newsCenter/search'
 ]
+//新增的移动端页面
 const mobileArr = [
     '/login',
     '/register',
     '/mobileUserProfile',
     '/moreSearchFilter'
+];
+//共用的移动端页面，头尾与PC端不一致
+const mobileAndPcArr = [
+  '/notification',
+  '/like',
+  '/userDetails',
 ];
 console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
@@ -40,10 +47,8 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
     headType.value = 'news'
-  } else if (newValue === '/notification' && resize.screenType === 'MOBILE'){
-    headType.value = 'MobileNotificationPage'
-  } else if (newValue === '/like' && resize.screenType === 'MOBILE'){
-    headType.value = 'MobileLikePage'
+  } else if (mobileAndPcArr.includes(newValue) && resize.screenType === 'MOBILE'){
+    headType.value = 'commonMobileAndPcPage'
   } else if(newValue === '/dialogue'){
     headType.value = 'dialogue'
   } else if (mobileArr.includes(newValue)) {

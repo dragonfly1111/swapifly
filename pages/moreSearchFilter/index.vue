@@ -8,7 +8,7 @@
       <a-form class="select-wrapper" :modal="form" auto-label-width layout="horizontal" ref="formRef">
         <a-form-item field="rid">
           <div class="border-bottom-mobile">
-            <p class="p-word-mobile">分类</p>
+            <p class="p-word-mobile">{{$t('pages.classification')}}</p>
             <a-tree-select
                 style="width: 100%;border: none;padding-left: 0"
                 :data="classListAsync"
@@ -20,17 +20,16 @@
           children: 'children',
         }"
                 :placeholder="$t('pages.classification')"
-                @change="updateSearch"
             ></a-tree-select>
           </div>
         </a-form-item>
         <a-form-item field="sort">
           <div class="border-bottom-mobile">
-            <p class="p-word-mobile">排序</p>
+            <p class="p-word-mobile">{{ $t("pages.mobile_sort") }}</p>
             <a-select
                 style="width: 100%;border: none;padding-left: 0"
                 :placeholder="$t('pages.sort')"
-                v-model="form.sort" @change="updateSearch">
+                v-model="form.sort">
               <template #label="{ data }">
                 <span class="select-span">{{ $t("pages.sort") }}：</span>
                 {{ data.label }}
@@ -43,7 +42,7 @@
         </a-form-item>
         <a-form-item field="nid">
           <div class="border-bottom-mobile">
-            <p class="p-word-mobile">新旧程度</p>
+            <p class="p-word-mobile">{{ $t("pages.degree_of_old_and_new") }}</p>
             <a-select
                 style="width: 100%;border: none;padding-left: 0;background-color: #fff;"
                 :placeholder="$t('pages.oldAndNew')"
@@ -51,7 +50,6 @@
                 multiple
                 class="multiple-select"
                 :max-tag-count="1"
-                @change="updateSearch"
             >
               <template #arrow-icon>
                 <icon-down />
@@ -73,7 +71,7 @@
                 :placeholder="$t('pages.minPrice')"
                 :min="0"
                 size="large"
-                @keyup.enter.native="confirmPrice"
+                @blur.stop="confirmPrice"
             />
             <div style="width: 8px; height: 1px; background: #ccc"></div>
             <a-input-number
@@ -82,23 +80,23 @@
                 :placeholder="$t('pages.maxPrice')"
                 :min="0"
                 size="large"
-                @keyup.enter.native="confirmPrice"
+                @blur.stop="confirmPrice"
             />
           </a-space>
         </a-form-item>
         <a-form-item field="offline" style="margin-right: 10px">
-          <a-checkbox value="offline" v-model="form.offline" @change="updateSearch">{{
+          <a-checkbox value="offline" v-model="form.offline">{{
               $t("pages.handDeliver")
             }}</a-checkbox>
         </a-form-item>
         <a-form-item field="mail">
-          <a-checkbox value="mail" v-model="form.mail" @change="updateSearch">{{
+          <a-checkbox value="mail" v-model="form.mail">{{
               $t("pages.postAndCourier")
             }}</a-checkbox>
         </a-form-item>
         <a-form-item>
           <div class="bottom-search">
-            <a-button type="primary" class="btn" @click="resetForm">{{ $t("pages.reset") }}</a-button>
+            <a-button type="primary" class="btn" @click="lastFormData">{{ $t("pages.mobile_search") }}</a-button>
           </div>
         </a-form-item>
       </a-form>
@@ -136,43 +134,30 @@ const priceForm = reactive({
   max: null,
 });
 
-const emits = defineEmits(["change"]);
-
 const formRef = ref(null);
-const resetForm = () => {
-  priceForm.min = null
-  priceForm.max = null
-  form.sort = ''
-  form.nid = []
-  form.rid = ''
-  form.min = ''
-  form.max = ''
-  form.offline = false
-  form.mail = false
-  emits("change", {});
-};
-
-// 价格选择取消
-const cancelPrice = () => {
-  showPriceBox.value = false;
-};
 
 // 价格选择确定
 const confirmPrice = () => {
   // form = { ...form, ...priceForm };
+  console.log("====priceForm====",priceForm)
   form.min = priceForm.min
   form.max = priceForm.max
-  cancelPrice()
-  updateSearch();
 };
 
 // 传值
-const updateSearch = () => {
+const lastFormData = () => {
   console.log(form)
   let setForm = { ...form };
   console.log(setForm)
   setForm.nid = form.nid.join(",");
-  emits("change", setForm);
+  console.log("====最后的===",setForm)
+  router.push({
+    path: '/searchResult',
+    query: {
+      ...setForm
+    }
+  })
+  // emits("change", setForm);
 };
 
 // 智障arco没有提供默认折叠全部节点功能 并且点击打开面板时非常卡，所以做成"动态"加载数据的样子

@@ -28,7 +28,7 @@
       </a-col>
       <a-col :span="8">
         <div class="add-more-search" @click="toMoreSearch">
-          更多筛选
+          {{ $t("pages.more_filters") }}
         </div>
       </a-col>
     </a-row>

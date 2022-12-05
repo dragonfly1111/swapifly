@@ -4,23 +4,52 @@
     min-width: 180px;
     max-width: 350px;
   }
-}
-@media screen and (min-width:0px) and (max-width:1000px){
-  .recommend-item{
-    width: 48%;
-  }
-}
-@media screen and (min-width:1000px){
   .search-col{
     .search-input{
       width: 500px;
     }
   }
+  .tab-content {
+    display: flex;
+    justify-content: space-between;
+    .left-content {
+      width: 300px;
+      flex-shrink: 0;
+      margin-right: 30px;
+    }
+    .right-content {
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+      width: calc(100% - 340px);
+      flex: auto;
+      margin-top: 10px;
+    }
+  }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .recommend-item{
+    width: 48%;
+  }
   .search-col{
     .search-input{
       width: 90%;
     }
+  }
+  .tab-content {
+    .left-content {
+      width: 100%;
+    }
+    .right-content {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  .extra-btn{
+    position: absolute;
+    right: 10px;
+    top: 30%;
+  }
+  .user-detail-content{
+    padding-top: 60px;
   }
 }

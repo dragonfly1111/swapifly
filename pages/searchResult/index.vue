@@ -43,15 +43,6 @@ const productList = ref([])
 const pageLoading = ref(true)
 const butLoading = ref(false)
 let queryParams = {}
-watch(() => route.query, (newValue, oldValue) => {
-  handleQuery()
-})
-const handleQuery = (data) => {
-  console.log("form", data);
-  page.value = 1
-  productList.value = []
-  getSearchData(data)
-};
 
 const getSearchData = (data) => {
   pageLoading.value = true
@@ -100,6 +91,18 @@ const getSearchData = (data) => {
 
   })
 }
+const handleQuery = (data) => {
+  console.log("form", data);
+  page.value = 1
+  productList.value = []
+  getSearchData(data)
+};
+
+watch(() => route.query, (newValue, oldValue) => {
+  console.log("====newValue====",newValue,oldValue)
+  handleQuery(newValue || {})
+},{immediate: true})
+
 
 const loadMore = () =>{
   page.value ++
@@ -107,7 +110,7 @@ const loadMore = () =>{
   getSearchData(queryParams)
 }
 
-getSearchData()
+// getSearchData()
 
 </script>
 

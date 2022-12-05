@@ -15,8 +15,10 @@
 
 <script setup lang="ts">
 import {limitObj} from '~/model/payload/mobile'
+import {useUserInfo} from "~/stores/userInfo";
 import {ref,reactive} from "vue";
 const router = useRouter();
+const userInfo = useUserInfo()
 const list = reactive<limitObj>({
   data: [{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
@@ -29,7 +31,7 @@ const list = reactive<limitObj>({
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
     name:'个人档案',
-    path:'/like',
+    path:`/userDetails?userId=${userInfo.id}`,
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
     name:'设置',

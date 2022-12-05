@@ -81,6 +81,10 @@ pages:
   mobile_notice: message
   no_notice_tip: haven't received any messages
   like_title: like
+  mobile_search: Search
+  degree_of_old_and_new: degree of old and new
+  mobile_sort: sort
+  more_filters: More Filters
 profile:
   edit_profile: todo
   edit_password: todo

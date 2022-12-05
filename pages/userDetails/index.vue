@@ -1,5 +1,5 @@
 <template>
-  <div class="common-row global-content">
+  <div class="common-row global-content user-detail-content">
     <div class="user-banner">
       <a-image :src="testImg" fit="cover" show-loader>
         <template #loader>
@@ -10,6 +10,8 @@
 
     <div class="user-details">
       <a-tabs
+        v-if="['PC','SCALE'].includes(resize.screenType)"
+        style="margin-left: 320px"
         :active-key="activeTab"
         @change="handleTabChange"
         :class="{ noline: activeTab == 'followRow' }"
@@ -44,7 +46,6 @@
         >
         </a-tab-pane>
       </a-tabs>
-
       <div class="tab-content">
         <div class="left-content">
           <UserCard
@@ -53,7 +54,44 @@
             @toFollow="toFollow"
             @openRegBusiness="openRegBusiness"
           ></UserCard>
+          <a-space class="extra-btn"
+                   v-if="resize.screenType === 'MOBILE'"
+          >
+            <a-button
+                type="outline"
+                v-if="userInfo.id == form.id"
+                @click="router.push('/userProfile')"
+            >{{ $t("profile.edit_profile") }}</a-button
+            >
+            <a-button
+                type="outline"
+                v-if="userInfo.id != form.id"
+                :loading="btnLoading"
+                @click="handleFollow"
+            >
+              {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
+            </a-button>
+            <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
+                $t("pages.report")
+              }}</a-button>
+          </a-space>
         </div>
+        <a-tabs
+            v-if="resize.screenType === 'MOBILE'"
+            style="margin-left: 0px"
+            :active-key="activeTab"
+            @change="handleTabChange"
+            :class="{ noline: activeTab == 'followRow' }"
+        >
+          <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
+          <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
+          <a-tab-pane
+              key="businessInformation"
+              :title="$t('pages.businessInformation')"
+              v-if="form.shop == 1 || form.p_type == 2"
+          >
+          </a-tab-pane>
+        </a-tabs>
         <div class="right-content">
           <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
           <EvaluateRow
@@ -87,9 +125,11 @@ import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
+import { useResize } from '~/stores/resize'
 import { Message } from "@arco-design/web-vue";
 const userInfo = useUserInfo();
 const router = useRouter();
+const resize = useResize();
 const form = ref({ id: "", isfollow: 0 });
 const reportModal = ref(null);
 const evaluateRow = ref(null);
@@ -100,7 +140,7 @@ const btnLoading = ref(false);
 const advert = ref("");
 const testImg =
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-const activeTab = ref("goodsRow");
+const activeTab = ref("goodsRow");//goodsRow
 
 const handleTabChange = (e) => {
   activeTab.value = e;
@@ -188,7 +228,6 @@ onMounted(() => {
 .user-details {
   margin-bottom: 40px;
   :deep(.arco-tabs-nav-tab) {
-    padding-left: 320px;
     padding-top: 15px;
   }
   :deep(.arco-tabs-tab) {
@@ -218,20 +257,20 @@ onMounted(() => {
   }
 }
 
-.tab-content {
-  display: flex;
-  justify-content: space-between;
-  .left-content {
-    width: 300px;
-    flex-shrink: 0;
-    margin-right: 30px;
-  }
-  .right-content {
-    border: 1px solid #e5e5e5;
-    border-radius: 2px;
-    width: calc(100% - 340px);
-    flex: auto;
-    margin-top: 10px;
-  }
-}
+//.tab-content {
+//  display: flex;
+//  justify-content: space-between;
+//  .left-content {
+//    width: 300px;
+//    flex-shrink: 0;
+//    margin-right: 30px;
+//  }
+//  .right-content {
+//    border: 1px solid #e5e5e5;
+//    border-radius: 2px;
+//    width: calc(100% - 340px);
+//    flex: auto;
+//    margin-top: 10px;
+//  }
+//}
 </style>

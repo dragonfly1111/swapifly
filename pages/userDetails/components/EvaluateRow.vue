@@ -2,8 +2,8 @@
   <div class="evaluate-box">
     <div class="box-header">
       <a-row justify="space-between" align="center" class="header-select">
-        <a-col flex="100px" class="title"> {{ $t("pages.evaluate") }} </a-col>
-        <a-col flex="200px">
+        <a-col :flex="resize.screenType !== 'MOBILE'?'100px':'1'" class="title"> {{ $t("pages.evaluate") }} </a-col>
+        <a-col :flex="resize.screenType !== 'MOBILE'?'200px':'2'">
           <a-select v-model="queryParams.s_type" @change="initData">
             <a-option
               v-for="item in evaluationSort"
@@ -54,6 +54,8 @@
 import EvaluateList from "./EvaluateList.vue";
 import { useSysData } from "~/stores/sysData";
 import { getEvaluationList } from "~/api/shop";
+import { useResize } from '~/stores/resize'
+const resize = useResize();
 const sysData = useSysData();
 const evaluationSort = ref([]); // 评论排序
 const evaluationSource = ref([]); // 评论来源
