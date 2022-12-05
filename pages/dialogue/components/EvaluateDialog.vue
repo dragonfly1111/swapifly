@@ -7,12 +7,12 @@
            @ok="handleOk"
            @cancel="handleCancel">
     <a-form ref="formRef" :model="formData" :rules="rules">
-      <a-form-item :hide-label="true" field="email" :validate-trigger="['change','input']">
-        <span style="margin-right: 4px">{{ $t('dialogue.rate') }}</span><Rate ref="rateComp" @changeCheck="changeCheck"></Rate>
+      <a-form-item :hide-label="true" field="num" :validate-trigger="['change','input']">
+        <span style="margin-right: 4px">{{ $t('dialogue.rate') }}</span><Rate ref="rateComp" @changeVal="changeRateVal"></Rate>
       </a-form-item>
       <div style="margin-bottom: 5px">{{ $t('dialogue.evaluateContenTip') }}</div>
-      <a-form-item :hide-label="true" field="code">
-        <a-textarea v-model="formData.msg" :auto-size="{ minRows: 5, maxRows: 10 }"
+      <a-form-item :hide-label="true" field="content">
+        <a-textarea v-model="formData.content" :auto-size="{ minRows: 5, maxRows: 10 }"
                     :placeholder="$t('dialogue.evaluateContent') "></a-textarea>
       </a-form-item>
       <div class="tip">{{ $t('dialogue.evaluateTip') }}</div>
@@ -22,10 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import {useI18n} from "vue-i18n";
-import { getBindEmailCode, bindEmail } from "~/api/user";
-import {Message} from "@arco-design/web-vue";
-const {t} = useI18n();
+import { useI18n } from "vue-i18n";
+import { addEvaluation } from "~/api/dialogue";
+import { Notification } from '@arco-design/web-vue';
+const { t } = useI18n();
 const emits = defineEmits(['binSuc'])
 const visible = ref(false);
 const okLoading = ref(false);
@@ -35,58 +35,34 @@ const isSend = ref(false);
 const rateComp = ref(null);
 const formRef = ref(null);
 const formData = reactive({
-  rate: 3,
-  msg: '',
+  id: null,
+  num: 5,
+  content: '',
 })
-// todo 修改验证内容
 const rules = reactive({
-  rate: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
-    {type: 'email', message: ref<string>(t('loginDialog.formValidate.emailErr'))}
+  num: [
+    {required: true, message: ref<string>(t('dialogue.inputRate'))},
   ],
-  msg: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+  content: [
+    {required: true, message: ref<string>(t('dialogue.evaluateContent'))},
   ]
 })
 
-const sendVerfi = () => {
-  formRef.value.validateField('email').then(validate => {
-    if (validate && validate.email) {
-      return
-    }
-    sendLoading.value = true
-    getBindEmailCode({
-      email: formData.email
-    }).then(res => {
-      if(res.code === 0){
-        Message.success(res.message)
-        formData.key = res.data
-        isSend.value = true
-      } else {
-        Message.error(res.message)
-      }
-      sendLoading.value = false
-    })
-  })
-
-  // visible.value = false;
-  // emits('toPreference')
-}
 const onBeforeOk = (done) => {
   // return true
-  rateComp.value.getValue()
   console.log('onBeforeOk')
+  console.log(value)
   formRef.value.validate().then(validate => {
     if(validate) {
       done(false)
       return
     }
-    bindEmail(formData).then(res=>{
+    addEvaluation(formData).then(res=>{
       if(res.code === 0){
-        Message.success(t('profile.bindSuc'))
+        Notification.success(t('dialogue.evaluateSuc'))
         done(true)
       } else {
-        Message.success(res.message)
+        Notification.error(res.message)
         done(false)
       }
     })
@@ -95,17 +71,22 @@ const onBeforeOk = (done) => {
 const handleOk = () => {
 
 }
-const changeCheck = (e) => {
-  formData.rate = e
+const changeRateVal = (e) => {
+  console.log(e)
+  formData.num = e
 }
 const openDialog = (value) => {
-  if(value){
-    formData.email = value
-  }
+  console.log(value)
+  formData.id = value
+  rateComp.value.setValue(formData.num)
   visible.value = true;
 }
 const handleCancel = () => {
   visible.value = false;
+  setTimeout(() => {
+    formData.content = ''
+    formData.id = null
+  }, 100);
 }
 defineExpose({
   openDialog,

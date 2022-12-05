@@ -294,7 +294,7 @@ function handleCollection() {
       if(res.code === 0){
         Message.success(t('head.collectionSuc'))
       } else {
-        Message.success(res.message)
+        Message.erroe(res.message)
       }
     })
   }

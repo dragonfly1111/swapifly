@@ -93,7 +93,7 @@ const onBeforeOk = (done) => {
         Message.success(t('profile.bindSuc'))
         done(true)
       } else {
-        Message.success(res.message)
+        Message.error(res.message)
         done(false)
       }
     })

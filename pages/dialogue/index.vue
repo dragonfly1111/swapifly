@@ -2,25 +2,31 @@
   <div class="global-content">
     <div class="left-msg-list">
       <div id="left-msg-list" class="msg-select">
-        <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:'100%'}" :bordered="false">
-          <a-option
-              v-for="item in msgType"
-              :value="item.value"
-              :key="item.value"
-              :label="item.key"
-          >
-          </a-option>
-        </a-select>
+        <template v-if="pageLoading">
+          <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
+            <a-skeleton-line :line-height="30" :rows="1"/>
+          </a-skeleton>
+        </template>
+        <template v-else>
+          <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:'100%'}" :bordered="false">
+            <a-option
+                v-for="item in msgType"
+                :value="item.value"
+                :key="item.value"
+                :label="item.key"
+            >
+            </a-option>
+          </a-select>
+        </template>
       </div>
       <div class="msg-list">
-        <a-list :max-height="listMaxHeight" @reach-bottom="fetchListData" :scrollbar="scrollbar">
-          <template #scroll-loading>
-            <div v-if="bottom" class="nomore">
-              {{ $t('dialogue.noMore') }}
-            </div>
-            <a-spin v-else/>
-          </template>
-          <a-list-item v-for="item in conversationList">
+        <template v-if="pageLoading">
+          <a-skeleton :animation="true" class="skeleton" style="margin-left: 50px; margin-right: 16px">
+            <a-skeleton-line :line-height="80" :rows="5"/>
+          </a-skeleton>
+        </template>
+        <template v-else>
+          <div v-for="item in conversationList">
             <div class="msg-item" @click="changeChatDetail(item)">
               <div class="left-avatar">
                 <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">
@@ -40,6 +46,7 @@
                         item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'
                       }}
                     </div>
+                    <!--{{ item.x_type }}-->
                     <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>
                     <div class="tip">{{
                         item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')
@@ -56,8 +63,9 @@
                 </div>
               </div>
             </div>
-          </a-list-item>
-        </a-list>
+          </div>
+          <div class="nomore">{{ $t('dialogue.noMore') }}</div>
+        </template>
       </div>
     </div>
     <div class="main-content">
@@ -66,13 +74,21 @@
         <div class="info-wrap">
           <div class="main-content-title">
             <div class="left">
-              <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + curConversationMeta.avatar"
-                       alt="">
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-              <span>{{ curConversationMeta.nickname }}</span>
+              <template v-if="pageLoading">
+                <a-skeleton :animation="true" class="skeleton" style="width: 160px">
+                  <a-skeleton-line :line-height="50" :rows="1"/>
+                </a-skeleton>
+              </template>
+              <template v-else>
+                <a-image width="50" height="50" show-loader fit="cover"
+                         :src="baseImgPrefix + curConversationMeta.avatar"
+                         alt="">
+                  <template #loader>
+                    <div class="loader-animate"/>
+                  </template>
+                </a-image>
+                <span>{{ curConversationMeta.nickname }}</span>
+              </template>
             </div>
             <a-dropdown @select="handleOperationSelect">
               <icon-more-vertical/>
@@ -83,105 +99,132 @@
           </div>
           <div class="meta-wrap">
             <div class="left">
-              <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
-                       :src="baseImgPrefix + curConversationMeta.p_image" alt="">
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-              <div class="info-box">
-                <div>{{ curConversationMeta.p_title }}</div>
-                <div>HK$ {{ curConversationMeta.p_price }}</div>
-              </div>
+              <template v-if="pageLoading">
+                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
+                  <a-skeleton-line :line-height="50" :rows="1"/>
+                </a-skeleton>
+              </template>
+              <template v-else>
+                <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
+                         :src="baseImgPrefix + curConversationMeta.p_image" alt="">
+                  <template #loader>
+                    <div class="loader-animate"/>
+                  </template>
+                </a-image>
+                <div class="info-box">
+                  <div>{{ curConversationMeta.p_title }}</div>
+                  <div>HK$ {{ curConversationMeta.p_price }}</div>
+                </div>
+              </template>
+
             </div>
             <!--"f_type": 1.当前用户为购买方，显示你出价，編輯出價，取消出價，2.为出售方，显示对方出价，接受出价，驳回 按钮-->
             <!--"status": 0.沟通中，1.已出价，买方，显示你出價：HK$788，编辑出价，卖方显示：接受出价，驳回出价，2.已接受出价，卖方显示评价，显示评价/查看评价，3.驳回出价-->
             <div class="right">
-              <!--购买方按钮-->
-              <template v-if="curConversationMeta.f_type === 1">
-                <!--还未出价 展示出价按钮-->
-                <template v-if="curConversationMeta.status === 0">
-                  <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                  <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                      $t('dialogue.offer')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                      $t('dialogue.cancel')
-                    }}
-                  </a-button>
-                </template>
-                <!--已经出价 展示修改价格按钮-->
-                <template v-else-if="curConversationMeta.status === 1">
-                  <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
-                  <span v-if="!openEditOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                  <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
-                      openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
-                      $t('dialogue.cancel')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading" @click="cancelOffer">
-                    {{ $t('dialogue.operationCancelOffer') }}
-                  </a-button>
-                </template>
-                <!--已接受出价 展示出价信息 评价按钮-->
-                <template v-else-if="curConversationMeta.status === 2">
-                  <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                  <span class="accepted">{{ $t('dialogue.accepted') }}</span>
-                  <a-button class="but reject" @click="openEvaluateDialog">{{
-                      $t('dialogue.evaluateBut')
-                    }}
-                  </a-button>
-                </template>
-                <!--已拒绝出价 展示拒绝信息和出价按钮-->
-                <template v-else-if="curConversationMeta.status === 3">
-                  <span v-if="!openOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                  <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected') }}</span>
-
-                  <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                  <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                      $t('dialogue.offer')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                      $t('dialogue.cancel')
-                    }}
-                  </a-button>
-
-                </template>
+              <template v-if="pageLoading">
+                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
+                  <a-skeleton-line :line-height="50" :rows="1"/>
+                </a-skeleton>
               </template>
-              <!--出售方按钮-->
-              <template v-if="curConversationMeta.f_type === 2">
-                <!--对方已经出价 展示接受/拒绝按钮-->
-                <template v-if="curConversationMeta.status === 1">
-                  <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
-                  <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
-                      $t('dialogue.accept')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
-                      $t('dialogue.refuse')
-                    }}
-                  </a-button>
+              <template v-else>
+                <!--购买方按钮-->
+                <template v-if="curConversationMeta.f_type === 1">
+                  <!--还未出价 展示出价按钮-->
+                  <template v-if="curConversationMeta.status === 0">
+                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                        $t('dialogue.offer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已经出价 展示修改价格按钮-->
+                  <template v-else-if="curConversationMeta.status === 1">
+                    <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
+                    <span v-if="!openEditOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
+                        openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading"
+                              @click="cancelOffer">
+                      {{ $t('dialogue.operationCancelOffer') }}
+                    </a-button>
+                  </template>
+                  <!--已接受出价 展示出价信息 评价按钮-->
+                  <template v-else-if="curConversationMeta.status === 2">
+                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
+                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                        $t('dialogue.evaluateBut')
+                      }}
+                    </a-button>
+                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                        $t('dialogue.evaluateShowBut')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已拒绝出价 展示拒绝信息和出价按钮-->
+                  <template v-else-if="curConversationMeta.status === 3">
+                    <span v-if="!openOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected') }}</span>
+
+                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                        $t('dialogue.offer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+
+                  </template>
                 </template>
-                <!--我方已接受出价 展示已售出 评价按钮-->
-                <template v-if="curConversationMeta.status === 2">
-                  <a-button v-if="curConversationMeta.p_state === 0" class="but accept" :loading="soldLoading" @click="openSoldDialog">{{
-                      $t('dialogue.markSold')
-                    }}
-                  </a-button>
-                  <a-button class="but reject" @click="openEvaluateDialog">{{
-                      $t('dialogue.evaluateBut')
-                    }}
-                  </a-button>
-                </template>
-                <!--已拒绝出价 -->
-                <template v-else-if="curConversationMeta.status === 3">
-                  <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
-                  <span class="rejected">{{ $t('dialogue.rejected') }}</span>
+                <!--出售方按钮-->
+                <template v-if="curConversationMeta.f_type === 2">
+                  <!--对方已经出价 展示接受/拒绝按钮-->
+                  <template v-if="curConversationMeta.status === 1">
+                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
+                    <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
+                        $t('dialogue.accept')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
+                        $t('dialogue.refuse')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--我方已接受出价 展示已售出 评价按钮-->
+                  <template v-if="curConversationMeta.status === 2">
+                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
+                    <a-button v-if="curConversationMeta.p_state === 0" class="but accept" :loading="soldLoading"
+                              @click="openSoldDialog">{{
+                        $t('dialogue.markSold')
+                      }}
+                    </a-button>
+                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                        $t('dialogue.evaluateBut')
+                      }}
+                    </a-button>
+                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                        $t('dialogue.evaluateShowBut')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已拒绝出价 -->
+                  <template v-else-if="curConversationMeta.status === 3">
+                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="rejected">{{ $t('dialogue.rejected') }}</span>
+                  </template>
                 </template>
               </template>
             </div>
@@ -194,9 +237,10 @@
             <div class="no-msg-tip">{{ $t('dialogue.noMsgTip') }}</div>
           </div>
           <div v-else class="conversation-main-block">
-            <div class="time-line">2022/09/01 16:28</div>
+            <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
-                 v-for="item in conversationDetail">
+                 v-for="(item, index) in conversationDetail">
+              <div class="time-line" v-if="index % 20 === 0">{{ parseTime(item.create_time, "{y}/{m}/{d} {h}:{i}") }}</div>
               <div class="content-item" :class="item.wz === 'left' ? 'content-left' : 'content-right'">
                 <a-image class="avatar" width="36" height="36" show-loader fit="cover"
                          :src="baseImgPrefix + item.avatar"
@@ -249,32 +293,35 @@
       </a-spin>
 
     </div>
-
     <div class="right-ad">
-<!--      {{ JSON.stringify(curConversationMeta) }}-->
+      <!--      {{ JSON.stringify(curConversationMeta) }}-->
       <AD width="160px" height="600px"/>
     </div>
 
     <EvaluateDialog ref="evaluateDialog"/>
+    <CheckEvaluateDialog ref="checkEvaluateDialog"/>
     <SoldDialog ref="soldDialog" @markSuc="markSuc"/>
     <ReportModal ref="reportModal"></ReportModal>
   </div>
 </template>
 <script setup>
-import {useSysData} from "~/stores/sysData";
-import {getChatList, getChatMeta, getChatDetail, postMsg, fcsave, fssave, deleteChat} from "~/api/dialogue"
-import {uploadToOss} from "~/api/comon"
+import { useSysData } from "~/stores/sysData";
+import { getChatList, getChatMeta, getChatDetail, postMsg, fcsave, fssave, deleteChat } from "~/api/dialogue"
+import { uploadToOss } from "~/api/comon"
 import EvaluateDialog from "./components/EvaluateDialog";
+import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
 import {baseImgPrefix} from "~/config/baseUrl";
 import {parseTime} from "~/utils/time"
-import {useI18n} from "vue-i18n";
-import {Notification} from '@arco-design/web-vue';
+import { useI18n } from "vue-i18n";
+import { Notification } from '@arco-design/web-vue';
 
 const {t} = useI18n()
 const router = useRouter();
 let pageTask = null
+let mainContentEle = null
 const evaluateDialog = ref(null)
+const checkEvaluateDialog = ref(null)
 const soldDialog = ref(null)
 const reportModal = ref(null)
 const sysData = useSysData()
@@ -283,20 +330,20 @@ const msgType = ref([])
 const conversationList = ref([])
 // 中间对话详情
 const conversationDetail = ref([])
+const page = ref(1)
+const lastPage = ref(0)
 // 当前对话的元信息
 const curConversationMeta = ref({})
 // 操作列表
 const dialogueOperationType = ref([])
-const curMsgType = ref(1)
-const listMaxHeight = ref(0)
+const curMsgType = ref(0)
 const inputTxt = ref('')
-const bottom = ref(false)
-const scrollbar = ref(false)
 const openOffer = ref(false)
 const openEditOffer = ref(false)
 const offerNum = ref(0)
 const offerNum1 = ref(0)
 
+const pageLoading = ref(true)
 const mainContentLoading = ref(false)
 const uploadLoading = ref(false)
 const acceptLoading = ref(false)
@@ -305,15 +352,15 @@ const offerLoading = ref(false)
 const editOfferLoading = ref(false)
 const cancelOfferLoading = ref(false)
 const soldLoading = ref(false)
+const nextDetailNeedBottom = ref(false)
 // 获取左侧对话列表
 const fetchListData = (autoFocus = true) => {
   getChatList({
     type: curMsgType.value
   }).then(res => {
     conversationList.value = res.data
+    pageLoading.value = false
     // 获取到对话列表后 默认获取第一个消息对话详情
-    console.log('-----')
-    console.log(res.data)
     if (res.data.length > 0) {
       if (autoFocus) {
         console.log('autoFocus')
@@ -323,21 +370,43 @@ const fetchListData = (autoFocus = true) => {
         calcOperationOptions()
       }
     }
-    bottom.value = true
   })
 }
 // 获取对话详情
-const fetchDetailData = (callback) => {
-  if(!curConversationMeta.value.id) return
+const fetchDetailData = (callback, toBottom = true) => {
+  if (!curConversationMeta.value.id) return
+  const id = curConversationMeta.value.id
   getChatDetail({
-    id: curConversationMeta.value.id
+    id: curConversationMeta.value.id,
+    limit: 999
+    // 暂时不做分页
+    // page: page.value
   }).then(res => {
+    mainContentLoading.value = false
     if (res.code === 0) {
-      conversationDetail.value = res.data.data.reverse()
-      // 获取到消息后滚到底部
-      nextTick(() => {
-        scrollToBottom()
-      })
+      lastPage.value = res.data.last_page
+      console.log('-----')
+      console.log(id, curConversationMeta.value.id)
+      // 在轮询的过程中 可能中途被切换了对话详情 如果切换了 放弃上一次轮询的结果 id相同 说明没有切换
+      if (id === curConversationMeta.value.id) {
+        console.log('toBottom', toBottom)
+        // 暂时不做分页
+        // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
+        conversationDetail.value = res.data.data.reverse()
+        // 获取到消息后滚到底部
+        if (toBottom) {
+          nextTick(() => {
+            scrollToBottom()
+          })
+        }
+        if(nextDetailNeedBottom.value){
+          nextTick(() => {
+            scrollToBottom()
+            nextDetailNeedBottom.value = false
+          })
+        }
+      }
+
     } else {
       Notification.error(res.message)
     }
@@ -347,32 +416,35 @@ const fetchDetailData = (callback) => {
   })
 }
 // 获取对话元信息
-const getChartMetaInfo = () =>{
-  if(!curConversationMeta.value.id) return
+const getChartMetaInfo = () => {
+  if (!curConversationMeta.value.id) return
+  const id = curConversationMeta.value.id
   getChatMeta({
     id: curConversationMeta.value.id
-  }).then(res=>{
-    if (res.code === 0) {
-      curConversationMeta.value = res.data
-    } else {
-      Notification.error(res.message)
+  }).then(res => {
+    // 在轮询的过程中 可能中途被切换了对话详情 如果切换了 放弃上一次轮询的结果 id相同 说明没有切换
+    if (id === curConversationMeta.value.id) {
+      if (res.code === 0) {
+        curConversationMeta.value = res.data
+      } else {
+        Notification.error(res.message)
+      }
     }
   })
 }
-// 计算左侧列表最大高度
-const getListMaxHeight = () => {
-  // 窗口高度 - 头部高度 - 上方选择高度
-  const height = window.innerHeight - 107 - 70
-  console.log(height)
-  listMaxHeight.value = height
-}
 // 打开评论面板
 const openEvaluateDialog = () => {
-  evaluateDialog.value.openDialog();
+  console.log('openEvaluateDialog')
+  evaluateDialog.value.openDialog(curConversationMeta.value.id);
+}
+// 打开评价详情面板
+const openEvaluateDetailDialog = () => {
+  console.log('openEvaluateDetailDialog')
+  checkEvaluateDialog.value.openDialog(curConversationMeta.value.id);
 }
 // 打开标记售出面板
 const openSoldDialog = () => {
-  soldDialog.value.openDialog(curConversationMeta.id);
+  soldDialog.value.openDialog(curConversationMeta.value.id);
 }
 // 标记售出回调
 const markSuc = () => {
@@ -380,17 +452,23 @@ const markSuc = () => {
 }
 // 切换消息类型
 const changeMsgType = () => {
-  bottom.value = false
+  page.value = 1
+  lastPage.value = 0
+  mainContentLoading.value = true
   fetchListData()
 }
 // 切换对话详情
 const changeChatDetail = (item) => {
+  page.value = 1
+  lastPage.value = 0
   curConversationMeta.value = item
   calcOperationOptions()
   mainContentLoading.value = true
-  fetchDetailData(() => {
-    mainContentLoading.value = false
-  })
+  nextDetailNeedBottom.value = true
+  // flag
+  // fetchDetailData(() => {
+  //   mainContentLoading.value = false
+  // })
 }
 // 上传图片
 const uploadChatImg = (option) => {
@@ -411,6 +489,8 @@ const uploadChatImg = (option) => {
         price: null
       }
       sendMsg(data, () => {
+        uploadLoading.value = false
+      }, () => {
         uploadLoading.value = false
       })
     } else {
@@ -460,6 +540,9 @@ const handleOffer = () => {
       offerLoading.value = false
       Notification.success(t('dialogue.offerSuc'))
       handleOfferClose()
+    }, () => {
+      offerLoading.value = false
+      handleOfferClose()
     })
   }
 }
@@ -476,6 +559,8 @@ const cancelOffer = () => {
   sendMsg(data, () => {
     cancelOfferLoading.value = false
     Notification.success(t('dialogue.cancelOfferSuc'))
+  }, () => {
+    cancelOfferLoading.value = false
   })
 }
 // 编辑出价操作
@@ -496,6 +581,9 @@ const editOffer = () => {
       editOfferLoading.value = false
       handleOfferClose1()
       Notification.success(t('dialogue.editOfferSuc'))
+    }, () => {
+      editOfferLoading.value = false
+      handleOfferClose1()
     })
   }
 
@@ -522,6 +610,8 @@ const handleAccept = (e) => {
   sendMsg(data, () => {
     acceptLoading.value = false
     Notification.success(t('dialogue.acceptSuc'))
+  }, () => {
+    acceptLoading.value = false
   })
 }
 // 驳回出价操作
@@ -537,11 +627,14 @@ const handleReject = (e) => {
   sendMsg(data, () => {
     rejectLoading.value = false
     Notification.success(t('dialogue.acceptSuc'))
+  }, () => {
+    rejectLoading.value = false
   })
 }
 // 发送文本消息
 const sendTxt = (e) => {
   console.log(e)
+  if(!inputTxt.value) return
   const data = {
     id: curConversationMeta.value.id,
     type: 0,
@@ -554,17 +647,18 @@ const sendTxt = (e) => {
   })
 }
 // 发送消息
-const sendMsg = (e, callback) => {
+const sendMsg = (e, callbackSuc, callbackFail) => {
   postMsg(e).then(res => {
     if (res.code === 0) {
-      if (callback) callback()
+      if (callbackSuc) callbackSuc()
       fetchDetailData()
-      fetchListData()
+      fetchListData(false)
     } else {
       Notification.error(res.message)
+      if (callbackFail) callbackFail()
     }
   }).catch(e => {
-    if (callback) callback()
+    if (callbackSuc) callbackSuc()
   })
 }
 // 下拉操作按钮处理
@@ -654,34 +748,56 @@ const pageLoopTask = () => {
   pageTask = setInterval(() => {
     fetchListData(false)
     getChartMetaInfo()
-    fetchDetailData()
+    fetchDetailData(null, false)
   }, 1000)
 }
 // 对话详情页面滚到底部
 const scrollToBottom = () => {
+  console.log('执行了滚动到底')
   const ele = document.getElementsByClassName('conversation-main-block')[0]
-  const ele1 = document.getElementsByClassName('conversation-content')[0]
-  ele1.scrollTo({
+  mainContentEle.scrollTo({
     top: ele.scrollHeight,
     behavior: 'smooth'
   })
-
 }
+// 监听对话详情滚到顶加载数据
+const addEventToMainContent = () => {
+  mainContentEle.addEventListener("scroll", scrollListen)
+}
+const scrollListen = (e) => {
+  if(e.target.scrollTop === 0){
+    // 滚到顶部 加载下一页数据
+    console.log('加载')
+    if(page.value < lastPage.value){
+      mainContentLoading.value = true
+      page.value ++
+      fetchDetailData(() => {
+        mainContentLoading.value = false
+      }, false)
+    }
+
+  }
+}
+
 onMounted(() => {
   msgType.value = sysData.msgType;
   dialogueOperationType.value = sysData.dialogueOperationType;
-  // 先计算高度再填充数据 防止高度被撑开
-  getListMaxHeight()
-  // pageLoopTask()
+  mainContentEle = document.getElementsByClassName('conversation-content')[0]
+  // addEventToMainContent()
+  fetchListData()
+  pageLoopTask()
 });
-onUnmounted(()=>{
+onUnmounted(() => {
   console.log('onUnmounted')
   clearInterval(pageTask)
+  mainContentEle.removeEventListener("scroll", scrollListen)
 })
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-
+body{
+  overflow: hidden;
+}
 .global-content {
   height: 100%;
   display: flex;
@@ -690,7 +806,7 @@ onUnmounted(()=>{
 
 .left-msg-list {
   width: 30%;
-  border-top: 1px solid #F2F2F2;;
+  border-top: 1px solid #F2F2F2;
 
   .msg-select {
     width: 110px;
@@ -716,6 +832,8 @@ onUnmounted(()=>{
   }
 
   .msg-list {
+    height: calc(100vh - 70px - 106px);
+    overflow-y: auto;
     :deep(.arco-list-item) {
       padding: 0;
     }
@@ -725,6 +843,7 @@ onUnmounted(()=>{
       padding: 14px 16px 19px 51px;
       display: flex;
       justify-content: space-between;
+      border-top: 1px solid #F2F2F2;
 
       .arco-image {
         border-radius: 50%;
@@ -790,7 +909,9 @@ onUnmounted(()=>{
     }
 
     .nomore {
+      border-top: 1px solid #F2F2F2;
       color: $grey-font-label;
+      text-align: center;
       font-size: 16px;
       padding: 20px 0;
     }
@@ -889,11 +1010,12 @@ onUnmounted(()=>{
         background: $main-grey;
       }
 
-      .rejected{
+      .rejected {
         margin-left: 4px;
         color: rgb(var(--danger-6));
       }
-      .accepted{
+
+      .accepted {
         margin-left: 4px;
         color: rgb(var(--success-6));
       }
@@ -905,6 +1027,13 @@ onUnmounted(()=>{
     height: calc(100vh - 105px - 171px - 60px - 20px);
     overflow-y: scroll;
     padding: 0 14px 20px 24px;
+
+    .nomore{
+      color: $grey-font-label;
+      text-align: center;
+      font-size: 12px;
+      padding-top: 12px;
+    }
 
     .no-msg {
       height: 100%;
