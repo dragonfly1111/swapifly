@@ -4,19 +4,9 @@
     <div class="edit-box border-box">
       <div class="left">
         <div>
-          <a-upload
-            draggable
-            :show-file-list="false"
-            :file-list="fileList"
-            :action="uploadUrl"
-            accept="image/*,.png"
-            :headers="headers"
-            :limit="10"
-            :on-before-upload="beforeUpload"
-            :on-button-click="uploadClick"
-            @success="uploadSuccess"
-            @error="uploadError"
-          >
+          <a-upload draggable :show-file-list="false" :file-list="fileList" :action="uploadUrl" accept="image/*,.png"
+            :headers="headers" :limit="10" :on-before-upload="beforeUpload" @success="uploadSuccess"
+            @error="uploadError">
             <template #upload-button>
               <div class="upload-area">
                 <icon-plus :strokeWidth="10" :size="18" />
@@ -28,25 +18,13 @@
         </div>
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
         <!-- <div class="image-preview-list"> -->
-        　<draggable
-          v-model="fileList"
-          class="image-preview-list"
-          ghost-class="ghost"
-          chosen-class="chosenClass"
-          animation="300"
-          @end="onEnd"
-          :fallback-on-body="true"
-          item-key="id"
-        >
+        　<draggable v-model="fileList" class="image-preview-list" ghost-class="ghost" chosen-class="chosenClass"
+          animation="300" @end="onEnd" :fallback-on-body="true" item-key="id">
           <template #item="{ element, index }">
             <div class="item image-item" :class="{ 'is-cover': index == 0 }">
               <a-image :src="element.url"> </a-image>
               <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
-              <icon-close
-                @click="handleDelImage(element, index)"
-                class="icon-close"
-                :title="$t('sale.delete')"
-              />
+              <icon-close @click="handleDelImage(element, index)" class="icon-close" :title="$t('sale.delete')" />
             </div>
           </template>
         </draggable>
@@ -66,27 +44,13 @@
         <!-- </div> -->
       </div>
       <div class="right">
-        <a-form
-          size="large"
-          :rules="rules"
-          :model="form"
-          layout="vertical"
-          ref="formRef"
-          class="right-form"
-        >
+        <a-form size="large" :rules="rules" :model="form" layout="vertical" ref="formRef" class="right-form">
           <a-form-item field="rid" hide-label hide-asterisk>
-            <a-tree-select
-              :data="typeList"
-              v-model="form.rid"
-              :fieldNames="{
-                key: 'id',
-                title: 'title',
-                children: 'children',
-              }"
-              :placeholder="$t('sale.chooseType')"
-              selectable="leaf"
-              class="input-wrp"
-            ></a-tree-select>
+            <a-tree-select :data="typeList" v-model="form.rid" :fieldNames="{
+              key: 'id',
+              title: 'title',
+              children: 'children',
+            }" :placeholder="$t('sale.chooseType')" selectable="leaf" class="input-wrp"></a-tree-select>
             <template #extra>
               <div>分类/分类</div>
             </template>
@@ -101,7 +65,7 @@
               </template>
             </a-form-item>
             <div class="form-title">{{ $t("sale.goodsDetails") }}</div>
-            <a-form-item field="nid" :label="$t('pages.oldAndNew')">
+            <a-form-item field="nid" :label="$t('pages.oldAndNew')" hide-asterisk>
               <a-radio-group v-model="form.nid">
                 <a-radio v-for="item in newOldList" :key="item.id" :value="item.id">
                   {{ item.title }}
@@ -111,64 +75,37 @@
                 {{ filterNewOldAdvice() }}
               </template>
             </a-form-item>
-            <a-form-item field="price" :label="$t('sale.price')">
+            <a-form-item field="price" :label="$t('sale.price')" hide-asterisk>
               <a-input class="input-wrp" v-model="form.price">
                 <template #prefix>
                   <span>HK$</span>
                 </template>
               </a-input>
             </a-form-item>
-            <a-form-item field="describe" :label="$t('sale.goodsDesc')">
-              <a-textarea
-                class="input-wrp"
-                :placeholder="$t('sale.goodsDescTip')"
-                allow-clear
-                :auto-size="{ minRows: 8, maxRows: 8 }"
-                v-model="form.describe"
-              />
+            <a-form-item field="describe" :label="$t('sale.goodsDesc')" hide-asterisk>
+              <a-textarea class="input-wrp" :placeholder="$t('sale.goodsDescTip')" allow-clear
+                :auto-size="{ minRows: 8, maxRows: 8 }" v-model="form.describe" />
               <template #extra>
                 <a-row justify="space-between">
                   <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
                   <a-col flex="138px" v-if="hasBanWord(form.describe)" class="tip-danger">
-                    {{ $t("sale.forbidTip") }}</a-col
-                  >
+                    {{ $t("sale.forbidTip") }}</a-col>
                 </a-row>
               </template>
             </a-form-item>
-            <a-form-item field="region" :label="$t('profile.countries_regions')">
-              <a-select
-                v-model="form.region"
-                :placeholder="$t('profile.countries_regions_empty')"
-                allow-clear
-              >
-                <a-option
-                  v-for="item in regionOptions"
-                  :value="item.id"
-                  :key="item.id"
-                  :label="item.title"
-                >
+            <a-form-item field="region" :label="$t('profile.countries_regions')" hide-asterisk>
+              <a-select v-model="form.region" :placeholder="$t('profile.countries_regions_empty')" allow-clear>
+                <a-option v-for="item in regionOptions" :value="item.id" :key="item.id" :label="item.title">
                   {{ item.title }}
                 </a-option>
               </a-select>
             </a-form-item>
             <div class="form-title">{{ $t("sale.trading") }}</div>
-            <a-form-item field="address" hide-label :content-flex="false">
+            <a-form-item field="address" hide-label hide-asterisk :content-flex="false">
               <a-checkbox v-model="form.mail" :value="1">{{ $t("pages.handDeliver") }}</a-checkbox>
-              <a-select
-                v-if="form.mail == 1"
-                v-model="offline_address"
-                :placeholder="$t('sale.deliverAddress')"
-                allow-clear
-                allow-search
-                class="input-wrp"
-                @search="handleSearch" :filter-option="false"
-              >
-                <a-option
-                  v-for="item in addressOptions"
-                  :value="item.id"
-                  :key="item.id"
-                  :label="item.title"
-                >
+              <a-select v-if="form.mail == 1" v-model="offline_address" :placeholder="$t('sale.deliverAddress')"
+                allow-clear allow-search class="input-wrp" @search="handleSearch" :filter-option="false">
+                <a-option v-for="item in addressOptions" :value="item.id" :key="item.id" :label="item.title">
                   {{ item.title }}
                 </a-option>
               </a-select>
@@ -183,24 +120,18 @@
                 </div>
               </div>
             </a-form-item>
-            <a-form-item field="mail_note" hide-label :content-flex="false">
+            <a-form-item field="mail_note" hide-label :content-flex="false" hide-asterisk>
               <a-checkbox v-model="form.offline" :value="1">{{
-                $t("pages.postAndCourier")
+                  $t("pages.postAndCourier")
               }}</a-checkbox>
-              <a-textarea
-                class="input-wrp"
-                v-if="form.offline == 1"
-                :placeholder="$t('sale.postTip')"
-                allow-clear
-                :auto-size="{ minRows: 5, maxRows: 5 }"
-                v-model="form.mail_note"
-              />
+              <a-textarea class="input-wrp" v-if="form.offline == 1" :placeholder="$t('sale.postTip')" allow-clear
+                :auto-size="{ minRows: 5, maxRows: 5 }" v-model="form.mail_note" />
             </a-form-item>
             <div class="publish">
               <!-- <a-button class="black-btn" style="margin-right: 15px">{{
                 $t("sale.saveDraft")
               }}</a-button> -->
-              <a-button class="publish-btn">{{ $t("sale.publish") }}</a-button>
+              <a-button class="publish-btn" @click="submitForm">{{ $t("sale.publish") }}</a-button>
             </div>
           </div>
         </a-form>
@@ -220,7 +151,7 @@ import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
 import { Notification, Modal } from "@arco-design/web-vue";
-import { getProductDraftDetails, getProductInfo, getProductAddress } from "~/api/goods";
+import { getProductDraftDetails, getProductInfo, getProductAddress, editProduct, addProductDraft } from "~/api/goods";
 const { t } = useI18n();
 const router = useRouter();
 const sysData = useSysData();
@@ -246,7 +177,12 @@ const fileList = ref([]);
 const addressOptions = ref([]);
 const formRef = ref(null);
 
-const rules = reactive({});
+const rules = reactive({
+  rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
+  title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
+  oldAndNewValidate: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
+  price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
+});
 
 const listAll = () => {
   // 地址
@@ -256,7 +192,7 @@ const listAll = () => {
 };
 
 // 搜索地址
-const handleSearch = (e) =>{
+const handleSearch = (e) => {
 
 }
 
@@ -264,11 +200,6 @@ const handleSearch = (e) =>{
 const filterNewOldAdvice = () => {
   let obj = newOldList.find((i) => i.id == form.value.nid);
   return obj ? obj.advice : "";
-};
-
-// 草稿详情
-const getDraftInfo = () => {
-  getProductDraftDetails();
 };
 
 // 是否含有违禁词汇
@@ -281,6 +212,11 @@ const hasBanWord = (val) => {
     );
   }
   return false;
+};
+
+// 草稿详情
+const getDraftInfo = () => {
+  getProductDraftDetails();
 };
 
 // 商品详情
@@ -310,7 +246,6 @@ const onEnd = (e) => {
 const beforeUpload = (e) => {
   return true;
 };
-const uploadClick = () => {};
 // 上传成功
 const uploadSuccess = (e) => {
   if (e.response.code == 0) {
@@ -322,14 +257,49 @@ const uploadSuccess = (e) => {
   }
 };
 
-const uploadError = (e) => {};
+const uploadError = (e) => { };
 
 // 提交表单
-const submitForm = () =>{
+const submitForm = () => {
+  Modal.info({
+    titleAlign: "start",
+    content: t("sale.publishBtnComfirm"),
+    closable: true,
+    hideCancel: false,
+    cancelText: t("pages.cancel"),
+    okText: t("sale.publish"),
+    onBeforeOk: (done) => {
+      saveProduct('publish')
+      done(true)
+    },
+  });
 
 }
 
-// 关闭app 记录用户停留时间入库
+// 立即发布 或 保存草稿
+const saveProduct = (type) => {
+  let reqUrl = type == 'publish' ? editProduct : addProductDraft
+  let formData = {
+    ...form.value,
+    images: fileList.value.map(i => {
+      return i.url.replace(baseImgPrefix, '')
+    })
+  }
+  formRef.value.validate().then(validate => {
+    if (validate) {
+      return
+    }
+    reqUrl(formData).then(res => {
+      if (res.code === 0) {
+        Message.success(res.message)
+      } else {
+        Message.error(res.message)
+      }
+    })
+  })
+}
+
+// 关闭浏览器 判断保存
 const beforeunloadHandler = (e) => {
   if (router.currentRoute.value.path == "/saleEditGoods") {
     e = e || window.event;
@@ -359,7 +329,7 @@ router.beforeEach((to, from, next) => {
       hideCancel: false,
       cancelText: t("pages.cancel"),
       okText: t("sale.saveDraft"),
-      onBeforeOk: (done) => {},
+      onBeforeOk: (done) => { },
       onCancel: () => {
         next();
         return true;
@@ -391,13 +361,16 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+
 .tip-danger {
   color: #d43030;
 }
+
 .common-row {
   padding-left: 0;
   padding-right: 0;
 }
+
 .sale-header {
   font-size: 24px;
   padding: 15px 10%;
@@ -409,7 +382,9 @@ onMounted(() => {
   margin: 20px 10%;
   display: flex;
   justify-content: space-between;
+
   &.border-box {
+
     .left,
     .right {
       border: 1px solid #e5e5e5;
@@ -418,8 +393,10 @@ onMounted(() => {
       height: fit-content;
     }
   }
+
   .left {
     width: 45%;
+
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -427,14 +404,17 @@ onMounted(() => {
       text-align: center;
       padding-top: 55px;
       box-sizing: border-box;
+
       div {
         margin: 20px 0 15px;
         font-size: 16px;
       }
+
       span {
         color: #86909c;
       }
     }
+
     .cover-tip {
       text-align: center;
       margin: 20px auto;
@@ -444,9 +424,11 @@ onMounted(() => {
       display: flex;
       flex-wrap: wrap;
       margin-top: 50px;
+
       .item:hover {
         cursor: move;
       }
+
       .image-item {
         width: 134px;
         height: 134px;
@@ -454,6 +436,7 @@ onMounted(() => {
         margin-bottom: 20px;
         border-radius: 2px;
         position: relative;
+
         .icon-close {
           position: absolute;
           right: 5px;
@@ -463,10 +446,12 @@ onMounted(() => {
           z-index: 99;
           cursor: pointer;
         }
+
         &.is-cover {
           border: 4px solid $main-grey;
           border-top-width: 0;
           box-sizing: border-box;
+
           .is-cover-span {
             position: absolute;
             width: 134px;
@@ -481,10 +466,12 @@ onMounted(() => {
             border-radius: 2px 2px 0 0;
           }
         }
+
         .arco-image {
           width: 100%;
           height: 100%;
         }
+
         :deep(.arco-image-img) {
           width: 100%;
           height: 100%;
@@ -493,8 +480,10 @@ onMounted(() => {
       }
     }
   }
+
   .right {
     width: 52%;
+
     .right-form {
       .input-wrp {
         background-color: #fff;
@@ -502,32 +491,40 @@ onMounted(() => {
         padding-top: 5px;
         padding-bottom: 5px;
       }
+
       .form-title {
         font-size: 24px;
         margin: 10px 0 28px;
       }
+
       :deep(.arco-form-item-extra) {
         width: 100%;
         color: $grey-font-label;
       }
+
       :deep(.arco-form-item-label-col) {
         line-height: 16px;
-        & > .arco-form-item-label {
+
+        &>.arco-form-item-label {
           color: $grey-font-label;
           font-size: 16px;
         }
       }
+
       :deep(.arco-select) {
         @extend .input-wrp;
       }
+
       :deep(.arco-select-view-single) {
         @extend .input-wrp;
       }
+
       :deep(.arco-radio-checked .arco-radio-icon),
       :deep(.arco-checkbox-checked .arco-checkbox-icon) {
         border-color: $main-grey;
         background-color: $main-grey;
       }
+
       .arco-checkbox {
         margin-bottom: 15px;
         margin-top: 10px;
@@ -545,6 +542,7 @@ onMounted(() => {
 
 .publish {
   text-align: right;
+
   .publish-btn {
     background-color: $main-pink;
     color: #fff;
@@ -554,6 +552,7 @@ onMounted(() => {
 .ghost {
   border: solid 1px $main-grey;
 }
+
 .chosenClass {
   background-color: #f1f1f1;
 }
@@ -569,15 +568,19 @@ onMounted(() => {
     padding: 15px 40px 20px 15px;
     box-sizing: border-box;
     border-bottom: 1px solid #e5e6e8;
+
     &:nth-child(2n) {
       margin-left: 4%;
     }
+
     p {
       margin: 0 0 10px 0;
     }
+
     span {
       color: #4e5969;
     }
+
     .close-box {
       position: absolute;
       right: 0;
