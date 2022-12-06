@@ -1,8 +1,8 @@
 <template>
   <div class="global-content">
     <div class="sale-header">{{ $t("sale.saleTitle") }}</div>
-    <div class="edit-box border-box">
-      <div class="left">
+    <div class="edit-box border-box media-sale-edit-goods">
+      <div class="left" v-if="resize.screenType !== 'MOBILE'">
         <div>
           <a-upload
             draggable
@@ -65,6 +65,68 @@
         <!-- </div> -->
       </div>
       <div class="right">
+        <div v-if="resize.screenType === 'MOBILE'">
+          <div>
+            <a-upload
+              draggable
+              :show-file-list="false"
+              :file-list="fileList"
+              :action="uploadUrl"
+              accept="image/*,.png"
+              :headers="headers"
+              :limit="10"
+              :on-before-upload="beforeUpload"
+              @success="uploadSuccess"
+              @error="uploadError"
+            >
+              <template #upload-button>
+                <div class="upload-area">
+                  <icon-plus :strokeWidth="10" :size="18" />
+                  <div>{{ $t("sale.uploadTip") }}</div>
+                  <span>{{ $t("sale.uploadAlert") }}</span>
+                </div>
+              </template>
+            </a-upload>
+          </div>
+          <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
+          <!-- <div class="image-preview-list"> -->
+          　<draggable
+          v-model="fileList"
+          class="image-preview-list"
+          ghost-class="ghost"
+          chosen-class="chosenClass"
+          animation="300"
+          @end="onEnd"
+          :fallback-on-body="true"
+          item-key="id"
+        >
+          <template #item="{ element, index }">
+            <div class="item image-item" :class="{ 'is-cover': index == 0 }">
+              <a-image :src="element.url"> </a-image>
+              <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
+              <icon-close
+                @click="handleDelImage(element, index)"
+                class="icon-close"
+                :title="$t('sale.delete')"
+              />
+            </div>
+          </template>
+        </draggable>
+          <!-- <div
+              class="image-item"
+              v-for="(item, index) in images"
+              :class="{ 'is-cover': index == 0 }"
+            >
+              <a-image :src="item"> </a-image>
+              <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
+              <icon-close
+                @click="handleDelImage(item)"
+                class="icon-close"
+                :title="$t('sale.delete')"
+              />
+            </div> -->
+          <!-- </div> -->
+        </div>
         <a-form
           size="large"
           :rules="rules"
@@ -221,6 +283,7 @@ import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
+import {useResize} from '~/stores/resize';
 import { Notification, Modal } from "@arco-design/web-vue";
 import {
   getProductDraftDetails,
@@ -238,6 +301,7 @@ const newOldList = sysData.goodsOan;
 const regionOptions = sysData.region;
 const pdwList = sysData.goodsPdwList || [];
 const userInfo = useUserInfo();
+const resize = useResize();
 let headers = reactive({
   "X-Utoken": null,
   "X-Userid": null,
@@ -510,15 +574,15 @@ onMounted(() => {
 }
 
 .edit-box {
-  margin: 20px 10%;
+  //margin: 20px 10%;
   display: flex;
   justify-content: space-between;
 
   &.border-box {
     .left,
     .right {
-      border: 1px solid #e5e5e5;
-      padding: 20px 24px;
+      //border: 1px solid #e5e5e5;
+      //padding: 20px 24px;
       box-sizing: border-box;
       height: fit-content;
     }
@@ -612,8 +676,89 @@ onMounted(() => {
   }
 
   .right {
-    width: 52%;
+    //width: 52%;
+    .upload-area {
+      width: 100%;
+      background-color: #f2f3f5;
+      height: 210px;
+      text-align: center;
+      padding-top: 55px;
+      box-sizing: border-box;
 
+      div {
+        margin: 20px 0 15px;
+        font-size: 16px;
+      }
+
+      span {
+        color: #86909c;
+      }
+    }
+
+    .cover-tip {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .image-preview-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 50px;
+
+      .item:hover {
+        cursor: move;
+      }
+
+      .image-item {
+        width: 134px;
+        height: 134px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        border-radius: 2px;
+        position: relative;
+
+        .icon-close {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          font-size: 16px;
+          color: #4e5969;
+          z-index: 99;
+          cursor: pointer;
+        }
+
+        &.is-cover {
+          border: 4px solid $main-grey;
+          border-top-width: 0;
+          box-sizing: border-box;
+
+          .is-cover-span {
+            position: absolute;
+            width: 134px;
+            top: -25px;
+            left: -4px;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            background-color: $main-grey;
+            height: 26px;
+            line-height: 26px;
+            border-radius: 2px 2px 0 0;
+          }
+        }
+
+        .arco-image {
+          width: 100%;
+          height: 100%;
+        }
+
+        :deep(.arco-image-img) {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
     .right-form {
       .input-wrp {
         background-color: #fff;

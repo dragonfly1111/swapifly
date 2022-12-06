@@ -247,7 +247,6 @@ defineExpose({
 @import "assets/sass/var";
 .business-dialog {
   padding: 20px 27px;
-  width: 446px;
 
   .arco-modal-header {
     padding: 0;

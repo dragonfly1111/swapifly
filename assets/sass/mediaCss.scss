@@ -58,6 +58,21 @@
       margin: 10px 0;
     }
   }
+  .media-sale-edit-goods{
+    margin: 20px 10%;
+    .left{
+      border: 1px solid #e5e5e5;
+      padding: 20px 24px;
+    }
+    .right{
+      width: 52%;
+      border: 1px solid #e5e5e5;
+      padding: 20px 24px;
+    }
+  }
+  .business-dialog{
+    width: 446px;
+  }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
   .recommend-item{
@@ -127,5 +142,25 @@
     .section-content{
       margin-top: 60px;
     }
+  }
+  .media-sale-edit-goods{
+    margin: 0;
+    .right{
+      width: 100%;
+      border: none;
+      padding: 0;
+    }
+    .left{
+      border: none;
+      padding: 0;
+    }
+  }
+  .publish {
+    .publish-btn {
+      width: 100%;
+    }
+  }
+  .business-dialog{
+    width: 80%;
   }
 }

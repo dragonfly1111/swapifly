@@ -42,6 +42,7 @@ const mobileAndPcArr = [
   '/like',
   '/userDetails',
   '/goodsDetails',
+  '/saleEditGoods',
 ];
 //共用的移动端页面，头尾都不要
 const noHearderAndFooter = [
