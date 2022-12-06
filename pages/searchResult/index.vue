@@ -93,6 +93,9 @@ const getSearchData = (data) => {
 }
 const handleQuery = (data) => {
   console.log("form", data);
+  if(data.keyword){
+    data.title = data.keyword
+  }
   page.value = 1
   productList.value = []
   getSearchData(data)

@@ -40,7 +40,7 @@
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
           <div id="brandsContent" class="brands-content">
-            <div v-for="item in subClassList" @click="toSearch(item)" class="brands-item">
+            <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item">
               <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
@@ -125,7 +125,6 @@ import { baseImgPrefix } from "~/config/baseUrl";
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Notification } from '@arco-design/web-vue';
-import { useSysData } from "../../stores/sysData";
 
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
@@ -137,6 +136,7 @@ const productList = ref([])
 const hotBradList = ref([])
 const subClassList = ref([])
 const route = useRoute()
+const router = useRouter()
 const curBradPage = ref(0)
 const curBradPage1 = ref(0)
 const bradNextShow = ref(true)
@@ -276,6 +276,24 @@ const openLink = (e) => {
   console.log(e)
   if (!e.link) return
   window.open(e.link, '_blank')
+}
+const toSearch = (item) => {
+  router.push({
+    path: '/searchResult',
+    query: {
+      keyword: item.title
+    }
+  })
+}
+const toClassDetail = (e) => {
+  console.log(e)
+  router.push({
+    path: '/goodsList',
+    query: {
+      id: e.id,
+      level: curLevel.value + 1
+    }
+  })
 }
 // 页面初始化
 const initPageData = () => {
