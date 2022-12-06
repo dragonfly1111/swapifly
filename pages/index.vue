@@ -50,7 +50,7 @@
               <div>{{ item.title }}</div>
             </div>
           </div>
-          <div v-if="bradNextShow" class="arrow arrow-rgiht" @click="bradChangePage('next')">
+          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
         </template>
@@ -66,7 +66,7 @@
 
     <AD></AD>
 
-    <div class="see-more" v-if="page < lastPage">
+    <div class="see-more" v-if="page < lastPage && productList.length > 8">
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
@@ -79,7 +79,7 @@
 
 <script setup>
 import {baseImgPrefix} from "~/config/baseUrl";
-import {getHotBrad, getProductlist} from '~/api/goods'
+import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
@@ -194,7 +194,7 @@ const getBrad = () => {
 // 获取商品列表
 const getProduct = () => {
   productLoading.value = true
-  getProductlist({
+  getProductList({
     limit: 8,
     page: page.value
   }).then(res => {
@@ -265,6 +265,7 @@ initPageData()
 
   .section-header1 {
     margin-bottom: 22px;
+    margin-top: 0;
   }
 
   .brands-content {
@@ -337,7 +338,7 @@ initPageData()
       }
     }
 
-    .arrow-rgiht {
+    .arrow-right {
       right: 0;
     }
 
