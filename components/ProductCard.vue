@@ -22,7 +22,7 @@
       <div
         class="recommend-item"
         v-for="(item, index) in list"
-        @click="$router.push('/goodsDetails?id=' + item.pid)"
+        @click="$router.push('/goodsDetails?id=' + (item.id || item.pid))"
       >
         <div class="user-box" v-if="showUser">
           <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader>

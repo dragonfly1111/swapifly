@@ -57,8 +57,8 @@
           <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="goods-info">
-          <a-row justify="space-between" :gutter="40">
-            <a-col flex="auto" class="goods-content">
+          <div class="goods-info-body">
+            <div class="goods-content">
               <div class="goods-name">{{ productInfo.title }}</div>
               <a-row justify="space-between" class="goods-desc">
                 <a-col :span="8">
@@ -122,7 +122,7 @@
                       <img alt="avatar" :src="baseImgPrefix + sellerInfo.avatar" />
                     </a-avatar>
                     <div class="seller-info">
-                      <div>{{ sellerInfo.nickname }}</div>
+                      <div class="seller-name">{{ sellerInfo.nickname }}</div>
                       <div class="grey">@{{ sellerInfo.realname }}</div>
                       <div class="fs12">
                         <span>joined</span>
@@ -149,17 +149,17 @@
                       :showSource="false"
                       :showLine="false"
                     ></EvaluateList>
-                    <a-link class="see-more-comment" @click="seeMoreComment">
+                    <a-link class="see-more-comment" @click="seeMoreComment" v-if="eltlist.length">
                       {{ $t("pages.viewAllComment") }}
                       <icon-left />
                     </a-link>
                   </a-col>
                 </a-row>
               </div>
-            </a-col>
+            </div>
 
             <!-- 用户信息 -->
-            <a-col flex="340px" class="right-box" v-if="resize.screenType !== 'MOBILE'">
+            <div class="right-box" v-if="resize.screenType !== 'MOBILE'">
               <div class="user-card">
                 <a-comment
                   :author="sellerInfo.nickname"
@@ -224,8 +224,8 @@
                 }}</a-button>
               </div>
               <AD width="86%" height="560px"></AD>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
 
           <div class="module-box">
             <a-divider orientation="left" class="module-header">{{
@@ -324,9 +324,9 @@ const openAchievement = () => {
 };
 
 // 查看所有评价
-const seeMoreComment = () =>{
+const seeMoreComment = () => {
   router.push(`/userDetails?userId=${sellerInfo.value.id}&tab=evaluateRow`);
-}
+};
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
     slidesPerView: resize.screenType === "MOBILE" ? 1 : 3,
@@ -457,6 +457,18 @@ onMounted(async () => {
   }
   .goods-info {
     margin-top: 25px;
+    .goods-info-body {
+      display: flex;
+      justify-content: space-between;
+      .goods-content {
+        flex: auto;
+        margin-right: 40px;
+      }
+      .right-box {
+        width: 340px
+        ;
+      }
+    }
     .goods-name {
       font-size: 20px;
       height: 80px;
@@ -493,6 +505,10 @@ onMounted(async () => {
           margin-right: 20px;
         }
         .seller-info {
+          .seller-name{
+            max-width: 10vw;
+            word-break: break-all;
+          }
           div {
             margin-bottom: 11px;
             &:first-child,
@@ -537,8 +553,13 @@ onMounted(async () => {
       .arco-icon-star-fill {
         color: #ffb400;
       }
-      .arco-comment-author {
+      :deep(.arco-comment-title-align-left){
+        // display: flex;
+        // flex-wrap: wrap;
+      }
+      :deep(.arco-comment-author){
         font-size: 16px;
+        display: inline-block;
       }
       :deep(.arco-comment-avatar) {
         margin-right: 8px;
