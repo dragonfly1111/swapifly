@@ -222,7 +222,7 @@ function openLogin() {
   }
 }
 function toSell() {
-  router.push('/saleEditGoods')
+  router.push('/saleEdit')
 }
 function toRegister() {
   loginModal.value.handleCancel()

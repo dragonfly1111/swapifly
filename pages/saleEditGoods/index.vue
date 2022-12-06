@@ -111,7 +111,7 @@
               </template>
             </a-form-item>
             <a-form-item field="price" :label="$t('sale.price')" hide-asterisk>
-              <a-input class="input-wrp" v-model="form.price">
+              <a-input class="input-wrp" v-model="form.price" type="number">
                 <template #prefix>
                   <span>HK$</span>
                 </template>

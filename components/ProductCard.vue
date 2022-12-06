@@ -22,10 +22,14 @@
       <div
         class="recommend-item"
         v-for="(item, index) in list"
-        @click="$router.push('/goodsDetails')"
+        @click="$router.push('/goodsDetails?id=' + item.pid)"
       >
         <div class="user-box" v-if="showUser">
-          <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader></a-image>
+          <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader>
+            <template #loader>
+              <div class="loader-animate" />
+            </template>
+          </a-image>
           <div class="user-desc">
             <div>用户名称</div>
             <div class="time">一天前</div>
@@ -69,7 +73,9 @@
                 <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
                   item.state == 3 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
                 }}</a-doption>
-                <a-doption @click.stop="handleMark(item)" v-if="item.state != 2">{{ $t("pages.markSold") }}</a-doption>
+                <a-doption @click.stop="handleMark(item)" v-if="item.state != 2">{{
+                  $t("pages.markSold")
+                }}</a-doption>
                 <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
               </template>
             </template>
@@ -99,7 +105,7 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Modal, Button,Message } from "@arco-design/web-vue";
+import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
@@ -183,7 +189,7 @@ const handleRemove = (item) => {
           }
         })
         .finally(() => {
-          done(true)
+          done(true);
         });
     },
   });
@@ -207,7 +213,7 @@ const handleDelete = (item) => {
           }
         })
         .finally(() => {
-          done(true)
+          done(true);
         });
     },
   });
@@ -231,7 +237,7 @@ const handleMark = (item) => {
           }
         })
         .finally(() => {
-          done(true)
+          done(true);
         });
     },
   });

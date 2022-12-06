@@ -4,47 +4,48 @@
 
     <section class="section-wrapper goods-wrapper">
       <a-breadcrumb v-if="resize.screenType !== 'MOBILE'">
-        <a-breadcrumb-item>Home</a-breadcrumb-item>
-        <a-breadcrumb-item>Channel</a-breadcrumb-item>
-        <a-breadcrumb-item>News</a-breadcrumb-item>
+        <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
       </a-breadcrumb>
       <div class="section-content">
         <div class="goods-swiper">
           <!-- Swiper -->
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(item, index) in images">
-                <a-image width="100%" :src="item" />
-                <div class="goods-tags" v-if="images.length < 3 && index == images.length - 1">
+              <div class="swiper-slide" v-for="(item, index) in productInfo.images">
+                <a-image width="100%" :src="baseImgPrefix + item" />
+                <div
+                  class="goods-tags"
+                  v-if="productInfo.images.length < 3 && index == productInfo.images.length - 1"
+                >
                   <a-space class="handle-header">
                     <a-button class="black-btn" @click="handleShare">分享</a-button>
                     <a-button class="black-btn">
-                      <!-- <icon-heart-fill class="heart"  /> -->
-                      <icon-heart class="heart" />
-                      15 like
+                      <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
+                      <icon-heart class="heart" v-if="productInfo.islike == 0" />
+                      {{ productInfo.like }} like
                     </a-button>
                     <a-button class="black-btn" @click="handleReport">举报</a-button>
                   </a-space>
                   <div class="handle-bottom">
-                    <a-button class="black-btn">{{ images.length }} image</a-button>
+                    <a-button class="black-btn">{{ productInfo.images.length }} image</a-button>
                   </div>
                 </div>
               </div>
             </div>
-            <div v-if="images.length >= 3" class="goods-tags">
-                <a-space class="handle-header">
-                  <a-button class="black-btn" @click="handleShare">分享</a-button>
-                  <a-button class="black-btn">
-                    <!-- <icon-heart-fill class="heart"  /> -->
-                    <icon-heart class="heart" />
-                    15 like
-                  </a-button>
-                  <a-button class="black-btn" @click="handleReport">举报</a-button>
-                </a-space>
-                <div class="handle-bottom">
-                  <a-button class="black-btn">{{ images.length }} image</a-button>
-                </div>
+            <div v-if="productInfo.images.length >= 3" class="goods-tags">
+              <a-space class="handle-header">
+                <a-button class="black-btn" @click="handleShare">分享</a-button>
+                <a-button class="black-btn">
+                  <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
+                  <icon-heart class="heart" v-if="productInfo.islike == 0" />
+                  {{ productInfo.like }} like
+                </a-button>
+                <a-button class="black-btn" @click="handleReport">举报</a-button>
+              </a-space>
+              <div class="handle-bottom">
+                <a-button class="black-btn">{{ productInfo.images.length }} image</a-button>
               </div>
+            </div>
           </div>
           <!-- 分页 -->
           <div>
@@ -53,27 +54,28 @@
           </div>
         </div>
         <a-breadcrumb v-if="resize.screenType === 'MOBILE'">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>Channel</a-breadcrumb-item>
-          <a-breadcrumb-item>News</a-breadcrumb-item>
+          <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="goods-info">
           <a-row justify="space-between" :gutter="40">
             <a-col flex="auto" class="goods-content">
-              <div class="goods-name">商品名称</div>
+              <div class="goods-name">{{ productInfo.title }}</div>
               <a-row justify="space-between" class="goods-desc">
                 <a-col :span="8">
                   <icon-common />
-                  <span>幾乎全新</span>
+                  <span>{{ productInfo.newold }}</span>
                   <icon-info-circle />
                 </a-col>
                 <a-col :span="8">
                   <icon-user-group />
-                  <span>面交</span>
+                  <span v-if="productInfo.offline == 1" class="mr5">{{
+                    $t("pages.handDeliver")
+                  }}</span>
+                  <span v-if="productInfo.mail == 1">{{ $t("pages.postAndCourier") }}</span>
                 </a-col>
                 <a-col :span="8">
                   <icon-location />
-                  <span>香港</span>
+                  <span>{{ productInfo.region }}</span>
                 </a-col>
               </a-row>
               <a-typography>
@@ -83,15 +85,7 @@
                     expandable: true,
                   }"
                 >
-                  A design is a plan or specification for the construction of an object or system or
-                  for the implementation of an activity or process, or the result of that plan or
-                  specification in the form of a prototype, product or process. The verb to design
-                  expresses the process of developing a design. The verb to design expresses the
-                  process of developing a design. A design is a plan or specification for the
-                  construction of an object or system or for the implementation of an activity or
-                  process, or the result of that plan or specification in the form of a prototype,
-                  product or process. The verb to design expresses the process of developing a
-                  design. The verb to design expresses the process of developing a design.
+                  {{ productInfo.describe }}
                   <template #expand-node="{ expanded }">
                     {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
                   </template>
@@ -101,30 +95,21 @@
                   $t("pages.handDeliver")
                 }}</a-typography-title>
                 <a-typography-paragraph>
-                  <div class="trade-type-item">
+                  <div class="trade-type-item" v-for="item in productInfo.offline_address">
                     <a-space align="start" :strokeWidth="2">
                       <icon-location :size="18" />
                       <div>
-                        <div>昌裕大廈</div>
-                        <div class="grey">Kent Rd, Kowloon City</div>
-                      </div>
-                    </a-space>
-                  </div>
-                  <div>
-                    <a-space align="start" :strokeWidth="2">
-                      <icon-location :size="18" />
-                      <div>
-                        <div>昌裕大廈</div>
-                        <div class="grey">Kent Rd, Kowloon City</div>
+                        <div>{{ item.title }}</div>
+                        <div class="grey">{{ item.address }}</div>
                       </div>
                     </a-space>
                   </div>
                 </a-typography-paragraph>
-                <a-typography-title :heading="4" class="mt30">{{
+                <a-typography-title :heading="4" class="mt30" v-if="productInfo.mail == 1">{{
                   $t("pages.postAndCourier")
                 }}</a-typography-title>
-                <a-typography-paragraph class="grey">
-                  詳細文本內容詳細文本內容詳細文本內容詳細文本內容
+                <a-typography-paragraph class="grey" v-if="productInfo.mail_note">
+                  {{ productInfo.mail_note }}
                 </a-typography-paragraph>
               </a-typography>
               <div class="module-box">
@@ -134,20 +119,17 @@
                 <a-row justify="space-between" :gutter="20">
                   <a-col flex="250px" class="seller-box">
                     <a-avatar :size="100">
-                      <img
-                        alt="avatar"
-                        src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
-                      />
+                      <img alt="avatar" :src="baseImgPrefix + sellerInfo.avatar" />
                     </a-avatar>
                     <div class="seller-info">
-                      <div>用户名称</div>
-                      <div class="grey">@用户id</div>
+                      <div>{{ sellerInfo.nickname }}</div>
+                      <div class="grey">@{{ sellerInfo.realname }}</div>
                       <div class="fs12">
                         <span>joined</span>
-                        <span>2年前</span>
+                        <span>{{ sellerInfo.create_time }}</span>
                       </div>
-                      <div class="fs12">回復頻率高</div>
-                      <div class="fs12">
+                      <div class="fs12">{{ getRStateLabel() }}</div>
+                      <div class="fs12" v-if="sellerInfo.email">
                         <img class="email-icon" src="@/assets/images/icon/email_black.png" />
                         <span>已验证</span>
                       </div>
@@ -155,14 +137,19 @@
                   </a-col>
                   <a-col flex="auto" class="comment-box">
                     <a-space class="comment-header">
-                      <span>用户名称</span>
+                      <span>{{ sellerInfo.nickname }}</span>
                       <span>获得的评价</span>
-                      <span class="fs12">286</span>
+                      <span class="fs12">{{ sellerInfo.stars }}</span>
                       <span><icon-star-fill /></span>
-                      <span class="fs12">（99review）</span>
+                      <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
                     </a-space>
-                    <EvaluateList :showSource="false" :showLine="false"></EvaluateList>
-                    <a-link class="see-more-comment">
+                    <EvaluateList
+                      :list="eltlist"
+                      :page-loading="pageLoading"
+                      :showSource="false"
+                      :showLine="false"
+                    ></EvaluateList>
+                    <a-link class="see-more-comment" @click="seeMoreComment">
                       {{ $t("pages.viewAllComment") }}
                       <icon-left />
                     </a-link>
@@ -174,41 +161,53 @@
             <!-- 用户信息 -->
             <a-col flex="340px" class="right-box" v-if="resize.screenType !== 'MOBILE'">
               <div class="user-card">
-                <a-comment author="Socrates" datetime="用户@id" class="user-info">
+                <a-comment
+                  :author="sellerInfo.nickname"
+                  :datetime="'@' + sellerInfo.realname"
+                  class="user-info"
+                >
                   <template #content>
-                    <span>286</span>
+                    <span>{{ sellerInfo.stars }}</span>
                     <icon-star-fill :size="16" />
-                    <span>（99review）</span>
+                    <span>（{{ sellerInfo.e_num }}review）</span>
                   </template>
                   <template #avatar>
-                    <a-avatar>
-                      <img
-                        alt="avatar"
-                        src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
-                      />
-                    </a-avatar>
+                    <a-image
+                      :width="50"
+                      :height="50"
+                      :src="baseImgPrefix + sellerInfo.avatar"
+                      fit="cover"
+                      show-loader
+                      style="border-radius: 50%"
+                    >
+                      <template #loader>
+                        <div class="loader-animate" />
+                      </template>
+                    </a-image>
                   </template>
                 </a-comment>
                 <a-button class="to-talk">{{ $t("pages.viewConversations") }}</a-button>
                 <div class="center" v-if="!userInfo">
                   {{ $t("pages.shouldLoginTip") }}
                 </div>
-                <!-- <a-input-search
-                  placeholder="HK$ 888"
+                <a-input-search
+                  placeholder="HK$ "
                   :button-text="$t('pages.bid')"
                   search-button
                   class="bid-input"
-                /> -->
-                <div class="self-handle">
+                  v-if="userInfo && p_type == 1"
+                />
+                <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
+                <div class="self-handle" v-if="userInfo && p_type == 2">
                   <a-space @click="handleEdit">
                     <icon-pen />
                     <span>{{ $t("pages.editGoods") }}</span>
                   </a-space>
-                  <!-- <a-space>
+                  <a-space v-if="productInfo.state == 1">
                     <label class="minus-icon">-</label>
                     <span>{{ $t("pages.removeGoods") }}</span>
-                  </a-space> -->
-                  <a-space>
+                  </a-space>
+                  <a-space v-if="productInfo.state == 3">
                     <icon-upload />
                     <span>{{ $t("pages.putawayGoods") }}</span>
                   </a-space>
@@ -219,7 +218,7 @@
                 </div>
               </div>
               <div class="achievement-card">
-                <div>你的商品在過去7天被瀏覽了86次</div>
+                <div>你的商品在過去7天被瀏覽了{{ productInfo.qday }}次</div>
                 <a-button class="pink-btn" @click="openAchievement">{{
                   $t("pages.viewtheResults")
                 }}</a-button>
@@ -232,7 +231,7 @@
             <a-divider orientation="left" class="module-header">{{
               $t("pages.similarGoods")
             }}</a-divider>
-            <ProductCard></ProductCard>
+            <ProductCard :page-loading="pageLoading"></ProductCard>
           </div>
 
           <div class="see-more">
@@ -252,46 +251,85 @@
 </template>
 
 <script setup>
+import { baseImgPrefix } from "~/config/baseUrl";
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
 import { useUserInfo } from "~/stores/userInfo";
+import { useResize } from "~/stores/resize";
+import { getProductDetails, getSimilarlist } from "~/api/goods";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const router = useRouter();
-import {useResize} from '~/stores/resize';
 const resize = useResize();
 const userInfo = computed(() => {
   // 传递函数
   return useUserInfo();
 });
+// 回复频率
+const getRStateLabel = () => {
+  let rStateOptions = {
+    1: t("rState.efficient"),
+    2: t("rState.goodEfficiency"),
+    3: t("rState.notReplying"),
+  };
+  return rStateOptions[productInfo.value.r_state] || "";
+};
 const swiper = ref(null);
+const pageLoading = ref(true);
 const userAchievementModal = ref(null);
 const reportModal = ref(null);
-const images = [
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-  "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
-];
-const handleQuery = (data) => {};
+const p_type = ref(null);
+const productInfo = ref({
+  // 商品信息
+  id: null,
+  images: [],
+});
+const sellerInfo = ref({
+  // 卖家信息
+  id: null,
+});
+const eltlist = ref([]); // 评论
+const images = [];
+
+// 商品详情
+const handleQuery = (id) => {
+  pageLoading.value = true;
+  getProductDetails(id)
+    .then((res) => {
+      if (res.code == 0) {
+        p_type.value = res.data.p_type;
+        productInfo.value = res.data.product;
+        sellerInfo.value = res.data.seller;
+        eltlist.value = res.data.eltlist;
+        pageLoading.value = false;
+      }
+    })
+    .finally(() => {});
+};
 
 // 举报
 const handleReport = () => {
-  reportModal.value.openDialog();
+  reportModal.value.openDialog(productInfo.value.id);
 };
 
 // 编辑商品
 const handleEdit = () => {
-  router.push("/saleEditGoods");
+  router.push("/saleEditGoods?id=" + productInfo.value.id);
 };
 
 // 分享
 const handleShare = () => {};
 // 检视成果
 const openAchievement = () => {
-  userAchievementModal.value.openDialog();
+  userAchievementModal.value.openDialog(productInfo.value);
 };
+
+// 查看所有评价
+const seeMoreComment = () =>{
+  router.push(`/userDetails?userId=${sellerInfo.value.id}&tab=evaluateRow`);
+}
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
-    slidesPerView: resize.screenType === 'MOBILE' ? 1 : 3,
+    slidesPerView: resize.screenType === "MOBILE" ? 1 : 3,
     spaceBetween: 6,
     pagination: {
       el: ".swiper-pagination",
@@ -306,10 +344,14 @@ const initSwiper = () => {
 
 onMounted(async () => {
   await nextTick();
+  productInfo.value.id = router.currentRoute.value.query.id;
+  handleQuery(router.currentRoute.value.query.id);
   setTimeout(() => {
-  initSwiper();
+    initSwiper();
   }, 500);
-
+  window.onresize = function () {
+    initSwiper();
+  };
 });
 </script>
 
@@ -334,7 +376,7 @@ onMounted(async () => {
     }
   }
   .section-content {
-    .mySwiper{
+    .mySwiper {
       position: relative;
     }
     .goods-swiper {

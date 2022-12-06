@@ -207,6 +207,10 @@ onMounted(() => {
     getInfo();
     goodsRow.value.initData();
   }
+  if(router.currentRoute.value.query.tab){
+    activeTab.value = router.currentRoute.value.query.tab
+    evaluateRow.value.initData();
+  }
 });
 </script>
 <style lang="scss" scoped>

@@ -6,23 +6,21 @@
         <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" />
         <div class="evaluate-content">
           <a-space>
-            <span class="fs16">@{{item.id}}</span>
-            <span>{{item.create_time}}</span>
-            <span class="grey" v-if="showSource">{{getTypeLabel(item.type)}}</span>
+            <span class="fs16">@{{ item.id }}</span>
+            <span>{{ item.create_time }}</span>
+            <span class="grey" v-if="showSource">{{ getTypeLabel(item.type) }}</span>
           </a-space>
-          <div>
-            <a-rate :default-value="item.num" readonly />
+          <div class="star-box">
+            <!-- <a-rate v-model="item.num" readonly /> -->
+            <icon-star-fill v-for="i in item.num" :size="14" />
           </div>
-          <div>{{item.content}}</div>
-          <a-list>
-            <a-list-item>
+          <div>{{ item.content }}</div>
+          <a-list :class="{ point: isToDetails }">
+            <a-list-item @click="toGoodsDetails(item)">
               <a-list-item-meta :title="item.title" :description="`HK$` + item.price">
                 <template #avatar>
                   <a-avatar shape="square">
-                    <img
-                      alt="avatar"
-                      :src="baseImgPrefix + item.image"
-                    />
+                    <img alt="avatar" :src="baseImgPrefix + item.image" />
                   </a-avatar>
                 </template>
               </a-list-item-meta>
@@ -64,6 +62,7 @@
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+const router = useRouter();
 const props = defineProps({
   showSource: {
     // 显示来源
@@ -83,14 +82,26 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  // 是否跳转商品详情
+  isToDetails: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const getTypeLabel = (type) =>{
+const getTypeLabel = (type) => {
   let typeMap = {
-    1:t('evaluate.evaluationType.formBuyer'),
-    2:t('evaluate.evaluationType.formSeller')
+    1: t("evaluate.evaluationType.formBuyer"),
+    2: t("evaluate.evaluationType.formSeller"),
+  };
+};
+
+// 商品详情
+const toGoodsDetails = (item) => {
+  if (isToDetails) {
+    router.push("/goodsDetails?id=" + item.id);
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";
@@ -134,6 +145,12 @@ const getTypeLabel = (type) =>{
       padding: 0 6px;
       cursor: pointer;
     }
+    .point {
+      :deep(.arco-list-item) {
+        cursor: pointer;
+      }
+    }
+
     :deep(.arco-list-bordered) {
       border: 0;
       background-color: #f2f2f2;
@@ -166,5 +183,10 @@ const getTypeLabel = (type) =>{
     color: $main-grey;
     font-size: 18px;
   }
+}
+
+.star-box {
+  color: #ffb400;
+  margin: 4px 0;
 }
 </style>

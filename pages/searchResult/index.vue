@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="section-content goods-content">
-        <ProductCard :list="productList" :pageLoading="pageLoading"></ProductCard>
+        <ProductCard :list="productList" :page-loading="pageLoading"></ProductCard>
       </div>
     </section>
 

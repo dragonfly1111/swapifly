@@ -119,6 +119,20 @@ export const upanddownProduct = (data: any) => {
     data
   })
 }
+// 商品详情
+export const getProductDetails = (id: any) => {
+  return request({
+    url: '/index/product_detail/index?id=' + id,
+    method: 'get',
+  })
+}
+// 类似的商品
+export const getSimilarlist = (id: any) => {
+  return request({
+    url: '/index/product_detail/similarlist?id=' + id,
+    method: 'get',
+  })
+}
 
 
 // 编辑商品>>>>>>>>>>>>>>
