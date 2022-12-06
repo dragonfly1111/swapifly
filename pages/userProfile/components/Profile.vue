@@ -1,6 +1,10 @@
 <template>
   <div class="profile-box">
-    <div class="header">
+    <div class="login-title" v-if="resize.screenType === 'MOBILE'">
+      <icon-left  class="back-index" @click="router.back()"/>
+      {{ $t("profile.edit_profile") }}
+    </div>
+    <div class="header" v-else>
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
     <template v-if="!pageLoading">
@@ -104,7 +108,13 @@
         </a-form-item>
         <a-form-item>
           <a-row justify="space-between" style="width: 100%" align="center">
-            <a-col flex="auto">
+            <a-col v-if="resize.screenType === 'MOBILE'">
+              <p>
+                <span>{{ $t("profile.preference_title") }}</span>
+                <span>{{ form.userlabel }}</span>
+              </p>
+            </a-col>
+            <a-col flex="auto" v-else>
               <div class="tip">
                 <a-space>
                   <span>{{ $t("profile.preference_title") }}</span>
@@ -112,7 +122,7 @@
                 </a-space>
               </div>
             </a-col>
-            <a-col flex="90px">
+            <a-col :flex="resize.screenType === 'MOBILE' ? '1' : '90px'" class="mobile-text-right">
               <a-button type="primary" @click="editPreference">{{
                   $t("profile.edit_preference")
                 }}</a-button>
@@ -152,12 +162,27 @@
 import {useI18n} from "vue-i18n";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useUserInfo } from "~/stores/userInfo"
+import {useResize} from '~/stores/resize'
 import {Message} from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
-import { getUserInfo, updateUserInfo } from "~/api/user"
+import { getUserInfo, updateUserInfo } from "~/api/user";
+import {watch} from "vue";
+const router = useRouter();
 const sysData = useSysData();
+const resize = useResize()
 const {t} = useI18n();
-
+const props = defineProps({
+  ckeckedList: {
+    type: Object,
+    default: null,
+  },
+});
+watch(() => props.ckeckedList, (newValue, oldValue) => {
+  console.log("====Profile====",newValue);
+  if (newValue && newValue !== '[]'){
+    confirmPreference(newValue)
+  }
+}, {immediate: true})
 let form = reactive({
   id: null,
   nickname: null,
@@ -245,6 +270,9 @@ const handleBind = () => {
 };
 // 更改偏好
 const editPreference = () => {
+  if (resize.screenType === 'MOBILE'){
+    router.push('/changePreference')
+  }
   choosePreference.value.openDialog(form.userLabel_id);
 };
 
@@ -299,10 +327,34 @@ onMounted(() => {
 @import "assets/sass/var";
 
 .profile-box {
-  border: 1px solid $grey-font-label;
-  padding: 10px 30px 40px;
-  border-radius: 10px;
-  width: 665px;
+  //border: 1px solid $grey-font-label;
+  //padding: 10px 30px 40px;
+  //border-radius: 10px;
+  //width: 665px;
+  .login-title {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    .back-index{
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      font-size: 25px;
+      font-weight: bold;
+      transform: translateY(-50%);
+    }
+    img {
+      width: 152px;
+      height: 36px;
+      display: inline-block;
+    }
+  }
   .tip {
     color: $grey-font-label;
   }

@@ -1,6 +1,12 @@
 <template>
   <div class="password-box">
-    <h1>{{ $t("profile.edit_password") }}</h1>
+    <div class="login-title" v-if="resize.screenType === 'MOBILE'">
+      <icon-left  class="back-index" @click="router.back()"/>
+      {{ $t("profile.edit_password") }}
+    </div>
+    <div v-else>
+      <h1>{{ $t("profile.edit_password") }}</h1>
+    </div>
     <a-form :model="form" ref="formRef" layout="vertical" size="large"  :rules="rules">
       <a-form-item field="opwd" label="" :content-flex="false"  hide-asterisk>
         <a-input v-model="form.opwd" placeholder="" allow-clear>
@@ -46,8 +52,10 @@ import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import { updatePassword } from '~/api/user'
 import {useUserInfo} from "~/stores/userInfo";
+import {useResize} from '~/stores/resize'
 const userInfo = useUserInfo()
 const router = useRouter()
+const resize = useResize()
 const { t } = useI18n();
 const pageLoading = ref(false);
 const saveLoading = ref(false);
@@ -95,10 +103,34 @@ const handleSave = () => {
 @import "assets/sass/var";
 
 .password-box {
-  border: 1px solid $grey-font-label;
-  padding: 10px 30px 40px;
-  border-radius: 10px;
-  width: 665px;
+  //border: 1px solid $grey-font-label;
+  //padding: 10px 30px 40px;
+  //border-radius: 10px;
+  //width: 665px;
+  .login-title {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    .back-index{
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      font-size: 25px;
+      font-weight: bold;
+      transform: translateY(-50%);
+    }
+    img {
+      width: 152px;
+      height: 36px;
+      display: inline-block;
+    }
+  }
   h1 {
     font-size: 30px;
   }

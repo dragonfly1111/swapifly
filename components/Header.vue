@@ -188,9 +188,6 @@ watch(() => route.query, (newValue, oldValue) => {
   searchKeyState.setKey(newValue.keyword)
   searchKey.value = searchKeyState.searchKey
 }, {immediate: true})
-watch(() => resize.screenType, (newValue, oldValue) => {
-  console.log('resize.screenType', newValue);
-}, {immediate: true})
 function selectMenu(e){
   switch (e) {
     case 'profile':

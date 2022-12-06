@@ -87,6 +87,7 @@ pages:
   more_filters: More Filters
 profile:
   edit_profile: todo
+  mobile_setting: Setting
   edit_password: todo
   user_head_portrait: todo
   user_head_portrait_tip: todo

@@ -60,8 +60,8 @@
             <a-button
                 type="outline"
                 v-if="userInfo.id == form.id"
-                @click="router.push('/userProfile')"
-            >{{ $t("profile.edit_profile") }}</a-button
+                @click="router.push('/settingProfile')"
+            >{{ $t("profile.mobile_setting") }}</a-button
             >
             <a-button
                 type="outline"
