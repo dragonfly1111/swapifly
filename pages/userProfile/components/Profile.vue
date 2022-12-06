@@ -7,6 +7,7 @@
     <div class="header" v-else>
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
+    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">
@@ -270,9 +271,6 @@ const handleBind = () => {
 };
 // 更改偏好
 const editPreference = () => {
-  if (resize.screenType === 'MOBILE'){
-    router.push('/changePreference')
-  }
   choosePreference.value.openDialog(form.userLabel_id);
 };
 
@@ -331,15 +329,23 @@ onMounted(() => {
   //padding: 10px 30px 40px;
   //border-radius: 10px;
   //width: 665px;
+  .null-height{
+    height: 30px;
+    width: 100%;
+  }
   .login-title {
     border-bottom: 1px solid #ccc;
     text-align: center;
-    position: relative;
     padding-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
     height: 40px;
     line-height: 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #fff;
+    z-index: 888;
     .back-index{
       display: block;
       position: absolute;

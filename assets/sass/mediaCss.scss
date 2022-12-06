@@ -38,6 +38,21 @@
     border-radius: 10px;
     width: 665px;
   }
+  .preference-dialog{
+    padding: 20px 27px 40px 20px;
+    width: 999px;
+    .arco-modal-header{
+      padding: 0;
+      height: unset;
+      align-items: start;
+      border-bottom: unset;
+    }
+    .arco-modal-body {
+      .title {
+        margin-top: 27px;
+      }
+    }
+  }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
   .recommend-item{
@@ -68,11 +83,39 @@
   }
   .profile-box{
     width: 100%;
+    .header{
+      padding-top: 40px;
+    }
   }
   .password-box{
     width: 100%;
   }
   .mobile-text-right{
     text-align: right;
+  }
+  .preference-dialog{
+    padding: 10px;
+    width: 90%;
+    .arco-modal-header{
+      padding: 0;
+      height: unset;
+      align-items: start;
+      border-bottom: unset;
+      position: fixed;
+      background-color: #fff;
+      z-index: 999999;
+      top: 10%;
+      width: 90%;
+      padding-top: 10px;
+    }
+    .arco-modal-body {
+      .title {
+        margin-top: 45px;
+      }
+    }
+  }
+  .arco-modal-wrapper.arco-modal-wrapper-align-center{
+    height: 80%;
+    top: 10%;
   }
 }

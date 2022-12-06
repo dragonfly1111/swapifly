@@ -36,7 +36,6 @@ const mobileArr = [
     '/settingProfile',
     '/mobileProfile',
     '/mobileEditPassword',
-    '/changePreference'
 ];
 //共用的移动端页面，头尾与PC端不一致
 const mobileAndPcArr = [

@@ -111,15 +111,7 @@ defineExpose({
 @import "assets/sass/var";
 
 .preference-dialog {
-  padding: 20px 27px 40px 20px;
-  width: 999px;
-
   .arco-modal-header {
-    padding: 0;
-    height: unset;
-    align-items: start;
-    border-bottom: unset;
-
     .login-title {
       text-align: left;
 
@@ -133,9 +125,7 @@ defineExpose({
   .arco-modal-body {
     padding: 0;
     color: $grey-font-label;
-
     .title {
-      margin-top: 27px;
       text-align: left;
       font-size: 16px;
       user-select: none;
