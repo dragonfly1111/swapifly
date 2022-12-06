@@ -7,7 +7,7 @@
     <div class="setting-list">
       <p v-for="list in list.data" :index="list" class="setting-list-one" @click="toPath(list.path)">
         <img :src="list.img" alt="">
-        <span>{{list.name}}</span>
+        <span>{{$t(list.name)}}</span>
       </p>
     </div>
   </div>
@@ -22,31 +22,36 @@ const userInfo = useUserInfo()
 const list = reactive<limitObj>({
   data: [{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'like记录',
+    name:"pages.like_title",
     path:'/like',
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'通知消息',
+    name:"pages.mobile_notice",
     path:'/notification',
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'个人档案',
+    name:'profile.edit_profile',
     path:`/userDetails?userId=${userInfo.id}`,
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'设置',
-    path:'/like',
+    name:'profile.mobile_setting',
+    path:'/settingProfile',
   },{
     img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'登出',
-    path:'/like',
+    name:'head.logout',
+    path:'/logout',
   }],
 });
 const handleIndex = () => {
   router.push("/")
 };
-const toPath = (data) =>{
-  router.push(data)
+const toPath = (data:string) =>{
+  if (data === '/logout'){
+    userInfo.logout();
+    router.replace('/')
+  }else {
+    router.push(data)
+  }
 }
 </script>
 

@@ -37,13 +37,16 @@ const mobileArr = [
     '/mobileProfile',
     '/mobileEditPassword',
 ];
-//共用的移动端页面，头尾与PC端不一致
+//共用的移动端页面，头部需要
 const mobileAndPcArr = [
-  '/notification',
   '/like',
   '/userDetails',
   '/goodsDetails',
 ];
+//共用的移动端页面，头尾都不要
+const noHearderAndFooter = [
+  '/notification',
+]
 console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
@@ -53,6 +56,8 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'news'
   } else if (mobileAndPcArr.includes(newValue) && resize.screenType === 'MOBILE'){
     headType.value = 'commonMobileAndPcPage'
+}  else if (noHearderAndFooter.includes(newValue) && resize.screenType === 'MOBILE'){
+    headType.value = 'noHearderAndFooterPage'
   } else if(newValue === '/dialogue'){
     headType.value = 'dialogue'
   } else if (mobileArr.includes(newValue)) {

@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { baseApiPrefix } from '~/config/baseUrl'
 import { Message } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
+import { useResize } from '~/stores/resize';
 // import { useCookie } from "nuxt/app";
 const request = axios.create({
   baseURL: baseApiPrefix,
@@ -67,13 +68,16 @@ request.interceptors.response.use(
     if (response.data.code === 999) {
       // 登录过期 跳转首页
       Message.error(response.data.message)
-      const router = useRouter()
+      const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
-      const userInfo = useUserInfo()
-      userInfo.logout()
-      userInfo.openDialog()
-      openLogin.value = true
-      console.log(openLogin)
+      const userInfo = useUserInfo();
+      const resize = useResize();
+      userInfo.logout();
+      if (resize.screenType !== 'MOBILE'){
+          userInfo.openDialog();
+          openLogin.value = true;
+          console.log(openLogin);
+      }
       router.push({
         path: '/'
       })
