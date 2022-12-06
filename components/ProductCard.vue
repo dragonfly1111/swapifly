@@ -51,7 +51,8 @@
         </div>
         <div class="product-handle">
           <div>
-            <icon-heart @click="likeProduct(item)" :strokeWidth="3" size="16" />
+            <icon-heart @click="likeProduct(item)" v-if="item.islike === 0" :strokeWidth="3" size="16" />
+            <icon-heart-fill @click="likeProduct(item)" v-else style="color: #D43030" :strokeWidth="3" size="16" />
             <span>{{ item.like }}</span>
           </div>
           <a-dropdown :popup-max-height="false" @click.stop>

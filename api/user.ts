@@ -50,10 +50,11 @@ export const getNoticeList = () => {
 }
 
 // 点赞记录
-export const getLikeLog = () => {
+export const getLikeLog = (params: any) => {
   return request({
     url: '/index/user_center/like_log',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
