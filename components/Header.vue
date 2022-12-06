@@ -68,7 +68,7 @@
               <a-link @click="toClassDetail(item)"> {{ item.title }}</a-link>
             </div>
             <div class="class-sub-item" v-for="sub in item.children" :key="sub.id">
-              <a-link @click="toClassDetail(item)"> {{ sub.title }}</a-link>
+              <a-link @click="toClassDetail(sub)"> {{ sub.title }}</a-link>
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@ function openLogin() {
   }
 }
 function toSell() {
-  router.push('/saleEditGoods')
+  router.push('/saleEdit')
 }
 function toRegister() {
   loginModal.value.handleCancel()
@@ -314,7 +314,8 @@ function toClassDetail(e: IGoodsClass) {
   router.push({
     path: '/goodsList',
     query: {
-      id: e.id
+      id: e.id,
+      level: e.level
     }
   })
   showHeadPanel.value = false

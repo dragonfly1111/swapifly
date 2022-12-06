@@ -10,22 +10,58 @@
     </div>
     <section class="section-wrapper goods-wrapper">
       <div class="section-content">
-        <ProductCard></ProductCard>
+        <ProductCard :list="likeList" :pageLoading="pageLoading"></ProductCard>
       </div>
     </section>
+    <div class="see-more" v-if="page < lastPage && !pageLoading">
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useResize } from '~/stores/resize';
+import { getLikeLog } from '~/api/user'
+import { Notification } from '@arco-design/web-vue';
+
 const router = useRouter();
 const resize = useResize();
+const lastPage = ref(999)
+const page = ref(1)
+const pageLoading = ref(true)
+const butLoading = ref(false)
+const likeList = ref([])
 const handleQuery = (data) => {
   console.log("form", data);
 };
 const handleIndex = () => {
   router.push("/mobileUserProfile")
 };
+
+// 加载更多
+const loadMore = () => {
+  page.value ++
+  butLoading.value = true
+  getList()
+}
+
+const getList = () =>{
+  // pageLoading.value = true
+  getLikeLog({
+    page: page.value,
+    limit: 4
+  }).then(res=>{
+    if (res.code === 0) {
+      pageLoading.value = false
+      butLoading.value = false
+      lastPage.value = res.data.last_page
+      likeList.value = [...likeList.value, ...res.data.data]
+    } else {
+      Notification.error(res.message)
+    }
+  })
+}
+getList()
 </script>
 
 <style lang="scss" scoped>
@@ -58,5 +94,16 @@ const handleIndex = () => {
   }
 }
 .goods-wrapper {
+}
+.see-more {
+  text-align: center;
+  margin: 30px auto;
+
+  .arco-btn {
+    border-color: rgba(56, 56, 56, 1);
+    color: rgba(56, 56, 56, 1);
+    padding: 0 20px;
+    height: 38px;
+  }
 }
 </style>

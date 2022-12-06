@@ -1,29 +1,93 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover">
-        <a-carousel-item v-for="image in images">
-          <img :src="image" class="carousel-img" />
-        </a-carousel-item>
+      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+        <template v-if="bannerLoading">
+          <a-carousel-item>
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="1" :line-height="260"/>
+            </a-skeleton>
+          </a-carousel-item>
+        </template>
+        <template v-else>
+          <a-carousel-item v-for="item in bannerList">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                     :src="baseImgPrefix + item.img" class="carousel-img">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
+          </a-carousel-item>
+        </template>
       </a-carousel>
     </div>
 
-    <section class="section-wrapper">
-      <div class="section-content brands-content">
-        <div v-for="item in 8" class="brands-item">
-          <img :src="testImg" alt="" />
-          <div>耐克/nike</div>
-        </div>
+    <section class="section-wrapper" v-if="curLevel <= 2">
+      <div class="section-content">
+        <template v-if="bradLoading">
+          <div class="brands-content">
+            <div v-for="item in bradLoading" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+          <div id="brandsContent" class="brands-content">
+            <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item">
+              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div>{{ item.title }}</div>
+            </div>
+          </div>
+          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+        </template>
       </div>
     </section>
 
-    <section class="section-wrapper">
+    <section class="section-wrapper" v-if="curLevel === 1">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content brands-content">
-        <div v-for="item in 8" class="brands-item">
-          <img :src="testImg" alt="" />
-          <div>耐克/nike</div>
-        </div>
+      <div class="section-content">
+        <template v-if="bradLoading">
+          <div class="brands-content">
+            <div v-for="item in bradLoading" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div v-if="curBradPage1 > 0" class="arrow arrow-left" @click="bradChangePage1('pre')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+          <div id="brandsContent1" class="brands-content">
+            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
+              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div>{{ item.title }}</div>
+            </div>
+          </div>
+          <div v-if="bradNextShow1" class="arrow arrow-right" @click="bradChangePage1('next')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+        </template>
       </div>
     </section>
 
@@ -31,58 +95,231 @@
       <div class="list-header">
         <a-space direction="vertical">
           <a-breadcrumb>
-            <a-breadcrumb-item>一级分类标题</a-breadcrumb-item>
+            <template #separator>
+              <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
+            </template>
+            <a-breadcrumb-item v-for="item in classPath">{{ item }}</a-breadcrumb-item>
           </a-breadcrumb>
         </a-space>
         <div class="select-wrapper">
-          <GoodsFilterSelect @change="handleQuery"></GoodsFilterSelect>
+          <GoodsFilterSelect @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content">
-        <ProductCard ></ProductCard>
+        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
       </div>
     </section>
 
     <AD></AD>
 
-    <div class="see-more">
-      <a-button type="outline">{{ $t("pages.seeMore") }}</a-button>
+    <div class="see-more" v-if="page < lastPage && productList.length > 8">
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
     <PageFooterLink></PageFooterLink>
   </div>
 </template>
 
-<script>
-import { ref, reactive, h} from "vue";
-import IconEdit from "@arco-design/web-vue/es/icon/icon-edit";
-import IconPlus from "@arco-design/web-vue/es/icon/icon-plus";
-import ProductCard from "@/components/ProductCard";
-import PageFooterLink from "@/components/PageFooterLink";
-import GoodsFilterSelect from "@/components/GoodsFilterSelect";
-import AD from "@/components/AD";
-export default {
-  name: "GoodsList",
-  components: { IconPlus, IconEdit, ProductCard, PageFooterLink, AD ,GoodsFilterSelect},
+<script setup>
+import { baseImgPrefix } from "~/config/baseUrl";
+import { getCategoryAdvert } from '~/api/ad'
+import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
+import { Notification } from '@arco-design/web-vue';
 
-  setup() {
-    const testImg =
-      "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp";
-    const images = [
-      "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
-    ];
+const bannerLoading = ref(true)
+const bradLoading = ref(true)
+const productLoading = ref(true)
+const butLoading = ref(false)
 
-    const handleQuery = (data) =>{
-      console.log('form',data)
+const bannerList = ref([])
+const productList = ref([])
+const hotBradList = ref([])
+const subClassList = ref([])
+const route = useRoute()
+const router = useRouter()
+const curBradPage = ref(0)
+const curBradPage1 = ref(0)
+const bradNextShow = ref(true)
+const bradNextShow1 = ref(true)
+const curLevel = ref(0)
+const rId = ref(null)
+const goodsFilterSelect = ref(null)
+const classPath = ref([])
+curLevel.value = parseInt(route.query.level)
+rId.value = parseInt(route.query.id)
+const page = ref(1)
+const lastPage = ref(999)
+// 获取banner和谷歌广告
+const getBanner = () => {
+  bannerLoading.value = true
+  getCategoryAdvert({
+    rid: rId.value
+  }).then(res => {
+    bannerLoading.value = false
+    if (res.code === 0) {
+      bannerList.value = res.data.home_advert
+    } else {
+      Notification.error(res.message)
     }
+  })
+}
+// 获取热门品牌
+const getBrad = () => {
+  bradLoading.value = true
+  categoryHotBrand({
+    rid: rId.value
+  }).then(res => {
+    bradLoading.value = false
+    if (res.code === 0) {
+      hotBradList.value = res.data.hot_brand
+      subClassList.value = res.data.c_rule
+      classPath.value = res.data.p_rule
+      nextTick(()=>{
+        // curLevel
+        if(curLevel.value <= 2){
+          const ele = document.getElementById('brandsContent')
+          const toLeft = ele.clientWidth * curBradPage.value
+          if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+            bradNextShow.value = false
+          } else {
+            bradNextShow.value = true
+          }
+        }
 
-    return {
-      images,
-      testImg,
-      handleQuery
-    };
-  },
+        if(curLevel.value === 1){
+          const ele1 = document.getElementById('brandsContent1')
+          const toLeft1 = ele1.clientWidth * curBradPage1.value
+          if (toLeft1 + ele1.clientWidth >= ele1.scrollWidth) {
+            bradNextShow1.value = false
+          } else {
+            bradNextShow1.value = true
+          }
+        }
+
+      })
+    } else {
+      Notification.error(res.message)
+    }
+  })
+}
+// 加载更多
+const loadMore = () => {
+  page.value ++
+  butLoading.value = true
+  getProduct()
+}
+const bradChangePage = (type) => {
+  const ele = document.getElementById('brandsContent')
+  if (type === 'next') {
+    curBradPage.value++
+  } else {
+    curBradPage.value--
+  }
+  console.log(curBradPage.value)
+  const toLeft = ele.clientWidth * curBradPage.value
+  ele.scrollTo({
+    left: toLeft,
+    behavior: 'smooth'
+  })
+  if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+    bradNextShow.value = false
+  } else {
+    bradNextShow.value = true
+  }
+}
+const bradChangePage1 = (type) => {
+  const ele = document.getElementById('brandsContent1')
+  console.log(ele, type)
+  if (type === 'next') {
+    curBradPage1.value++
+  } else {
+    curBradPage1.value--
+  }
+  const toLeft = ele.clientWidth * curBradPage1.value
+  ele.scrollTo({
+    left: toLeft,
+    behavior: 'smooth'
+  })
+  if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+    bradNextShow1.value = false
+  } else {
+    bradNextShow1.value = true
+  }
+}
+// 获取商品列表
+const getProduct = (data) => {
+  productLoading.value = true
+  getCategoryProductList({
+    limit: 8,
+    page: page.value,
+    rid: rId.value,
+    ...data
+  }).then(res => {
+    productLoading.value = false
+    butLoading.value = false
+    if (res.code === 0) {
+      lastPage.value = res.data.last_page
+      nextTick(() => {
+        productList.value = [...productList.value, ...res.data.data]
+      })
+    } else {
+      Notification.error(res.message)
+    }
+  })
+}
+const handleQuery = (data) => {
+  page.value = 1
+  productList.value = []
+  getProduct(data)
 };
+const openLink = (e) => {
+  console.log(e)
+  if (!e.link) return
+  window.open(e.link, '_blank')
+}
+const toSearch = (item) => {
+  router.push({
+    path: '/searchResult',
+    query: {
+      keyword: item.title
+    }
+  })
+}
+const toClassDetail = (e) => {
+  console.log(e)
+  router.push({
+    path: '/goodsList',
+    query: {
+      id: e.id,
+      level: curLevel.value + 1
+    }
+  })
+}
+// 页面初始化
+const initPageData = () => {
+  getBanner()
+  getBrad()
+  getProduct()
+}
+initPageData()
+// 监听路由参数 如果分类改变 重新获取页面数据
+watch(() => route.query, (newValue, oldValue) => {
+  curLevel.value = parseInt(newValue.level)
+  rId.value = parseInt(newValue.id)
+  bannerLoading.value = true
+  bradLoading.value = true
+  productLoading.value = true
+  bannerList.value = []
+  productList.value = []
+  hotBradList.value = []
+  subClassList.value = []
+
+  goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
+  initPageData()
+})
+onMounted(()=>{
+  goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -110,24 +347,80 @@ export default {
   }
   .brands-content {
     display: flex;
-    flex-wrap: wrap;
     font-size: 14px;
-    width: 100%;
-    position: relative;
+    //width: 100%;
+    overflow: hidden;
+
     .brands-item {
       text-align: center;
-      width: 120px;
+      width: 80px;
       flex-shrink: 0;
-      margin-right: 5px;
-      margin-bottom: 20px;
+      margin-right: 53px;
+      cursor: pointer;
+
+      * {
+        user-select: none;
+      }
+
       img {
-        width: 70px;
-        height: 70px;
+        -webkit-user-drag: none;
+      }
+
+      .arco-image {
         border-radius: 50%;
         object-fit: cover;
         margin-bottom: 5px;
-        cursor: pointer;
       }
+
+      :deep(.arco-image-error) {
+        border-radius: 50%;
+
+        .arco-image-error-icon {
+          width: 40px;
+          height: 40px;
+        }
+
+        .arco-image-error-alt {
+          display: none;
+        }
+      }
+
+      .arco-skeleton-shape-circle {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+      }
+
+      :deep(.arco-skeleton-line-row) {
+        margin: 0 auto;
+      }
+    }
+  }
+  .section-content {
+    position: relative;
+
+    .arrow {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      top: 20px;
+      cursor: pointer;
+      z-index: 1;
+      opacity: 0.8;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .arrow-right {
+      right: 0;
+    }
+
+    .arrow-left {
+      left: 0;
+      transform: rotateY(180deg);
     }
   }
 }
@@ -157,6 +450,16 @@ export default {
   margin: 10px 0;
   .arco-breadcrumb {
     color: $grey-font-label;
+  }
+}
+
+:deep(.arco-breadcrumb) {
+  color: $grey-font-label !important;
+  font-size: 16px;
+
+  .arco-breadcrumb-item {
+    color: $grey-font-label !important;
+    font-weight: 400;
   }
 }
 </style>

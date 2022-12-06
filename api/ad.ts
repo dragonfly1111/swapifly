@@ -17,9 +17,10 @@ export const getSearchAdvert = () => {
 }
 
 // 获取商品分类广告
-export const getCategoryAdvert = () => {
+export const getCategoryAdvert = (params: any) => {
   return request({
     url: '/index/category/advert',
-    method: 'get'
+    method: 'get',
+    params
   })
 }

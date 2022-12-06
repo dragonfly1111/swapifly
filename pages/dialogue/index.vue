@@ -378,7 +378,7 @@ const fetchDetailData = (callback, toBottom = true) => {
   const id = curConversationMeta.value.id
   getChatDetail({
     id: curConversationMeta.value.id,
-    limit: 999
+    // limit: 999
     // 暂时不做分页
     // page: page.value
   }).then(res => {
@@ -392,7 +392,7 @@ const fetchDetailData = (callback, toBottom = true) => {
         console.log('toBottom', toBottom)
         // 暂时不做分页
         // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
-        conversationDetail.value = res.data.data.reverse()
+        conversationDetail.value = res.data.reverse()
         // 获取到消息后滚到底部
         if (toBottom) {
           nextTick(() => {

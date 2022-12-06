@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="section-content goods-content">
-        <ProductCard :list="productList" :pageLoading="pageLoading"></ProductCard>
+        <ProductCard :list="productList" :page-loading="pageLoading"></ProductCard>
       </div>
     </section>
 
@@ -93,6 +93,9 @@ const getSearchData = (data) => {
 }
 const handleQuery = (data) => {
   console.log("form", data);
+  if(data.keyword){
+    data.title = data.keyword
+  }
   page.value = 1
   productList.value = []
   getSearchData(data)

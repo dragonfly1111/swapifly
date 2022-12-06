@@ -16,7 +16,6 @@ export const getSearchHistory = () => {
   })
 }
 
-
 // 获取热门品牌
 export const getHotBrad = () => {
   return request({
@@ -25,10 +24,19 @@ export const getHotBrad = () => {
   })
 }
 
-// 获取商品列表
-export const getProductlist = (params: any) => {
+// 获取商品列表（首页）
+export const getProductList = (params: any) => {
   return request({
     url: '/index/home/productlist',
+    method: 'get',
+    params
+  })
+}
+
+// 获取商品列表（分类）
+export const getCategoryProductList = (params: any) => {
+  return request({
+    url: '/index/category/productlist',
     method: 'get',
     params
   })
@@ -96,10 +104,11 @@ export const searchScDel = (params: any) => {
 // }
 
 // 商品分类列表
-export const categoryHotBrand = () => {
+export const categoryHotBrand = (params: any) => {
   return request({
-    url: '/category/hot_brand',
-    method: 'get'
+    url: '/index/category/hot_brand',
+    method: 'get',
+    params
   })
 }
 
@@ -117,6 +126,20 @@ export const upanddownProduct = (data: any) => {
     url: '/index/product/upanddown',
     method: 'post',
     data
+  })
+}
+// 商品详情
+export const getProductDetails = (id: any) => {
+  return request({
+    url: '/index/product_detail/index?id=' + id,
+    method: 'get',
+  })
+}
+// 类似的商品
+export const getSimilarlist = (id: any) => {
+  return request({
+    url: '/index/product_detail/similarlist?id=' + id,
+    method: 'get',
   })
 }
 

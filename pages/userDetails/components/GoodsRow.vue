@@ -15,7 +15,7 @@
     </a-row>
     <div class="goods-box-body">
       <ProductCard
-        :pageLoading="pageLoading"
+        :page-loading="pageLoading"
         :list="productList"
         :isMySelf="isMySelf"
         :show-user="false"
