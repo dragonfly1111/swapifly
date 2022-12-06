@@ -1,9 +1,9 @@
 <template>
   <div class="common-row global-content">
-    <AD height="160px"></AD>
+    <AD v-if="resize.screenType !== 'MOBILE'" height="160px"></AD>
 
     <section class="section-wrapper goods-wrapper">
-      <a-breadcrumb>
+      <a-breadcrumb v-if="resize.screenType !== 'MOBILE'">
         <a-breadcrumb-item>Home</a-breadcrumb-item>
         <a-breadcrumb-item>Channel</a-breadcrumb-item>
         <a-breadcrumb-item>News</a-breadcrumb-item>
@@ -52,6 +52,11 @@
             <div class="swiper-button-prev swiper-button-prev-self"></div>
           </div>
         </div>
+        <a-breadcrumb v-if="resize.screenType === 'MOBILE'">
+          <a-breadcrumb-item>Home</a-breadcrumb-item>
+          <a-breadcrumb-item>Channel</a-breadcrumb-item>
+          <a-breadcrumb-item>News</a-breadcrumb-item>
+        </a-breadcrumb>
         <div class="goods-info">
           <a-row justify="space-between" :gutter="40">
             <a-col flex="auto" class="goods-content">
@@ -167,7 +172,7 @@
             </a-col>
 
             <!-- 用户信息 -->
-            <a-col flex="340px" class="right-box">
+            <a-col flex="340px" class="right-box" v-if="resize.screenType !== 'MOBILE'">
               <div class="user-card">
                 <a-comment author="Socrates" datetime="用户@id" class="user-info">
                   <template #content>
@@ -250,6 +255,8 @@
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
 import { useUserInfo } from "~/stores/userInfo";
 const router = useRouter();
+import {useResize} from '~/stores/resize';
+const resize = useResize();
 const userInfo = computed(() => {
   // 传递函数
   return useUserInfo();
@@ -284,7 +291,7 @@ const openAchievement = () => {
 };
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
-    slidesPerView: 3,
+    slidesPerView: resize.screenType === 'MOBILE' ? 1 : 3,
     spaceBetween: 6,
     pagination: {
       el: ".swiper-pagination",
@@ -327,7 +334,6 @@ onMounted(async () => {
     }
   }
   .section-content {
-    margin: 10px 0;
     .mySwiper{
       position: relative;
     }

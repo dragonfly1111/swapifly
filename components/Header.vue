@@ -117,8 +117,8 @@
               </div>
             </div>
           </a-col>
-          <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: left" class="btn-col">
-            <div v-if="resize.screenType === 'MOBILE'">
+          <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: right;" class="btn-col">
+            <div v-if="resize.screenType === 'MOBILE'" style="padding-right: 30px">
               <template v-if="userInfo.token" >
                 <icon-message class="icon-message" @click="toNotification"/>
                 <icon-list class="icon-list" @click="toUserList"/>
@@ -569,14 +569,14 @@ function toClassDetail(e: IGoodsClass) {
     }
   }
   .icon-message{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     margin-top: 8px;
   }
   .icon-list{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-top: 8px;
   }
 }

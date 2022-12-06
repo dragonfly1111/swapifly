@@ -42,6 +42,7 @@ const mobileAndPcArr = [
   '/notification',
   '/like',
   '/userDetails',
+  '/goodsDetails',
 ];
 console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
