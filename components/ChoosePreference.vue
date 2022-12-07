@@ -11,7 +11,7 @@
     <div class="card-box">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id"
            @click="card.checked = !card.checked">
-        <a-image :src="baseImgPrefix + card.background" show-loader>
+        <a-image :src="baseImgPrefix + card.background" :preview="false" show-loader>
           <template #loader>
             <div class="loader-animate"/>
           </template>
@@ -159,6 +159,8 @@ defineExpose({
         height: 80px;
         object-fit: cover;
         border-radius: 50%;
+        transform: translateY(0px);
+        transition: all .3s ease-out;
       }
 
       .label-title {
@@ -166,6 +168,10 @@ defineExpose({
         text-align: center;
         font-size: 14px;
         margin-top: 5px;
+        width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &:hover {
@@ -173,6 +179,14 @@ defineExpose({
         //box-shadow: 0 4px 10px rgb(var(--gray-2));
         background: rgba(255, 255, 255, 1);
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        transition: box-shadow .3s ease-out;
+        .arco-image{
+          background: rgba(44,44,45,.07);
+          transition: background .3s ease-out;
+        }
+        img{
+          transform: translateY(-4px);
+        }
       }
 
       .check-box {

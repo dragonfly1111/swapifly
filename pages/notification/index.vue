@@ -8,7 +8,7 @@
     <div class="notice-list">
       <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-          <a-skeleton-line :rows="5" />
+          <a-skeleton-line :rows="3" :lineHeight="200" line-spacing="30"/>
         </a-space>
       </a-skeleton>
 

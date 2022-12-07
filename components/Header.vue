@@ -293,9 +293,12 @@ function handleCollection() {
 
 }
 function changeCurType(e: IGoodsClass) {
+  // 延迟200ms展示
   if (e.children && e.children.length) {
-    curClass.value = e.children
-    showHeadPanel.value = true
+    setTimeout(()=>{
+      curClass.value = e.children
+      showHeadPanel.value = true
+    }, 200)
   } else {
     showHeadPanel.value = false
     curClass.value = []
@@ -408,11 +411,27 @@ function toClassDetail(e: IGoodsClass) {
   .class-bar {
     //margin-left: 14px;
     display: flex;
-
     .class-item {
       cursor: pointer;
       font-size: 16px;
       padding: 0 16px;
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      &:hover{
+        background: #535559;
+      }
+      &:hover::after{
+        content: '';
+        border: 6px solid #53555900;
+        border-bottom-color: #FFFFFF;
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
 
     //.class-item + .class-item{
@@ -466,6 +485,7 @@ function toClassDetail(e: IGoodsClass) {
   border-bottom: 1px solid #E5E5E5;
   background: #FFFFFF;
   .img-col{
+    text-align: left;
     .phone-logo{
       height: 36px;
       margin-top:5px;

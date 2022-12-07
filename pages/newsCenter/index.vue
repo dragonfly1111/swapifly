@@ -32,7 +32,11 @@
             <div class="news-box" v-for="item in newsDataList" @click="toNewsDetail(item)">
               <a-image width="350" height="250"
                        :src="baseImgPrefix + item.img"
-                       show-loader></a-image>
+                       show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
               <div class="info-box">
                 <div class="time">2022/09/01</div>
                 <div class="title">{{ item.title }}</div>

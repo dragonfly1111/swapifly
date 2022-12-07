@@ -22,13 +22,13 @@
       </a-carousel>
 
     </div>
-    <div id="map" style="height: 500px;"></div>
-    <input
-        id="pac-input"
-        class="controls"
-        type="text"
-        placeholder="Search Box"
-    />
+<!--    <div id="map" style="height: 500px;"></div>-->
+<!--    <input-->
+<!--        id="pac-input"-->
+<!--        class="controls"-->
+<!--        type="text"-->
+<!--        placeholder="Search Box"-->
+<!--    />-->
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
@@ -54,7 +54,7 @@
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <div>{{ item.title }}</div>
+              <div class="brands-title">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
@@ -65,7 +65,7 @@
     </section>
 
     <section class="section-wrapper recommend-wrapper">
-      <h3 class="section-header section-header1">{{ $t("pages.recommendTitle") }}</h3>
+      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
         <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
       </div>
@@ -190,8 +190,16 @@ const getBrad = () => {
   getHotBrad().then(res => {
     bradLoading.value = false
     if (res.code === 0) {
+      hotBradList.value = res.data
       nextTick(() => {
-        hotBradList.value = res.data
+        // 判断是否需要出现下一页
+        const ele = document.getElementsByClassName('brands-content')[0]
+        const toLeft = ele.clientWidth * curBradPage.value
+        if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+          bradNextShow.value = false
+        } else {
+          bradNextShow.value = true
+        }
       })
     } else {
       Message.error(res.message)
@@ -315,14 +323,15 @@ onMounted(() => {
   // 谷歌地址搜索
   // initAutocomplete()
   window.initAutocomplete = initAutocomplete;
+  useHead({
+    script:[
+      {
+        'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
+      },
+    ]
+  })
 })
-useHead({
-  script:[
-    {
-      'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
-    },
-  ]
-})
+
 
 </script>
 
@@ -353,10 +362,12 @@ useHead({
     font-size: 24px;
     font-weight: 400;
     margin-bottom: 36px;
-    margin-top: 45px;
+    margin-top: 0;
   }
 
   .section-header1 {
+    font-size: 24px;
+    font-weight: 400;
     margin-bottom: 22px;
     margin-top: 0;
   }
@@ -369,9 +380,9 @@ useHead({
 
     .brands-item {
       text-align: center;
-      width: 80px;
+      width: 117px;
       flex-shrink: 0;
-      margin-right: 53px;
+      //margin-right: 53px;
       cursor: pointer;
 
       * {
@@ -410,6 +421,12 @@ useHead({
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
+
+      &:hover{
+        .brands-title{
+          color: $main-blue;
+        }
+      }
     }
   }
 
@@ -443,7 +460,7 @@ useHead({
 }
 
 .recommend-wrapper {
-  margin-top: 86px;
+  margin-top: 46px;
 }
 
 .see-more {

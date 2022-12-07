@@ -174,8 +174,8 @@ const getBrad = () => {
       hotBradList.value = res.data.hot_brand
       subClassList.value = res.data.c_rule
       classPath.value = res.data.p_rule
+      // 判断是否需要出现下一页
       nextTick(()=>{
-        // curLevel
         if(curLevel.value <= 2){
           const ele = document.getElementById('brandsContent')
           const toLeft = ele.clientWidth * curBradPage.value
@@ -195,7 +195,6 @@ const getBrad = () => {
             bradNextShow1.value = true
           }
         }
-
       })
     } else {
       Notification.error(res.message)
