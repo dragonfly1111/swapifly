@@ -61,19 +61,19 @@
             <div class="goods-content">
               <div class="goods-name">{{ productInfo.title }}</div>
               <a-row justify="space-between" class="goods-desc">
-                <a-col :span="8">
+                <a-col :span="resize.screenType === 'MOBILE'? 24 : 8" class="mobile-goods-detail">
                   <icon-common />
                   <span>{{ productInfo.newold }}</span>
                   <icon-info-circle />
                 </a-col>
-                <a-col :span="8">
+                <a-col :span="resize.screenType === 'MOBILE'? 24 : 8" class="mobile-goods-detail">
                   <icon-user-group />
                   <span v-if="productInfo.offline == 1" class="mr5">{{
                     $t("pages.handDeliver")
                   }}</span>
                   <span v-if="productInfo.mail == 1">{{ $t("pages.postAndCourier") }}</span>
                 </a-col>
-                <a-col :span="8">
+                <a-col :span="resize.screenType === 'MOBILE'? 24 : 8" class="mobile-goods-detail">
                   <icon-location />
                   <span>{{ productInfo.region }}</span>
                 </a-col>
@@ -241,6 +241,14 @@
       </div>
     </section>
 
+    <div class="mobile-footer-goods" v-if="resize.screenType === 'MOBILE'">
+      <span class="icon-like-mobile">
+        <icon-heart class="heart" v-if="productInfo.islike == 0" />
+      {{ productInfo.like }} like
+      </span>
+      <a-button type="outline" @click="router.push('/dialogue')">{{$t('pages.viewConversations')}}</a-button>
+      <a-button type="primary" style="margin:0px 20px;background-color: rgb(51, 51, 51)">{{$t('pages.bid')}}</a-button>
+    </div>
     <!-- 举报 -->
     <ReportModal ref="reportModal"></ReportModal>
 
@@ -365,7 +373,22 @@ onMounted(async () => {
 .mt30 {
   margin-top: 30px;
 }
-
+.mobile-footer-goods{
+  height: 32px;
+  line-height: 40px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+  text-align: right;
+  padding: 10px 0;
+  .icon-like-mobile{
+    position: absolute;
+    left: 0px;
+  }
+}
 .section-wrapper {
   margin: 30px auto;
   :deep(.arco-breadcrumb-item) {
@@ -506,7 +529,6 @@ onMounted(async () => {
         }
         .seller-info {
           .seller-name{
-            max-width: 10vw;
             word-break: break-all;
           }
           div {

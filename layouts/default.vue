@@ -60,8 +60,10 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'commonMobileAndPcPage'
 }  else if (noHearderAndFooter.includes(newValue) && resize.screenType === 'MOBILE'){
     headType.value = 'noHearderAndFooterPage'
-  } else if(newValue === '/dialogue'){
+  } else if(newValue === '/dialogue' && resize.screenType !== 'MOBILE'){
     headType.value = 'dialogue'
+  } else if(newValue === '/dialogue' && resize.screenType === 'MOBILE'){
+    headType.value = 'mobileDialoguePage'
   } else if (mobileArr.includes(newValue)) {
     headType.value = 'mobilePage'
   } else {

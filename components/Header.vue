@@ -120,8 +120,8 @@
           <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: right;" class="btn-col">
             <div v-if="resize.screenType === 'MOBILE'" style="padding-right: 30px">
               <template v-if="userInfo.token" >
-                <icon-message class="icon-message" @click="toNotification"/>
-                <icon-list class="icon-list" @click="toUserList"/>
+                <icon-message class="icon-message" @click="router.push('/dialogue')"/>
+                <icon-list class="icon-list" @click="router.push('/mobileUserProfile')"/>
               </template>
               <a-button v-else class="sell-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
             </div>
@@ -207,12 +207,7 @@ function selectMenu(e){
 function openRegister() {
   registerModal.value.openDialog()
 }
-function toUserList() {
-  router.push('/mobileUserProfile')
-}
-function toNotification(){
-  router.push('/notification')
-}
+
 function openLogin() {
   console.log("openLogin",resize.screenType)
   if (resize.screenType === 'MOBILE'){
