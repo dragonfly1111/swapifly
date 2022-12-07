@@ -10,7 +10,11 @@
     <div class="news-detail-content common-row">
       <div class="left">
         <template v-if="!dataLoading">
-          <a-image width="768" height="438" fit="cover" show-loader :src="baseImgPrefix + newsDataDetail.img"></a-image>
+          <a-image width="768" height="438" fit="cover" show-loader :src="baseImgPrefix + newsDataDetail.img">
+            <template #loader>
+              <div class="loader-animate"/>
+            </template>
+          </a-image>
           <div class="time">{{ newsDataDetail.news_time }}</div>
           <div class="title">{{ newsDataDetail.title }}</div>
           <div class="content" v-html="newsDataDetail.details"></div>
@@ -20,7 +24,11 @@
             </div>
             <div class="recent-wrap">
               <div class="news-block" v-for="item in recentNewsList.slice(0, 3)" @click="toNewsDetail(item)">
-                <img class="news-img" :src="baseImgPrefix + item.img"/>
+                <a-image width="237" height="170" fit="cover" show-loader :src="baseImgPrefix + item.img">
+                  <template #loader>
+                    <div class="loader-animate"/>
+                  </template>
+                </a-image>
                 <div class="news-block-title">{{ item.title }}</div>
                 <div class="news-block-title">{{ item.news_time }}</div>
               </div>
@@ -86,7 +94,7 @@
 </template>
 <script setup>
 import {newsDetail, recentNews} from "~/api/newsCenter";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {baseImgPrefix} from "~/config/baseUrl";
 
@@ -125,7 +133,7 @@ const getNewsDetail = () => {
       nextNews.value = res.data.next
       console.log(res)
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -140,7 +148,7 @@ const getNewsRecent = () => {
       })
       recentNewsList.value = res.data
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

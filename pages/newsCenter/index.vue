@@ -32,7 +32,11 @@
             <div class="news-box" v-for="item in newsDataList" @click="toNewsDetail(item)">
               <a-image width="350" height="250"
                        :src="baseImgPrefix + item.img"
-                       show-loader></a-image>
+                       show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
               <div class="info-box">
                 <div class="time">2022/09/01</div>
                 <div class="title">{{ item.title }}</div>
@@ -79,7 +83,7 @@
 
 <script setup>
 import {newsList, recentNews} from "~/api/newsCenter";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {baseImgPrefix} from '~/config/baseUrl'
 import {parseTime} from "~/utils/time";
 
@@ -118,7 +122,7 @@ const getNewsList = () => {
       newsDataList.value = res.data.data
       totalRes.value = res.data.total
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -129,7 +133,7 @@ const getRecentNews = () => {
     if (res.code === 0) {
       recentNewsList.value = res.data
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

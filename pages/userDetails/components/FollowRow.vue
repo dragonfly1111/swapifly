@@ -67,7 +67,7 @@
 import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Message } from "@arco-design/web-vue";
+import { Notification } from "@arco-design/web-vue";
 const { t } = useI18n();
 const router = useRouter();
 const emits = defineEmits(["change"]);
@@ -139,10 +139,10 @@ const handleFollow = (item, index) => {
     .then((res) => {
       if (res.code == 0) {
         dataList.value[index].type = item.type == 1 ? 0 : 1;
-        Message.success(res.message);
+        Notification.success(res.message);
         emits("change");
       } else {
-        Message.error(res.message);
+        Notification.error(res.message);
       }
     })
     .finally(() => {

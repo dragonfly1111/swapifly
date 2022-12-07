@@ -106,7 +106,7 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Modal, Button, Message } from "@arco-design/web-vue";
+import { Modal, Button, Notification } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
@@ -183,10 +183,10 @@ const handleRemove = (item) => {
       upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
-            Message.success(res.message);
+            Notification.success(res.message);
             emits("change");
           } else {
-            Message.error(res.message);
+            Notification.error(res.message);
           }
         })
         .finally(() => {
@@ -207,10 +207,10 @@ const handleDelete = (item) => {
       deleteProduct({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Message.success(res.message);
+            Notification.success(res.message);
             emits("change");
           } else {
-            Message.error(res.message);
+            Notification.error(res.message);
           }
         })
         .finally(() => {
@@ -231,10 +231,10 @@ const handleMark = (item) => {
       setSoldOut({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Message.success(res.message);
+            Notification.success(res.message);
             emits("change");
           } else {
-            Message.error(res.message);
+            Notification.error(res.message);
           }
         })
         .finally(() => {

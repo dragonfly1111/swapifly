@@ -5,8 +5,8 @@
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
         <span class="info">©2022 Swapifly</span>
         <div class="other">
-          <span @click="$router.push('/helpCenter')">{{$t('foot.helpCenter')}}</span>
-          <span @click="$router.push('/newsCenter')">{{$t('foot.media')}}</span>
+          <a-link @click="$router.push('/helpCenter')">{{$t('foot.helpCenter')}}</a-link>
+          <a-link @click="$router.push('/newsCenter')">{{$t('foot.media')}}</a-link>
         </div>
       </div>
       <div class="right">
@@ -92,15 +92,11 @@ const toHelp = () =>{
     }
     .other{
       margin-left: 43px;
-      span{
+      a{
         font-size: 10px;
         color: $main-grey;
-        cursor: pointer;
-        &:hover{
-          color: $main-blue;
-        }
       }
-      span + span{
+      a + a{
         margin-left: 27px;
       }
     }

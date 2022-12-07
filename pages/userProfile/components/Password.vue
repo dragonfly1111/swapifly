@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Message } from "@arco-design/web-vue";
+import { Notification } from "@arco-design/web-vue";
 import { updatePassword } from '~/api/user'
 import {useUserInfo} from "~/stores/userInfo";
 import {useResize} from '~/stores/resize'
@@ -87,11 +87,11 @@ const handleSave = () => {
     saveLoading.value = true
     updatePassword(form).then(res=>{
       if(res.code === 0){
-        Message.success('密码修改成功，请重新登录')
+        Notification.success('密码修改成功，请重新登录')
         userInfo.logout()
         router.replace('/')
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
       saveLoading.value = false
     })

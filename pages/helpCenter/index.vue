@@ -83,7 +83,7 @@
 
 <script setup>
 import {helpList} from '~/api/helpCenter'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 
 const searchKey = ref('')
 const expandedKeys = ref([]);
@@ -126,7 +126,7 @@ const getHelpList = () => {
       qaList.value = res.data.qa
       noticeList.value = res.data.notice
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

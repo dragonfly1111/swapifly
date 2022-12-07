@@ -13,14 +13,14 @@
       <div class="upload-box">
         <a-image
             class="avatar"
-            width="100"
-            height="100"
+            width="118"
+            height="118"
             :src="baseImgPrefix + form.avatar"
             show-loader
         >
-<!--          <template #loader>-->
-<!--            <div class="loader-animate"/>-->
-<!--          </template>-->
+          <template #loader>
+            <div class="loader-animate"/>
+          </template>
         </a-image>
         <div class="upload-btn">
           <p class="tip">{{ $t("profile.user_head_portrait_tip") }}</p>
@@ -140,8 +140,10 @@
     <temlpate v-else>
       <a-skeleton :loading="pageLoading" :animation="true">
         <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
-        <div style="margin-top: 22px">
+        <div style="margin-top: 22px; display: flex; align-items: flex-end">
           <a-skeleton-shape shape="circle" size="large" />
+          <div style="width: 28px"></div>
+          <a-skeleton-line :rows="1" :line-height="50" :widths="[300]" />
         </div>
         <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
@@ -164,7 +166,7 @@ import {useI18n} from "vue-i18n";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useUserInfo } from "~/stores/userInfo"
 import {useResize} from '~/stores/resize'
-import {Message} from '@arco-design/web-vue';
+import {Notification} from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
 import { getUserInfo, updateUserInfo } from "~/api/user";
 import {watch} from "vue";
@@ -255,9 +257,9 @@ const handleSave = () => {
     }
     updateUserInfo(data).then(res=>{
       if(res.code === 0){
-        Message.success(t('profile.editSuc'))
+        Notification.success(t('profile.editSuc'))
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
       btnLoading.value = false
     }).catch(()=>{

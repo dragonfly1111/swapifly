@@ -190,7 +190,7 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {getExposureMeal, buyExposure} from "~/api/pay";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {baseImgPrefix} from "~/config/baseUrl";
 
 const {t} = useI18n();
@@ -249,7 +249,7 @@ const getExposureList = () => {
       exposureList.value = res.data.exposure
       productDetail.value = res.data.product
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -280,11 +280,11 @@ const getExposureList = () => {
 //       undoApplyBusiness({ id: formData.value.id })
 //         .then((res) => {
 //           if (res.code === 0) {
-//             Message.success(t('exposure.authApplyForm.undoSuc'))
+//             Notification.success(t('exposure.authApplyForm.undoSuc'))
 //             handleCancel()
 //             updatePage()
 //           } else {
-//             Message.error(res.message)
+//             Notification.error(res.message)
 //           }
 //         })
 //         .finally(() => {
@@ -313,7 +313,7 @@ const handleSubmit = () => {
     if (res.code === 0) {
       window.open(res.data.url, '_blank');
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
 
   }).catch(()=>{

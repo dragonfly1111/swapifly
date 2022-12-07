@@ -22,6 +22,13 @@
       </a-carousel>
 
     </div>
+<!--    <div id="map" style="height: 500px;"></div>-->
+<!--    <input-->
+<!--        id="pac-input"-->
+<!--        class="controls"-->
+<!--        type="text"-->
+<!--        placeholder="Search Box"-->
+<!--    />-->
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
@@ -47,7 +54,7 @@
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <div>{{ item.title }}</div>
+              <div class="brands-title">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
@@ -58,7 +65,7 @@
     </section>
 
     <section class="section-wrapper recommend-wrapper">
-      <h3 class="section-header section-header1">{{ $t("pages.recommendTitle") }}</h3>
+      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
         <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
       </div>
@@ -83,7 +90,7 @@ import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -173,7 +180,7 @@ const getBanner = () => {
         googleAd.value = res.data.google_advert
       })
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -183,11 +190,19 @@ const getBrad = () => {
   getHotBrad().then(res => {
     bradLoading.value = false
     if (res.code === 0) {
+      hotBradList.value = res.data
       nextTick(() => {
-        hotBradList.value = res.data
+        // 判断是否需要出现下一页
+        const ele = document.getElementsByClassName('brands-content')[0]
+        const toLeft = ele.clientWidth * curBradPage.value
+        if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+          bradNextShow.value = false
+        } else {
+          bradNextShow.value = true
+        }
       })
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -206,13 +221,13 @@ const getProduct = () => {
         productList.value = [...productList.value, ...res.data.data]
       })
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
 // 加载更多
 const loadMore = () => {
-  page.value ++
+  page.value++
   butLoading.value = true
   getProduct()
 }
@@ -226,9 +241,96 @@ const initPageData = () => {
 
 initPageData()
 
-// onMounted(() => {
-//   initPageData()
-// })
+
+const initAutocomplete = ()=> {
+  const map = new google.maps.Map(
+      document.getElementById("map"),
+      {
+        center: {lat: -33.8688, lng: 151.2195},
+        zoom: 13,
+        mapTypeId: "roadmap",
+      }
+  );
+
+  // Create the search box and link it to the UI element.
+  const input = document.getElementById("pac-input")
+  const searchBox = new google.maps.places.SearchBox(input);
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener("bounds_changed", () => {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  let markers= [];
+
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    const bounds = new google.maps.LatLngBounds();
+
+    places.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+
+      const icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25),
+      };
+
+      // Create a marker for each place.
+      markers.push(
+          new google.maps.Marker({
+            map,
+            icon,
+            title: place.name,
+            position: place.geometry.location,
+          })
+      );
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+}
+
+
+onMounted(() => {
+  // 谷歌地址搜索
+  // initAutocomplete()
+  window.initAutocomplete = initAutocomplete;
+  useHead({
+    script:[
+      {
+        'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
+      },
+    ]
+  })
+})
 
 
 </script>
@@ -260,10 +362,12 @@ initPageData()
     font-size: 24px;
     font-weight: 400;
     margin-bottom: 36px;
-    margin-top: 45px;
+    margin-top: 0;
   }
 
   .section-header1 {
+    font-size: 24px;
+    font-weight: 400;
     margin-bottom: 22px;
     margin-top: 0;
   }
@@ -276,9 +380,9 @@ initPageData()
 
     .brands-item {
       text-align: center;
-      width: 80px;
+      width: 117px;
       flex-shrink: 0;
-      margin-right: 53px;
+      //margin-right: 53px;
       cursor: pointer;
 
       * {
@@ -317,6 +421,12 @@ initPageData()
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
+
+      &:hover{
+        .brands-title{
+          color: $main-blue;
+        }
+      }
     }
   }
 
@@ -350,7 +460,7 @@ initPageData()
 }
 
 .recommend-wrapper {
-  margin-top: 86px;
+  margin-top: 46px;
 }
 
 .see-more {

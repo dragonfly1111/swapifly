@@ -111,7 +111,7 @@
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { addBusiness, reApplyBusiness, undoApplyBusiness } from "~/api/business";
-import { Message } from "@arco-design/web-vue";
+import { Notification } from "@arco-design/web-vue";
 import { Modal, Button } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
 const formRef = ref(null);
@@ -203,11 +203,11 @@ const handleUndo = () => {
       undoApplyBusiness({ id: formData.value.id })
         .then((res) => {
           if (res.code === 0) {
-            Message.success(t("business.authApplyForm.undoSuc"));
+            Notification.success(t("business.authApplyForm.undoSuc"));
             handleCancel();
             updatePage();
           } else {
-            Message.error(res.message);
+            Notification.error(res.message);
           }
         })
         .finally(() => {
@@ -225,11 +225,11 @@ const handleSubmit = () => {
     reqUrl(formData)
       .then((res) => {
         if (res.code === 0) {
-          Message.success(t("business.authApplyForm.applySuc"));
+          Notification.success(t("business.authApplyForm.applySuc"));
           handleCancel();
           updatePage();
         } else {
-          Message.error(res.message);
+          Notification.error(res.message);
         }
       })
       .finally(() => {

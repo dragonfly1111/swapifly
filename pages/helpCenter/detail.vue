@@ -57,7 +57,7 @@
 </template>
 <script setup>
 import {helpDetail} from '~/api/helpCenter'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 const searchKey = ref('')
 const route = useRoute();
@@ -82,7 +82,7 @@ const getHelpDetail = () => {
       articleDetail.value = res.data.article
       witharticle.value = res.data.witharticle
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

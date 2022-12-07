@@ -38,8 +38,13 @@ useHead({
     {
       hid: 'description',
       name: 'description',
-      content: 'Nuxt 3 Awesome Starter',
+      content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
     },
+    {
+      hid: 'keyword',
+      name: 'keyword',
+      content: 'swapifly,轉手,二手,轉售,絕版,名牌手袋,手錶,潮流電子,傢私,電器,二手車,物業',
+    }
   ],
   // todo sdk 支持对语言
   script:[
@@ -56,7 +61,7 @@ useHead({
     'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
   },
   // {
-  //   'src': 'https://js.stripe.com/v3/', async: true, defer: true
+  //   'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
   // },
   ]
 })

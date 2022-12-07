@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {instagramLogin} from '~/api/loginAndRegister'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo();
@@ -28,13 +28,13 @@ onMounted(()=>{
       console.log('ins_login res')
       console.log(res)
       if(res.code === 0){
-        Message.success(t('loginDialog.loginSuc'))
+        Notification.success(t('loginDialog.loginSuc'))
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         console.log('跳转到首页')
         $router.push('/')
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
     })
   }

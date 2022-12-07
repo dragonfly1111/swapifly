@@ -123,9 +123,9 @@ import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
-import { useResize } from "~/stores/resize";
-import { Message } from "@arco-design/web-vue";
-import testBanner from "@/assets/images/test-banner.png";
+import { useResize } from '~/stores/resize'
+import { Notification } from "@arco-design/web-vue";
+import testBanner from "@/assets/images/test-banner.png"
 const userInfo = useUserInfo();
 const router = useRouter();
 const resize = useResize();
@@ -175,10 +175,10 @@ const handleFollow = () => {
   })
     .then((res) => {
       if (res.code === 0) {
-        Message.success(res.message);
+        Notification.success(res.message);
         getInfo();
       } else {
-        Message.error(res.message);
+        Notification.error(res.message);
       }
     })
     .finally(() => {
