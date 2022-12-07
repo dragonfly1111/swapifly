@@ -25,7 +25,7 @@
       <div class="content-title bold">{{ firstType.title }}</div>
       <div class="content">
         <div class="recommendation-item" v-for="secType in firstType.children">
-          <a-link @click="toGoodsList(item)">{{ secType.title }}</a-link>
+          <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
         </div>
       </div>
     </section>

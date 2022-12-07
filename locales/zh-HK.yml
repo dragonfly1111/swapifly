@@ -64,33 +64,6 @@ loginDialog:
     emailCodeErr: 郵箱驗證碼錯誤
     password: 請輸入密碼
     passwordErr: 密碼8-20個字
-datePicker:
-  today: "今日"
-  clear: "清除"
-  close: "关闭"
-  selectMonth: "选择月份"
-  previousMonth: "上个月"
-  nextMonth: "下个月"
-  selectYear: "选择年份"
-  previousYear: "上一年"
-  nextYear: "下一年"
-  selectDecade: "选择十年"
-  previousDecade: "上十年"
-  nextDecade: "下十年"
-  previousCentury: "Предыдущий век"
-  nextCentury: "Следующий век"
-  pickHour: "选择时"
-  incrementHour: "前一小时"
-  decrementHour: "后一小时"
-  pickMinute: "选择分"
-  incrementMinute: "上分钟"
-  decrementMinute: "下一分钟"
-  pickSecond: "选择秒"
-  incrementSecond: "下一秒"
-  decrementSecond: "下一秒"
-  toggleMeridiem: "中午"
-  selectTime: "选择时间"
-  selectDate: "选择日期"
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦
