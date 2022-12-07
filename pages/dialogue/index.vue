@@ -1,6 +1,7 @@
 <template>
   <div class="global-content">
-    <div class="left-msg-list">
+<!--    展示对话列表,当PC端或者showDiaList为true时展示-->
+    <div class="left-msg-list" v-if="resize.screenType !== 'MOBILE' || showDiaList">
       <div id="left-msg-list" class="msg-select">
         <template v-if="pageLoading">
           <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
@@ -8,7 +9,8 @@
           </a-skeleton>
         </template>
         <template v-else>
-          <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:'100%'}" :bordered="false">
+          <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile" @click="router.back()"></icon-left>
+          <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:resize.screenType === 'MOBILE'?'30%':'100%'}" :bordered="false">
             <a-option
                 v-for="item in msgType"
                 :value="item.value"
@@ -68,19 +70,21 @@
         </template>
       </div>
     </div>
-    <div class="main-content">
+<!--    展示对话详情，不是移动端或者showDiaList为false时展示-->
+    <div class="main-content" v-if="resize.screenType !== 'MOBILE' || !showDiaList">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
         <div class="info-wrap">
           <div class="main-content-title">
             <div class="left">
+              <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile" @click="showDiaListFn"></icon-left>
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 160px">
                   <a-skeleton-line :line-height="50" :rows="1"/>
                 </a-skeleton>
               </template>
               <template v-else>
-                <a-image width="50" height="50" show-loader fit="cover"
+                <a-image v-if="resize.screenType !== 'MOBILE'" width="50" height="50" show-loader fit="cover"
                          :src="baseImgPrefix + curConversationMeta.avatar"
                          alt="">
                   <template #loader>
@@ -293,7 +297,7 @@
       </a-spin>
 
     </div>
-    <div class="right-ad">
+    <div class="right-ad" v-if="resize.screenType !== 'MOBILE'">
       <!--      {{ JSON.stringify(curConversationMeta) }}-->
       <AD width="160px" height="600px"/>
     </div>
@@ -312,19 +316,23 @@ import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
 import {baseImgPrefix} from "~/config/baseUrl";
+import { useResize } from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import { useI18n } from "vue-i18n";
 import { Notification } from '@arco-design/web-vue';
 
 const {t} = useI18n()
 const router = useRouter();
+const resize = useResize();
 let pageTask = null
 let mainContentEle = null
 const evaluateDialog = ref(null)
 const checkEvaluateDialog = ref(null)
 const soldDialog = ref(null)
 const reportModal = ref(null)
-const sysData = useSysData()
+const sysData = useSysData();
+//移动端展示对话列表
+const showDiaList = ref(true);
 const msgType = ref([])
 // 左侧会话列表
 const conversationList = ref([])
@@ -353,6 +361,10 @@ const editOfferLoading = ref(false)
 const cancelOfferLoading = ref(false)
 const soldLoading = ref(false)
 const nextDetailNeedBottom = ref(false)
+const showDiaListFn = ()=>{
+  console.log("点击了返回");
+  showDiaList.value = true;
+}
 // 获取左侧对话列表
 const fetchListData = (autoFocus = true) => {
   getChatList({
@@ -459,6 +471,7 @@ const changeMsgType = () => {
 }
 // 切换对话详情
 const changeChatDetail = (item) => {
+  showDiaList.value = false
   page.value = 1
   lastPage.value = 0
   curConversationMeta.value = item
@@ -755,14 +768,14 @@ const pageLoopTask = () => {
 const scrollToBottom = () => {
   console.log('执行了滚动到底')
   const ele = document.getElementsByClassName('conversation-main-block')[0]
-  mainContentEle.scrollTo({
+  mainContentEle && mainContentEle.scrollTo({
     top: ele.scrollHeight,
     behavior: 'smooth'
   })
 }
 // 监听对话详情滚到顶加载数据
 const addEventToMainContent = () => {
-  mainContentEle.addEventListener("scroll", scrollListen)
+  mainContentEle && mainContentEle.addEventListener("scroll", scrollListen)
 }
 const scrollListen = (e) => {
   if(e.target.scrollTop === 0){
@@ -805,13 +818,19 @@ body{
 }
 
 .left-msg-list {
-  width: 30%;
   border-top: 1px solid #F2F2F2;
 
   .msg-select {
-    width: 110px;
     padding: 20px 12px;
-
+    position: relative;
+    .back-icon-mobile{
+      position: absolute;
+      left: 0;
+      display: block;
+      font-size: 25px;
+      font-weight: 400;
+      z-index: 888;
+    }
     :deep(.arco-select) {
       padding-left: 8px;
 
@@ -840,7 +859,7 @@ body{
 
     .msg-item {
       cursor: pointer;
-      padding: 14px 16px 19px 51px;
+      //padding: 14px 16px 19px 51px;
       display: flex;
       justify-content: space-between;
       border-top: 1px solid #F2F2F2;
@@ -919,8 +938,8 @@ body{
 }
 
 .main-content {
-  width: 55%;
-  border: 1px solid #F2F2F2;
+  //width: 55%;
+  //border: 1px solid #F2F2F2;
 
   .main-content-title {
     padding: 16px 18px;
@@ -928,11 +947,19 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     .left {
       display: flex;
       align-items: flex-start;
-
+      text-align: center;
+      .back-icon-mobile{
+        position: absolute;
+        left: 0;
+        display: block;
+        font-size: 25px;
+        font-weight: 400;
+        z-index: 999999;
+        cursor: pointer;
+      }
       .arco-image {
         border-radius: 50%;
 
@@ -1024,9 +1051,9 @@ body{
   }
 
   .conversation-content {
-    height: calc(100vh - 105px - 171px - 60px - 20px);
+    //height: calc(100vh - 105px - 171px - 60px - 20px);
     overflow-y: scroll;
-    padding: 0 14px 20px 24px;
+    //padding: 0 14px 20px 24px;
 
     .nomore{
       color: $grey-font-label;
