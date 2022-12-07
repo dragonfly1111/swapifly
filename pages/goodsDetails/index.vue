@@ -216,10 +216,10 @@
                       </a-image>
                     </template>
                   </a-comment>
-                  <a-button class="to-talk" @click="handleDialogue">{{
-                    $t("pages.viewConversations")
-                  }}</a-button>
-                  <div class="center" v-if="!userInfo">
+                  <a-button class="to-talk" @click="handleDialogue">
+                    {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+                  </a-button>
+                  <div class="center" v-if="!userInfo || !userInfo.id">
                     {{ $t("pages.shouldLoginTip") }}
                   </div>
                   <a-input-search
@@ -228,6 +228,9 @@
                     search-button
                     class="bid-input"
                     v-if="userInfo && p_type == 1"
+                    v-model="price"
+                    @search="handleOfferchat"
+                    :disabled="!userInfo || !userInfo.id"
                   />
                   <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
                   <div class="self-handle" v-if="userInfo && p_type == 2">
@@ -249,7 +252,7 @@
                     </a-space>
                   </div>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" v-if="userInfo && p_type == 2">
                   <div>你的商品在過去7天被瀏覽了{{ productInfo.qday }}次</div>
                   <a-button class="pink-btn" @click="openAchievement">{{
                     $t("pages.viewtheResults")
@@ -278,13 +281,13 @@
     </div>
 
     <div class="mobile-footer-goods" v-if="resize.screenType === 'MOBILE'">
-      <span class="icon-like-mobile">
+      <span class="icon-like-mobile" @click="handleLike">
         <icon-heart class="heart" v-if="productInfo.islike == 0" />
         {{ productInfo.like }} like
       </span>
-      <a-button type="outline" @click="router.push('/dialogue')">{{
-        $t("pages.viewConversations")
-      }}</a-button>
+      <a-button type="outline" @click="router.push('/dialogue')">
+        {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+      </a-button>
       <a-button type="primary" style="margin: 0px 20px; background-color: rgb(51, 51, 51)">{{
         $t("pages.bid")
       }}</a-button>
@@ -311,6 +314,7 @@ import {
   deleteProduct,
   upanddownProduct,
   collectionProduct,
+  offerchat,
 } from "~/api/goods";
 import { toDialogue } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
@@ -339,6 +343,7 @@ const btnLoading = ref(false);
 const userAchievementModal = ref(null);
 const reportModal = ref(null);
 const p_type = ref(null);
+const price = ref(null); // 出价
 const productInfo = ref({
   // 商品信息
   id: null,
@@ -404,6 +409,18 @@ const loadMoreSimilar = () => {
 // 查看对话
 const handleDialogue = () => {
   toDialogue(sellerInfo.value.id).then((res) => {
+    if (res.code == 0) {
+      router.push("/dialogue");
+    }
+  });
+};
+
+// 出价
+const handleOfferchat = () => {
+  offerchat({
+    id: productInfo.value.id,
+    price: price.value,
+  }).then((res) => {
     if (res.code == 0) {
       router.push("/dialogue");
     }
@@ -476,7 +493,7 @@ const handleRemove = () => {
 const handleLike = () => {
   let reqParams = {
     id: productInfo.value.id,
-    state: productInfo.value.islike == 1 ? 2 : 2,
+    state: productInfo.value.islike == 1 ? 2 : 1,
   };
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {

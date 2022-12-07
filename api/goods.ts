@@ -151,6 +151,14 @@ export const collectionProduct = (data: any) => {
     data
   })
 }
+// 出价
+export const offerchat = (data: any) => {
+  return request({
+    url: '/index/chat/offerchat',
+    method: 'post',
+    data
+  })
+}
 
 
 // 编辑商品>>>>>>>>>>>>>>

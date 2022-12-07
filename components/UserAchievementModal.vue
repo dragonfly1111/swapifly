@@ -10,7 +10,20 @@
     modal-class="achievement-dialog"
     :footer="false"
   >
-    <a-row v-if="productInfo.product">
+    <a-skeleton :loading="pageLoading" animation>
+      <a-row :gutter="20">
+        <a-col :span="12">
+          <a-skeleton-shape class="mb10" />
+          <a-skeleton-line :rows="3" :line-height="20" />
+        </a-col>
+        <a-col :span="12">
+          <a-skeleton-line :rows="2" :line-height="20" />
+          <a-skeleton-line  :line-height="300" />
+        </a-col>
+      </a-row>
+    </a-skeleton>
+
+    <a-row v-if="productInfo.product && !pageLoading">
       <a-col :span="12" class="left-box">
         <div class="goods-box">
           <a-image
@@ -111,7 +124,7 @@ import { parseTime } from "~/utils/time";
 const { t } = useI18n();
 const visible = ref(false);
 const comfirmVisible = ref(false);
-const pageLoading = ref(false);
+const pageLoading = ref(true);
 const activeTab = ref("1");
 const form = ref({});
 const productInfo = ref({});
@@ -161,8 +174,8 @@ const initExposureChart = () => {
       },
     },
     legend: {
-    data: [t('achievementModal.payExposure'), t('achievementModal.natureExposure')]
-  },
+      data: [t("achievementModal.payExposure"), t("achievementModal.natureExposure")],
+    },
     grid: {
       left: "3%",
       right: "4%",
@@ -185,12 +198,12 @@ const initExposureChart = () => {
     ],
     series: [
       {
-        name: t('achievementModal.payExposure'),
+        name: t("achievementModal.payExposure"),
         type: "bar",
         data: productInfo.value.exposure.ffexposure.map((i) => i.total),
       },
       {
-        name: t('achievementModal.natureExposure'),
+        name: t("achievementModal.natureExposure"),
         type: "bar",
         data: productInfo.value.exposure.zrexposure.map((i) => i.total),
       },
