@@ -136,10 +136,19 @@ export const getProductDetails = (id: any) => {
   })
 }
 // 类似的商品
-export const getSimilarlist = (id: any) => {
+export const getSimilarlist = (params: any) => {
   return request({
-    url: '/index/product_detail/similarlist?id=' + id,
+    url: '/index/product_detail/similarlist',
     method: 'get',
+    params
+  })
+}
+// like
+export const collectionProduct = (data: any) => {
+  return request({
+    url: '/index/product/collection',
+    method: 'post',
+    data
   })
 }
 

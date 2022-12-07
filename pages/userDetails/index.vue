@@ -3,14 +3,14 @@
     <div class="user-banner">
       <a-image :src="testImg" fit="cover" show-loader>
         <template #loader>
-            <div class="loader-animate"/>
-          </template>
+          <div class="loader-animate" />
+        </template>
       </a-image>
     </div>
 
     <div class="user-details">
       <a-tabs
-        v-if="['PC','SCALE'].includes(resize.screenType)"
+        v-if="['PC', 'SCALE'].includes(resize.screenType)"
         style="margin-left: 320px"
         :active-key="activeTab"
         @change="handleTabChange"
@@ -54,41 +54,39 @@
             @toFollow="toFollow"
             @openRegBusiness="openRegBusiness"
           ></UserCard>
-          <a-space class="extra-btn"
-                   v-if="resize.screenType === 'MOBILE'"
-          >
+          <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
             <a-button
-                type="outline"
-                v-if="userInfo.id == form.id"
-                @click="router.push('/settingProfile')"
-            >{{ $t("profile.mobile_setting") }}</a-button
+              type="outline"
+              v-if="userInfo.id == form.id"
+              @click="router.push('/settingProfile')"
+              >{{ $t("profile.mobile_setting") }}</a-button
             >
             <a-button
-                type="outline"
-                v-if="userInfo.id != form.id"
-                :loading="btnLoading"
-                @click="handleFollow"
+              type="outline"
+              v-if="userInfo.id != form.id"
+              :loading="btnLoading"
+              @click="handleFollow"
             >
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
-                $t("pages.report")
-              }}</a-button>
+              $t("pages.report")
+            }}</a-button>
           </a-space>
         </div>
         <a-tabs
-            v-if="resize.screenType === 'MOBILE'"
-            style="margin-left: 0px"
-            :active-key="activeTab"
-            @change="handleTabChange"
-            :class="{ noline: activeTab == 'followRow' }"
+          v-if="resize.screenType === 'MOBILE'"
+          style="margin-left: 0px"
+          :active-key="activeTab"
+          @change="handleTabChange"
+          :class="{ noline: activeTab == 'followRow' }"
         >
           <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
           <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
           <a-tab-pane
-              key="businessInformation"
-              :title="$t('pages.businessInformation')"
-              v-if="form.shop == 1 || form.p_type == 2"
+            key="businessInformation"
+            :title="$t('pages.businessInformation')"
+            v-if="form.shop == 1 || form.p_type == 2"
           >
           </a-tab-pane>
         </a-tabs>
@@ -125,9 +123,9 @@ import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
-import { useResize } from '~/stores/resize'
+import { useResize } from "~/stores/resize";
 import { Message } from "@arco-design/web-vue";
-import testBanner from "@/assets/images/test-banner.png"
+import testBanner from "@/assets/images/test-banner.png";
 const userInfo = useUserInfo();
 const router = useRouter();
 const resize = useResize();
@@ -139,8 +137,8 @@ const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
 const advert = ref("");
-const testImg = testBanner
-const activeTab = ref("goodsRow");//goodsRow
+const testImg = testBanner;
+const activeTab = ref("goodsRow"); //goodsRow
 
 const handleTabChange = (e) => {
   activeTab.value = e;
@@ -202,13 +200,13 @@ const toFollow = (e) => {
   activeTab.value = "followRow";
 };
 onMounted(() => {
-  form.value.id = router.currentRoute.value.query.userId;
-  if (form.value.id) {
+  if (router.currentRoute.value.query.userId) {
+    form.value.id = router.currentRoute.value.query.userId;
     getInfo();
     goodsRow.value.initData();
   }
-  if(router.currentRoute.value.query.tab){
-    activeTab.value = router.currentRoute.value.query.tab
+  if (router.currentRoute.value.query.tab) {
+    activeTab.value = router.currentRoute.value.query.tab;
     evaluateRow.value.initData();
   }
 });

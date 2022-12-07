@@ -89,3 +89,10 @@ export const deleteChat = (params: any) => {
     params
   })
 }
+// 对话
+export const toDialogue = (id: any) => {
+  return request({
+    url: '/index/chat/dialogue?id=' + id,
+    method: 'get',
+  })
+}
