@@ -31,7 +31,7 @@
 import { productSearch } from '~/api/goods'
 import {useSearchKey} from "../../stores/search";
 import { useResize } from '~/stores/resize'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 const route = useRoute()
 const resize = useResize();
 const searchKey = useSearchKey()
@@ -86,7 +86,7 @@ const getSearchData = (data) => {
         productTotal.value = '10000+'
       }
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
 
   })

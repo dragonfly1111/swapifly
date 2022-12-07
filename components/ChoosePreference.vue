@@ -41,7 +41,7 @@
 import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
 import {baseImgPrefix} from '~/config/baseUrl'
 import {IUserLabel} from "~/model/res/userLabel";
-import {Message} from '@arco-design/web-vue';
+import {Notification} from '@arco-design/web-vue';
 
 const visible = ref(false);
 const loading = ref(false);
@@ -58,11 +58,11 @@ const handleOk = () => {
   }).then((res) => {
     console.log(res)
     if (res.code === 0) {
-      Message.success(res.message)
+      Notification.success(res.message)
       emits('confirmPreference', ckeckedList)
       handleCancel()
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 };

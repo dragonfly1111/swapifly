@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {getEmailCode, register, facebookLogin, instagramLogin, googleLogin} from '~/api/loginAndRegister'
-import {Message} from '@arco-design/web-vue';
+import {Notification} from '@arco-design/web-vue';
 import {IRegisterForm} from "~/model/payload/loginAndRegister";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
@@ -99,13 +99,13 @@ const confirm = () => {
     saveLoading.value = true
     register(formData).then(res=>{
       if(res.code === 0){
-        Message.success(t('loginDialog.regSuc'))
+        Notification.success(t('loginDialog.regSuc'))
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         emits('toPreference')
         visible.value = false;
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
       saveLoading.value = false
     })
@@ -126,11 +126,11 @@ const sendVerfi = () => {
       email: formData.email
     }).then(res => {
       if (res.code === 0) {
-        Message.success(res.message)
+        Notification.success(res.message)
         formData.key = res.data
         isSend.value = true
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
       sendLoading.value = false
     })

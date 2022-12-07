@@ -166,7 +166,7 @@ import {useI18n} from "vue-i18n";
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useUserInfo } from "~/stores/userInfo"
 import {useResize} from '~/stores/resize'
-import {Message} from '@arco-design/web-vue';
+import {Notification} from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
 import { getUserInfo, updateUserInfo } from "~/api/user";
 import {watch} from "vue";
@@ -257,9 +257,9 @@ const handleSave = () => {
     }
     updateUserInfo(data).then(res=>{
       if(res.code === 0){
-        Message.success(t('profile.editSuc'))
+        Notification.success(t('profile.editSuc'))
       } else {
-        Message.error(res.message)
+        Notification.error(res.message)
       }
       btnLoading.value = false
     }).catch(()=>{

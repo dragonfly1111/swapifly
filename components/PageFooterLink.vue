@@ -34,7 +34,7 @@
 <script setup>
 import {useSysData} from '~/stores/sysData'
 import {getHotSearch} from '~/api/goods'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 const router = useRouter()
 const sysData = useSysData()
 const classList = sysData.goodsClass
@@ -84,7 +84,7 @@ const getHotSearchList = () => {
         hotSearchList.value = res.data
       })
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

@@ -83,7 +83,7 @@
 
 <script setup>
 import {newsList, recentNews} from "~/api/newsCenter";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 import {baseImgPrefix} from '~/config/baseUrl'
 import {parseTime} from "~/utils/time";
 
@@ -122,7 +122,7 @@ const getNewsList = () => {
       newsDataList.value = res.data.data
       totalRes.value = res.data.total
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -133,7 +133,7 @@ const getRecentNews = () => {
     if (res.code === 0) {
       recentNewsList.value = res.data
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

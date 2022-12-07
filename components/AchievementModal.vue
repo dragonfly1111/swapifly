@@ -13,7 +13,7 @@
   </template>
   <script setup>
   import { useI18n } from "vue-i18n";
-  import { Message } from "@arco-design/web-vue";
+  import { Notification } from "@arco-design/web-vue";
   const { t } = useI18n();
   const visible = ref(true);
   const formRef = ref();
@@ -46,4 +46,3 @@
   });
   </script>
   <style lang="scss" scoped></style>
-  

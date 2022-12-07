@@ -84,7 +84,7 @@
 
 <script setup>
 import {helpSearch, helpTheme} from '~/api/helpCenter'
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 
 const searchKey = ref('')
 const page = ref(1)
@@ -128,7 +128,7 @@ const getSearchRes = (title, rid) => {
       totalRes.value = res.data.total
       console.log(res.total)
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -139,7 +139,7 @@ const getHelpTheme = () => {
     if (res.code === 0) {
       themeList.value = res.data
     } else {
-      Message.error(res.message)
+      Notification.error(res.message)
     }
   })
 }

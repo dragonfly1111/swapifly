@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {getEmailCode} from "~/api/loginAndRegister";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 const {t} = useI18n();
 
 const visible = ref(true);
@@ -78,7 +78,7 @@ const sendVerfi = () => {
     // getEmailCode({
     //   email: formData.email
     // }).then(res => {
-    //   Message.success(res.message)
+    //   Notification.success(res.message)
     //   sendLoading.value = false
     //   isSend.value = true
     // })

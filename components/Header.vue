@@ -147,7 +147,7 @@ import {useUserInfo} from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
 import { baseImgPrefix } from "~/config/baseUrl";
-import {Message} from "@arco-design/web-vue";
+import {Notification} from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
 const userInfo = useUserInfo()
@@ -272,9 +272,9 @@ function deleteHis(id) {
     id
   }).then(res=>{
     if(res.code === 0){
-      Message.success(t('head.deleteSuc'))
+      Notification.success(t('head.deleteSuc'))
     } else {
-      Message.success(res.message)
+      Notification.success(res.message)
     }
   })
 }
@@ -284,9 +284,9 @@ function handleCollection() {
       title: searchKey.value
     }).then(res=>{
       if(res.code === 0){
-        Message.success(t('head.collectionSuc'))
+        Notification.success(t('head.collectionSuc'))
       } else {
-        Message.erroe(res.message)
+        Notification.erroe(res.message)
       }
     })
   }
