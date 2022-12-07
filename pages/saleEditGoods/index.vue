@@ -91,27 +91,27 @@
           <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
           <!-- <div class="image-preview-list"> -->
           　<draggable
-          v-model="fileList"
-          class="image-preview-list"
-          ghost-class="ghost"
-          chosen-class="chosenClass"
-          animation="300"
-          @end="onEnd"
-          :fallback-on-body="true"
-          item-key="id"
-        >
-          <template #item="{ element, index }">
-            <div class="item image-item" :class="{ 'is-cover': index == 0 }">
-              <a-image :src="element.url"> </a-image>
-              <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
-              <icon-close
-                @click="handleDelImage(element, index)"
-                class="icon-close"
-                :title="$t('sale.delete')"
-              />
-            </div>
-          </template>
-        </draggable>
+            v-model="fileList"
+            class="image-preview-list"
+            ghost-class="ghost"
+            chosen-class="chosenClass"
+            animation="300"
+            @end="onEnd"
+            :fallback-on-body="true"
+            item-key="id"
+          >
+            <template #item="{ element, index }">
+              <div class="item image-item" :class="{ 'is-cover': index == 0 }">
+                <a-image :src="element.url"> </a-image>
+                <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
+                <icon-close
+                  @click="handleDelImage(element, index)"
+                  class="icon-close"
+                  :title="$t('sale.delete')"
+                />
+              </div>
+            </template>
+          </draggable>
           <!-- <div
               class="image-item"
               v-for="(item, index) in images"
@@ -283,7 +283,7 @@ import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
-import {useResize} from '~/stores/resize';
+import { useResize } from "~/stores/resize";
 import { Notification, Modal } from "@arco-design/web-vue";
 import {
   getProductDraftDetails,
@@ -315,6 +315,12 @@ const form = ref({
   id: null,
   rid: "",
   nid: 1,
+  describe: null,
+  region: null,
+  price: null,
+  mail_note: null,
+  offline_address:[],
+  images:[],
 });
 const fileList = ref([]);
 const addressOptions = ref([]);
@@ -360,7 +366,7 @@ const hasBanWord = (val) => {
 
 // 草稿详情
 const getDraftInfo = () => {
-  getProductDraftDetails(form.value.id).then(res=>{
+  getProductDraftDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data;
       form.value.mail = res.data.mail ? 1 : false;
@@ -373,7 +379,7 @@ const getDraftInfo = () => {
         };
       });
     }
-  })
+  });
 };
 
 // 商品详情
@@ -548,13 +554,10 @@ onMounted(() => {
     form.value.id = router.currentRoute.value.query.draftId;
     getDraftInfo();
   }
-
   listAll();
   // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
   console.log("setUserDraft().value", setUserDraft().value, router.currentRoute);
 });
-
-
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
