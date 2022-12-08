@@ -32,9 +32,9 @@
   </div>
 </template>
 <script setup>
-import {useSysData} from '~/stores/sysData'
-import {getHotSearch} from '~/api/goods'
-import {Notification} from "@arco-design/web-vue";
+import { useSysData } from '~/stores/sysData'
+import { getHotSearch } from '~/api/goods'
+import { Notification } from "@arco-design/web-vue";
 const router = useRouter()
 const sysData = useSysData()
 const classList = sysData.goodsClass
