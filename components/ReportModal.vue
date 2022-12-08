@@ -77,9 +77,10 @@ const handleBeforeOk = (done) => {
       return;
     }
     let reqUrl = reportType.value == "goods" ? reportProduct : reportUser;
+    let id = reportType.value == "goods" ? (dataInfo.value.pid || dataInfo.value.id) : dataInfo.value.id
     reqUrl({
       ...form.value,
-      id: dataInfo.value.id,
+      id,
     })
       .then((res) => {
         if (res.code === 0) {

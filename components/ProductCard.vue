@@ -24,7 +24,7 @@
         v-for="(item, index) in list"
         @click="$router.push('/goodsDetails?id=' + (item.id || item.pid))"
       >
-        <div class="user-box" v-if="showUser">
+        <div class="user-box" v-if="showUser" @click.stop="toUserDetails(item)">
           <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader>
             <template #loader>
               <div class="loader-animate" />
@@ -50,9 +50,20 @@
           <div class="desc">{{ item.newold }}</div>
         </div>
         <div class="product-handle">
-          <div>
-            <icon-heart @click="likeProduct(item)" v-if="item.islike === 0" :strokeWidth="3" size="16" />
-            <icon-heart-fill @click="likeProduct(item)" v-else style="color: #D43030" :strokeWidth="3" size="16" />
+          <div class="like-box">
+            <icon-heart
+              @click.stop="likeProduct(item, index)"
+              v-if="item.islike === 0"
+              :strokeWidth="3"
+              size="16"
+            />
+            <icon-heart-fill
+              @click.stop="likeProduct(item, index)"
+              v-show="(item.islike === 1)"
+              style="color: #d43030"
+              :strokeWidth="3"
+              size="16"
+            />
             <span>{{ item.like }}</span>
           </div>
           <a-dropdown :popup-max-height="false" @click.stop>
@@ -107,7 +118,7 @@
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
 import { Modal, Button, Notification } from "@arco-design/web-vue";
-import { deleteProduct, upanddownProduct } from "~/api/goods";
+import { deleteProduct, upanddownProduct, collectionProduct } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -151,7 +162,7 @@ const reportModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const router = useRouter();
-const emits = defineEmits(["change"]);
+const emits = defineEmits(["change", "update:list"]);
 // 商品状态
 const getStateLabel = (item) => {
   let stateOptions = {
@@ -195,6 +206,7 @@ const handleRemove = (item) => {
     },
   });
 };
+
 // 删除
 const handleDelete = (item) => {
   Modal.info({
@@ -244,14 +256,38 @@ const handleMark = (item) => {
   });
 };
 
+// 用户详情
+const toUserDetails = (item) => {
+  router.push("/userDetails?userId=" + item.uid);
+};
+
 // 编辑商品
 const handleEdit = (item) => {
   router.push("/saleEditGoods?id=" + item.id);
 };
 // like商品
-const likeProduct = () => {
-  if (!isMySelf) {
+const likeProduct = (item, index) => {
+  if (!props.isMySelf) {
+    handleLike(item, index);
   }
+};
+
+// 喜欢
+const handleLike = (item, index) => {
+  let reqParams = {
+    id:item.pid || item.id,
+    state: item.islike == 1 ? 2 : 1,
+  };
+  collectionProduct(reqParams).then((res) => {
+    if (res.code === 0) {
+      Notification.success(res.message);
+      let arr = [...props.list];
+      arr[index].islike = item.islike == 1 ? 0 : 1;
+      emits("update:list", arr);
+    } else {
+      Notification.error(res.message);
+    }
+  });
 };
 
 const openAchievement = (item) => {
@@ -364,6 +400,16 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .like-box {
+      &:hover {
+        :deep(.arco-icon-heart ){
+          display: none;
+        }
+        :deep(.arco-icon-heart-fill ){
+          display: inline-block !important;
+        }
+      }
+    }
     .arco-icon {
       cursor: pointer;
     }

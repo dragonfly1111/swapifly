@@ -432,7 +432,6 @@ onMounted(() => {
 
   .section-content {
     position: relative;
-
     .arrow {
       position: absolute;
       width: 32px;
@@ -461,6 +460,9 @@ onMounted(() => {
 
 .recommend-wrapper {
   margin-top: 46px;
+  .section-content{
+    padding: 0 2px;
+  }
 }
 
 .see-more {

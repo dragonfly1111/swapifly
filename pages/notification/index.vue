@@ -162,6 +162,7 @@ onMounted(async () => {
   padding: 15vh 0;
   img {
     width: 90px;
+    object-fit: contain;
   }
 }
 </style>

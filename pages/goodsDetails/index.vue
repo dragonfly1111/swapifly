@@ -364,6 +364,7 @@ const similar = ref({
   },
 });
 
+
 // 商品详情
 const handleQuery = () => {
   pageLoading.value = true;
@@ -374,6 +375,9 @@ const handleQuery = () => {
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
         eltlist.value = res.data.eltlist;
+        setTimeout(() => {
+          initSwiper();
+        }, 500);
       }
     })
     .finally(() => {
@@ -498,6 +502,7 @@ const handleLike = () => {
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
       Notification.success(res.message);
+      handleQuery()
     } else {
       Notification.error(res.message);
     }
@@ -535,9 +540,7 @@ onMounted(async () => {
   productInfo.value.id = router.currentRoute.value.query.id;
   handleQuery();
   querySimilarlist();
-  setTimeout(() => {
-    initSwiper();
-  }, 500);
+
   window.onresize = function () {
     initSwiper();
   };

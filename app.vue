@@ -67,6 +67,7 @@ useHead({
 })
 console.log("=====onMounted====",resize)
 onMounted(()=>{
+  reurl()
   // 客户端设置系统属性数据
   if(process.client){
     sysData.setSysDataClientSide({
@@ -99,6 +100,13 @@ onMounted(()=>{
 function handleResize(){
   console.log("===缩放====",window.innerWidth)
   resize.setWidth(window.innerWidth)
+}
+
+function reurl () { // 解决第一次进入不加载js文件
+            if (location.href.indexOf('#reloaded') === -1) {
+                location.href = location.href + '#reloaded'
+                location.reload()
+            }
 }
 
 // watch()

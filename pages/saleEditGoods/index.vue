@@ -313,17 +313,19 @@ if (process.client) {
 const offline_address = ref(null); // 面交地点
 const form = ref({
   id: null,
-  rid: "",
+  rid: null,
+  title: null,
   nid: 1,
   describe: null,
   region: null,
   price: null,
   mail_note: null,
-  offline_address:[],
-  images:[],
+  offline_address: [],
+  images: [],
 });
 const fileList = ref([]);
 const addressOptions = ref([]);
+const clickNumber = ref(0); // 保存草稿点击事件
 const formRef = ref(null);
 const btnType = ref("draft");
 
@@ -331,7 +333,7 @@ const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
   title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
   describe: [{ required: true, message: t("sale.formValidate.describeValidate") }],
-  oldAndNewValidate: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
+  nid: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
   price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
   region: [{ required: true, message: t("sale.regionTip") }],
 });
@@ -496,6 +498,7 @@ const beforeunloadHandler = (e) => {
 
 // 保存草稿
 const saveDraftModal = (next) => {
+  clickNumber.value = 1;
   Modal.info({
     titleAlign: "start",
     title: t("sale.saveDraftTitle"),
@@ -515,9 +518,11 @@ const saveDraftModal = (next) => {
           Notification.error(res.message);
         }
       });
+      clickNumber.value = 0;
     },
     onCancel: () => {
       next();
+      clickNumber.value = 0;
     },
   });
 };
@@ -528,7 +533,8 @@ router.beforeEach((to, from, next) => {
     from.path != to.path &&
     from.path == "/saleEditGoods" &&
     btnType.value != "publish" &&
-    btnType.value != "isSaveDraft"
+    btnType.value != "isSaveDraft" &&
+    clickNumber.value == 0
   ) {
     saveDraftModal(next);
   } else {
