@@ -88,15 +88,15 @@ const changeAcc = (e: any) =>{
       formData.pwd = '12345'
       break
     case 5:
-      formData.email = ' swapifly003@gmail.com'
+      formData.email = 'swapifly003@gmail.com'
       formData.pwd = '12345'
       break
     case 6:
-      formData.email = ' swapifly004@gmail.com'
+      formData.email = 'swapifly004@gmail.com'
       formData.pwd = '12345'
       break
     case 7:
-      formData.email = ' swapifly005@gmail.com'
+      formData.email = 'swapifly005@gmail.com'
       formData.pwd = '12345'
       break
   }

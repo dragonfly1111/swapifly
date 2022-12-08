@@ -14,7 +14,7 @@
         <template v-else>
           <div class="hot-search-item" v-for="item in hotSearchList">
             <a-link @click="toSearch(item)">{{ item.title }}</a-link>
-            <a-divider direction="vertical" />
+            <a-divider direction="vertical"/>
           </div>
         </template>
 
@@ -22,7 +22,7 @@
     </section>
 
     <section class="footer-link-box" v-for="firstType in classList">
-      <div class="content-title bold">{{ firstType.title }}</div>
+      <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
       <div class="content">
         <div class="recommendation-item" v-for="secType in firstType.children">
           <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
@@ -32,9 +32,10 @@
   </div>
 </template>
 <script setup>
-import { useSysData } from '~/stores/sysData'
-import { getHotSearch } from '~/api/goods'
-import { Notification } from "@arco-design/web-vue";
+import {useSysData} from '~/stores/sysData'
+import {getHotSearch} from '~/api/goods'
+import {Notification} from "@arco-design/web-vue";
+
 const router = useRouter()
 const sysData = useSysData()
 const classList = sysData.goodsClass
@@ -67,7 +68,8 @@ const toGoodsList = (item) => {
   router.push({
     path: '/goodsList',
     query: {
-      id: item.id
+      id: item.id,
+      level: item.level
     }
   })
 }
@@ -80,7 +82,7 @@ const getHotSearchList = () => {
   }).then(res => {
     hotSearchLoading.value = false
     if (res.code === 0) {
-      nextTick(()=>{
+      nextTick(() => {
         hotSearchList.value = res.data
       })
     } else {
@@ -93,48 +95,54 @@ getHotSearchList()
 </script>
 
 <style scoped lang="scss">
-.page-footer-link{
-    padding: 20px 30px;
-    border-top: 1px solid rgba(229, 229, 229, 1);
+.page-footer-link {
+  padding: 20px 30px;
+  border-top: 1px solid rgba(229, 229, 229, 1);
 }
 
-.content-title{
-    margin: 10px 0;
-    &.bold{
+.content-title {
+  margin: 10px 0;
+  cursor: pointer;
+  &.bold {
     font-weight: bold;
-}
+  }
 }
 
-.search-box{
-    border-bottom: 1px solid rgba(229, 229, 229, 1);
-    margin-bottom: 50px;
-    .hot-search{
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        padding: 10px;
-        &-item{
-            flex-shrink: 0;
-            margin-bottom: 10px;
-            .arco-link{
-                color: rgba(42, 130, 228, 1);
+.search-box {
+  border-bottom: 1px solid rgba(229, 229, 229, 1);
+  margin-bottom: 50px;
 
-            }
-        }
+  .hot-search {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 10px;
+
+    &-item {
+      flex-shrink: 0;
+      margin-bottom: 10px;
+
+      .arco-link {
+        color: rgba(42, 130, 228, 1);
+
+      }
     }
+  }
 }
 
-.footer-link-box{
-    margin-bottom: 30px;
-    .content{
-        display: flex;
-        flex-wrap: wrap;
-        .arco-link{
-            padding: 0;
-            color: rgba(56, 56, 56, 1);
-            margin-right: 20px;
-        }
+.footer-link-box {
+  margin-bottom: 30px;
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+
+    .arco-link {
+      padding: 0;
+      color: rgba(56, 56, 56, 1);
+      margin-right: 20px;
     }
+  }
 }
 
 </style>
