@@ -72,8 +72,7 @@
     </section>
 
     <AD></AD>
-
-    <div class="see-more" v-if="page < lastPage && productList.length > 8">
+    <div class="see-more" v-if="page < lastPage && productList.length > 0">
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
