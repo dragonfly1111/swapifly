@@ -20,23 +20,45 @@
 
       </div>
     </section>
-
-    <section class="footer-link-box" v-for="firstType in classList">
-      <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
-      <div class="content">
-        <div class="recommendation-item" v-for="secType in firstType.children">
-          <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
+    <div v-if="resize.screenType !== 'MOBILE'">
+      <section class="footer-link-box" v-for="firstType in classList">
+        <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
+        <div class="content">
+          <div class="recommendation-item" v-for="secType in firstType.children">
+            <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
+    <div class="footer-mobile-coll" v-else>
+      <a-collapse
+        :show-expand-icon="false"
+        :bordered="false"
+      >
+        <a-collapse-item
+          v-for="(firstType,index) in classList"
+          :header="firstType.title"
+          :key="index">
+          <template #extra>
+            <icon-down />
+          </template>
+          <div class="content">
+            <div class="recommendation-item" v-for="secType in firstType.children">
+              <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
+            </div>
+          </div>
+        </a-collapse-item>
+      </a-collapse>
+    </div>
   </div>
 </template>
 <script setup>
 import {useSysData} from '~/stores/sysData'
 import {getHotSearch} from '~/api/goods'
 import {Notification} from "@arco-design/web-vue";
-
+import { useResize } from '~/stores/resize'
 const router = useRouter()
+const resize = useResize();
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const hotSearchLoading = ref(true)
@@ -99,7 +121,18 @@ getHotSearchList()
   padding: 20px 30px;
   border-top: 1px solid rgba(229, 229, 229, 1);
 }
+.footer-mobile-coll{
+  .content {
+    display: flex;
+    flex-wrap: wrap;
 
+    .arco-link {
+      padding: 0;
+      color: rgba(56, 56, 56, 1);
+      margin-right: 20px;
+    }
+  }
+}
 .content-title {
   margin: 10px 0;
   cursor: pointer;

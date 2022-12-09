@@ -118,7 +118,7 @@
             </div>
           </a-col>
           <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: right;" class="btn-col">
-            <div v-if="resize.screenType === 'MOBILE'" style="padding-right: 30px">
+            <div v-if="resize.screenType === 'MOBILE'" style="display: flex;justify-content: center;align-items: center">
               <template v-if="userInfo.token" >
                 <icon-message class="icon-message" @click="router.push('/dialogue')"/>
                 <icon-list class="icon-list" @click="router.push('/mobileUserProfile')"/>

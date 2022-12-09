@@ -102,6 +102,7 @@
           </a-breadcrumb>
         </a-space>
         <div class="select-wrapper">
+
           <GoodsFilterSelect @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
         </div>
       </div>

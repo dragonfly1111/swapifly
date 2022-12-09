@@ -1,5 +1,8 @@
 @import "assets/sass/var";
 @media screen and (min-width:1000px){
+  .recommend-wrapper{
+    margin-top: 46px;
+  }
   .recommend-item{
     width: 24%;
     min-width: 180px;
@@ -93,8 +96,14 @@
       padding: 0 14px 20px 24px;
     }
   }
+  .section-wrapper{
+    margin: 40px 0 40px;
+  }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .recommend-wrapper{
+    margin-top: 25px;
+  }
   .recommend-item{
     width: 48%;
   }
@@ -160,7 +169,7 @@
   }
   .section-wrapper{
     .section-content{
-      margin-top: 60px;
+      //margin-top: 60px;
     }
   }
   .media-sale-edit-goods{
@@ -210,6 +219,23 @@
     .conversation-content{
       height: calc(100vh - 105px - 171px - 10px);
       padding: 0;
+    }
+  }
+  .global-content{
+    padding-top: 50px;
+  }
+  .section-wrapper{
+    margin: 10px 0 10px !important;
+  }
+  .footer-mobile-coll{
+    .arco-collapse-item-header-left{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .arco-collapse-item-content{
+      padding-left: 0;
+      padding-right: 0;
+      background-color: #fff;
     }
   }
 }

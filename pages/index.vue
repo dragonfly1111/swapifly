@@ -354,7 +354,7 @@ onMounted(() => {
 }
 
 .section-wrapper {
-  margin: 40px 0 40px;
+  //margin: 40px 0 40px;
   overflow: hidden;
 
   .section-header {
@@ -458,7 +458,7 @@ onMounted(() => {
 }
 
 .recommend-wrapper {
-  margin-top: 46px;
+  //margin-top: 46px;
   .section-content{
     padding: 0 2px;
   }

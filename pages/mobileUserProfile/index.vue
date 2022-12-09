@@ -21,7 +21,7 @@ const router = useRouter();
 const userInfo = useUserInfo()
 const list = reactive<limitObj>({
   data: [{
-    img: '/swapifly/_nuxt/assets/images/no-data-box.png',
+    img: '<icon-down/>',
     name:"pages.like_title",
     path:'/like',
   },{
