@@ -53,7 +53,7 @@
           <div class="like-box">
             <icon-heart
               @click.stop="likeProduct(item, index)"
-              v-if="item.islike === 0"
+              v-if="!item.islike"
               :strokeWidth="3"
               size="16"
             />
