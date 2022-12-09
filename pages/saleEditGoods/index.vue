@@ -311,6 +311,7 @@ if (process.client) {
   headers["X-Userid"] = userInfo.id;
 }
 const offline_address = ref(null); // 面交地点
+const formType = ref('draft'); // 来源 draft 草稿/ edit编辑商品
 const form = ref({
   id: null,
   rid: null,
@@ -453,11 +454,11 @@ const publishProduct = (type) => {
     okText: t("sale.publish"),
     onBeforeOk: (done) => {
       done(true);
-      let reqUrl = form.value.id ? editProduct : addProduct;
+      let reqUrl = form.value.id && formType.value == 'edit' ? editProduct : addProduct;
+      btnType.value = "publish"; // 防止触发弹出保存草稿
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
           Notification.success(res.message);
-          btnType.value = "publish"; // 防止触发弹出保存草稿
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
           Notification.error(res.message);
@@ -521,8 +522,8 @@ const saveDraftModal = (next) => {
       clickNumber.value = 0;
     },
     onCancel: () => {
-      next();
       clickNumber.value = 0;
+      next();
     },
   });
 };
@@ -551,13 +552,17 @@ onMounted(() => {
         url: baseImgPrefix + item,
       };
     });
+  }else{
+    fileList.value = []
   }
   if (router.currentRoute.value.query.id) {
     form.value.id = router.currentRoute.value.query.id;
+    formType.value = 'edit'
     getProduct();
   }
   if (router.currentRoute.value.query.draftId) {
     form.value.id = router.currentRoute.value.query.draftId;
+    formType.value = 'draft'
     getDraftInfo();
   }
   listAll();

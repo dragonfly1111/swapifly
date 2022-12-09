@@ -88,6 +88,7 @@ pages:
   mobile_notice: 通知消息
   no_notice_tip: 没有收到任何消息哦～
   like_title: 我like過嘅
+  likeConfirm: 是否取消like
   searchGoods: 搜尋商品
   goods: 商品
   goodsEmpty: 暂无商品

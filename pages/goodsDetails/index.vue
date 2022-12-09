@@ -69,7 +69,10 @@
           <div class="goods-info">
             <div class="goods-info-body">
               <div class="goods-content">
-                <div class="goods-name">{{ productInfo.title }}</div>
+                <div class="goods-name">
+                  <div>{{ productInfo.title }}</div>
+                  <h2>HK${{ productInfo.price }}</h2>
+                </div>
                 <a-row justify="space-between" class="goods-desc">
                   <a-col
                     :span="resize.screenType === 'MOBILE' ? 24 : 8"
@@ -283,6 +286,7 @@
     <div class="mobile-footer-goods" v-if="resize.screenType === 'MOBILE'">
       <span class="icon-like-mobile" @click="handleLike">
         <icon-heart class="heart" v-if="productInfo.islike == 0" />
+        <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
         {{ productInfo.like }} like
       </span>
       <a-button type="outline" @click="router.push('/dialogue')">
@@ -334,7 +338,7 @@ const getRStateLabel = () => {
     2: t("rState.goodEfficiency"),
     3: t("rState.notReplying"),
   };
-  return rStateOptions[productInfo.value.r_state] || "";
+  return rStateOptions[sellerInfo.value.r_state] || "";
 };
 const swiper = ref(null);
 const newAndOldModal = ref(null);
@@ -364,13 +368,13 @@ const similar = ref({
   },
 });
 
-
 // 商品详情
 const handleQuery = () => {
   pageLoading.value = true;
   getProductDetails(productInfo.value.id)
     .then((res) => {
       if (res.code == 0) {
+        pageLoading.value = false;
         p_type.value = res.data.p_type;
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
@@ -378,11 +382,11 @@ const handleQuery = () => {
         setTimeout(() => {
           initSwiper();
         }, 500);
+      } else {
+        Notification.error(res.message);
       }
     })
-    .finally(() => {
-      pageLoading.value = false;
-    });
+    .finally(() => {});
 };
 
 // 相似商品
@@ -433,7 +437,7 @@ const handleOfferchat = () => {
 
 // 举报
 const handleReport = () => {
-  reportModal.value.openDialog(productInfo.value.id);
+  reportModal.value.openDialog(productInfo.value);
 };
 
 // 编辑商品
@@ -502,7 +506,10 @@ const handleLike = () => {
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
       Notification.success(res.message);
-      handleQuery()
+      let { like } = productInfo.value;
+      productInfo.value.like = productInfo.value.islike == 1 ? like - 1 : like + 1;
+      productInfo.value.islike = productInfo.value.islike == 1 ? 0 : 1;
+      // handleQuery()
     } else {
       Notification.error(res.message);
     }
@@ -682,6 +689,9 @@ onMounted(async () => {
       font-size: 20px;
       height: 80px;
       margin-bottom: 10px;
+      h2 {
+        margin: 5px 0;
+      }
     }
     .goods-desc {
       border-bottom: 1px solid #e5e5e5;

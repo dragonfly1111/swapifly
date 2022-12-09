@@ -31,8 +31,8 @@
             </template>
           </a-image>
           <div class="user-desc">
-            <div>用户名称</div>
-            <div class="time">一天前</div>
+            <div>{{ item.nickname }}</div>
+            <div class="time">{{ item.create_time }}</div>
           </div>
         </div>
         <div class="product-img">
@@ -50,16 +50,10 @@
           <div class="desc">{{ item.newold }}</div>
         </div>
         <div class="product-handle">
-          <div class="like-box">
-            <icon-heart
-              @click.stop="likeProduct(item, index)"
-              v-if="!item.islike"
-              :strokeWidth="3"
-              size="16"
-            />
+          <div class="like-box" @click.stop="likeProduct(item, index)">
+            <icon-heart v-show="!item.islike" :strokeWidth="3" size="16" />
             <icon-heart-fill
-              @click.stop="likeProduct(item, index)"
-              v-show="(item.islike === 1)"
+              v-show="item.islike === 1"
               style="color: #d43030"
               :strokeWidth="3"
               size="16"
@@ -149,6 +143,11 @@ const props = defineProps({
   },
   // 是否空
   isEmpty: {
+    type: Boolean,
+    default: false,
+  },
+  // like是否需要确认框
+  hasLikeConfirm: {
     type: Boolean,
     default: false,
   },
@@ -268,14 +267,28 @@ const handleEdit = (item) => {
 // like商品
 const likeProduct = (item, index) => {
   if (!props.isMySelf) {
-    handleLike(item, index);
+    if (props.hasLikeConfirm) {
+      Modal.info({
+        content: t("pages.likeConfirm"),
+        closable: true,
+        hideCancel: false,
+        cancelText: t("pages.cancel"),
+        okText: t("pages.confirm"),
+        onBeforeOk: (done) => {
+          handleLike(item, index);
+          done(true);
+        },
+      });
+    } else {
+      handleLike(item, index);
+    }
   }
 };
 
 // 喜欢
 const handleLike = (item, index) => {
   let reqParams = {
-    id:item.pid || item.id,
+    id: item.pid || item.id,
     state: item.islike == 1 ? 2 : 1,
   };
   collectionProduct(reqParams).then((res) => {
@@ -283,7 +296,9 @@ const handleLike = (item, index) => {
       Notification.success(res.message);
       let arr = [...props.list];
       arr[index].islike = item.islike == 1 ? 0 : 1;
+      arr[index].like = reqParams.state == 2 ? item.like - 1 : item.like + 1;
       emits("update:list", arr);
+      emits("change", item, index);
     } else {
       Notification.error(res.message);
     }
@@ -297,6 +312,14 @@ onMounted(() => {
   // exposurePayModal.value.openDialog(32);
 });
 </script>
+
+<style lang="scss">
+div.arco-typography,
+p.arco-typography {
+  word-break: break-all;
+}
+</style>
+
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
 .goods-list {
@@ -340,9 +363,16 @@ onMounted(() => {
     }
 
     .user-desc {
+      width: 100%;
+      div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 84%;
+      }
       .time {
         margin-top: 2px;
-        transform: scale(0.9);
+        font-size: 12px;
       }
     }
   }
@@ -401,12 +431,23 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     .like-box {
+      padding-right: 10px;
       &:hover {
-        :deep(.arco-icon-heart ){
-          display: none;
+        :deep(.arco-icon-heart) {
+          display: none !important;
         }
-        :deep(.arco-icon-heart-fill ){
+        :deep(.arco-icon-heart-fill) {
           display: inline-block !important;
+        }
+      }
+      &.active {
+        &:hover {
+          :deep(.arco-icon-heart) {
+            display: inline-block !important;
+          }
+          :deep(.arco-icon-heart-fill) {
+            display: none !important;
+          }
         }
       }
     }
