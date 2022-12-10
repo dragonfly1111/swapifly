@@ -161,6 +161,7 @@ onMounted(() => {
     }
     .user-desc-content {
       min-height: 80px;
+      word-break: break-all;
     }
   }
 

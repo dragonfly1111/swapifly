@@ -502,7 +502,6 @@ const beforeunloadHandler = (e) => {
 const saveDraftModal = (to) => {
   if (clickNumber.value == 1) return;
   clickNumber.value = 1;
-  console.log(clickNumber.value, "====");
   draftModal.value = Modal.info({
     titleAlign: "start",
     title: t("sale.saveDraftTitle"),

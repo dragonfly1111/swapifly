@@ -25,7 +25,7 @@
         @click="$router.push('/goodsDetails?id=' + (item.id || item.pid))"
       >
         <div class="user-box" v-if="showUser" @click.stop="toUserDetails(item)">
-          <a-image :src="baseImgPrefix + item.image" fit="cover" show-loader :preview="false">
+          <a-image :src="(baseImgPrefix + item.avatar)" fit="cover" show-loader :preview="false">
             <template #loader>
               <div class="loader-animate" />
             </template>

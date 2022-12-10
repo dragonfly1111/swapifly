@@ -22,7 +22,7 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <div class="follow-list-item" v-for="(item, index) in dataList">
+        <div class="follow-list-item" v-for="(item, index) in dataList" @click="router.push('/userDetails?userId=' + item.uid)">
           <img :src="baseImgPrefix + item.avatar" alt="" />
           <div class="fs12">{{ item.nickname }}</div>
           <div class="fs10">@{{ item.realname }}</div>
@@ -33,7 +33,7 @@
               class="black-outline-btn"
               v-if="item.type == 0"
               :loading="btnLoading"
-              @click="handleFollow(item, index)"
+              @click.stop="handleFollow(item, index)"
               >{{ $t("pages.follow") }}</a-button
             >
             <a-button
@@ -190,6 +190,7 @@ defineExpose({
     border-radius: 4px;
     margin-top: 20px;
     margin-right: 30px;
+    cursor: pointer;
     img {
       width: 50px;
       height: 50px;
