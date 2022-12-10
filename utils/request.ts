@@ -65,12 +65,11 @@ request.interceptors.request.use(
 // 响应拦截
 request.interceptors.response.use(
   (response: AxiosResponse) => {
+    const userInfo = useUserInfo();
     if (response.data.code === 999) {
       // 登录过期 跳转首页
-      // Message.error(response.data.message)
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
-      const userInfo = useUserInfo();
       const resize = useResize();
       userInfo.logout();
       if (resize.screenType !== 'MOBILE'){
@@ -81,6 +80,9 @@ request.interceptors.response.use(
       router.push({
         path: '/'
       })
+    } else if(response.data.code === 998){
+      // 账号封禁
+      userInfo.openBlockDialog()
     }
     return response.data
   },

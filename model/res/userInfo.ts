@@ -6,4 +6,5 @@ export interface IUserInfo {
   token: string
   type: number
   openLogin: boolean
+  userBlock: boolean
 }

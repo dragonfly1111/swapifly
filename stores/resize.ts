@@ -15,7 +15,7 @@ export interface ITypeState {
 export const useResize = defineStore('resize', {
   state: (): ITypeState => ({
     curWidth: 0,
-    screenType: 'MOBILE',
+    screenType: 'PC',
     scale: 1,
     contentPT: 375,
     contentPTStr: '375px'

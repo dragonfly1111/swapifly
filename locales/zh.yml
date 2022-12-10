@@ -138,6 +138,8 @@ pages:
   degree_of_old_and_new: 新旧程度
   mobile_sort: 排序
   more_filters: 更多筛选
+  shareTo: 分享这件商品给其他人
+  copySuc: 分享链接已复制
 profile:
   edit_profile: 编辑档案
   mobile_setting: 设置
@@ -406,7 +408,11 @@ rState:
   efficient: 回复效率高
   goodEfficiency: 回复效率良好
   notReplying: 不常回复
-
+block:
+  tip: 因违反了《服务条款》
+  product: 你的商品已被封禁
+  user: 你的账户已被封禁
+  feedback: 如果你需要申诉，可发送邮件至邮箱
 
 
 

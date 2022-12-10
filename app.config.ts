@@ -4,4 +4,5 @@ export default defineAppConfig({
     name: '',
     link: '',
   },
+  domain: 'https://swapiflyapi.honglanshuzi.com/swapifly'
 })

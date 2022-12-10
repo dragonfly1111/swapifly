@@ -69,7 +69,6 @@ const onBeforeOk = (done) => {
   })
 }
 const handleOk = () => {
-
 }
 const changeRateVal = (e) => {
   console.log(e)
@@ -86,6 +85,7 @@ const handleCancel = () => {
   setTimeout(() => {
     formData.content = ''
     formData.id = null
+    formRef.value.clearValidate()
   }, 100);
 }
 defineExpose({

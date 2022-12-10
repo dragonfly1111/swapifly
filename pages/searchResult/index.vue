@@ -29,9 +29,12 @@
 
 <script setup>
 import { productSearch } from '~/api/goods'
-import {useSearchKey} from "../../stores/search";
+import { useSearchKey } from "../../stores/search";
 import { useResize } from '~/stores/resize'
-import {Notification} from "@arco-design/web-vue";
+import { Notification } from "@arco-design/web-vue";
+import { getSearchHistory } from "~/api/goods";
+import { useSysData } from '~/stores/sysData'
+
 const route = useRoute()
 const resize = useResize();
 const searchKey = useSearchKey()
@@ -42,6 +45,7 @@ const productTotal = ref('')
 const productList = ref([])
 const pageLoading = ref(true)
 const butLoading = ref(false)
+const sysData = useSysData()
 let queryParams = {}
 
 const getSearchData = (data) => {
@@ -69,10 +73,20 @@ const getSearchData = (data) => {
       } else if(num > 10000){
         productTotal.value = '10000+'
       }
+      // 搜索成功后 刷新搜索记录
+      if(searchKey.searchKey){
+        getSearchHistory().then(res=>{
+          const searchLog = res.data.search_log
+          const collectionList = res.data.scsearch_log
+          sysData.setSearchHis({
+            searchLog,
+            collectionList
+          })
+        })
+      }
     } else {
       Notification.error(res.message)
     }
-
   })
 }
 const handleQuery = (data) => {

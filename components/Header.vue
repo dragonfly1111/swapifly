@@ -256,17 +256,7 @@ function openHisPanel(){
   suggestShow.value = true
 }
 function hideHisPanel(){
-  setTimeout(()=>{
-    suggestShow.value = false
-    getSearchHistory().then(res=>{
-      const searchLog = res.data.search_log
-      const collectionList = res.data.scsearch_log
-      sysData.setSearchHis({
-        searchLog,
-        collectionList
-      })
-    })
-  }, 50)
+  suggestShow.value = false
 }
 function handleHis(e) {
   searchKey.value = e
@@ -279,7 +269,7 @@ function deleteHis(id) {
     if(res.code === 0){
       Notification.success(t('head.deleteSuc'))
     } else {
-      Notification.success(res.message)
+      Notification.error(res.message)
     }
   })
 }
@@ -298,12 +288,9 @@ function handleCollection() {
 
 }
 function changeCurType(e) {
-  // 延迟200ms展示
   if (e.children && e.children.length) {
-    setTimeout(()=>{
-      curClass.value = e.children
-      showHeadPanel.value = true
-    }, 200)
+    curClass.value = e.children
+    showHeadPanel.value = true
   } else {
     showHeadPanel.value = false
     curClass.value = []
