@@ -119,9 +119,8 @@ const uploadSuccess = (e) => {
   if (e.response.code == 0) {
     realFileList.value.push(e.response.data);
   }
-  setUserDraft([]);
   if (realFileList.value.length == fileList.value.length) {
-    setUserDraft(realFileList.value);
+    setUserDraft().value = realFileList.value;
     router.push({ name: "saleEditGoods", query: { type: "draft" } });
     fileList.value = []
   }

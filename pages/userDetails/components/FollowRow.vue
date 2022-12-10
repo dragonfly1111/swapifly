@@ -22,11 +22,13 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <div class="follow-list-item" v-for="(item, index) in dataList" @click="router.push('/userDetails?userId=' + item.uid)">
-          <img :src="baseImgPrefix + item.avatar" alt="" />
-          <div class="fs12">{{ item.nickname }}</div>
-          <div class="fs10">@{{ item.realname }}</div>
-          <div class="fs10">{{ item.b_follow }} Followers</div>
+        <div class="follow-list-item" v-for="(item, index) in dataList">
+          <div @click="router.push('/userDetails?userId=' + item.uid)">
+            <img :src="baseImgPrefix + item.avatar" alt="" />
+            <div class="fs12">{{ item.nickname }}</div>
+            <div class="fs10">@{{ item.realname }}</div>
+            <div class="fs10">{{ item.b_follow }} Followers</div>
+          </div>
           <div>
             <a-button
               type="outline"

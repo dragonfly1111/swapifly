@@ -568,7 +568,6 @@ onMounted(() => {
   }
   listAll();
   // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
-  console.log("setUserDraft().value", setUserDraft().value, router.currentRoute, fileList.value);
 });
 </script>
 <style lang="scss" scoped>
