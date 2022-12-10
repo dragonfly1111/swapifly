@@ -30,7 +30,7 @@ foot:
   recentTopSearches: 近期熱門搜索
   home: 首頁
   news: 新聞
-  help:
+  help: 帮助
 loginDialog:
   title: 使用第三方平台帳號登入
   or: 或
@@ -97,6 +97,7 @@ pages:
   businessInformation: 商家資料
   registeredMerchant: 註冊商戶
   lookClickRate: 查看點閱率
+  onOffer: 出售中
   soldOut: 已售出
   isRemoveGoods: 已下架
   removeGoods: 下架商品
@@ -168,6 +169,7 @@ profile:
   opwd: 目前密碼
   pwd: 新密碼
   cpwd: 確認密碼
+  changeSuc: 密碼修改成功，請重新登入
   formValidate:
     opwd: 請輸入目前密碼
     cpwd: 請輸入確認密碼
@@ -183,7 +185,6 @@ profile:
   resetPwdCancel: 取消
   newPwd: 新密碼
   newPwd1: 確認新密碼
-  changeSuc: 密碼修改成功，請重新登入
 gender:
   man: 男
   women: 女
@@ -309,7 +310,7 @@ dialogue:
   noMsgTip: 沒有收到任何消息哦~
   rejected: 已駁回出價
   accepted: 已接受出價
-  checkEvaluate: 查看评价
+  checkEvaluate: 查看評價
   evaluateBut: 評價
   evaluateShowBut: 查看評價
   evaluate: 提交評價
@@ -341,11 +342,11 @@ dialogue:
   hisPrice: 對方出價HK$
   yourPrice: 你出價HK$
   operationOffer: 出價
-  operationEditOffer: 编辑出价
+  operationEditOffer: 編輯出價
   confirmEditOffer: 確認編輯
-  operationCancelOffer: 取消出价
+  operationCancelOffer: 取消出價
   operationRejectOffer: 驳回出价
-  operationAcceptOffer: 接受出价
+  operationAcceptOffer: 駁回出價
   offerSuc: 出價成功
   cancelOfferSuc: 已取消出價
   editOfferSuc: 出價已編輯
@@ -377,12 +378,12 @@ sale:
   publishBtnComfirm: 是否确认要立即發佈？
   saveDraft: 保存草稿
   delete: 删除
-  deleteDraftComfirm: 是否确定要删除草稿？
   chooseType: 選擇分類
   regionTip: 請選擇商品所在國家/區域
   trading: 交易方式
   yourDraft: 你的草稿
   draft: 草稿
+  deleteDraftComfirm: 是否确定要删除草稿？
   saveDraftTitle: 需要儲存草稿嗎?
   saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
   formValidate:

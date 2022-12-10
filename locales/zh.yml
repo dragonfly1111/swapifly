@@ -22,6 +22,7 @@ head:
   searchHis: 历史搜索
   collectionKey: 收藏关键词
   collectionSuc: 收藏成功
+  deleteSuc: 删除成功
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻
@@ -63,33 +64,6 @@ loginDialog:
     emailCodeErr: 邮箱验证码错误
     password: 请输入密码
     passwordErr: 密码8-20个字
-datePicker:
-  today: "今日"
-  clear: "清除"
-  close: "关闭"
-  selectMonth: "选择月份"
-  previousMonth: "上个月"
-  nextMonth: "下个月"
-  selectYear: "选择年份"
-  previousYear: "上一年"
-  nextYear: "下一年"
-  selectDecade: "选择十年"
-  previousDecade: "上十年"
-  nextDecade: "下十年"
-  previousCentury: "Предыдущий век"
-  nextCentury: "Следующий век"
-  pickHour: "选择时"
-  incrementHour: "前一小时"
-  decrementHour: "后一小时"
-  pickMinute: "选择分"
-  incrementMinute: "上分钟"
-  decrementMinute: "下一分钟"
-  pickSecond: "选择秒"
-  incrementSecond: "下一秒"
-  decrementSecond: "下一秒"
-  toggleMeridiem: "中午"
-  selectTime: "选择时间"
-  selectDate: "选择日期"
 pages:
   hotBrands: 热门品牌
   recommendTitle: 为你推荐
@@ -150,7 +124,7 @@ pages:
   shouldLoginTip: 登录以获取更多服务
   bid: 出价
   viewConversations: 查看对话
-  conversations: 查看对话
+  conversations: 对话
   unfoldMore: 展开了解更多
   expanded: 收起
   viewSeller: 浏览卖家
@@ -192,6 +166,13 @@ profile:
   preference_title: 感兴趣的内容：
   edit_preference: 更改偏好
   save: 保存修改
+  opwd: 当前密码
+  pwd: 新密码
+  cpwd: 确认密码
+  changeSuc: 密码修改成功，请重新登录
+  formValidate:
+    opwd: 请输入当前密码
+    cpwd: 请输入确认密码
   bindEmail: 请绑定邮箱账户
   bindEmailTip: 未绑定邮箱账户将会导致你的账户密码无法找回
   bindEmailOk: 绑定
@@ -204,13 +185,6 @@ profile:
   resetPwdCancel: 取消
   newPwd: 新密码
   newPwd1: 确认新密码
-  opwd: 当前密码
-  pwd: 新密码
-  cpwd: 确认密码
-  changeSuc: 密码修改成功，请重新登录
-  formValidate:
-    opwd: 请输入当前密码
-    cpwd: 请输入确认密码
 gender:
   man: 男
   women: 女
@@ -220,8 +194,6 @@ gender:
 evaluate:
   evaluateEmpty: 暂无评论
   evaluateEmptyTip: 尚未获得任何评论
-  formBuyer: 来自买家的评论
-  formSeller: 来自卖家的评论
   sourceEvaluation:
     all: 全部
     formBuyer: 来自买家
@@ -326,6 +298,7 @@ newsCenter:
   noNews: 没有了～
 dialogue:
   newMsg: 新消息
+  imgMsg: 【图片】
   noMore: 暂无更多对话
   counterpartyPrice: 对方出价
   inputHere: 在此输入...
@@ -338,24 +311,52 @@ dialogue:
   rejected: 已驳回出价
   accepted: 已接受出价
   checkEvaluate: 查看评价
+  evaluateBut: 评价
+  evaluateShowBut: 查看评价
   evaluate: 提交评价
+  cancel: 取消
+  confirm: 提交
   evaluateDetail: 评价详情
-  evaluateDetailTip: 双方完成互相评价或交易完成15天后方可查看评价详情
-  evaluateContenTip: 评价内通
-  noEvaluateContenTip: 对方已评价
+  evaluateSuc: 评价已提交
+  evaluateDetailTip: 双方完成互相评价或交易完成15天后
+  evaluateDetailTip1: 方可查看评价详情
+  evaluateContenTip: 评价内容：
+  noEvaluateContenTip: 对方暂未评价
   rate: 评分
   evaluateContent: 请输入你的评价内容
   evaluateTip: 请于交易完成15天内完成评价
   markSold: 标记已售出
-  markSoldTip: 标记已售出的商品将无法再收到出价，是否标记？
+  markSoldSuc: 商品已标记售出
+  markSoldTip: 标记已售出的商品将无法再收到出价，
+  markSoldTip1: 是否标记？
   inbox: 收信箱
   onSale: 出售中
   underPurchase: 购买中
   sealed: 已封存
   sealConversation: 封存对话
   block: 封锁对方
+  unBlock: 解封对方
   deleteConversation: 删除对话
   report: 举报对方
+  dialogue: 圖片
+  hisPrice: 对方出价HK$
+  yourPrice: 你出价HK$
+  operationOffer: 出价
+  operationEditOffer: 编辑出价
+  confirmEditOffer: 确认出价
+  operationCancelOffer: 取消出价
+  operationRejectOffer: 驳回出价
+  operationAcceptOffer: 接受出价
+  offerSuc: 出价成功
+  cancelOfferSuc: 已取消出价
+  editOfferSuc: 出价已编辑
+  acceptSuc: 已接受对方出价
+  rejectSuc: 已驳回对方出价
+  sealeSuc: 对话已封存
+  blockSuc: 已封锁对方
+  unBlockSuc: 已解封对方
+  reportSuc: 对话已删除
+  inputRate: 请输入你的评分
 sale:
   saleTitle: 你今天想卖出什么物品？
   uploadTip: 选择照片或者将照片移至这里
@@ -371,7 +372,6 @@ sale:
   price: 价格
   descSuggest: 建议说明物品规格、长度、种类、购入时间
   deliverAddress: 面交地点
-  post: 立即发布
   postTip: 是否有额外的邮寄费用或选择？
   publish: 立即发布
   publishSucc: 发布成功！

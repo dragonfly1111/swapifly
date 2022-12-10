@@ -44,7 +44,8 @@
               </div>
               <div class="next control-item" :class="!nextNews ? 'hide-control' : ''"  @click="toNewsDetail(nextNews)">
                 <!--沙雕arco用不了<icon-right/> 只好用left翻转代替-->
-                <div class="control-but">{{ $t('newsCenter.nextNews') }}
+                <div class="control-but">
+                  {{ $t('newsCenter.nextNews') }}
                   <icon-left/>
                 </div>
                 <div class="news-title">{{ nextNews ? nextNews.title : $t('newsCenter.noNews') }}</div>
@@ -118,7 +119,11 @@ const toNewsDetail = (e) => {
   console.log('toNewsDetail')
   console.log(e)
   router.push(`/newsCenter/detail?id=${e.id}`)
-  getNewsDetail()
+  setTimeout(()=>{
+    getNewsDetail()
+  }, 200)
+  // nextTick(()=>{
+  // })
 }
 const getNewsDetail = () => {
   dataLoading.value = true
