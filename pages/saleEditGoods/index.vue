@@ -301,6 +301,7 @@ const newOldList = sysData.goodsOan;
 const regionOptions = sysData.region;
 const pdwList = sysData.goodsPdwList || [];
 const userInfo = useUserInfo();
+const draftModal = ref(null);
 const resize = useResize();
 let headers = reactive({
   "X-Utoken": null,
@@ -311,16 +312,16 @@ if (process.client) {
   headers["X-Userid"] = userInfo.id;
 }
 const offline_address = ref(null); // 面交地点
-const formType = ref('draft'); // 来源 draft 草稿/ edit编辑商品
+const formType = ref("draft"); // 来源 draft 草稿/ edit编辑商品
 const form = ref({
   id: null,
-  rid: null,
-  title: null,
+  rid: "",
+  title: "",
   nid: 1,
-  describe: null,
-  region: null,
-  price: null,
-  mail_note: null,
+  describe: "",
+  region: "",
+  price: "",
+  mail_note: "",
   offline_address: [],
   images: [],
 });
@@ -454,7 +455,7 @@ const publishProduct = (type) => {
     okText: t("sale.publish"),
     onBeforeOk: (done) => {
       done(true);
-      let reqUrl = form.value.id && formType.value == 'edit' ? editProduct : addProduct;
+      let reqUrl = form.value.id && formType.value == "edit" ? editProduct : addProduct;
       btnType.value = "publish"; // 防止触发弹出保存草稿
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
@@ -498,9 +499,11 @@ const beforeunloadHandler = (e) => {
 };
 
 // 保存草稿
-const saveDraftModal = (next) => {
+const saveDraftModal = (to) => {
+  if (clickNumber.value == 1) return;
   clickNumber.value = 1;
-  Modal.info({
+  console.log(clickNumber.value, "====");
+  draftModal.value = Modal.info({
     titleAlign: "start",
     title: t("sale.saveDraftTitle"),
     content: t("sale.saveDraftContent"),
@@ -515,15 +518,14 @@ const saveDraftModal = (next) => {
           btnType.value = "isSaveDraft";
           Notification.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
+          clickNumber.value = 0;
         } else {
           Notification.error(res.message);
         }
       });
-      clickNumber.value = 0;
     },
     onCancel: () => {
-      clickNumber.value = 0;
-      next();
+      router.push(to.path);
     },
   });
 };
@@ -535,9 +537,9 @@ router.beforeEach((to, from, next) => {
     from.path == "/saleEditGoods" &&
     btnType.value != "publish" &&
     btnType.value != "isSaveDraft" &&
-    clickNumber.value == 0
+    clickNumber.value === 0
   ) {
-    saveDraftModal(next);
+    saveDraftModal(to);
   } else {
     next();
   }
@@ -552,22 +554,22 @@ onMounted(() => {
         url: baseImgPrefix + item,
       };
     });
-  }else{
-    fileList.value = []
+  } else {
+    fileList.value = [];
   }
   if (router.currentRoute.value.query.id) {
     form.value.id = router.currentRoute.value.query.id;
-    formType.value = 'edit'
+    formType.value = "edit";
     getProduct();
   }
   if (router.currentRoute.value.query.draftId) {
     form.value.id = router.currentRoute.value.query.draftId;
-    formType.value = 'draft'
+    formType.value = "draft";
     getDraftInfo();
   }
   listAll();
   // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
-  console.log("setUserDraft().value", setUserDraft().value, router.currentRoute);
+  console.log("setUserDraft().value", setUserDraft().value, router.currentRoute, fileList.value);
 });
 </script>
 <style lang="scss" scoped>

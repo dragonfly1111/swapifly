@@ -123,9 +123,9 @@ import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
-import { useResize } from '~/stores/resize'
+import { useResize } from "~/stores/resize";
 import { Notification } from "@arco-design/web-vue";
-import testBanner from "@/assets/images/test-banner.png"
+import testBanner from "@/assets/images/test-banner.png";
 const userInfo = useUserInfo();
 const router = useRouter();
 const resize = useResize();
@@ -199,6 +199,23 @@ const toFollow = (e) => {
   followRow.value.resetQuery(e);
   activeTab.value = "followRow";
 };
+
+const initData = () => {
+  form.value.id = router.currentRoute.value.query.userId;
+  getInfo();
+  activeTab.value = "goodsRow";
+  goodsRow.value.initData();
+};
+watch(
+  () => router.currentRoute.value.query.userId,
+  (newValue, oldValue) => {
+    console.log(router.currentRoute.value.path, newValue !== oldValue);
+    if (router.currentRoute.value.path == "/userDetails",newValue !== oldValue) {
+      initData();
+    }
+  }
+);
+
 onMounted(() => {
   if (router.currentRoute.value.query.userId) {
     form.value.id = router.currentRoute.value.query.userId;
