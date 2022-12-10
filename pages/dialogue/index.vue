@@ -28,44 +28,44 @@
           </a-skeleton>
         </template>
         <template v-else>
-          <div v-for="item in conversationList">
-            <div class="msg-item" @click="changeChatDetail(item)">
-              <div class="left-avatar">
-                <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">
-                  <template #loader>
-                    <div class="loader-animate"/>
-                  </template>
-                </a-image>
-              </div>
-              <div class="conv-main-content">
-                <div class="content-title">
-                  <span>{{ item.nickname }}</span>
-                  <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-' }}</span>
-                </div>
-                <div class="content">
-                  <div class="left">
-                    <div class="msg-content">{{
-                        item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'
-                      }}
-                    </div>
-                    <!--{{ item.x_type }}-->
-                    <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>
-                    <div class="tip">{{
-                        item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')
-                      }}{{ item.price }}
-                    </div>
-                  </div>
-                  <div class="right">
-                    <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.p_image" alt="">
-                      <template #loader>
-                        <div class="loader-animate"/>
-                      </template>
-                    </a-image>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<!--          <div v-for="item in conversationList">-->
+<!--            <div class="msg-item" @click="changeChatDetail(item)">-->
+<!--              <div class="left-avatar">-->
+<!--                <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">-->
+<!--                  <template #loader>-->
+<!--                    <div class="loader-animate"/>-->
+<!--                  </template>-->
+<!--                </a-image>-->
+<!--              </div>-->
+<!--              <div class="conv-main-content">-->
+<!--                <div class="content-title">-->
+<!--                  <span>{{ item.nickname }}</span>-->
+<!--                  <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-' }}</span>-->
+<!--                </div>-->
+<!--                <div class="content">-->
+<!--                  <div class="left">-->
+<!--                    <div class="msg-content">{{-->
+<!--                        item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'-->
+<!--                      }}-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;{{ item.x_type }}&ndash;&gt;-->
+<!--                    <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>-->
+<!--                    <div class="tip">{{-->
+<!--                        item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')-->
+<!--                      }}{{ item.price }}-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="right">-->
+<!--                    <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.p_image" alt="">-->
+<!--                      <template #loader>-->
+<!--                        <div class="loader-animate"/>-->
+<!--                      </template>-->
+<!--                    </a-image>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="nomore">{{ $t('dialogue.noMore') }}</div>
         </template>
       </div>
