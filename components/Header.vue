@@ -269,7 +269,7 @@ function deleteHis(id) {
     if(res.code === 0){
       Notification.success(t('head.deleteSuc'))
     } else {
-      Notification.success(res.message)
+      Notification.error(res.message)
     }
   })
 }

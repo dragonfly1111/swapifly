@@ -32,7 +32,7 @@ const onBeforeOk = (done: any) => {
       Notification.success(t('dialogue.markSoldSuc'))
       done(true)
     } else {
-      Notification.success(res.message)
+      Notification.error(res.message)
       done(false)
     }
   })

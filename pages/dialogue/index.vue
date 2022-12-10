@@ -1,16 +1,19 @@
 <template>
   <div class="global-content">
-<!--    展示对话列表,当PC端或者showDiaList为true时展示-->
+    <!--    展示对话列表,当PC端或者showDiaList为true时展示-->
     <div class="left-msg-list" v-if="resize.screenType !== 'MOBILE' || showDiaList">
       <div id="left-msg-list" class="msg-select">
         <template v-if="pageLoading">
-          <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
-            <a-skeleton-line :line-height="30" :rows="1"/>
-          </a-skeleton>
+          <div>
+            <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
+              <a-skeleton-line :line-height="30" :rows="1"/>
+            </a-skeleton>
+          </div>
         </template>
         <template v-else>
           <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile" @click="router.back()"></icon-left>
-          <a-select v-model="curMsgType" @change="changeMsgType" :style="{width:resize.screenType === 'MOBILE'?'30%':'100%'}" :bordered="false">
+          <a-select v-model="curMsgType" @change="changeMsgType"
+                    :style="{width:resize.screenType === 'MOBILE'?'30%':'100%'}" :bordered="false">
             <a-option
                 v-for="item in msgType"
                 :value="item.value"
@@ -23,61 +26,64 @@
       </div>
       <div class="msg-list">
         <template v-if="pageLoading">
-          <a-skeleton :animation="true" class="skeleton" style="margin-left: 50px; margin-right: 16px">
-            <a-skeleton-line :line-height="80" :rows="5"/>
-          </a-skeleton>
+          <div>
+            <a-skeleton :animation="true" class="skeleton" style="margin-left: 50px; margin-right: 16px">
+              <a-skeleton-line :line-height="80" :rows="5"/>
+            </a-skeleton>
+          </div>
         </template>
         <template v-else>
-<!--          <div v-for="item in conversationList">-->
-<!--            <div class="msg-item" @click="changeChatDetail(item)">-->
-<!--              <div class="left-avatar">-->
-<!--                <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">-->
-<!--                  <template #loader>-->
-<!--                    <div class="loader-animate"/>-->
-<!--                  </template>-->
-<!--                </a-image>-->
-<!--              </div>-->
-<!--              <div class="conv-main-content">-->
-<!--                <div class="content-title">-->
-<!--                  <span>{{ item.nickname }}</span>-->
-<!--                  <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-' }}</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <div class="left">-->
-<!--                    <div class="msg-content">{{-->
-<!--                        item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'-->
-<!--                      }}-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;{{ item.x_type }}&ndash;&gt;-->
-<!--                    <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>-->
-<!--                    <div class="tip">{{-->
-<!--                        item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')-->
-<!--                      }}{{ item.price }}-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="right">-->
-<!--                    <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.p_image" alt="">-->
-<!--                      <template #loader>-->
-<!--                        <div class="loader-animate"/>-->
-<!--                      </template>-->
-<!--                    </a-image>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <div v-for="item in conversationList">
+            <div class="msg-item" @click="changeChatDetail(item)">
+              <div class="left-avatar">
+                <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.avatar" alt="">
+                  <template #loader>
+                    <div class="loader-animate"/>
+                  </template>
+                </a-image>
+              </div>
+              <div class="conv-main-content">
+                <div class="content-title">
+                  <span>{{ item.nickname }}</span>
+                  <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-' }}</span>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="msg-content">{{
+                        item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'
+                      }}
+                    </div>
+                    <!--{{ item.x_type }}-->
+                    <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>
+                    <div class="tip">{{
+                        item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')
+                      }}{{ item.price }}
+                    </div>
+                  </div>
+                  <div class="right">
+                    <a-image width="50" height="50" show-loader fit="cover" :src="baseImgPrefix + item.p_image" alt="">
+                      <template #loader>
+                        <div class="loader-animate"/>
+                      </template>
+                    </a-image>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="nomore">{{ $t('dialogue.noMore') }}</div>
         </template>
       </div>
     </div>
-<!--    展示对话详情，不是移动端或者showDiaList为false时展示-->
+    <!--    展示对话详情，不是移动端或者showDiaList为false时展示-->
     <div class="main-content" v-if="resize.screenType !== 'MOBILE' || !showDiaList">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
         <div class="info-wrap">
           <div class="main-content-title">
             <div class="left">
-              <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile" @click="showDiaListFn"></icon-left>
+              <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile"
+                         @click="showDiaListFn"></icon-left>
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 160px">
                   <a-skeleton-line :line-height="50" :rows="1"/>
@@ -210,7 +216,7 @@
                   <template v-if="curConversationMeta.status === 2">
                     <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
                     <span class="accepted">{{ $t('dialogue.accepted') }}</span>
-                    <a-button v-if="curConversationMeta.p_state === 0" class="but accept" :loading="soldLoading"
+                    <a-button v-if="curConversationMeta.p_state === 1" class="but accept" :loading="soldLoading"
                               @click="openSoldDialog">{{
                         $t('dialogue.markSold')
                       }}
@@ -244,7 +250,10 @@
             <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                  v-for="(item, index) in conversationDetail">
-              <div class="time-line" v-if="index % 20 === 0">{{ parseTime(item.create_time, "{y}/{m}/{d} {h}:{i}") }}</div>
+              <div class="time-line" v-if="index % 20 === 0">{{
+                  parseTime(item.create_time, "{y}/{m}/{d} {h}:{i}")
+                }}
+              </div>
               <div class="content-item" :class="item.wz === 'left' ? 'content-left' : 'content-right'">
                 <a-image class="avatar" width="36" height="36" show-loader fit="cover"
                          :src="baseImgPrefix + item.avatar"
@@ -298,7 +307,7 @@
 
     </div>
     <div class="right-ad" v-if="resize.screenType !== 'MOBILE'">
-      <!--      {{ JSON.stringify(curConversationMeta) }}-->
+      <!--            {{ JSON.stringify(curConversationMeta) }}-->
       <AD width="160px" height="600px"/>
     </div>
 
@@ -309,17 +318,17 @@
   </div>
 </template>
 <script setup>
-import { useSysData } from "~/stores/sysData";
-import { getChatList, getChatMeta, getChatDetail, postMsg, fcsave, fssave, deleteChat } from "~/api/dialogue"
-import { uploadToOss } from "~/api/comon"
+import {useSysData} from "~/stores/sysData";
+import {getChatList, getChatMeta, getChatDetail, postMsg, fcsave, fssave, deleteChat} from "~/api/dialogue"
+import {uploadToOss} from "~/api/comon"
 import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
 import {baseImgPrefix} from "~/config/baseUrl";
-import { useResize } from "~/stores/resize";
+import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
-import { useI18n } from "vue-i18n";
-import { Notification } from '@arco-design/web-vue';
+import {useI18n} from "vue-i18n";
+import {Notification} from '@arco-design/web-vue';
 
 const {t} = useI18n()
 const router = useRouter();
@@ -361,7 +370,7 @@ const editOfferLoading = ref(false)
 const cancelOfferLoading = ref(false)
 const soldLoading = ref(false)
 const nextDetailNeedBottom = ref(false)
-const showDiaListFn = ()=>{
+const showDiaListFn = () => {
   console.log("点击了返回");
   showDiaList.value = true;
 }
@@ -371,9 +380,7 @@ const fetchListData = (autoFocus = true) => {
     type: curMsgType.value
   }).then(res => {
     pageLoading.value = false
-    nextTick(()=>{
-      conversationList.value = res.data
-    })
+    conversationList.value = res.data
     // 获取到对话列表后 默认获取第一个消息对话详情
     if (res.data.length > 0) {
       if (autoFocus) {
@@ -413,7 +420,7 @@ const fetchDetailData = (callback, toBottom = true) => {
             scrollToBottom()
           })
         }
-        if(nextDetailNeedBottom.value){
+        if (nextDetailNeedBottom.value) {
           nextTick(() => {
             scrollToBottom()
             nextDetailNeedBottom.value = false
@@ -458,11 +465,11 @@ const openEvaluateDetailDialog = () => {
 }
 // 打开标记售出面板
 const openSoldDialog = () => {
-  soldDialog.value.openDialog(curConversationMeta.value.id);
+  soldDialog.value.openDialog(curConversationMeta.value.pid);
 }
 // 标记售出回调
 const markSuc = () => {
-  curConversationMeta.value.p_state = 1
+  curConversationMeta.value.p_state = 2
 }
 // 切换消息类型
 const changeMsgType = () => {
@@ -651,7 +658,7 @@ const handleReject = (e) => {
 // 发送文本消息
 const sendTxt = (e) => {
   console.log(e)
-  if(!inputTxt.value) return
+  if (!inputTxt.value) return
   const data = {
     id: curConversationMeta.value.id,
     type: 0,
@@ -782,12 +789,12 @@ const addEventToMainContent = () => {
   mainContentEle && mainContentEle.addEventListener("scroll", scrollListen)
 }
 const scrollListen = (e) => {
-  if(e.target.scrollTop === 0){
+  if (e.target.scrollTop === 0) {
     // 滚到顶部 加载下一页数据
     console.log('加载')
-    if(page.value < lastPage.value){
+    if (page.value < lastPage.value) {
       mainContentLoading.value = true
-      page.value ++
+      page.value++
       fetchDetailData(() => {
         mainContentLoading.value = false
       }, false)
@@ -812,9 +819,11 @@ onUnmounted(() => {
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-body{
+
+body {
   overflow: hidden;
 }
+
 .global-content {
   height: 100%;
   display: flex;
@@ -827,7 +836,8 @@ body{
   .msg-select {
     padding: 20px 12px;
     position: relative;
-    .back-icon-mobile{
+
+    .back-icon-mobile {
       position: absolute;
       left: 0;
       display: block;
@@ -835,6 +845,7 @@ body{
       font-weight: 400;
       z-index: 888;
     }
+
     :deep(.arco-select) {
       padding-left: 8px;
 
@@ -857,6 +868,7 @@ body{
   .msg-list {
     height: calc(100vh - 70px - 106px);
     overflow-y: auto;
+
     :deep(.arco-list-item) {
       padding: 0;
     }
@@ -951,11 +963,13 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .left {
       display: flex;
       align-items: flex-start;
       text-align: center;
-      .back-icon-mobile{
+
+      .back-icon-mobile {
         position: absolute;
         left: 0;
         display: block;
@@ -964,6 +978,7 @@ body{
         z-index: 999999;
         cursor: pointer;
       }
+
       .arco-image {
         border-radius: 50%;
 
@@ -1059,7 +1074,7 @@ body{
     overflow-y: scroll;
     //padding: 0 14px 20px 24px;
 
-    .nomore{
+    .nomore {
       color: $grey-font-label;
       text-align: center;
       font-size: 12px;
