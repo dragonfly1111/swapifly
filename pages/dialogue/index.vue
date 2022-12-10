@@ -370,8 +370,10 @@ const fetchListData = (autoFocus = true) => {
   getChatList({
     type: curMsgType.value
   }).then(res => {
-    conversationList.value = res.data
     pageLoading.value = false
+    nextTick(()=>{
+      conversationList.value = res.data
+    })
     // 获取到对话列表后 默认获取第一个消息对话详情
     if (res.data.length > 0) {
       if (autoFocus) {
