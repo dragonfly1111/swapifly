@@ -408,7 +408,12 @@ rState:
   efficient: 回复效率高
   goodEfficiency: 回复效率良好
   notReplying: 不常回复
-
+block:
+  tip: 因违反了《服务条款》
+  product: 你的商品已被封禁
+  user: 你的账户已被封禁
+  feedback: 如果你需要申诉，可发送邮件至邮箱
+  feedback1: service@gmail.com
 
 
 

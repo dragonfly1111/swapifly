@@ -10,7 +10,8 @@ export const useUserInfo = defineStore('userInfo', {
     nickname: '',
     token: '',
     type: -1,
-    openLogin: false
+    openLogin: false,
+    userBlock: false
   }),
   actions: {
     setUserInfo(e: any){
@@ -38,6 +39,9 @@ export const useUserInfo = defineStore('userInfo', {
     closeDialog(){
       this.openLogin = false
     },
+    openBlockDialog(){
+      this.userBlock = true
+    },
     logout(){
       userLogOut().then(()=>{
         this.avatar = ''
@@ -46,6 +50,8 @@ export const useUserInfo = defineStore('userInfo', {
         this.nickname = ''
         this.token = ''
         this.type = -1
+        this.openLogin = false
+        this.userBlock = false
       })
     }
   },
