@@ -538,7 +538,7 @@ const handleLike = () => {
 
 // 分享
 const handleShare = () => {
-  shareModal.value.openDialog()
+  shareModal.value.openDialog(productInfo.value)
 };
 // 检视成果
 const openAchievement = () => {

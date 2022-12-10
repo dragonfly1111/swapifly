@@ -5,8 +5,8 @@
            :footer="false">
     <div class="login-type-wrap">
       <img @click="handleShare(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
-      <img @click="handleShare(2)" src="@/assets/images/icon/icon_ins.png" alt="">
-<!--      <img @click="handleShare(3)" src="@/assets/images/icon/icon_gmail.png" alt="">-->
+<!--      <img @click="handleShare(2)" src="@/assets/images/icon/icon_ins.png" alt="">-->
+      <img @click="handleShare(3)" src="@/assets/images/icon/icon_gmail.png" alt="">
     </div>
     <a-input class="input-warp" disabled v-model="urlLink">
       <template #append>
@@ -27,20 +27,27 @@ let clipboard = null;
 const visible = ref(false);
 const route = useRoute();
 const urlLink = ref('');
+const productDetail = ref(null);
 const handleShare = (e) => {
   const appConfig = useAppConfig()
-  console.log(appConfig.domain + route.fullPath.replace('#reloaded', ''))
+  const url = appConfig.domain + route.fullPath.replace('#reloaded', '')
   switch (e) {
     case 1:
       FB.ui({
-        method: 'share',
-        href: appConfig.domain + route.fullPath
+        method: 'stream.share',
+        u: url
       }, function (response) {
         //分享回调
         console.log(response)
       })
       break
     case 2:
+      break
+    case 3:
+      const ele = document.createElement("a"); //创建a标签
+      ele.href = `mailto:?to=&subject=${productDetail.value.title}&body=${url}`;
+      ele.target = "_blank";
+      ele.click();
       break
   }
 };
@@ -52,7 +59,8 @@ const doCopy = () => {
   Notification.success(t('pages.copySuc'))
 };
 
-const openDialog = (val) => {
+const openDialog = (e) => {
+  productDetail.value = e
   visible.value = true;
 }
 

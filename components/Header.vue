@@ -288,12 +288,9 @@ function handleCollection() {
 
 }
 function changeCurType(e) {
-  // 延迟200ms展示
   if (e.children && e.children.length) {
-    setTimeout(()=>{
-      curClass.value = e.children
-      showHeadPanel.value = true
-    }, 200)
+    curClass.value = e.children
+    showHeadPanel.value = true
   } else {
     showHeadPanel.value = false
     curClass.value = []
