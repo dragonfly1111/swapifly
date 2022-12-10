@@ -46,27 +46,11 @@ let queryParams = {}
 
 const getSearchData = (data) => {
   pageLoading.value = true
-  let tmp = null
-  if(data){
-    tmp = JSON.parse(JSON.stringify(data))
-    if(tmp.offline){
-      tmp.offline = 1
-    } else {
-      tmp.offline = 0
-    }
-    if(tmp.mail){
-      tmp.mail = 1
-    } else {
-      tmp.mail = 0
-    }
-  } else {
-    tmp = {}
-  }
   productSearch({
     title: searchKey.searchKey,
     page: page.value,
     limit: limit.value,
-    ...tmp
+    ...data
   }).then(res=>{
     pageLoading.value = false
     butLoading.value = false

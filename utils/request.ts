@@ -67,7 +67,7 @@ request.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.data.code === 999) {
       // 登录过期 跳转首页
-      Message.error(response.data.message)
+      // Message.error(response.data.message)
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
       const userInfo = useUserInfo();

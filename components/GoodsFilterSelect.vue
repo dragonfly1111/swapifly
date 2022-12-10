@@ -51,7 +51,7 @@
         <a-select
             @click="showPriceBox = !showPriceBox"
             :placeholder="$t('pages.price_degree')"
-            input-value=""
+            :input-value="getMinMax()"
             :popup-visible="false"
         >
         </a-select>
@@ -153,6 +153,19 @@ const cancelPrice = () => {
   showPriceBox.value = false;
 };
 
+// 最低-最高展示文笨
+const getMinMax = () => {
+  if(priceForm.min && priceForm.max){
+    return 'HK$' + priceForm.min +  '-' + 'HK$' + priceForm.max
+  } else if (priceForm.min && !priceForm.max){
+    return 'HK$' + priceForm.min + '+'
+  } else if (!priceForm.min && priceForm.max){
+    return 'Up to HK$' + priceForm.max
+  } else {
+    return ''
+  }
+}
+
 // 价格选择确定
 const confirmPrice = () => {
   // form = { ...form, ...priceForm };
@@ -168,6 +181,17 @@ const updateSearch = () => {
   let setForm = {...form};
   console.log(setForm)
   setForm.nid = form.nid.join(",");
+  setForm = JSON.parse(JSON.stringify(setForm))
+  if(setForm.offline){
+    setForm.offline = 1
+  } else {
+    setForm.offline = 0
+  }
+  if(setForm.mail){
+    setForm.mail = 1
+  } else {
+    setForm.mail = 0
+  }
   emits("change", setForm);
 };
 
@@ -187,6 +211,9 @@ const loadMore = (nodeData) => {
 };
 
 const resetTree = (id, level) =>{
+  if(!level){
+    treeShow.value = true
+  }
   if(level < 3){
     treeShow.value = true
     // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
@@ -230,7 +257,7 @@ defineExpose({
     color: #383838;
     padding-left: 15px;
     padding-right: 15px;
-    width: min-content;
+    width: 100%;
     min-width: 140px;
   }
 
@@ -254,7 +281,7 @@ defineExpose({
   color: #383838;
   padding-left: 15px;
   padding-right: 15px;
-  max-width: 240px;
+  width: 100%;
   min-width: 140px;
 }
 
