@@ -304,6 +304,8 @@
     <PageFooterLink></PageFooterLink>
 
     <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
+
+    <ShareModal ref="shareModal"></ShareModal>
   </div>
 </template>
 
@@ -342,6 +344,7 @@ const getRStateLabel = () => {
 };
 const swiper = ref(null);
 const newAndOldModal = ref(null);
+const shareModal = ref(null);
 const pageLoading = ref(true);
 const btnLoading = ref(false);
 const userAchievementModal = ref(null);
@@ -379,6 +382,23 @@ const handleQuery = () => {
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
         eltlist.value = res.data.eltlist;
+
+        useHead({
+          title: productInfo.value.title,
+          meta: [
+            {
+              hid: 'description',
+              name: 'description',
+              content: productInfo.value.describe,
+            },
+            {
+              hid: 'og:image',
+              name: 'og:image',
+              content: baseImgPrefix + productInfo.value.images[0],
+            }
+          ],
+        })
+
         setTimeout(() => {
           initSwiper();
         }, 500);
@@ -416,7 +436,7 @@ const loadMoreSimilar = () => {
 
 // 查看对话
 const handleDialogue = () => {
-  toDialogue(sellerInfo.value.id).then((res) => {
+  toDialogue(productInfo.value.id).then((res) => {
     if (res.code == 0) {
       router.push("/dialogue");
     }
@@ -517,7 +537,9 @@ const handleLike = () => {
 };
 
 // 分享
-const handleShare = () => {};
+const handleShare = () => {
+  shareModal.value.openDialog()
+};
 // 检视成果
 const openAchievement = () => {
   userAchievementModal.value.openDialog(productInfo.value);
@@ -547,7 +569,6 @@ onMounted(async () => {
   productInfo.value.id = router.currentRoute.value.query.id;
   handleQuery();
   querySimilarlist();
-
   window.onresize = function () {
     initSwiper();
   };

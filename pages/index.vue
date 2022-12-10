@@ -255,7 +255,7 @@ onMounted(() => {
   useHead({
     script:[
       {
-        'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
+        // 'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
       },
     ]
   })

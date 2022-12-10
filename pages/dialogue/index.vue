@@ -471,7 +471,9 @@ const changeMsgType = () => {
 }
 // 切换对话详情
 const changeChatDetail = (item) => {
+
   showDiaList.value = false
+  conversationDetail.value = []
   page.value = 1
   lastPage.value = 0
   curConversationMeta.value = item
@@ -479,9 +481,9 @@ const changeChatDetail = (item) => {
   mainContentLoading.value = true
   nextDetailNeedBottom.value = true
   // flag
-  // fetchDetailData(() => {
-  //   mainContentLoading.value = false
-  // })
+  fetchDetailData(() => {
+    mainContentLoading.value = false
+  })
 }
 // 上传图片
 const uploadChatImg = (option) => {

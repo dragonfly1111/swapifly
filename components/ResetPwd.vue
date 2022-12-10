@@ -2,7 +2,7 @@
   <a-modal v-model:visible="visible" :title="curStep === 1 ? $t('profile.resetPwdTitle') : $t('profile.resetPwdTitle1')"
            :ok-text="curStep === 1 ? $t('profile.resetPwdNext') : $t('profile.resetPwdSave')"
            :cancel-text="$t('profile.resetPwdCancel')"
-           title-align="center" modal-class="bind-email-dialog" :on-before-ok="handleOk"
+           title-align="center" modal-class="reset-pws-dialog" :on-before-ok="handleOk"
            :ok-loading="okLoading"
            :mask-closable="false"
            @cancel="handleCancel">
@@ -167,7 +167,7 @@ defineExpose({
 <style lang="scss">
 @import "assets/sass/var";
 
-.bind-email-dialog {
+.reset-pws-dialog {
   .login-title {
     text-align: center;
 
