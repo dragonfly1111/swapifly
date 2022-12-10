@@ -64,6 +64,8 @@ loginDialog:
     emailCodeErr: 邮箱验证码错误
     password: 请输入密码
     passwordErr: 密码8-20个字
+    passwordNew: 请输入新密码
+    passwordNew1: 请确认新密码
 pages:
   hotBrands: 热门品牌
   recommendTitle: 为你推荐

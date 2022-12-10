@@ -13,12 +13,23 @@ export const useUserInfo = defineStore('userInfo', {
     openLogin: false
   }),
   actions: {
-    setUserInfo(e: IUserInfo){
+    setUserInfo(e: any){
+      console.log('setUserInfo')
+      console.log(e)
       this.avatar = e.avatar
       this.email = e.email
       this.id = e.id
       this.nickname = e.nickname
       this.token = e.token
+      this.type = e.type
+    },
+    refreshUserInfo(e: any){
+      console.log('refreshUserInfo')
+      console.log(e)
+      this.avatar = e.avatar
+      this.email = e.email
+      this.id = e.id
+      this.nickname = e.nickname
       this.type = e.type
     },
     openDialog(){

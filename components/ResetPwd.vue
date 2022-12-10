@@ -2,7 +2,9 @@
   <a-modal v-model:visible="visible" :title="curStep === 1 ? $t('profile.resetPwdTitle') : $t('profile.resetPwdTitle1')"
            :ok-text="curStep === 1 ? $t('profile.resetPwdNext') : $t('profile.resetPwdSave')"
            :cancel-text="$t('profile.resetPwdCancel')"
-           title-align="center" modal-class="bind-email-dialog" @ok="handleOk"
+           title-align="center" modal-class="bind-email-dialog" :on-before-ok="handleOk"
+           :ok-loading="okLoading"
+           :mask-closable="false"
            @cancel="handleCancel">
     <div class="login-title">
       <img src="@/assets/images/logo-long.png" alt=""/>
@@ -27,12 +29,12 @@
         </a-form-item>
       </div>
       <div v-else>
-        <a-form-item :hide-label="true" field="pwd">
-          <a-input type="password" v-model="formData.pwd" class="input-warp input-warp1"
+        <a-form-item :hide-label="true" field="password">
+          <a-input type="password" v-model="formData.password" class="input-warp input-warp1"
                    :placeholder="$t('profile.newPwd') "></a-input>
         </a-form-item>
-        <a-form-item :hide-label="true" field="pwd1">
-          <a-input type="password" v-model="formData.pwd1" class="input-warp input-warp1"
+        <a-form-item :hide-label="true" field="checkpassword">
+          <a-input type="password" v-model="formData.checkpassword" class="input-warp input-warp1"
                    :placeholder="$t('profile.newPwd1') "></a-input>
         </a-form-item>
       </div>
@@ -43,30 +45,42 @@
   </a-modal>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {useI18n} from "vue-i18n";
-import {getEmailCode} from "~/api/loginAndRegister";
+import {resetPwdEmailCode, resetPwd} from "~/api/loginAndRegister";
 import {Notification} from "@arco-design/web-vue";
-const {t} = useI18n();
+import {useUserInfo} from "~/stores/userInfo";
 
-const visible = ref(true);
+const {t} = useI18n();
+const emits = defineEmits(['toLogin'])
+
+const visible = ref(false);
 const sendLoading = ref(false);
 const curStep = ref(1);
 const isSend = ref(false);
+const okLoading = ref(false);
 const formRef = ref(null);
+const userInfo = useUserInfo();
 const formData = reactive({
-  email: '123123@qq.com',
+  email: '',
   code: '',
-  pwd: '',
-  pwd1: '',
+  key: '',
+  password: '',
+  checkpassword: '',
 })
 const rules = reactive({
   email: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
-    {type: 'email', message: ref<string>(t('loginDialog.formValidate.emailErr'))}
+    {required: true, message: ref(t('loginDialog.formValidate.email'))},
+    {type: 'email', message: ref(t('loginDialog.formValidate.emailErr'))}
   ],
   code: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+    {required: true, message: ref(t('loginDialog.formValidate.emailCode'))},
+  ],
+  password: [
+    {required: true, message: ref(t('loginDialog.formValidate.passwordNew'))},
+  ],
+  checkpassword: [
+    {required: true, message: ref(t('loginDialog.formValidate.passwordNew1'))},
   ]
 })
 const sendVerfi = () => {
@@ -75,47 +89,100 @@ const sendVerfi = () => {
       return
     }
     sendLoading.value = true
-    // getEmailCode({
-    //   email: formData.email
-    // }).then(res => {
-    //   Notification.success(res.message)
-    //   sendLoading.value = false
-    //   isSend.value = true
-    // })
+    resetPwdEmailCode({
+      email: formData.email
+    }).then(res => {
+      if (res.code === 0) {
+        Notification.success(res.message)
+        formData.key = res.data
+        sendLoading.value = false
+        isSend.value = true
+      } else {
+        Notification.error(res.message)
+      }
+    })
   })
 
   // visible.value = false;
   // emits('toPreference')
 };
-const handleOk = () => {
-  console.log(1213)
-  curStep.value = 2
-  // if(curStep.value === 1){
-  //   curStep.value = 2
-  // } else {
-  //
-  // }
+const handleOk = async () => {
+  console.log(curStep.value)
+  // curStep.value = 2
+  if (curStep.value === 1) {
+    // 验证邮箱验证码必填
+    formRef.value.validateField(['email', 'code']).then(validate => {
+      if (validate && (validate.email || validate.code)) {
+      } else {
+        curStep.value = 2
+      }
+    })
+    return false
+  } else {
+    const validate = await formRef.value.validate()
+    console.log(validate)
+    if(validate){
+      return false
+    }
+    okLoading.value = true
+    const res = await resetPwd(formData)
+    okLoading.value = false
+    if (res.code === 0) {
+      Notification.success(t("profile.changeSuc"))
+      userInfo.logout()
+      userInfo.openDialog()
+      const router = useRouter()
+      router.replace('/')
+      return true
+    } else {
+      Notification.error(res.message)
+      return false
+    }
+  }
 };
 const handleCancel = () => {
+  setTimeout(()=>{
+    curStep.value = 1
+    formRef.email = ''
+    formRef.code = ''
+    formRef.key = ''
+    formRef.password = ''
+    formRef.checkpassword = ''
+    formRef.value.clearValidate()
+  }, 200)
 };
+
+const openDialog = (val) => {
+  formData.email = val
+  visible.value = true;
+}
+
+defineExpose({
+  openDialog,
+  handleCancel
+})
 
 </script>
 
 <style lang="scss">
 @import "assets/sass/var";
-.bind-email-dialog{
-  .login-title{
+
+.bind-email-dialog {
+  .login-title {
     text-align: center;
-    img{
+
+    img {
       width: 152px;
       height: 36px;
       margin: 0 auto;
     }
   }
-  .arco-modal-body{
+
+  .arco-modal-body {
     padding: 40px 36px;
   }
-  .tip{
+
+  .tip {
     margin-top: 40px;
     text-align: center;
     color: $grey-font-label;
@@ -123,8 +190,10 @@ const handleCancel = () => {
     height: 21px;
     line-height: 21px;
   }
+
   .input-warp {
     height: 46px;
+
     .arco-input-append {
       color: #FFFFFF;
       background: $main-pink;
@@ -132,6 +201,7 @@ const handleCancel = () => {
       cursor: pointer;
       padding: 0;
       border: unset;
+
       div {
         width: 100px;
         text-align: center;
@@ -140,10 +210,12 @@ const handleCancel = () => {
       }
     }
   }
+
   .input-warp1 {
   }
-  .arco-modal-footer{
-    .arco-btn{
+
+  .arco-modal-footer {
+    .arco-btn {
       width: 70px;
       height: 32px;
     }

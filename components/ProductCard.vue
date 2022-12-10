@@ -178,7 +178,7 @@ const handleReport = (item) => {
 };
 // 购买曝光率
 const openExposure = (item) => {
-  exposurePayModal.value.openDialog(32);
+  exposurePayModal.value.openDialog(item.id);
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
 const handleRemove = (item) => {

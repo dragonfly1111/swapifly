@@ -92,18 +92,20 @@ export const doBindEmail = () => {
 }
 
 // 获取验证码-重置密码
-export const resetPwdEmailCode = () => {
+export const resetPwdEmailCode = (data: any) => {
   return request({
     url: '/index/register/resetpwdEmailCode',
-    method: 'get'
+    method: 'post',
+    data
   })
 }
 
 // 重置密码提交
-export const resetPwd = () => {
+export const resetPwd = (data: any) => {
   return request({
     url: '/index/register/resetpwd',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 

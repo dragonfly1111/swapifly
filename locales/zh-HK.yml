@@ -64,6 +64,8 @@ loginDialog:
     emailCodeErr: 郵箱驗證碼錯誤
     password: 請輸入密碼
     passwordErr: 密碼8-20個字
+    passwordNew: 請輸入新密碼
+    passwordNew1: 請確認新密碼
 pages:
   hotBrands: 熱門品牌
   recommendTitle: 為你推薦

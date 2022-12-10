@@ -16,7 +16,7 @@
         <a-input-password v-model="formData.pwd" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input-password>
       </a-form-item>
     </a-form>
-    <div class="forget">
+    <div class="forget" @click="handleForget">
       <span>{{ $t('loginDialog.forget') }}</span>
     </div>
     <a-button :loading="saveLoading" class="confirm" @click="doLogin"> {{ $t('head.login') }}</a-button>
@@ -43,32 +43,30 @@
   </a-modal>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {useUserInfo} from "~/stores/userInfo";
-import {ILoginForm} from "~/model/payload/loginAndRegister";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
 import {Notification} from "@arco-design/web-vue";
-import {IUserInfo} from "~/model/res/userInfo";
 const formRef = ref(null);
 const saveLoading = ref(false);
 const {t} = useI18n();
 const userInfo = useUserInfo();
 const visible = ref(false);
-const toRegister = defineEmits(['toRegister'])
-const formData = reactive<ILoginForm>({
+const emits = defineEmits(['toRegister', 'toForget'])
+const formData = reactive({
   email: '',
   pwd: ''
 })
 const rules = reactive({
   email: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
+    {required: true, message: ref(t('loginDialog.formValidate.email'))},
   ],
   pwd: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+    {required: true, message: ref(t('loginDialog.formValidate.emailCode'))},
   ],
 })
-const changeAcc = (e: any) =>{
+const changeAcc = (e) =>{
   console.log(e)
   switch (e) {
     case 1:
@@ -102,7 +100,10 @@ const changeAcc = (e: any) =>{
   }
 }
 const handleReg = () => {
-  toRegister('toRegister')
+  emits('toRegister')
+};
+const handleForget = () => {
+  emits('toForget', formData.email)
 };
 const handleOk = () => {
   visible.value = false;
@@ -118,7 +119,8 @@ const handleCancel = () => {
 const resetForm = () => {
   formRef.value.resetFields()
 }
-const openDialog = () => {
+const openDialog = (e) => {
+  formData.email = e
   visible.value = true;
 }
 
@@ -129,7 +131,7 @@ const doLogin = () => {
     emailLogin(formData).then(res=>{
       if(res.code === 0){
         Notification.success(t('loginDialog.loginSuc'))
-        const user:IUserInfo = res.data
+        const user = res.data
         userInfo.setUserInfo(user)
         visible.value = false;
       } else {

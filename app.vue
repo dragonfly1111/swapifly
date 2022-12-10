@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { AppSetup } from './utils/app'
-import { useResize } from '~/stores/resize'
+import {AppSetup} from './utils/app'
+import {useResize} from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
-import { useSysData } from '~/stores/sysData'
-import { getSearchHistory } from '~/api/goods'
-import { generateGender, generateEvaluationSort, generateEvaluationSource, generateMsgType, generateDialogueOperationType, generateAuthenticationStatus } from '~/model/res/staticDicts'
-import { useI18n } from "vue-i18n";
+import {useSysData} from '~/stores/sysData'
+import {getSearchHistory} from '~/api/goods'
+import {
+  generateGender,
+  generateEvaluationSort,
+  generateEvaluationSource,
+  generateMsgType,
+  generateDialogueOperationType,
+  generateAuthenticationStatus
+} from '~/model/res/staticDicts'
+import {useI18n} from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
 const {t} = useI18n();
@@ -15,7 +22,7 @@ const resize = useResize()
 const sysData = useSysData()
 AppSetup()
 const app = useAppConfig()
-useAsyncData(async ()=>{
+useAsyncData(async () => {
   // const areaSetting = useCookie('area')
   // const areaSetting = useCookie('locale')
   // const headers = useRequestHeaders(['cookie'])
@@ -34,7 +41,7 @@ useHead({
     },
   ],
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {name: 'viewport', content: 'width=device-width, initial-scale=1'},
     {
       hid: 'description',
       name: 'description',
@@ -47,29 +54,31 @@ useHead({
     }
   ],
   // todo sdk 支持对语言
-  script:[
-  {
-    'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1', async: true, defer: true
-  },
-  {
-    'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
-  },
-  {
-    'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
-  },
-  {
-    'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
-  },
-  // {
-  //   'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
-  // },
+  script: [
+    {
+      'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1',
+      async: true,
+      defer: true
+    },
+    {
+      'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
+    },
+    {
+      'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+    },
+    {
+      'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
+    },
+    // {
+    //   'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
+    // },
   ]
 })
-console.log("=====onMounted====",resize)
-onMounted(()=>{
+console.log("=====onMounted====", resize)
+onMounted(() => {
   reurl()
   // 客户端设置系统属性数据
-  if(process.client){
+  if (process.client) {
     sysData.setSysDataClientSide({
       gender: generateGender(t),
       evaluationSort: generateEvaluationSort(t),
@@ -83,7 +92,7 @@ onMounted(()=>{
       goodsSort: [],
       goodsOan: []
     })
-    getSearchHistory().then(res=>{
+    getSearchHistory().then(res => {
       const searchLog = res.data.search_log
       const collectionList = res.data.scsearch_log
       sysData.setSearchHis({
@@ -93,20 +102,21 @@ onMounted(()=>{
     })
   }
   // 设置全局缩放属性
-  console.log("===window.innerWidth===",window.innerWidth)
+  console.log("===window.innerWidth===", window.innerWidth)
   resize.setWidth(window.innerWidth)
   window.addEventListener('resize', handleResize)
 })
-function handleResize(){
-  console.log("===缩放====",window.innerWidth)
+
+function handleResize() {
+  console.log("===缩放====", window.innerWidth)
   resize.setWidth(window.innerWidth)
 }
 
-function reurl () { // 解决第一次进入不加载js文件
-            if (location.href.indexOf('#reloaded') === -1) {
-                location.href = location.href + '#reloaded'
-                location.reload()
-            }
+function reurl() { // 解决第一次进入不加载js文件
+  if (location.href.indexOf('#reloaded') === -1) {
+    location.href = location.href + '#reloaded'
+    location.reload()
+  }
 }
 
 // watch()
@@ -114,30 +124,34 @@ function reurl () { // 解决第一次进入不加载js文件
 
 <template>
   <Html :lang="locale">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+  <NuxtLayout>
+    <NuxtPage/>
+  </NuxtLayout>
   </Html>
 
 </template>
 
 <style lang="scss">
 @import "assets/sass/mediaCss.scss";
-html, body , #__nuxt{
+
+html, body, #__nuxt {
   height: 100vh;
   margin: 0;
   padding: 0;
 }
-.search-data-mobile{
+
+.search-data-mobile {
   height: 60px;
   background-color: #fff;
-  .arco-col-8{
-    .arco-select-view-single{
+
+  .arco-col-8 {
+    .arco-select-view-single {
       background-color: #fff;
       color: #000;
     }
   }
 }
+
 html.dark {
   background: #222;
   color: white;

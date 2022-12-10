@@ -1,65 +1,70 @@
 <template>
   <div class="password-box">
     <div class="login-title" v-if="resize.screenType === 'MOBILE'">
-      <icon-left  class="back-index" @click="router.back()"/>
+      <icon-left class="back-index" @click="router.back()"/>
       {{ $t("profile.edit_password") }}
     </div>
     <div v-else>
       <h1>{{ $t("profile.edit_password") }}</h1>
     </div>
-    <a-form :model="form" ref="formRef" layout="vertical" size="large"  :rules="rules">
-      <a-form-item field="opwd" label="" :content-flex="false"  hide-asterisk>
-        <a-input v-model="form.opwd" placeholder="" allow-clear>
+    <a-form :model="form" ref="formRef" layout="vertical" size="large" :rules="rules">
+      <a-form-item field="opwd" label="" :content-flex="false" hide-asterisk>
+        <a-input-password v-model="form.opwd" placeholder="" allow-clear>
           <template #prefix>
             <span class="input-prefix">{{ $t("profile.opwd") }}</span>
           </template>
-        </a-input>
+        </a-input-password>
         <template #extra>
-            <a-link class="forget">{{ $t("loginDialog.forget") }}</a-link>
-      </template>
+          <a-link class="forget" @click="toForget">{{ $t("loginDialog.forget") }}</a-link>
+        </template>
       </a-form-item>
-      <a-form-item field="pwd" label=""  hide-asterisk>
-        <a-input v-model="form.pwd" placeholder="" allow-clear>
+      <a-form-item field="pwd" label="" hide-asterisk>
+        <a-input-password v-model="form.pwd" placeholder="" allow-clear>
           <template #prefix>
             <span class="input-prefix">{{ $t("profile.pwd") }}</span>
           </template>
-        </a-input>
+        </a-input-password>
       </a-form-item>
-      <a-form-item field="cpwd" label=""  hide-asterisk>
-        <a-input v-model="form.cpwd" placeholder="" allow-clear>
+      <a-form-item field="cpwd" label="" hide-asterisk>
+        <a-input-password v-model="form.cpwd" placeholder="" allow-clear>
           <template #prefix>
             <span class="input-prefix">{{ $t("profile.cpwd") }}</span>
           </template>
-        </a-input>
+        </a-input-password>
       </a-form-item>
       <div class="save-btn">
         <a-button size="large" type="primary" :loading="saveLoading" @click="handleSave">{{
-          $t("profile.save")
-        }}</a-button>
+            $t("profile.save")
+          }}
+        </a-button>
       </div>
     </a-form>
 
     <a-skeleton :loading="pageLoading">
       <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-        <a-skeleton-line :rows="3" />
+        <a-skeleton-line :rows="3"/>
       </a-space>
     </a-skeleton>
+
+    <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { Notification } from "@arco-design/web-vue";
-import { updatePassword } from '~/api/user'
+<script setup>
+import {useI18n} from "vue-i18n";
+import {Notification} from "@arco-design/web-vue";
+import {updatePassword} from '~/api/user'
 import {useUserInfo} from "~/stores/userInfo";
 import {useResize} from '~/stores/resize'
+
 const userInfo = useUserInfo()
 const router = useRouter()
 const resize = useResize()
-const { t } = useI18n();
+const {t} = useI18n();
 const pageLoading = ref(false);
 const saveLoading = ref(false);
 const formRef = ref(null);
+const resetPwdModal = ref(null)
 const form = reactive({
   opwd: null,
   pwd: null,
@@ -67,28 +72,29 @@ const form = reactive({
 });
 const rules = reactive({
   pwd: [
-    { required: true, message: ref<string>(t("loginDialog.formValidate.password")) },
+    {required: true, message: ref(t("loginDialog.formValidate.password"))},
     {
       maxLength: 20,
       minLength: 8,
-      message: ref<string>(t("loginDialog.formValidate.passwordErr")),
+      message: ref(t("loginDialog.formValidate.passwordErr")),
     },
   ],
   opwd: [
-    { required: true, message: ref<string>(t("profile.formValidate.opwd")) },
+    {required: true, message: ref(t("profile.formValidate.opwd"))},
   ],
   cpwd: [
-    { required: true, message: ref<string>(t("profile.formValidate.cpwd")) },
+    {required: true, message: ref(t("profile.formValidate.cpwd"))},
   ],
 });
 const handleSave = () => {
-    formRef.value.validate().then(validate =>{
-    if(validate) return
+  formRef.value.validate().then(validate => {
+    if (validate) return
     saveLoading.value = true
-    updatePassword(form).then(res=>{
-      if(res.code === 0){
-        Notification.success('密码修改成功，请重新登录')
+    updatePassword(form).then(res => {
+      if (res.code === 0) {
+        Notification.success(t("profile.changeSuc"))
         userInfo.logout()
+        userInfo.openDialog();
         router.replace('/')
       } else {
         Notification.error(res.message)
@@ -96,6 +102,9 @@ const handleSave = () => {
       saveLoading.value = false
     })
   })
+}
+const toForget = () => {
+  resetPwdModal.value.openDialog(userInfo.email)
 };
 </script>
 
@@ -116,7 +125,8 @@ const handleSave = () => {
     font-weight: bold;
     height: 40px;
     line-height: 40px;
-    .back-index{
+
+    .back-index {
       display: block;
       position: absolute;
       left: 0;
@@ -125,18 +135,22 @@ const handleSave = () => {
       font-weight: bold;
       transform: translateY(-50%);
     }
+
     img {
       width: 152px;
       height: 36px;
       display: inline-block;
     }
   }
+
   h1 {
     font-size: 30px;
   }
+
   .input-prefix {
     width: 65px;
   }
+
   .input-box {
     background-color: #fff;
     border: 1px solid #e5e5e5;
@@ -144,9 +158,11 @@ const handleSave = () => {
     padding-bottom: 4px;
     border-radius: 2px;
   }
+
   :deep(.arco-input-wrapper) {
     @extend .input-box;
   }
+
   :deep(.arco-link) {
     color: $grey-font-label;
   }
@@ -154,6 +170,7 @@ const handleSave = () => {
   .save-btn {
     text-align: right;
     margin-top: 60px;
+
     :deep(.arco-btn-primary) {
       background-color: $main-grey;
     }

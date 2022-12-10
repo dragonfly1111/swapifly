@@ -54,6 +54,8 @@
               :placeholder="$t('profile.user_describe_empty')"
               allow-clear
               :auto-size="{ minRows: 7, maxRows: 7 }"
+              :max-length="255"
+              :show-word-limit="true"
           />
         </a-form-item>
         <a-form-item field="region" :label="$t('profile.countries_regions')">
@@ -258,6 +260,8 @@ const handleSave = () => {
     updateUserInfo(data).then(res=>{
       if(res.code === 0){
         Notification.success(t('profile.editSuc'))
+        const userInfo = useUserInfo()
+        userInfo.refreshUserInfo(res.data)
       } else {
         Notification.error(res.message)
       }
@@ -295,7 +299,7 @@ onMounted(() => {
         // for (const label in form){
         //   form[label] = res.data[label]
         // }
-        form.id = 'ID: ' + data.id
+        form.id = 'ID: @' + data.realname
         form.nickname = data.nickname
         form.avatar = data.avatar
         form.describe = data.describe

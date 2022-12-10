@@ -131,23 +131,22 @@
       </div>
     </div>
 
-    <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
+    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
     <!--    <BindEmail ref="bindEmail"></BindEmail>-->
-    <!--    <ResetPwd ref="resetPwd"></ResetPwd>-->
+    <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>
   </div>
 </template>
 
-<script setup lang="ts">
-import {useSysData} from '~/stores/sysData'
-import {useSearchKey} from '~/stores/search'
-import {IGoodsClass} from '~/model/res/goodsClass'
-import {useUserInfo} from "~/stores/userInfo";
+<script setup>
+import { useSysData } from '~/stores/sysData'
+import { useSearchKey } from '~/stores/search'
+import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
 import { baseImgPrefix } from "~/config/baseUrl";
-import {Notification} from "@arco-design/web-vue";
+import { Notification } from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
 const userInfo = useUserInfo()
@@ -157,6 +156,7 @@ const {t} = useI18n();
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
+const resetPwdModal = ref(null)
 const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
@@ -168,7 +168,7 @@ const showHeadPanel = ref(false)
 const searchResPage = ref(false)
 let searchKey = ref('')
 const resize = useResize();
-let curClass: any = reactive({value: []})
+let curClass = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
 console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
@@ -223,9 +223,14 @@ function toRegister() {
   loginModal.value.handleCancel()
   registerModal.value.openDialog()
 }
-function toLogin() {
+function toForget(e) {
+  loginModal.value.handleCancel()
+  console.log(e)
+  resetPwdModal.value.openDialog(e)
+}
+function toLogin(e) {
   registerModal.value.handleCancel()
-  loginModal.value.openDialog()
+  loginModal.value.openDialog(e)
 }
 function toPreference() {
   choosePreference.value.openDialog()
@@ -263,7 +268,7 @@ function hideHisPanel(){
     })
   }, 50)
 }
-function handleHis(e:string) {
+function handleHis(e) {
   searchKey.value = e
   toSearchResult(e)
 }
@@ -292,7 +297,7 @@ function handleCollection() {
   }
 
 }
-function changeCurType(e: IGoodsClass) {
+function changeCurType(e) {
   // 延迟200ms展示
   if (e.children && e.children.length) {
     setTimeout(()=>{
@@ -307,7 +312,7 @@ function changeCurType(e: IGoodsClass) {
 function outClass() {
   showHeadPanel.value = false
 }
-function toClassDetail(e: IGoodsClass) {
+function toClassDetail(e) {
   console.log(e)
   router.push({
     path: '/goodsList',

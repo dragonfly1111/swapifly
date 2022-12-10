@@ -77,9 +77,10 @@
     </div>
 
     <PageFooterLink></PageFooterLink>
-    <LoginModal ref="loginModal" @toRegister="toRegister"></LoginModal>
+    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
+    <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>
   </div>
 </template>
 
@@ -90,12 +91,14 @@ import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
 import {Notification} from "@arco-design/web-vue";
+import {watch} from "vue";
 
 const router = useRouter()
 const route = useRoute()
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
+const resetPwdModal = ref(null)
 
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
@@ -115,13 +118,16 @@ const resize = useResize();
 let isMobile = resize.screenType === 'MOBILE'
 let isMobileRef = ref(isMobile)
 console.log("====isMobileRef==", isMobileRef)
-onMounted(() => {
-  const userInfo = useUserInfo()
-  if (userInfo.openLogin) {
-    loginModal.value.openDialog()
-    userInfo.closeDialog()
+const userInfo = useUserInfo()
+// 监听是否需要打开登录对话框
+watch(() => userInfo.openLogin, (newValue, oldValue) => {
+  if (newValue) {
+    nextTick(()=>{
+      loginModal.value.openDialog()
+      userInfo.closeDialog()
+    })
   }
-})
+}, { immediate: true });
 const openLink = (e) => {
   console.log(e)
   if (!e.link) return
@@ -130,6 +136,11 @@ const openLink = (e) => {
 const toRegister = () => {
   loginModal.value.handleCancel()
   registerModal.value.openDialog()
+}
+const toForget = (e) => {
+  loginModal.value.handleCancel()
+  console.log(e)
+  resetPwdModal.value.openDialog(e)
 }
 const toLogin = () => {
   registerModal.value.handleCancel()
