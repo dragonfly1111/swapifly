@@ -256,17 +256,7 @@ function openHisPanel(){
   suggestShow.value = true
 }
 function hideHisPanel(){
-  setTimeout(()=>{
-    suggestShow.value = false
-    getSearchHistory().then(res=>{
-      const searchLog = res.data.search_log
-      const collectionList = res.data.scsearch_log
-      sysData.setSearchHis({
-        searchLog,
-        collectionList
-      })
-    })
-  }, 50)
+  suggestShow.value = false
 }
 function handleHis(e) {
   searchKey.value = e
