@@ -158,6 +158,7 @@
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
+                  <a-link :href="forbidLink">详情</a-link>
                 </div>
               </template>
             </a-form-item>
@@ -279,7 +280,7 @@ export default {
 </script>
 <script setup>
 import draggable from "vuedraggable";
-import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
+import { uploadUrl, baseImgPrefix, forbidLink } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
@@ -826,6 +827,9 @@ onMounted(() => {
         width: 100%;
         text-align: right;
         margin-top: 2px;
+        :deep(.arco-link){
+          font-size: 12px;
+        }
       }
     }
   }

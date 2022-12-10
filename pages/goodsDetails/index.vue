@@ -2,13 +2,25 @@
   <div class="common-row global-content">
     <AD v-if="resize.screenType !== 'MOBILE'" height="160px"></AD>
 
-    <a-skeleton :loading="pageLoading" animation>
-      <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-        <a-skeleton-line :line-height="200" />
-        <a-skeleton-line :rows="3" :line-height="20" />
-        <a-skeleton-line :widths="['80%']" :line-height="80" />
-        <a-skeleton-line :widths="['50%']" :line-height="80" />
-      </a-space>
+    <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
+      <div style="width: 100%">
+        <a-skeleton-line :line-height="200" :line-spacing="10" />
+      </div>
+      <div style="height: 20px"></div>
+      <div style="width: 60%; margin-right: 10%; display: inline-block">
+        <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
+      </div>
+      <div style="width: 30%; display: inline-block">
+        <a-skeleton-line :line-height="200" :line-spacing="10" />
+      </div>
+      <div style="height: 36px"></div>
+      <div style="width: 70%">
+        <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
+      </div>
+      <div style="height: 36px"></div>
+      <div style="width: 70%">
+        <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
+      </div>
     </a-skeleton>
 
     <div v-if="!pageLoading">
@@ -387,21 +399,17 @@ const handleQuery = () => {
           title: productInfo.value.title,
           meta: [
             {
-              hid: 'description',
-              name: 'description',
+              hid: "description",
+              name: "description",
               content: productInfo.value.describe,
             },
             {
-              hid: 'og:image',
-              name: 'og:image',
+              hid: "og:image",
+              name: "og:image",
               content: baseImgPrefix + productInfo.value.images[0],
-            }
+            },
           ],
-        })
-
-        setTimeout(() => {
-          initSwiper();
-        }, 500);
+        });
       } else {
         Notification.error(res.message);
       }
@@ -538,7 +546,7 @@ const handleLike = () => {
 
 // 分享
 const handleShare = () => {
-  shareModal.value.openDialog(productInfo.value)
+  shareModal.value.openDialog(productInfo.value);
 };
 // 检视成果
 const openAchievement = () => {
@@ -564,11 +572,29 @@ const initSwiper = () => {
   });
 };
 
+watch(
+  () => router.currentRoute.value.query.id,
+  (newValue, oldValue) => {
+    if (router.currentRoute.value.path == "/goodsDetails" && newValue !== oldValue) {
+      productInfo.value.id = router.currentRoute.value.query.id;
+      handleQuery();
+      querySimilarlist();
+      setTimeout(() => {
+        initSwiper();
+      }, 500);
+      window.scrollTo(0, 0);
+    }
+  }
+);
+
 onMounted(async () => {
   await nextTick();
   productInfo.value.id = router.currentRoute.value.query.id;
   handleQuery();
   querySimilarlist();
+  setTimeout(() => {
+    initSwiper();
+  }, 500);
   window.onresize = function () {
     initSwiper();
   };

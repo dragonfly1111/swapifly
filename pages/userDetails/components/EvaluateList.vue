@@ -98,7 +98,7 @@ const getTypeLabel = (type) => {
 
 // 商品详情
 const toGoodsDetails = (item) => {
-  if (isToDetails) {
+  if (props.isToDetails) {
     router.push("/goodsDetails?id=" + item.id);
   }
 };

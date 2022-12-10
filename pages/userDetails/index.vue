@@ -9,104 +9,56 @@
     </div>
 
     <div class="user-details">
-      <a-tabs
-        v-if="['PC', 'SCALE'].includes(resize.screenType)"
-        style="margin-left: 320px"
-        :active-key="activeTab"
-        @change="handleTabChange"
-        :class="{ noline: activeTab == 'followRow' }"
-      >
+      <a-tabs v-if="['PC', 'SCALE'].includes(resize.screenType)" style="margin-left: 320px" :active-key="activeTab"
+        @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
         <template #extra>
           <a-space class="extra-btn">
-            <a-button
-              type="outline"
-              v-if="userInfo.id == form.id"
-              @click="router.push('/userProfile')"
-              >{{ $t("profile.edit_profile") }}</a-button
-            >
-            <a-button
-              type="outline"
-              v-if="userInfo.id != form.id"
-              :loading="btnLoading"
-              @click="handleFollow"
-            >
+            <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/userProfile')">{{
+                $t("profile.edit_profile")
+            }}</a-button>
+            <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
-              $t("pages.report")
+                $t("pages.report")
             }}</a-button>
           </a-space>
         </template>
         <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
         <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
-        <a-tab-pane
-          key="businessInformation"
-          :title="$t('pages.businessInformation')"
-          v-if="form.shop == 1 || form.p_type == 2"
-        >
+        <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
+          v-if="form.shop == 1 || form.p_type == 2">
         </a-tab-pane>
       </a-tabs>
       <div class="tab-content">
         <div class="left-content">
-          <UserCard
-            :advert="advert"
-            :form="form"
-            @toFollow="toFollow"
-            @openRegBusiness="openRegBusiness"
-          ></UserCard>
+          <UserCard :advert="advert" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
           <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
-            <a-button
-              type="outline"
-              v-if="userInfo.id == form.id"
-              @click="router.push('/settingProfile')"
-              >{{ $t("profile.mobile_setting") }}</a-button
-            >
-            <a-button
-              type="outline"
-              v-if="userInfo.id != form.id"
-              :loading="btnLoading"
-              @click="handleFollow"
-            >
+            <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/settingProfile')">{{
+                $t("profile.mobile_setting")
+            }}</a-button>
+            <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
-              $t("pages.report")
+                $t("pages.report")
             }}</a-button>
           </a-space>
         </div>
-        <a-tabs
-          v-if="resize.screenType === 'MOBILE'"
-          style="margin-left: 0px"
-          :active-key="activeTab"
-          @change="handleTabChange"
-          :class="{ noline: activeTab == 'followRow' }"
-        >
+        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"
+          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
           <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
           <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
-          <a-tab-pane
-            key="businessInformation"
-            :title="$t('pages.businessInformation')"
-            v-if="form.shop == 1 || form.p_type == 2"
-          >
+          <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
+            v-if="form.shop == 1 || form.p_type == 2">
           </a-tab-pane>
         </a-tabs>
         <div class="right-content">
           <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow
-            :userData="form"
-            ref="evaluateRow"
-            v-show="activeTab == 'evaluateRow'"
-          ></EvaluateRow>
-          <BusinessInformation
-            :userData="form"
-            ref="businessInformation"
-            v-show="activeTab == 'businessInformation'"
-          ></BusinessInformation>
-          <FollowRow
-            v-show="activeTab == 'followRow'"
-            ref="followRow"
-            @change="getInfo"
-          ></FollowRow>
+          <EvaluateRow :userData="form" ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
+          <BusinessInformation :userData="form" ref="businessInformation" v-show="activeTab == 'businessInformation'">
+          </BusinessInformation>
+          <FollowRow v-show="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
         </div>
       </div>
     </div>
@@ -209,8 +161,7 @@ const initData = () => {
 watch(
   () => router.currentRoute.value.query.userId,
   (newValue, oldValue) => {
-    console.log(router.currentRoute.value.path, newValue !== oldValue);
-    if (router.currentRoute.value.path == "/userDetails",newValue !== oldValue) {
+    if (router.currentRoute.value.path == "/userDetails" && SnewValue !== oldValue) {
       initData();
     }
   }
@@ -234,10 +185,12 @@ onMounted(() => {
 .user-banner {
   width: 100%;
   height: 130px;
+
   :deep(.arco-image-img) {
     width: 100%;
     height: 100%;
   }
+
   :deep(.arco-image) {
     width: 100%;
     height: 100%;
@@ -246,29 +199,36 @@ onMounted(() => {
 
 .user-details {
   margin-bottom: 40px;
+
   :deep(.arco-tabs-nav-tab) {
     padding-top: 15px;
   }
+
   :deep(.arco-tabs-tab) {
     color: $grey-font-label;
     font-size: 16px;
   }
+
   :deep(.arco-tabs-nav-ink) {
     background-color: $main-pink;
   }
+
   .noline {
     :deep(.arco-tabs-nav-ink) {
       display: none;
     }
   }
+
   :deep(.arco-tabs-tab-active, .arco-tabs-tab-active:hover) {
     color: $main-grey;
   }
+
   .extra-btn {
     :deep(.arco-btn) {
       width: 90px;
       border: 1px solid $main-grey;
       color: $main-grey;
+
       &:hover {
         background-color: #eee;
       }
