@@ -45,7 +45,14 @@ request.interceptors.request.use(
           var arr = config.data[key]
           // @ts-ignore
           arr.map((item, i) => {
-            formData.append(`${key}[${i}]`, item)
+            if(typeof item === 'object') {
+              // 展开数组里的对象
+              for(const itemKey in item){
+                formData.append(`${key}[${i}][${itemKey}]`, item[itemKey])
+              }
+            } else {
+              formData.append(`${key}[${i}]`, item)
+            }
           });
         } else {
           formData.append(key, config.data[key])

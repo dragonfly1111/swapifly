@@ -227,24 +227,30 @@
                 :placeholder="$t('sale.deliverAddress')"
                 allow-clear
                 allow-search
+                :loading="locationLoading"
                 class="input-wrp"
                 @search="handleSearch"
+                multiple
                 :filter-option="false"
               >
                 <a-option
                   v-for="item in addressOptions"
-                  :value="item.id"
-                  :key="item.id"
-                  :label="item.title"
+                  :value="JSON.stringify(item)"
+                  :key="item.location"
+                  :label="item.name"
                 >
-                  {{ item.title }}
+                  <div class="ad-option">
+                    <div class="ad-title">{{ item.name }}</div>
+                    <div class="ad-des">{{ item.address }}</div>
+                  </div>
                 </a-option>
               </a-select>
+<!--              {{offline_address}}-->
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
               <div class="offline-address" v-if="form.offline == 1">
-                <div class="offline-address-item" v-for="item in form.offline_address">
-                  <p>{{ item.title }}</p>
-                  <!-- <span>Kent Rd, Kowloon City</span> -->
+                <div class="offline-address-item" v-for="item in addressSaveOptions">
+                  <p>{{ item.name }}</p>
+                  <span>{{ item.address }}</span>
                   <div class="close-box">
                     <icon-close />
                   </div>
@@ -297,6 +303,7 @@ import {
   addProductDraft,
   addProduct,
 } from "~/api/goods";
+import axios from "axios";
 const { t } = useI18n();
 const router = useRouter();
 const sysData = useSysData();
@@ -306,6 +313,7 @@ const regionOptions = sysData.region;
 const pdwList = sysData.goodsPdwList || [];
 const userInfo = useUserInfo();
 const draftModal = ref(null);
+const locationLoading = ref(false);
 const resize = useResize();
 let headers = reactive({
   "X-Utoken": null,
@@ -315,7 +323,7 @@ if (process.client) {
   headers["X-Utoken"] = userInfo.token;
   headers["X-Userid"] = userInfo.id;
 }
-const offline_address = ref(null); // 面交地点
+const offline_address = ref(null); // 面交地点选择结果
 const formType = ref("draft"); // 来源 draft 草稿/ edit编辑商品
 const form = ref({
   id: null,
@@ -331,9 +339,12 @@ const form = ref({
 });
 const fileList = ref([]);
 const addressOptions = ref([]);
+const addressSaveOptions = ref([]);
 const clickNumber = ref(0); // 保存草稿点击事件
 const formRef = ref(null);
 const btnType = ref("draft");
+const appConfig = useAppConfig()
+const gdKey = appConfig.gdKey
 
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
@@ -347,12 +358,34 @@ const rules = reactive({
 const listAll = () => {
   // 地址
   getProductAddress().then((res) => {
-    addressOptions.value = res.data;
+    const arr = []
+    // 放到options里面去 回显已选
+    res.data.forEach(item=>{
+      arr.push({
+        location: `${item.lng},${item.lat}`,
+        address: item.address,
+        name: item.title
+      })
+    })
+    addressSaveOptions.value = arr;
+    addressOptions.value = arr;
   });
 };
 
 // 搜索地址
-const handleSearch = (e) => {};
+const handleSearch = (value) => {
+  if (value) {
+    locationLoading.value = true;
+    axios.get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`).then(res=>{
+      console.log(res)
+      addressOptions.value = [...addressSaveOptions.value, ...res.data.pois]
+      console.log(addressOptions.value)
+      locationLoading.value = false;
+    })
+  } else {
+    addressOptions.value = []
+  }
+};
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
@@ -377,6 +410,17 @@ const getDraftInfo = () => {
   getProductDraftDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data;
+      if(res.data.offline_address && res.data.offline_address.length > 0){
+        const arr = []
+        res.data.offline_address.forEach(item=>{
+          arr.push(JSON.stringify({
+            location: `${item.lng},${item.lat}`,
+            address: item.address,
+            name: item.title
+          }))
+        })
+        offline_address.value = arr
+      }
       form.value.mail = res.data.mail ? 1 : false;
       form.value.offline = res.data.offline ? 1 : false;
       fileList.value = res.data.images.map((item, index) => {
@@ -395,6 +439,17 @@ const getProduct = () => {
   getProductInfo(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data;
+      if(res.data.offline_address && res.data.offline_address.length > 0){
+        const arr = []
+        res.data.offline_address.forEach(item=>{
+          arr.push(JSON.stringify({
+            location: `${item.lng},${item.lat}`,
+            address: item.address,
+            name: item.title
+          }))
+        })
+        offline_address.value = arr
+      }
       form.value.mail = res.data.mail ? 1 : false;
       form.value.offline = res.data.offline ? 1 : false;
       fileList.value = res.data.images.map((item, index) => {
@@ -476,10 +531,24 @@ const publishProduct = (type) => {
 
 // 提交的数据
 const setReqForm = () => {
+  let arr = []
+  console.log(offline_address)
+  if(offline_address.value && offline_address.value.length > 0){
+    offline_address.value.forEach(item=>{
+      const obj = JSON.parse(item)
+      arr.push({
+        title: obj.name,
+        address: obj.address,
+        lat: obj.location.split(',')[0],
+        lng: obj.location.split(',')[1]
+      })
+    })
+  }
   let formData = {
     ...form.value,
     offline: form.value.offline ? 1 : 0,
     mail: form.value.mail ? 1 : 0,
+    offline_address: arr,
     images: fileList.value.map((i) => {
       return i.url.replace(baseImgPrefix, "");
     }),
@@ -898,5 +967,19 @@ onMounted(() => {
 <style lang="scss">
 .address-popover {
   width: 600px;
+}
+.ad-option{
+  font-size: 14px;
+  margin-left: 12px;
+  margin-bottom: 6px;
+  .ad-title{
+    color: #1D2129;
+    line-height: 22px;
+  }
+  .ad-des{
+    margin-top: 2px;
+    color: #4E5969;
+    line-height: 22px;
+  }
 }
 </style>

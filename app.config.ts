@@ -4,5 +4,6 @@ export default defineAppConfig({
     name: '',
     link: '',
   },
-  domain: 'https://swapiflyapi.honglanshuzi.com/swapifly'
+  domain: 'https://swapiflyapi.honglanshuzi.com/swapifly',
+  gdKey: '33572afc82950a2748b645ded7062b76' // 高德APIkey
 })
