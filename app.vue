@@ -73,7 +73,7 @@ useHead({
 })
 console.log("=====onMounted====", resize)
 onMounted(() => {
-  reurl()
+  // reurl()
   // 客户端设置系统属性数据
   if (process.client) {
     sysData.setSysDataClientSide({
