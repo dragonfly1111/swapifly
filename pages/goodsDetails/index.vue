@@ -313,8 +313,7 @@
 
     <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
 
-    <PageFooterLink></PageFooterLink>
-
+    <PageFooterLink />
     <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
 
     <ShareModal ref="shareModal"></ShareModal>
