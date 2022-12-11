@@ -342,6 +342,7 @@ import {
 import { toDialogue } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
 import { Modal, Notification } from "@arco-design/web-vue";
+import Swiper, { Autoplay, Navigation } from 'swiper';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -359,21 +360,6 @@ const getRStateLabel = () => {
   };
   return rStateOptions[sellerInfo.value.r_state] || "";
 };
-useHead({
-  // todo sdk 支持对语言
-  script: [
-    {
-      src: "https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js",
-      async: true,
-      defer: true,
-    },
-  ],
-});
 const swiper = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
