@@ -323,7 +323,7 @@ const form = ref({
   title: "",
   nid: 1,
   describe: "",
-  region: null,
+  region: "",
   price: "",
   mail_note: "",
   offline_address: [],
