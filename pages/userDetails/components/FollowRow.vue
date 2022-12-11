@@ -22,7 +22,7 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <follow-card v-for="(item, index) in dataList" :item="item"></follow-card>
+        <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
         <!-- <div class="follow-list-item" v-for="(item, index) in dataList">
           <div @click.stop="router.push('/userDetails?userId=' + item.uid)">
             <img :src="baseImgPrefix + item.avatar" alt="" />
@@ -133,6 +133,9 @@ const handleQueryFollowList = () => {
     });
 };
 
+const changeFollow = () =>{
+  emits('change')
+}
 
 
 // 加载更多

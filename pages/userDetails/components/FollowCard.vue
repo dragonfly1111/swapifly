@@ -54,8 +54,8 @@ const handleFollow = (row, index) => {
     .then((res) => {
       if (res.code == 0) {
         let { b_follow } = props.item;
-        props.item.type = row.type == 1 ? 0 : 1;
         props.item.b_follow = row.type == 1 ? b_follow - 1 : b_follow + 1;
+        props.item.type = row.type == 1 ? 0 : 1;
         Notification.success(res.message);
         emits("change");
       } else {
