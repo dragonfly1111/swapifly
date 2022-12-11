@@ -293,6 +293,7 @@
           </div>
         </div>
       </section>
+
     </div>
 
     <div class="mobile-footer-goods" v-if="resize.screenType === 'MOBILE'">
@@ -308,13 +309,14 @@
         $t("pages.bid")
       }}</a-button>
     </div>
+
+    <PageFooterLink />
+
     <!-- 举报 -->
     <ReportModal ref="reportModal"></ReportModal>
 
     <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
 
-    <!-- <PageFooterLink /> -->
-    <page-footer-link></page-footer-link>
     <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
 
     <ShareModal ref="shareModal"></ShareModal>
