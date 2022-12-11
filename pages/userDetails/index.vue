@@ -47,14 +47,14 @@
             }}</a-button>
           </a-space>
         </div>
-<!--        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"-->
-<!--          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">-->
-<!--          <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>-->
-<!--          <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>-->
-<!--          <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"-->
-<!--            v-if="form.shop == 1 || form.p_type == 2">-->
-<!--          </a-tab-pane>-->
-<!--        </a-tabs>-->
+        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"
+          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
+          <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
+          <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
+          <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
+            v-if="form.shop == 1 || form.p_type == 2">
+          </a-tab-pane>
+        </a-tabs>
         <div class="right-content">
           <GoodsRow :userData="form" ref="goodsRow" v-if="activeTab == 'goodsRow'"></GoodsRow>
           <EvaluateRow :userData="form" ref="evaluateRow" v-if="activeTab == 'evaluateRow'"></EvaluateRow>
