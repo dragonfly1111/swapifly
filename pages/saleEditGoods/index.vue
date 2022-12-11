@@ -529,7 +529,7 @@ const saveDraftModal = (to) => {
       });
     },
     onCancel: () => {
-      router.push(to.path);
+      router.push(to.fullPath);
     },
   });
 };
