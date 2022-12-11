@@ -23,7 +23,7 @@
       </div>
     </a-skeleton>
 
-    <div v-if="!pageLoading">
+    <div v-show="!pageLoading">
       <section class="section-wrapper goods-wrapper">
         <a-breadcrumb v-if="resize.screenType !== 'MOBILE'">
           <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
@@ -403,7 +403,6 @@ const similar = ref({
 
 // 商品详情
 const handleQuery = () => {
-  pageLoading.value = true;
   getProductDetails(productInfo.value.id)
     .then((res) => {
       if (res.code == 0) {
@@ -434,7 +433,9 @@ const handleQuery = () => {
       }
     })
     .finally(() => {
-      pageLoading.value = false;
+      setTimeout(() => {
+        pageLoading.value = false;
+      }, 200);
     });
 };
 
@@ -593,16 +594,21 @@ const initSwiper = () => {
   });
 };
 
+const initData = () => {
+  productInfo.value.id = router.currentRoute.value.query.id;
+  pageLoading.value = true;
+  handleQuery();
+  querySimilarlist();
+  setTimeout(() => {
+    initSwiper();
+  }, 200);
+};
+
 watch(
   () => router.currentRoute.value.query.id,
   (newValue, oldValue) => {
     if (router.currentRoute.value.path == "/goodsDetails" && newValue !== oldValue) {
-      productInfo.value.id = router.currentRoute.value.query.id;
-      handleQuery();
-      querySimilarlist();
-      setTimeout(() => {
-        initSwiper();
-      }, 200);
+      initData();
       window.scrollTo(0, 0);
     }
   }
@@ -610,12 +616,7 @@ watch(
 
 onMounted(async () => {
   await nextTick();
-  productInfo.value.id = router.currentRoute.value.query.id;
-  handleQuery();
-  querySimilarlist();
-  setTimeout(() => {
-    initSwiper();
-  }, 200);
+  initData();
   window.onresize = function () {
     initSwiper();
   };

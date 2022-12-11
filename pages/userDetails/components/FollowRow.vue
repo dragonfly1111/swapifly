@@ -142,7 +142,9 @@ const handleFollow = (item, index) => {
   followUser(reqData)
     .then((res) => {
       if (res.code == 0) {
+        let {b_follow} = dataList.value[index]
         dataList.value[index].type = item.type == 1 ? 0 : 1;
+        dataList.value[index].b_follow = item.type == 1 ? b_follow -1 : b_follow +1;
         Notification.success(res.message);
         emits("change");
       } else {
