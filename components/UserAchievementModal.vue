@@ -168,7 +168,6 @@ const changeTab = (e) => {
 };
 
 const initExposureChart = () => {
-  console.log(document.getElementById("exposureEchart"));
   const chart = echarts.init(document.getElementById("exposureEchart"));
   const option = {
     tooltip: {
