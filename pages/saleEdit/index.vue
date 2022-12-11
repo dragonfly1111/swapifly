@@ -30,8 +30,8 @@
       </div>
       <div class="draft-title">{{ $t("sale.yourDraft") }}</div>
       <div class="image-preview-list">
-        <div class="image-item" v-for="(item, index) in draftList" >
-          <a-image :src="baseImgPrefix + item.images" :preview="false" @click="toEdit(item)"> </a-image>
+        <div class="image-item" v-for="(item, index) in draftList" @click="toEdit(item)">
+          <a-image :src="baseImgPrefix + item.images" :preview="false" > </a-image>
           <span class="draft">{{ $t("sale.draft") }}</span>
           <div class="image-info">
             <span class="goods-name">{{ item.title }}</span>
