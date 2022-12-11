@@ -339,7 +339,7 @@ function toClassDetail(e) {
   position: fixed;
   top: 0;
   text-align: center;
-  width: 100%;
+  width: 100vw;
   z-index: 998;
 }
 

@@ -22,7 +22,7 @@
       <div
         class="recommend-item"
         v-for="(item, index) in list"
-        @click="toGoodsDetail(item.id || item.pid)"
+        @click="toGoodsDetail(item.pid || item.id)"
       >
         <div class="user-box" v-if="showUser" @click.stop="toUserDetails(item)">
           <a-image :src="baseImgPrefix + item.avatar" fit="cover" show-loader :preview="false">
