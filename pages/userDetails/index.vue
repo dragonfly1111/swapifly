@@ -47,20 +47,20 @@
             }}</a-button>
           </a-space>
         </div>
-        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"
-          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
-          <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
-          <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
-          <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
-            v-if="form.shop == 1 || form.p_type == 2">
-          </a-tab-pane>
-        </a-tabs>
+<!--        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"-->
+<!--          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">-->
+<!--          <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>-->
+<!--          <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>-->
+<!--          <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"-->
+<!--            v-if="form.shop == 1 || form.p_type == 2">-->
+<!--          </a-tab-pane>-->
+<!--        </a-tabs>-->
         <div class="right-content">
-          <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow :userData="form" ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
-          <BusinessInformation :userData="form" ref="businessInformation" v-show="activeTab == 'businessInformation'">
+          <GoodsRow :userData="form" ref="goodsRow" v-if="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow :userData="form" ref="evaluateRow" v-if="activeTab == 'evaluateRow'"></EvaluateRow>
+          <BusinessInformation :userData="form" ref="businessInformation" v-if="activeTab == 'businessInformation'">
           </BusinessInformation>
-          <FollowRow v-show="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
+          <FollowRow v-if="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
         </div>
       </div>
     </div>
@@ -99,13 +99,19 @@ const handleTabChange = (e) => {
   activeTab.value = e;
   switch (e) {
     case "goodsRow":
-      goodsRow.value.initData();
+      nextTick(()=>{
+        goodsRow.value.initData();
+      })
       break;
     case "evaluateRow":
-      evaluateRow.value.initData();
+      nextTick(()=>{
+        evaluateRow.value.initData();
+      })
       break;
     case "businessInformation":
-      businessInformation.value.handleQuery();
+      nextTick(()=>{
+        businessInformation.value.handleQuery();
+      })
       break;
   }
 };
