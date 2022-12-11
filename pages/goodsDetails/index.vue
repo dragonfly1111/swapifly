@@ -360,13 +360,17 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+      src: "https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js",
+      async: true,
+      defer: true,
     },
     {
-      'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
+      src: "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js",
+      async: true,
+      defer: true,
     },
-  ]
-})
+  ],
+});
 const swiper = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
@@ -403,7 +407,6 @@ const handleQuery = () => {
   getProductDetails(productInfo.value.id)
     .then((res) => {
       if (res.code == 0) {
-        pageLoading.value = false;
         p_type.value = res.data.p_type;
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
@@ -424,13 +427,15 @@ const handleQuery = () => {
             },
           ],
         });
-      } else if(res.code === 998) {
-        blockModal.value.openDialog(3)
+      } else if (res.code === 998) {
+        blockModal.value.openDialog(3);
       } else {
         Notification.error(res.message);
       }
     })
-    .finally(() => {});
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 相似商品
@@ -597,7 +602,7 @@ watch(
       querySimilarlist();
       setTimeout(() => {
         initSwiper();
-      }, 500);
+      }, 200);
       window.scrollTo(0, 0);
     }
   }
@@ -610,7 +615,7 @@ onMounted(async () => {
   querySimilarlist();
   setTimeout(() => {
     initSwiper();
-  }, 500);
+  }, 200);
   window.onresize = function () {
     initSwiper();
   };

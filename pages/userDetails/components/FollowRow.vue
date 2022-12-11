@@ -119,6 +119,7 @@ const handleQueryFollowersList = () => {
 };
 
 const handleQueryFollowList = () => {
+  queryParams.value.id = router.currentRoute.value.query.userId
   getFollowList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
