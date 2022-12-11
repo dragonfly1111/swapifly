@@ -1,33 +1,33 @@
 <template>
   <div class="goods-box">
-    <a-row justify="space-between" align="center" class="box-header">
-      <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">
-        {{ $t("pages.goods") }}
-      </a-col>
-      <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">
-        <a-input-search
-          v-model="queryParams.title"
-          :style="{ width: '200px' }"
-          :placeholder="$t('pages.searchGoods')"
-          @search="handleSearch"
-          @clear="initData"
-          allow-clear
-        />
-      </a-col>
-    </a-row>
-    <div class="goods-box-body">
-      <ProductCard
-        :page-loading="pageLoading"
-        v-model:list="productList"
-        :isMySelf="isMySelf"
-        :show-user="false"
-        showStatus
-        @change="refreshPage"
-      ></ProductCard>
-    </div>
-    <div class="see-more" @click="loadMore" v-if="(productList.length < total && productList.length > 10)">
-      <a-button type="outline" :loading="btnLoading">{{ $t("pages.seeMore") }}</a-button>
-    </div>
+<!--    <a-row justify="space-between" align="center" class="box-header">-->
+<!--      <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">-->
+<!--        {{ $t("pages.goods") }}-->
+<!--      </a-col>-->
+<!--      <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">-->
+<!--        <a-input-search-->
+<!--          v-model="queryParams.title"-->
+<!--          :style="{ width: '200px' }"-->
+<!--          :placeholder="$t('pages.searchGoods')"-->
+<!--          @search="handleSearch"-->
+<!--          @clear="initData"-->
+<!--          allow-clear-->
+<!--        />-->
+<!--      </a-col>-->
+<!--    </a-row>-->
+<!--    <div class="goods-box-body">-->
+<!--      <ProductCard-->
+<!--        :page-loading="pageLoading"-->
+<!--        v-model:list="productList"-->
+<!--        :isMySelf="isMySelf"-->
+<!--        :show-user="false"-->
+<!--        showStatus-->
+<!--        @change="refreshPage"-->
+<!--      ></ProductCard>-->
+<!--    </div>-->
+<!--    <div class="see-more" @click="loadMore" v-if="(productList.length < total && productList.length > 10)">-->
+<!--      <a-button type="outline" :loading="btnLoading">{{ $t("pages.seeMore") }}</a-button>-->
+<!--    </div>-->
   </div>
 </template>
 <script setup>

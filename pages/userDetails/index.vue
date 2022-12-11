@@ -56,11 +56,11 @@
           </a-tab-pane>
         </a-tabs>
         <div class="right-content">
-          <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow :userData="form" ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
-          <BusinessInformation :userData="form" ref="businessInformation" v-show="activeTab == 'businessInformation'">
+          <GoodsRow :userData="form" ref="goodsRow" v-if="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow :userData="form" ref="evaluateRow" v-if="activeTab == 'evaluateRow'"></EvaluateRow>
+          <BusinessInformation :userData="form" ref="businessInformation" v-if="activeTab == 'businessInformation'">
           </BusinessInformation>
-          <FollowRow v-show="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
+          <FollowRow v-if="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
         </div>
       </div>
     </div>
@@ -99,13 +99,19 @@ const handleTabChange = (e) => {
   activeTab.value = e;
   switch (e) {
     case "goodsRow":
-      goodsRow.value.initData();
+      nextTick(()=>{
+        goodsRow.value.initData();
+      })
       break;
     case "evaluateRow":
-      evaluateRow.value.initData();
+      nextTick(()=>{
+        evaluateRow.value.initData();
+      })
       break;
     case "businessInformation":
-      businessInformation.value.handleQuery();
+      nextTick(()=>{
+        businessInformation.value.handleQuery();
+      })
       break;
   }
 };
