@@ -32,7 +32,7 @@
           v-if="form.shop == 1 || form.p_type == 2">
         </a-tab-pane>
       </a-tabs>
-      <div class="tab-content">
+      <div class="tab-content" v-if="hasMounted">
         <div class="left-content">
           <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
           <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
@@ -94,6 +94,7 @@ const pageLoading = ref(true);
 const advert = ref("");
 const testImg = testBanner;
 const activeTab = ref("goodsRow"); //goodsRow
+const hasMounted = ref(false)
 
 const handleTabChange = (e) => {
   activeTab.value = e;
@@ -179,15 +180,18 @@ watch(
 );
 
 onMounted(() => {
-  if (router.currentRoute.value.query.userId) {
-    form.value.id = router.currentRoute.value.query.userId;
-    getInfo();
-    goodsRow.value.initData();
-  }
-  if (router.currentRoute.value.query.tab) {
-    activeTab.value = router.currentRoute.value.query.tab;
-    evaluateRow.value.initData();
-  }
+  hasMounted.value = true
+  nextTick(()=>{
+    if (router.currentRoute.value.query.userId) {
+      form.value.id = router.currentRoute.value.query.userId;
+      getInfo();
+      goodsRow.value.initData();
+    }
+    if (router.currentRoute.value.query.tab) {
+      activeTab.value = router.currentRoute.value.query.tab;
+      evaluateRow.value.initData();
+    }
+  })
 });
 </script>
 <style lang="scss" scoped>
