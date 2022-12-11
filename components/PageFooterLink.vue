@@ -1,6 +1,20 @@
 <template>
   <div class="page-footer-link">
-    <div class="search-box">
+
+   <div v-if="hotSearchLoading">
+    <a-skeleton animation :loading="hotSearchLoading">
+      <a-skeleton-line :rows="3" :widths="[200]" />
+      <div style="height:30px"></div>
+      <a-skeleton-line :rows="3" />
+      <div style="height:50px"></div>
+      <a-skeleton-line :rows="3" :widths="[200]" />
+      <div style="height:30px"></div>
+      <a-skeleton-line :rows="3" />
+  </a-skeleton>
+   </div>
+
+    <div v-if="!hotSearchLoading">
+      <div class="search-box">
       <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
         <template v-if="hotSearchLoading">
@@ -17,7 +31,6 @@
             <a-divider direction="vertical"/>
           </div>
         </template>
-
       </div>
     </div>
     <div v-if="resize.screenType !== 'MOBILE'">
@@ -50,6 +63,8 @@
         </a-collapse-item>
       </a-collapse>
     </div>
+    </div>
+  
   </div>
 </template>
 <script setup>
@@ -62,6 +77,7 @@ const resize = useResize();
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const hotSearchLoading = ref(true)
+const pageLoading = ref(true)
 const hotSearchList = ref([])
 
 
