@@ -161,7 +161,7 @@ const initData = () => {
 watch(
   () => router.currentRoute.value.query.userId,
   (newValue, oldValue) => {
-    if (router.currentRoute.value.path == "/userDetails" && SnewValue !== oldValue) {
+    if (router.currentRoute.value.path == "/userDetails" && newValue !== oldValue) {
       initData();
     }
   }
