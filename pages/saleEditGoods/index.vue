@@ -495,6 +495,7 @@ const submitForm = () => {
     if (validate) {
       return;
     }
+    console.log('',fileList.value)
     if (!fileList.value.length) {
       Notification.error(t("sale.shouldUpload"));
       return;
@@ -597,7 +598,7 @@ const saveDraftModal = (to) => {
       });
     },
     onCancel: () => {
-      router.push(to.path);
+      router.push(to.fullPath);
     },
   });
 };

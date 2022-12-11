@@ -23,7 +23,7 @@
       </div>
     </a-skeleton>
 
-    <div v-if="!pageLoading">
+    <div v-show="!pageLoading">
       <section class="section-wrapper goods-wrapper">
         <a-breadcrumb v-if="resize.screenType !== 'MOBILE'">
           <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
@@ -360,13 +360,17 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+      src: "https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js",
+      async: true,
+      defer: true,
     },
     {
-      'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
+      src: "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js",
+      async: true,
+      defer: true,
     },
-  ]
-})
+  ],
+});
 const swiper = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
@@ -399,11 +403,9 @@ const similar = ref({
 
 // 商品详情
 const handleQuery = () => {
-  pageLoading.value = true;
   getProductDetails(productInfo.value.id)
     .then((res) => {
       if (res.code == 0) {
-        pageLoading.value = false;
         p_type.value = res.data.p_type;
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
@@ -424,13 +426,17 @@ const handleQuery = () => {
             },
           ],
         });
-      } else if(res.code === 998) {
-        blockModal.value.openDialog(3)
+      } else if (res.code === 998) {
+        blockModal.value.openDialog(3);
       } else {
         Notification.error(res.message);
       }
     })
-    .finally(() => {});
+    .finally(() => {
+      setTimeout(() => {
+        pageLoading.value = false;
+      }, 200);
+    });
 };
 
 // 相似商品
@@ -588,16 +594,21 @@ const initSwiper = () => {
   });
 };
 
+const initData = () => {
+  productInfo.value.id = router.currentRoute.value.query.id;
+  pageLoading.value = true;
+  handleQuery();
+  querySimilarlist();
+  setTimeout(() => {
+    initSwiper();
+  }, 200);
+};
+
 watch(
   () => router.currentRoute.value.query.id,
   (newValue, oldValue) => {
     if (router.currentRoute.value.path == "/goodsDetails" && newValue !== oldValue) {
-      productInfo.value.id = router.currentRoute.value.query.id;
-      handleQuery();
-      querySimilarlist();
-      setTimeout(() => {
-        initSwiper();
-      }, 500);
+      initData();
       window.scrollTo(0, 0);
     }
   }
@@ -605,12 +616,7 @@ watch(
 
 onMounted(async () => {
   await nextTick();
-  productInfo.value.id = router.currentRoute.value.query.id;
-  handleQuery();
-  querySimilarlist();
-  setTimeout(() => {
-    initSwiper();
-  }, 500);
+  initData();
   window.onresize = function () {
     initSwiper();
   };

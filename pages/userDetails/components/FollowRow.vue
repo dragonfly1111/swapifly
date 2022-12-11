@@ -22,7 +22,8 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <div class="follow-list-item" v-for="(item, index) in dataList">
+        <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
+        <!-- <div class="follow-list-item" v-for="(item, index) in dataList">
           <div @click.stop="router.push('/userDetails?userId=' + item.uid)">
             <img :src="baseImgPrefix + item.avatar" alt="" />
             <div class="fs12">{{ item.nickname }}</div>
@@ -36,7 +37,7 @@
               v-if="item.type == 0"
               :loading="btnLoading"
               @click.stop="handleFollow(item, index)"
-              >{{ $t("pages.follow") }}</a-button
+              >{{ $t("pages.cancelFollow") }}</a-button
             >
             <a-button
               class="black-btn"
@@ -46,7 +47,7 @@
               >{{ $t("pages.followIn") }}</a-button
             >
           </div>
-        </div>
+        </div> -->
 
         <a-empty class="empty-box" v-if="!dataList.length">
           <template #image>
@@ -70,12 +71,12 @@ import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
 import { Notification } from "@arco-design/web-vue";
+import FollowCard from '~/pages/userDetails/components/FollowCard'
 const { t } = useI18n();
 const router = useRouter();
 const emits = defineEmits(["change"]);
 const title = ref(t("pages.followIn"));
 const pageLoading = ref(true);
-const btnLoading = ref(false);
 const type = ref(null);
 const total = ref(0);
 const dataList = ref([]);
@@ -107,7 +108,7 @@ const resetQuery = (e) => {
 };
 
 const handleQueryFollowersList = () => {
-  queryParams.value.id = router.currentRoute.value.query.userId
+  queryParams.value.id = router.currentRoute.value.query.userId;
   getFollowers(queryParams.value)
     .then((res) => {
       dataList.value = dataList.value.concat(res.data.data);
@@ -119,6 +120,7 @@ const handleQueryFollowersList = () => {
 };
 
 const handleQueryFollowList = () => {
+  queryParams.value.id = router.currentRoute.value.query.userId;
   getFollowList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
@@ -131,27 +133,10 @@ const handleQueryFollowList = () => {
     });
 };
 
-// 关注/取消关注
-const handleFollow = (item, index) => {
-  let reqData = {
-    id: item.uid,
-    state: item.type == 1 ? 2 : 1,
-  };
-  btnLoading.value = true;
-  followUser(reqData)
-    .then((res) => {
-      if (res.code == 0) {
-        dataList.value[index].type = item.type == 1 ? 0 : 1;
-        Notification.success(res.message);
-        emits("change");
-      } else {
-        Notification.error(res.message);
-      }
-    })
-    .finally(() => {
-      btnLoading.value = false;
-    });
-};
+const changeFollow = () =>{
+  emits('change')
+}
+
 
 // 加载更多
 const loadMore = () => {
@@ -200,7 +185,12 @@ defineExpose({
       border-radius: 50%;
     }
     div {
+      width: 100%;
       margin-top: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
     }
     .fs10 {
       font-size: 10px;

@@ -269,32 +269,30 @@ const handleEdit = (item) => {
 };
 // like商品
 const likeProduct = (item, index) => {
-  if (!props.isMySelf) {
-    if (props.hasLikeConfirm) {
-      Modal.info({
-        content: t("pages.likeConfirm"),
-        closable: true,
-        hideCancel: false,
-        cancelText: t("pages.cancel"),
-        okText: t("pages.confirm"),
-        onBeforeOk: (done) => {
-          handleLike(item, index);
-          done(true);
-        },
-      });
-    } else {
-      handleLike(item, index);
-    }
+  if (props.hasLikeConfirm) {
+    Modal.info({
+      content: t("pages.likeConfirm"),
+      closable: true,
+      hideCancel: false,
+      cancelText: t("pages.cancel"),
+      okText: t("pages.confirm"),
+      onBeforeOk: (done) => {
+        handleLike(item, index);
+        done(true);
+      },
+    });
+  } else {
+    handleLike(item, index);
   }
 };
 
 // 喜欢
 const handleLike = (item, index) => {
   const userInfo = useUserInfo();
-  if(!userInfo.token){
-    userInfo.openDialog()
-    router.replace('/')
-    return
+  if (!userInfo.token) {
+    userInfo.openDialog();
+    router.replace("/");
+    return;
   }
   let reqParams = {
     id: item.pid || item.id,
@@ -315,22 +313,22 @@ const handleLike = (item, index) => {
 };
 
 // 商品详情
-const toGoodsDetail = (id) =>{
+const toGoodsDetail = (id) => {
   // 判断封禁状态
-  getProductFj(id).then(res=>{
-    console.log(res)
+  getProductFj(id).then((res) => {
+    console.log(res);
     if (res.code === 0) {
-      if(res.data.status === 2){
+      if (res.data.status === 2) {
         // 封禁弹窗
-        blockModal.value.openDialog(2)
-      } else if(res.data.status === 1){
-        router.push('/goodsDetails?id=' + id)
+        blockModal.value.openDialog(2);
+      } else if (res.data.status === 1) {
+        router.push("/goodsDetails?id=" + id);
       }
     } else {
       Notification.error(res.message);
     }
-  })
-}
+  });
+};
 
 const openAchievement = (item) => {
   userAchievementModal.value.openDialog(item);
