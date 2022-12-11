@@ -111,7 +111,7 @@
                 <template v-else>
                   <div class="gray-wrap wrap"  v-for="item in collectionList">
                     <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
-                    <icon-close @click="deleteHis(item.id)" />
+                    <icon-close @click.stop="deleteHis(item.id)" />
                   </div>
                 </template>
               </div>
@@ -276,7 +276,9 @@ function openHisPanel(){
   suggestShow.value = true
 }
 function hideHisPanel(){
-  suggestShow.value = false
+  setTimeout(()=>{
+    suggestShow.value = false
+  }, 200)
 }
 function handleHis(e) {
   searchKey.value = e
@@ -288,6 +290,14 @@ function deleteHis(id) {
   }).then(res=>{
     if(res.code === 0){
       Notification.success(t('head.deleteSuc'))
+      getSearchHistory().then(res=> {
+        const searchLog = res.data.search_log
+        const collectionList = res.data.scsearch_log
+        sysData.setSearchHis({
+          searchLog,
+          collectionList
+        })
+      })
     } else {
       Notification.error(res.message)
     }
@@ -300,6 +310,14 @@ function handleCollection() {
     }).then(res=>{
       if(res.code === 0){
         Notification.success(t('head.collectionSuc'))
+        getSearchHistory().then(res=> {
+          const searchLog = res.data.search_log
+          const collectionList = res.data.scsearch_log
+          sysData.setSearchHis({
+            searchLog,
+            collectionList
+          })
+        })
       } else {
         Notification.erroe(res.message)
       }

@@ -98,6 +98,7 @@ import {newsDetail, recentNews} from "~/api/newsCenter";
 import {Notification} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {baseImgPrefix} from "~/config/baseUrl";
+import {watch} from "vue";
 
 const router = useRouter()
 const route = useRoute();
@@ -116,15 +117,9 @@ const searchHandle = (e) => {
 }
 
 const toNewsDetail = (e) => {
-  console.log('toNewsDetail')
-  console.log(e)
   router.push(`/newsCenter/detail?id=${e.id}`)
-  setTimeout(()=>{
-    getNewsDetail()
-  }, 200)
-  // nextTick(()=>{
-  // })
 }
+
 const getNewsDetail = () => {
   dataLoading.value = true
   newsDetail({
@@ -157,7 +152,9 @@ const getNewsRecent = () => {
     }
   })
 }
-
+watch(() => route.query.id, (newValue, oldValue) => {
+  getNewsDetail()
+});
 getNewsDetail()
 getNewsRecent()
 </script>
@@ -219,10 +216,6 @@ getNewsRecent()
 
       :deep(*) {
         max-width: 900px;
-      }
-
-      :deep(img) {
-        object-fit: scale-down;
       }
     }
 

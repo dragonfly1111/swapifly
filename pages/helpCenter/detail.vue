@@ -59,6 +59,7 @@
 import {helpDetail} from '~/api/helpCenter'
 import {Notification} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
+import {watch} from "vue";
 const searchKey = ref('')
 const route = useRoute();
 const dataLoading = ref(true);
@@ -89,9 +90,10 @@ const getHelpDetail = () => {
 const toDetail = (e) => {
   console.log(e)
   router.push(`/helpCenter/detail?id=${e.id}`)
-  getHelpDetail()
 }
-
+watch(() => route.query.id, (newValue, oldValue) => {
+  getHelpDetail()
+});
 getHelpDetail()
 </script>
 <style lang="scss" scoped>
@@ -126,6 +128,9 @@ getHelpDetail()
     .content {
       margin-top: 17px;
       max-width: 750px;
+      :deep(*) {
+        max-width: 750px;
+      }
     }
   }
 

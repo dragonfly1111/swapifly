@@ -129,10 +129,14 @@ const doLogin = () => {
     if(validate) return
     saveLoading.value = true
     emailLogin(formData).then(res=>{
+      console.log('doLogin')
+      console.log(res)
       if(res.code === 0){
         Notification.success(t('loginDialog.loginSuc'))
         const user = res.data
         userInfo.setUserInfo(user)
+        visible.value = false;
+      } else if(res.code === 998){
         visible.value = false;
       } else {
         Notification.error(res.message)

@@ -145,7 +145,7 @@ const resetForm = () => {
   form.max = ''
   form.offline = false
   form.mail = false
-  emits("change", {});
+  updateSearch()
 };
 
 // 价格选择取消
@@ -179,9 +179,8 @@ const confirmPrice = () => {
 const updateSearch = () => {
   console.log(form)
   let setForm = {...form};
-  console.log(setForm)
-  setForm.nid = form.nid.join(",");
   setForm = JSON.parse(JSON.stringify(setForm))
+  setForm.nid = form.nid.join(",");
   if(setForm.offline){
     setForm.offline = 1
   } else {
@@ -192,6 +191,13 @@ const updateSearch = () => {
   } else {
     setForm.mail = 0
   }
+  if(!setForm.min){
+    setForm.min = ''
+  }
+  if(!setForm.max){
+    setForm.max = ''
+  }
+  console.log(setForm)
   emits("change", setForm);
 };
 

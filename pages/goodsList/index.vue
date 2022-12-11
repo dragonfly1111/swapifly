@@ -148,6 +148,15 @@ const goodsFilterSelect = ref(null)
 const classPath = ref([])
 curLevel.value = parseInt(route.query.level)
 rId.value = parseInt(route.query.id)
+const curFilter = ref({
+  mail: 0,
+  max: '',
+  min: '',
+  nid: '',
+  offline: 0,
+  rid: parseInt(route.query.id),
+  sort: '',
+})
 const page = ref(1)
 const lastPage = ref(999)
 // 获取banner和谷歌广告
@@ -247,13 +256,13 @@ const bradChangePage1 = (type) => {
   }
 }
 // 获取商品列表
-const getProduct = (data) => {
+const getProduct = () => {
   productLoading.value = true
+  console.log(rId.value)
   getCategoryProductList({
     limit: 8,
     page: page.value,
-    rid: rId.value,
-    ...data
+    ...curFilter.value
   }).then(res => {
     productLoading.value = false
     butLoading.value = false
@@ -270,7 +279,8 @@ const getProduct = (data) => {
 const handleQuery = (data) => {
   page.value = 1
   productList.value = []
-  getProduct(data)
+  curFilter.value = data
+  getProduct()
 };
 const openLink = (e) => {
   console.log(e)

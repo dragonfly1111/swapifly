@@ -36,11 +36,18 @@ const openDialog = (e = 1) => {
 const handleOk = () => {
   if(blockType.value === 1){
     handleCancel()
-    userInfo.logout(()=>{
+    if(userInfo.token){
+      userInfo.logout(()=>{
+        userInfo.closeBlockDialog()
+        router.replace('/')
+        userInfo.openDialog()
+      })
+    } else {
       userInfo.closeBlockDialog()
       router.replace('/')
       userInfo.openDialog()
-    })
+    }
+
   } else if(blockType.value === 2) {
     handleCancel()
   } else if(blockType.value === 3) {
