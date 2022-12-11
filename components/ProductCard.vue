@@ -76,13 +76,15 @@
                 <a-doption @click.stop="openAchievement(item)">{{
                   $t("pages.viewtheResults")
                 }}</a-doption>
-                <a-doption @click.stop="handleRemove(item)" v-if="item.state != 2">{{
+                <a-doption @click.stop="handleRemove(item,index)" v-if="item.state != 2">{{
                   item.state == 3 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
                 }}</a-doption>
-                <a-doption @click.stop="handleMark(item)" v-if="item.state != 2">{{
+                <a-doption @click.stop="handleMark(item, index)" v-if="item.state != 2">{{
                   $t("pages.markSold")
                 }}</a-doption>
-                <a-doption @click.stop="handleDelete(item)">{{ $t("pages.delGoods") }}</a-doption>
+                <a-doption @click.stop="handleDelete(item, index)">{{
+                  $t("pages.delGoods")
+                }}</a-doption>
               </template>
             </template>
           </a-dropdown>
@@ -184,7 +186,7 @@ const openExposure = (item) => {
   exposurePayModal.value.openDialog(item.id);
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
-const handleRemove = (item) => {
+const handleRemove = (item,index) => {
   let content = item.state == 3 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
   Modal.info({
     content: content,
@@ -197,7 +199,10 @@ const handleRemove = (item) => {
         .then((res) => {
           if (res.code === 0) {
             Notification.success(res.message);
-            emits("change");
+            let arr = [...props.list];
+            arr[index].state = item.state == 3 ? 1 : 3
+            emits("update:list", arr);
+            // emits("change");
           } else {
             Notification.error(res.message);
           }
@@ -210,7 +215,7 @@ const handleRemove = (item) => {
 };
 
 // 删除
-const handleDelete = (item) => {
+const handleDelete = (item, index) => {
   Modal.info({
     content: t("pages.delGoodsTip"),
     closable: true,
@@ -222,7 +227,9 @@ const handleDelete = (item) => {
         .then((res) => {
           if (res.code === 0) {
             Notification.success(res.message);
-            emits("change");
+            let arr = [...props.list];
+            arr.splice(index, 1);
+            emits("update:list", arr);
           } else {
             Notification.error(res.message);
           }
@@ -246,7 +253,10 @@ const handleMark = (item) => {
         .then((res) => {
           if (res.code === 0) {
             Notification.success(res.message);
-            emits("change");
+            let arr = [...props.list];
+            arr[index].state = 2 // 已售出
+            emits("update:list", arr);
+            // emits("change");
           } else {
             Notification.error(res.message);
           }

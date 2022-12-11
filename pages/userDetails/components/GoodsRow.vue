@@ -18,14 +18,14 @@
     <div class="goods-box-body">
       <ProductCard
         :page-loading="pageLoading"
-        :list="productList"
+        v-model:list="productList"
         :isMySelf="isMySelf"
         :show-user="false"
         showStatus
         @change="refreshPage"
       ></ProductCard>
     </div>
-    <div class="see-more" @click="loadMore" v-if="productList.length < total">
+    <div class="see-more" @click="loadMore" v-if="(productList.length < total && productList.length > 10)">
       <a-button type="outline" :loading="btnLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
   </div>
@@ -53,7 +53,6 @@ const queryParams = ref({
 const handleQuery = () => {
   btnLoading.value = true;
   queryParams.value.id = router.currentRoute.value.query.userId;
-  console.log(router.currentRoute.value.query.userId, "...");
   userProduct(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
@@ -76,7 +75,7 @@ const arrUnique = (list) => {
 };
 
 const refreshPage = () => {
-  initData(true);
+  // initData(true);
 };
 
 const initData = (isSearch) => {
