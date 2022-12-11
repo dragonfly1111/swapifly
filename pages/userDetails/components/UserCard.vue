@@ -7,7 +7,7 @@
           </template>
       </a-image>
     </div>  
-    <div class="user-body">
+    <div class="user-body" v-if="!pageLoading">
       <h2>{{ form.nickname }}</h2>
       <div class="user-desc">
         <a-space direction="vertical" fill>
@@ -81,6 +81,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  pageLoading:{
+    type: Boolean,
+    default: true,
+  }
 });
 
 const form = computed(() => {

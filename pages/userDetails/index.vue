@@ -1,5 +1,7 @@
 <template>
   <div class="common-row global-content user-detail-content">
+
+
     <div class="user-banner">
       <a-image :src="testImg" fit="cover" show-loader>
         <template #loader>
@@ -9,7 +11,7 @@
     </div>
 
     <div class="user-details">
-      <a-tabs v-if="['PC', 'SCALE'].includes(resize.screenType)" style="margin-left: 320px" :active-key="activeTab"
+      <a-tabs v-if="['PC', 'SCALE'].includes(resize.screenType)" :active-key="activeTab"
         @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
         <template #extra>
           <a-space class="extra-btn">
@@ -32,7 +34,7 @@
       </a-tabs>
       <div class="tab-content">
         <div class="left-content">
-          <UserCard :advert="advert" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
           <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
             <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/settingProfile')">{{
                 $t("profile.mobile_setting")
@@ -88,6 +90,7 @@ const goodsRow = ref(null);
 const businessInformation = ref(null);
 const followRow = ref(null);
 const btnLoading = ref(false);
+const pageLoading = ref(true);
 const advert = ref("");
 const testImg = testBanner;
 const activeTab = ref("goodsRow"); //goodsRow
@@ -114,7 +117,9 @@ const getInfo = () => {
       form.value.p_type = res.data.p_type;
       advert.value = res.data.advert.content;
     }
-  });
+  }).finally(()=>{
+    pageLoading.value = false
+  })
 };
 
 // 关注取消用户
@@ -201,6 +206,7 @@ onMounted(() => {
   margin-bottom: 40px;
 
   :deep(.arco-tabs-nav-tab) {
+    padding-left: 320px;
     padding-top: 15px;
   }
 
@@ -236,20 +242,20 @@ onMounted(() => {
   }
 }
 
-//.tab-content {
-//  display: flex;
-//  justify-content: space-between;
-//  .left-content {
-//    width: 300px;
-//    flex-shrink: 0;
-//    margin-right: 30px;
-//  }
-//  .right-content {
-//    border: 1px solid #e5e5e5;
-//    border-radius: 2px;
-//    width: calc(100% - 340px);
-//    flex: auto;
-//    margin-top: 10px;
-//  }
-//}
+.tab-content {
+ display: flex;
+ justify-content: space-between;
+ .left-content {
+   width: 300px;
+   flex-shrink: 0;
+   margin-right: 30px;
+ }
+ .right-content {
+   border: 1px solid #e5e5e5;
+   border-radius: 2px;
+   width: calc(100% - 340px);
+   flex: auto;
+   margin-top: 10px;
+ }
+}
 </style>
