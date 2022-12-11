@@ -440,6 +440,7 @@ const submitForm = () => {
     if (validate) {
       return;
     }
+    console.log('',fileList.value)
     if (!fileList.value.length) {
       Notification.error(t("sale.shouldUpload"));
       return;
