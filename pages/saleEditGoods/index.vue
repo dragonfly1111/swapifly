@@ -192,8 +192,9 @@
                 <a-row justify="space-between">
                   <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
                   <a-col flex="138px" v-if="hasBanWord(form.describe)" class="tip-danger">
-                    {{ $t("sale.forbidTip") }}</a-col
-                  >
+                    {{ $t("sale.forbidTip") }}
+                    <a-link :href="forbidLink">详情</a-link>
+                  </a-col>
                 </a-row>
               </template>
             </a-form-item>
@@ -793,6 +794,9 @@ onMounted(() => {
         width: 100%;
         color: $grey-font-label;
       }
+      :deep(.arco-link) {
+        font-size: 12px;
+      }
 
       :deep(.arco-form-item-label-col) {
         line-height: 16px;
@@ -827,9 +831,6 @@ onMounted(() => {
         width: 100%;
         text-align: right;
         margin-top: 2px;
-        :deep(.arco-link){
-          font-size: 12px;
-        }
       }
     }
   }

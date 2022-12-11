@@ -57,7 +57,7 @@
               <div v-if="productInfo.images.length >= 3" class="goods-tags">
                 <a-space class="handle-header">
                   <a-button class="black-btn" @click="handleShare">分享</a-button>
-                  <a-button class="black-btn">
+                  <a-button class="black-btn" @click="handleLike">
                     <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
                     <icon-heart class="heart" v-if="productInfo.islike == 0" />
                     {{ productInfo.like }} like
