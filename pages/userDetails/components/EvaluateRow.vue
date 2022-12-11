@@ -86,6 +86,7 @@ onMounted(() => {
 });
 
 const handleQuery = () => {
+  queryParams.value.id = router.currentRoute.value.query.userId
   getEvaluationList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {

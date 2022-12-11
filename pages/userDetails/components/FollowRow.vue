@@ -107,6 +107,7 @@ const resetQuery = (e) => {
 };
 
 const handleQueryFollowersList = () => {
+  queryParams.value.id = router.currentRoute.value.query.userId
   getFollowers(queryParams.value)
     .then((res) => {
       dataList.value = dataList.value.concat(res.data.data);
