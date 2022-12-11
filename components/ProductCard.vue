@@ -114,6 +114,7 @@ import { baseImgPrefix } from "~/config/baseUrl";
 import { Modal, Button, Notification } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
+import { useUserInfo } from "~/stores/userInfo";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const props = defineProps({
@@ -287,6 +288,12 @@ const likeProduct = (item, index) => {
 
 // 喜欢
 const handleLike = (item, index) => {
+  const userInfo = useUserInfo();
+  if(!userInfo.token){
+    userInfo.openDialog()
+    router.replace('/')
+    return
+  }
   let reqParams = {
     id: item.pid || item.id,
     state: item.islike == 1 ? 2 : 1,
