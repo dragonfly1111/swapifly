@@ -1,5 +1,11 @@
 @import "assets/sass/var";
 @media screen and (min-width:1000px){
+  .user-details {
+    :deep(.arco-tabs-nav-tab) {
+      padding-left: 320px;
+      padding-top: 15px;
+    }
+  }
   .recommend-wrapper{
     margin-top: 46px;
   }
@@ -101,6 +107,12 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .user-details {
+    :deep(.arco-tabs-nav-tab) {
+      padding-left: 0px;
+      padding-top: 0px;
+    }
+  }
   .recommend-wrapper{
     margin-top: 25px;
   }
@@ -114,11 +126,12 @@
   }
   .tab-content {
     .left-content {
-      width: 100%;
+      width: 100% !important;
     }
     .right-content {
-      width: 100%;
-      margin-top: 10px;
+      width: 100% !important;
+      margin-top: 10px !important;
+      border: none !important;
     }
   }
   .extra-btn{

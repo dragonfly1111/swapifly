@@ -102,8 +102,8 @@
           </a-breadcrumb>
         </a-space>
         <div class="select-wrapper">
-
-          <GoodsFilterSelect @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
+          <MobileGoodsFilterSelect v-if="resize.screenType === 'MOBILE'" @change="handleQuery"></MobileGoodsFilterSelect>
+          <GoodsFilterSelect v-else @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content">
@@ -126,12 +126,12 @@ import { baseImgPrefix } from "~/config/baseUrl";
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Notification } from '@arco-design/web-vue';
-
+import { useResize } from '~/stores/resize'
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
 const butLoading = ref(false)
-
+const resize = useResize();
 const bannerList = ref([])
 const productList = ref([])
 const hotBradList = ref([])
