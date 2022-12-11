@@ -36,7 +36,7 @@
               v-if="item.type == 0"
               :loading="btnLoading"
               @click.stop="handleFollow(item, index)"
-              >{{ $t("pages.follow") }}</a-button
+              >{{ $t("pages.cancelFollow") }}</a-button
             >
             <a-button
               class="black-btn"
@@ -107,7 +107,7 @@ const resetQuery = (e) => {
 };
 
 const handleQueryFollowersList = () => {
-  queryParams.value.id = router.currentRoute.value.query.userId
+  queryParams.value.id = router.currentRoute.value.query.userId;
   getFollowers(queryParams.value)
     .then((res) => {
       dataList.value = dataList.value.concat(res.data.data);
@@ -119,7 +119,7 @@ const handleQueryFollowersList = () => {
 };
 
 const handleQueryFollowList = () => {
-  queryParams.value.id = router.currentRoute.value.query.userId
+  queryParams.value.id = router.currentRoute.value.query.userId;
   getFollowList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
@@ -142,9 +142,9 @@ const handleFollow = (item, index) => {
   followUser(reqData)
     .then((res) => {
       if (res.code == 0) {
-        let {b_follow} = dataList.value[index]
+        let { b_follow } = dataList.value[index];
         dataList.value[index].type = item.type == 1 ? 0 : 1;
-        dataList.value[index].b_follow = item.type == 1 ? b_follow -1 : b_follow +1;
+        dataList.value[index].b_follow = item.type == 1 ? b_follow - 1 : b_follow + 1;
         Notification.success(res.message);
         emits("change");
       } else {
@@ -203,7 +203,12 @@ defineExpose({
       border-radius: 50%;
     }
     div {
+      width: 100%;
       margin-top: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
     }
     .fs10 {
       font-size: 10px;
