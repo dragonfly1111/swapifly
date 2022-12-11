@@ -174,11 +174,13 @@
               </template>
             </a-form-item>
             <a-form-item field="price" :label="$t('sale.price')" hide-asterisk>
-              <a-input class="input-wrp" v-model="form.price" type="number">
+              <a-input-number class="input-wrp" :precision="2">
+              <!-- <a-input class="input-wrp" v-model="form.price" type="number"> -->
                 <template #prefix>
                   <span>HK$</span>
                 </template>
-              </a-input>
+              <!-- </a-input> -->
+              </a-input-number>
             </a-form-item>
             <a-form-item field="describe" :label="$t('sale.goodsDesc')" hide-asterisk>
               <a-textarea
@@ -321,7 +323,7 @@ const form = ref({
   title: "",
   nid: 1,
   describe: "",
-  region: "",
+  region: null,
   price: "",
   mail_note: "",
   offline_address: [],

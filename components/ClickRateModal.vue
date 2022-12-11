@@ -98,6 +98,18 @@ const changeOnline = (e) => {
   }
 };
 
+useHead({
+  // todo sdk 支持对语言
+  script: [
+    {
+      'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+    },
+    {
+      'src': 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', async: true, defer: true
+    },
+  ]
+})
+
 const initEchart = (list) => {
   chart.value = echarts.init(document.getElementById("echartBox"));
   const option = {

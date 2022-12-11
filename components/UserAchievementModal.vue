@@ -18,7 +18,7 @@
         </a-col>
         <a-col :span="12">
           <a-skeleton-line :rows="2" :line-height="20" />
-          <a-skeleton-line  :line-height="300" />
+          <a-skeleton-line :line-height="300" />
         </a-col>
       </a-row>
     </a-skeleton>
@@ -139,7 +139,10 @@ const handleQuery = () => {
     .then((res) => {
       productInfo.value = res.data;
       nextTick(() => {
-        initExposureChart();
+        setTimeout(() => {
+          // 解决dom未渲染
+          initExposureChart();
+        }, 200);
       });
     })
     .finally(() => {
@@ -165,6 +168,7 @@ const changeTab = (e) => {
 };
 
 const initExposureChart = () => {
+  console.log(document.getElementById("exposureEchart"));
   const chart = echarts.init(document.getElementById("exposureEchart"));
   const option = {
     tooltip: {
