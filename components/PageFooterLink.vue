@@ -1,6 +1,6 @@
 <template>
   <div class="page-footer-link">
-    <section class="search-box">
+    <div class="search-box">
       <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
       <div class="hot-search">
         <template v-if="hotSearchLoading">
@@ -19,7 +19,7 @@
         </template>
 
       </div>
-    </section>
+    </div>
     <div v-if="resize.screenType !== 'MOBILE'">
       <section class="footer-link-box" v-for="firstType in classList">
         <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
@@ -30,7 +30,7 @@
         </div>
       </section>
     </div>
-    <div class="footer-mobile-coll" v-else>
+    <div class="footer-mobile-coll" v-if="resize.screenType === 'MOBILE'">
       <a-collapse
         :show-expand-icon="false"
         :bordered="false"
@@ -113,7 +113,11 @@ const getHotSearchList = () => {
   })
 }
 
-getHotSearchList()
+onMounted(()=>{
+  getHotSearchList()
+
+})
+
 </script>
 
 <style scoped lang="scss">
