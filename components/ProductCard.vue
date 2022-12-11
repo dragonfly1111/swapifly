@@ -22,7 +22,7 @@
       <div
         class="recommend-item"
         v-for="(item, index) in list"
-        @click="$router.push('/goodsDetails?id=' + (item.id || item.pid))"
+        @click="toGoodsDetail(item.id || item.pid)"
       >
         <div class="user-box" v-if="showUser" @click.stop="toUserDetails(item)">
           <a-image :src="baseImgPrefix + item.avatar" fit="cover" show-loader :preview="false">
@@ -102,7 +102,8 @@
 
     <!-- 举报 -->
     <ReportModal ref="reportModal"></ReportModal>
-
+    <!-- 商品封禁 -->
+    <BlockModal ref="blockModal"></BlockModal>
     <div v-if="isMySelf">
       <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
       <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
@@ -112,7 +113,7 @@
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
 import { Modal, Button, Notification } from "@arco-design/web-vue";
-import { deleteProduct, upanddownProduct, collectionProduct } from "~/api/goods";
+import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
 import { useI18n } from "vue-i18n";
@@ -159,6 +160,7 @@ const props = defineProps({
   },
 });
 const reportModal = ref(null);
+const blockModal = ref(null);
 const exposurePayModal = ref(null);
 const userAchievementModal = ref(null);
 const router = useRouter();
@@ -311,6 +313,24 @@ const handleLike = (item, index) => {
     }
   });
 };
+
+// 商品详情
+const toGoodsDetail = (id) =>{
+  // 判断封禁状态
+  getProductFj(id).then(res=>{
+    console.log(res)
+    if (res.code === 0) {
+      if(res.data.status === 2){
+        // 封禁弹窗
+        blockModal.value.openDialog(2)
+      } else if(res.data.status === 1){
+        router.push('/goodsDetails?id=' + id)
+      }
+    } else {
+      Notification.error(res.message);
+    }
+  })
+}
 
 const openAchievement = (item) => {
   userAchievementModal.value.openDialog(item);

@@ -136,6 +136,7 @@
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
     <!--    <BindEmail ref="bindEmail"></BindEmail>-->
     <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>
+    <BlockModal ref="blockModal"></BlockModal>
   </div>
 </template>
 
@@ -152,11 +153,13 @@ const route = useRoute()
 const userInfo = useUserInfo()
 const searchKeyState = useSearchKey()
 import {useI18n} from "vue-i18n";
+import {watch} from "vue";
 const {t} = useI18n();
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
 const resetPwdModal = ref(null)
+const blockModal = ref(null)
 const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
@@ -188,6 +191,23 @@ watch(() => route.query, (newValue, oldValue) => {
   searchKeyState.setKey(newValue.keyword)
   searchKey.value = searchKeyState.searchKey
 }, {immediate: true})
+// 监听pina是否需要打开登录对话框
+watch(() => userInfo.openLogin, (newValue, oldValue) => {
+  if (newValue) {
+    nextTick(()=>{
+      loginModal.value.openDialog()
+      userInfo.closeDialog()
+    })
+  }
+}, { immediate: true });
+// 监听pina是否需要打开封禁对话框
+watch(() => userInfo.userBlock, (newValue, oldValue) => {
+  if (newValue) {
+    nextTick(()=>{
+      blockModal.value.openDialog(1)
+    })
+  }
+}, { immediate: true });
 function selectMenu(e){
   switch (e) {
     case 'profile':
