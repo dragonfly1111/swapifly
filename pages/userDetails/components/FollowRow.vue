@@ -22,7 +22,8 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <div class="follow-list-item" v-for="(item, index) in dataList">
+        <follow-card v-for="(item, index) in dataList" :item="item"></follow-card>
+        <!-- <div class="follow-list-item" v-for="(item, index) in dataList">
           <div @click.stop="router.push('/userDetails?userId=' + item.uid)">
             <img :src="baseImgPrefix + item.avatar" alt="" />
             <div class="fs12">{{ item.nickname }}</div>
@@ -46,7 +47,7 @@
               >{{ $t("pages.followIn") }}</a-button
             >
           </div>
-        </div>
+        </div> -->
 
         <a-empty class="empty-box" v-if="!dataList.length">
           <template #image>
@@ -70,12 +71,12 @@ import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
 import { Notification } from "@arco-design/web-vue";
+import FollowCard from '~/pages/userDetails/components/FollowCard'
 const { t } = useI18n();
 const router = useRouter();
 const emits = defineEmits(["change"]);
 const title = ref(t("pages.followIn"));
 const pageLoading = ref(true);
-const btnLoading = ref(false);
 const type = ref(null);
 const total = ref(0);
 const dataList = ref([]);
@@ -132,29 +133,7 @@ const handleQueryFollowList = () => {
     });
 };
 
-// 关注/取消关注
-const handleFollow = (item, index) => {
-  let reqData = {
-    id: item.uid,
-    state: item.type == 1 ? 2 : 1,
-  };
-  btnLoading.value = true;
-  followUser(reqData)
-    .then((res) => {
-      if (res.code == 0) {
-        let { b_follow } = dataList.value[index];
-        dataList.value[index].type = item.type == 1 ? 0 : 1;
-        dataList.value[index].b_follow = item.type == 1 ? b_follow - 1 : b_follow + 1;
-        Notification.success(res.message);
-        emits("change");
-      } else {
-        Notification.error(res.message);
-      }
-    })
-    .finally(() => {
-      btnLoading.value = false;
-    });
-};
+
 
 // 加载更多
 const loadMore = () => {
