@@ -318,6 +318,9 @@
     <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
 
     <ShareModal ref="shareModal"></ShareModal>
+
+    <!-- 商品封禁 -->
+    <BlockModal ref="blockModal"></BlockModal>
   </div>
 </template>
 
@@ -368,6 +371,7 @@ useHead({
 const swiper = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
+const blockModal = ref(null);
 const pageLoading = ref(true);
 const btnLoading = ref(false);
 const userAchievementModal = ref(null);
@@ -421,6 +425,8 @@ const handleQuery = () => {
             },
           ],
         });
+      } else if(res.code === 998) {
+        blockModal.value.openDialog(3)
       } else {
         Notification.error(res.message);
       }

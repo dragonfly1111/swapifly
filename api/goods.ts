@@ -224,4 +224,12 @@ export const getProductInfo = (id: any) => {
   })
 }
 
+// 编辑商品-查询
+export const getProductFj = (id: any) => {
+  return request({
+    url: '/index/product_detail/fjzt?id=' + id,
+    method: 'get',
+  })
+}
+
 

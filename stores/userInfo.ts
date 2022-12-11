@@ -42,7 +42,10 @@ export const useUserInfo = defineStore('userInfo', {
     openBlockDialog(){
       this.userBlock = true
     },
-    logout(){
+    closeBlockDialog(){
+      this.userBlock = false
+    },
+    logout(callback){
       userLogOut().then(()=>{
         this.avatar = ''
         this.email = ''
@@ -52,6 +55,9 @@ export const useUserInfo = defineStore('userInfo', {
         this.type = -1
         this.openLogin = false
         this.userBlock = false
+        if(callback){
+          callback()
+        }
       })
     }
   },
