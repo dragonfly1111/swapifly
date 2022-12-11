@@ -18,7 +18,7 @@
         <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
       </div>
       <div style="height: 36px"></div>
-      <div style="width: 70%">
+      <div style="width: 70%; margin-bottom: 30px">
         <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
       </div>
     </a-skeleton>
@@ -399,9 +399,9 @@ const handleQuery = () => {
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
         eltlist.value = res.data.eltlist;
-
+        const appConfig = useAppConfig();
         useHead({
-          title: productInfo.value.title,
+          title: appConfig.name + productInfo.value.title,
           meta: [
             {
               hid: "description",
