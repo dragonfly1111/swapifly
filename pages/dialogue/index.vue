@@ -5,7 +5,7 @@
       <div id="left-msg-list" class="msg-select">
         <template v-if="pageLoading">
           <div>
-            <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
+            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile" style="margin-left: 8px">
               <a-skeleton-line :line-height="30" :rows="1"/>
             </a-skeleton>
           </div>
@@ -27,7 +27,7 @@
       <div class="msg-list">
         <template v-if="pageLoading">
           <div>
-            <a-skeleton :animation="true" class="skeleton" style="margin-left: 50px; margin-right: 16px">
+            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list" style="margin-left: 50px; margin-right: 16px">
               <a-skeleton-line :line-height="80" :rows="5"/>
             </a-skeleton>
           </div>

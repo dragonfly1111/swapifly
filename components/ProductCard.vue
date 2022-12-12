@@ -89,7 +89,7 @@
             </template>
           </a-dropdown>
         </div>
-        <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary">出售</a-button>
+        <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">出售</a-button>
       </div>
     </div>
 
@@ -381,6 +381,7 @@ p.arco-typography {
     right: 4%;
     background-color: deeppink;
     color: #fff;
+    z-index: 99999;
   }
   &:last-child {
     margin-right: auto;
