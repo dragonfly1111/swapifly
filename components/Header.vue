@@ -84,7 +84,7 @@
               <img v-else class="long-logo" src="@/assets/images/logo-long.png" alt="">
             </nuxt-link>
           </a-col>
-          <a-col :span="resize.screenType === 'MOBILE'?16:10" class="search-col">
+          <a-col :span="resize.screenType === 'MOBILE'?17:10" class="search-col">
             <div class="search-input">
               <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
                 <template #suffix v-if="searchResPage">
@@ -117,7 +117,7 @@
               </div>
             </div>
           </a-col>
-          <a-col :span="resize.screenType === 'MOBILE'?6:10" style="text-align: right;" class="btn-col">
+          <a-col :span="resize.screenType === 'MOBILE'?5:10" style="text-align: right;" class="btn-col">
             <div v-if="resize.screenType === 'MOBILE'" style="display: flex;justify-content: center;align-items: center">
               <template v-if="userInfo.token" >
                 <icon-message class="icon-message" @click="router.push('/dialogue')"/>

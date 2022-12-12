@@ -4,12 +4,6 @@
     text-align: right;
     margin-top: 60px;
   }
-  .user-details {
-    :deep(.arco-tabs-nav-tab) {
-      padding-left: 320px;
-      padding-top: 15px;
-    }
-  }
   .recommend-wrapper{
     margin-top: 46px;
   }
@@ -111,14 +105,21 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .skeleton-dialogue-mobile{
+    margin-left: 0px !important;
+  }
+  .skeleton-dialogue-mobile-list{
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
   .save-btn {
     text-align: right;
     margin-top: 0px;
   }
   .user-details {
-    :deep(.arco-tabs-nav-tab) {
-      padding-left: 0px;
-      padding-top: 0px;
+    .arco-tabs-nav-tab{
+      padding-left: 0px !important;
+      padding-top: 0px !important;
     }
   }
   .recommend-wrapper{
@@ -129,7 +130,7 @@
   }
   .search-col{
     .search-input{
-      width: 90%;
+      width: 95%;
     }
   }
   .tab-content {
@@ -149,7 +150,7 @@
     z-index: 2;
   }
   .user-detail-content{
-    padding-top: 60px;
+    margin-top: 60px !important;
   }
   .profile-box{
     width: 100%;
@@ -222,8 +223,9 @@
   .left-msg-list{
     width: 100%;
     .msg-select{
-      width: 100%;
+      //width: 100%;
       text-align: right;
+      padding: 10px 12px !important;
     }
     .msg-item{
       padding: 14px 0px 19px 0px;
@@ -243,7 +245,7 @@
     }
   }
   .global-content{
-    padding-top: 50px;
+    padding-top: 0px;
   }
   .section-wrapper{
     margin: 10px 0 10px !important;

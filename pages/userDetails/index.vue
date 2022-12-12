@@ -216,10 +216,10 @@ onMounted(() => {
   margin-bottom: 40px;
 
   //mediaCss写了
-  //:deep(.arco-tabs-nav-tab) {
-  //  padding-left: 320px;
-  //  padding-top: 15px;
-  //}
+  :deep(.arco-tabs-nav-tab) {
+    padding-left: 320px;
+    padding-top: 15px;
+  }
 
   :deep(.arco-tabs-tab) {
     color: $grey-font-label;
