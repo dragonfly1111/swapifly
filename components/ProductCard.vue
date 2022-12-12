@@ -89,6 +89,7 @@
             </template>
           </a-dropdown>
         </div>
+        <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary">出售</a-button>
       </div>
     </div>
 
@@ -118,6 +119,7 @@ import { Modal, Button, Notification } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
+import { useResize } from '~/stores/resize'
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const props = defineProps({
@@ -176,7 +178,7 @@ const getStateLabel = (item) => {
   };
   return stateOptions[item.state] || "";
 };
-
+const resize = useResize();
 // 举报
 const handleReport = (item) => {
   reportModal.value.openDialog(item);
@@ -372,6 +374,14 @@ p.arco-typography {
   box-sizing: border-box;
   color: #333333;
   cursor: pointer;
+  position: relative;
+  .mobile-sell{
+    position: absolute;
+    bottom: 10px;
+    right: 4%;
+    background-color: deeppink;
+    color: #fff;
+  }
   &:last-child {
     margin-right: auto;
   }

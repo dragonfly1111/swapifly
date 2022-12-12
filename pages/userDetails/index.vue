@@ -215,10 +215,11 @@ onMounted(() => {
 .user-details {
   margin-bottom: 40px;
 
-  :deep(.arco-tabs-nav-tab) {
-    padding-left: 320px;
-    padding-top: 15px;
-  }
+  //mediaCss写了
+  //:deep(.arco-tabs-nav-tab) {
+  //  padding-left: 320px;
+  //  padding-top: 15px;
+  //}
 
   :deep(.arco-tabs-tab) {
     color: $grey-font-label;
@@ -253,8 +254,9 @@ onMounted(() => {
 }
 
 .tab-content {
- display: flex;
- justify-content: space-between;
+  //mediaCss文件写了
+ //display: flex;
+ //justify-content: space-between;
  .left-content {
    width: 300px;
    flex-shrink: 0;
