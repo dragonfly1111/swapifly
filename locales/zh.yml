@@ -79,7 +79,9 @@ pages:
   oldAndNew: 新旧程度
   price_degree: 价位
   handDeliver: 面交
+  noHandDeliver: 不支持面交
   postAndCourier: 邮寄及速递
+  noPostAndCourier: 不支持邮寄及速递
   reset: 重置
   maxPrice: HK$最高
   minPrice: HK$最低
