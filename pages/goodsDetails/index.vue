@@ -157,7 +157,9 @@
                     </a-typography-paragraph>
                   </template>
                   <template v-else>
-                    {{  $t("pages.noPostAndCourier") }}
+                    <a-typography-paragraph class="grey">
+                      {{ $t("pages.noPostAndCourier") }}
+                    </a-typography-paragraph>
                   </template>
                 </a-typography>
                 <div class="module-box">
