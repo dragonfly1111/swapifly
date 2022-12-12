@@ -2,7 +2,7 @@
   <div class="common-row global-content">
     <div  v-if="resize.screenType === 'MOBILE'" class="page-header-notification">
       <icon-left  class="back-index" @click="handleIndex"/>
-      <h2>{{ $t("pages.mobile_notice") }}</h2>
+      {{ $t("pages.mobile_notice") }}
     </div>
     <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <div class="notice-list">
@@ -101,24 +101,30 @@ onMounted(async () => {
   height: 40px;
   width: 100%;
 }
-.page-header-notification{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  background-color: #fff;
-  z-index: 2;
+.page-header-notification {
   border-bottom: 1px solid #ccc;
+  text-align: center;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  height: 45px;
+  line-height: 45px;
   .back-index{
     display: block;
     position: absolute;
     left: 0;
-    font-size: 28px;
-    font-weight: bold;
     top: 50%;
+    font-size: 25px;
+    font-weight: bold;
     transform: translateY(-50%);
   }
+  img {
+    width: 152px;
+    height: 36px;
+    display: inline-block;
+  }
 }
+
 .notice-list {
   // width: 90%;
   margin: auto;

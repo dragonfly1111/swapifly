@@ -52,7 +52,9 @@ import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { Notification, Modal } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
+import { useResize } from '~/stores/resize'
 import { delProductDraft, getProductDraftlist } from "~/api/goods";
+const resize = useResize();
 const { t } = useI18n();
 const router = useRouter();
 const uploadLoading = ref(false);
@@ -86,6 +88,7 @@ const handleDelDraft = (item) => {
     titleAlign: "start",
     content: t("sale.deleteDraftComfirm"),
     closable: true,
+    width:resize.screenType === 'MOBILE' ? '80%' : '-',
     hideCancel: false,
     cancelText: t("pages.cancel"),
     okText: t("sale.delete"),

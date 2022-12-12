@@ -1,5 +1,17 @@
 @import "assets/sass/var";
 @media screen and (min-width:1000px){
+  .profile-box{
+    .arco-skeleton-shape{
+      width: 118px;
+      height: 118px;
+    }
+  }
+  .media-pc-block{
+    display: block;
+  }
+  .media-mobile-block{
+    display: none;
+  }
   .save-btn {
     text-align: right;
     margin-top: 60px;
@@ -105,6 +117,23 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .profile-box{
+    .arco-skeleton-shape{
+      width: 118px;
+    }
+  }
+  .media-pc-block{
+    display: none;
+  }
+  .media-mobile-block{
+    display: block;
+  }
+  .mobile-border-none{
+    border-bottom: none !important;
+  }
+  .arco-divider-text-left{
+    padding: 0 !important;
+  }
   .skeleton-dialogue-mobile{
     margin-left: 0px !important;
   }
@@ -147,7 +176,7 @@
     position: absolute;
     right: 10px;
     top: 30%;
-    z-index: 2;
+    z-index: 888;
   }
   .user-detail-content{
     margin-top: 60px !important;
@@ -222,6 +251,9 @@
   }
   .left-msg-list{
     width: 100%;
+    .msg-list {
+      height: calc(100vh - 70px) !important;
+    }
     .msg-select{
       //width: 100%;
       text-align: right;
@@ -240,7 +272,7 @@
       }
     }
     .conversation-content{
-      height: calc(100vh - 105px - 171px - 10px);
+      height: calc(100vh - 55px - 171px - 64px) !important;
       padding: 0;
     }
   }

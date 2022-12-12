@@ -531,6 +531,7 @@ const publishProduct = (type) => {
   Modal.info({
     titleAlign: "start",
     content: t("sale.publishBtnComfirm"),
+    width:resize.screenType === 'MOBILE' ? '80%' : '-',
     closable: true,
     hideCancel: false,
     cancelText: t("pages.cancel"),
@@ -604,6 +605,7 @@ const saveDraftModal = (to) => {
     titleAlign: "start",
     title: t("sale.saveDraftTitle"),
     content: t("sale.saveDraftContent"),
+    width:resize.screenType === 'MOBILE' ? '80%' : '-',
     closable: true,
     hideCancel: false,
     cancelText: t("pages.cancel"),

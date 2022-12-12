@@ -107,7 +107,7 @@
               </template>
             </a-dropdown>
           </div>
-          <div class="meta-wrap">
+          <div class="meta-wrap mobile-border-none">
             <div class="left">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
@@ -130,6 +130,115 @@
             </div>
             <!--"f_type": 1.当前用户为购买方，显示你出价，編輯出價，取消出價，2.为出售方，显示对方出价，接受出价，驳回 按钮-->
             <!--"status": 0.沟通中，1.已出价，买方，显示你出價：HK$788，编辑出价，卖方显示：接受出价，驳回出价，2.已接受出价，卖方显示评价，显示评价/查看评价，3.驳回出价-->
+            <div class="right" v-if="resize.screenType !== 'MOBILE'">
+              <template v-if="pageLoading">
+                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
+                  <a-skeleton-line :line-height="50" :rows="1"/>
+                </a-skeleton>
+              </template>
+              <template v-else>
+                <!--购买方按钮-->
+                <template v-if="curConversationMeta.f_type === 1">
+                  <!--还未出价 展示出价按钮-->
+                  <template v-if="curConversationMeta.status === 0">
+                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                        $t('dialogue.offer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已经出价 展示修改价格按钮-->
+                  <template v-else-if="curConversationMeta.status === 1">
+                    <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
+                    <span v-if="!openEditOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
+                        openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading"
+                              @click="cancelOffer">
+                      {{ $t('dialogue.operationCancelOffer') }}
+                    </a-button>
+                  </template>
+                  <!--已接受出价 展示出价信息 评价按钮-->
+                  <template v-else-if="curConversationMeta.status === 2">
+                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
+                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                        $t('dialogue.evaluateBut')
+                      }}
+                    </a-button>
+                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                        $t('dialogue.evaluateShowBut')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已拒绝出价 展示拒绝信息和出价按钮-->
+                  <template v-else-if="curConversationMeta.status === 3">
+                    <span v-if="!openOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected1') }}</span>
+                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                        $t('dialogue.offer')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                        $t('dialogue.cancel')
+                      }}
+                    </a-button>
+
+                  </template>
+                </template>
+                <!--出售方按钮-->
+                <template v-if="curConversationMeta.f_type === 2">
+                  <!--对方已经出价 展示接受/拒绝按钮-->
+                  <template v-if="curConversationMeta.status === 1">
+                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
+                    <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
+                        $t('dialogue.accept')
+                      }}
+                    </a-button>
+                    <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
+                        $t('dialogue.refuse')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--我方已接受出价 展示已售出 评价按钮-->
+                  <template v-if="curConversationMeta.status === 2">
+                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
+                    <a-button v-if="curConversationMeta.p_state === 1" class="but accept" :loading="soldLoading"
+                              @click="openSoldDialog">{{
+                        $t('dialogue.markSold')
+                      }}
+                    </a-button>
+                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                        $t('dialogue.evaluateBut')
+                      }}
+                    </a-button>
+                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                        $t('dialogue.evaluateShowBut')
+                      }}
+                    </a-button>
+                  </template>
+                  <!--已拒绝出价 -->
+                  <template v-else-if="curConversationMeta.status === 3">
+                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
+                    <span class="rejected">{{ $t('dialogue.rejected') }}</span>
+                  </template>
+                </template>
+              </template>
+            </div>
+          </div>
+          <div class="meta-wrap" v-if="resize.screenType === 'MOBILE'">
             <div class="right">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
