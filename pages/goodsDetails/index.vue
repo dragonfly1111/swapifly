@@ -169,7 +169,7 @@
                   <a-row justify="space-between" :gutter="20">
                     <a-col flex="250px" class="seller-box">
                       <a-avatar :size="100">
-                        <img alt="avatar" :src="baseImgPrefix + sellerInfo.avatar" />
+                        <img alt="avatar" @click="toUserDetails(sellerInfo)" :src="baseImgPrefix + sellerInfo.avatar" />
                       </a-avatar>
                       <div class="seller-info">
                         <div class="seller-name" @click="toUserDetails(sellerInfo)">{{ sellerInfo.nickname }}</div>
@@ -426,8 +426,8 @@ const handleQuery = () => {
             },
           ],
         });
-      } else if (res.code === 998) {
-        blockModal.value.openDialog(3);
+      } else if (res.code === 997) {
+        blockModal.value.openDialog(3, 2);
       } else {
         Notification.error(res.message);
       }
@@ -798,6 +798,7 @@ onMounted(async () => {
         display: flex;
         .arco-avatar {
           margin-right: 20px;
+          cursor: pointer;
         }
         .seller-info {
           .seller-name {

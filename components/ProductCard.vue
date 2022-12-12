@@ -331,8 +331,8 @@ const toGoodsDetail = (id) => {
     console.log(res);
     if (res.code === 0) {
       if (res.data.status === 2) {
-        // 封禁弹窗
-        blockModal.value.openDialog(2);
+        // 打开封禁封禁弹窗
+        blockModal.value.openDialog(2, res.data.type);
       } else if (res.data.status === 1) {
         router.push("/goodsDetails?id=" + id);
       }

@@ -3,7 +3,7 @@
   <div>
     <section>
       <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
-        <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" />
+        <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" @click="toUserDetails(item)" />
         <div class="evaluate-content">
           <a-space>
             <span class="fs16" @click="toUserDetails(item)">{{ item.nickname }}</span>
@@ -105,7 +105,8 @@ const toGoodsDetails = (item) => {
 
 // 用户详情
 const toUserDetails = (item) => {
-  router.push("/userDetails?userId=" + item.id);
+  console.log(item)
+  router.push("/userDetails?userId=" + item.uid);
 };
 </script>
 <style lang="scss" scoped>
@@ -130,6 +131,7 @@ const toUserDetails = (item) => {
     object-fit: cover;
     margin-right: 6px;
     margin-top: 2px;
+    cursor: pointer;
   }
   .evaluate-content {
     flex: auto;
