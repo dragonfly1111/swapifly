@@ -2,7 +2,7 @@
   <div>
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
-        <a-col :span="5" v-for="item in 8" style="padding: 10px">
+        <a-col :span="resize.screenType === 'MOBILE' ? 12 : 5" v-for="item in (resize.screenType === 'MOBILE' ? 4 : 8)" style="padding: 10px">
           <a-row align="center" :gutter="20">
             <a-col :span="6">
               <a-skeleton-shape shape="circle" size="small" />

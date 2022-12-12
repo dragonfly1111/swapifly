@@ -355,6 +355,7 @@ function toClassDetail(e) {
   text-align: center;
   width: 100vw;
   z-index: 998;
+  left: 0;
 }
 
 .head-bar {

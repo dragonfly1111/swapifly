@@ -118,7 +118,7 @@
                 <a-typography>
                   <a-typography-paragraph
                     :ellipsis="{
-                      rows: 6,
+                      rows: resize.screenType === 'MOBILE' ? 4 : 6,
                       expandable: true,
                     }"
                   >
@@ -183,7 +183,7 @@
                         </div>
                       </div>
                     </a-col>
-                    <a-col flex="auto" class="comment-box">
+                    <a-col flex="auto" class="comment-box" v-if="resize.screenType !== 'MOBILE'">
                       <a-space class="comment-header">
                         <span>{{ sellerInfo.nickname }}</span>
                         <span>获得的评价</span>
@@ -637,11 +637,12 @@ onMounted(async () => {
   width: 100%;
   position: fixed;
   bottom: 0;
-  z-index: 9999;
+  z-index: 888;
   border-top: 1px solid #ccc;
   background-color: #fff;
   text-align: right;
   padding: 10px 0;
+  left: 0;
   .icon-like-mobile {
     position: absolute;
     left: 0px;

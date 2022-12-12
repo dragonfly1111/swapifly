@@ -7,7 +7,7 @@
     <div class="header" v-else>
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
-    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
+    <div class="null-height"></div>
     <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">
@@ -336,17 +336,22 @@ onMounted(() => {
   //border-radius: 10px;
   //width: 665px;
   .null-height{
-    height: 30px;
+    height: 60px;
     width: 100%;
   }
   .login-title {
     border-bottom: 1px solid #ccc;
     text-align: center;
-    position: relative;
+    position: fixed;
     font-size: 18px;
     font-weight: bold;
     height: 45px;
     line-height: 45px;
+    width: 100%;
+    top: 0;
+    background-color: #fff;
+    left: 0;
+    z-index: 888;
     .back-index{
       display: block;
       position: absolute;
@@ -445,8 +450,4 @@ onMounted(() => {
   margin-top: 20px;
 }
 
-.arco-skeleton-shape{
-  width: 118px;
-  height: 118px;
-}
 </style>
