@@ -414,6 +414,8 @@ rState:
 block:
   tip: 因违反了《服务条款》
   product: 你的商品已被封禁
+  product1: 该商品已被封禁
+  product2: 该商品不在上架状态
   user: 你的账户已被封禁
   feedback: 如果你需要申诉，可发送邮件至邮箱
 

@@ -195,7 +195,7 @@
               <template #extra>
                 <a-row justify="space-between">
                   <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
-                  <a-col flex="138px" v-if="hasBanWord(form.describe)" class="tip-danger">
+                  <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
                     <a-link :href="forbidLink">详情</a-link>
                   </a-col>

@@ -157,7 +157,9 @@
                     </a-typography-paragraph>
                   </template>
                   <template v-else>
-                    {{  $t("pages.noPostAndCourier") }}
+                    <a-typography-paragraph class="grey">
+                      {{ $t("pages.noPostAndCourier") }}
+                    </a-typography-paragraph>
                   </template>
                 </a-typography>
                 <div class="module-box">
@@ -167,10 +169,10 @@
                   <a-row justify="space-between" :gutter="20">
                     <a-col flex="250px" class="seller-box">
                       <a-avatar :size="100">
-                        <img alt="avatar" :src="baseImgPrefix + sellerInfo.avatar" />
+                        <img alt="avatar" @click="toUserDetails(sellerInfo)" :src="baseImgPrefix + sellerInfo.avatar" />
                       </a-avatar>
                       <div class="seller-info">
-                        <div class="seller-name">{{ sellerInfo.nickname }}</div>
+                        <div class="seller-name" @click="toUserDetails(sellerInfo)">{{ sellerInfo.nickname }}</div>
                         <div class="grey">@{{ sellerInfo.realname }}</div>
                         <div class="fs12">
                           <span>joined</span>
@@ -217,6 +219,7 @@
                     :author="sellerInfo.nickname"
                     :datetime="'@' + sellerInfo.realname"
                     class="user-info"
+                    @click="toUserDetails(sellerInfo)"
                   >
                     <template #content>
                       <span>{{ sellerInfo.stars }}</span>
@@ -230,6 +233,7 @@
                         :src="baseImgPrefix + sellerInfo.avatar"
                         fit="cover"
                         show-loader
+                        :preview="false"
                         style="border-radius: 50%"
                       >
                         <template #loader>
@@ -422,8 +426,8 @@ const handleQuery = () => {
             },
           ],
         });
-      } else if (res.code === 998) {
-        blockModal.value.openDialog(3);
+      } else if (res.code === 997) {
+        blockModal.value.openDialog(3, 2);
       } else {
         Notification.error(res.message);
       }
@@ -576,6 +580,11 @@ const openAchievement = () => {
 // 查看所有评价
 const seeMoreComment = () => {
   router.push(`/userDetails?userId=${sellerInfo.value.id}&tab=evaluateRow`);
+};
+
+// 用户详情
+const toUserDetails = (item) => {
+  router.push("/userDetails?userId=" + item.id);
 };
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
@@ -790,9 +799,11 @@ onMounted(async () => {
         display: flex;
         .arco-avatar {
           margin-right: 20px;
+          cursor: pointer;
         }
         .seller-info {
           .seller-name {
+            cursor: pointer;
             word-break: break-all;
           }
           div {
@@ -831,6 +842,7 @@ onMounted(async () => {
       border-radius: 2px;
       margin-bottom: 35px;
       .user-info {
+        cursor: pointer;
         span {
           margin-right: 5px;
         }

@@ -28,7 +28,7 @@
           </template>
         </a-upload>
       </div>
-      <div class="draft-title">{{ $t("sale.yourDraft") }}</div>
+      <div class="draft-title" v-if="draftList.length > 0">{{ $t("sale.yourDraft") }}</div>
       <div class="image-preview-list">
         <div class="image-item" v-for="(item, index) in draftList" @click="toEdit(item)">
           <a-image :src="baseImgPrefix + item.images" :preview="false" > </a-image>
