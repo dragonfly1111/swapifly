@@ -3,14 +3,12 @@ import { baseApiPrefix } from '~/config/baseUrl'
 import { Message } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize';
-// import { useCookie } from "nuxt/app";
 const request = axios.create({
   baseURL: baseApiPrefix,
   timeout: 30000,
   // withCredentials: true
 })
 
-// const localeSetting = useCookie('locale')
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
