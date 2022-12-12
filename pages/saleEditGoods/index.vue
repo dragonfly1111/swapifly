@@ -549,6 +549,9 @@ const publishProduct = (type) => {
         }
       });
     },
+    onCancel: () => {
+      btnType.value = 'draft'
+    },
   });
 };
 

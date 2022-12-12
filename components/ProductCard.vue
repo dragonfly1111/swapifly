@@ -38,7 +38,7 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="baseImgPrefix + item.image" alt="" />
-            <div class="status-box" v-if="(showStatus && item.state > 1 && item.delete_time == 0)">
+            <div class="status-box" v-if="(showStatus && item.state > 1 && (!item.delete_time || (item.delete_time && item.delete_time == 0)))">
               {{ getStateLabel(item) }}
             </div>
             <div class="status-box" v-if="(showStatus && item.delete_time > 0)">
