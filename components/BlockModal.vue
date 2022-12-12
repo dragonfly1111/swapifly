@@ -8,7 +8,7 @@
         <img src="@/assets/images/logo-long.png" alt=""/>
       </div>
     </template>
-    <div class="title"  v-if="blockType !== 4">{{ $t('block.tip') }}</div>
+    <div class="title hover" v-if="blockType !== 4" @click="$router.push(`/helpCenter/detail?id=2`)">{{ $t('block.tip') }}</div>
     <div class="big-title" v-if="blockType === 1">{{ $t('block.user') }}</div>
     <div class="big-title" v-else-if="blockType === 2 || blockType === 3">{{ selfType === 1 ? $t('block.product') : $t('block.product1') }}</div>
     <div class="big-title" v-else-if="blockType === 4">{{ $t('block.product2') }}</div>
@@ -100,6 +100,12 @@ defineExpose({
 
     .title {
       text-align: center;
+    }
+    .hover{
+      cursor: pointer;
+      &:hover{
+        color: $main-blue;
+      }
     }
 
     .big-title {

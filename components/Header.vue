@@ -87,8 +87,8 @@
           <a-col :span="resize.screenType === 'MOBILE'?17:10" class="search-col">
             <div class="search-input">
               <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
-                <template #suffix v-if="searchResPage">
-                  <img @click.prevent.stop="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
+                <template #suffix>
+                  <img v-if="searchResPage" @click.prevent.stop="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
                 </template>
               </a-input-search>
               <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
@@ -176,13 +176,16 @@ curClass.value = (classList && classList.length > 0) ? classList[0].children : [
 // console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
+  console.log(newValue)
   if(newValue === '/searchResult'){
     searchResPage.value = true
   } else {
-    searchResPage.value = false
-    // 离开搜索结果路由时 清空搜索key
-    searchKeyState.setKey('')
-    searchKey.value = ''
+    nextTick(()=>{
+      searchResPage.value = false
+      // 离开搜索结果路由时 清空搜索key
+      searchKeyState.setKey('')
+      searchKey.value = ''
+    })
   }
 }, {immediate: true})
 // 监听路由参数 将地址栏的搜索词放到pina
@@ -268,6 +271,8 @@ function changeSearchKey(e) {
   searchKeyState.setKey(e)
 }
 function openHisPanel(){
+  // 如果未登录 不展示搜索下拉框
+  if(!userInfo.token) return
   searchLog.value = sysData.searchLog
   collectionList.value = sysData.collectionList
   suggestShow.value = true

@@ -39,9 +39,9 @@
       <span @click="handleLogin">{{ $t('loginDialog.directLogin') }}</span>
     </div>
     <div class="policy-wrap">
-      {{ $t('loginDialog.policyTip') }}<span>{{
+      {{ $t('loginDialog.policyTip') }}<span @click="toNewsDetail(2)">{{
         $t('loginDialog.termsOfService')
-      }}</span>&<span>{{ $t('loginDialog.privacyPolicy') }}</span>
+      }}</span>&<span @click="toNewsDetail(32)">{{ $t('loginDialog.privacyPolicy') }}</span>
     </div>
   </a-modal>
 </template>
@@ -148,6 +148,11 @@ const handleCancel = () => {
   }, 100)
 }
 
+const toNewsDetail = (id) => {
+  handleCancel()
+  const router = useRouter()
+  router.push(`/helpCenter/detail?id=${id}`)
+}
 
 const openDialog = () => {
   visible.value = true;

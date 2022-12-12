@@ -335,13 +335,10 @@ const toGoodsDetail = (id) => {
         // 打开封禁封禁弹窗
         blockModal.value.openDialog(2, res.data.type);
       } else if (res.data.state !== 1 && res.data.type === 2) {
-        console.log(123123)
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
-        if (props.isToDetails) {
-          router.push("/goodsDetails?id=" + id);
-        }
+        router.push("/goodsDetails?id=" + id);
       }
     } else {
       Notification.error(res.message);
