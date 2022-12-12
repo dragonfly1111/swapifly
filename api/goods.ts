@@ -111,7 +111,6 @@ export const categoryHotBrand = (params: any) => {
     params
   })
 }
-
 // 删除商品
 export const deleteProduct = (data: any) => {
   return request({
@@ -162,7 +161,6 @@ export const offerchat = (data: any) => {
 
 
 // 编辑商品>>>>>>>>>>>>>>
-
 // 用户面交地址
 export const getProductAddress = () => {
   return request({
@@ -223,13 +221,19 @@ export const getProductInfo = (id: any) => {
     method: 'get',
   })
 }
-
-// 编辑商品-查询
+// 查询商品封禁状态
 export const getProductFj = (id: any) => {
   return request({
     url: '/index/product_detail/fjzt?id=' + id,
     method: 'get',
   })
 }
-
+// 移除保存的地址
+export const removeSaveAd = (data: any) => {
+  return request({
+    url: '/index/product/delete_adds',
+    method: 'post',
+    data
+  })
+}
 

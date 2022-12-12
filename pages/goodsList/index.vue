@@ -41,7 +41,7 @@
           </div>
           <div id="brandsContent" class="brands-content">
             <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item">
-              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -76,7 +76,7 @@
           </div>
           <div id="brandsContent1" class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
