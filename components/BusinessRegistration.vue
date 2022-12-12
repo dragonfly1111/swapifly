@@ -60,7 +60,7 @@
         <template #label>
           {{ $t("business.businessCertificate") }}({{
             $t("business.authApplyForm.businessCertificateTip")
-          }}
+          }})
         </template>
         <a-upload
           list-type="picture-card"
@@ -140,7 +140,7 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
-  formData.image = e.response.data;
+  formData.value.image = e.response.data;
   uploadLoading.value = false;
 };
 const uploadError = (e) => {
@@ -218,11 +218,12 @@ const handleUndo = () => {
 };
 
 const handleSubmit = () => {
+  console.log(formData.value)
   formRef.value.validate().then((validate) => {
     if (validate) return;
     saveLoading.value = true;
-    let reqUrl = formData.id ? reApplyBusiness : addBusiness;
-    reqUrl(formData)
+    let reqUrl = formData.value.id ? reApplyBusiness : addBusiness;
+    reqUrl(formData.value)
       .then((res) => {
         if (res.code === 0) {
           Notification.success(t("business.authApplyForm.applySuc"));
