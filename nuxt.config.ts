@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     pageTransition: {name: 'page', mode: 'out-in'},
     baseURL: '/swapifly/',
     head: {
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '~/public/favicon.ico' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/swapifly/favicon.ico' }],
       meta: [
         {charset: 'utf-8'},
         {name: 'format-detection', content: 'telephone=no'},
