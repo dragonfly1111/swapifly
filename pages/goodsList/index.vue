@@ -279,6 +279,10 @@ const getProduct = () => {
 const handleQuery = (data) => {
   page.value = 1
   productList.value = []
+  // 如果重制了没有分类id 取url上的id
+  if(!data.rid){
+    data.rid = parseInt(route.query.id)
+  }
   curFilter.value = data
   getProduct()
 };
