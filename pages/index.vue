@@ -192,16 +192,18 @@ const getBrad = () => {
     bradLoading.value = false
     if (res.code === 0) {
       hotBradList.value = res.data
-      nextTick(() => {
-        // 判断是否需要出现下一页
-        const ele = document.getElementsByClassName('brands-content')[0]
-        const toLeft = ele.clientWidth * curBradPage.value
-        if (toLeft + ele.clientWidth >= ele.scrollWidth) {
-          bradNextShow.value = false
-        } else {
-          bradNextShow.value = true
-        }
-      })
+      if(process.client) {
+        nextTick(() => {
+          // 判断是否需要出现下一页
+          const ele = document.getElementsByClassName('brands-content')[0]
+          const toLeft = ele.clientWidth * curBradPage.value
+          if (toLeft + ele.clientWidth >= ele.scrollWidth) {
+            bradNextShow.value = false
+          } else {
+            bradNextShow.value = true
+          }
+        })
+      }
     } else {
       Notification.error(res.message)
     }

@@ -68,7 +68,7 @@ useHead({
     },
   ]
 })
-console.log("=====onMounted====", resize)
+// console.log("=====onMounted====", resize)
 onMounted(() => {
   // reurl()
   // 客户端设置系统属性数据

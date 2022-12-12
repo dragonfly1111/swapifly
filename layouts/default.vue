@@ -49,7 +49,6 @@ const mobileAndPcArr = [
 const noHearderAndFooter = [
   '/notification',
 ]
-console.log("====resize====",resize.screenType)
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
   if (helpArr.indexOf(newValue) !== -1) {

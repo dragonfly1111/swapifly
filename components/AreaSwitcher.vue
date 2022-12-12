@@ -15,7 +15,7 @@ const areaSetting = useState<string>('area.setting')
       <a-option
           v-for="area in availableArea"
           :key="area.title"
-          :value="area.title_en"
+          :value="area.id"
           :label="area.img_url"
       >
         <img class="select-option" :src="baseImgPrefix + area.img_url" alt="">

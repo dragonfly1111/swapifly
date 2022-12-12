@@ -26,15 +26,19 @@ request.interceptors.request.use(
       }
     }
 
-    // todo 暂时写死 需要将这两个切换到session储存
     // @ts-ignore
-    config.headers['X-Region'] = 1
+    // config.headers['X-Region'] = 1
     // @ts-ignore
-    config.headers['X-lang'] = 'zh'
-    // // @ts-ignore
-    // areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''
-    // // @ts-ignore
-    // localeSetting.value ? config.headers['X-Lang'] = localeSetting.value : ''
+    // config.headers['X-lang'] = 'zh'
+    if(process.client){
+      const areaSetting = useState<string>('area.setting')
+      const localeSetting = useState<string>('locale.setting')
+      // @ts-ignore
+      areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''
+      // @ts-ignore
+      localeSetting.value ? config.headers['X-Lang'] = localeSetting.value : ''
+    }
+
 
     if ((config.method === 'post' || config.method === 'POST') && config.data) {
       // 如果是post请求 全部转成formData

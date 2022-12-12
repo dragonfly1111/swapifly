@@ -173,10 +173,9 @@ let searchKey = ref('')
 const resize = useResize();
 let curClass = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
-console.log("===resize.screenType====",resize.screenType)
+// console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
-  console.log('header watch', newValue);
   if(newValue === '/searchResult'){
     searchResPage.value = true
   } else {
@@ -229,7 +228,6 @@ function openRegister() {
 }
 
 function openLogin() {
-  console.log("openLogin",resize.screenType)
   if (resize.screenType === 'MOBILE'){
     router.push('/login')
   }else {
@@ -245,7 +243,6 @@ function toRegister() {
 }
 function toForget(e) {
   loginModal.value.handleCancel()
-  console.log(e)
   resetPwdModal.value.openDialog(e)
 }
 function toLogin(e) {
@@ -338,7 +335,6 @@ function outClass() {
   showHeadPanel.value = false
 }
 function toClassDetail(e) {
-  console.log(e)
   router.push({
     path: '/goodsList',
     query: {
