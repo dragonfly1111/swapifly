@@ -38,8 +38,11 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="baseImgPrefix + item.image" alt="" />
-            <div class="status-box" v-if="(showStatus && item.state > 1)">
+            <div class="status-box" v-if="(showStatus && item.state > 1 && item.delete_time == 0)">
               {{ getStateLabel(item) }}
+            </div>
+            <div class="status-box" v-if="(showStatus && item.delete_time > 0)">
+              {{ $t('pages.deleted') }}
             </div>
           </div>
           <div class="product-tag" v-if="item.t_type == 1 || item.type == 1">{{ $t("pages.recommendTag") }}</div>
@@ -175,7 +178,6 @@ const getStateLabel = (item) => {
     1: t("pages.onOffer"),
     2: t("pages.soldOut"),
     3: t("pages.isRemoveGoods"),
-    4: t('pages.deleted')
   };
   return stateOptions[item.state] || "";
 };
