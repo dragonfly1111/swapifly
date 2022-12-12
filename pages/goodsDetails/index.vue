@@ -470,6 +470,8 @@ const handleOfferchat = () => {
   }).then((res) => {
     if (res.code == 0) {
       router.push("/dialogue");
+    } else {
+      Notification.error(res.message)
     }
   });
 };
