@@ -56,11 +56,16 @@
         </a-space>
       </a-empty>
     </section>
+    <!-- 商品封禁 -->
+    <BlockModal ref="blockModal"></BlockModal>
   </div>
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
+import { getProductFj } from "~/api/goods";
+import {Notification} from "@arco-design/web-vue";
+const blockModal = ref(null);
 const { t } = useI18n();
 const router = useRouter();
 const props = defineProps({
@@ -98,9 +103,26 @@ const getTypeLabel = (type) => {
 
 // 商品详情
 const toGoodsDetails = (item) => {
-  if (props.isToDetails) {
-    router.push("/goodsDetails?id=" + item.id);
-  }
+  // 判断封禁状态
+  getProductFj(item.id).then((res) => {
+    // type 1.自己，2他人
+    // state 商品狀態，1.出售中，2.交易完成，3已下架
+    if (res.code === 0) {
+      if (res.data.status === 2) {
+        // 打开封禁封禁弹窗
+        blockModal.value.openDialog(2, res.data.type);
+      } else if (res.data.state !== 1 && res.data.type === 2) {
+        // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(4);
+      } else if (res.data.status === 1) {
+        if (props.isToDetails) {
+          router.push("/goodsDetails?id=" + item.id);
+        }
+      }
+    } else {
+      Notification.error(res.message);
+    }
+  });
 };
 
 // 用户详情

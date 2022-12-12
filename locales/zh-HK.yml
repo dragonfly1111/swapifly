@@ -416,6 +416,7 @@ block:
   tip: 因違反了《服務條款》
   product: 你的商品已被封禁
   product1: 該商品已被封禁
+  product2: 該商品不在上架狀態
   user: 你的賬戶已被封禁
   feedback: 如果你需要申訴，可發送電郵至郵箱
 
