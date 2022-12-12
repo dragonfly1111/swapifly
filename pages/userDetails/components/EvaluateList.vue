@@ -6,7 +6,7 @@
         <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" />
         <div class="evaluate-content">
           <a-space>
-            <span class="fs16">@{{ item.id }}</span>
+            <span class="fs16" @click="toUserDetails(item)">{{ item.nickname }}</span>
             <span>{{ item.create_time }}</span>
             <span class="grey" v-if="showSource">{{ getTypeLabel(item.type) }}</span>
           </a-space>
@@ -102,11 +102,17 @@ const toGoodsDetails = (item) => {
     router.push("/goodsDetails?id=" + item.id);
   }
 };
+
+// 用户详情
+const toUserDetails = (item) => {
+  router.push("/userDetails?userId=" + item.id);
+};
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var";
 .fs16 {
   font-size: 16px;
+  cursor: pointer;
 }
 .evaluate-item {
   display: flex;

@@ -172,7 +172,7 @@
                         <img alt="avatar" :src="baseImgPrefix + sellerInfo.avatar" />
                       </a-avatar>
                       <div class="seller-info">
-                        <div class="seller-name">{{ sellerInfo.nickname }}</div>
+                        <div class="seller-name" @click="toUserDetails(sellerInfo)">{{ sellerInfo.nickname }}</div>
                         <div class="grey">@{{ sellerInfo.realname }}</div>
                         <div class="fs12">
                           <span>joined</span>
@@ -219,6 +219,7 @@
                     :author="sellerInfo.nickname"
                     :datetime="'@' + sellerInfo.realname"
                     class="user-info"
+                    @click="toUserDetails(sellerInfo)"
                   >
                     <template #content>
                       <span>{{ sellerInfo.stars }}</span>
@@ -232,6 +233,7 @@
                         :src="baseImgPrefix + sellerInfo.avatar"
                         fit="cover"
                         show-loader
+                        :preview="false"
                         style="border-radius: 50%"
                       >
                         <template #loader>
@@ -579,6 +581,11 @@ const openAchievement = () => {
 const seeMoreComment = () => {
   router.push(`/userDetails?userId=${sellerInfo.value.id}&tab=evaluateRow`);
 };
+
+// 用户详情
+const toUserDetails = (item) => {
+  router.push("/userDetails?userId=" + item.id);
+};
 const initSwiper = () => {
   swiper.value = new Swiper(".mySwiper", {
     slidesPerView: resize.screenType === "MOBILE" ? 1 : 3,
@@ -794,6 +801,7 @@ onMounted(async () => {
         }
         .seller-info {
           .seller-name {
+            cursor: pointer;
             word-break: break-all;
           }
           div {
@@ -832,6 +840,7 @@ onMounted(async () => {
       border-radius: 2px;
       margin-bottom: 35px;
       .user-info {
+        cursor: pointer;
         span {
           margin-right: 5px;
         }
