@@ -191,11 +191,15 @@ const updateSearch = () => {
   } else {
     setForm.mail = 0
   }
-  if(!setForm.min){
+  if(!setForm.min && !setForm.max){
     setForm.min = ''
-  }
-  if(!setForm.max){
     setForm.max = ''
+  } else if(!setForm.min && setForm.max) {
+    // 如果有最大没有最小 手动塞一个0
+    setForm.min = 0
+  } else if(setForm.min && !setForm.max){
+    // 如果有最小没有最大 手动塞一个999999
+    setForm.max = 9999999999
   }
   console.log(setForm)
   emits("change", setForm);
