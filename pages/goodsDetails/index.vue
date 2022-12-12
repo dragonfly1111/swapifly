@@ -127,11 +127,10 @@
                       {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
                     </template>
                   </a-typography-paragraph>
-
-                  <template v-if="productInfo.offline_address">
-                    <a-typography-title :heading="4" class="mt30">{{
+                  <a-typography-title :heading="4" class="mt30">{{
                       $t("pages.handDeliver")
                     }}</a-typography-title>
+                  <template v-if="productInfo.offline">
                     <a-typography-paragraph>
                       <div class="trade-type-item" v-for="item in productInfo.offline_address">
                         <a-space align="start" :strokeWidth="2">
@@ -144,13 +143,21 @@
                       </div>
                     </a-typography-paragraph>
                   </template>
-                  <template v-if="productInfo.mail == 1">
-                    <a-typography-title :heading="4" class="mt30">{{
+                  <template v-else>
+                    <a-typography-paragraph class="grey">
+                      {{  $t("pages.noHandDeliver") }}
+                    </a-typography-paragraph>
+                  </template>
+                  <a-typography-title :heading="4" class="mt30">{{
                       $t("pages.postAndCourier")
                     }}</a-typography-title>
-                    <a-typography-paragraph class="grey" v-if="productInfo.mail_note">
-                      {{ productInfo.mail_note }}
+                  <template v-if="productInfo.mail == 1">
+                    <a-typography-paragraph class="grey">
+                      {{ productInfo.mail_note || $t("pages.noPostTip") }}
                     </a-typography-paragraph>
+                  </template>
+                  <template v-else>
+                    {{  $t("pages.noPostAndCourier") }}
                   </template>
                 </a-typography>
                 <div class="module-box">
