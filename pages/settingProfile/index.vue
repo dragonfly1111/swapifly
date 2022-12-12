@@ -31,11 +31,10 @@ const handlePage = (data:string) => {
     border-bottom: 1px solid #ccc;
     text-align: center;
     position: relative;
-    padding-bottom: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     .back-index{
       display: block;
       position: absolute;
@@ -60,7 +59,7 @@ const handlePage = (data:string) => {
       line-height: 40px;
       border-bottom: 1px solid #ccc;
       .go-setting-page{
-        width: 20px;
+        width: 16px;
         display: block;
         position: absolute;
         right: 5px;

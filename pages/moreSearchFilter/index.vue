@@ -2,7 +2,7 @@
   <div class="more-search-filter">
     <div class="login-title">
       <icon-left  class="back-index" @click="handToIndex"/>
-      <img src="@/assets/images/logo-long.png" alt=""/>
+      <span>{{ $t("pages.mobile_search") }}</span>
     </div>
     <div>
       <a-form class="select-wrapper" :modal="form" auto-label-width layout="horizontal" ref="formRef">
@@ -197,13 +197,18 @@ const handToIndex=()=>{
     border-bottom: 1px solid #ccc;
     text-align: center;
     position: relative;
-    padding-bottom: 10px;
+    height: 45px;
+    font-weight: bold;
+    line-height: 45px;
+    font-size: 18px;
     .back-index{
       display: block;
       position: absolute;
       left: 0;
-      font-size: 30px;
+      font-size: 25px;
       font-weight: bold;
+      top: 50%;
+      transform: translateY(-50%);
     }
     img {
       width: 152px;

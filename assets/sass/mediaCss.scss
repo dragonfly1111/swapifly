@@ -1,5 +1,9 @@
 @import "assets/sass/var";
 @media screen and (min-width:1000px){
+  .save-btn {
+    text-align: right;
+    margin-top: 60px;
+  }
   .user-details {
     :deep(.arco-tabs-nav-tab) {
       padding-left: 320px;
@@ -107,6 +111,10 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .save-btn {
+    text-align: right;
+    margin-top: 0px;
+  }
   .user-details {
     :deep(.arco-tabs-nav-tab) {
       padding-left: 0px;

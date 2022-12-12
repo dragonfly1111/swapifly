@@ -120,12 +120,11 @@ const toForget = () => {
     border-bottom: 1px solid #ccc;
     text-align: center;
     position: relative;
-    padding-bottom: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    height: 40px;
-    line-height: 40px;
-
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 30px;
     .back-index {
       display: block;
       position: absolute;
@@ -168,8 +167,9 @@ const toForget = () => {
   }
 
   .save-btn {
-    text-align: right;
-    margin-top: 60px;
+    //mediaCss haved
+    //text-align: right;
+    //margin-top: 60px;
 
     :deep(.arco-btn-primary) {
       background-color: $main-grey;

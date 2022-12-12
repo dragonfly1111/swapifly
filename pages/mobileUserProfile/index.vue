@@ -5,9 +5,25 @@
       {{ $t("mobile.user_center") }}
     </div>
     <div class="setting-list">
-      <p v-for="list in list.data" :index="list" class="setting-list-one" @click="toPath(list.path)">
-        <img :src="list.img" alt="">
-        <span>{{$t(list.name)}}</span>
+      <p class="setting-list-one" @click="toPath('/like')">
+        <icon-heart class="icon-mobile"></icon-heart>
+        <span>{{$t('pages.like_title')}}</span>
+      </p>
+      <p class="setting-list-one" @click="toPath('/notification')">
+        <icon-notification class="icon-mobile"></icon-notification>
+        <span>{{$t('pages.mobile_notice')}}</span>
+      </p>
+      <p class="setting-list-one" @click="toPath(`/userDetails?userId=${userInfo.id}`)">
+        <icon-user class="icon-mobile"></icon-user>
+        <span>{{$t('profile.edit_profile')}}</span>
+      </p>
+      <p class="setting-list-one" @click="toPath(`/settingProfile`)">
+        <icon-settings class="icon-mobile"></icon-settings>
+        <span>{{$t('profile.mobile_setting')}}</span>
+      </p>
+      <p class="setting-list-one" @click="toPath(`/logout`)">
+        <icon-export class="icon-mobile"></icon-export>
+        <span>{{$t('head.logout')}}</span>
       </p>
     </div>
   </div>
@@ -19,29 +35,6 @@ import {useUserInfo} from "~/stores/userInfo";
 import {ref,reactive} from "vue";
 const router = useRouter();
 const userInfo = useUserInfo()
-const list = reactive<limitObj>({
-  data: [{
-    img: '<icon-down/>',
-    name:"pages.like_title",
-    path:'/like',
-  },{
-    img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:"pages.mobile_notice",
-    path:'/notification',
-  },{
-    img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'profile.edit_profile',
-    path:`/userDetails?userId=${userInfo.id}`,
-  },{
-    img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'profile.mobile_setting',
-    path:'/settingProfile',
-  },{
-    img: '/swapifly/_nuxt/assets/images/no-data-box.png',
-    name:'head.logout',
-    path:'/logout',
-  }],
-});
 const handleIndex = () => {
   router.push("/")
 };
@@ -61,11 +54,10 @@ const toPath = (data:string) =>{
     border-bottom: 1px solid #ccc;
     text-align: center;
     position: relative;
-    padding-bottom: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     .back-index{
       display: block;
       position: absolute;
@@ -88,10 +80,10 @@ const toPath = (data:string) =>{
       line-height: 40px;
       padding: 8px 5px;
       position: relative;
-      text-indent: 35px;
-      >img{
+      text-indent: 25px;
+      >.icon-mobile{
+        font-size: 20px;
         display: block;
-        width: 25px;
         position: absolute;
         left: 5px;
         top: 50%;

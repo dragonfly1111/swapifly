@@ -342,16 +342,11 @@ onMounted(() => {
   .login-title {
     border-bottom: 1px solid #ccc;
     text-align: center;
-    padding-bottom: 10px;
-    font-size: 20px;
+    position: relative;
+    font-size: 18px;
     font-weight: bold;
-    height: 40px;
-    line-height: 40px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background-color: #fff;
-    z-index: 888;
+    height: 45px;
+    line-height: 45px;
     .back-index{
       display: block;
       position: absolute;

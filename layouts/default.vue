@@ -1,6 +1,6 @@
 <template>
   <main :style="{
-    padding: resize.screenType === 'MOBILE' ? '10px' : '0',
+    padding: resize.screenType === 'MOBILE' ? '0 10px 10px 10px' : '0',
     overflowX: resize.screenType === 'MOBILE' ? 'hidden' : 'auto',
   }">
     <Header v-if="['common','dialogue','commonMobileAndPcPage'].includes(headType)"/>
