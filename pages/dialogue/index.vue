@@ -184,8 +184,7 @@
                   <!--已拒绝出价 展示拒绝信息和出价按钮-->
                   <template v-else-if="curConversationMeta.status === 3">
                     <span v-if="!openOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                    <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected') }}</span>
-
+                    <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected1') }}</span>
                     <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
                     <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
                         $t('dialogue.offer')
@@ -650,7 +649,7 @@ const handleReject = (e) => {
   }
   sendMsg(data, () => {
     rejectLoading.value = false
-    Notification.success(t('dialogue.acceptSuc'))
+    Notification.success(t('dialogue.rejectSuc'))
   }, () => {
     rejectLoading.value = false
   })

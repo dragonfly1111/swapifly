@@ -313,6 +313,7 @@ dialogue:
   noMsg: 暫無消息
   noMsgTip: 沒有收到任何消息哦~
   rejected: 已駁回出價
+  rejected1: 駁回出價
   accepted: 已接受出價
   checkEvaluate: 查看評價
   evaluateBut: 評價
