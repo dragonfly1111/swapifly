@@ -77,10 +77,7 @@ const resize = useResize();
 const sysData = useSysData()
 const classList = sysData.goodsClass
 const hotSearchLoading = ref(true)
-const pageLoading = ref(true)
 const hotSearchList = ref([])
-
-
 const props = defineProps({
   // hotSearchList: {
   //   type: Array,
