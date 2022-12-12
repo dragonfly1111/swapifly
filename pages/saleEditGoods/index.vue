@@ -616,11 +616,11 @@ const saveDraftModal = (to) => {
     onBeforeOk: (done) => {
       done(true);
       addProductDraft(setReqForm()).then((res) => {
+        clickNumber.value = 0;
         if (res.code === 0) {
           btnType.value = "isSaveDraft";
           Notification.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
-          clickNumber.value = 0;
         } else {
           Notification.error(res.message);
         }
