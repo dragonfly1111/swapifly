@@ -64,13 +64,13 @@
       </a-collapse>
     </div>
     </div>
-  
+
   </div>
 </template>
 <script setup>
 import {useSysData} from '~/stores/sysData'
 import {getHotSearch} from '~/api/goods'
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import { useResize } from '~/stores/resize'
 const router = useRouter()
 const resize = useResize();
@@ -121,7 +121,7 @@ const getHotSearchList = () => {
         hotSearchList.value = res.data
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }

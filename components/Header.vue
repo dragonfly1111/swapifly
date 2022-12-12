@@ -46,7 +46,7 @@
                 </a-dropdown>
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt="" @click="router.push('/like')">
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_msg.png" alt="" @click="router.push('/dialogue')">
-                <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt="" @click="router.push('/notification')">
+                <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt="" @click="router.push('/Message')">
               </div>
             </template>
             <template v-else>
@@ -130,7 +130,6 @@
         </a-row>
       </div>
     </div>
-
     <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
@@ -147,7 +146,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
 const userInfo = useUserInfo()
@@ -291,7 +290,7 @@ function deleteHis(id) {
     id
   }).then(res=>{
     if(res.code === 0){
-      Notification.success(t('head.deleteSuc'))
+      Message.success(t('head.deleteSuc'))
       getSearchHistory().then(res=> {
         const searchLog = res.data.search_log
         const collectionList = res.data.scsearch_log
@@ -301,7 +300,7 @@ function deleteHis(id) {
         })
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -311,7 +310,7 @@ function handleCollection() {
       title: searchKey.value
     }).then(res=>{
       if(res.code === 0){
-        Notification.success(t('head.collectionSuc'))
+        Message.success(t('head.collectionSuc'))
         getSearchHistory().then(res=> {
           const searchLog = res.data.search_log
           const collectionList = res.data.scsearch_log
@@ -321,7 +320,7 @@ function handleCollection() {
           })
         })
       } else {
-        Notification.erroe(res.message)
+        Message.erroe(res.message)
       }
     })
   }

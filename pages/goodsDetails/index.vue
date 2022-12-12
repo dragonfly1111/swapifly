@@ -352,7 +352,7 @@ import {
 } from "~/api/goods";
 import { toDialogue } from "~/api/dialogue";
 import { useI18n } from "vue-i18n";
-import { Modal, Notification } from "@arco-design/web-vue";
+import { Modal, Message } from "@arco-design/web-vue";
 import Swiper, { Autoplay, Navigation } from 'swiper';
 
 const { t } = useI18n();
@@ -429,7 +429,7 @@ const handleQuery = () => {
       } else if (res.code === 997) {
         blockModal.value.openDialog(3, 2);
       } else {
-        Notification.error(res.message);
+        Message.error(res.message);
       }
     })
     .finally(() => {
@@ -482,7 +482,7 @@ const handleOfferchat = () => {
     if (res.code == 0) {
       router.push("/dialogue");
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   });
 };
@@ -509,10 +509,10 @@ const handleDelete = () => {
       deleteProduct({ id: productInfo.value.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             router.push("/userDetails?userId=" + sellerInfo.value.id);
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -536,10 +536,10 @@ const handleRemove = () => {
       upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             handleQuery();
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -557,13 +557,13 @@ const handleLike = () => {
   };
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
-      Notification.success(res.message);
+      Message.success(res.message);
       let { like } = productInfo.value;
       productInfo.value.like = productInfo.value.islike == 1 ? like - 1 : like + 1;
       productInfo.value.islike = productInfo.value.islike == 1 ? 0 : 1;
       // handleQuery()
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 };

@@ -24,7 +24,7 @@
 <script setup>
 import {useUserInfo} from "~/stores/userInfo";
 import {useI18n} from "vue-i18n";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 const userInfo = useUserInfo()
 const router = useRouter()
 const {t} = useI18n();

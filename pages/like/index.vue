@@ -24,7 +24,7 @@
 <script setup>
 import { useResize } from "~/stores/resize";
 import { getLikeLog } from "~/api/user";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 
 const router = useRouter();
 const resize = useResize();
@@ -61,7 +61,7 @@ const getList = () => {
         return { ...i, islike: 1 };
       });
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 };

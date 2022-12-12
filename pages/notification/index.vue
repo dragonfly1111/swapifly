@@ -1,6 +1,6 @@
 <template>
   <div class="common-row global-content">
-    <div  v-if="resize.screenType === 'MOBILE'" class="page-header-notification">
+    <div  v-if="resize.screenType === 'MOBILE'" class="page-header-Message">
       <icon-left  class="back-index" @click="handleIndex"/>
       {{ $t("pages.mobile_notice") }}
     </div>
@@ -101,7 +101,7 @@ onMounted(async () => {
   height: 40px;
   width: 100%;
 }
-.page-header-notification {
+.page-header-Message {
   border-bottom: 1px solid #ccc;
   text-align: center;
   position: relative;

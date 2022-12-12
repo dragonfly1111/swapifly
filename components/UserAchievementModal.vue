@@ -117,7 +117,7 @@
 </template>
 <script setup>
 import { useI18n } from "vue-i18n";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import { getUserProductReport } from "~/api/shop";
 import { parseTime } from "~/utils/time";
 

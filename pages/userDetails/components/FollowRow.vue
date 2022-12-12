@@ -70,7 +70,7 @@
 import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import FollowCard from '~/pages/userDetails/components/FollowCard'
 const { t } = useI18n();
 const router = useRouter();

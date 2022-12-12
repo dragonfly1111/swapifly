@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { setSoldOut } from "~/api/dialogue";
-import { Notification } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue';
 
 const {t} = useI18n();
 const emits = defineEmits(['markSuc'])
@@ -29,10 +29,10 @@ const onBeforeOk = (done: any) => {
     id: handleId.value
   }).then(res=>{
     if(res.code === 0){
-      Notification.success(t('dialogue.markSoldSuc'))
+      Message.success(t('dialogue.markSoldSuc'))
       done(true)
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
       done(false)
     }
   })

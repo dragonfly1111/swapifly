@@ -48,7 +48,7 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {resetPwdEmailCode, resetPwd} from "~/api/loginAndRegister";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {useUserInfo} from "~/stores/userInfo";
 
 const {t} = useI18n();
@@ -93,12 +93,12 @@ const sendVerfi = () => {
       email: formData.email
     }).then(res => {
       if (res.code === 0) {
-        Notification.success(res.message)
+        Message.success(res.message)
         formData.key = res.data
         sendLoading.value = false
         isSend.value = true
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
     })
   })
@@ -128,14 +128,14 @@ const handleOk = async () => {
     const res = await resetPwd(formData)
     okLoading.value = false
     if (res.code === 0) {
-      Notification.success(t("profile.changeSuc"))
+      Message.success(t("profile.changeSuc"))
       userInfo.logout()
       userInfo.openDialog()
       const router = useRouter()
       router.replace('/')
       return true
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
       return false
     }
   }

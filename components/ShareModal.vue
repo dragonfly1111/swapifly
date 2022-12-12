@@ -19,7 +19,7 @@
 
 <script setup>
 import { useI18n } from "vue-i18n";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import Clipboard from "clipboard";
 
 const { t } = useI18n();
@@ -56,7 +56,7 @@ const handleCancel = () => {
 };
 
 const doCopy = () => {
-  Notification.success(t('pages.copySuc'))
+  Message.success(t('pages.copySuc'))
 };
 
 const openDialog = (e) => {

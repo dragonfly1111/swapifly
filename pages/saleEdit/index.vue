@@ -50,7 +50,7 @@
 <script setup>
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
-import { Notification, Modal } from "@arco-design/web-vue";
+import { Message, Modal } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { delProductDraft, getProductDraftlist } from "~/api/goods";
@@ -96,10 +96,10 @@ const handleDelDraft = (item) => {
       done(true);
       delProductDraft({id:item.id}).then((res) => {
         if (res.code === 0) {
-          Notification.success(res.message);
+          Message.success(res.message);
           handleQuery()
         } else {
-          Notification.error(res.message);
+          Message.error(res.message);
         }
       });
     },

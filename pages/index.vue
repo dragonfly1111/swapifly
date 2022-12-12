@@ -90,7 +90,7 @@ import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
 import {useUserInfo} from "../stores/userInfo";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {watch} from "vue";
 
 const router = useRouter()
@@ -181,7 +181,7 @@ const getBanner = () => {
         googleAd.value = res.data.google_advert
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -205,7 +205,7 @@ const getBrad = () => {
         })
       }
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -224,7 +224,7 @@ const getProduct = () => {
         productList.value = [...productList.value, ...res.data.data]
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }

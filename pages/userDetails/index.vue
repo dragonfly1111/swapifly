@@ -78,7 +78,7 @@ import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
 import { useResize } from "~/stores/resize";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
 const userInfo = useUserInfo();
 const router = useRouter();
@@ -139,10 +139,10 @@ const handleFollow = () => {
   })
     .then((res) => {
       if (res.code === 0) {
-        Notification.success(res.message);
+        Message.success(res.message);
         getInfo();
       } else {
-        Notification.error(res.message);
+        Message.error(res.message);
       }
     })
     .finally(() => {

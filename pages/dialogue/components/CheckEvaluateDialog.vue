@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { viewEvaluation } from "~/api/dialogue";
-import { Notification } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue';
 const { t } = useI18n();
 const visible = ref(false);
 const rateComp = ref(null);
@@ -50,7 +50,7 @@ const openDialog = (value) => {
         evaDetail.value = null
       }
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
   visible.value = true;

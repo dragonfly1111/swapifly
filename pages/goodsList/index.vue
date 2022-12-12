@@ -125,7 +125,7 @@
 import { baseImgPrefix } from "~/config/baseUrl";
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
-import { Notification } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue';
 import { useResize } from '~/stores/resize'
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
@@ -169,7 +169,7 @@ const getBanner = () => {
     if (res.code === 0) {
       bannerList.value = res.data.home_advert
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -207,7 +207,7 @@ const getBrad = () => {
         }
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -272,7 +272,7 @@ const getProduct = () => {
         productList.value = [...productList.value, ...res.data.data]
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }

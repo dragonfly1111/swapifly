@@ -34,7 +34,7 @@
 import { reportUser } from "~/api/shop";
 import { reportProduct } from "~/api/goods";
 import { useI18n } from "vue-i18n";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const visible = ref(false);
 const saveLoading = ref(false);
@@ -84,11 +84,11 @@ const handleBeforeOk = (done) => {
     })
       .then((res) => {
         if (res.code === 0) {
-          Notification.success(t("business.authApplyForm.applySuc"));
+          Message.success(t("business.authApplyForm.applySuc"));
           handleCancel();
           done(true);
         } else {
-          Notification.error(res.message);
+          Message.error(res.message);
           done(false);
         }
       })

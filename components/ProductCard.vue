@@ -118,7 +118,7 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Modal, Button, Notification } from "@arco-design/web-vue";
+import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
@@ -203,13 +203,13 @@ const handleRemove = (item,index) => {
       upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr[index].state = item.state == 3 ? 1 : 3
             emits("update:list", arr);
             // emits("change");
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -231,12 +231,12 @@ const handleDelete = (item, index) => {
       deleteProduct({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr.splice(index, 1);
             emits("update:list", arr);
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -257,13 +257,13 @@ const handleMark = (item,index) => {
       setSoldOut({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr[index].state = 2 // 已售出
             emits("update:list", arr);
             // emits("change");
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -315,14 +315,14 @@ const handleLike = (item, index) => {
   };
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
-      Notification.success(res.message);
+      Message.success(res.message);
       let arr = [...props.list];
       arr[index].islike = item.islike == 1 ? 0 : 1;
       arr[index].like = reqParams.state == 2 ? item.like - 1 : item.like + 1;
       emits("update:list", arr);
       emits("change", item, index);
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 };
@@ -344,7 +344,7 @@ const toGoodsDetail = (id) => {
         router.push("/goodsDetails?id=" + id);
       }
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 

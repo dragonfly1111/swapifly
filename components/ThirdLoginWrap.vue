@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import {facebookLogin, googleLogin} from "../api/loginAndRegister";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "../model/res/userInfo";
 import {useI18n} from "vue-i18n";
 const {t} = useI18n();
@@ -29,12 +29,12 @@ const loginThird = (type: number) =>{
             console.log('face_login res')
             console.log(res)
             if(res.code === 0){
-              Notification.success(t('loginDialog.loginSuc'))
+              Message.success(t('loginDialog.loginSuc'))
               const user:IUserInfo = res.data
               userInfo.setUserInfo(user)
               emits('closeDialog')
             } else {
-              Notification.error(res.message)
+              Message.error(res.message)
             }
           })
         }
@@ -63,12 +63,12 @@ const loginThird = (type: number) =>{
             console.log('google_login res')
             console.log(res)
             if(res.code === 0){
-              Notification.success(t('loginDialog.loginSuc'))
+              Message.success(t('loginDialog.loginSuc'))
               const user:IUserInfo = res.data
               userInfo.setUserInfo(user)
               emits('closeDialog')
             } else {
-              Notification.error(res.message)
+              Message.error(res.message)
             }
           })
         }

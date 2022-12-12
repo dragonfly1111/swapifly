@@ -64,7 +64,7 @@
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { getProductFj } from "~/api/goods";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 const blockModal = ref(null);
 const { t } = useI18n();
 const router = useRouter();
@@ -120,7 +120,7 @@ const toGoodsDetails = (item) => {
         }
       }
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 };

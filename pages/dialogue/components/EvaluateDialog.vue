@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { addEvaluation } from "~/api/dialogue";
-import { Notification } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue';
 const { t } = useI18n();
 const emits = defineEmits(['binSuc'])
 const visible = ref(false);
@@ -59,10 +59,10 @@ const onBeforeOk = (done) => {
     }
     addEvaluation(formData).then(res=>{
       if(res.code === 0){
-        Notification.success(t('dialogue.evaluateSuc'))
+        Message.success(t('dialogue.evaluateSuc'))
         done(true)
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
         done(false)
       }
     })

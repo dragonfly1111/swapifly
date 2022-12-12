@@ -31,7 +31,7 @@ import {useUserInfo} from "~/stores/userInfo";
 import {ILoginForm} from "~/model/payload/loginAndRegister";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {IUserInfo} from "~/model/res/userInfo";
 const formRef = ref(null);
 const saveLoading = ref(false);
@@ -73,12 +73,12 @@ const doLogin = () => {
     saveLoading.value = true
     emailLogin(formData).then(res=>{
       if(res.code === 0){
-        Notification.success(t('loginDialog.loginSuc'))
+        Message.success(t('loginDialog.loginSuc'))
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         router.push('/')
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       saveLoading.value = false
     })
