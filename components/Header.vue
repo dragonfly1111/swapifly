@@ -46,7 +46,7 @@
                 </a-dropdown>
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt="" @click="router.push('/like')">
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_msg.png" alt="" @click="router.push('/dialogue')">
-                <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt="" @click="router.push('/Message')">
+                <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt="" @click="router.push('/notification')">
               </div>
             </template>
             <template v-else>

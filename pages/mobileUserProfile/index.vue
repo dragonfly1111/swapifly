@@ -9,7 +9,7 @@
         <icon-heart class="icon-mobile"></icon-heart>
         <span>{{$t('pages.like_title')}}</span>
       </p>
-      <p class="setting-list-one" @click="toPath('/Message')">
+      <p class="setting-list-one" @click="toPath('/notification')">
         <icon-Message class="icon-mobile"></icon-Message>
         <span>{{$t('pages.mobile_notice')}}</span>
       </p>
