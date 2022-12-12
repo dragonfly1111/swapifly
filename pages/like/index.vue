@@ -10,7 +10,7 @@
     </div>
     <section class="section-wrapper goods-wrapper">
       <div class="section-content">
-        <ProductCard :list="likeList" hasLikeConfirm :pageLoading="pageLoading" @change="changeLike"></ProductCard>
+        <ProductCard showStatus :list="likeList" hasLikeConfirm :pageLoading="pageLoading" @change="changeLike"></ProductCard>
       </div>
     </section>
     <div class="see-more" v-if="page < lastPage && !pageLoading">

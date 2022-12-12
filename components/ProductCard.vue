@@ -243,7 +243,7 @@ const handleDelete = (item, index) => {
   });
 };
 // 标记已售出
-const handleMark = (item) => {
+const handleMark = (item,index) => {
   Modal.info({
     content: t("pages.markSoldTip"),
     closable: true,
