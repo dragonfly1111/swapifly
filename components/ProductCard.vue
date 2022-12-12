@@ -42,7 +42,7 @@
               {{ getStateLabel(item) }}
             </div>
           </div>
-          <div class="product-tag" v-if="item.t_type == 1">{{ $t("pages.recommendTag") }}</div>
+          <div class="product-tag" v-if="item.t_type == 1 || item.type == 1">{{ $t("pages.recommendTag") }}</div>
         </div>
         <div class="product-desc">
           <div>{{ item.title }}</div>
