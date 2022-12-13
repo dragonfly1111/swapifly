@@ -10,9 +10,9 @@
     <div class="user-body" v-if="!pageLoading">
       <h2>{{ form.nickname }}</h2>
       <div class="user-desc">
-        <a-space direction="vertical" fill>
+        <a-space direction="vertical" fill >
           <div class="userid">@{{ form.realname }}</div>
-          <a-space>
+          <a-space size="mini">
             <span>{{ form.stars }}</span>
             <icon-star-fill class="star" :size="18" />
             <span>（{{ form.e_num }}review）</span>
