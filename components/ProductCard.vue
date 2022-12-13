@@ -232,9 +232,7 @@ const handleDelete = (item, index) => {
         .then((res) => {
           if (res.code === 0) {
             Message.success(res.message);
-            let arr = [...props.list];
-            arr.splice(index, 1);
-            emits("update:list", arr);
+            emits("change");
           } else {
             Message.error(res.message);
           }
