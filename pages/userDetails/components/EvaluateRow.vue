@@ -47,7 +47,7 @@
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
-    <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+    <a-button v-if="resize.screenType === 'MOBILE'  && !userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
   </div>
 </template>
 
@@ -55,8 +55,10 @@
 import EvaluateList from "./EvaluateList.vue";
 import { useSysData } from "~/stores/sysData";
 import { getEvaluationList } from "~/api/shop";
+import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 const resize = useResize();
+const userInfo = useUserInfo();
 const sysData = useSysData();
 const evaluationSort = ref([]); // 评论排序
 const evaluationSource = ref([]); // 评论来源

@@ -93,7 +93,7 @@
           </a-dropdown>
         </div>
       </div>
-      <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+      <a-button v-if="resize.screenType === 'MOBILE' && !userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
     </div>
 
     <a-empty class="empty-box" v-if="!pageLoading && !list.length">
@@ -125,6 +125,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+const userInfo = useUserInfo();
 const props = defineProps({
   list: {
     type: Array,
@@ -301,7 +302,6 @@ const likeProduct = (item, index) => {
 
 // 喜欢
 const handleLike = (item, index) => {
-  const userInfo = useUserInfo();
   if (!userInfo.token) {
     userInfo.openDialog();
     router.replace("/");

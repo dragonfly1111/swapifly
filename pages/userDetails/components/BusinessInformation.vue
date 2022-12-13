@@ -49,7 +49,7 @@
       </a-form>
     </div>
     <a-button
-      v-if="resize.screenType === 'MOBILE'"
+      v-if="resize.screenType === 'MOBILE'  && !userInfo.token"
       class="mobile-sell"
       type="primary"
       @click.stop="router.push('/saleEdit')"
@@ -64,7 +64,9 @@ import { getBusinessInfo } from "~/api/business";
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useSysData } from "~/stores/sysData";
 import { useResize } from "~/stores/resize";
+import { useUserInfo } from "~/stores/userInfo";
 const resize = useResize();
+const userInfo = useUserInfo();
 const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
