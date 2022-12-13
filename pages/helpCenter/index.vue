@@ -2,6 +2,7 @@
   <div class="global-content1">
     <div class="help-head">
       <div class="common-row">
+        <div class="null-height"></div>
         <div class="left">
           <div class="info">{{ $t('helpCenter.hello') }}</div>
           <div class="info">{{ $t('helpCenter.helpInfo') }}</div>
@@ -149,7 +150,11 @@ const toDetail = (e) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    .null-height{
+      display: none;
+      height: 60px;
+      width: 100%;
+    }
     .left {
       .info {
         font-size: 42px;

@@ -3,17 +3,15 @@
     <div class="common-row">
       <div class="left">
         <nuxt-link href="/">
-          <img class="logo" src="@/assets/images/logo-long.png" alt="">
+          <img class="logo mobile-help-center-logo" src="@/assets/images/logo-long.png" alt="">
         </nuxt-link>
-        <span @click="$router.push('/helpCenter')">{{ $t('helpCenter.helpCenter') }}</span>
+        <span class="mobile-help-center" @click="$router.push('/helpCenter')">{{ $t('helpCenter.helpCenter') }}</span>
       </div>
       <div class="right">
-        <span class="view-home" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
+        <span class="view-home mobile-display-none" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
         <LanguageSwitcher />
       </div>
     </div>
-
-
   </div>
 </template>
 

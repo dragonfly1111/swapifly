@@ -86,7 +86,8 @@ import {newsList, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {baseImgPrefix} from '~/config/baseUrl'
 import {parseTime} from "~/utils/time";
-
+import { useResize } from '~/stores/resize';
+const resize = useResize();
 const searchKey = ref('')
 const dataLoading = ref(true);
 const dataLoading1 = ref(true);
@@ -184,6 +185,35 @@ getRecentNews()
 
   .left {
     width: 100%;
+    .info-box {
+      margin-left: 38px;
+      color: $main-grey;
+
+      .time {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .title {
+        font-size: 28px;
+        line-height: 41px;
+        margin-bottom: 10px;
+        max-width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .des {
+        font-size: 14px;
+        line-height: 21px;
+        max-width: 500px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+      }
+    }
     .news-box {
       display: flex;
       cursor: pointer;
