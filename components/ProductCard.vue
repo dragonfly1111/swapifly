@@ -185,14 +185,17 @@ const getStateLabel = (item) => {
 const resize = useResize();
 // 举报
 const handleReport = (item) => {
+  userInfo.checkLogin()
   reportModal.value.openDialog(item);
 };
 // 购买曝光率
 const openExposure = (item) => {
+  userInfo.checkLogin()
   exposurePayModal.value.openDialog(item.id);
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
 const handleRemove = (item,index) => {
+  userInfo.checkLogin()
   let content = item.state == 3 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
   Modal.info({
     content: content,
@@ -222,6 +225,7 @@ const handleRemove = (item,index) => {
 
 // 删除
 const handleDelete = (item, index) => {
+  
   Modal.info({
     content: t("pages.delGoodsTip"),
     closable: true,
@@ -283,6 +287,7 @@ const handleEdit = (item) => {
 };
 // like商品
 const likeProduct = (item, index) => {
+  userInfo.checkLogin()
   if (props.hasLikeConfirm) {
     Modal.info({
       content: t("pages.likeConfirm"),

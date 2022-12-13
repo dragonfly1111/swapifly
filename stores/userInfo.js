@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { userLogOut } from '~/api/loginAndRegister'
-
+import { useResize } from '~/stores/resize';
+import { Message } from "@arco-design/web-vue";
 
 export const useUserInfo = defineStore('userInfo', {
   state: () => {
@@ -75,6 +76,22 @@ export const useUserInfo = defineStore('userInfo', {
           callback()
         }
       })
+    },
+    checkLogin(){
+      const resize = useResize();
+      const router = useRouter()
+      if(!this.token){
+        if (resize.screenType !== 'MOBILE'){
+          this.openDialog();
+          this.openLogin = true;
+      }else{
+        router.push({
+          path: '/login'
+        })
+      }
+         return false
+      }
+     
     }
   }
 })
