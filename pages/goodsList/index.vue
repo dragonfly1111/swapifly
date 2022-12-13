@@ -442,7 +442,8 @@ onMounted(()=>{
       cursor: pointer;
       z-index: 1;
       opacity: 0.8;
-
+      box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
+      border-radius: 50%;
       img {
         width: 100%;
         height: 100%;
@@ -450,11 +451,11 @@ onMounted(()=>{
     }
 
     .arrow-right {
-      right: 0;
+      right: 5px;
     }
 
     .arrow-left {
-      left: 0;
+      left: 5px;
       transform: rotateY(180deg);
     }
   }
