@@ -4,7 +4,7 @@
       <a-row justify="space-between" align="center" class="header-select" v-if="resize.screenType !== 'MOBILE'">
         <a-col flex="100px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
         <a-col flex="100px">
-          <a-button type="outline" @click="toAuthentication" v-if="props.userData.p_type == 2">{{
+          <a-button type="outline" @click="toAuthentication" v-if="(props.userData.p_type == 2 && props.userData.shop != 1)">{{
             $t("pages.authenticationApply")
           }}</a-button>
         </a-col>
