@@ -191,9 +191,9 @@
 import {useI18n} from "vue-i18n";
 import {getExposureMeal, buyExposure} from "~/api/pay";
 import {Message} from "@arco-design/web-vue";
-import {baseImgPrefix} from "~/config/baseUrl";
-
 const {t} = useI18n();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const formRef = ref(null);
 const uploadRef = ref(null);
 const exposureList = ref([]);

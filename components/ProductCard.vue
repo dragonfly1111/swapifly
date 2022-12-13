@@ -117,7 +117,6 @@
   </div>
 </template>
 <script setup>
-import { baseImgPrefix } from "~/config/baseUrl";
 import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
@@ -126,6 +125,8 @@ import { useResize } from '~/stores/resize'
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const userInfo = useUserInfo();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const props = defineProps({
   list: {
     type: Array,

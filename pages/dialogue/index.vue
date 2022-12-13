@@ -432,13 +432,14 @@ import {uploadToOss} from "~/api/comon"
 import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
-import {baseImgPrefix} from "~/config/baseUrl";
 import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import {useI18n} from "vue-i18n";
 import {Message} from '@arco-design/web-vue';
 
 const {t} = useI18n()
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
 const resize = useResize();
 let pageTask = null

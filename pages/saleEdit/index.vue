@@ -50,7 +50,6 @@
 </template>
 
 <script setup>
-import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { Message, Modal } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
@@ -58,6 +57,9 @@ import { useResize } from '~/stores/resize'
 import { delProductDraft, getProductDraftlist } from "~/api/goods";
 const resize = useResize();
 const { t } = useI18n();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
+const uploadUrl = appConfig.uploadUrl
 const router = useRouter();
 const uploadLoading = ref(false);
 const pageLoading = ref(true);

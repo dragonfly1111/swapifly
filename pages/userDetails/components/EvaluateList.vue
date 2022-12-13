@@ -61,7 +61,6 @@
   </div>
 </template>
 <script setup>
-import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { getProductFj } from "~/api/goods";
 import {Message} from "@arco-design/web-vue";
@@ -93,7 +92,8 @@ const props = defineProps({
     default: true,
   },
 });
-
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const getTypeLabel = (type) => {
   let typeMap = {
     1: t("evaluate.evaluationType.formBuyer"),

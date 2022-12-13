@@ -39,9 +39,9 @@
       <span @click="handleLogin">{{ $t('loginDialog.directLogin') }}</span>
     </div>
     <div class="policy-wrap">
-      {{ $t('loginDialog.policyTip') }}<span @click="toNewsDetail(2)">{{
+      {{ $t('loginDialog.policyTip') }}<span @click="toLink(serviceLink)">{{
         $t('loginDialog.termsOfService')
-      }}</span>&<span @click="toNewsDetail(32)">{{ $t('loginDialog.privacyPolicy') }}</span>
+      }}</span>&<span @click="toLink(serviceLink)">{{ $t('loginDialog.privacyPolicy') }}</span>
     </div>
   </a-modal>
 </template>
@@ -55,6 +55,9 @@ import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const {t} = useI18n();
+const appConfig = useAppConfig();
+const serviceLink = appConfig.serviceLink
+const privateLink = appConfig.privateLink
 const visible = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);
@@ -148,10 +151,9 @@ const handleCancel = () => {
   }, 100)
 }
 
-const toNewsDetail = (id) => {
-  handleCancel()
-  const router = useRouter()
-  router.push(`/helpCenter/detail?id=${id}`)
+const toLink = (url) => {
+  // handleCancel()
+  window.open(url, '_blank')
 }
 
 const openDialog = () => {

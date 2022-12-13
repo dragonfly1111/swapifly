@@ -84,9 +84,10 @@
 <script setup>
 import {newsList, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
-import {baseImgPrefix} from '~/config/baseUrl'
 import {parseTime} from "~/utils/time";
 import { useResize } from '~/stores/resize';
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const resize = useResize();
 const searchKey = ref('')
 const dataLoading = ref(true);

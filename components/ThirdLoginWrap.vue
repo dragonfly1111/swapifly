@@ -7,14 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import {facebookLogin, googleLogin} from "../api/loginAndRegister";
-import {Message} from "@arco-design/web-vue";
-import {IUserInfo} from "../model/res/userInfo";
-import {useI18n} from "vue-i18n";
-const {t} = useI18n();
-import {useUserInfo} from "~/stores/userInfo";
+import { facebookLogin, googleLogin } from "~/api/loginAndRegister";
+import { Message } from "@arco-design/web-vue";
+import { IUserInfo } from "~/model/res/userInfo";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo()
 const emits = defineEmits(['closeDialog'])
+const app = useAppConfig()
 
 const loginThird = (type: number) =>{
   switch (type) {
@@ -41,9 +42,7 @@ const loginThird = (type: number) =>{
       },{scope: 'email'});
       break
     case 2:
-      // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=490995173091962&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
-      // const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=1259749124876910&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/&scope=user_profile,user_media&response_type=code'
-      const insUrl = 'https://api.instagram.com/oauth/authorize?client_id=490995173091962&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/insAuth&scope=user_profile,user_media&response_type=code'
+      const insUrl = `https://api.instagram.com/oauth/authorize?client_id=${app.insKey}&redirect_uri=${app.insRedirect}&scope=user_profile,user_media&response_type=code`
       // const iWidth=500;                         //弹出窗口的宽度;
       // const iHeight=570;                        //弹出窗口的高度;
       // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
@@ -54,7 +53,7 @@ const loginThird = (type: number) =>{
       // const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
       // window.open(googleUrl,'_blank');
       google.accounts.id.initialize({
-        client_id: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
+        client_id: app.googleKey,
         callback: (e:any) =>{
           const strings = e.credential.split("."); //截取token，获取载体
           const googleUserInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析

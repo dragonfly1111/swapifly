@@ -145,7 +145,6 @@ import { useSearchKey } from '~/stores/search'
 import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
-import { baseImgPrefix } from "~/config/baseUrl";
 import { Message } from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
@@ -154,6 +153,8 @@ const searchKeyState = useSearchKey()
 import {useI18n} from "vue-i18n";
 import {watch} from "vue";
 const {t} = useI18n();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)

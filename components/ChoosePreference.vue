@@ -64,11 +64,12 @@
 
 <script setup lang="ts">
 import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
-import {baseImgPrefix} from '~/config/baseUrl'
 import {IUserLabel} from "~/model/res/userLabel";
 import {Message} from '@arco-design/web-vue';
 import { useResize } from '~/stores/resize';
 const resize = useResize();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const visible = ref(false);
 const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})

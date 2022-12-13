@@ -97,9 +97,9 @@
 import {newsDetail, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
-import {baseImgPrefix} from "~/config/baseUrl";
 import {watch} from "vue";
-
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter()
 const route = useRoute();
 const dataLoading = ref(true);

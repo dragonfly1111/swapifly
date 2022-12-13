@@ -297,7 +297,6 @@ export default {
 </script>
 <script setup>
 import draggable from "vuedraggable";
-import { uploadUrl, baseImgPrefix, forbidLink } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
@@ -356,6 +355,9 @@ const formRef = ref(null);
 const btnType = ref("draft");
 const appConfig = useAppConfig();
 const gdKey = appConfig.gdKey;
+const forbidLink = appConfig.forbidLink
+const baseImgPrefix = appConfig.baseImgPrefix
+const uploadUrl = appConfig.uploadUrl
 
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],

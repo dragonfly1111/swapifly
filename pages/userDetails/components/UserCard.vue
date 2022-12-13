@@ -56,10 +56,11 @@
 </template>
 <script setup>
 import { useUserInfo } from "~/stores/userInfo";
-import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { useResize } from "~/stores/resize";
 const { t } = useI18n();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const resize = useResize();
 const userInfo = useUserInfo();
 const router = useRouter();

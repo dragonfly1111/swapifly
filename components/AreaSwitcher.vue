@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { availableArea } from '~/utils/area'
-import { baseImgPrefix } from '~/config/baseUrl'
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const areaSetting = useState<string>('area.setting')
 </script>
 

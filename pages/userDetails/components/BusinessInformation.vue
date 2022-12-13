@@ -62,7 +62,6 @@
 
 <script setup>
 import { getBusinessInfo } from "~/api/business";
-import { baseImgPrefix } from "~/config/baseUrl";
 import { useSysData } from "~/stores/sysData";
 import { useResize } from "~/stores/resize";
 import { useUserInfo } from "~/stores/userInfo";
@@ -72,6 +71,8 @@ const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
 const authenticationStatus = ref([]);
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 
 const props = defineProps({
   userData: {

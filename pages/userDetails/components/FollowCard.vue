@@ -30,10 +30,11 @@
 
 import {  followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
-import { baseImgPrefix } from "~/config/baseUrl";
 import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const router = useRouter();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const btnLoading = ref(false);
 const emits = defineEmits(["change"]);
 const props = defineProps({

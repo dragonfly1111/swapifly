@@ -122,11 +122,12 @@
 </template>
 
 <script setup>
-import { baseImgPrefix } from "~/config/baseUrl";
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Message } from '@arco-design/web-vue';
 import { useResize } from '~/stores/resize'
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)

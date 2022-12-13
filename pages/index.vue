@@ -87,7 +87,6 @@
 </template>
 
 <script setup>
-import {baseImgPrefix} from "~/config/baseUrl";
 import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
@@ -97,6 +96,8 @@ import {watch} from "vue";
 
 const router = useRouter()
 const route = useRoute()
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 // const loginModal = ref(null)
 // const registerModal = ref(null)
 // const choosePreference = ref(null)

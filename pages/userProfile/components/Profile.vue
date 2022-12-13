@@ -164,15 +164,17 @@
 </template>
 
 <script setup>
-import {useI18n} from "vue-i18n";
-import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
+import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo"
-import {useResize} from '~/stores/resize'
-import {Message} from '@arco-design/web-vue';
+import { useResize } from '~/stores/resize'
+import { Message } from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
 import { getUserInfo, updateUserInfo } from "~/api/user";
-import {watch} from "vue";
+import { watch } from "vue";
 const router = useRouter();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
+const uploadUrl = appConfig.uploadUrl
 const sysData = useSysData();
 const resize = useResize()
 const {t} = useI18n();

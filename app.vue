@@ -37,11 +37,6 @@ useAsyncData(async () => {
 })
 useHead({
   title: app.name,
-  link: [
-    {
-      rel: 'icon', type: 'image/png', href: '/swapifly-logo.png',
-    },
-  ],
   meta: [
     {name: 'viewport', content: 'width=device-width, initial-scale=1'},
     {
@@ -58,18 +53,18 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      'src': 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=489813939845259&autoLogAppEvents=1',
+      src: `https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=${app.fbKey}&autoLogAppEvents=1`,
       async: true,
       defer: true
     },
     {
-      'src': 'https://accounts.google.com/gsi/client', async: true, defer: true
+      src: 'https://accounts.google.com/gsi/client', async: true, defer: true
     },
     {
-      'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+      src: 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
     },
     {
-      'src': 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',  async: true, defer: true
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',  async: true, defer: true
     }
   ]
 })

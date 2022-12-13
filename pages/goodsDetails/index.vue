@@ -339,7 +339,6 @@
 
 <script setup>
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
-import { baseImgPrefix } from "~/config/baseUrl";
 import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from "~/stores/resize";
 import {
@@ -356,6 +355,8 @@ import { Modal, Message } from "@arco-design/web-vue";
 import Swiper, { Autoplay, Navigation } from 'swiper';
 
 const { t } = useI18n();
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
 const resize = useResize();
 const userInfo = computed(() => {
