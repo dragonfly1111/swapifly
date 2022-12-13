@@ -9,7 +9,6 @@ export interface ITypeState {
   scale: number,
   contentPT: number,
   contentPTStr: string,
-
 }
 
 export const useResize = defineStore('resize', {

@@ -330,7 +330,7 @@ watch(() => route.query, (newValue, oldValue) => {
   hotBradList.value = []
   subClassList.value = []
 
-  goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
+  goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
   initPageData()
   window.scrollTo({
     top: 0,
@@ -338,7 +338,7 @@ watch(() => route.query, (newValue, oldValue) => {
   })
 })
 onMounted(()=>{
-  goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
+  goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
 })
 </script>
 

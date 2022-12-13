@@ -26,13 +26,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {useUserInfo} from "~/stores/userInfo";
-import {ILoginForm} from "~/model/payload/loginAndRegister";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
 import {Message} from "@arco-design/web-vue";
-import {IUserInfo} from "~/model/res/userInfo";
 const formRef = ref(null);
 const saveLoading = ref(false);
 const {t} = useI18n();
@@ -40,7 +38,7 @@ const userInfo = useUserInfo();
 const visible = ref(false);
 const router = useRouter()
 const toRegister = defineEmits(['toRegister'])
-const formData = reactive<ILoginForm>({
+const formData = reactive({
   // email: '',
   // pwd: '',
   email: '634401502@qq.com',
@@ -48,10 +46,10 @@ const formData = reactive<ILoginForm>({
 })
 const rules = reactive({
   email: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
+    {required: true, message: ref(t('loginDialog.formValidate.email'))},
   ],
   pwd: [
-    {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
+    {required: true, message: ref(t('loginDialog.formValidate.emailCode'))},
   ],
 })
 const handleReg = () => {
@@ -74,9 +72,10 @@ const doLogin = () => {
     emailLogin(formData).then(res=>{
       if(res.code === 0){
         Message.success(t('loginDialog.loginSuc'))
-        const user:IUserInfo = res.data
+        const user = res.data
         userInfo.setUserInfo(user)
         router.push('/')
+
       } else {
         Message.error(res.message)
       }
