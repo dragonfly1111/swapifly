@@ -1,22 +1,25 @@
 import { defineStore } from 'pinia'
-import { IUserInfo } from '~/model/res/userInfo'
 import { userLogOut } from '~/api/loginAndRegister'
 
+
 export const useUserInfo = defineStore('userInfo', {
-  state: (): IUserInfo => ({
-    avatar: '',
-    email: '',
-    id: -1,
-    nickname: '',
-    token: '',
-    type: -1,
-    openLogin: false,
-    userBlock: false
-  }),
+  state () {
+    return {
+      avatar: '',
+      email: '',
+      id: -1,
+      nickname: '',
+      token: '',
+      type: -1,
+      openLogin: false,
+      userBlock: false
+    }
+  },
   actions: {
-    setUserInfo(e: any){
+    setUserInfo(e) {
       console.log('setUserInfo')
       console.log(e)
+      console.log(process.client)
       this.avatar = e.avatar
       this.email = e.email
       this.id = e.id
@@ -24,7 +27,7 @@ export const useUserInfo = defineStore('userInfo', {
       this.token = e.token
       this.type = e.type
     },
-    refreshUserInfo(e: any){
+    refreshUserInfo() {
       console.log('refreshUserInfo')
       console.log(e)
       this.avatar = e.avatar
@@ -33,20 +36,20 @@ export const useUserInfo = defineStore('userInfo', {
       this.nickname = e.nickname
       this.type = e.type
     },
-    openDialog(){
+    openDialog() {
       this.openLogin = true
     },
-    closeDialog(){
+    closeDialog() {
       this.openLogin = false
     },
-    openBlockDialog(){
+    openBlockDialog() {
       this.userBlock = true
     },
-    closeBlockDialog(){
+    closeBlockDialog() {
       this.userBlock = false
     },
-    logout(callback){
-      userLogOut().then(()=>{
+    logout(callback) {
+      userLogOut().then(() => {
         this.avatar = ''
         this.email = ''
         this.id = -1
@@ -55,7 +58,7 @@ export const useUserInfo = defineStore('userInfo', {
         this.type = -1
         this.openLogin = false
         this.userBlock = false
-        if(callback){
+        if (callback) {
           callback()
         }
       })
