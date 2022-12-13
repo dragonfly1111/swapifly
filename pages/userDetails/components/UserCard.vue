@@ -6,7 +6,7 @@
             <div class="loader-animate"/>
           </template>
       </a-image>
-    </div>  
+    </div>
     <div class="user-body" v-if="!pageLoading">
       <h2>{{ form.nickname }}</h2>
       <div class="user-desc">
