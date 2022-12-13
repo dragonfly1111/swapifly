@@ -10,6 +10,8 @@
             <a-breadcrumb-item>{{ articleDetail.r1 }}</a-breadcrumb-item>
             <a-breadcrumb-item>{{ articleDetail.r2 }}</a-breadcrumb-item>
           </a-breadcrumb>
+          <a-input-search v-if="resize.screenType === 'MOBILE'"  class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
+                          @press-enter="searchHandleKey" @search="searchHandle" search-button/>
           <div class="time">{{ articleDetail.create_time }}</div>
           <div class="title">{{ articleDetail.title }}</div>
           <div class="content">
@@ -38,7 +40,7 @@
 
       </div>
       <div class="right">
-        <a-input-search class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
+        <a-input-search v-if="resize.screenType !== 'MOBILE'"  class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
                         @press-enter="searchHandleKey" @search="searchHandle" search-button/>
         <div class="same-title">{{ $t('helpCenter.sameTheme') }}</div>
         <template v-if="!dataLoading">
@@ -60,6 +62,8 @@ import {helpDetail} from '~/api/helpCenter'
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {watch} from "vue";
+import { useResize } from '~/stores/resize';
+const resize = useResize();
 const searchKey = ref('')
 const route = useRoute();
 const dataLoading = ref(true);
@@ -110,7 +114,10 @@ getHelpDetail()
 
   .left {
     color: $main-grey;
-
+    .search-input{
+      width: 90%;
+      margin-top: 15px;
+    }
     .time {
       font-size: 14px;
       margin-top: 10px;
