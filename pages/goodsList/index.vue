@@ -186,7 +186,7 @@ const getBrad = () => {
       classPath.value = res.data.p_rule
       // 判断是否需要出现下一页
       nextTick(()=>{
-        if(curLevel.value <= 2){
+        if(curLevel.value <= 2 && process.client){
           const ele = document.getElementById('brandsContent')
           const toLeft = ele.clientWidth * curBradPage.value
           if (toLeft + ele.clientWidth >= ele.scrollWidth) {
@@ -196,7 +196,7 @@ const getBrad = () => {
           }
         }
 
-        if(curLevel.value === 1){
+        if(curLevel.value === 1 && process.client){
           const ele1 = document.getElementById('brandsContent1')
           const toLeft1 = ele1.clientWidth * curBradPage1.value
           if (toLeft1 + ele1.clientWidth >= ele1.scrollWidth) {
@@ -318,8 +318,10 @@ const initPageData = () => {
 initPageData()
 // 监听路由参数 如果分类改变 重新获取页面数据
 watch(() => route.query, (newValue, oldValue) => {
+  console.log(newValue)
   curLevel.value = parseInt(newValue.level)
   rId.value = parseInt(newValue.id)
+  curFilter.value.rid = parseInt(newValue.id)
   bannerLoading.value = true
   bradLoading.value = true
   productLoading.value = true
@@ -330,6 +332,10 @@ watch(() => route.query, (newValue, oldValue) => {
 
   goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
   initPageData()
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
 })
 onMounted(()=>{
   goodsFilterSelect.value.resetTree(rId.value, curLevel.value)

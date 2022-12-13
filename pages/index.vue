@@ -22,13 +22,15 @@
       </a-carousel>
 
     </div>
-<!--    <div id="map" style="height: 500px;"></div>-->
-<!--    <input-->
-<!--        id="pac-input"-->
-<!--        class="controls"-->
-<!--        type="text"-->
-<!--        placeholder="Search Box"-->
-<!--    />-->
+    <!--    <div id="map" style="height: 500px;"></div>-->
+    <!--    <input-->
+    <!--        id="pac-input"-->
+    <!--        class="controls"-->
+    <!--        type="text"-->
+    <!--        placeholder="Search Box"-->
+    <!--    />-->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="客户id" data-ad-slot="广告类型" data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
@@ -77,10 +79,10 @@
     </div>
 
     <PageFooterLink></PageFooterLink>
-<!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
-<!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
-<!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
-<!--    <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>-->
+    <!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
+    <!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
+    <!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
+    <!--    <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>-->
   </div>
 </template>
 
@@ -117,7 +119,6 @@ const lastPage = ref(999)
 const resize = useResize();
 let isMobile = resize.screenType === 'MOBILE'
 let isMobileRef = ref(isMobile)
-console.log("====isMobileRef==", isMobileRef)
 const userInfo = useUserInfo()
 const openLink = (e) => {
   console.log(e)
@@ -192,7 +193,7 @@ const getBrad = () => {
     bradLoading.value = false
     if (res.code === 0) {
       hotBradList.value = res.data
-      if(process.client) {
+      if (process.client) {
         nextTick(() => {
           // 判断是否需要出现下一页
           const ele = document.getElementsByClassName('brands-content')[0]
@@ -246,7 +247,7 @@ initPageData()
 
 onMounted(() => {
   useHead({
-    script:[
+    script: [
       {
         // 'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
       },
@@ -344,8 +345,8 @@ onMounted(() => {
         margin: 0 auto;
       }
 
-      &:hover{
-        .brands-title{
+      &:hover {
+        .brands-title {
           color: $main-blue;
         }
       }
@@ -354,6 +355,7 @@ onMounted(() => {
 
   .section-content {
     position: relative;
+
     .arrow {
       position: absolute;
       width: 32px;
@@ -382,7 +384,7 @@ onMounted(() => {
 
 .recommend-wrapper {
   //margin-top: 46px;
-  .section-content{
+  .section-content {
     padding: 0 2px;
   }
 }

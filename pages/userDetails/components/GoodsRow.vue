@@ -25,7 +25,7 @@
         @change="refreshPage"
       ></ProductCard>
     </div>
-    <div class="see-more" @click="loadMore" v-if="(productList.length < total && productList.length > 10)">
+    <div class="see-more" @click="loadMore" v-if="(productList.length < total && productList.length > 0)">
       <a-button type="outline" :loading="btnLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
   </div>
@@ -46,7 +46,7 @@ const isMySelf = computed(() => {
 });
 const queryParams = ref({
   page: 1,
-  limit: 10,
+  limit: 8,
   id: router.currentRoute.value.query.userId,
   title: null,
 });
