@@ -2,8 +2,8 @@
 @media screen and (min-width:1000px){
   .profile-box{
     .arco-skeleton-shape{
-      width: 118px;
-      height: 118px;
+      width: 118px !important;
+      height: 118px !important;
     }
   }
   .media-pc-block{
@@ -117,6 +117,34 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .follow-box{
+    .follow-box-body{
+      padding: 0 !important;
+      .arco-space-wrap{
+        flex-wrap: nowrap !important;
+        overflow-x: hidden !important;
+      }
+    }
+    .box-header{
+      padding: 0 0 20px 0 !important;
+    }
+    .arco-space-item{
+      margin-right: 0px !important;
+    }
+  }
+  .user-body{
+    .registered-btn{
+      top: 35% !important;
+      right: 10px !important;
+      img{
+        top: 0 !important;
+      }
+    }
+  }
+  .main-pc-mobile{
+    padding: 0 10px 10px 10px !important;
+    overflow-x: hidden !important;
+  }
   .main-content{
     .meta-wrap{
       .right{
@@ -135,21 +163,25 @@
           p{
             img{
               width: 100% !important;
+              height: 250px !important;
             }
           }
         }
         .arco-image{
           width: 100% !important;
-          height: auto !important;
+          height: 250px !important;
           .arco-image-img{
             width: 100% !important;
-            height: auto !important;
+            height: 250px !important;
           }
         }
         .recent{
           margin-top:30px !important;
           .recent-wrap{
             display: block !important;
+            .news-block{
+              width: 100% !important;
+            }
           }
         }
       }
@@ -226,7 +258,33 @@
       }
     }
   }
-  .common-row {
+  .global-content1{
+    .help-head{
+      .common-row{
+        .right{
+          .mobile-img-none{
+            display: none !important;
+          }
+        }
+        .left{
+          .search-box{
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  .global-foot1{
+    .common-row{
+      margin-top: 8px !important;
+      padding: 10px 0 !important;
+    }
+  }
+  .mobile-a-skeleton-con{
+    width: 100% !important;
+  }
+.global-head1{
+  .common-row{
     .left {
       padding: 10px 0 !important;
       .mobile-help-center{
@@ -235,8 +293,8 @@
         font-weight: 400 !important;
       }
       .mobile-help-center-logo{
-        width: 120px;
-        height: 23px;
+        width: 120px !important;
+        height: 30px !important;
       }
       .info {
         font-size: 18px !important;
@@ -246,7 +304,11 @@
         width: 80% !important;
       }
     }
+    .right{
+      margin-right: 5% !important;
+    }
   }
+}
   .evaluate-box{
     .evaluate-box-body{
       padding: 0 !important;
@@ -273,8 +335,18 @@
     }
   }
   .profile-box{
+    .mobile-flex-none{
+      display: block !important;
+      .arco-skeleton-line{
+        .arco-skeleton-line-row{
+          width: 100% !important;
+          margin-top: 10px !important;
+        }
+      }
+    }
     .arco-skeleton-shape{
-      width: 118px;
+      width: 118px !important;
+      height: 118px !important;
     }
   }
   .media-pc-block{
@@ -334,7 +406,7 @@
     z-index: 888;
   }
   .user-detail-content{
-    margin-top: 60px !important;
+    margin-top: 10px !important;
   }
   .profile-box{
     width: 100%;
@@ -442,7 +514,7 @@
     }
   }
   .global-content{
-    padding-top: 0px;
+    padding-top: 60px !important;
   }
   .section-wrapper{
     margin: 10px 0 10px !important;
