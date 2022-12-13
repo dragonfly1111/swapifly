@@ -5,20 +5,20 @@
       <div class="left" v-if="resize.screenType !== 'MOBILE'">
         <div>
           <a-upload
-              draggable
-              :show-file-list="false"
-              :file-list="fileList"
-              :action="uploadUrl"
-              accept="image/*,.png"
-              :headers="headers"
-              :limit="10"
-              :on-before-upload="beforeUpload"
-              @success="uploadSuccess"
-              @error="uploadError"
+            draggable
+            :show-file-list="false"
+            :file-list="fileList"
+            :action="uploadUrl"
+            accept="image/*,.png"
+            :headers="headers"
+            :limit="10"
+            :on-before-upload="beforeUpload"
+            @success="uploadSuccess"
+            @error="uploadError"
           >
             <template #upload-button>
               <div class="upload-area">
-                <icon-plus :strokeWidth="10" :size="18"/>
+                <icon-plus :strokeWidth="10" :size="18" />
                 <div>{{ $t("sale.uploadTip") }}</div>
                 <span>{{ $t("sale.uploadAlert") }}</span>
               </div>
@@ -29,23 +29,23 @@
         <!-- <div class="image-preview-list"> -->
         　
         <draggable
-            v-model="fileList"
-            class="image-preview-list"
-            ghost-class="ghost"
-            chosen-class="chosenClass"
-            animation="300"
-            @end="onEnd"
-            :fallback-on-body="true"
-            item-key="id"
+          v-model="fileList"
+          class="image-preview-list"
+          ghost-class="ghost"
+          chosen-class="chosenClass"
+          animation="300"
+          @end="onEnd"
+          :fallback-on-body="true"
+          item-key="id"
         >
           <template #item="{ element, index }">
             <div class="item image-item" :class="{ 'is-cover': index == 0 }">
               <a-image :src="element.url"></a-image>
               <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
               <icon-close
-                  @click="handleDelImage(element, index)"
-                  class="icon-close"
-                  :title="$t('sale.delete')"
+                @click="handleDelImage(element, index)"
+                class="icon-close"
+                :title="$t('sale.delete')"
               />
             </div>
           </template>
@@ -69,20 +69,20 @@
         <div v-if="resize.screenType === 'MOBILE'">
           <div>
             <a-upload
-                draggable
-                :show-file-list="false"
-                :file-list="fileList"
-                :action="uploadUrl"
-                accept="image/*,.png"
-                :headers="headers"
-                :limit="10"
-                :on-before-upload="beforeUpload"
-                @success="uploadSuccess"
-                @error="uploadError"
+              draggable
+              :show-file-list="false"
+              :file-list="fileList"
+              :action="uploadUrl"
+              accept="image/*,.png"
+              :headers="headers"
+              :limit="10"
+              :on-before-upload="beforeUpload"
+              @success="uploadSuccess"
+              @error="uploadError"
             >
               <template #upload-button>
                 <div class="upload-area">
-                  <icon-plus :strokeWidth="10" :size="18"/>
+                  <icon-plus :strokeWidth="10" :size="18" />
                   <div>{{ $t("sale.uploadTip") }}</div>
                   <span>{{ $t("sale.uploadAlert") }}</span>
                 </div>
@@ -93,23 +93,23 @@
           <!-- <div class="image-preview-list"> -->
           　
           <draggable
-              v-model="fileList"
-              class="image-preview-list"
-              ghost-class="ghost"
-              chosen-class="chosenClass"
-              animation="300"
-              @end="onEnd"
-              :fallback-on-body="true"
-              item-key="id"
+            v-model="fileList"
+            class="image-preview-list"
+            ghost-class="ghost"
+            chosen-class="chosenClass"
+            animation="300"
+            @end="onEnd"
+            :fallback-on-body="true"
+            item-key="id"
           >
             <template #item="{ element, index }">
               <div class="item image-item" :class="{ 'is-cover': index == 0 }">
                 <a-image :src="element.url"></a-image>
                 <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
                 <icon-close
-                    @click="handleDelImage(element, index)"
-                    class="icon-close"
-                    :title="$t('sale.delete')"
+                  @click="handleDelImage(element, index)"
+                  class="icon-close"
+                  :title="$t('sale.delete')"
                 />
               </div>
             </template>
@@ -130,25 +130,25 @@
           <!-- </div> -->
         </div>
         <a-form
-            size="large"
-            :rules="rules"
-            :model="form"
-            layout="vertical"
-            ref="formRef"
-            class="right-form"
+          size="large"
+          :rules="rules"
+          :model="form"
+          layout="vertical"
+          ref="formRef"
+          class="right-form"
         >
           <a-form-item field="rid" hide-label hide-asterisk>
             <a-tree-select
-                :data="typeList"
-                v-model="form.rid"
-                :fieldNames="{
+              :data="typeList"
+              v-model="form.rid"
+              :fieldNames="{
                 key: 'id',
                 title: 'title',
                 children: 'children',
               }"
-                :placeholder="$t('sale.chooseType')"
-                selectable="leaf"
-                class="input-wrp"
+              :placeholder="$t('sale.chooseType')"
+              selectable="leaf"
+              class="input-wrp"
             ></a-tree-select>
             <template #extra>
               <div>分类/分类</div>
@@ -156,7 +156,7 @@
           </a-form-item>
           <div v-if="form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
-              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')"/>
+              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" />
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
@@ -186,11 +186,11 @@
             </a-form-item>
             <a-form-item field="describe" :label="$t('sale.goodsDesc')" hide-asterisk>
               <a-textarea
-                  class="input-wrp"
-                  :placeholder="$t('sale.goodsDescTip')"
-                  allow-clear
-                  :auto-size="{ minRows: 8, maxRows: 8 }"
-                  v-model="form.describe"
+                class="input-wrp"
+                :placeholder="$t('sale.goodsDescTip')"
+                allow-clear
+                :auto-size="{ minRows: 8, maxRows: 8 }"
+                v-model="form.describe"
               />
               <template #extra>
                 <a-row justify="space-between">
@@ -204,15 +204,15 @@
             </a-form-item>
             <a-form-item field="region" :label="$t('profile.countries_regions')" hide-asterisk>
               <a-select
-                  v-model="form.region"
-                  :placeholder="$t('profile.countries_regions_empty')"
-                  allow-clear
+                v-model="form.region"
+                :placeholder="$t('profile.countries_regions_empty')"
+                allow-clear
               >
                 <a-option
-                    v-for="item in regionOptions"
-                    :value="item.id"
-                    :key="item.id"
-                    :label="item.title"
+                  v-for="item in regionOptions"
+                  :value="item.id"
+                  :key="item.id"
+                  :label="item.title"
                 >
                   {{ item.title }}
                 </a-option>
@@ -220,27 +220,26 @@
             </a-form-item>
             <div class="form-title">{{ $t("sale.trading") }}</div>
             <a-form-item field="address" hide-label hide-asterisk :content-flex="false">
-              <a-checkbox v-model="form.offline" :value="1">{{
-                  $t("pages.handDeliver")
-                }}
+              <a-checkbox v-model="form.offline" :value="1"
+                >{{ $t("pages.handDeliver") }}
               </a-checkbox>
               <a-select
-                  v-if="form.offline == 1"
-                  v-model="offline_address"
-                  :placeholder="$t('sale.deliverAddress')"
-                  allow-clear
-                  allow-search
-                  :loading="locationLoading"
-                  class="input-wrp"
-                  @search="handleSearch"
-                  multiple
-                  :filter-option="false"
+                v-if="form.offline == 1"
+                v-model="offline_address"
+                :placeholder="$t('sale.deliverAddress')"
+                allow-clear
+                allow-search
+                :loading="locationLoading"
+                class="input-wrp"
+                @search="handleSearch"
+                multiple
+                :filter-option="false"
               >
                 <a-option
-                    v-for="item in addressOptions"
-                    :value="JSON.stringify(item)"
-                    :key="item.location"
-                    :label="item.name"
+                  v-for="item in addressOptions"
+                  :value="JSON.stringify(item)"
+                  :key="item.location"
+                  :label="item.name"
                 >
                   <div class="ad-option">
                     <div class="ad-title">{{ item.name }}</div>
@@ -253,27 +252,30 @@
               <!--              {{addressOptions}}-->
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
               <div class="offline-address" v-if="form.offline == 1">
-                <div class="offline-address-item" v-for="item in addressSaveOptions1" @click="addToSelect(item)">
+                <div
+                  class="offline-address-item"
+                  v-for="item in addressSaveOptions1"
+                  @click="addToSelect(item)"
+                >
                   <p>{{ item.name }}</p>
                   <span>{{ item.address }}</span>
                   <div class="close-box" @click="removeAdd(item)">
-                    <icon-close/>
+                    <icon-close />
                   </div>
                 </div>
               </div>
             </a-form-item>
             <a-form-item field="mail_note" hide-label :content-flex="false" hide-asterisk>
-              <a-checkbox v-model="form.mail" :value="1">{{
-                  $t("pages.postAndCourier")
-                }}
+              <a-checkbox v-model="form.mail" :value="1"
+                >{{ $t("pages.postAndCourier") }}
               </a-checkbox>
               <a-textarea
-                  class="input-wrp"
-                  v-if="form.mail == 1"
-                  :placeholder="$t('sale.postTip')"
-                  allow-clear
-                  :auto-size="{ minRows: 5, maxRows: 5 }"
-                  v-model="form.mail_note"
+                class="input-wrp"
+                v-if="form.mail == 1"
+                :placeholder="$t('sale.postTip')"
+                allow-clear
+                :auto-size="{ minRows: 5, maxRows: 5 }"
+                v-model="form.mail_note"
               />
             </a-form-item>
             <div class="publish">
@@ -295,12 +297,12 @@ export default {
 </script>
 <script setup>
 import draggable from "vuedraggable";
-import {uploadUrl, baseImgPrefix, forbidLink} from "~/config/baseUrl";
-import {useI18n} from "vue-i18n";
-import {useUserInfo} from "~/stores/userInfo";
-import {useSysData} from "~/stores/sysData";
-import {useResize} from "~/stores/resize";
-import {Message, Modal} from "@arco-design/web-vue";
+import { uploadUrl, baseImgPrefix, forbidLink } from "~/config/baseUrl";
+import { useI18n } from "vue-i18n";
+import { useUserInfo } from "~/stores/userInfo";
+import { useSysData } from "~/stores/sysData";
+import { useResize } from "~/stores/resize";
+import { Message, Modal } from "@arco-design/web-vue";
 import {
   getProductDraftDetails,
   getProductInfo,
@@ -312,7 +314,7 @@ import {
 } from "~/api/goods";
 import axios from "axios";
 
-const {t} = useI18n();
+const { t } = useI18n();
 const router = useRouter();
 const sysData = useSysData();
 const typeList = sysData.goodsClass;
@@ -352,37 +354,37 @@ const addressSaveOptions1 = ref([]);
 const clickNumber = ref(0); // 保存草稿点击事件
 const formRef = ref(null);
 const btnType = ref("draft");
-const appConfig = useAppConfig()
-const gdKey = appConfig.gdKey
+const appConfig = useAppConfig();
+const gdKey = appConfig.gdKey;
 
 const rules = reactive({
-  rid: [{required: true, message: t("sale.formValidate.typeValidate")}],
-  title: [{required: true, message: t("sale.formValidate.goodsNameValidate")}],
-  describe: [{required: true, message: t("sale.formValidate.describeValidate")}],
-  nid: [{required: true, message: t("sale.formValidate.oldAndNewValidate")}],
-  price: [{required: true, message: t("sale.formValidate.priceValidate")}],
-  region: [{required: true, message: t("sale.regionTip")}],
+  rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
+  title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
+  describe: [{ required: true, message: t("sale.formValidate.describeValidate") }],
+  nid: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
+  price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
+  region: [{ required: true, message: t("sale.regionTip") }],
 });
 
 const listAll = () => {
   // 地址
   getProductAddress().then((res) => {
-    const arr = []
-    const arr1 = []
+    const arr = [];
+    const arr1 = [];
     // 放到options里面去 回显已选
-    res.data.forEach(item => {
+    res.data.forEach((item) => {
       arr.push({
         location: `${item.lat},${item.lng}`,
         address: item.address,
-        name: item.title
-      })
+        name: item.title,
+      });
       arr1.push({
         id: item.id,
         location: `${item.lat},${item.lng}`,
         address: item.address,
-        name: item.title
-      })
-    })
+        name: item.title,
+      });
+    });
     addressSaveOptions.value = arr;
     addressSaveOptions1.value = arr1;
     addressOptions.value = [...arr, ...addressOptions.value];
@@ -393,14 +395,16 @@ const listAll = () => {
 const handleSearch = (value) => {
   if (value) {
     locationLoading.value = true;
-    axios.get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`).then(res => {
-      console.log(res)
-      addressOptions.value = [...addressSaveOptions.value, ...res.data.pois]
-      console.log(addressOptions.value)
-      locationLoading.value = false;
-    })
+    axios
+      .get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`)
+      .then((res) => {
+        console.log(res);
+        addressOptions.value = [...addressSaveOptions.value, ...res.data.pois];
+        console.log(addressOptions.value);
+        locationLoading.value = false;
+      });
   } else {
-    addressOptions.value = []
+    addressOptions.value = [];
   }
 };
 
@@ -414,9 +418,9 @@ const filterNewOldAdvice = () => {
 const hasBanWord = (val) => {
   if (val && pdwList) {
     return (
-        pdwList.filter((i) => {
-          return val.indexOf(i) > -1;
-        }).length > 0
+      pdwList.filter((i) => {
+        return val.indexOf(i) > -1;
+      }).length > 0
     );
   }
   return false;
@@ -428,17 +432,17 @@ const getDraftInfo = () => {
     if (res.code == 0) {
       form.value = res.data;
       if (res.data.offline_address && res.data.offline_address.length > 0) {
-        const arr = []
-        res.data.offline_address.forEach(item => {
+        const arr = [];
+        res.data.offline_address.forEach((item) => {
           const obj = {
             location: `${item.lat},${item.lng}`,
             address: item.address,
-            name: item.title
-          }
-          arr.push(JSON.stringify(obj))
+            name: item.title,
+          };
+          arr.push(JSON.stringify(obj));
           // addressOptions.value.push(obj)
-        })
-        offline_address.value = arr
+        });
+        offline_address.value = arr;
       }
       form.value.mail = res.data.mail ? 1 : false;
       form.value.offline = res.data.offline ? 1 : false;
@@ -459,17 +463,17 @@ const getProduct = () => {
     if (res.code == 0) {
       form.value = res.data;
       if (res.data.offline_address && res.data.offline_address.length > 0) {
-        const arr = []
-        res.data.offline_address.forEach(item => {
+        const arr = [];
+        res.data.offline_address.forEach((item) => {
           const obj = {
             location: `${item.lat},${item.lng}`,
             address: item.address,
-            name: item.title
-          }
-          arr.push(JSON.stringify(obj))
+            name: item.title,
+          };
+          arr.push(JSON.stringify(obj));
           // addressOptions.value.push(obj)
-        })
-        offline_address.value = arr
+        });
+        offline_address.value = arr;
       }
       form.value.mail = res.data.mail ? 1 : false;
       form.value.offline = res.data.offline ? 1 : false;
@@ -508,8 +512,7 @@ const uploadSuccess = (e) => {
   }
 };
 
-const uploadError = (e) => {
-};
+const uploadError = (e) => {};
 
 // 提交表单
 const submitForm = () => {
@@ -517,7 +520,7 @@ const submitForm = () => {
     if (validate) {
       return;
     }
-    console.log('', fileList.value)
+    console.log("", fileList.value);
     if (!fileList.value.length) {
       Message.error(t("sale.shouldUpload"));
       return;
@@ -531,7 +534,7 @@ const publishProduct = (type) => {
   Modal.info({
     titleAlign: "start",
     content: t("sale.publishBtnComfirm"),
-    width:resize.screenType === 'MOBILE' ? '80%' : '-',
+    width: resize.screenType === "MOBILE" ? "80%" : "-",
     closable: true,
     hideCancel: false,
     cancelText: t("pages.cancel"),
@@ -542,41 +545,42 @@ const publishProduct = (type) => {
       btnType.value = "publish"; // 防止触发弹出保存草稿
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
-          Message.success(t('sale.publishSucc'));
+          Message.success(t("sale.publishSucc"));
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
           Message.error(res.message);
+          btnType.value = "draft"; // 发布错误能够继续保存草稿
         }
       });
     },
     onCancel: () => {
-      btnType.value = 'draft'
+      btnType.value = "draft";
     },
   });
 };
 
 // 提交的数据
 const setReqForm = () => {
-  let arr = []
-  const route = useRoute()
-  console.log(offline_address)
+  let arr = [];
+  const route = useRoute();
+  console.log(offline_address);
   if (offline_address.value && offline_address.value.length > 0) {
-    offline_address.value.forEach(item => {
-      const obj = JSON.parse(item)
+    offline_address.value.forEach((item) => {
+      const obj = JSON.parse(item);
       arr.push({
         title: obj.name,
         address: obj.address,
-        lat: obj.location.split(',')[0],
-        lng: obj.location.split(',')[1]
-      })
-    })
+        lat: obj.location.split(",")[0],
+        lng: obj.location.split(",")[1],
+      });
+    });
   }
   let formData = {
     ...form.value,
     offline: form.value.offline ? 1 : 0,
     mail: form.value.mail ? 1 : 0,
     offline_address: arr,
-    cid: route.query.draftId ? route.query.draftId : '',
+    cid: route.query.draftId ? route.query.draftId : "",
     images: fileList.value.map((i) => {
       return i.url.replace(baseImgPrefix, "");
     }),
@@ -608,7 +612,7 @@ const saveDraftModal = (to) => {
     titleAlign: "start",
     title: t("sale.saveDraftTitle"),
     content: t("sale.saveDraftContent"),
-    width:resize.screenType === 'MOBILE' ? '80%' : '-',
+    width: resize.screenType === "MOBILE" ? "80%" : "-",
     closable: true,
     hideCancel: false,
     cancelText: t("pages.cancel"),
@@ -634,48 +638,48 @@ const saveDraftModal = (to) => {
 
 // 移除地址
 const removeAdd = (item) => {
-  console.log(item)
+  console.log(item);
   removeSaveAd({
-    id: item.id
-  }).then(res => {
-    if(res.code === 0){
+    id: item.id,
+  }).then((res) => {
+    if (res.code === 0) {
       // 删除保存的地址同时也要删除选中的
-      offline_address.value = offline_address.value.filter(e=>{
-        const jso = JSON.parse(e)
-        return jso.location !== item.location
-      })
-      Message.success(res.message)
-      listAll()
+      offline_address.value = offline_address.value.filter((e) => {
+        const jso = JSON.parse(e);
+        return jso.location !== item.location;
+      });
+      Message.success(res.message);
+      listAll();
     } else {
-      Message.error(res.message)
+      Message.error(res.message);
     }
-  })
-}
+  });
+};
 
 // 点击保存地址 添加到选中
 const addToSelect = (item) => {
   // 如果点击的地址已选中 return
-  if(offline_address.value){
-    const tmpArr = offline_address.value.filter(add => {
-      const obj = JSON.parse(add)
-      return obj.name === item.name
-    })
-    if(tmpArr.length > 0) return
+  if (offline_address.value) {
+    const tmpArr = offline_address.value.filter((add) => {
+      const obj = JSON.parse(add);
+      return obj.name === item.name;
+    });
+    if (tmpArr.length > 0) return;
   }
 
-  let tmp = JSON.parse(JSON.stringify(item))
-  delete tmp.id
-  offline_address.value.push(JSON.stringify(tmp))
-}
+  let tmp = JSON.parse(JSON.stringify(item));
+  delete tmp.id;
+  offline_address.value.push(JSON.stringify(tmp));
+};
 
 router.beforeEach((to, from, next) => {
   if (
-      router.currentRoute.value.path == "/saleEditGoods" &&
-      from.path != to.path &&
-      from.path == "/saleEditGoods" &&
-      btnType.value != "publish" &&
-      btnType.value != "isSaveDraft" &&
-      clickNumber.value === 0
+    router.currentRoute.value.path == "/saleEditGoods" &&
+    from.path != to.path &&
+    from.path == "/saleEditGoods" &&
+    btnType.value != "publish" &&
+    btnType.value != "isSaveDraft" &&
+    clickNumber.value === 0
   ) {
     saveDraftModal(to);
   } else {
@@ -1042,13 +1046,13 @@ onMounted(() => {
   margin-bottom: 6px;
 
   .ad-title {
-    color: #1D2129;
+    color: #1d2129;
     line-height: 22px;
   }
 
   .ad-des {
     margin-top: 2px;
-    color: #4E5969;
+    color: #4e5969;
     line-height: 22px;
   }
 }
