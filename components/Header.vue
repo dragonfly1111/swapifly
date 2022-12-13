@@ -87,8 +87,8 @@
           <a-col :span="resize.screenType === 'MOBILE'?17:10" class="search-col">
             <div class="search-input">
               <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')" search-button>
-                <template #suffix v-if="searchResPage">
-                  <img @click.prevent.stop="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
+                <template #suffix>
+                  <img v-if="searchResPage" @click.prevent.stop="handleCollection" class="icon-collection" src="@/assets/images/icon/icon-collection.png" alt="">
                 </template>
               </a-input-search>
               <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
@@ -130,7 +130,6 @@
         </a-row>
       </div>
     </div>
-
     <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>
     <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>
     <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>
@@ -147,7 +146,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useResize } from '~/stores/resize'
 import { searchAdd, searchScDel, getSearchHistory } from '~/api/goods'
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 const router = useRouter()
 const route = useRoute()
 const userInfo = useUserInfo()
@@ -176,13 +175,16 @@ curClass.value = (classList && classList.length > 0) ? classList[0].children : [
 // console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
+  console.log(newValue)
   if(newValue === '/searchResult'){
     searchResPage.value = true
   } else {
-    searchResPage.value = false
-    // 离开搜索结果路由时 清空搜索key
-    searchKeyState.setKey('')
-    searchKey.value = ''
+    nextTick(()=>{
+      searchResPage.value = false
+      // 离开搜索结果路由时 清空搜索key
+      searchKeyState.setKey('')
+      searchKey.value = ''
+    })
   }
 }, {immediate: true})
 // 监听路由参数 将地址栏的搜索词放到pina
@@ -268,6 +270,8 @@ function changeSearchKey(e) {
   searchKeyState.setKey(e)
 }
 function openHisPanel(){
+  // 如果未登录 不展示搜索下拉框
+  if(!userInfo.token) return
   searchLog.value = sysData.searchLog
   collectionList.value = sysData.collectionList
   suggestShow.value = true
@@ -286,7 +290,7 @@ function deleteHis(id) {
     id
   }).then(res=>{
     if(res.code === 0){
-      Notification.success(t('head.deleteSuc'))
+      Message.success(t('head.deleteSuc'))
       getSearchHistory().then(res=> {
         const searchLog = res.data.search_log
         const collectionList = res.data.scsearch_log
@@ -296,7 +300,7 @@ function deleteHis(id) {
         })
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -306,7 +310,7 @@ function handleCollection() {
       title: searchKey.value
     }).then(res=>{
       if(res.code === 0){
-        Notification.success(t('head.collectionSuc'))
+        Message.success(t('head.collectionSuc'))
         getSearchHistory().then(res=> {
           const searchLog = res.data.search_log
           const collectionList = res.data.scsearch_log
@@ -316,7 +320,7 @@ function handleCollection() {
           })
         })
       } else {
-        Notification.erroe(res.message)
+        Message.erroe(res.message)
       }
     })
   }

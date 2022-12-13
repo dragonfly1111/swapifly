@@ -39,9 +39,9 @@
       <span @click="handleLogin">{{ $t('loginDialog.directLogin') }}</span>
     </div>
     <div class="policy-wrap">
-      {{ $t('loginDialog.policyTip') }}<span>{{
+      {{ $t('loginDialog.policyTip') }}<span @click="toNewsDetail(2)">{{
         $t('loginDialog.termsOfService')
-      }}</span>&<span>{{ $t('loginDialog.privacyPolicy') }}</span>
+      }}</span>&<span @click="toNewsDetail(32)">{{ $t('loginDialog.privacyPolicy') }}</span>
     </div>
   </a-modal>
 </template>
@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {getEmailCode, register, facebookLogin, instagramLogin, googleLogin} from '~/api/loginAndRegister'
-import {Notification} from '@arco-design/web-vue';
+import {Message} from '@arco-design/web-vue';
 import {IRegisterForm} from "~/model/payload/loginAndRegister";
 import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
@@ -100,13 +100,13 @@ const confirm = () => {
     saveLoading.value = true
     register(formData).then(res=>{
       if(res.code === 0){
-        Notification.success(t('loginDialog.regSuc'))
+        Message.success(t('loginDialog.regSuc'))
         const user:IUserInfo = res.data
         userInfo.setUserInfo(user)
         emits('toPreference')
         visible.value = false;
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       saveLoading.value = false
     })
@@ -127,11 +127,11 @@ const sendVerfi = () => {
       email: formData.email
     }).then(res => {
       if (res.code === 0) {
-        Notification.success(res.message)
+        Message.success(res.message)
         formData.key = res.data
         isSend.value = true
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       sendLoading.value = false
     })
@@ -148,6 +148,11 @@ const handleCancel = () => {
   }, 100)
 }
 
+const toNewsDetail = (id) => {
+  handleCancel()
+  const router = useRouter()
+  router.push(`/helpCenter/detail?id=${id}`)
+}
 
 const openDialog = () => {
   visible.value = true;

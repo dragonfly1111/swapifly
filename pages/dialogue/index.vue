@@ -436,7 +436,7 @@ import {baseImgPrefix} from "~/config/baseUrl";
 import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import {useI18n} from "vue-i18n";
-import {Notification} from '@arco-design/web-vue';
+import {Message} from '@arco-design/web-vue';
 
 const {t} = useI18n()
 const router = useRouter();
@@ -537,7 +537,7 @@ const fetchDetailData = (callback, toBottom = true) => {
       }
 
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
     callback && callback()
   }).catch(e => {
@@ -556,7 +556,7 @@ const getChartMetaInfo = () => {
       if (res.code === 0) {
         curConversationMeta.value = res.data
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
     }
   })
@@ -626,7 +626,7 @@ const uploadChatImg = (option) => {
         uploadLoading.value = false
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
       uploadLoading.value = false
     }
   })
@@ -670,7 +670,7 @@ const handleOffer = () => {
     }
     sendMsg(data, () => {
       offerLoading.value = false
-      Notification.success(t('dialogue.offerSuc'))
+      Message.success(t('dialogue.offerSuc'))
       handleOfferClose()
     }, () => {
       offerLoading.value = false
@@ -690,7 +690,7 @@ const cancelOffer = () => {
   }
   sendMsg(data, () => {
     cancelOfferLoading.value = false
-    Notification.success(t('dialogue.cancelOfferSuc'))
+    Message.success(t('dialogue.cancelOfferSuc'))
   }, () => {
     cancelOfferLoading.value = false
   })
@@ -712,7 +712,7 @@ const editOffer = () => {
     sendMsg(data, () => {
       editOfferLoading.value = false
       handleOfferClose1()
-      Notification.success(t('dialogue.editOfferSuc'))
+      Message.success(t('dialogue.editOfferSuc'))
     }, () => {
       editOfferLoading.value = false
       handleOfferClose1()
@@ -741,7 +741,7 @@ const handleAccept = (e) => {
   }
   sendMsg(data, () => {
     acceptLoading.value = false
-    Notification.success(t('dialogue.acceptSuc'))
+    Message.success(t('dialogue.acceptSuc'))
   }, () => {
     acceptLoading.value = false
   })
@@ -758,7 +758,7 @@ const handleReject = (e) => {
   }
   sendMsg(data, () => {
     rejectLoading.value = false
-    Notification.success(t('dialogue.rejectSuc'))
+    Message.success(t('dialogue.rejectSuc'))
   }, () => {
     rejectLoading.value = false
   })
@@ -786,7 +786,7 @@ const sendMsg = (e, callbackSuc, callbackFail) => {
       fetchDetailData()
       fetchListData(false)
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
       if (callbackFail) callbackFail()
     }
   }).catch(e => {
@@ -824,10 +824,10 @@ const sealingChat = (type) => {
     type
   }).then(res => {
     if (res.code === 0) {
-      Notification.success(t('dialogue.sealeSuc'))
+      Message.success(t('dialogue.sealeSuc'))
       fetchListData()
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -838,10 +838,10 @@ const bockOtherParty = (type) => {
     type
   }).then(res => {
     if (res.code === 0) {
-      Notification.success(type === 1 ? t('dialogue.blockSuc') : t('dialogue.unBlockSuc'))
+      Message.success(type === 1 ? t('dialogue.blockSuc') : t('dialogue.unBlockSuc'))
       fetchListData()
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -851,10 +851,10 @@ const deleteChatItem = () => {
     id: curConversationMeta.value.id
   }).then(res => {
     if (res.code === 0) {
-      Notification.success(t('dialogue.reportSuc'))
+      Message.success(t('dialogue.reportSuc'))
       fetchListData()
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }

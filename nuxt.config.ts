@@ -1,4 +1,4 @@
-import { IntlifyModuleOptions } from '@intlify/nuxt3'
+import {IntlifyModuleOptions} from '@intlify/nuxt3'
 import UnpluginComponentsVite from 'unplugin-vue-components/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 
@@ -11,12 +11,17 @@ export default defineNuxtConfig({
   app: {
     pageTransition: {name: 'page', mode: 'out-in'},
     baseURL: '/swapifly/',
-    head: {},
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'format-detection', content: 'telephone=no' },
-      { name: 'viewport', content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0' }
-    ],
+    head: {
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/swapifly/favicon.ico' }],
+      meta: [
+        {charset: 'utf-8'},
+        {name: 'format-detection', content: 'telephone=no'},
+        {
+          name: 'viewport',
+          content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0'
+        }
+      ],
+    },
   },
   ssr: true,
   modules: [

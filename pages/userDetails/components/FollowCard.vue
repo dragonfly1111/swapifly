@@ -31,7 +31,7 @@
 import {  followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const router = useRouter();
 const btnLoading = ref(false);
@@ -56,10 +56,10 @@ const handleFollow = (row, index) => {
         let { b_follow } = props.item;
         props.item.b_follow = row.type == 1 ? b_follow - 1 : b_follow + 1;
         props.item.type = row.type == 1 ? 0 : 1;
-        Notification.success(res.message);
+        Message.success(res.message);
         emits("change");
       } else {
-        Notification.error(res.message);
+        Message.error(res.message);
       }
     })
     .finally(() => {

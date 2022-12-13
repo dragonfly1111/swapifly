@@ -38,8 +38,11 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="baseImgPrefix + item.image" alt="" />
-            <div class="status-box" v-if="showStatus && item.state > 1">
+            <div class="status-box" v-if="(showStatus && item.state > 1 && (!item.delete_time || (item.delete_time && item.delete_time == 0)))">
               {{ getStateLabel(item) }}
+            </div>
+            <div class="status-box" v-if="(showStatus && item.delete_time > 0)">
+              {{ $t('pages.deleted') }}
             </div>
           </div>
           <div class="product-tag" v-if="item.t_type == 1 || item.type == 1">{{ $t("pages.recommendTag") }}</div>
@@ -115,7 +118,7 @@
 </template>
 <script setup>
 import { baseImgPrefix } from "~/config/baseUrl";
-import { Modal, Button, Notification } from "@arco-design/web-vue";
+import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
@@ -200,13 +203,13 @@ const handleRemove = (item,index) => {
       upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr[index].state = item.state == 3 ? 1 : 3
             emits("update:list", arr);
             // emits("change");
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -228,12 +231,12 @@ const handleDelete = (item, index) => {
       deleteProduct({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr.splice(index, 1);
             emits("update:list", arr);
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -243,7 +246,7 @@ const handleDelete = (item, index) => {
   });
 };
 // 标记已售出
-const handleMark = (item) => {
+const handleMark = (item,index) => {
   Modal.info({
     content: t("pages.markSoldTip"),
     closable: true,
@@ -254,13 +257,13 @@ const handleMark = (item) => {
       setSoldOut({ id: item.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(res.message);
+            Message.success(res.message);
             let arr = [...props.list];
             arr[index].state = 2 // 已售出
             emits("update:list", arr);
             // emits("change");
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -312,14 +315,14 @@ const handleLike = (item, index) => {
   };
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
-      Notification.success(res.message);
+      Message.success(res.message);
       let arr = [...props.list];
       arr[index].islike = item.islike == 1 ? 0 : 1;
       arr[index].like = reqParams.state == 2 ? item.like - 1 : item.like + 1;
       emits("update:list", arr);
       emits("change", item, index);
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 };
@@ -335,16 +338,13 @@ const toGoodsDetail = (id) => {
         // 打开封禁封禁弹窗
         blockModal.value.openDialog(2, res.data.type);
       } else if (res.data.state !== 1 && res.data.type === 2) {
-        console.log(123123)
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
-        if (props.isToDetails) {
-          router.push("/goodsDetails?id=" + id);
-        }
+        router.push("/goodsDetails?id=" + id);
       }
     } else {
-      Notification.error(res.message);
+      Message.error(res.message);
     }
   });
 

@@ -95,7 +95,7 @@
 </template>
 <script setup>
 import {newsDetail, recentNews} from "~/api/newsCenter";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {baseImgPrefix} from "~/config/baseUrl";
 import {watch} from "vue";
@@ -133,7 +133,7 @@ const getNewsDetail = () => {
       nextNews.value = res.data.next
       console.log(res)
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -148,7 +148,7 @@ const getNewsRecent = () => {
       })
       recentNewsList.value = res.data
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }

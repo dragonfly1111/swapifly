@@ -52,7 +52,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 import {updatePassword} from '~/api/user'
 import {useUserInfo} from "~/stores/userInfo";
 import {useResize} from '~/stores/resize'
@@ -92,12 +92,12 @@ const handleSave = () => {
     saveLoading.value = true
     updatePassword(form).then(res => {
       if (res.code === 0) {
-        Notification.success(t("profile.changeSuc"))
+        Message.success(t("profile.changeSuc"))
         userInfo.logout()
         userInfo.openDialog();
         router.replace('/')
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       saveLoading.value = false
     })

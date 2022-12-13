@@ -300,7 +300,7 @@ import {useI18n} from "vue-i18n";
 import {useUserInfo} from "~/stores/userInfo";
 import {useSysData} from "~/stores/sysData";
 import {useResize} from "~/stores/resize";
-import {Notification, Modal} from "@arco-design/web-vue";
+import {Message, Modal} from "@arco-design/web-vue";
 import {
   getProductDraftDetails,
   getProductInfo,
@@ -331,7 +331,7 @@ if (process.client) {
   headers["X-Utoken"] = userInfo.token;
   headers["X-Userid"] = userInfo.id;
 }
-const offline_address = ref(null); // 面交地点选择结果
+const offline_address = ref([]); // 面交地点选择结果
 const formType = ref("draft"); // 来源 draft 草稿/ edit编辑商品
 const form = ref({
   id: null,
@@ -519,7 +519,7 @@ const submitForm = () => {
     }
     console.log('', fileList.value)
     if (!fileList.value.length) {
-      Notification.error(t("sale.shouldUpload"));
+      Message.error(t("sale.shouldUpload"));
       return;
     }
     publishProduct();
@@ -542,12 +542,15 @@ const publishProduct = (type) => {
       btnType.value = "publish"; // 防止触发弹出保存草稿
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
-          Notification.success(res.message);
+          Message.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
-          Notification.error(res.message);
+          Message.error(res.message);
         }
       });
+    },
+    onCancel: () => {
+      btnType.value = 'draft'
     },
   });
 };
@@ -613,13 +616,13 @@ const saveDraftModal = (to) => {
     onBeforeOk: (done) => {
       done(true);
       addProductDraft(setReqForm()).then((res) => {
+        clickNumber.value = 0;
         if (res.code === 0) {
           btnType.value = "isSaveDraft";
-          Notification.success(res.message);
+          Message.success(res.message);
           router.push(`/userDetails?userId=${userInfo.id}`);
-          clickNumber.value = 0;
         } else {
-          Notification.error(res.message);
+          Message.error(res.message);
         }
       });
     },
@@ -641,10 +644,10 @@ const removeAdd = (item) => {
         const jso = JSON.parse(e)
         return jso.location !== item.location
       })
-      Notification.success(res.message)
+      Message.success(res.message)
       listAll()
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -652,11 +655,14 @@ const removeAdd = (item) => {
 // 点击保存地址 添加到选中
 const addToSelect = (item) => {
   // 如果点击的地址已选中 return
-  const tmpArr = offline_address.value.filter(add => {
-    const obj = JSON.parse(add)
-    return obj.name === item.name
-  })
-  if(tmpArr.length > 0) return
+  if(offline_address.value){
+    const tmpArr = offline_address.value.filter(add => {
+      const obj = JSON.parse(add)
+      return obj.name === item.name
+    })
+    if(tmpArr.length > 0) return
+  }
+
   let tmp = JSON.parse(JSON.stringify(item))
   delete tmp.id
   offline_address.value.push(JSON.stringify(tmp))

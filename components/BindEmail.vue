@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import { getBindEmailCode, bindEmail } from "~/api/user";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 const {t} = useI18n();
 const emits = defineEmits(['binSuc'])
 const visible = ref(false);
@@ -67,11 +67,11 @@ const sendVerfi = () => {
       email: formData.email
     }).then(res => {
       if(res.code === 0){
-        Notification.success(res.message)
+        Message.success(res.message)
         formData.key = res.data
         isSend.value = true
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       sendLoading.value = false
     })
@@ -90,10 +90,10 @@ const onBeforeOk = (done) => {
     }
     bindEmail(formData).then(res=>{
       if(res.code === 0){
-        Notification.success(t('profile.bindSuc'))
+        Message.success(t('profile.bindSuc'))
         done(true)
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
         done(false)
       }
     })

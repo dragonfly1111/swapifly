@@ -47,7 +47,7 @@
 import {useUserInfo} from "~/stores/userInfo";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
-import {Notification} from "@arco-design/web-vue";
+import {Message} from "@arco-design/web-vue";
 const formRef = ref(null);
 const saveLoading = ref(false);
 const {t} = useI18n();
@@ -132,14 +132,14 @@ const doLogin = () => {
       console.log('doLogin')
       console.log(res)
       if(res.code === 0){
-        Notification.success(t('loginDialog.loginSuc'))
+        Message.success(t('loginDialog.loginSuc'))
         const user = res.data
         userInfo.setUserInfo(user)
         visible.value = false;
       } else if(res.code === 998){
         visible.value = false;
       } else {
-        Notification.error(res.message)
+        Message.error(res.message)
       }
       saveLoading.value = false
     })

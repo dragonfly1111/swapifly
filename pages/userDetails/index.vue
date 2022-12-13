@@ -56,11 +56,11 @@
           </a-tab-pane>
         </a-tabs>
         <div class="right-content">
-          <GoodsRow :userData="form" ref="goodsRow" v-if="activeTab == 'goodsRow'"></GoodsRow>
-          <EvaluateRow :userData="form" ref="evaluateRow" v-if="activeTab == 'evaluateRow'"></EvaluateRow>
-          <BusinessInformation :userData="form" ref="businessInformation" v-if="activeTab == 'businessInformation'">
+          <GoodsRow :userData="form" ref="goodsRow" v-show="activeTab == 'goodsRow'"></GoodsRow>
+          <EvaluateRow :userData="form" ref="evaluateRow" v-show="activeTab == 'evaluateRow'"></EvaluateRow>
+          <BusinessInformation :userData="form" ref="businessInformation" v-show="activeTab == 'businessInformation'">
           </BusinessInformation>
-          <FollowRow v-if="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
+          <FollowRow v-show="activeTab == 'followRow'" ref="followRow" @change="getInfo"></FollowRow>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
 import { useResize } from "~/stores/resize";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
 const userInfo = useUserInfo();
 const router = useRouter();
@@ -139,10 +139,10 @@ const handleFollow = () => {
   })
     .then((res) => {
       if (res.code === 0) {
-        Notification.success(res.message);
+        Message.success(res.message);
         getInfo();
       } else {
-        Notification.error(res.message);
+        Message.error(res.message);
       }
     })
     .finally(() => {
@@ -160,8 +160,10 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
-  followRow.value.resetQuery(e);
+  console.log(followRow)
   activeTab.value = "followRow";
+  followRow.value.resetQuery(e);
+
 };
 
 const initData = () => {

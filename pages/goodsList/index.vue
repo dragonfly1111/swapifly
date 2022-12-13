@@ -40,7 +40,7 @@
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
           <div id="brandsContent" class="brands-content">
-            <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item">
+            <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item brands-item-hover">
               <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
@@ -125,7 +125,7 @@
 import { baseImgPrefix } from "~/config/baseUrl";
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
-import { Notification } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue';
 import { useResize } from '~/stores/resize'
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
@@ -169,7 +169,7 @@ const getBanner = () => {
     if (res.code === 0) {
       bannerList.value = res.data.home_advert
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -207,7 +207,7 @@ const getBrad = () => {
         }
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -272,7 +272,7 @@ const getProduct = () => {
         productList.value = [...productList.value, ...res.data.data]
       })
     } else {
-      Notification.error(res.message)
+      Message.error(res.message)
     }
   })
 }
@@ -376,8 +376,10 @@ onMounted(()=>{
         user-select: none;
       }
 
-      img {
+      :deep(img) {
         -webkit-user-drag: none;
+        transform: translateY(0px);
+        transition: all .3s ease-out;
       }
 
       .arco-image {
@@ -407,6 +409,19 @@ onMounted(()=>{
 
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
+      }
+    }
+    .brands-item-hover{
+      &:hover {
+        transition: box-shadow .3s ease-out;
+        .arco-image{
+          background: rgba(44,44,45,.07);
+          transition: background .3s ease-out;
+          :deep(img){
+            transform: translateY(-4px);
+          }
+        }
+
       }
     }
   }

@@ -10,7 +10,7 @@
         <span>{{$t('pages.like_title')}}</span>
       </p>
       <p class="setting-list-one" @click="toPath('/notification')">
-        <icon-notification class="icon-mobile"></icon-notification>
+        <icon-Message class="icon-mobile"></icon-Message>
         <span>{{$t('pages.mobile_notice')}}</span>
       </p>
       <p class="setting-list-one" @click="toPath(`/userDetails?userId=${userInfo.id}`)">

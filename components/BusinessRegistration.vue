@@ -60,7 +60,7 @@
         <template #label>
           {{ $t("business.businessCertificate") }}({{
             $t("business.authApplyForm.businessCertificateTip")
-          }}
+          }})
         </template>
         <a-upload
           list-type="picture-card"
@@ -111,7 +111,7 @@
 import { uploadUrl, baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
 import { addBusiness, reApplyBusiness, undoApplyBusiness } from "~/api/business";
-import { Notification } from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 import { Modal, Button } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
 const formRef = ref(null);
@@ -140,7 +140,7 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
-  formData.image = e.response.data;
+  formData.value.image = e.response.data;
   uploadLoading.value = false;
 };
 const uploadError = (e) => {
@@ -203,11 +203,11 @@ const handleUndo = () => {
       undoApplyBusiness({ id: formData.value.id })
         .then((res) => {
           if (res.code === 0) {
-            Notification.success(t("business.authApplyForm.undoSuc"));
+            Message.success(t("business.authApplyForm.undoSuc"));
             handleCancel();
             updatePage();
           } else {
-            Notification.error(res.message);
+            Message.error(res.message);
           }
         })
         .finally(() => {
@@ -218,18 +218,19 @@ const handleUndo = () => {
 };
 
 const handleSubmit = () => {
+  console.log(formData.value)
   formRef.value.validate().then((validate) => {
     if (validate) return;
     saveLoading.value = true;
-    let reqUrl = formData.id ? reApplyBusiness : addBusiness;
-    reqUrl(formData)
+    let reqUrl = formData.value.id ? reApplyBusiness : addBusiness;
+    reqUrl(formData.value)
       .then((res) => {
         if (res.code === 0) {
-          Notification.success(t("business.authApplyForm.applySuc"));
+          Message.success(t("business.authApplyForm.applySuc"));
           handleCancel();
           updatePage();
         } else {
-          Notification.error(res.message);
+          Message.error(res.message);
         }
       })
       .finally(() => {
