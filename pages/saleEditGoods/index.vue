@@ -542,7 +542,7 @@ const publishProduct = (type) => {
       btnType.value = "publish"; // 防止触发弹出保存草稿
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
-          Message.success(res.message);
+          Message.success(t('sale.publishSucc'));
           router.push(`/userDetails?userId=${userInfo.id}`);
         } else {
           Message.error(res.message);
