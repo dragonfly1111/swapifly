@@ -1,6 +1,7 @@
 <template>
   <a-modal v-model:visible="visible"
            :closable="false"
+           :width="resize.screenType === 'MOBILE' ? '80%' : '-'"
            :mask-closable="false" title-align="start" modal-class="block-dialog" :footer="false"
            @close="handleCancel">
     <template #title>
@@ -25,6 +26,8 @@
 import {useUserInfo} from "~/stores/userInfo";
 import {useI18n} from "vue-i18n";
 import {Message} from "@arco-design/web-vue";
+import { useResize } from "~/stores/resize";
+const resize = useResize();
 const userInfo = useUserInfo()
 const router = useRouter()
 const {t} = useI18n();

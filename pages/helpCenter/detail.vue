@@ -115,8 +115,18 @@ getHelpDetail()
   .left {
     color: $main-grey;
     .search-input{
-      width: 90%;
+      width: 100%;
       margin-top: 15px;
+      :deep(.arco-btn) {
+        background: $main-pink;
+        width: 46px;
+        height: 46px;
+      }
+
+      :deep(.arco-icon) {
+        width: 15px;
+        height: 15px;
+      }
     }
     .time {
       font-size: 14px;

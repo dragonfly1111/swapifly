@@ -10,14 +10,14 @@
                           @press-enter="searchHandleKey" @search="searchHandle"></a-input-search>
         </div>
         <div class="right">
-          <img width="250" height="250" src="@/assets/images/help-head.png" alt="">
+          <img class="mobile-img-none" width="250" height="250" src="@/assets/images/help-head.png" alt="">
         </div>
       </div>
     </div>
     <div class="content common-row">
       <p class="big-title">{{ $t('helpCenter.theme') }}</p>
       <div class="main-content">
-        <div v-if="dataLoading" style="width: 835px">
+        <div v-if="dataLoading" class="mobile-a-skeleton-con" style="width: 835px">
           <a-skeleton :animation="true" class="skeleton">
             <a-skeleton-line :line-height="60" :rows="4"/>
           </a-skeleton>

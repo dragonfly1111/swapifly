@@ -142,7 +142,7 @@
     <temlpate v-else>
       <a-skeleton :loading="pageLoading" :animation="true">
         <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
-        <div style="margin-top: 22px; display: flex; align-items: flex-end">
+        <div class="mobile-flex-none" style="margin-top: 22px; display: flex; align-items: flex-end">
           <a-skeleton-shape shape="circle" size="large" />
           <div style="width: 28px"></div>
           <a-skeleton-line :rows="1" :line-height="50" :widths="[300]" />

@@ -1,8 +1,5 @@
 <template>
-  <main :style="{
-    padding: resize.screenType === 'MOBILE' ? '0 10px 10px 10px' : '0',
-    overflowX: resize.screenType === 'MOBILE' ? 'hidden' : 'auto',
-  }">
+  <main class="main-pc-mobile">
     <Header v-if="['common','dialogue','commonMobileAndPcPage'].includes(headType)"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>

@@ -104,7 +104,9 @@ onMounted(async () => {
 .page-header-Message {
   border-bottom: 1px solid #ccc;
   text-align: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   font-size: 18px;
   font-weight: bold;
   height: 45px;
