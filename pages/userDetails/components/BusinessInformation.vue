@@ -36,16 +36,17 @@
             height="180"
             v-if="form.image"
             :src="baseImgPrefix + form.image"
-            fit="contain"
+            fit="cover"
           />
           <span class="grey" v-if="!form.image">{{ $t("pages.noImage") }}</span>
         </a-form-item>
-        <div class="text-danger" v-if="form.opinion">
-          {{ $t("business.auditResult") }}：{{ form.opinion }}
-        </div>
         <div class="auth-status">
           {{ $t("business.authStatus") }}：{{ getStatusLabel() || $t("business.authStatusNo") }}
         </div>
+        <div class="text-danger" v-if="form.opinion">
+          {{ $t("business.auditResult") }}：{{ form.opinion }}
+        </div>
+
       </a-form>
     </div>
     <a-button
@@ -178,10 +179,11 @@ defineExpose({
 .text-danger {
   color: #d43030;
   font-size: 16px;
+  margin-bottom: 40px;
 }
 
 .auth-status {
-  margin: 60px 0 20px;
+  margin: 13px 0 20px;
   font-size: 16px;
 }
 </style>
