@@ -195,6 +195,14 @@ const toUserDetails = (item) => {
     :deep(.arco-list-item-meta-title) {
       font-weight: 400;
     }
+    :deep(.arco-list-item-meta-content):hover{
+      .arco-list-item-meta-title{
+        color: $main-blue;
+      }
+      .arco-list-item-meta-description{
+        color: $main-blue;
+      }
+    }
   }
 }
 .grey {
