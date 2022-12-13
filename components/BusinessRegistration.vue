@@ -224,6 +224,9 @@ const handleSubmit = () => {
     if (validate) return;
     saveLoading.value = true;
     let reqUrl = formData.value.id ? reApplyBusiness : addBusiness;
+    if(formData.value.id){
+      formData.value.opinion = ''
+    }
     reqUrl(formData.value)
       .then((res) => {
         if (res.code === 0) {
