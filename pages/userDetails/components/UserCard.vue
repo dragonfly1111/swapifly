@@ -188,11 +188,11 @@ onMounted(() => {
     right: 5px;
     border-radius: 4px;
     border: 1px solid $grey-font-label;
-    padding: 8px 15px 8px 48px;
+    padding: 8px 15px 8px 42px;
     img {
       position: absolute;
       top: -15px;
-      left: 6px;
+      left: 4px;
       width: 38px;
     }
   }
