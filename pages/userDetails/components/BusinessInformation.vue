@@ -43,7 +43,7 @@
         <div class="auth-status">
           {{ $t("business.authStatus") }}：{{ getStatusLabel() || $t("business.authStatusNo") }}
         </div>
-        <div class="text-danger" v-if="form.opinion">
+        <div class="text-danger" v-if="(form.opinion && form.state == 2)">
           {{ $t("business.auditResult") }}：{{ form.opinion }}
         </div>
 
