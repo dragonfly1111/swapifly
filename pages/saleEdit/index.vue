@@ -2,32 +2,34 @@
   <div class="global-content">
     <div class="sale-header">{{ $t("sale.saleTitle") }}</div>
     <div class="edit-box border-box">
-      <div>
-        <a-upload
-          draggable
-          multiple
-          :show-file-list="false"
-          :fileList="fileList"
-          :action="uploadUrl"
-          :headers="headers"
-          ref="uploadRef"
-          :limit="10"
-          :on-before-upload="beforeUpload"
-          :on-button-click="uploadClick"
-          @success="uploadSuccess"
-          @error="uploadError"
-          @change="uploadChange"
-          accept="image/*,.png"
-        >
-          <template #upload-button>
-            <div class="upload-area">
-              <icon-plus :strokeWidth="10" :size="18" />
-              <div>{{ $t("sale.uploadTip") }}</div>
-              <span>{{ $t("sale.uploadAlert") }}</span>
-            </div>
-          </template>
-        </a-upload>
-      </div>
+      <a-spin :loading="uploadLoading" style="width: 100%">
+        <div>
+          <a-upload
+              draggable
+              multiple
+              :show-file-list="false"
+              :fileList="fileList"
+              :action="uploadUrl"
+              :headers="headers"
+              ref="uploadRef"
+              :limit="10"
+              :on-before-upload="beforeUpload"
+              :on-button-click="uploadClick"
+              @success="uploadSuccess"
+              @error="uploadError"
+              @change="uploadChange"
+              accept="image/*,.png"
+          >
+            <template #upload-button>
+              <div class="upload-area">
+                <icon-plus :strokeWidth="10" :size="18" />
+                <div>{{ $t("sale.uploadTip") }}</div>
+                <span>{{ $t("sale.uploadAlert") }}</span>
+              </div>
+            </template>
+          </a-upload>
+        </div>
+      </a-spin>
       <div class="draft-title" v-if="draftList.length > 0">{{ $t("sale.yourDraft") }}</div>
       <div class="image-preview-list">
         <div class="image-item" v-for="(item, index) in draftList" @click="toEdit(item)">
@@ -61,15 +63,16 @@ const uploadLoading = ref(false);
 const pageLoading = ref(true);
 const realFileList = ref([]);
 const fileList = ref([]);
+const userInfo = useUserInfo();
 let headers = reactive({
   "X-Utoken": null,
   "X-Userid": null,
 });
-if (process.client) {
-  const userInfo = useUserInfo();
-  headers["X-Utoken"] = userInfo.token;
-  headers["X-Userid"] = userInfo.id;
-}
+// if (process.client) {
+//   console.log('userInfo')
+//   console.log(userInfo.token)
+//
+// }
 const draftList = ref([]);
 
 const handleQuery = () => {
@@ -111,6 +114,9 @@ const toEdit = (item) => {
 };
 
 const beforeUpload = (e) => {
+  // 放到上传之前去设置header 防止页面刷新时pina未初始化获取不到token
+  headers["X-Utoken"] = userInfo.token;
+  headers["X-Userid"] = userInfo.id;
   uploadLoading.value = true;
   return true;
 };
@@ -119,6 +125,22 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
+  console.log(e)
+  if(e.response.code === 999){
+    uploadLoading.value = false;
+    // 登录过期 跳转首页
+    const router = useRouter();
+    const openLogin = useState<Boolean>('openLogin')
+    userInfo.logout();
+    if (resize.screenType !== 'MOBILE'){
+      userInfo.openDialog();
+      openLogin.value = true;
+      console.log(openLogin);
+    }
+    router.push({
+      path: '/'
+    })
+  }
   if (e.response.code == 0) {
     realFileList.value.push(e.response.data);
   }
@@ -130,6 +152,7 @@ const uploadSuccess = (e) => {
 };
 
 const uploadError = (e) => {
+  console.log(e)
   uploadLoading.value = false;
 };
 const uploadChange = (_, currentFile) => {

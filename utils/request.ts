@@ -76,6 +76,7 @@ request.interceptors.response.use(
   (response: AxiosResponse) => {
     const userInfo = useUserInfo();
     if (response.data.code === 999) {
+      console.log('登录失效拦截')
       // 登录过期 跳转首页
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
