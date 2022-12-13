@@ -41,8 +41,8 @@ const toRegister = defineEmits(['toRegister'])
 const formData = reactive({
   // email: '',
   // pwd: '',
-  email: '634401502@qq.com',
-  pwd: '12345678'
+  email: 'swapifly001@gmail.com',
+  pwd: '12345'
 })
 const rules = reactive({
   email: [
@@ -75,7 +75,6 @@ const doLogin = () => {
         const user = res.data
         userInfo.setUserInfo(user)
         router.push('/')
-
       } else {
         Message.error(res.message)
       }

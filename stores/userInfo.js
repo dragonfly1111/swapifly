@@ -3,7 +3,7 @@ import { userLogOut } from '~/api/loginAndRegister'
 
 
 export const useUserInfo = defineStore('userInfo', {
-  state () {
+  state: () => {
     return {
       avatar: '',
       email: '',
@@ -12,22 +12,30 @@ export const useUserInfo = defineStore('userInfo', {
       token: '',
       type: -1,
       openLogin: false,
-      userBlock: false
+      userBlock: false,
     }
   },
   actions: {
-    setUserInfo(e) {
-      console.log('setUserInfo')
-      console.log(e)
-      console.log(process.client)
+    initState(){
+      const user = sessionStorage.getItem('USER-INFO') ? JSON.parse(sessionStorage.getItem('USER-INFO')) : null
+      if(user){
+        this.setUserInfo(user, false)
+      }
+    },
+    setUserInfo(e, refreshSession = true) {
       this.avatar = e.avatar
       this.email = e.email
       this.id = e.id
       this.nickname = e.nickname
       this.token = e.token
       this.type = e.type
+      this.openLogin = false
+      this.userBlock = false
+      if(refreshSession){
+        sessionStorage.setItem('USER-INFO', JSON.stringify(e))
+      }
     },
-    refreshUserInfo() {
+    refreshUserInfo(e) {
       console.log('refreshUserInfo')
       console.log(e)
       this.avatar = e.avatar
@@ -35,6 +43,9 @@ export const useUserInfo = defineStore('userInfo', {
       this.id = e.id
       this.nickname = e.nickname
       this.type = e.type
+      this.openLogin = false
+      this.userBlock = false
+      sessionStorage.setItem('USER-INFO', JSON.stringify(e))
     },
     openDialog() {
       this.openLogin = true
@@ -50,6 +61,7 @@ export const useUserInfo = defineStore('userInfo', {
     },
     logout(callback) {
       userLogOut().then(() => {
+        console.log(process.client)
         this.avatar = ''
         this.email = ''
         this.id = -1
@@ -58,19 +70,11 @@ export const useUserInfo = defineStore('userInfo', {
         this.type = -1
         this.openLogin = false
         this.userBlock = false
+        sessionStorage.removeItem('USER-INFO')
         if (callback) {
           callback()
         }
       })
     }
-  },
-  persist: {
-    enabled: !!process.client,
-    strategies: [
-      {
-        key: "USER-INFO",
-        storage: process.client ? sessionStorage : null,
-      },
-    ],
   }
 })

@@ -29,16 +29,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {limitObj} from '~/model/payload/mobile'
+<script setup>
 import {useUserInfo} from "~/stores/userInfo";
-import {ref,reactive} from "vue";
 const router = useRouter();
 const userInfo = useUserInfo()
 const handleIndex = () => {
   router.push("/")
 };
-const toPath = (data:string) =>{
+const toPath = (data) =>{
   if (data === '/logout'){
     userInfo.logout();
     router.replace('/')

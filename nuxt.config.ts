@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/navbar.ts',
-    '~/plugins/piniaPersist.ts',
+    // '~/plugins/piniaPersist.ts',
     '~/plugins/arco.ts'
   ],
   css: [

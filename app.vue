@@ -3,6 +3,7 @@ import {AppSetup} from './utils/app'
 import {useResize} from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
 import {useSysData} from '~/stores/sysData'
+import {useUserInfo} from '~/stores/userInfo'
 import {getSearchHistory} from '~/api/goods'
 import {
   generateGender,
@@ -20,6 +21,7 @@ const locale = useState<string>('locale.setting')
 const area = useState<string>('area.setting')
 const resize = useResize()
 const sysData = useSysData()
+const userInfo = useUserInfo()
 AppSetup()
 const app = useAppConfig()
 useAsyncData(async () => {
@@ -76,6 +78,7 @@ onMounted(() => {
   // reurl()
   // 客户端设置系统属性数据
   if (process.client) {
+    userInfo.initState()
     sysData.setSysDataClientSide({
       gender: generateGender(t),
       evaluationSort: generateEvaluationSort(t),
