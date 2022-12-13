@@ -7,7 +7,7 @@
     <div class="header" v-else>
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
-    <div class="null-height"></div>
+    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">

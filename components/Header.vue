@@ -474,7 +474,7 @@ function toClassDetail(e) {
 .class-panel {
   position: absolute;
   left: 0;
-  width: 100%;
+  width: calc(100% - 110px);
   z-index: 999;
   background: #FFFFFF;
   padding: 5px 55px 91px 55px;
@@ -502,6 +502,7 @@ function toClassDetail(e) {
       padding-left: 22px;
       font-size: 14px;
       line-height: 22px;
+      max-width: 100px;
     }
 
     .class-item + .class-item {
