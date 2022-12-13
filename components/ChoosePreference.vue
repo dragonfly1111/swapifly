@@ -45,12 +45,14 @@
         </a-col>
       </a-row>
       <div class="skeleton-box" v-if="loading">
-        <div v-for="i in 24" :key="i">
-          <a-skeleton :animation="true" class="skeleton">
-            <a-skeleton-shape shape="circle"/>
-            <a-skeleton-line :rows="1"/>
-          </a-skeleton>
-        </div>
+        <a-row>
+          <a-col :span="6" v-for="i in 24">
+            <a-skeleton :animation="true" class="skeleton">
+              <a-skeleton-shape shape="circle"/>
+              <a-skeleton-line :rows="1"/>
+            </a-skeleton>
+          </a-col>
+        </a-row>
       </div>
     </div>
     <div class="foot">
