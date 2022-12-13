@@ -1,7 +1,7 @@
 <template>
   <div class="business-box">
     <div class="box-header">
-      <a-row justify="space-between" align="center" class="header-select">
+      <a-row justify="space-between" align="center" class="header-select" v-if="resize.screenType !== 'MOBILE'">
         <a-col flex="100px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
         <a-col flex="100px">
           <a-button type="outline" @click="toAuthentication" v-if="props.userData.p_type == 2">{{
@@ -40,7 +40,7 @@
         </div>
       </a-form>
     </div>
-
+    <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
     <BusinessRegistration ref="businessRegistration" @change="handleQuery"></BusinessRegistration>
   </div>
 </template>
@@ -49,6 +49,8 @@
 import { getBusinessInfo } from "~/api/business";
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useSysData } from "~/stores/sysData";
+import { useResize } from '~/stores/resize'
+const resize = useResize();
 const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
@@ -100,6 +102,14 @@ defineExpose({
   color: $grey-font-label;
 }
 .business-box {
+  .mobile-sell{
+    position: fixed;
+    bottom: 10%;
+    right: 4%;
+    background-color: deeppink;
+    color: #fff;
+    z-index: 99999;
+  }
   .box-header {
     .header-select {
       padding: 20px 15px 15px 30px;

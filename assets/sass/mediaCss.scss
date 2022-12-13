@@ -117,6 +117,31 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .evaluate-box{
+    .evaluate-box-body{
+      padding: 0 !important;
+    }
+    .evaluate-info{
+      padding: 0 !important;
+      .evaluate-total{
+        .evaluate-info-btn{
+          margin-left: 10px !important;
+          div{
+            padding: 4px 6px !important;
+          }
+          .arco-space-item{
+            margin-right: 0px !important;
+          }
+        }
+      }
+    }
+
+  }
+  .business-box{
+    .business-box-body{
+      padding: 0 30px !important;
+    }
+  }
   .profile-box{
     .arco-skeleton-shape{
       width: 118px;

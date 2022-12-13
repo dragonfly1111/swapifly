@@ -1,6 +1,6 @@
 <template>
   <div class="goods-box">
-    <a-row justify="space-between" align="center" class="box-header">
+    <a-row justify="space-between" align="center" class="box-header" v-if="resize.screenType !== 'MOBILE'">
       <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">
         {{ $t("pages.goods") }}
       </a-col>

@@ -31,10 +31,10 @@
             <div @click="changeFollow(0)">{{ form.bfollow }} Followers</div>
             <div @click="changeFollow(1)">{{ form.follow }} Follow緊</div>
           </a-space>
-          <div class="user-desc-content">{{ form.describe }}</div>
+          <div v-if="resize.screenType !== 'MOBILE'" class="user-desc-content">{{ form.describe }}</div>
         </a-space>
       </div>
-      <div class="look-click-rate" v-if="userInfo.id == form.id">
+      <div class="look-click-rate" v-if="userInfo.id == form.id && resize.screenType !== 'MOBILE'">
         <a-space direction="vertical" fill>
           <div>{{ form.qday }}</div>
           <div>{{ $t("pages.visitorYourTip") }}</div>
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <AD width="300px" :advert="props.advert"></AD>
+    <AD v-if="resize.screenType !== 'MOBILE'" width="300px" :advert="props.advert"></AD>
 
     <ClickRateModal ref="clickRateModal"></ClickRateModal>
   </div>
@@ -58,7 +58,9 @@
 import { useUserInfo } from "~/stores/userInfo";
 import { baseImgPrefix } from "~/config/baseUrl";
 import { useI18n } from "vue-i18n";
+import { useResize } from "~/stores/resize";
 const { t } = useI18n();
+const resize = useResize();
 const userInfo = useUserInfo();
 const router = useRouter();
 const clickRateModal = ref(null);

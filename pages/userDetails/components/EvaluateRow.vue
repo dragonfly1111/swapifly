@@ -1,7 +1,7 @@
 <template>
   <div class="evaluate-box">
     <div class="box-header">
-      <a-row justify="space-between" align="center" class="header-select">
+      <a-row justify="space-between" align="center" class="header-select" v-if="resize.screenType !== 'MOBILE'">
         <a-col :flex="resize.screenType !== 'MOBILE'?'100px':'1'" class="title"> {{ $t("pages.evaluate") }} </a-col>
         <a-col :flex="resize.screenType !== 'MOBILE'?'200px':'2'">
           <a-select v-model="queryParams.s_type" @change="initData">
@@ -47,6 +47,7 @@
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
+    <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
   </div>
 </template>
 
@@ -125,6 +126,14 @@ defineExpose({
 @import "assets/sass/var";
 
 .evaluate-box {
+  .mobile-sell{
+    position: fixed;
+    bottom: 10%;
+    right: 4%;
+    background-color: deeppink;
+    color: #fff;
+    z-index: 99999;
+  }
   .box-header {
     .header-select {
       padding: 20px 30px 15px;

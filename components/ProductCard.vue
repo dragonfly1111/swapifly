@@ -89,8 +89,8 @@
             </template>
           </a-dropdown>
         </div>
-        <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">出售</a-button>
       </div>
+      <a-button v-if="resize.screenType === 'MOBILE'" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
     </div>
 
     <a-empty class="empty-box" v-if="!pageLoading && !list.length">
@@ -372,6 +372,14 @@ p.arco-typography {
   flex-wrap: wrap;
   //   grid-template-columns: repeat(auto-fill, 24%);
   grid-gap: 10px;
+  .mobile-sell{
+    position: fixed;
+    bottom: 10%;
+    right: 4%;
+    background-color: deeppink;
+    color: #fff;
+    z-index: 99999;
+  }
 }
 .recommend-item + .recommend-item {
 }
@@ -383,14 +391,6 @@ p.arco-typography {
   color: #333333;
   cursor: pointer;
   position: relative;
-  .mobile-sell{
-    position: absolute;
-    bottom: 10px;
-    right: 4%;
-    background-color: deeppink;
-    color: #fff;
-    z-index: 99999;
-  }
   &:last-child {
     margin-right: auto;
   }
