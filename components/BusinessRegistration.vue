@@ -199,7 +199,7 @@ const handleUndo = () => {
     hideCancel: false,
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
-    onBeforeOk: () => {
+    onBeforeOk: (done) => {
       undoApplyBusiness({ id: formData.value.id })
         .then((res) => {
           if (res.code === 0) {
@@ -212,6 +212,7 @@ const handleUndo = () => {
         })
         .finally(() => {
           saveLoading.value = false;
+          done(true);
         });
     },
   });

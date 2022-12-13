@@ -66,6 +66,9 @@ useHead({
     {
       'src': 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
     },
+    {
+      'src': 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',  async: true, defer: true
+    }
   ]
 })
 // console.log("=====onMounted====", resize)
