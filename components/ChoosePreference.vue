@@ -8,7 +8,7 @@
     </template>
     <div class="title">{{ $t('loginDialog.preferenceTip') }}</div>
 
-    <div class="card-box">
+    <div class="card-box" v-if="resize.screenType !== 'MOBILE'">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id"
            @click="card.checked = !card.checked">
         <a-image :src="baseImgPrefix + card.background" :preview="false" show-loader>
@@ -30,6 +30,29 @@
       </div>
 
     </div>
+
+<!--    移动端-->
+    <div class="mobile-card-box" v-else>
+      <a-row>
+        <a-col class="mobile-card-item" :span="6" v-for="card in labelList.value" :key="card.id" @click="card.checked = !card.checked">
+          <a-image :src="baseImgPrefix + card.background" :preview="false" show-loader>
+            <template #loader>
+              <div class="loader-animate"/>
+            </template>
+          </a-image>
+          <div class="label-title">{{ card.title }}</div>
+          <a-checkbox v-if="card.checked" class="check-box" v-model="card.checked"></a-checkbox>
+        </a-col>
+      </a-row>
+      <div class="skeleton-box" v-if="loading">
+        <div v-for="i in 24" :key="i">
+          <a-skeleton :animation="true" class="skeleton">
+            <a-skeleton-shape shape="circle"/>
+            <a-skeleton-line :rows="1"/>
+          </a-skeleton>
+        </div>
+      </div>
+    </div>
     <div class="foot">
       <a-button class="but" @click="handleCancel">{{ $t('loginDialog.jump') }}</a-button>
       <a-button class="confirm-but but" @click="handleOk">{{ $t('loginDialog.done') }}</a-button>
@@ -42,7 +65,8 @@ import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
 import {baseImgPrefix} from '~/config/baseUrl'
 import {IUserLabel} from "~/model/res/userLabel";
 import {Message} from '@arco-design/web-vue';
-
+import { useResize } from '~/stores/resize';
+const resize = useResize();
 const visible = ref(false);
 const loading = ref(false);
 const labelList: IUserLabel[] = reactive({value: []})
@@ -222,6 +246,22 @@ defineExpose({
     }
   }
 
+  .mobile-card-box{
+    text-align: center;
+    padding-bottom: 40px;
+    .mobile-card-item{
+      position: relative;
+      .check-box{
+        position: absolute;
+        left: 5px;
+        top: 5px;
+      }
+    }
+    img{
+      width: 50px;
+      height: 50px;
+    }
+  }
   .card-item:nth-child(8n) {
     margin-right: 0;
   }
