@@ -1,6 +1,6 @@
 <template>
   <div class="common-row global-content">
-    <AD :hasTitle="false"></AD>
+    <AD :advert="googleAd.content"></AD>
 
     <section class="section-wrapper goods-wrapper">
       <div class="list-header">
@@ -21,7 +21,7 @@
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
-    <AD></AD>
+    <AD :advert="googleAd.content"></AD>
 
     <PageFooterLink></PageFooterLink>
   </div>
@@ -29,6 +29,7 @@
 
 <script setup>
 import { productSearch } from '~/api/goods'
+import { getSearchAdvert } from '~/api/ad'
 import { useSearchKey } from "../../stores/search";
 import { useResize } from '~/stores/resize'
 import { Message } from "@arco-design/web-vue";
@@ -46,6 +47,7 @@ const productList = ref([])
 const pageLoading = ref(true)
 const butLoading = ref(false)
 const sysData = useSysData()
+const googleAd = ref({})
 let queryParams = {}
 
 const getSearchData = (data) => {
@@ -98,6 +100,11 @@ const handleQuery = (data) => {
   productList.value = []
   getSearchData(data)
 };
+const getAd = () => {
+  getSearchAdvert().then(res=>{
+    googleAd.value = res.data
+  })
+};
 
 watch(() => route.query, (newValue, oldValue) => {
   console.log("====newValue====",newValue,oldValue)
@@ -112,7 +119,7 @@ const loadMore = () =>{
 }
 
 // getSearchData()
-
+getAd()
 </script>
 
 <style lang="scss" scoped>

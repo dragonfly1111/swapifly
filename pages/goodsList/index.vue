@@ -111,7 +111,7 @@
       </div>
     </section>
 
-    <AD></AD>
+    <AD :advert="googleAd.content"></AD>
 
     <div class="see-more" v-if="page < lastPage && productList.length > 0">
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
@@ -160,6 +160,8 @@ const curFilter = ref({
 })
 const page = ref(1)
 const lastPage = ref(999)
+const googleAd = ref({})
+
 // 获取banner和谷歌广告
 const getBanner = () => {
   bannerLoading.value = true
@@ -169,6 +171,7 @@ const getBanner = () => {
     bannerLoading.value = false
     if (res.code === 0) {
       bannerList.value = res.data.home_advert
+      googleAd.value = res.data.google_advert
     } else {
       Message.error(res.message)
     }

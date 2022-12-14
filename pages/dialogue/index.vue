@@ -417,7 +417,7 @@
     </div>
     <div class="right-ad" v-if="resize.screenType !== 'MOBILE'">
       <!--            {{ JSON.stringify(curConversationMeta) }}-->
-      <AD width="160px" height="600px"/>
+      <AD width="160px" height="600px" :advert="googleAd.content"></AD>
     </div>
 
     <EvaluateDialog ref="evaluateDialog"/>
@@ -432,6 +432,7 @@
 import {useSysData} from "~/stores/sysData";
 import {getChatList, getChatMeta, getChatDetail, postMsg, fcsave, fssave, deleteChat} from "~/api/dialogue"
 import {uploadToOss} from "~/api/comon"
+import {getChatAdvert} from "~/api/ad"
 import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
@@ -484,6 +485,8 @@ const editOfferLoading = ref(false)
 const cancelOfferLoading = ref(false)
 const soldLoading = ref(false)
 const nextDetailNeedBottom = ref(false)
+const googleAd = ref({})
+
 const showDiaListFn = () => {
   console.log("点击了返回");
   showDiaList.value = true;
@@ -534,6 +537,9 @@ const fetchListData = (autoFocus = true) => {
         calcOperationOptions()
       }
     }
+  }).catch(e=>{
+    console.log('fetchListData catch')
+    clearInterval(pageTask)
   })
 }
 // 获取对话详情
@@ -577,6 +583,8 @@ const fetchDetailData = (callback, toBottom = true) => {
     callback && callback()
   }).catch(e => {
     if (callback) callback()
+    console.log('fetchDetailData catch')
+    clearInterval(pageTask)
   })
 }
 // 获取对话元信息
@@ -594,6 +602,9 @@ const getChartMetaInfo = () => {
         Message.error(res.message)
       }
     }
+  }).catch(e=>{
+    console.log('getChartMetaInfo catch')
+    clearInterval(pageTask)
   })
 }
 // 打开评论面板
@@ -945,7 +956,12 @@ const scrollListen = (e) => {
 
   }
 }
-
+const getAd = () => {
+  getChatAdvert().then(res=>{
+    googleAd.value = res.data
+  })
+}
+getAd()
 onMounted(() => {
   msgType.value = sysData.msgType;
   dialogueOperationType.value = sysData.dialogueOperationType;

@@ -236,4 +236,11 @@ export const removeSaveAd = (data: any) => {
     data
   })
 }
+// 商品详情广告
+export const detailAD = () => {
+  return request({
+    url: '/index/product_detail/detail_advert',
+    method: 'get'
+  })
+}
 

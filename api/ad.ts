@@ -24,3 +24,12 @@ export const getCategoryAdvert = (params: any) => {
     params
   })
 }
+
+// 获取对话广告
+export const getChatAdvert = () => {
+  return request({
+    url: '/index/chat/advert',
+    method: 'get'
+  })
+}
+

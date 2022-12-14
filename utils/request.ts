@@ -10,6 +10,20 @@ const request = axios.create({
   // withCredentials: true
 })
 
+const dialogReq = [
+  '/index/chat/index',
+  '/index/chat/details',
+  '/index/chat/dialoguestate',
+  '/index/chat/add',
+  '/index/chat/view',
+  '/index/chat/evaluation',
+  '/index/chat/soldout',
+  '/index/chat/fssave',
+  '/index/chat/delete',
+  '/index/chat/report_user',
+  '/index/chat/advert'
+]
+
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
@@ -78,6 +92,7 @@ request.interceptors.response.use(
     const userInfo = useUserInfo();
     if (response.data.code === 999) {
       console.log('登录失效拦截')
+      console.log(response.config.url)
       // 登录过期 跳转首页
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
@@ -87,6 +102,10 @@ request.interceptors.response.use(
           userInfo.openDialog();
           openLogin.value = true;
           console.log(openLogin);
+      }
+      // 如果是对话页面相关的接口 跳到首页
+      if(dialogReq.indexOf(<string>response.config.url) !== -1){
+        router.replace('/')
       }
       return Promise.reject({})
     } else if(response.data.code === 998){

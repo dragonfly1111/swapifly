@@ -17,10 +17,10 @@ export function LanguageManager() {
     try {
       const foundLang = window
         ? window.navigator.language.substring(0, 2)
-        : 'en'
-      return availableLocales[foundLang] ? foundLang : 'en'
+        : 'zh-HK'
+      return availableLocales[foundLang] ? foundLang : 'zh-HK'
     } catch (error) {
-      return 'en'
+      return 'zh-HK'
     }
   }
   const getUserLocale = (): string =>

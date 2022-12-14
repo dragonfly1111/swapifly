@@ -1,6 +1,6 @@
 <template>
   <div class="common-row global-content">
-    <AD v-if="resize.screenType !== 'MOBILE'" height="160px"></AD>
+    <AD v-if="resize.screenType !== 'MOBILE'" height="160px" :advert="googleAd.content"></AD>
 
     <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
       <div style="width: 100%">
@@ -270,7 +270,7 @@
                     }}
                   </a-button>
                 </div>
-                <AD width="86%" height="560px"></AD>
+                <AD width="86%" height="560px" :advert="googleAd.content"></AD>
               </div>
             </div>
             <!-- 相似商品 -->
@@ -343,6 +343,7 @@ import {
   upanddownProduct,
   collectionProduct,
   offerchat,
+  detailAD
 } from "~/api/goods";
 import {toDialogue} from "~/api/dialogue";
 import {useI18n} from "vue-i18n";
@@ -376,6 +377,7 @@ const btnLoading = ref(false);
 const previewVisible = ref(false);
 const allImages = ref([]);
 const userAchievementModal = ref(null);
+const googleAd = ref({})
 const reportModal = ref(null);
 const p_type = ref(null);
 const price = ref(null); // 出价
@@ -442,7 +444,12 @@ const handleQuery = () => {
         }, 200);
       });
 };
-
+// 广告
+const getAD = () =>{
+  detailAD().then(res=>{
+    googleAd.value = res.data
+  })
+}
 // 相似商品
 const querySimilarlist = () => {
   var reqParams = {
@@ -615,6 +622,7 @@ const initData = () => {
   productInfo.value.id = router.currentRoute.value.query.id;
   pageLoading.value = true;
   handleQuery();
+  getAD();
   querySimilarlist();
   setTimeout(() => {
     initSwiper();
