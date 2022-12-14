@@ -24,7 +24,7 @@
           </a-space>
           <a-space v-if="form.email">
             <img class="email-img" src="@/assets/images/icon/email_black.png" alt="" />
-            <span>{{$t('pages.isEmail')}}</span>
+            <span>{{$t('pages.verified')}}</span>
           </a-space>
           <div>{{ getRStateLabel() }}</div>
           <a-space class="link-row">
