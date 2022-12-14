@@ -34,7 +34,7 @@
             <div class="swiper mySwiper">
               <div class="swiper-wrapper" :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''">
                 <div class="swiper-slide" v-for="(item, index) in productInfo.images">
-                  <a-image width="100%" height="350px" fit="cover" :src="baseImgPrefix + item"/>
+                  <a-image height="350px" fit="cover" :src="baseImgPrefix + item"/>
                 </div>
               </div>
               <div class="goods-tags">
@@ -416,6 +416,7 @@ const handleQuery = () => {
             ],
           });
           initSwiper()
+          console.log(swiper.value)
         } else if (res.code === 997) {
           blockModal.value.openDialog(3, 2);
         } else {
@@ -698,11 +699,12 @@ onMounted(async () => {
         //padding-bottom: 100%;
         cursor: pointer;
         //background-color: #333;
+        width: 100%;
         :deep(.arco-image-img) {
           object-fit: contain;
           position: absolute;
-          height: 100%;
-          width: 100%;
+          //height: 100%;
+          max-width: 100%;
           top: 0;
           left: 0;
         }
