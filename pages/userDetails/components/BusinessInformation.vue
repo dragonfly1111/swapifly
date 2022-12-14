@@ -7,7 +7,7 @@
         class="header-select"
         v-if="resize.screenType !== 'MOBILE'"
       >
-        <a-col flex="100px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
+        <a-col flex="180px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
         <a-col flex="100px">
           <a-button
             type="outline"

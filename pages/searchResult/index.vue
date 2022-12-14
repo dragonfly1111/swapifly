@@ -5,7 +5,7 @@
     <section class="section-wrapper goods-wrapper">
       <div class="list-header">
         <div>
-          <h2>有{{ productTotal }}個搜尋結果</h2>
+          <h2>{{$t('pages.has')}}{{ productTotal }}{{$t('pages.searchResult')}}</h2>
         </div>
         <div class="select-wrapper">
           <MobileGoodsFilterSelect v-if="resize.screenType === 'MOBILE'" @change="handleQuery"></MobileGoodsFilterSelect>

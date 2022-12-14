@@ -49,13 +49,13 @@
               </swiper-slide>
               <div class="goods-tags">
                 <a-space class="handle-header">
-                  <a-button class="black-btn" @click="handleShare">分享</a-button>
+                  <a-button class="black-btn" @click="handleShare">{{$t('pages.share')}}</a-button>
                   <a-button class="black-btn" @click="handleLike">
                     <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
                     <icon-heart class="heart" v-if="productInfo.islike == 0" />
                     {{ productInfo.like }} like
                   </a-button>
-                  <a-button class="black-btn" @click="handleReport">举报</a-button>
+                  <a-button class="black-btn" @click="handleReport">{{$t('pages.report')}}</a-button>
                 </a-space>
                 <div class="handle-bottom">
                   <a-button class="black-btn" @click="previewAll"
@@ -215,14 +215,14 @@
                         <div class="fs12">{{ getRStateLabel() }}</div>
                         <div class="fs12" v-if="sellerInfo.email">
                           <img class="email-icon" src="@/assets/images/icon/email_black.png" />
-                          <span>已验证</span>
+                          <span>{{$t('pages.verified')}}</span>
                         </div>
                       </div>
                     </a-col>
                     <a-col flex="auto" class="comment-box" v-if="resize.screenType !== 'MOBILE'">
                       <a-space class="comment-header">
                         <span>{{ sellerInfo.nickname }}</span>
-                        <span>获得的评价</span>
+                        <span>{{$t('pages.reviews')}}</span>
                         <span class="fs12">{{ sellerInfo.stars }}</span>
                         <span><icon-star-fill /></span>
                         <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
@@ -312,7 +312,7 @@
                   </div>
                 </div>
                 <div class="achievement-card" v-if="userInfo && p_type == 2">
-                  <div>你的商品在過去7天被瀏覽了{{ productInfo.qday }}次</div>
+                  <div>{{$t('pages.last7days')}}{{ productInfo.qday }}{{$t('pages.days')}}</div>
                   <a-button class="pink-btn" @click="openAchievement"
                     >{{ $t("pages.viewtheResults") }}
                   </a-button>
@@ -795,10 +795,9 @@ onMounted(async () => {
         //background-color: #333;
         width: 100%;
         :deep(.arco-image-img) {
-          object-fit: contain;
           position: absolute;
           //height: 100%;
-          max-width: 100%;
+          width: 100%;
           top: 0;
           left: 0;
         }

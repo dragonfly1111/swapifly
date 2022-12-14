@@ -125,7 +125,7 @@ pages:
   noContent: Not filled in
   followIn: Following
   followers: Followers
-  verified: 已驗證
+  verified: verified
   know: I know
   shouldLoginTip: Sign in to get more services
   bid: Offer
@@ -142,9 +142,15 @@ pages:
   degree_of_old_and_new: The condition
   mobile_sort: Sort
   more_filters: More
+  share: Share
   shareTo: Share
   copySuc: Link copied to your clipboard
   deleted: Deleted
+  last7days: Your listing has been viewed 1815 times in the last
+  days: days
+  reviews: Reviews
+  searchResult: search results
+  has: ''
 profile:
   edit_profile: Edit file
   mobile_setting: Setup

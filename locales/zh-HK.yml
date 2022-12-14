@@ -142,9 +142,15 @@ pages:
   degree_of_old_and_new: 新舊程度
   mobile_sort: 排序
   more_filters: 更多篩選
+  share: 分享
   shareTo: 分享這件商品給其他人
   copySuc: 分享連結已複製
   deleted: 已删除
+  last7days: 你的商品在過去7天被瀏覽了
+  days: 次
+  reviews: 获得的评价
+  searchResult: 個搜尋結果
+  has: 有
 profile:
   edit_profile: 編輯檔案
   mobile_setting: 設置

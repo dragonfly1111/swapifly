@@ -244,10 +244,11 @@ onMounted(() => {
 
   .extra-btn {
     :deep(.arco-btn) {
-      width: 90px;
+      min-width: 90px;
       border: 1px solid $main-grey;
       color: $main-grey;
-
+      padding-left: 5px;
+      padding-right: 5px;
       &:hover {
         background-color: #eee;
       }

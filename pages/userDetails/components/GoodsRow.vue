@@ -1,7 +1,7 @@
 <template>
   <div class="goods-box">
     <a-row justify="space-between" align="center" class="box-header" v-if="resize.screenType !== 'MOBILE'">
-      <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">
+      <a-col :flex="resize.screenType !== 'MOBILE' ? '180px' : '1'" class="title">
         {{ $t("pages.goods") }}
       </a-col>
       <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">
