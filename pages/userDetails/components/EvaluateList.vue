@@ -104,19 +104,22 @@ const getTypeLabel = (type) => {
 // 商品详情
 const toGoodsDetails = (item) => {
   // 判断封禁状态
-  getProductFj(item.id).then((res) => {
+  getProductFj(item.pid).then((res) => {
     // type 1.自己，2他人
-    // state 商品狀態，1.出售中，2.交易完成，3已下架
+    // state 商品狀態，1.出售中，2.交易完成，3已下架，4 已删除
     if (res.code === 0) {
       if (res.data.status === 2) {
         // 打开封禁封禁弹窗
         blockModal.value.openDialog(2, res.data.type);
-      } else if (res.data.state !== 1 && res.data.type === 2) {
+      } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(4);
+      } else if(res.data.state === 4){
+        // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
         if (props.isToDetails) {
-          router.push("/goodsDetails?id=" + item.id);
+          router.push("/goodsDetails?id=" + item.pid);
         }
       }
     } else {

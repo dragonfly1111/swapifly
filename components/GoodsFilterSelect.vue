@@ -15,7 +15,7 @@
       ></a-tree-select>
     </a-form-item>
     <a-form-item field="sort">
-      <a-select :placeholder="$t('pages.sort')" v-model="form.sort" @change="updateSearch">
+      <a-select :placeholder="$t('pages.sort')" v-model="form.sort" @change="updateSearch" class="has-val-item">
         <template #label="{ data }">
           <span class="select-span">{{ $t("pages.sort") }}：</span>
           {{ data.label }}
@@ -311,5 +311,9 @@ defineExpose({
 
 :deep(.arco-checkbox-checked .arco-checkbox-icon) {
   background-color: $main-grey;
+}
+
+.has-val-item{
+  background: red;
 }
 </style>

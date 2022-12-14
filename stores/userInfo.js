@@ -61,8 +61,23 @@ export const useUserInfo = defineStore('userInfo', {
       this.userBlock = false
     },
     logout(callback) {
-      userLogOut().then(() => {
-        console.log(process.client)
+      // 如果有token 则调用logout接口
+      if(this.token){
+        userLogOut().then(() => {
+          this.avatar = ''
+          this.email = ''
+          this.id = -1
+          this.nickname = ''
+          this.token = ''
+          this.type = -1
+          this.openLogin = false
+          this.userBlock = false
+          sessionStorage.removeItem('USER-INFO')
+          if (callback) {
+            callback()
+          }
+        })
+      } else {
         this.avatar = ''
         this.email = ''
         this.id = -1
@@ -75,7 +90,7 @@ export const useUserInfo = defineStore('userInfo', {
         if (callback) {
           callback()
         }
-      })
+      }
     },
     checkLogin(){
       const resize = useResize();
@@ -91,7 +106,7 @@ export const useUserInfo = defineStore('userInfo', {
       }
          return false
       }
-     
+
     }
   }
 })

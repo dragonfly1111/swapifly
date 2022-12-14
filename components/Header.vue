@@ -387,6 +387,7 @@ function toClassDetail(e) {
   .right {
     display: flex;
     align-items: center;
+    height: 100%;
     * {
       cursor: pointer;
     }
@@ -430,8 +431,21 @@ function toClassDetail(e) {
 
     }
 
+    .sign{
+      height: 100%;
+      line-height: 40px;
+      padding: 0 14px;
+      &:hover{
+        background: #535559;
+      }
+    }
     .login {
-      margin-left: 28px;
+      padding: 0 14px;
+      height: 100%;
+      line-height: 40px;
+      &:hover{
+        background: #535559;
+      }
     }
   }
 
