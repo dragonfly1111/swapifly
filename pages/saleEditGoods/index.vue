@@ -520,6 +520,7 @@ const uploadError = (e) => {};
 const submitForm = () => {
   formRef.value.validate().then((validate) => {
     if (validate) {
+      Message.error(t("sale.submitTip"));
       return;
     }
     console.log("", fileList.value);

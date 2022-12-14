@@ -4,22 +4,22 @@
 
     <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
       <div style="width: 100%">
-        <a-skeleton-line :line-height="200" :line-spacing="10"/>
+        <a-skeleton-line :line-height="200" :line-spacing="10" />
       </div>
       <div style="height: 20px"></div>
       <div style="width: 60%; margin-right: 10%; display: inline-block">
-        <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10"/>
+        <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
       </div>
       <div style="width: 30%; display: inline-block">
-        <a-skeleton-line :line-height="200" :line-spacing="10"/>
+        <a-skeleton-line :line-height="200" :line-spacing="10" />
       </div>
       <div style="height: 36px"></div>
       <div style="width: 70%">
-        <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10"/>
+        <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
       </div>
       <div style="height: 36px"></div>
       <div style="width: 70%; margin-bottom: 30px">
-        <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
+        <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
       </div>
     </a-skeleton>
 
@@ -30,32 +30,77 @@
         </a-breadcrumb>
         <div class="section-content">
           <div class="goods-swiper">
+            <swiper
+              :slidesPerView="resize.screenType === 'MOBILE' ? 1 : 3"
+              :spaceBetween="6"
+              :loop="false"
+              :navigation="false"
+              :modules="modules"
+              class="mySwiper swiper"
+              ref="swiperRef"
+              :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''"
+            >
+              <swiper-slide
+                class="swiper-slide"
+                v-for="(item, index) in productInfo.images"
+                :key="index"
+              >
+                <a-image height="350px" fit="cover" :src="baseImgPrefix + item" />
+              </swiper-slide>
+              <div class="goods-tags">
+                <a-space class="handle-header">
+                  <a-button class="black-btn" @click="handleShare">分享</a-button>
+                  <a-button class="black-btn" @click="handleLike">
+                    <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
+                    <icon-heart class="heart" v-if="productInfo.islike == 0" />
+                    {{ productInfo.like }} like
+                  </a-button>
+                  <a-button class="black-btn" @click="handleReport">举报</a-button>
+                </a-space>
+                <div class="handle-bottom">
+                  <a-button class="black-btn" @click="previewAll"
+                    >{{ productInfo.images.length }} image</a-button
+                  >
+                </div>
+              </div>
+            </swiper>
             <!-- Swiper -->
-            <div class="swiper mySwiper">
-              <div class="swiper-wrapper" :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''">
+            <!-- <div class="swiper mySwiper">
+              <div
+                class="swiper-wrapper"
+                :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''"
+              >
                 <div class="swiper-slide" v-for="(item, index) in productInfo.images">
-                  <a-image height="350px" fit="cover" :src="baseImgPrefix + item"/>
+                  <a-image height="350px" fit="cover" :src="baseImgPrefix + item" />
                 </div>
               </div>
               <div class="goods-tags">
                 <a-space class="handle-header">
                   <a-button class="black-btn" @click="handleShare">分享</a-button>
                   <a-button class="black-btn" @click="handleLike">
-                    <icon-heart-fill class="heart" v-if="productInfo.islike == 1"/>
-                    <icon-heart class="heart" v-if="productInfo.islike == 0"/>
+                    <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
+                    <icon-heart class="heart" v-if="productInfo.islike == 0" />
                     {{ productInfo.like }} like
                   </a-button>
                   <a-button class="black-btn" @click="handleReport">举报</a-button>
                 </a-space>
                 <div class="handle-bottom">
-                  <a-button class="black-btn" @click="previewAll">{{ productInfo.images.length }} image</a-button>
+                  <a-button class="black-btn" @click="previewAll"
+                    >{{ productInfo.images.length }} image</a-button
+                  >
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- 分页 -->
             <div v-show="productInfo.images.length > 3">
-              <div class="swiper-button-next swiper-button-next-self" @click="swiperRef.slideNext()"></div>
-              <div class="swiper-button-prev swiper-button-prev-self " @click="swiperRef.slidePrev()"></div>
+              <div
+                class="swiper-button-next swiper-button-next-self"
+                @click="swiperRef.$el.swiper.slideNext()"
+              ></div>
+              <div
+                class="swiper-button-prev swiper-button-prev-self"
+                @click="swiperRef.$el.swiper.slidePrev()"
+              ></div>
             </div>
           </div>
           <a-breadcrumb v-if="resize.screenType === 'MOBILE'">
@@ -70,37 +115,37 @@
                 </div>
                 <a-row justify="space-between" class="goods-desc">
                   <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
+                    :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                    class="mobile-goods-detail"
                   >
-                    <icon-common/>
+                    <icon-common />
                     <span>{{ productInfo.newold }}</span>
                     <icon-info-circle
-                        style="cursor: pointer"
-                        @click="newAndOldModal.openDialog()"
+                      style="cursor: pointer"
+                      @click="newAndOldModal.openDialog()"
                     />
                   </a-col>
                   <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
+                    :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                    class="mobile-goods-detail"
                   >
-                    <icon-user-group/>
+                    <icon-user-group />
                     <span v-if="productInfo.offline == 1" class="mr5">{{
-                        $t("pages.handDeliver")
-                      }}</span>
+                      $t("pages.handDeliver")
+                    }}</span>
                     <span v-if="productInfo.mail == 1">{{ $t("pages.postAndCourier") }}</span>
                   </a-col>
                   <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
+                    :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                    class="mobile-goods-detail"
                   >
-                    <icon-location/>
+                    <icon-location />
                     <span>{{ productInfo.region }}</span>
                   </a-col>
                 </a-row>
                 <a-typography>
                   <a-typography-paragraph
-                      :ellipsis="{
+                    :ellipsis="{
                       rows: resize.screenType === 'MOBILE' ? 4 : 6,
                       expandable: true,
                     }"
@@ -110,15 +155,14 @@
                       {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
                     </template>
                   </a-typography-paragraph>
-                  <a-typography-title :heading="4" class="mt30">{{
-                      $t("pages.handDeliver")
-                    }}
+                  <a-typography-title :heading="4" class="mt30"
+                    >{{ $t("pages.handDeliver") }}
                   </a-typography-title>
                   <template v-if="productInfo.offline">
                     <a-typography-paragraph>
                       <div class="trade-type-item" v-for="item in productInfo.offline_address">
                         <a-space align="start" :strokeWidth="2">
-                          <icon-location :size="18"/>
+                          <icon-location :size="18" />
                           <div>
                             <div>{{ item.title }}</div>
                             <div class="grey">{{ item.address }}</div>
@@ -132,9 +176,8 @@
                       {{ $t("pages.noHandDeliver") }}
                     </a-typography-paragraph>
                   </template>
-                  <a-typography-title :heading="4" class="mt30">{{
-                      $t("pages.postAndCourier")
-                    }}
+                  <a-typography-title :heading="4" class="mt30"
+                    >{{ $t("pages.postAndCourier") }}
                   </a-typography-title>
                   <template v-if="productInfo.mail == 1">
                     <a-typography-paragraph class="grey">
@@ -148,17 +191,22 @@
                   </template>
                 </a-typography>
                 <div class="module-box">
-                  <a-divider orientation="left" class="module-header">{{
-                      $t("pages.viewSeller")
-                    }}
+                  <a-divider orientation="left" class="module-header"
+                    >{{ $t("pages.viewSeller") }}
                   </a-divider>
                   <a-row justify="space-between" :gutter="20">
                     <a-col flex="250px" class="seller-box">
                       <a-avatar :size="100">
-                        <img alt="avatar" @click="toUserDetails(sellerInfo)" :src="baseImgPrefix + sellerInfo.avatar"/>
+                        <img
+                          alt="avatar"
+                          @click="toUserDetails(sellerInfo)"
+                          :src="baseImgPrefix + sellerInfo.avatar"
+                        />
                       </a-avatar>
                       <div class="seller-info">
-                        <div class="seller-name" @click="toUserDetails(sellerInfo)">{{ sellerInfo.nickname }}</div>
+                        <div class="seller-name" @click="toUserDetails(sellerInfo)">
+                          {{ sellerInfo.nickname }}
+                        </div>
                         <div class="grey">@{{ sellerInfo.realname }}</div>
                         <div class="fs12">
                           <span>joined</span>
@@ -166,7 +214,7 @@
                         </div>
                         <div class="fs12">{{ getRStateLabel() }}</div>
                         <div class="fs12" v-if="sellerInfo.email">
-                          <img class="email-icon" src="@/assets/images/icon/email_black.png"/>
+                          <img class="email-icon" src="@/assets/images/icon/email_black.png" />
                           <span>已验证</span>
                         </div>
                       </div>
@@ -176,22 +224,22 @@
                         <span>{{ sellerInfo.nickname }}</span>
                         <span>获得的评价</span>
                         <span class="fs12">{{ sellerInfo.stars }}</span>
-                        <span><icon-star-fill/></span>
+                        <span><icon-star-fill /></span>
                         <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
                       </a-space>
                       <EvaluateList
-                          :list="eltlist"
-                          :page-loading="pageLoading"
-                          :showSource="false"
-                          :showLine="false"
+                        :list="eltlist"
+                        :page-loading="pageLoading"
+                        :showSource="false"
+                        :showLine="false"
                       ></EvaluateList>
                       <a-link
-                          class="see-more-comment"
-                          @click="seeMoreComment"
-                          v-if="eltlist.length"
+                        class="see-more-comment"
+                        @click="seeMoreComment"
+                        v-if="eltlist.length"
                       >
                         {{ $t("pages.viewAllComment") }}
-                        <icon-left/>
+                        <icon-left />
                       </a-link>
                     </a-col>
                   </a-row>
@@ -201,28 +249,28 @@
               <div class="right-box" v-if="resize.screenType !== 'MOBILE'">
                 <div class="user-card">
                   <a-comment
-                      :author="sellerInfo.nickname"
-                      :datetime="'@' + sellerInfo.realname"
-                      class="user-info"
-                      @click="toUserDetails(sellerInfo)"
+                    :author="sellerInfo.nickname"
+                    :datetime="'@' + sellerInfo.realname"
+                    class="user-info"
+                    @click="toUserDetails(sellerInfo)"
                   >
                     <template #content>
                       <span>{{ sellerInfo.stars }}</span>
-                      <icon-star-fill :size="16"/>
+                      <icon-star-fill :size="16" />
                       <span>（{{ sellerInfo.e_num }}review）</span>
                     </template>
                     <template #avatar>
                       <a-image
-                          :width="50"
-                          :height="50"
-                          :src="baseImgPrefix + sellerInfo.avatar"
-                          fit="cover"
-                          show-loader
-                          :preview="false"
-                          style="border-radius: 50%"
+                        :width="50"
+                        :height="50"
+                        :src="baseImgPrefix + sellerInfo.avatar"
+                        fit="cover"
+                        show-loader
+                        :preview="false"
+                        style="border-radius: 50%"
                       >
                         <template #loader>
-                          <div class="loader-animate"/>
+                          <div class="loader-animate" />
                         </template>
                       </a-image>
                     </template>
@@ -234,19 +282,19 @@
                     {{ $t("pages.shouldLoginTip") }}
                   </div>
                   <a-input-search
-                      placeholder="HK$ "
-                      :button-text="$t('pages.bid')"
-                      search-button
-                      class="bid-input"
-                      v-if="userInfo && p_type == 1"
-                      v-model="price"
-                      @search="handleOfferchat"
-                      :disabled="!userInfo || !userInfo.id"
+                    placeholder="HK$ "
+                    :button-text="$t('pages.bid')"
+                    search-button
+                    class="bid-input"
+                    v-if="userInfo && p_type == 1"
+                    v-model="price"
+                    @search="handleOfferchat"
+                    :disabled="!userInfo || !userInfo.id"
                   />
                   <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
                   <div class="self-handle" v-if="userInfo && p_type == 2">
                     <a-space @click="handleEdit">
-                      <icon-pen/>
+                      <icon-pen />
                       <span>{{ $t("pages.editGoods") }}</span>
                     </a-space>
                     <a-space v-if="productInfo.state == 1" @click="handleRemove">
@@ -254,20 +302,19 @@
                       <span>{{ $t("pages.removeGoods") }}</span>
                     </a-space>
                     <a-space v-if="productInfo.state == 3" @click="handleRemove">
-                      <icon-upload/>
+                      <icon-upload />
                       <span>{{ $t("pages.putawayGoods") }}</span>
                     </a-space>
                     <a-space class="pink" @click="handleDelete">
-                      <icon-delete/>
+                      <icon-delete />
                       <span>{{ $t("pages.delGoods") }}</span>
                     </a-space>
                   </div>
                 </div>
                 <div class="achievement-card" v-if="userInfo && p_type == 2">
                   <div>你的商品在過去7天被瀏覽了{{ productInfo.qday }}次</div>
-                  <a-button class="pink-btn" @click="openAchievement">{{
-                      $t("pages.viewtheResults")
-                    }}
+                  <a-button class="pink-btn" @click="openAchievement"
+                    >{{ $t("pages.viewtheResults") }}
                   </a-button>
                 </div>
                 <AD width="86%" height="560px" :advert="googleAd.content"></AD>
@@ -275,40 +322,36 @@
             </div>
             <!-- 相似商品 -->
             <div class="module-box">
-              <a-divider orientation="left" class="module-header">{{
-                  $t("pages.similarGoods")
-                }}
+              <a-divider orientation="left" class="module-header"
+                >{{ $t("pages.similarGoods") }}
               </a-divider>
               <ProductCard :list="similar.list" :page-loading="pageLoading"></ProductCard>
             </div>
             <div class="see-more" v-if="similar.total > similar.list.length">
-              <a-button :loading="btnLoading" type="outline" @click="loadMoreSimilar">{{
-                  $t("pages.seeMore")
-                }}
+              <a-button :loading="btnLoading" type="outline" @click="loadMoreSimilar"
+                >{{ $t("pages.seeMore") }}
               </a-button>
             </div>
           </div>
         </div>
       </section>
-
     </div>
 
     <div class="mobile-footer-goods" v-if="resize.screenType === 'MOBILE'">
       <span class="icon-like-mobile" @click="handleLike">
-        <icon-heart class="heart" v-if="productInfo.islike == 0"/>
-        <icon-heart-fill class="heart" v-if="productInfo.islike == 1"/>
+        <icon-heart class="heart" v-if="productInfo.islike == 0" />
+        <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
         {{ productInfo.like }} like
       </span>
       <a-button type="outline" @click="router.push('/dialogue')">
         {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
       </a-button>
-      <a-button type="primary" style="margin: 0px 20px; background-color: rgb(51, 51, 51)">{{
-          $t("pages.bid")
-        }}
+      <a-button type="primary" style="margin: 0px 20px; background-color: rgb(51, 51, 51)"
+        >{{ $t("pages.bid") }}
       </a-button>
     </div>
 
-    <PageFooterLink/>
+    <PageFooterLink />
 
     <!-- 举报 -->
     <ReportModal ref="reportModal"></ReportModal>
@@ -322,20 +365,16 @@
     <BlockModal ref="blockModal"></BlockModal>
     <!-- 预览所有图片 -->
     <client-only>
-      <a-image-preview-group
-          v-model:visible="previewVisible"
-          infinite
-          :srcList="allImages">
+      <a-image-preview-group v-model:visible="previewVisible" infinite :srcList="allImages">
       </a-image-preview-group>
     </client-only>
-
   </div>
 </template>
 
 <script setup>
 import EvaluateList from "@/pages/userDetails/components/EvaluateList.vue";
-import {useUserInfo} from "~/stores/userInfo";
-import {useResize} from "~/stores/resize";
+import { useUserInfo } from "~/stores/userInfo";
+import { useResize } from "~/stores/resize";
 import {
   getProductDetails,
   getSimilarlist,
@@ -343,14 +382,20 @@ import {
   upanddownProduct,
   collectionProduct,
   offerchat,
-  detailAD
+  detailAD,
 } from "~/api/goods";
-import {toDialogue} from "~/api/dialogue";
-import {useI18n} from "vue-i18n";
-import {Modal, Message} from "@arco-design/web-vue";
-import Swiper, {Autoplay, Navigation} from 'swiper';
+import { toDialogue } from "~/api/dialogue";
+import { useI18n } from "vue-i18n";
+import { Modal, Message } from "@arco-design/web-vue";
+// import Swiper, {Autoplay, Navigation} from 'swiper';
+// 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+// import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
+const modules = [];
 
-const {t} = useI18n();
+const { t } = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
@@ -377,7 +422,7 @@ const btnLoading = ref(false);
 const previewVisible = ref(false);
 const allImages = ref([]);
 const userAchievementModal = ref(null);
-const googleAd = ref({})
+const googleAd = ref({});
 const reportModal = ref(null);
 const p_type = ref(null);
 const price = ref(null); // 出价
@@ -404,52 +449,54 @@ const similar = ref({
 // 商品详情
 const handleQuery = () => {
   getProductDetails(productInfo.value.id)
-      .then((res) => {
-        if (res.code == 0) {
-          p_type.value = res.data.p_type;
-          productInfo.value = res.data.product;
-          sellerInfo.value = res.data.seller;
-          eltlist.value = res.data.eltlist;
-          const appConfig = useAppConfig();
-          const arr = []
-          res.data.product.images.forEach(item=>{
-            arr.push(baseImgPrefix + item)
-          })
-          allImages.value = arr
-          useHead({
-            title: appConfig.name + productInfo.value.title,
-            meta: [
-              {
-                hid: "description",
-                name: "description",
-                content: productInfo.value.describe,
-              },
-              {
-                hid: "og:image",
-                name: "og:image",
-                content: baseImgPrefix + productInfo.value.images[0],
-              },
-            ],
-          });
-          initSwiper()
-        } else if (res.code === 997) {
-          blockModal.value.openDialog(3, 2);
-        } else {
-          Message.error(res.message);
-        }
-      })
-      .finally(() => {
-        setTimeout(() => {
-          pageLoading.value = false;
-        }, 200);
-      });
+    .then((res) => {
+      if (res.code == 0) {
+        p_type.value = res.data.p_type;
+        productInfo.value = res.data.product;
+        sellerInfo.value = res.data.seller;
+        eltlist.value = res.data.eltlist;
+        const appConfig = useAppConfig();
+        const arr = [];
+        res.data.product.images.forEach((item) => {
+          arr.push(baseImgPrefix + item);
+        });
+        allImages.value = arr;
+        useHead({
+          title: appConfig.name + productInfo.value.title,
+          meta: [
+            {
+              hid: "description",
+              name: "description",
+              content: productInfo.value.describe,
+            },
+            {
+              hid: "og:image",
+              name: "og:image",
+              content: baseImgPrefix + productInfo.value.images[0],
+            },
+          ],
+        });
+        // initSwiper()
+        swiperRef.value.$el.swiper.update()
+        console.log("swiperRef", swiperRef);
+      } else if (res.code === 997) {
+        blockModal.value.openDialog(3, 2);
+      } else {
+        Message.error(res.message);
+      }
+    })
+    .finally(() => {
+      setTimeout(() => {
+        pageLoading.value = false;
+      }, 200);
+    });
 };
 // 广告
-const getAD = () =>{
-  detailAD().then(res=>{
-    googleAd.value = res.data
-  })
-}
+const getAD = () => {
+  detailAD().then((res) => {
+    googleAd.value = res.data;
+  });
+};
 // 相似商品
 const querySimilarlist = () => {
   var reqParams = {
@@ -458,15 +505,15 @@ const querySimilarlist = () => {
   };
   btnLoading.value = true;
   getSimilarlist(reqParams)
-      .then((res) => {
-        if (res.code == 0) {
-          similar.value.list = similar.value.list.concat(res.data.data);
-          similar.value.total = res.data.total;
-        }
-      })
-      .finally(() => {
-        btnLoading.value = false;
-      });
+    .then((res) => {
+      if (res.code == 0) {
+        similar.value.list = similar.value.list.concat(res.data.data);
+        similar.value.total = res.data.total;
+      }
+    })
+    .finally(() => {
+      btnLoading.value = false;
+    });
 };
 
 // 加载更多
@@ -493,7 +540,7 @@ const handleOfferchat = () => {
     if (res.code == 0) {
       router.push("/dialogue");
     } else {
-      Message.error(res.message)
+      Message.error(res.message);
     }
   });
 };
@@ -504,9 +551,9 @@ const handleReport = () => {
 };
 
 // 查看所有图片
-const previewAll = () =>{
-  previewVisible.value = true
-}
+const previewAll = () => {
+  previewVisible.value = true;
+};
 
 // 编辑商品
 const handleEdit = () => {
@@ -522,18 +569,18 @@ const handleDelete = () => {
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
     onBeforeOk: (done) => {
-      deleteProduct({id: productInfo.value.id})
-          .then((res) => {
-            if (res.code === 0) {
-              Message.success(res.message);
-              router.push("/userDetails?userId=" + sellerInfo.value.id);
-            } else {
-              Message.error(res.message);
-            }
-          })
-          .finally(() => {
-            done(true);
-          });
+      deleteProduct({ id: productInfo.value.id })
+        .then((res) => {
+          if (res.code === 0) {
+            Message.success(res.message);
+            router.push("/userDetails?userId=" + sellerInfo.value.id);
+          } else {
+            Message.error(res.message);
+          }
+        })
+        .finally(() => {
+          done(true);
+        });
     },
   });
 };
@@ -549,18 +596,18 @@ const handleRemove = () => {
     cancelText: t("pages.cancel"),
     okText: t("pages.confirm"),
     onBeforeOk: (done) => {
-      upanddownProduct({id: item.id, state: item.state == 3 ? 1 : 2})
-          .then((res) => {
-            if (res.code === 0) {
-              Message.success(res.message);
-              handleQuery();
-            } else {
-              Message.error(res.message);
-            }
-          })
-          .finally(() => {
-            done(true);
-          });
+      upanddownProduct({ id: item.id, state: item.state == 3 ? 1 : 2 })
+        .then((res) => {
+          if (res.code === 0) {
+            Message.success(res.message);
+            handleQuery();
+          } else {
+            Message.error(res.message);
+          }
+        })
+        .finally(() => {
+          done(true);
+        });
     },
   });
 };
@@ -574,7 +621,7 @@ const handleLike = () => {
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
       Message.success(res.message);
-      let {like} = productInfo.value;
+      let { like } = productInfo.value;
       productInfo.value.like = productInfo.value.islike == 1 ? like - 1 : like + 1;
       productInfo.value.islike = productInfo.value.islike == 1 ? 0 : 1;
       // handleQuery()
@@ -607,10 +654,7 @@ const initSwiper = () => {
   swiperRef.value = new Swiper(".mySwiper", {
     slidesPerView: resize.screenType === "MOBILE" ? 1 : 3,
     spaceBetween: 6,
-    // pagination: {
-    //   el: ".swiper-pagination",
-    //   clickable: true,
-    // },
+    observeParents: true,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -624,27 +668,21 @@ const initData = () => {
   handleQuery();
   getAD();
   querySimilarlist();
-  setTimeout(() => {
-    initSwiper();
-  }, 200);
 };
 
 watch(
-    () => router.currentRoute.value.query.id,
-    (newValue, oldValue) => {
-      if (router.currentRoute.value.path == "/goodsDetails" && newValue !== oldValue) {
-        initData();
-        window.scrollTo(0, 0);
-      }
+  () => router.currentRoute.value.query.id,
+  (newValue, oldValue) => {
+    if (router.currentRoute.value.path == "/goodsDetails" && newValue !== oldValue) {
+      initData();
+      window.scrollTo(0, 0);
     }
+  }
 );
 
 onMounted(async () => {
   await nextTick();
   initData();
-  window.onresize = function () {
-    initSwiper();
-  };
 });
 </script>
 
@@ -705,9 +743,39 @@ onMounted(async () => {
       }
 
       .less-3-swiper {
-        background: #CCCCCC7F;
+        background: #cccccc7f;
         display: flex;
         justify-content: center;
+        :deep(.swiper-wrapper){
+          justify-content: center;
+        }
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        font-weight: bold;
+        background-color: #f2f2f2;
+        z-index: 33;
+        font-size: 18px;
+        cursor: pointer;
+        &::after {
+          font-size: 14px;
+          color: $main-grey;
+        }
+
+        &:hover {
+          background-color: $main-grey;
+          color: #fff;
+          &::after {
+            font-size: 14px;
+            color: #fff;
+          }
+        }
       }
 
       .swiper-slide {
@@ -733,26 +801,6 @@ onMounted(async () => {
           max-width: 100%;
           top: 0;
           left: 0;
-        }
-      }
-
-      .swiper-button-next-self,
-      .swiper-button-prev-self {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        font-weight: bold;
-        background-color: #f2f2f2;
-        z-index: 33;
-        font-size: 18px;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $main-grey;
-          color: #fff;
         }
       }
 

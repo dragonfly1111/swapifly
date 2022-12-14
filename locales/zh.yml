@@ -395,6 +395,7 @@ sale:
   saveDraftTitle: 需要保存草稿吗?
   saveDraftContent: 如果不保存草稿，将不会保存已填的商品信息。
   overLimit: 最多上传10张图片
+  submitTip: 您还有未填写的商品信息，请完善信息
   formValidate:
     typeValidate: 请选择分类
     goodsNameValidate: 请填写商品名称

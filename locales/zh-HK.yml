@@ -125,6 +125,7 @@ pages:
   noContent: 未填写
   followIn: Follow緊
   followers: Followers
+  isEmail: 已驗證
   know: 我知道了
   shouldLoginTip: 登錄以獲取更多服務
   bid: 出價
@@ -396,6 +397,7 @@ sale:
   saveDraftTitle: 需要儲存草稿嗎?
   saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
   overLimit: 最多上傳10張圖片
+  submitTip: 您还有未填写的商品信息，请完善信息
   formValidate:
     typeValidate: 請選擇分類
     goodsNameValidate: 請填寫商品名稱
