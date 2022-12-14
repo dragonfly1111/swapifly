@@ -143,7 +143,7 @@
         >
           <a-form-item field="rid" hide-label hide-asterisk>
             <a-tree-select
-              :data="typeList"
+              :data="sysData.goodsClass"
               v-model="form.rid"
               :fieldNames="{
                 key: 'id',
@@ -180,7 +180,7 @@
             <div class="form-title">{{ $t("sale.goodsDetails") }}</div>
             <a-form-item field="nid" :label="$t('pages.oldAndNew')" hide-asterisk>
               <a-radio-group v-model="form.nid">
-                <a-radio v-for="item in newOldList" :key="item.id" :value="item.id">
+                <a-radio v-for="item in sysData.goodsOan" :key="item.id" :value="item.id">
                   {{ item.title }}
                 </a-radio>
               </a-radio-group>
@@ -207,10 +207,10 @@
               />
               <template #extra>
                 <a-row justify="space-between">
-                  <a-col flex="auto">{{ $t("sale.descSuggest") }}</a-col>
+                  <a-col flex="auto" v-if="curClassPath.length === 3">{{ curClassPath[2].advice }}</a-col>
                   <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
-                    <a-link :href="forbidLink">详情</a-link>
+                    <a-link :href="forbidLink">{{ $t('sale.forbidTipDetail') }}</a-link>
                   </a-col>
                 </a-row>
               </template>
@@ -222,7 +222,7 @@
                 allow-clear
               >
                 <a-option
-                  v-for="item in regionOptions"
+                  v-for="item in sysData.region"
                   :value="item.id"
                   :key="item.id"
                   :label="item.title"
@@ -330,9 +330,6 @@ import axios from "axios";
 const { t } = useI18n();
 const router = useRouter();
 const sysData = useSysData();
-const typeList = sysData.goodsClass;
-const newOldList = sysData.goodsOan;
-const regionOptions = sysData.region;
 const pdwList = sysData.goodsPdwList || [];
 const userInfo = useUserInfo();
 const draftModal = ref(null);
@@ -414,8 +411,7 @@ const listAll = () => {
 
 // 选中分类
 const changeClass = (e) => {
-  const path = getPathByKey(e, typeList)
-  curClassPath.value = path
+  curClassPath.value = getPathByKey(e, sysData.goodsClass)
 };
 
 // 搜索地址
@@ -437,7 +433,7 @@ const handleSearch = (value) => {
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
-  let obj = newOldList.find((i) => i.id == form.value.nid);
+  let obj = sysData.goodsOan.find((i) => i.id == form.value.nid);
   return obj ? obj.advice : "";
 };
 
@@ -489,6 +485,7 @@ const getProduct = () => {
   getProductInfo(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data;
+      changeClass(res.data.rid)
       if (res.data.offline_address && res.data.offline_address.length > 0) {
         const arr = [];
         res.data.offline_address.forEach((item) => {
@@ -725,6 +722,13 @@ const addToSelect = (item) => {
   delete tmp.id;
   offline_address.value.push(JSON.stringify(tmp));
 };
+
+// 监听sysData 获取到goodsClass之后给curClassPath赋值一次（防止出现刷新页面进入时 还未获取到系统数据就赋值的问题）
+watch(sysData, (val) => {
+  if(val.goodsClass.length && form.value.rid){
+    changeClass(form.value.rid)
+  }
+}, { immediate: true, deep: true })
 
 router.beforeEach((to, from, next) => {
   if (

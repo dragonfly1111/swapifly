@@ -32,8 +32,7 @@ useAsyncData(async () => {
   // console.log(area.value)
   // console.log(locale.value)
   // 服务设置系统属性数据
-  const sysDataRes = await initSysData()
-  sysData.setSysDataServerSide(sysDataRes)
+
 })
 useHead({
   title: app.name,
@@ -69,11 +68,14 @@ useHead({
   ]
 })
 // console.log("=====onMounted====", resize)
-onMounted(() => {
+onMounted(async () => {
   // reurl()
   // 客户端设置系统属性数据
   if (process.client) {
     userInfo.initState()
+    const sysDataRes = await initSysData()
+    sysData.setSysDataServerSide(sysDataRes)
+
     sysData.setSysDataClientSide({
       gender: generateGender(t),
       evaluationSort: generateEvaluationSort(t),

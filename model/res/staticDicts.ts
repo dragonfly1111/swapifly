@@ -1,7 +1,5 @@
 // 性别
 export function generateGender(t:any){
-  console.log('generateGender')
-  console.log(t)
   return [{
     key: t('gender.man'),
     value: 1

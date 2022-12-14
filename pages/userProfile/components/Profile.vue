@@ -384,7 +384,7 @@ onMounted(() => {
     margin-bottom: 20px;
   }
   .label-content{
-    max-width: 400px;
+    max-width: 365px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
