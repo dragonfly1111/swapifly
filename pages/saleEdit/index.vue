@@ -18,6 +18,7 @@
               @success="uploadSuccess"
               @error="uploadError"
               @change="uploadChange"
+              @exceed-limit="overLimit"
               accept="image/*,.png"
           >
             <template #upload-button>
@@ -160,6 +161,10 @@ const uploadError = (e) => {
 const uploadChange = (_, currentFile) => {
   fileList.value = _;
 };
+
+const overLimit = (e) =>{
+  Message.warning(t('sale.overLimit'))
+}
 
 onMounted(async () => {
   handleQuery();
