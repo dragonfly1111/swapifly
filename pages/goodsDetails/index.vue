@@ -51,12 +51,11 @@
                   <a-button class="black-btn">{{ productInfo.images.length }} image</a-button>
                 </div>
               </div>
-
             </div>
             <!-- 分页 -->
             <div v-show="productInfo.images.length > 3">
-              <div class="swiper-button-next swiper-button-next-self"></div>
-              <div class="swiper-button-prev swiper-button-prev-self"></div>
+              <div class="swiper-button-next swiper-button-next-self" @click="swiperRef.slideNext()"></div>
+              <div class="swiper-button-prev swiper-button-prev-self " @click="swiperRef.slidePrev()"></div>
             </div>
           </div>
           <a-breadcrumb v-if="resize.screenType === 'MOBILE'">
@@ -360,7 +359,7 @@ const getRStateLabel = () => {
   };
   return rStateOptions[sellerInfo.value.r_state] || "";
 };
-const swiper = ref(null);
+const swiperRef = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
 const blockModal = ref(null);
@@ -416,7 +415,6 @@ const handleQuery = () => {
             ],
           });
           initSwiper()
-          console.log(swiper.value)
         } else if (res.code === 997) {
           blockModal.value.openDialog(3, 2);
         } else {
@@ -579,7 +577,7 @@ const toUserDetails = (item) => {
   router.push("/userDetails?userId=" + item.id);
 };
 const initSwiper = () => {
-  swiper.value = new Swiper(".mySwiper", {
+  swiperRef.value = new Swiper(".mySwiper", {
     slidesPerView: resize.screenType === "MOBILE" ? 1 : 3,
     spaceBetween: 6,
     // pagination: {
