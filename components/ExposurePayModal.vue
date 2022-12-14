@@ -401,7 +401,7 @@ defineExpose({
         width: 100%;
         .select-item {
           width: calc((100% - 40px) / 3);
-          width: 45%;
+          //width: 45%;
           border: 1px solid #e5e5e5;
           text-align: center;
           padding: 15px 10px;
