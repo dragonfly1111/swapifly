@@ -71,7 +71,7 @@
                   :class="{ active: formData.tid == item.id }"
                   @click="formData.tid = item.id"
               >
-                <div>{{ item.number }} {{ $t('exposure.exposureNums') }} / {{ item.days }} {{
+                <div>{{ item.number }}{{ $t('exposure.exposureNums') }}/{{ item.days }}{{
                     $t('exposure.exposureDays')
                   }}
                 </div>
@@ -336,7 +336,7 @@ defineExpose({
 
 .exposure-dialog {
   padding: 0;
-  width: 550px;
+  width: 630px;
   position: relative;
 
   .right-close {
@@ -401,6 +401,7 @@ defineExpose({
         width: 100%;
         .select-item {
           width: calc((100% - 40px) / 3);
+          width: 45%;
           border: 1px solid #e5e5e5;
           text-align: center;
           padding: 15px 10px;
