@@ -64,8 +64,8 @@ loginDialog:
     emailCodeErr: Verification code error
     password: Please enter the password
     passwordErr: Password(8-20 words)
-    passwordNew: 请输入新密码
-    passwordNew1: 请确认新密码
+    passwordNew: Please enter the new password
+    passwordNew1: Please confirm the new password
 pages:
   hotBrands: Top Brands
   recommendTitle: Recommanded
@@ -79,10 +79,10 @@ pages:
   oldAndNew: The condition
   price_degree: Price
   handDeliver: Trade in person
-  noHandDeliver: 不支持面交
+  noHandDeliver: No support
   postAndCourier: By post & courier
-  noPostAndCourier: 不支持邮寄及速递
-  noPostTip: 未填寫郵寄及速遞說明
+  noPostAndCourier: No support
+  noPostTip: Unfilled content
   reset: Reset
   maxPrice: HK$ Highest
   minPrice: HK$ Lowest
@@ -93,7 +93,7 @@ pages:
   mobile_notice: Notification Message
   no_notice_tip: You haven't received any message
   like_title: My likes
-  likeConfirm: 是否取消like?
+  likeConfirm: Do you want to remove this item?
   searchGoods: Search items
   goods: Item
   goodsEmpty: No Item
@@ -102,7 +102,7 @@ pages:
   businessInformation: Seller details
   registeredMerchant: Registered business seller
   lookClickRate: View the click rate
-  onOffer: 出售中
+  onOffer: On sell
   soldOut: Sold
   isRemoveGoods: Off shelf
   removeGoods: Remove item
@@ -129,7 +129,7 @@ pages:
   shouldLoginTip: Sign in to get more services
   bid: Offer
   viewConversations: Conversation
-  conversations: 对话
+  conversations: Chat
   unfoldMore: Expand to learn more
   expanded: Fold
   viewSeller: Browse sellers
@@ -141,9 +141,9 @@ pages:
   degree_of_old_and_new: The condition
   mobile_sort: Sort
   more_filters: More
-  shareTo: 分享这件商品给其他人
-  copySuc: 分享链接已复制
-  deleted: 已删除
+  shareTo: Share
+  copySuc: Link copied to your clipboard
+  deleted: Deleted
 profile:
   edit_profile: Edit file
   mobile_setting: Setup
@@ -317,7 +317,7 @@ dialogue:
   noMsg: No message
   noMsgTip: No message received
   rejected: The offer has been rejected
-  rejected1: 驳回出价
+  rejected1: Offer rejected
   accepted: The offer has been accepted
   checkEvaluate: View reviews
   evaluateBut: Reviews
@@ -395,7 +395,7 @@ sale:
   deleteDraftComfirm: Delete or not
   saveDraftTitle: Need to save drafts?
   saveDraftContent: If you do not save the draft, the filled product information will not be saved.
-  overLimit: 最多上傳10張圖片
+  overLimit: Upload up to 10 photos
   formValidate:
     typeValidate: Please choose category
     goodsNameValidate: Please fill in the product name
@@ -415,9 +415,9 @@ rState:
   goodEfficiency: Good response rate
   notReplying: Response infrequently
 block:
-  tip: 因違反了《服務條款》
-  product: 你的商品已被封禁
-  product1: 該商品已被封禁
-  product2: 該商品不在上架狀態
-  user: 你的賬戶已被封禁
-  feedback: 如果你需要申訴，可發送電郵至郵箱
+  tip: For violation of the (Terms of Service)
+  product: Your item has been suspended
+  product1: The item has been suspended
+  product2: The product is not in the sale status
+  user: Your account has been suspended
+  feedback: If you need to appeal, you can send an email to mailbox
