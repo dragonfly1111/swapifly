@@ -22,7 +22,7 @@
           <span class="select-span">{{ $t("pages.sort") }}：</span>
           {{ data.label }}
         </template>
-        <a-option v-for="item in sortList" :key="item.id" :value="item.id" :label="item.title">{{
+        <a-option v-for="item in sysData.goodsSort" :key="item.id" :value="item.id" :label="item.title">{{
             item.title
           }}
         </a-option>
@@ -42,7 +42,7 @@
           <icon-down/>
         </template>
         <a-option
-            v-for="item in newOldList"
+            v-for="item in sysData.goodsOan"
             :key="item.id"
             :value="item.id"
             :label="item.title"
@@ -109,19 +109,30 @@ import {findNode} from "~/utils/common";
 
 
 const sysData = useSysData();
-const sourceClassList = sysData.goodsClass
-const classList = sysData.goodsClass.map(item => {
-  return {
-    id: item.id,
-    title: item.title,
-    children: []
+const sourceClassList = ref([]);
+const resetParam = ref({});
+let classList;
+const classListAsync = ref([])
+watch(sysData, (val) => {
+  if(val.goodsClass.length){
+    sourceClassList.value = val.goodsClass
+    classList = sysData.goodsClass.map(item => {
+      return {
+        id: item.id,
+        title: item.title,
+        children: []
+      }
+    })
+    // classListAsync.value = classList
+    console.log('sourceClassList')
+    console.log(sourceClassList.value)
+    if(resetParam.value.needReset){
+      generateTree()
+    }
   }
-});
-const classListAsync = ref(classList)
-const sortList = sysData.goodsSort;
-const newOldList = sysData.goodsOan;
+}, { immediate: true, deep: true });
 const showPriceBox = ref(false);
-const treeShow = ref(false);
+const treeShow = ref(true);
 let form = reactive({
   sort: "",
   nid: [],
@@ -214,7 +225,7 @@ const loadMore = (nodeData) => {
   const {title, key} = nodeData;
   // 从sourceClassList中找到id相同的节点 把他的children赋值过来
   console.log(nodeData)
-  const tmpNode = findNode(sourceClassList, (node) => {
+  const tmpNode = findNode(sourceClassList.value, (node) => {
     return node.id === nodeData.id
   })
   console.log(tmpNode)
@@ -224,33 +235,48 @@ const loadMore = (nodeData) => {
   });
 };
 
-const resetTree = (id, level) => {
-  if (!level) {
+const resetTree = (id, level, generate = false) => {
+  resetParam.value = {
+    needReset: true,
+    id,
+    level
+  }
+  if(generate){
+    form.rid = ''
+    generateTree()
+  }
+}
+
+const generateTree = () =>{
+  if (!resetParam.value.level) {
     treeShow.value = true
   }
-  if (level < 3) {
+  if (resetParam.value.level < 3) {
     treeShow.value = true
     // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
-    const tmpNode = findNode(sourceClassList, (node) => {
-      return node.id === id
+    const tmpNode = findNode(sourceClassList.value, (node) => {
+      return node.id === resetParam.value.id
     })
-    console.log(tmpNode)
-    if (tmpNode.children.length > 0) {
+    console.log('tmpNode')
+    console.log(tmpNode.children)
+    if (tmpNode && tmpNode.children.length > 0) {
       // 移除子节点
-      tmpNode.children.map(item => {
-        return {
-          id: item.id,
-          title: item.title,
-          children: []
-        }
+      classListAsync.value = JSON.parse(JSON.stringify(tmpNode.children))
+      classListAsync.value.forEach(item => {
+        console.log(item)
+        item.children = []
       })
-      classListAsync.value = tmpNode.children
+      console.log(classListAsync.value)
     }
   } else {
     // 如果是三级分类 不出现分类下拉
     treeShow.value = false
   }
-
+  resetParam.value = {
+    needReset: false,
+    id: null,
+    level: null
+  }
 }
 
 defineExpose({

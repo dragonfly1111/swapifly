@@ -281,6 +281,7 @@ achievementModal:
   natureExposure: Impressions
   refundTip: Paid Impressions not as expected?
   refundEmailTip: If you need to appeal for a refund, you can send an email to
+  publishAt: Published on
 dataStatistics:
   dataStatisticsName: Data statistics
   visitTimes: Number of visits

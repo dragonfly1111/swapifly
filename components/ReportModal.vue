@@ -6,6 +6,7 @@
     @close="handleCancel"
     @before-ok="handleBeforeOk"
     :okText="$t('pages.submit')"
+    :cancelText="$t('pages.cancel')"
     unmount-on-close
     title-align="start"
     :okLoading="saveLoading"

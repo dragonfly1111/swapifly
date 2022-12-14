@@ -279,6 +279,7 @@ const handleMark = (item,index) => {
 
 // 用户详情
 const toUserDetails = (item) => {
+  console.log(item)
   router.push("/userDetails?userId=" + item.uid);
 };
 

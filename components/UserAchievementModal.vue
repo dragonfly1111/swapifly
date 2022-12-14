@@ -33,7 +33,7 @@
           <div class="goods-desc">
             <div>{{ productInfo.product.title }}</div>
             <div>
-              hk${{ productInfo.product.price }} - 发布于{{
+              HK${{ productInfo.product.price }} - {{ $t("achievementModal.publishAt") }} {{
                 parseTime(productInfo.product.create_time, "{y}-{m}-{d}")
               }}
             </div>
@@ -279,7 +279,7 @@ defineExpose({
 <style lang="scss">
 @import "assets/sass/var.scss";
 .achievement-dialog {
-  width: 700px;
+  width: 750px;
   .arco-modal-title {
     font-size: 20px;
     font-weight: 700;

@@ -51,7 +51,11 @@
         </template>
         <template v-else>
           <div class="goods-box">
-            <a-image :src="baseImgPrefix + productDetail.image" show-loader></a-image>
+            <a-image :src="baseImgPrefix + productDetail.image" show-loader>
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
             <div class="goods-desc">
               <div>{{ productDetail.title }}</div>
               <div class="grey">HK${{ productDetail.price }}</div>
@@ -67,9 +71,9 @@
                   :class="{ active: formData.tid == item.id }"
                   @click="formData.tid = item.id"
               >
-                <div>{{ item.number }}{{ $t('exposure.exposureNums') }}/{{ item.days }}{{
+                <div>{{ item.number }} {{ $t('exposure.exposureNums') }} / {{ item.days }} {{
                     $t('exposure.exposureDays')
-                  }}/
+                  }}
                 </div>
                 <div class="price">HK$ {{ item.price }}</div>
               </div>
@@ -366,16 +370,16 @@ defineExpose({
     .goods-box {
       display: flex;
       margin-top: 20px;
-      margin-left: 30px;
+      //margin-left: 30px;
 
       img {
         width: 100px;
         height: 100px;
         object-fit: cover;
-        margin-right: 10px;
       }
 
       .goods-desc {
+        margin-left: 10px;
         width: calc(100% - 100px);
 
         div:first-child {
@@ -389,14 +393,14 @@ defineExpose({
     }
 
     .price-select {
-      margin-left: 30px;
+      //margin-left: 30px;
 
       .select-content {
         display: flex;
         flex-wrap: wrap;
-
+        width: 100%;
         .select-item {
-          width: 130px;
+          width: calc((100% - 40px) / 3);
           border: 1px solid #e5e5e5;
           text-align: center;
           padding: 15px 10px;
@@ -421,6 +425,9 @@ defineExpose({
             font-size: 14px;
             margin-top: 2px;
           }
+        }
+        .select-item:nth-child(3n){
+          margin-right: 0;
         }
       }
     }
