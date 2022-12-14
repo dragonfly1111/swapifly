@@ -152,6 +152,7 @@ const uploadSuccess = (e) => {
     router.push({ name: "saleEditGoods", query: { type: "draft" } });
     fileList.value = []
   }
+  uploadLoading.value = false;
 };
 
 const uploadError = (e) => {

@@ -190,7 +190,7 @@ const getBrad = () => {
       classPath.value = res.data.p_rule
       // 判断是否需要出现下一页
       nextTick(()=>{
-        if(curLevel.value <= 2 && process.client){
+        if(process.client && curLevel.value <= 2 && process.client){
           const ele = document.getElementById('brandsContent')
           const toLeft = ele.clientWidth * curBradPage.value
           if (toLeft + ele.clientWidth >= ele.scrollWidth) {
@@ -200,7 +200,7 @@ const getBrad = () => {
           }
         }
 
-        if(curLevel.value === 1 && process.client){
+        if(process.client && curLevel.value === 1 && process.client){
           const ele1 = document.getElementById('brandsContent1')
           const toLeft1 = ele1.clientWidth * curBradPage1.value
           if (toLeft1 + ele1.clientWidth >= ele1.scrollWidth) {

@@ -3,28 +3,32 @@
     <div class="sale-header">{{ $t("sale.saleTitle") }}</div>
     <div class="edit-box border-box media-sale-edit-goods">
       <div class="left" v-if="resize.screenType !== 'MOBILE'">
-        <div>
-          <a-upload
-            draggable
-            :show-file-list="false"
-            :file-list="fileList"
-            :action="uploadUrl"
-            accept="image/*,.png"
-            :headers="headers"
-            :limit="10"
-            :on-before-upload="beforeUpload"
-            @success="uploadSuccess"
-            @error="uploadError"
-          >
-            <template #upload-button>
-              <div class="upload-area">
-                <icon-plus :strokeWidth="10" :size="18" />
-                <div>{{ $t("sale.uploadTip") }}</div>
-                <span>{{ $t("sale.uploadAlert") }}</span>
-              </div>
-            </template>
-          </a-upload>
-        </div>
+        <a-spin :loading="uploadLoading" style="width: 100%">
+          <div>
+            <a-upload
+                draggable
+                :show-file-list="false"
+                :file-list="fileList"
+                :action="uploadUrl"
+                accept="image/*,.png"
+                :headers="headers"
+                :limit="10"
+                :on-before-upload="beforeUpload"
+                :on-button-click="uploadClick"
+                @success="uploadSuccess"
+                @error="uploadError"
+                @exceed-limit="overLimit"
+            >
+              <template #upload-button>
+                <div class="upload-area">
+                  <icon-plus :strokeWidth="10" :size="18" />
+                  <div>{{ $t("sale.uploadTip") }}</div>
+                  <span>{{ $t("sale.uploadAlert") }}</span>
+                </div>
+              </template>
+            </a-upload>
+          </div>
+        </a-spin>
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
         <!-- <div class="image-preview-list"> -->
         　
@@ -358,6 +362,7 @@ const gdKey = appConfig.gdKey;
 const forbidLink = appConfig.forbidLink
 const baseImgPrefix = appConfig.baseImgPrefix
 const uploadUrl = appConfig.uploadUrl
+const uploadLoading = ref(false);
 
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
@@ -367,6 +372,10 @@ const rules = reactive({
   price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
   region: [{ required: true, message: t("sale.regionTip") }],
 });
+
+const overLimit = (e) =>{
+  Message.warning(t('sale.overLimit'))
+}
 
 const listAll = () => {
   // 地址
@@ -501,10 +510,33 @@ const onEnd = (e) => {
 };
 
 const beforeUpload = (e) => {
+  // 放到上传之前去设置header 防止页面刷新时pina未初始化获取不到token
+  headers["X-Utoken"] = userInfo.token;
+  headers["X-Userid"] = userInfo.id;
+  uploadLoading.value = true;
   return true;
+};
+const uploadClick = () => {
+  if (uploadLoading.value) return new Promise(() => {});
 };
 // 上传成功
 const uploadSuccess = (e) => {
+  console.log(e)
+  if(e.response.code === 999){
+    uploadLoading.value = false;
+    // 登录过期 跳转首页
+    const router = useRouter();
+    const openLogin = useState<Boolean>('openLogin')
+    userInfo.logout();
+    if (resize.screenType !== 'MOBILE'){
+      userInfo.openDialog();
+      openLogin.value = true;
+      console.log(openLogin);
+    }
+    router.push({
+      path: '/'
+    })
+  }
   if (e.response.code == 0) {
     fileList.value.push({
       id: e.uid,
@@ -512,9 +544,12 @@ const uploadSuccess = (e) => {
       url: baseImgPrefix + e.response.data,
     });
   }
+  uploadLoading.value = false;
 };
 
-const uploadError = (e) => {};
+const uploadError = (e) => {
+  uploadLoading.value = false;
+};
 
 // 提交表单
 const submitForm = () => {
