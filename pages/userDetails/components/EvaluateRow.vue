@@ -43,7 +43,7 @@
 
     <div class="evaluate-box-body">
       <EvaluateList :page-loading="pageLoading" :list="evaluationList"></EvaluateList>
-      <div class="see-more" v-if="total > evaluationList">
+      <div class="see-more" v-if="(total > evaluationList.length) && (evaluationList.length > 0)">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
