@@ -21,7 +21,7 @@
   </a-modal>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useI18n } from "vue-i18n";
 import { addEvaluation } from "~/api/dialogue";
 import { Message } from '@arco-design/web-vue';
@@ -41,17 +41,16 @@ const formData = reactive({
 })
 const rules = reactive({
   num: [
-    {required: true, message: ref<string>(t('dialogue.inputRate'))},
+    {required: true, message: ref(t('dialogue.inputRate'))},
   ],
   content: [
-    {required: true, message: ref<string>(t('dialogue.evaluateContent'))},
+    {required: true, message: ref(t('dialogue.evaluateContent'))},
   ]
 })
 
 const onBeforeOk = (done) => {
   // return true
   console.log('onBeforeOk')
-  console.log(value)
   formRef.value.validate().then(validate => {
     if(validate) {
       done(false)
@@ -77,6 +76,7 @@ const changeRateVal = (e) => {
 const openDialog = (value) => {
   console.log(value)
   formData.id = value
+  formData.content = ''
   rateComp.value.setValue(formData.num)
   visible.value = true;
 }

@@ -81,7 +81,7 @@
         <!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
         <div class="info-wrap">
           <div class="main-content-title">
-            <div class="left">
+            <div class="left" @click="toUserDetail">
               <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile"
                          @click="showDiaListFn"></icon-left>
               <template v-if="pageLoading">
@@ -92,6 +92,7 @@
               <template v-else>
                 <a-image v-if="resize.screenType !== 'MOBILE'" width="50" height="50" show-loader fit="cover"
                          :src="baseImgPrefix + curConversationMeta.avatar"
+                         :preview="false"
                          alt="">
                   <template #loader>
                     <div class="loader-animate"/>
@@ -108,7 +109,7 @@
             </a-dropdown>
           </div>
           <div class="meta-wrap mobile-border-none">
-            <div class="left">
+            <div class="left" @click="toGoodsDetails">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
                   <a-skeleton-line :line-height="50" :rows="1"/>
@@ -423,6 +424,8 @@
     <CheckEvaluateDialog ref="checkEvaluateDialog"/>
     <SoldDialog ref="soldDialog" @markSuc="markSuc"/>
     <ReportModal ref="reportModal"></ReportModal>
+    <!-- 商品封禁 -->
+    <BlockModal ref="blockModal"></BlockModal>
   </div>
 </template>
 <script setup>
@@ -436,6 +439,7 @@ import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import {useI18n} from "vue-i18n";
 import {Message} from '@arco-design/web-vue';
+import { getProductFj } from "~/api/goods";
 
 const {t} = useI18n()
 const appConfig = useAppConfig();
@@ -448,6 +452,7 @@ const evaluateDialog = ref(null)
 const checkEvaluateDialog = ref(null)
 const soldDialog = ref(null)
 const reportModal = ref(null)
+const blockModal = ref(null);
 const sysData = useSysData();
 //移动端展示对话列表
 const showDiaList = ref(true);
@@ -483,6 +488,35 @@ const showDiaListFn = () => {
   console.log("点击了返回");
   showDiaList.value = true;
 }
+// 跳转到用户详情
+const toUserDetail = () => {
+  router.push("/userDetails?userId=" + curConversationMeta.value.df_uid);
+}
+// 跳转到商品详情
+const toGoodsDetails = () => {
+  getProductFj(curConversationMeta.value.pid).then((res) => {
+    // type 1.自己，2他人
+    // state 商品狀態，1.出售中，2.交易完成，3已下架，4 已删除
+    if (res.code === 0) {
+      if (res.data.status === 2) {
+        // 打开封禁封禁弹窗
+        blockModal.value.openDialog(2, res.data.type);
+      } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
+        // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(4);
+      } else if(res.data.state === 4){
+        // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
+        blockModal.value.openDialog(4);
+      } else if (res.data.status === 1) {
+        if (props.isToDetails) {
+          router.push("/goodsDetails?id=" + item.pid);
+        }
+      }
+    } else {
+      Message.error(res.message);
+    }
+  });
+};
 // 获取左侧对话列表
 const fetchListData = (autoFocus = true) => {
   getChatList({
@@ -1077,6 +1111,7 @@ body {
       display: flex;
       align-items: flex-start;
       text-align: center;
+      cursor: pointer;
 
       .back-icon-mobile {
         position: absolute;
@@ -1117,7 +1152,7 @@ body {
     .left {
       display: flex;
       align-items: center;
-
+      cursor: pointer;
       .goods-img {
         width: 50px;
         height: 50px;
