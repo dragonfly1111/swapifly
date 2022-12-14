@@ -125,7 +125,7 @@ pages:
   noContent: 未填写
   followIn: Follow緊
   followers: Followers
-  isEmail: 已驗證
+  verified: 已驗證
   know: 我知道了
   shouldLoginTip: 登錄以獲取更多服務
   bid: 出價
