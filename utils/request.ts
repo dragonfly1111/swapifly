@@ -7,7 +7,7 @@ import { useResize } from '~/stores/resize';
 const request = axios.create({
   baseURL: baseApiPrefix,
   timeout: 30000,
-  withCredentials: true
+  // withCredentials: true
 })
 
 const dialogReq = [
