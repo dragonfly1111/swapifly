@@ -43,7 +43,7 @@
           }}</a-button>
         </a-space>
       </div>
-      <div class="registered-btn" v-if="form.shop == 1">
+      <div class="registered-btn" v-if="true">
         <img src="@/assets/images/swapifly-logo.png" alt="" />
         {{ $t("pages.registeredMerchant") }}
       </div>

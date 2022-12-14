@@ -4,7 +4,6 @@
       <icon-left  class="back-index" @click="handleIndex"/>
       {{ $t("pages.mobile_notice") }}
     </div>
-    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <div class="notice-list">
       <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
@@ -106,11 +105,13 @@ onMounted(async () => {
   text-align: center;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   font-size: 18px;
   font-weight: bold;
   height: 45px;
   line-height: 45px;
+  background-color: #fff;
   .back-index{
     display: block;
     position: absolute;

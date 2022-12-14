@@ -36,9 +36,9 @@
         <div class="left-content">
           <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
           <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
-            <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/settingProfile')">{{
-                $t("profile.mobile_setting")
-            }}</a-button>
+<!--            <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/settingProfile')">{{-->
+<!--                $t("profile.mobile_setting")-->
+<!--            }}</a-button>-->
             <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
