@@ -4,7 +4,14 @@
       <a-col flex="100px" class="title"> {{ title }} </a-col>
     </a-row>
     <div class="follow-box-body">
-      <a-skeleton :loading="pageLoading" animation>
+      <a-row :gutter="24" v-if="resize.screenType === 'MOBILE'">
+          <a-col :span="12" v-for="item in 4" style="margin-top: 10px">
+            <a-skeleton  animation :loading="pageLoading">
+              <a-skeleton-shape style="width: 100%;height: 200px;"/>
+            </a-skeleton>
+          </a-col>
+      </a-row>
+      <a-skeleton :loading="pageLoading" animation  v-else>
         <a-space :style="{ width: '100%' }" size="large" wrap>
           <a-skeleton-line :widths="[200]" :line-height="250" />
           <a-skeleton-line :widths="[200]" :line-height="250" />
@@ -22,7 +29,18 @@
       </a-skeleton>
 
       <div class="follow-list" v-if="!pageLoading">
-        <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
+        <div v-if="resize.screenType === 'MOBILE'">
+          <a-row :gutter="24">
+            <a-col :span="12" v-for="(item, index) in dataList">
+              <follow-card :item="item" @change="changeFollow"></follow-card>
+            </a-col>
+          </a-row>
+        </div>
+        <div v-else>
+          <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
+        </div>
+
+
         <!-- <div class="follow-list-item" v-for="(item, index) in dataList">
           <div @click.stop="router.push('/userDetails?userId=' + item.uid)">
             <img :src="baseImgPrefix + item.avatar" alt="" />
@@ -71,6 +89,8 @@ import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import FollowCard from '~/pages/userDetails/components/FollowCard'
+import { useResize } from "~/stores/resize";
+const resize = useResize();
 const { t } = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;

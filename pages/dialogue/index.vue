@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content">
+  <div class="global-content1">
     <!--    展示对话列表,当PC端或者showDiaList为true时展示-->
     <div class="left-msg-list" v-if="resize.screenType !== 'MOBILE' || showDiaList">
       <div id="left-msg-list" class="msg-select">
@@ -967,7 +967,7 @@ body {
   overflow: hidden;
 }
 
-.global-content {
+.global-content1 {
   height: 100%;
   display: flex;
   min-height: calc(100vh - 106px);

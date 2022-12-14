@@ -117,6 +117,16 @@
   }
 }
 @media screen and (min-width:0px) and (max-width:1000px){
+  .user-container{
+    margin-top: -50px !important;
+    .user-icon{
+      width: 100px !important;
+      height: 100px !important;
+    }
+  }
+  .follow-list-item{
+    width: 100% !important;
+  }
   .follow-box{
     .follow-box-body{
       padding: 0 !important;
@@ -134,15 +144,12 @@
   }
   .user-body{
     .registered-btn{
-      top: 35% !important;
+      top: 20% !important;
       right: 10px !important;
-      img{
-        top: 0 !important;
-      }
     }
   }
   .main-pc-mobile{
-    padding: 0 10px 10px 10px !important;
+    padding: 0 6px 6px 6px !important;
     overflow-x: hidden !important;
   }
   .main-content{
@@ -331,7 +338,7 @@
   }
   .business-box{
     .business-box-body{
-      padding: 0 30px !important;
+      padding: 10px 30px !important;
     }
   }
   .profile-box{
@@ -395,7 +402,7 @@
     }
     .right-content {
       width: 100% !important;
-      margin-top: 10px !important;
+      margin-top: -10px !important;
       border: none !important;
     }
   }
@@ -493,8 +500,14 @@
     }
     .msg-select{
       //width: 100%;
-      text-align: right;
-      padding: 10px 12px !important;
+      text-align: right !important;
+      padding: 10px 0px !important;
+      .arco-select-view-single{
+        padding-right: 0px !important;
+      }
+      .arco-select{
+        padding-left: 0px !important;
+      }
     }
     .msg-item{
       padding: 14px 0px 19px 0px;
