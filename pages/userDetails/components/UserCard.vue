@@ -24,12 +24,12 @@
           </a-space>
           <a-space v-if="form.email">
             <img class="email-img" src="@/assets/images/icon/email_black.png" alt="" />
-            <span>已驗證</span>
+            <span>{{$t('pages.verified')}}</span>
           </a-space>
           <div>{{ getRStateLabel() }}</div>
           <a-space class="link-row">
-            <div @click="changeFollow(0)">{{ form.bfollow }} Followers</div>
-            <div @click="changeFollow(1)">{{ form.follow }} Follow緊</div>
+            <div @click="changeFollow(0)">{{ form.bfollow }} {{$t('pages.followers')}}</div>
+            <div @click="changeFollow(1)">{{ form.follow }} {{$t('pages.followIn')}}</div>
           </a-space>
           <div v-if="resize.screenType !== 'MOBILE'" class="user-desc-content">{{ form.describe }}</div>
         </a-space>

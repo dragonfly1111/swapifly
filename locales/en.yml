@@ -125,6 +125,7 @@ pages:
   noContent: Not filled in
   followIn: Following
   followers: Followers
+  verified: 已驗證
   know: I know
   shouldLoginTip: Sign in to get more services
   bid: Offer
@@ -397,6 +398,7 @@ sale:
   saveDraftTitle: Need to save drafts?
   saveDraftContent: If you do not save the draft, the filled product information will not be saved.
   overLimit: Upload up to 10 photos
+  submitTip: There are unfilled information, please complete the item content
   formValidate:
     typeValidate: Please choose category
     goodsNameValidate: Please fill in the product name
