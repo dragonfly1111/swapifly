@@ -2,6 +2,7 @@ import { getRegion, getLang, getGoodSort, getOan, getPdw } from "~/api/comon";
 import { getGoodsClassList } from "~/api/goods";
 
 async function initSysData() {
+  console.log('--当前语言--')
   const regionRes = await getRegion()
   const langRes = await getLang()
   const goodsClassListRes = await getGoodsClassList()

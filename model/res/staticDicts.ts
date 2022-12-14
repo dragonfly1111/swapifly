@@ -1,6 +1,7 @@
-
-// 评价
+// 性别
 export function generateGender(t:any){
+  console.log('generateGender')
+  console.log(t)
   return [{
     key: t('gender.man'),
     value: 1
@@ -18,7 +19,6 @@ export function generateGender(t:any){
     value: 0
   }]
 }
-
 // 评价排序
 export function generateEvaluationSort(t:any){
   return [{
@@ -45,7 +45,6 @@ export function generateEvaluationSource(t:any){
     value: 2
   }]
 }
-
 // 信息类型
 export function generateMsgType(t:any){
   return [{
@@ -62,7 +61,6 @@ export function generateMsgType(t:any){
     value: 3
   }]
 }
-
 // 对话页面操作类型
 export function generateDialogueOperationType(t:any){
   return [{

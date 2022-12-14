@@ -153,9 +153,18 @@
               :placeholder="$t('sale.chooseType')"
               selectable="leaf"
               class="input-wrp"
+              @change="changeClass"
             ></a-tree-select>
             <template #extra>
-              <div>分类/分类</div>
+              <div v-if="form.rid">
+                <a-breadcrumb>
+                  <template #separator>
+                    <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
+                  </template>
+                  <a-breadcrumb-item v-for="item in curClassPath">{{ item.title }}</a-breadcrumb-item>
+                </a-breadcrumb>
+              </div>
+
             </template>
           </a-form-item>
           <div v-if="form.rid">
@@ -164,7 +173,7 @@
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
-                  <a-link :href="forbidLink">详情</a-link>
+                  <a-link :href="forbidLink">{{ $t('sale.forbidTipDetail') }}</a-link>
                 </div>
               </template>
             </a-form-item>
@@ -306,6 +315,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
 import { useResize } from "~/stores/resize";
 import { Message, Modal } from "@arco-design/web-vue";
+import { getPathByKey } from "~/utils/common"
 import {
   getProductDraftDetails,
   getProductInfo,
@@ -363,7 +373,7 @@ const forbidLink = appConfig.forbidLink
 const baseImgPrefix = appConfig.baseImgPrefix
 const uploadUrl = appConfig.uploadUrl
 const uploadLoading = ref(false);
-
+const curClassPath = ref([])
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
   title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
@@ -400,6 +410,12 @@ const listAll = () => {
     addressSaveOptions1.value = arr1;
     addressOptions.value = [...arr, ...addressOptions.value];
   });
+};
+
+// 选中分类
+const changeClass = (e) => {
+  const path = getPathByKey(e, typeList)
+  curClassPath.value = path
 };
 
 // 搜索地址

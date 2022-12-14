@@ -374,6 +374,7 @@ sale:
   coverTip: 'Tip: Drag and drop photos to change the cover'
   cover: Cover
   forbidTip: Please change the prohibited words in time
+  forbidTipDetail: Detail
   goodsDetails: Product details
   goodsDesc: Item description
   goodsName: Item name
