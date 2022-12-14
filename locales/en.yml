@@ -1,191 +1,423 @@
 components:
   language_switcher:
-    change_language: change language
+    change_language: Switch languages
   theme_switcher:
-    theme: theme
-    change_theme: change theme
+    theme: Theme
+    change_theme: Switch languages
   report:
-    reportTheGoods: Report the goods.ts
+    reportTheUser: Report user
+    reportTheGoods: Report listing
     leaveYourContact: Please leave your contact information
-    writeDownReporting: Please write down your reason for reporting
+    writeDownReporting: Please describe the reason for your report
 head:
-  sign: register
-  login: login
-  searchKey: search...
-  sell: sell
-  wellcome: Hello,
-  logout: todo
-  setting: todo
-  profile: todo
-  viewHome: todo
+  sign: Register
+  login: Login
+  searchKey: Search items
+  sell: Sell
+  wellcome: Hello，
+  logout: Logout
+  setting: Setup
+  profile: Personal details
+  viewHome: Visit homepage
+  searchHis: Historical search
+  collectionKey: Collect
+  collectionSuc: Success
+  deleteSuc: Deletion succeeded
 foot:
   helpCenter: Help Center
-  media: Media News
-  AD: AD
-  recentTopSearches: recent Top Searches
-  home: todo
-  news: todo
-  help: todo
+  media: News
+  AD: Advertisement
+  recentTopSearches: Recent top search
+  home: Homepage
+  news: News
+  help: help
 loginDialog:
-  title: todo
-  or: todo
-  acc: todo
-  pwd: todo
-  forget: todo
-  noAcc: todo
-  toRegister: todo
-  verification: todo
-  accTip: todo
-  verfiPlaceHolder: todo
-  pwsPlaceHolder: todo
-  confirmRegi: todo
-  haveAcc: todo
-  directLogin: todo
-  policyTip: todo
-  termsOfService: todo
-  privacyPolicy: todo
-  preferenceTip: todo
-  jump: todo
-  done: todo
-  reSend: todo
-  regSuc: todo
-  loginSuc: todo
-  loginLoadingTitle: todo
-  loginLoadingMsg: todo
+  title: Login with a third-party platform account
+  or: or
+  acc: Email account
+  pwd: Password
+  forget: Forgot Password?
+  noAcc: Don't have an account yet?
+  toRegister: Click Register
+  verification: Verification
+  accTip: We hope to provide you a safe environment to trade, so we use email account to verify your identity
+  verfiPlaceHolder: Please enter the verification code
+  pwsPlaceHolder: Password(8-20 words)
+  confirmRegi: Register
+  haveAcc: If you already have an account,
+  directLogin: login directly
+  policyTip: By registering, you agree to our
+  termsOfService: Terms of Service
+  privacyPolicy: Privacy Policy
+  preferenceTip: Please select what you are interested in
+  jump: Skip
+  done: Finish
+  reSend: Resend
+  regSuc: Success！
+  loginSuc: Success！
+  loginLoadingTitle: Logging
+  loginLoadingMsg: Logging, please wait patiently
   formValidate:
-    email: todo
-    emailErr: todo
-    emailCode: todo
-    emailCodeErr: todo
-    password: todo
-    passwordErr: todo
+    email: Please enter your Email account
+    emailErr: Email format error
+    emailCode: Please enter the verification code
+    emailCodeErr: Verification code error
+    password: Please enter the password
+    passwordErr: Password(8-20 words)
+    passwordNew: 请输入新密码
+    passwordNew1: 请确认新密码
 pages:
-  hotBrands: hot Brands
-  recommendTitle: recommend
-  recommendTag: recommendProduct
-  reportProduct: reportProduct
-  seeMore: seeMore
-  submit: submit
-  classification: classification
-  sort: sort
-  oldAndNew: old and new
-  price_degree: price
-  handDeliver: hand deliver
-  postAndCourier: post and courier
-  reset: reset
-  maxPrice: maxPrice
-  minPrice: minPrice
-  cancel: cancel
-  confirm: confirm
-  no_notice: no notice
-  mobile_notice: message
-  no_notice_tip: haven't received any messages
-  like_title: like
+  hotBrands: Top Brands
+  recommendTitle: Recommanded
+  recommendTag: Hot Picks
+  reportProduct: Report listing
+  report: Report
+  seeMore: See more
+  submit: Submit
+  classification: Category
+  sort: Sort
+  oldAndNew: The condition
+  price_degree: Price
+  handDeliver: Trade in person
+  noHandDeliver: 不支持面交
+  postAndCourier: By post & courier
+  noPostAndCourier: 不支持邮寄及速递
+  noPostTip: 未填寫郵寄及速遞說明
+  reset: Reset
+  maxPrice: HK$ Highest
+  minPrice: HK$ Lowest
+  clear: Clear
+  cancel: Cancel
+  confirm: Save
+  no_notice: No message
+  mobile_notice: Notification Message
+  no_notice_tip: You haven't received any message
+  like_title: My likes
+  likeConfirm: 是否取消like?
+  searchGoods: Search items
+  goods: Item
+  goodsEmpty: No Item
+  goodsEmptyTip: There is no any item
+  evaluate: Reviews
+  businessInformation: Seller details
+  registeredMerchant: Registered business seller
+  lookClickRate: View the click rate
+  onOffer: 出售中
+  soldOut: Sold
+  isRemoveGoods: Off shelf
+  removeGoods: Remove item
+  removeGoodsTip: Whether to remove the item?
+  putawayGoods: Recover item
+  putawayGoodsTip: Whether to recover the item?
+  editGoods: Edit item
+  exposureGoods: Purchase Visits
+  viewtheResults: Review results
+  markSold: Mark Sold
+  markSoldTip: Whether to mark as sold?
+  delGoods: Delete item
+  delGoodsTip: Are you sure to delete the item?
+  success: Success
+  visitorYourTip: The number of people who viewed your profile today
+  follow: Follow
+  cancelFollow: Unsubscribe
+  authenticationApply: Verification request
+  noImage: Not uploaded
+  noContent: Not filled in
+  followIn: Following
+  followers: Followers
+  know: I know
+  shouldLoginTip: Sign in to get more services
+  bid: Offer
+  viewConversations: Conversation
+  conversations: 对话
+  unfoldMore: Expand to learn more
+  expanded: Fold
+  viewSeller: Browse sellers
+  viewAllComment: See all reviews
+  similarGoods: Similar item
+  emptyContent: No Content
+  emptyContentSub: No eligible content
   mobile_search: Search
-  degree_of_old_and_new: degree of old and new
-  mobile_sort: sort
-  more_filters: More Filters
+  degree_of_old_and_new: The condition
+  mobile_sort: Sort
+  more_filters: More
+  shareTo: 分享这件商品给其他人
+  copySuc: 分享链接已复制
+  deleted: 已删除
 profile:
-  edit_profile: todo
-  mobile_setting: Setting
-  edit_password: todo
-  user_head_portrait: todo
-  user_head_portrait_tip: todo
-  user_head_upload: todo
-  open_user_profile: todo
-  user_name: todo
-  user_name_validate: todo
-  user_name_empty: todo
-  user_describe: todo
-  user_describe_empty: todo
-  countries_regions: todo
-  countries_regions_empty: todo
-  countries_email_empty: todo
-  countries_phone_empty: todo
-  countries_sex_empty: todo
-  countries_birth_empty: todo
-  personal_information: todo
-  bindSuc: todo
-  editSuc: todo
-  email: todo
-  phone: todo
-  sex: todo
-  birthday: todo
-  birth_empty: todo
-  preference_title: todo
-  edit_preference: todo
-  save: todo
-  bindEmail: todo
-  bindEmailTip: todo
-  bindEmailOk: todo
-  bindEmailCancel: todo
-  resetPwdTitle: todo
-  resetPwdTitle1: todo
-  confirmEmail: todo
-  resetPwdNext: todo
-  resetPwdSave: todo
-  resetPwdCancel: todo
-  newPwd: todo
-  newPwd1: todo
-  changeSuc: todo
+  edit_profile: Edit file
+  mobile_setting: Setup
+  edit_password: Change password
+  user_head_portrait: Change profile picture
+  user_head_portrait_tip: A clear head photo can improve trust between sellers and buyers.
+  user_head_upload: Upload a photo
+  open_user_profile: Public profile
+  user_name: Username
+  user_name_validate: User name cannot be empty
+  user_name_empty: User name has not been filled in...
+  user_describe: Personal profile
+  user_describe_empty: Personal profile has not been filled...
+  countries_regions: Country/Area
+  countries_regions_empty: Country/Area has not filled in...
+  countries_email_empty: Email has not been filled in...
+  countries_phone_empty: Phone number has not been filled in...
+  countries_sex_empty: Gender has not been filled in...
+  countries_birth_empty: YYYY-MM-DD
+  personal_information: Personal details
+  bindSuc: Mailbox binding succeeded
+  editSuc: Edited successfully
+  email: Email
+  phone: Phone number
+  sex: Gender
+  birthday: Birthday
+  birth_empty: Birthday has not been filled in
+  preference_title: Area of interest：
+  edit_preference: Change preferences
+  save: Save changes
+  opwd: Current password
+  pwd: New password
+  cpwd: Confirm new password
+  changeSuc: Password modified successfully, please login again
+  formValidate:
+    opwd: Please enter the current password
+    cpwd: Please confirm the password
+  bindEmail: Please link with your email account
+  bindEmailTip: Failure to link an email account will result in your account password not being recovered
+  bindEmailOk: Save
+  bindEmailCancel: Cancel
+  resetPwdTitle: Reset password
+  resetPwdTitle1: New password
+  confirmEmail: Please verify your email account
+  resetPwdNext: Next
+  resetPwdSave: Save
+  resetPwdCancel: Cancel
+  newPwd: New password
+  newPwd1: Confirm new password
 gender:
-  man: todo
-  women: todo
-  nonBinary: todo
-  secrecy: todo
-  other: todo
-
+  man: Male
+  women: Female
+  nonBinary: Non-binary
+  secrecy: Prefer not to say
+  other: Custom
+evaluate:
+  evaluateEmpty: No Reviews
+  evaluateEmptyTip: No reviews yet
+  sourceEvaluation:
+    all: All
+    formBuyer: From buyer
+    formSeller: From seller
+  sortEvaluation:
+    newest: Latest
+    oldest: Oldest
+    highestScore: Highest score
+    lowestScore: Lowest score
+  evaluationType:
+    formBuyer: Review from buyers
+    formSeller: Review from sellers
+business:
+  businessTitle: Seller name
+  businessAddress: Seller address
+  businessContact: Contact number
+  businessCertificate: Business Certification
+  authStatus: Verification status
+  authStatusNo: Not yet verified
+  authApply: Verification request
+  auditResult: Approval comment：
+  authApplyForm:
+    businessCertificateTip: Please upload copy of business certification
+    applyBtn: Application submit
+    reApplyBtn: Resubmit
+    undoApply: Withdraw submission
+    applySuc: Success
+    undoSuc: Success
+    applyTitle: Apply to become a registered business seller
+    undoApplyTip: Are you sure to cancel the application?
+  formValidate:
+    businessTitle: Please enter the seller name
+    businessAddress: Please enter the seller address
+    businessContact: Please enter the phone number
+exposure:
+  exposureName: Impressions
+  chooseTip: Select the amount of impressions you want to buy for that item
+  payType: The mode of payment
+  bankCardInfo: Bank card information
+  wechat: Wechat
+  backCard: Bank card
+  alipay: Alipay
+  cardUserName: Name
+  pay: Pay
+  payName: Pay
+  orPayWay: Another pay mathod
+  yearOrMonth: Month/Year
+  countriesRegions: Country or Area
+  exposureNums: Impressions
+  exposureDays: Days
+  paySuc: Success
+  paySucTip: Successfully purchased exposure
+  payFail: Payment failed
+  payFailTip: Failure to complete payment
+  back: Back
+  orderLoading: Data query in progress...
+  noOrder: Data does not exist
+  overTime: Order payment timeout
+achievementModal:
+  goodsReport: Item report
+  sevenDayReport: 7 days performance analysis
+  exposuresNumber: Impression
+  exposureRefund: Apply for refund
+  click: Click
+  clickNumberTip: The number of times a user clicked to view this item
+  whisper: Inbox
+  whisperTip: The number of inbox message offers you received
+  exposureTip: The number of impressions this item received
+  payExposure: Paid Impressions
+  natureExposure: Impressions
+  refundTip: Paid Impressions not as expected?
+  refundEmailTip: If you need to appeal for a refund, you can send an email to
+dataStatistics:
+  dataStatisticsName: Data statistics
+  visitTimes: Number of visits
+  visitTimesTip: The number of times a user clicked to view youself
+  onlineShopData: Store data
+  exposureName: Impressions
+  exposureSub: The number of times your store was shown to buyers
+  clickNumber: Click
+  clickNumberSub: Buyers click to view your profile or select products, or track your times
 helpCenter:
-  helpCenter: todo
-  hello: todo
-  helpInfo: todo
-  theme: todo
-  problem: todo
-  notice: todo
-  sameTheme: todo
-  searchResult: todo
-  articleTheme: todo
-  noData: todo
-  noDataTip: todo
+  helpCenter: Help Center
+  hello: Hello!
+  helpInfo: May I help you?
+  search: Search for articles
+  theme: Topic
+  problem: Frequent asked questions
+  notice: Accouncement
+  sameTheme: Articles on the same topic
+  searchResult: Search result
+  articleTheme: Articles topic
+  noData: No content
+  noDataTip: No eligible articles
 newsCenter:
-  title: todo
-  search: todo
-  recentNews: todo
-  recent: todo
-  preNews: todo
-  nextNews: todo
-  noNews: todo
+  title: News
+  search: Search for news
+  recentNews: Recent news
+  recent: Recent
+  preNews: Previous article
+  nextNews: Next article
+  noNews: No content
 dialogue:
-  newMsg: todo
-  noMore: todo
-  counterpartyPrice: todo
-  inputHere: todo
-  offer: todo
-  acceptOffer: todo
-  accept: todo
-  refuse: todo
-  noMsg: todo
-  noMsgTip: todo
-  rejected: todo
-  accepted: todo
-  checkEvaluate: todo
-  evaluate: todo
-  evaluateDetail: todo
-  evaluateDetailTip: todo
-  evaluateContenTip: todo
-  noEvaluateContenTip: todo
-  rate: todo
-  evaluateContent: todo
-  evaluateTip: todo
-  markSold: todo
-  markSoldTip: todo
-  inbox: todo
-  onSale: todo
-  underPurchase: todo
-  sealed: todo
-  sealConversation: todo
-  block: todo
-  deleteConversation: todo
-  report: todo
+  newMsg: News
+  imgMsg: 【image】
+  noMore: No further conversations
+  counterpartyPrice: Buyer offer
+  inputHere: Enter here…
+  offer: Offer
+  acceptOffer: Accept offer
+  accept: Accepted
+  refuse: Rejected
+  noMsg: No message
+  noMsgTip: No message received
+  rejected: The offer has been rejected
+  rejected1: 驳回出价
+  accepted: The offer has been accepted
+  checkEvaluate: View reviews
+  evaluateBut: Reviews
+  evaluateShowBut: View reviews
+  evaluate: Submit a review
+  cancel: Cancel
+  confirm: Submit
+  evaluateDetail: Review details
+  evaluateSuc: Review submitted
+  evaluateDetailTip: with both parties complete the review submit or 15 days after the transaction completed
+  evaluateDetailTip1: Review details can only be seen
+  evaluateContenTip: Review details：
+  noEvaluateContenTip: Other has not submit review
+  rate: Score：
+  evaluateContent: Please enter your review
+  evaluateTip: Please complete the review within 15 days of the transaction
+  markSold: Mark sold
+  markSoldSuc: Item has been marked as sold
+  markSoldTip: Items marked as sold will no longer receive bids，
+  markSoldTip1: mark or not?
+  inbox: Inbox
+  onSale: On sell
+  underPurchase: Under purchase
+  sealed: Archived
+  sealConversation: Archived message
+  block: Blocked user
+  unBlock: Unlock user
+  deleteConversation: Delete user
+  report: Report user
+  dialogue: image
+  hisPrice: Buyer offer HK$
+  yourPrice: Your offer HK$
+  operationOffer: Offer
+  operationEditOffer: Edit offer
+  confirmEditOffer: Offer
+  operationCancelOffer: Cancel
+  operationRejectOffer: Reject offer
+  operationAcceptOffer: Accept offer
+  offerSuc: Successful bid
+  cancelOfferSuc: Cancel offer
+  editOfferSuc: Edit offer
+  acceptSuc: The offer has been accepted
+  rejectSuc: The offer has been rejected
+  sealeSuc: Conversation has been archived
+  blockSuc: The user has been blocked
+  unBlockSuc: The user has been unlocked
+  reportSuc: Conversation has been deleted
+  inputRate: Please enter your score
+sale:
+  saleTitle: What items would you like to sell today?
+  uploadTip: Select photo or move the photo here
+  uploadAlert: Upload up to 10 photos
+  shouldUpload: Please upload the image
+  coverTip: 'Tip: Drag and drop photos to change the cover'
+  cover: Cover
+  forbidTip: Please change the prohibited words in time
+  goodsDetails: Product details
+  goodsDesc: Item description
+  goodsName: Item name
+  goodsDescTip: Describe the items you are selling and include details that may be of interest to buyers
+  price: Price
+  descSuggest: 建議說明物品規格、長度、種類、購入時間
+  deliverAddress: Trade location
+  postTip: Are there additional mailing costs or options?
+  publish: Post now
+  publishSucc: Publish successfully!
+  publishBtnComfirm: Are you sure you want to publish now?
+  saveDraft: Save draft
+  delete: Delete
+  chooseType: Choose category
+  regionTip: Please select the country/area where the product is located
+  trading: Paymet term
+  yourDraft: Your draft
+  draft: Draft
+  deleteDraftComfirm: Delete or not
+  saveDraftTitle: Need to save drafts?
+  saveDraftContent: If you do not save the draft, the filled product information will not be saved.
+  overLimit: 最多上傳10張圖片
+  formValidate:
+    typeValidate: Please choose category
+    goodsNameValidate: Please fill in the product name
+    oldAndNewValidate: Please select the condition
+    priceValidate: Please enter a price
+    describeValidate: Please fill in the item description
 mobile:
-  user_center: my usercenter
+  user_center: My account
+authentication:
+  waitAudit: To be reviewed
+  pass: Passed
+  notpass: Did not pass
+  authenticationing: In certification
+  opinion: Audit comments
+rState:
+  efficient: High response rate
+  goodEfficiency: Good response rate
+  notReplying: Response infrequently
+block:
+  tip: 因違反了《服務條款》
+  product: 你的商品已被封禁
+  product1: 該商品已被封禁
+  product2: 該商品不在上架狀態
+  user: 你的賬戶已被封禁
+  feedback: 如果你需要申訴，可發送電郵至郵箱

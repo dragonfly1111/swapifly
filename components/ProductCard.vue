@@ -310,7 +310,7 @@ const likeProduct = (item, index) => {
 const handleLike = (item, index) => {
   if (!userInfo.token) {
     userInfo.openDialog();
-    router.replace("/");
+    // router.replace("/");
     return;
   }
   let reqParams = {
@@ -319,7 +319,7 @@ const handleLike = (item, index) => {
   };
   collectionProduct(reqParams).then((res) => {
     if (res.code === 0) {
-      Message.success(res.message);
+      // Message.success(res.message);
       let arr = [...props.list];
       arr[index].islike = item.islike == 1 ? 0 : 1;
       arr[index].like = reqParams.state == 2 ? item.like - 1 : item.like + 1;
