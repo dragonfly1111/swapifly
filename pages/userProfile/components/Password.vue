@@ -147,7 +147,7 @@ const toForget = () => {
   }
 
   .input-prefix {
-    width: 65px;
+    min-width: 65px;
   }
 
   .input-box {
