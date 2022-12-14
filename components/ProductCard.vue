@@ -226,7 +226,7 @@ const handleRemove = (item,index) => {
 
 // 删除
 const handleDelete = (item, index) => {
-  
+
   Modal.info({
     content: t("pages.delGoodsTip"),
     closable: true,
@@ -341,8 +341,11 @@ const toGoodsDetail = (id) => {
       if (res.data.status === 2) {
         // 打开封禁封禁弹窗
         blockModal.value.openDialog(2, res.data.type);
-      } else if (res.data.state !== 1 && res.data.type === 2) {
+      } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(4);
+      } else if(res.data.state === 4){
+        // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
         router.push("/goodsDetails?id=" + id);

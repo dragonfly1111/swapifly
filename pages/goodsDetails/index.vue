@@ -48,7 +48,7 @@
                   <a-button class="black-btn" @click="handleReport">举报</a-button>
                 </a-space>
                 <div class="handle-bottom">
-                  <a-button class="black-btn">{{ productInfo.images.length }} image</a-button>
+                  <a-button class="black-btn" @click="previewAll">{{ productInfo.images.length }} image</a-button>
                 </div>
               </div>
             </div>
@@ -318,9 +318,17 @@
     <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
 
     <ShareModal ref="shareModal"></ShareModal>
-
     <!-- 商品封禁 -->
     <BlockModal ref="blockModal"></BlockModal>
+    <!-- 预览所有图片 -->
+    <client-only>
+      <a-image-preview-group
+          v-model:visible="previewVisible"
+          infinite
+          :srcList="allImages">
+      </a-image-preview-group>
+    </client-only>
+
   </div>
 </template>
 
@@ -365,6 +373,8 @@ const shareModal = ref(null);
 const blockModal = ref(null);
 const pageLoading = ref(true);
 const btnLoading = ref(false);
+const previewVisible = ref(false);
+const allImages = ref([]);
 const userAchievementModal = ref(null);
 const reportModal = ref(null);
 const p_type = ref(null);
@@ -399,6 +409,11 @@ const handleQuery = () => {
           sellerInfo.value = res.data.seller;
           eltlist.value = res.data.eltlist;
           const appConfig = useAppConfig();
+          const arr = []
+          res.data.product.images.forEach(item=>{
+            arr.push(baseImgPrefix + item)
+          })
+          allImages.value = arr
           useHead({
             title: appConfig.name + productInfo.value.title,
             meta: [
@@ -480,6 +495,11 @@ const handleOfferchat = () => {
 const handleReport = () => {
   reportModal.value.openDialog(productInfo.value);
 };
+
+// 查看所有图片
+const previewAll = () =>{
+  previewVisible.value = true
+}
 
 // 编辑商品
 const handleEdit = () => {

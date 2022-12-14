@@ -88,12 +88,11 @@ request.interceptors.response.use(
           openLogin.value = true;
           console.log(openLogin);
       }
-      router.push({
-        path: '/'
-      })
+      return Promise.reject({})
     } else if(response.data.code === 998){
       // 账号封禁
       userInfo.openBlockDialog()
+      return Promise.reject({})
     }
     return response.data
   },

@@ -5,17 +5,19 @@
           :data="classListAsync"
           v-model="form.rid"
           :load-more="loadMore"
+          :class="form.rid ? 'has-val-item' : ''"
           :fieldNames="{
-          key: 'id',
-          title: 'title',
-          children: 'children',
-        }"
+            key: 'id',
+            title: 'title',
+            children: 'children',
+          }"
           :placeholder="$t('pages.classification')"
           @change="updateSearch"
       ></a-tree-select>
     </a-form-item>
     <a-form-item field="sort">
-      <a-select :placeholder="$t('pages.sort')" v-model="form.sort" @change="updateSearch">
+      <a-select :placeholder="$t('pages.sort')" v-model="form.sort" @change="updateSearch"
+                :class="form.sort ? 'has-val-item' : ''">
         <template #label="{ data }">
           <span class="select-span">{{ $t("pages.sort") }}：</span>
           {{ data.label }}
@@ -34,6 +36,7 @@
           class="multiple-select"
           :max-tag-count="1"
           @change="updateSearch"
+          :class="form.nid && form.nid.length > 0 ? 'has-val-item' : ''"
       >
         <template #arrow-icon>
           <icon-down/>
@@ -53,6 +56,7 @@
             :placeholder="$t('pages.price_degree')"
             :input-value="getMinMax()"
             :popup-visible="false"
+            :class="getMinMax() ? 'has-val-item' : ''"
         >
         </a-select>
         <template #content>
@@ -100,8 +104,8 @@
 </template>
 
 <script setup>
-import { useSysData } from "~/stores/sysData";
-import { findNode } from "~/utils/common";
+import {useSysData} from "~/stores/sysData";
+import {findNode} from "~/utils/common";
 
 
 const sysData = useSysData();
@@ -155,11 +159,11 @@ const cancelPrice = () => {
 
 // 最低-最高展示文笨
 const getMinMax = () => {
-  if(priceForm.min && priceForm.max){
-    return 'HK$' + priceForm.min +  '-' + 'HK$' + priceForm.max
-  } else if (priceForm.min && !priceForm.max){
+  if (priceForm.min && priceForm.max) {
+    return 'HK$' + priceForm.min + '-' + 'HK$' + priceForm.max
+  } else if (priceForm.min && !priceForm.max) {
     return 'HK$' + priceForm.min + '+'
-  } else if (!priceForm.min && priceForm.max){
+  } else if (!priceForm.min && priceForm.max) {
     return 'Up to HK$' + priceForm.max
   } else {
     return ''
@@ -181,23 +185,23 @@ const updateSearch = () => {
   let setForm = {...form};
   setForm = JSON.parse(JSON.stringify(setForm))
   setForm.nid = form.nid.join(",");
-  if(setForm.offline){
+  if (setForm.offline) {
     setForm.offline = 1
   } else {
     setForm.offline = 0
   }
-  if(setForm.mail){
+  if (setForm.mail) {
     setForm.mail = 1
   } else {
     setForm.mail = 0
   }
-  if(!setForm.min && !setForm.max){
+  if (!setForm.min && !setForm.max) {
     setForm.min = ''
     setForm.max = ''
-  } else if(!setForm.min && setForm.max) {
+  } else if (!setForm.min && setForm.max) {
     // 如果有最大没有最小 手动塞一个0
     setForm.min = 0
-  } else if(setForm.min && !setForm.max){
+  } else if (setForm.min && !setForm.max) {
     // 如果有最小没有最大 手动塞一个999999
     setForm.max = 9999999999
   }
@@ -220,18 +224,18 @@ const loadMore = (nodeData) => {
   });
 };
 
-const resetTree = (id, level) =>{
-  if(!level){
+const resetTree = (id, level) => {
+  if (!level) {
     treeShow.value = true
   }
-  if(level < 3){
+  if (level < 3) {
     treeShow.value = true
     // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
     const tmpNode = findNode(sourceClassList, (node) => {
       return node.id === id
     })
     console.log(tmpNode)
-    if(tmpNode.children.length > 0) {
+    if (tmpNode.children.length > 0) {
       // 移除子节点
       tmpNode.children.map(item => {
         return {
@@ -311,5 +315,20 @@ defineExpose({
 
 :deep(.arco-checkbox-checked .arco-checkbox-icon) {
   background-color: $main-grey;
+}
+
+:deep(.has-val-item) {
+  border: 1px solid $main-blue !important;
+  color: $main-blue !important;
+  background: #2A82E420 !important;
+
+  .select-span {
+    color: $main-blue !important;
+  }
+  .arco-tag{
+    color: $main-blue !important;
+    background: #2A82E420 !important;
+    border: unset !important;
+  }
 }
 </style>

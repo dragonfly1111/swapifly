@@ -27,7 +27,6 @@ export default defineNuxtConfig({
   modules: [
     '@intlify/nuxt3',
     '@vueuse/nuxt',
-    '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
   ],

@@ -19,7 +19,7 @@
         <div class="evaluate-total">
           <div class="star-number">
             <div>
-              <span class="total">{{props.userData.stars || 0}}</span>
+              <span class="total">{{starts}}</span>
               <span><icon-star-fill :size="18" /></span>
             </div>
             <div>({{ total }}{{ $t("pages.evaluate") }})</div>
@@ -43,7 +43,7 @@
 
     <div class="evaluate-box-body">
       <EvaluateList :page-loading="pageLoading" :list="evaluationList"></EvaluateList>
-      <div class="see-more" v-if="total > evaluationList">
+      <div class="see-more" v-if="(total > evaluationList.length) && (evaluationList.length > 0)">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
@@ -63,6 +63,7 @@ const sysData = useSysData();
 const evaluationSort = ref([]); // 评论排序
 const evaluationSource = ref([]); // 评论来源
 const evaluationList = ref([]); // 评论列表
+const starts = ref(0); // 星星数量
 const pageLoading = ref(true);
 const router = useRouter();
 const total = ref(0);
@@ -93,8 +94,9 @@ const handleQuery = () => {
   getEvaluationList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
-        evaluationList.value = evaluationList.value.concat(res.data.data);
-        total.value = res.data.total;
+        evaluationList.value = evaluationList.value.concat(res.data.lists.data);
+        starts.value = res.data.s_num;
+        total.value = res.data.lists.total;
       }
     })
     .finally(() => {

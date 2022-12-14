@@ -395,6 +395,7 @@ sale:
   deleteDraftComfirm: 是否确定要删除草稿？
   saveDraftTitle: 需要儲存草稿嗎?
   saveDraftContent: 如果不儲存草稿，將不會保存已填的商品信息。
+  overLimit: 最多上傳10張圖片
   formValidate:
     typeValidate: 請選擇分類
     goodsNameValidate: 請填寫商品名稱
