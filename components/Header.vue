@@ -125,7 +125,7 @@
               </template>
               <a-button v-else class="sell-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
             </div>
-            <a-button v-else class="sell-but" @click="toSell">{{ $t('head.sell') }}</a-button>
+            <a-button  class="sell-but" @click="toSell" v-if="showSell && resize.screenType !== 'MOBILE'">{{ $t('head.sell') }}</a-button>
           </a-col>
         </a-row>
       </div>
@@ -173,6 +173,10 @@ let searchKey = ref('')
 const resize = useResize();
 let curClass = reactive({value: []})
 curClass.value = (classList && classList.length > 0) ? classList[0].children : []
+const showSell = computed(()=>{
+  var routerUrl = router.currentRoute.value.path
+  return routerUrl != '/saleEdit' && routerUrl != '/saleEditGoods'
+})
 // console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
