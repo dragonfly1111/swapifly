@@ -33,10 +33,11 @@ export function LanguageManager() {
 
   // watchers
   watch(localeSetting, (localeSetting) => {
-    localeUserSetting.value = localeSetting
     console.log('触发语言监听')
-    console.log(localeSetting)
+    localeUserSetting.value = localeSetting
+    console.log(localeUserSetting.value)
     locale.value = localeSetting
+    location.reload()
   })
 
   // init locale

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { availableArea } from '~/utils/area'
+import { useSysData } from '~/stores/sysData'
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const areaSetting = useState<string>('area.setting')
+const sysData = useSysData()
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const areaSetting = useState<string>('area.setting')
         <img class="select-value" :src="baseImgPrefix + data.label" alt="">
       </template>
       <a-option
-          v-for="area in availableArea"
+          v-for="area in sysData.region"
           :key="area.title"
           :value="area.id"
           :label="area.img_url"

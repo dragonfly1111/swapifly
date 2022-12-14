@@ -34,7 +34,7 @@
       </div>
     </div>
     <div v-if="resize.screenType !== 'MOBILE'">
-      <section class="footer-link-box" v-for="firstType in classList">
+      <section class="footer-link-box" v-for="firstType in sysData.goodsClass">
         <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
         <div class="content">
           <div class="recommendation-item" v-for="secType in firstType.children">
@@ -49,7 +49,7 @@
         :bordered="false"
       >
         <a-collapse-item
-          v-for="(firstType,index) in classList"
+          v-for="(firstType,index) in sysData.goodsClass"
           :header="firstType.title"
           :key="index">
           <template #extra>
@@ -75,7 +75,6 @@ import { useResize } from '~/stores/resize'
 const router = useRouter()
 const resize = useResize();
 const sysData = useSysData()
-const classList = sysData.goodsClass
 const hotSearchLoading = ref(true)
 const hotSearchList = ref([])
 const props = defineProps({

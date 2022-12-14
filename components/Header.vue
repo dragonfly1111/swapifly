@@ -7,11 +7,23 @@
             <nuxt-link href="/">
               <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
             </nuxt-link>
-            <div class="class-bar">
-              <div v-for="item in classList" :key="item.id" class="class-item"
+            <div class="class-bar" v-if="sysData.goodsClass.length > 0">
+              <div v-for="item in sysData.goodsClass" :key="item.id" class="class-item"
                    @mouseenter="changeCurType(item)" @click="toClassDetail(item)">
                 {{ item.title }}
               </div>
+            </div>
+            <div class="class-bar" v-else>
+<!--            <div class="class-bar">-->
+              <a-skeleton :animation="true" class="skeleton" style="margin-left: 30px;display: flex; width: 600px; justify-content: space-between">
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
+              </a-skeleton>
             </div>
           </div>
           <div class="right">
@@ -163,7 +175,12 @@ const blockModal = ref(null)
 const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
-const classList = sysData.goodsClass
+// const classList = ref(sysData.goodsClass)
+// // classList.value = ref(sysData.goodsClass)
+// // classList.value = sysData1.goodsClass
+// console.log('classList')
+// console.log(classList)
+// console.log(sysData1)
 const searchLog = ref([])
 const collectionList = ref([])
 
@@ -172,7 +189,7 @@ const searchResPage = ref(false)
 let searchKey = ref('')
 const resize = useResize();
 let curClass = reactive({value: []})
-curClass.value = (classList && classList.length > 0) ? classList[0].children : []
+// curClass.value = (classList.value && classList.value.length > 0) ? classList.value[0].children : []
 // console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
@@ -382,6 +399,10 @@ function toClassDetail(e) {
   .left {
     display: flex;
     align-items: center;
+    a{
+      display: flex;
+      align-items: center;
+    }
   }
 
   .right {
@@ -646,6 +667,14 @@ function toClassDetail(e) {
 
 .arco-empty{
   background: #F2F3F5;
+}
+
+.class-bar{
+  :deep(.arco-skeleton-line-row){
+    //animation: my-skeleton 1.5s cubic-bezier(0, 0, 1, 1) infinite;
+    background: linear-gradient(90deg, #545252 25%, #383838 37%, #545252 63%);
+    background-size:  400% 100%;
+  }
 }
 </style>
 <style lang="scss">
