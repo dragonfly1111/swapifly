@@ -9,7 +9,7 @@
     :width="350"
   >
     <a-typography :style="{ marginTop: '-30px' }">
-      <div v-for="item in list" :key="item.id">
+      <div v-for="item in sysData.goodsOan" :key="item.id">
         <a-typography-title :heading="5">
           {{ item.title }}
         </a-typography-title>
@@ -26,7 +26,6 @@ import { useI18n } from "vue-i18n";
 const sysData = useSysData();
 const { t } = useI18n();
 const visible = ref(false);
-const list = ref([]);
 const handleCancel = () => {
   visible.value = false;
 };
@@ -34,10 +33,6 @@ const handleCancel = () => {
 const openDialog = ()=>{
   visible.value = true;
 }
-
-onMounted(() => {
-  list.value = sysData.goodsOan;
-});
 
 defineExpose({
   openDialog,
