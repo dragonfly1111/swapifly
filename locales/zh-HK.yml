@@ -375,6 +375,7 @@ sale:
   coverTip: 提示：拖拽照片可以更改封面
   cover: 封面
   forbidTip: 發現違禁詞，請及時更改
+  forbidTipDetail: 详情
   goodsDetails: 產品詳情
   goodsDesc: 商品描述
   goodsName: 商品名称
