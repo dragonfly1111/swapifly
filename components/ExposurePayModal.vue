@@ -332,7 +332,7 @@ defineExpose({
 
 .exposure-dialog {
   padding: 0;
-  width: 550px;
+  width: 630px;
   position: relative;
 
   .right-close {
@@ -396,7 +396,7 @@ defineExpose({
         flex-wrap: wrap;
 
         .select-item {
-          width: 130px;
+          width: 45%;
           border: 1px solid #e5e5e5;
           text-align: center;
           padding: 15px 10px;
