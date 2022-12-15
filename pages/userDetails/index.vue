@@ -273,4 +273,20 @@ onMounted(() => {
    margin-top: 10px;
  }
 }
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .user-detail-content{
+    padding: 0 !important;
+  }
+  .user-detail-content {
+    margin-top: 10px !important;
+  }
+  .profile-box {
+    width: 100%;
+
+    .header {
+      padding-top: 40px;
+    }
+  }
+}
 </style>

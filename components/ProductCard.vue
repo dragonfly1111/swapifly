@@ -54,12 +54,12 @@
         </div>
         <div class="product-handle">
           <div class="like-box" @click.stop="likeProduct(item, index)">
-            <icon-heart v-show="!item.islike" :strokeWidth="3" size="16" />
+            <icon-heart v-show="!item.islike" :strokeWidth="3" size="20" />
             <icon-heart-fill
               v-show="item.islike === 1"
               style="color: #d43030"
               :strokeWidth="3"
-              size="16"
+              size="20"
             />
             <span>{{ item.like }}</span>
           </div>
@@ -496,6 +496,11 @@ p.arco-typography {
     align-items: center;
     .like-box {
       padding-right: 10px;
+      display: flex;
+      align-items: center;
+      span{
+        padding-top: 1px;
+      }
       &:hover {
         :deep(.arco-icon-heart) {
           display: none !important;

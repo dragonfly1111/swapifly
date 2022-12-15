@@ -128,14 +128,7 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
-  .user-container {
-    margin-top: -50px !important;
 
-    .user-icon {
-      width: 100px !important;
-      height: 100px !important;
-    }
-  }
   .follow-list-item {
     width: 100% !important;
   }
@@ -157,12 +150,7 @@
       margin-right: 0px !important;
     }
   }
-  .user-body {
-    .registered-btn {
-      top: 20% !important;
-      right: 10px !important;
-    }
-  }
+
   .main-pc-mobile {
     overflow-x: hidden !important;
   }
@@ -455,16 +443,16 @@
     top: 30%;
     z-index: 888;
   }
-  .user-detail-content {
-    margin-top: 10px !important;
-  }
-  .profile-box {
-    width: 100%;
+  // .user-detail-content {
+  //   margin-top: 10px !important;
+  // }
+  // .profile-box {
+  //   width: 100%;
 
-    .header {
-      padding-top: 40px;
-    }
-  }
+  //   .header {
+  //     padding-top: 40px;
+  //   }
+  // }
   .password-box {
     width: 100%;
   }

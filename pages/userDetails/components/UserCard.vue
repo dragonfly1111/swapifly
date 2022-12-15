@@ -3,14 +3,14 @@
     <div class="user-icon">
       <a-image :src="baseImgPrefix + form.avatar" fit="cover" show-loader>
         <template #loader>
-            <div class="loader-animate"/>
-          </template>
+          <div class="loader-animate" />
+        </template>
       </a-image>
     </div>
     <div class="user-body" v-if="!pageLoading">
       <h2>{{ form.nickname }}</h2>
       <div class="user-desc">
-        <a-space direction="vertical" fill >
+        <a-space direction="vertical" fill>
           <div class="userid">@{{ form.realname }}</div>
           <a-space size="mini">
             <span>{{ form.stars }}</span>
@@ -24,14 +24,16 @@
           </a-space>
           <a-space v-if="form.email">
             <img class="email-img" src="@/assets/images/icon/email_black.png" alt="" />
-            <span>{{$t('pages.verified')}}</span>
+            <span>{{ $t("pages.verified") }}</span>
           </a-space>
           <div>{{ getRStateLabel() }}</div>
           <a-space class="link-row">
-            <div @click="changeFollow(0)">{{ form.bfollow }} {{$t('pages.followers')}}</div>
-            <div @click="changeFollow(1)">{{ form.follow }} {{$t('pages.followIn')}}</div>
+            <div @click="changeFollow(0)">{{ form.bfollow }} {{ $t("pages.followers") }}</div>
+            <div @click="changeFollow(1)">{{ form.follow }} {{ $t("pages.followIn") }}</div>
           </a-space>
-          <div v-if="resize.screenType !== 'MOBILE'" class="user-desc-content">{{ form.describe }}</div>
+          <div v-if="resize.screenType !== 'MOBILE'" class="user-desc-content">
+            {{ form.describe }}
+          </div>
         </a-space>
       </div>
       <div class="look-click-rate" v-if="userInfo.id == form.id && resize.screenType !== 'MOBILE'">
@@ -84,10 +86,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  pageLoading:{
+  pageLoading: {
     type: Boolean,
     default: true,
-  }
+  },
 });
 
 const form = computed(() => {
@@ -117,6 +119,7 @@ onMounted(() => {
   margin-top: -100px;
   position: relative;
   z-index: 50;
+  margin-bottom: 10px;
 }
 
 .user-icon {
@@ -195,6 +198,27 @@ onMounted(() => {
       top: -15px;
       left: 4px;
       width: 38px;
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .user-container {
+    margin-top: -50px !important;
+    padding: 0 17px;
+    .user-icon {
+      width: 100px !important;
+      height: 100px !important;
+      margin-left: 0;
+    }
+    .user-body {
+      h2 {
+        font-size: 16px;
+      }
+      .registered-btn {
+        top: 20% !important;
+        right: 10px !important;
+      }
     }
   }
 }

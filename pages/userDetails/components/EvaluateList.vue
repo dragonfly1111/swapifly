@@ -3,7 +3,12 @@
   <div>
     <section>
       <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
-        <img class="user-icon" :src="baseImgPrefix + item.avatar" alt="" @click="toUserDetails(item)" />
+        <img
+          class="user-icon"
+          :src="baseImgPrefix + item.avatar"
+          alt=""
+          @click="toUserDetails(item)"
+        />
         <div class="evaluate-content">
           <a-space>
             <span class="fs16" @click="toUserDetails(item)">{{ item.nickname }}</span>
@@ -63,7 +68,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { getProductFj } from "~/api/goods";
-import {Message} from "@arco-design/web-vue";
+import { Message } from "@arco-design/web-vue";
 const blockModal = ref(null);
 const { t } = useI18n();
 const router = useRouter();
@@ -114,7 +119,7 @@ const toGoodsDetails = (item) => {
       } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
-      } else if(res.data.state === 4){
+      } else if (res.data.state === 4) {
         // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
@@ -130,7 +135,7 @@ const toGoodsDetails = (item) => {
 
 // 用户详情
 const toUserDetails = (item) => {
-  console.log(item)
+  console.log(item);
   router.push("/userDetails?userId=" + item.uid);
 };
 </script>
@@ -198,11 +203,11 @@ const toUserDetails = (item) => {
     :deep(.arco-list-item-meta-title) {
       font-weight: 400;
     }
-    :deep(.arco-list-item-meta-content):hover{
-      .arco-list-item-meta-title{
+    :deep(.arco-list-item-meta-content):hover {
+      .arco-list-item-meta-title {
         color: $main-blue;
       }
-      .arco-list-item-meta-description{
+      .arco-list-item-meta-description {
         color: $main-blue;
       }
     }
@@ -230,4 +235,5 @@ const toUserDetails = (item) => {
   color: #ffb400;
   margin: 4px 0;
 }
+
 </style>

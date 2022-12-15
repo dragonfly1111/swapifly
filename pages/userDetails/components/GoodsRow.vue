@@ -117,4 +117,12 @@ defineExpose({
     padding: 0 20px 30px;
   }
 }
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .goods-box {
+  .goods-box-body {
+    padding: 0 10px 30px;
+  }
+}
+}
 </style>
