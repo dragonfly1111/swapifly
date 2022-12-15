@@ -22,15 +22,6 @@
       </a-carousel>
 
     </div>
-    <!--    <div id="map" style="height: 500px;"></div>-->
-    <!--    <input-->
-    <!--        id="pac-input"-->
-    <!--        class="controls"-->
-    <!--        type="text"-->
-    <!--        placeholder="Search Box"-->
-    <!--    />-->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="客户id" data-ad-slot="广告类型" data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
@@ -51,7 +42,12 @@
           </div>
           <div class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -401,5 +397,30 @@ onMounted(() => {
     padding: 0 20px;
     height: 38px;
   }
+}
+</style>
+
+<style lang="scss" scoped>
+@media screen and (max-width:1000px){
+  .banner-wrapper {
+    margin-top: 30px;
+    .arco-carousel {
+      height: 150px;
+    }
+  }
+
+  .section-wrapper{
+    .section-header{
+      margin-top: 24px;
+      margin-bottom: 14px;
+    }
+
+    .brands-content {
+      .brands-item {
+        width: 80px;
+      }
+    }
+  }
+
 }
 </style>

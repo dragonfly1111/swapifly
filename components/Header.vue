@@ -89,7 +89,7 @@
     </div>
     <div class="head-search">
       <div class="common-row">
-        <a-row style="width: 100%">
+        <a-row style="width: 100%; display: flex; align-items: center">
           <a-col :span="resize.screenType === 'MOBILE'?2:4" class="img-col">
             <nuxt-link href="/">
               <img class="phone-logo" v-if="resize.screenType === 'MOBILE'"  src="@/assets/images/swapifly-logo.png" alt="">
@@ -553,7 +553,8 @@ function toClassDetail(e) {
     text-align: left;
     .phone-logo{
       height: 36px;
-      margin-top:5px;
+      margin-left: 10px;
+      //margin-top:5px;
       object-fit: contain;
     }
     .long-logo {
@@ -628,7 +629,6 @@ function toClassDetail(e) {
       background: $main-pink;
       color: #FFFFFF;
       line-height: 46px;
-      margin-top:5px;
       :deep(.arco-btn) {
         height: 35px;
         width: 82px;
@@ -652,13 +652,13 @@ function toClassDetail(e) {
   .icon-message{
     font-size: 25px;
     font-weight: bold;
-    margin-top: 8px;
+    //margin-top: 8px;
   }
   .icon-list{
     font-size: 25px;
     font-weight: bold;
     margin-left: 10px;
-    margin-top: 8px;
+    //margin-top: 8px;
   }
 }
 

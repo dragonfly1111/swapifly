@@ -15,6 +15,7 @@ import {
 } from '~/model/res/staticDicts'
 import {useI18n} from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
+import {process} from "unenv/runtime/node/process/_process";
 
 const {t} = useI18n();
 const locale = useState<string>('locale.setting')
@@ -52,7 +53,7 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      src: `https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=${app.fbKey}&autoLogAppEvents=1`,
+      src: `https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=${app.facebookKey}&autoLogAppEvents=1`,
       async: true,
       defer: true
     },
@@ -67,8 +68,10 @@ useHead({
     }
   ]
 })
+
 // console.log("=====onMounted====", resize)
 onMounted(async () => {
+  resize.setWidth(window.innerWidth)
   // reurl()
   // 客户端设置系统属性数据
   if (process.client) {
@@ -100,7 +103,6 @@ onMounted(async () => {
   }
   // 设置全局缩放属性
   // console.log("===window.innerWidth===", window.innerWidth)
-  resize.setWidth(window.innerWidth)
   window.addEventListener('resize', handleResize)
 })
 
