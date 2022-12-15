@@ -32,15 +32,8 @@
         </div>
       </a-skeleton>
 
-      <div  v-if="!pageLoading">
-        <!-- <div>
-          <a-row :gutter="24">
-            <a-col :span="12" v-for="(item, index) in dataList">
-              <follow-card :item="item" @change="changeFollow"></follow-card>
-            </a-col>
-          </a-row>
-        </div> -->
-        <div  class="follow-list">
+      <div v-if="!pageLoading">
+        <div class="follow-list">
           <follow-card
             v-for="(item, index) in dataList"
             :item="item"
@@ -263,12 +256,12 @@ defineExpose({
     display: none;
   }
 
-  .follow-list{
+  .follow-list {
     display: flex;
-  flex-wrap: wrap;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, 48%);
-  grid-gap: 10px;
-    :deep(.follow-list-item){
+    grid-gap: 10px;
+    :deep(.follow-list-item) {
       width: 48%;
       margin-right: 0;
     }

@@ -1,16 +1,17 @@
 <template>
   <div class="common-row global-content">
-    <div v-if="resize.screenType === 'MOBILE'" class="page-header-mobile">
-      <icon-left class="back-index" @click="handleIndex" />
-      <h2>{{ $t("pages.like_title") }}</h2>
-    </div>
-    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
-    <div v-else class="page-header">
+    <div class="page-header">
       <h2>{{ $t("pages.like_title") }}</h2>
     </div>
     <section class="section-wrapper goods-wrapper">
       <div class="section-content">
-        <ProductCard showStatus :list="likeList" hasLikeConfirm :pageLoading="pageLoading" @change="changeLike"></ProductCard>
+        <ProductCard
+          showStatus
+          :list="likeList"
+          hasLikeConfirm
+          :pageLoading="pageLoading"
+          @change="changeLike"
+        ></ProductCard>
       </div>
     </section>
     <div class="see-more" v-if="page < lastPage && !pageLoading">
@@ -56,7 +57,7 @@ const getList = () => {
     if (res.code === 0) {
       pageLoading.value = false;
       butLoading.value = false;
-      lastPage.value = res.data.last_page
+      lastPage.value = res.data.last_page;
       likeList.value = [...likeList.value, ...res.data.data].map((i) => {
         return { ...i, islike: 1 };
       });
@@ -65,17 +66,17 @@ const getList = () => {
     }
   });
 };
-const changeLike = (item,index) => {
-  likeList.value.splice(index,1)
+const changeLike = (item, index) => {
+  likeList.value.splice(index, 1);
 };
 getList();
 </script>
 
 <style lang="scss" scoped>
 .page-header {
-  margin: 25px 10px;
+  margin: 40px 10px 20px;
   h2 {
-    font-size: 25px;
+    font-size: 36px;
   }
 }
 .null-height {
@@ -100,8 +101,6 @@ getList();
     transform: translateY(-50%);
   }
 }
-.goods-wrapper {
-}
 .see-more {
   text-align: center;
   margin: 30px auto;
@@ -111,6 +110,16 @@ getList();
     color: rgba(56, 56, 56, 1);
     padding: 0 20px;
     height: 38px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .page-header {
+    margin: 20px 0;
+    h2 {
+      font-size: 28px;
+      margin: 0;
+    }
   }
 }
 </style>
