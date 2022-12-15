@@ -4,14 +4,18 @@
       <a-col flex="100px" class="title"> {{ title }} </a-col>
     </a-row>
     <div class="follow-box-body">
-      <a-row :gutter="24" v-if="resize.screenType === 'MOBILE'">
-          <a-col :span="12" v-for="item in 4" style="margin-top: 10px">
-            <a-skeleton  animation :loading="pageLoading">
-              <a-skeleton-shape style="width: 100%;height: 200px;"/>
-            </a-skeleton>
-          </a-col>
-      </a-row>
-      <a-skeleton :loading="pageLoading" animation  v-else>
+      <div :gutter="24" class="skeleton-col-2">
+        <a-skeleton animation :loading="pageLoading">
+          <a-row :gutter="10">
+            <a-col :span="12" v-for="item in 4">
+              <a-skeleton-shape
+                style="width: 100%; height: 200px; display: inline-block; margin-bottom: 10px"
+              />
+            </a-col>
+          </a-row>
+        </a-skeleton>
+      </div>
+      <a-skeleton :loading="pageLoading" animation class="skeleton-col-4">
         <a-space :style="{ width: '100%' }" size="large" wrap>
           <a-skeleton-line :widths="[200]" :line-height="250" />
           <a-skeleton-line :widths="[200]" :line-height="250" />
@@ -28,44 +32,21 @@
         </div>
       </a-skeleton>
 
-      <div class="follow-list" v-if="!pageLoading">
-        <div v-if="resize.screenType === 'MOBILE'">
+      <div  v-if="!pageLoading">
+        <!-- <div>
           <a-row :gutter="24">
             <a-col :span="12" v-for="(item, index) in dataList">
               <follow-card :item="item" @change="changeFollow"></follow-card>
             </a-col>
           </a-row>
-        </div>
-        <div v-else class="follow-list">
-          <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
-        </div>
-
-
-        <!-- <div class="follow-list-item" v-for="(item, index) in dataList">
-          <div @click.stop="router.push('/userDetails?userId=' + item.uid)">
-            <img :src="baseImgPrefix + item.avatar" alt="" />
-            <div class="fs12">{{ item.nickname }}</div>
-            <div class="fs10">@{{ item.realname }}</div>
-            <div class="fs10">{{ item.b_follow }} Followers</div>
-          </div>
-          <div>
-            <a-button
-              type="outline"
-              class="black-outline-btn"
-              v-if="item.type == 0"
-              :loading="btnLoading"
-              @click.stop="handleFollow(item, index)"
-              >{{ $t("pages.cancelFollow") }}</a-button
-            >
-            <a-button
-              class="black-btn"
-              :loading="btnLoading"
-              v-if="item.type == 1"
-              @click="handleFollow(item, index)"
-              >{{ $t("pages.followIn") }}</a-button
-            >
-          </div>
         </div> -->
+        <div  class="follow-list">
+          <follow-card
+            v-for="(item, index) in dataList"
+            :item="item"
+            @change="changeFollow"
+          ></follow-card>
+        </div>
 
         <a-empty class="empty-box" v-if="!dataList.length">
           <template #image>
@@ -88,7 +69,7 @@
 import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
-import FollowCard from '~/pages/userDetails/components/FollowCard'
+import FollowCard from "~/pages/userDetails/components/FollowCard";
 import { useResize } from "~/stores/resize";
 const resize = useResize();
 const { t } = useI18n();
@@ -154,10 +135,9 @@ const handleQueryFollowList = () => {
     });
 };
 
-const changeFollow = () =>{
-  emits('change')
-}
-
+const changeFollow = () => {
+  emits("change");
+};
 
 // 加载更多
 const loadMore = () => {
@@ -248,6 +228,50 @@ defineExpose({
   .empty-tip {
     color: $main-grey;
     font-size: 18px;
+  }
+}
+
+.skeleton-col-2 {
+  display: none;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .follow-box {
+    padding: 20px 10px;
+    .follow-box-body {
+      padding: 0 !important;
+
+      .arco-space-wrap {
+        flex-wrap: nowrap !important;
+        overflow-x: hidden !important;
+      }
+    }
+
+    .box-header {
+      padding: 0;
+    }
+
+    .arco-space-item {
+      margin-right: 0px !important;
+    }
+  }
+
+  .skeleton-col-2 {
+    display: block;
+  }
+  .skeleton-col-4 {
+    display: none;
+  }
+
+  .follow-list{
+    display: flex;
+  flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, 48%);
+  grid-gap: 10px;
+    :deep(.follow-list-item){
+      width: 48%;
+      margin-right: 0;
+    }
   }
 }
 </style>

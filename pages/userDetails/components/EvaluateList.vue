@@ -3,12 +3,18 @@
   <div>
     <section>
       <div class="evaluate-item" v-for="item in list" :class="{ line: showLine }">
-        <img
+        <a-image
           class="user-icon"
           :src="baseImgPrefix + item.avatar"
-          alt=""
+          fit="cover"
+          show-loader
           @click="toUserDetails(item)"
-        />
+        >
+          <template #loader>
+            <div class="loader-animate" />
+          </template>
+        </a-image>
+
         <div class="evaluate-content">
           <a-space>
             <span class="fs16" @click="toUserDetails(item)">{{ item.nickname }}</span>
@@ -162,6 +168,10 @@ const toUserDetails = (item) => {
     margin-right: 6px;
     margin-top: 2px;
     cursor: pointer;
+    :deep(.arco-image-img){
+      width: 100%;
+      height: 100%;
+    }
   }
   .evaluate-content {
     flex: auto;
@@ -236,4 +246,12 @@ const toUserDetails = (item) => {
   margin: 4px 0;
 }
 
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .evaluate-item {
+    .user-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
 </style>
