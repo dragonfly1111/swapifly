@@ -106,16 +106,6 @@
           </a-dropdown>
         </div>
       </div>
-<<<<<<< HEAD
-      <a-button
-        v-if="resize.screenType === 'MOBILE' && userInfo.token"
-        class="mobile-sell"
-        type="primary"
-        @click.stop="router.push('/saleEdit')"
-        >{{ $t("head.sell") }}</a-button
-      >
-=======
->>>>>>> 1c98040e8e69044531cd55657b348b8b4223e1fc
     </div>
 
     <a-empty class="empty-box" v-if="!pageLoading && !list.length">
