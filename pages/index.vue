@@ -86,7 +86,7 @@
 import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
 import {useResize} from '~/stores/resize'
-import {useUserInfo} from "../stores/userInfo";
+import {useUserInfo} from "~/stores/userInfo";
 import {Message} from "@arco-design/web-vue";
 import {watch} from "vue";
 

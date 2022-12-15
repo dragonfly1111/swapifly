@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content1 common-row">
+  <div class="global-content common-row">
     <div class="detail-content">
       <div class="left">
         <template v-if="!dataLoading">
@@ -103,10 +103,6 @@ getHelpDetail()
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
-.global-content1 {
-
-}
-
 .detail-content {
   padding-top: 30px;
   display: flex;
@@ -200,4 +196,41 @@ getHelpDetail()
   }
 }
 
+</style>
+
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+@media screen and (max-width: 1000px) {
+  .global-content{
+    min-height: calc(100vh - 66px - 117px);
+    .detail-content {
+      padding-top: 0px;
+      display: block;
+
+      .left {
+        .title{
+          font-size: 28px;
+        }
+        .content {
+          max-width: 100%;
+        }
+      }
+
+      .right {
+        width: 100%;
+        margin-bottom: 24px;
+        border-top: 1px solid #cccccc;
+        .same-title{
+          margin-top: 24px;
+          padding-left: 0;
+          font-size: 24px;
+        }
+        .other-title{
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+}
 </style>

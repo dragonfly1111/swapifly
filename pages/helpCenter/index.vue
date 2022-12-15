@@ -1,8 +1,7 @@
 <template>
-  <div class="global-content1">
+  <div class="global-content">
     <div class="help-head">
       <div class="common-row">
-        <div class="null-height"></div>
         <div class="left">
           <div class="info">{{ $t('helpCenter.hello') }}</div>
           <div class="info">{{ $t('helpCenter.helpInfo') }}</div>
@@ -10,7 +9,7 @@
                           @press-enter="searchHandleKey" @search="searchHandle"></a-input-search>
         </div>
         <div class="right">
-          <img class="mobile-img-none" width="250" height="250" src="@/assets/images/help-head.png" alt="">
+          <img width="250" height="250" src="@/assets/images/help-head.png" alt="">
         </div>
       </div>
     </div>
@@ -34,10 +33,10 @@
             >
               <!--由于title插槽会报错 这里用icon插槽来实现-->
               <template #icon="{ node }">
-            <span @click="clickNode(node)"
-                  :class="node.level === 1 ? 'font1' : (node.level === 2 ? 'font2' : 'font3')  ">
-              {{ node.title }}
-            </span>
+                <span @click="clickNode(node)"
+                      :class="node.level === 1 ? 'font1' : (node.level === 2 ? 'font2' : 'font3')  ">
+                  {{ node.title }}
+                </span>
               </template>
             </a-tree>
 
@@ -150,16 +149,11 @@ const toDetail = (e) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .null-height{
-      display: none;
-      height: 60px;
-      width: 100%;
-    }
+
     .left {
       .info {
         font-size: 42px;
         font-weight: 700;
-        font-family: '思源黑体';
         color: #FFFFFF;
         margin-bottom: 16px;
       }
@@ -284,6 +278,133 @@ const toDetail = (e) => {
 
       .info-bar + .info-bar {
         margin-top: 10px;
+      }
+    }
+  }
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .help-head {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .common-row {
+      .left {
+        z-index: 1;
+
+        .info {
+          font-size: 26px;
+          font-weight: 700;
+          font-family: '思源黑体';
+          color: #FFFFFF;
+          margin-bottom: 12px;
+        }
+
+        .search-box {
+          width: 300px;
+        }
+      }
+
+      .right {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+
+        img {
+          height: 150px;
+          width: 150px;
+          z-index: -1;
+        }
+      }
+    }
+
+  }
+  .content {
+    .big-title {
+      margin: 12px 0;
+      font-size: 28px;
+    }
+
+    .main-content {
+      .arco-tree {
+        max-width: 100%;
+      }
+
+      .arco-tree + .arco-tree {
+        margin-top: 12px;
+      }
+
+      :deep(.arco-tree-node) {
+        background: #E5E6EB;
+        padding: 12px;
+
+        .arco-tree-node-switcher {
+          height: 18px;
+
+          .arco-icon-hover:hover::before {
+            background: unset;
+          }
+        }
+
+        .arco-tree-node-title {
+          padding: 0;
+          height: 22px;
+          line-height: 22px;
+          color: #1D2129;
+
+          .font1 {
+            font-size: 16px;
+            font-weight: 700;
+          }
+
+          .font2 {
+            font-size: 14px;
+            font-weight: 400;
+          }
+
+          .font3 {
+            font-size: 14px;
+            font-weight: 400;
+            padding-left: 12px;
+          }
+
+          .arco-tree-node-title-text {
+            display: none;
+          }
+
+          &:hover {
+            background: unset;
+            color: $main-blue;
+          }
+        }
+
+        .arco-tree-node-indent-block {
+          width: 15px;
+          margin-right: 0;
+        }
+      }
+    }
+
+    .content-foot {
+      display: block;
+      margin-top: 24px;
+
+      .left-foot {
+        width: 100%;
+
+        .info-box {
+          padding-bottom: 0;
+        }
+      }
+
+      .right-foot {
+        width: 100%;
+        margin-top: 24px;
       }
     }
   }

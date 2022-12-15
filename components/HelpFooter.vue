@@ -1,5 +1,5 @@
 <template>
-  <div class="global-foot1">
+  <div class="global-foot">
     <div class="common-row">
       <div>
         <img class="logo" src="@/assets/images/logo-long.png" alt="">
@@ -23,7 +23,7 @@ const toHelp = () =>{
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var";
-.global-foot1{
+.global-foot{
   //position: fixed;
   background: #f0f1f1;
   bottom: 0;
@@ -46,6 +46,20 @@ const toHelp = () =>{
     }
     span + span{
       margin-left: 60px;
+    }
+  }
+}
+</style>
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .global-foot{
+    padding: 15px;
+    width: calc(100% - 30px);
+    .common-row{
+      padding: 0;
+      span{
+        font-size: 14px;
+      }
     }
   }
 }

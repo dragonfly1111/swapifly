@@ -6,15 +6,19 @@
     <slot/>
     <Footer v-if="headType === 'common' && needFoot"/>
     <HelpFooter v-else-if="headType === 'help' && needFoot"/>
+    <a-button v-if="userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+
   </main>
 </template>
 <script setup>
 import {useResize} from '~/stores/resize'
+import {useUserInfo} from "~/stores/userInfo";
 
 const router = useRouter()
 const resize = useResize()
 const headType = ref('common')
 const needFoot = ref(true)
+const userInfo = useUserInfo()
 const helpArr = [
   '/helpCenter',
   '/helpCenter/detail',
