@@ -1,18 +1,18 @@
 <template>
   <div>
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
-      <a-row justify="space-between">
+      <a-row justify="space-between" class="skeleton-row">
         <a-col
-          :span="resize.screenType === 'MOBILE' ? 12 : 5"
-          v-for="item in resize.screenType === 'MOBILE' ? 4 : 8"
+          v-for="item in 8"
           style="padding: 10px"
+          class="skeleton-col"
         >
           <a-row align="center" :gutter="20">
             <a-col :span="6">
               <a-skeleton-shape shape="circle" size="small" />
             </a-col>
             <a-col :span="13">
-              <a-skeleton-line :widths="[120]" />
+              <a-skeleton-line :widths="[100]" />
             </a-col>
           </a-row>
           <div style="margin-top: 10px">
@@ -546,6 +546,13 @@ p.arco-typography {
     font-size: 18px;
   }
 }
+
+.skeleton-row{
+    .skeleton-col{
+      width: 24%;
+      flex: 0 0 24%;
+    }
+  }
 </style>
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
@@ -555,6 +562,12 @@ p.arco-typography {
   .recommend-item {
     padding: 12px 4px;
     width: 49%;
+  }
+  .skeleton-row{
+    .skeleton-col{
+      width: 49%;
+      flex: 0 0 49%;
+    }
   }
 }
 </style>
