@@ -45,6 +45,8 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   if(noFootArr.indexOf(newValue) !== -1){
     needFoot.value = false
   }
+  console.log('needFoot')
+  console.log(needFoot.value)
   console.log('needBack')
   console.log(resize.screenType)
   console.log(headType.value)
