@@ -204,4 +204,12 @@ defineExpose({
     height: 38px;
   }
 }
+
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .evaluate-box {
+    width: 90%;
+    margin: auto;
+  }
+}
 </style>
