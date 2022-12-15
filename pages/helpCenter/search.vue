@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content1">
+  <div class="global-content">
     <div>
       <div class="help-head">
         <div class="common-row">
@@ -39,19 +39,19 @@
           <template v-else>
             <a-skeleton :animation="true" class="skeleton">
               <div style="height: 20px;"></div>
-              <div style="width: 70%;">
+              <div class="sk-item">
                 <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
               </div>
               <div style="height: 36px;"></div>
-              <div style="width: 70%;">
+              <div class="sk-item">
                 <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
               </div>
               <div style="height: 36px;"></div>
-              <div style="width: 70%;">
+              <div class="sk-item">
                 <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
               </div>
               <div style="height: 36px;"></div>
-              <div style="width: 70%;">
+              <div class="sk-item">
                 <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10"/>
               </div>
             </a-skeleton>
@@ -157,7 +157,7 @@ const changePage = (e) => {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
-.global-content1 {
+.global-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -311,6 +311,79 @@ const changePage = (e) => {
     :deep(.arco-pagination-jumper-total-page) {
       color: $grey-font-label;
     }
+  }
+}
+
+.sk-item{
+  width: 70%;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .global-content{
+    min-height: calc(100vh - 66px - 117px);
+  }
+  .help-head {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .common-row {
+      .left {
+        z-index: 1;
+
+        .info {
+          font-size: 26px;
+          font-weight: 700;
+          font-family: '思源黑体';
+          color: #FFFFFF;
+          margin-bottom: 12px;
+        }
+
+        .search-box {
+          width: 300px;
+        }
+      }
+
+      .right {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+
+        img {
+          height: 150px;
+          width: 150px;
+          z-index: -1;
+        }
+      }
+    }
+
+  }
+  .content {
+    margin-top: 12px;
+    .left{
+      .big-title{
+        font-size: 28px;
+      }
+      .help-item{
+        padding: 12px 0;
+        .title{
+          font-size: 18px;
+        }
+      }
+      .no-data{
+        margin-top: 100px;
+      }
+    }
+    .right{
+      display: none;
+    };
+  }
+  .sk-item{
+    width: 100%;
   }
 }
 </style>

@@ -21,13 +21,12 @@ body {
     padding-top: 106px;
     min-height: calc(100vh - 86px - 106px);
   }
-  .global-content1 {
-    padding-top: 71px;
-    min-height: calc(100vh - 125px - 71px);
-  }
   .global-content2 {
     padding-top: 56px;
     min-height: calc(100vh - 56px);
+  }
+  .mobile-sell{
+    display: none;
   }
 }
 
@@ -40,6 +39,18 @@ body {
   .global-content {
     padding-top: 66px;
     min-height: calc(100vh - 66px - 112px - 50px);
+  }
+  // 移动端出售悬浮按钮
+  .mobile-sell{
+    display: block !important;
+    position: fixed !important;
+    bottom: 60px;
+    right: 4%;
+    background-color: $main-pink !important;
+    color: #fff;
+    z-index: 99999;
+    height: 35px;
+    width: 82px;
   }
 
 }
@@ -130,4 +141,5 @@ body {
 .arco-link:hover{
   color: $main-blue !important;
 }
+
 

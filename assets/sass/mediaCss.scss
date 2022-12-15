@@ -207,22 +207,6 @@
     }
   }
   .common-row {
-    .detail-content {
-      padding-top: 50px !important;
-      display: block !important;
-
-      .left {
-        .content {
-          max-width: 100% !important;
-        }
-      }
-
-      .right {
-        width: 100% !important;
-      }
-    }
-  }
-  .common-row {
     .link-wrap {
       span {
         display: block !important;
@@ -234,53 +218,8 @@
       }
     }
   }
-  .content {
-    .content-foot {
-      display: block !important;
-
-      .left-foot {
-        width: 100% !important;
-      }
-
-      .right-foot {
-        width: 100% !important;
-      }
-    }
-  }
   .mobile-display-none {
     display: none !important;
-  }
-  .help-head {
-    .common-row {
-      display: block !important;
-
-      .null-height {
-        display: block !important;
-      }
-    }
-  }
-  .global-content1 {
-    .help-head {
-      .common-row {
-        .right {
-          .mobile-img-none {
-            display: none !important;
-          }
-        }
-
-        .left {
-          .search-box {
-            width: 100% !important;
-          }
-        }
-      }
-    }
-  }
-  .global-foot1 {
-    .common-row {
-      margin-top: 8px !important;
-      padding: 10px 0 !important;
-    }
   }
   .mobile-a-skeleton-con {
     width: 100% !important;

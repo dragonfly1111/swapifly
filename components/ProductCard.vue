@@ -106,6 +106,7 @@
           </a-dropdown>
         </div>
       </div>
+<<<<<<< HEAD
       <a-button
         v-if="resize.screenType === 'MOBILE' && userInfo.token"
         class="mobile-sell"
@@ -113,6 +114,8 @@
         @click.stop="router.push('/saleEdit')"
         >{{ $t("head.sell") }}</a-button
       >
+=======
+>>>>>>> 1c98040e8e69044531cd55657b348b8b4223e1fc
     </div>
 
     <a-empty class="empty-box" v-if="!pageLoading && !list.length">
@@ -397,16 +400,6 @@ p.arco-typography {
   flex-wrap: wrap;
   //   grid-template-columns: repeat(auto-fill, 24%);
   grid-gap: 10px;
-  .mobile-sell {
-    position: fixed;
-    bottom: 60px;
-    right: 4%;
-    background-color: deeppink;
-    color: #fff;
-    z-index: 99999;
-    height: 35px;
-    width: 82px;
-  }
 }
 .recommend-item + .recommend-item {
 }
