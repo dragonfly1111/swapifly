@@ -144,76 +144,6 @@
       }
     }
   }
-  .global-content2 {
-    .news-detail-content {
-      display: block !important;
-
-      .left {
-        .content {
-          width: 100% !important;
-
-          p {
-            img {
-              width: 100% !important;
-              height: 250px !important;
-            }
-          }
-        }
-
-        .arco-image {
-          width: 100% !important;
-          height: 250px !important;
-
-          .arco-image-img {
-            width: 100% !important;
-            height: 250px !important;
-          }
-        }
-
-        .recent {
-          margin-top: 30px !important;
-
-          .recent-wrap {
-            display: block !important;
-
-            .news-block {
-              width: 100% !important;
-            }
-          }
-        }
-      }
-    }
-
-    .news-content {
-      display: block !important;
-
-      .left {
-        .news-box {
-          display: block !important;
-
-          .info-box {
-            margin-left: 0px !important;
-            margin-top: 10px;
-          }
-        }
-      }
-    }
-
-    .news-head {
-      padding: 70px 0 36px 0 !important;
-      display: block !important;
-
-      .left {
-        font-size: 28px;
-      }
-
-      .right {
-        .search-input {
-          margin-left: 0 !important;
-        }
-      }
-    }
-  }
   .common-row {
     .link-wrap {
       span {
@@ -232,38 +162,6 @@
   .mobile-a-skeleton-con {
     width: 100% !important;
   }
-  .global-head1 {
-    .common-row {
-      .left {
-        padding: 10px 0 !important;
-
-        .mobile-help-center {
-          font-size: 16px !important;
-          margin-left: 10px !important;
-          font-weight: 400 !important;
-        }
-
-        .mobile-help-center-logo {
-          width: 120px !important;
-          height: 30px !important;
-        }
-
-        .info {
-          font-size: 18px !important;
-          font-weight: 400 !important;
-        }
-
-        .search-box {
-          width: 80% !important;
-        }
-      }
-
-      .right {
-        margin-right: 5% !important;
-      }
-    }
-  }
-
   .business-box {
     .business-box-body {
       padding: 10px 30px !important;

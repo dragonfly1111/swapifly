@@ -141,6 +141,10 @@ const toDetail = (e) => {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
+.global-content{
+  padding-top: 75px;
+  min-height: calc(100vh - 75px - 145px);
+}
 .help-head {
   background: $main-blue;
   height: 250px;

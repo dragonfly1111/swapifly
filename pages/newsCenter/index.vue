@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content2">
+  <div class="global-content">
     <div class="news-head common-row">
       <div class="left">{{ $t('newsCenter.title') }}</div>
       <div class="right">
@@ -11,28 +11,42 @@
       <div class="left">
         <template v-if="dataLoading">
           <div v-for="item in 3">
-            <a-skeleton :animation="true" class="skeleton">
-              <div style="width: 800px; display: flex">
-                <a-skeleton-line :line-height="250" :widths="[350]" :rows="1"/>
-                <div style="margin-left: 38px">
-                  <a-skeleton-line :line-height="22" :widths="[150]" :rows="1"/>
-                  <div style="height: 10px"></div>
-                  <a-skeleton-line :line-height="41" :widths="[150]" :rows="1"/>
-                  <div style="height: 10px"></div>
-                  <a-skeleton-line :line-height="167" :widths="[400]" :rows="1"/>
+            <div class="pc-skeleton">
+              <a-skeleton :animation="true" class="skeleton">
+                <div style="width: 800px; display: flex">
+                  <a-skeleton-line :line-height="250" :widths="[350]" :rows="1"/>
+                  <div style="margin-left: 38px">
+                    <a-skeleton-line :line-height="22" :widths="[150]" :rows="1"/>
+                    <div style="height: 10px"></div>
+                    <a-skeleton-line :line-height="41" :widths="[150]" :rows="1"/>
+                    <div style="height: 10px"></div>
+                    <a-skeleton-line :line-height="167" :widths="[400]" :rows="1"/>
+                  </div>
                 </div>
-              </div>
+              </a-skeleton>
+              <div style="height: 60px"></div>
+            </div>
+            <div class="mobile-skeleton">
+              <a-skeleton :animation="true" class="skeleton">
+                <a-skeleton-line :line-height="150" :widths="['100%']" :rows="1"/>
+                <div style="height: 10px"></div>
+                <a-skeleton-line :line-height="18" :widths="['50%']" :rows="1"/>
+                <div style="height: 10px"></div>
+                <a-skeleton-line :line-height="24" :widths="['50%']" :rows="1"/>
+                <div style="height: 10px"></div>
+                <a-skeleton-line :line-height="50" :widths="['100%']" :rows="1"/>
+                <div style="height: 40px"></div>
+              </a-skeleton>
+            </div>
 
-            </a-skeleton>
-            <div style="height: 60px"></div>
           </div>
         </template>
         <template v-else>
           <template v-if="newsDataList.length > 0">
             <div class="news-box" v-for="item in newsDataList" @click="toNewsDetail(item)">
-              <a-image width="350" height="250"
-                       :src="baseImgPrefix + item.img"
-                       show-loader>
+              <a-image
+                  :src="baseImgPrefix + item.img"
+                  show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -41,7 +55,7 @@
                 <div class="time">2022/09/01</div>
                 <div class="title">{{ item.title }}</div>
                 <div class="des">
-                  {{item.abstract}}
+                  {{ item.abstract }}
                 </div>
               </div>
             </div>
@@ -64,7 +78,7 @@
           {{ $t('newsCenter.recentNews') }}
         </div>
         <template v-if="dataLoading">
-          <div style="padding-left: 20px; margin-top: 20px">
+          <div class="recent-skeleton">
             <a-skeleton :animation="true" class="skeleton">
               <a-skeleton-line :line-height="22" :rows="5" :line-spacing="20"/>
             </a-skeleton>
@@ -85,7 +99,8 @@
 import {newsList, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
-import { useResize } from '~/stores/resize';
+import {useResize} from '~/stores/resize';
+
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const resize = useResize();
@@ -102,7 +117,7 @@ const route = useRoute()
 searchKey.value = route.query.title ? route.query.title : ''
 const searchHandle = () => {
   page.value = 1
-  router.push(`/newsCenter?title=${searchKey.value }`)
+  router.push(`/newsCenter?title=${searchKey.value}`)
   getNewsList()
 }
 const toNewsDetail = (e) => {
@@ -118,7 +133,7 @@ const getNewsList = () => {
   }).then(res => {
     dataLoading.value = false
     if (res.code === 0) {
-      res.data.data.forEach(item=>{
+      res.data.data.forEach(item => {
         item.news_time = parseTime(item.news_time, '{y}-{m}-{d}')
       })
       newsDataList.value = res.data.data
@@ -149,9 +164,13 @@ getRecentNews()
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
+.global-content {
+  padding-top: 57px;
+}
+
 .news-head {
   padding: 55px 0 36px 0;
-  border-bottom: 2px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
   display: flex;
   justify-content: space-between;
 
@@ -186,6 +205,7 @@ getRecentNews()
 
   .left {
     width: 100%;
+
     .info-box {
       margin-left: 38px;
       color: $main-grey;
@@ -215,9 +235,11 @@ getRecentNews()
         overflow: hidden;
       }
     }
+
     .news-box {
       display: flex;
       cursor: pointer;
+
       .info-box {
         margin-left: 38px;
         color: $main-grey;
@@ -247,15 +269,18 @@ getRecentNews()
           overflow: hidden;
         }
       }
+
       &:hover {
         .title {
           color: $main-blue;
         }
       }
     }
+
     .news-box + .news-box {
       margin-top: 61px;
     }
+
     .no-data {
       display: flex;
       justify-content: center;
@@ -279,16 +304,28 @@ getRecentNews()
         font-size: 12px;
       }
     }
+
+    .arco-image {
+      width: 350px;
+      height: 250px;
+
+      :deep(.arco-image-img) {
+        width: 350px;
+        height: 250px;
+      }
+    }
+
   }
 
   .right {
     width: 322px;
     flex-shrink: 0;
+
     .title {
       color: #1D2129;
       font-size: 16px;
       font-weight: 700;
-      border-bottom: 2px solid #E5E6E8;
+      border-bottom: 1px solid #E5E6E8;
       padding: 9px 20px;
     }
 
@@ -325,6 +362,93 @@ getRecentNews()
     :deep(.arco-pagination-jumper-total-page) {
       color: $grey-font-label;
     }
+  }
+}
+
+.pc-skeleton{
+  display: block;
+}
+.mobile-skeleton{
+  display: none;
+}
+.recent-skeleton{
+  padding-left: 20px;
+  margin-top: 20px
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .news-head {
+    display: block;
+    padding: 15px;
+
+    .left {
+      font-size: 28px;
+    }
+
+    .right {
+      margin-top: 12px;
+
+      .search-input {
+        margin-left: 0;
+
+      }
+    }
+  }
+  .news-content {
+    display: block;
+    margin-top: 24px;
+    .left{
+      .news-box{
+        display: block;
+        .info-box{
+          margin-left: 0;
+          .time{
+            margin-top: 12px;
+          }
+          .title{
+            margin-top: 12px;
+            font-size: 24px;
+            line-height: 24px;
+          }
+        }
+      }
+      .news-box + .news-box {
+        margin-top: 32px;
+      }
+      .arco-image {
+        width: 100%;
+        height: 200px;
+
+        :deep(.arco-image-img) {
+          width: 100%;
+          height: 200px;
+        }
+      }
+    }
+    .right{
+      width: 100%;
+      .title{
+        padding: 9px 0;
+      }
+      .news-title{
+        padding: 9px 0;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+  }
+  .pc-skeleton{
+    display: none;
+  }
+  .mobile-skeleton{
+    display: block;
+  }
+  .recent-skeleton{
+    padding-left: 0;
   }
 }
 </style>

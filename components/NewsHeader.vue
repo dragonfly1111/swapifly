@@ -55,3 +55,13 @@
   }
 }
 </style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .global-head1{
+    padding: 0 15px;
+    width: calc(100% - 30px);
+  }
+}
+</style>

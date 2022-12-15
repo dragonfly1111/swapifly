@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content2">
+  <div class="global-content">
     <div class="news-head common-row">
       <div class="left">{{ $t('newsCenter.title') }}</div>
       <div class="right">
@@ -10,7 +10,7 @@
     <div class="news-detail-content common-row">
       <div class="left">
         <template v-if="!dataLoading">
-          <a-image width="768" height="438" fit="cover" show-loader :src="baseImgPrefix + newsDataDetail.img">
+          <a-image fit="cover" show-loader :src="baseImgPrefix + newsDataDetail.img">
             <template #loader>
               <div class="loader-animate"/>
             </template>
@@ -54,26 +54,47 @@
           </div>
         </template>
         <template v-else>
-          <a-skeleton :animation="true" class="skeleton">
-            <div style="width: 768px">
-              <a-skeleton-line :line-height="200" :rows="1"/>
-              <div style="width: 120px; margin-top: 34px">
-                <a-skeleton-line :line-height="21" :rows="1"/>
+          <div class="pc-skeleton">
+            <a-skeleton :animation="true" class="skeleton">
+              <div style="width: 768px">
+                <a-skeleton-line :line-height="200" :rows="1"/>
+                <div style="width: 120px; margin-top: 34px">
+                  <a-skeleton-line :line-height="21" :rows="1"/>
+                </div>
+                <div style="height: 10px"></div>
+                <div style="width: 200px">
+                  <a-skeleton-line :line-height="53" :rows="1"/>
+                </div>
+                <div style="height: 17px"></div>
+                <a-skeleton-line :line-height="200" :rows="1"/>
+                <div style="display: flex; margin-top: 50px; width: 768px;justify-content: space-between">
+                  <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
+                  <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
+                  <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
+                </div>
               </div>
-              <div style="height: 10px"></div>
-              <div style="width: 200px">
-                <a-skeleton-line :line-height="53" :rows="1"/>
-              </div>
-              <div style="height: 17px"></div>
-              <a-skeleton-line :line-height="200" :rows="1"/>
-              <div style="display: flex; margin-top: 50px; width: 768px;justify-content: space-between">
-                <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
-                <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
-                <a-skeleton-line :line-height="200" :widths="[230]" :rows="1"/>
-              </div>
-            </div>
-          </a-skeleton>
+            </a-skeleton>
+          </div>
+          <div class="mobile-skeleton">
+            <div style="width: 100%">
+              <a-skeleton :animation="true" class="skeleton">
+                <a-skeleton-line :line-height="150" :rows="1"/>
+                <div style="width: 120px; margin-top: 12px">
+                  <a-skeleton-line :line-height="21" :rows="1"/>
+                </div>
+                <div style="height: 10px"></div>
+                <div style="width: 200px">
+                  <a-skeleton-line :line-height="53" :rows="1"/>
+                </div>
+                <div style="height: 17px"></div>
+                <a-skeleton-line :line-height="200" :rows="1"/>
+                <div style="height: 17px"></div>
+                <a-skeleton-line :line-height="200" :rows="1"/>
 
+              </a-skeleton>
+
+            </div>
+          </div>
         </template>
       </div>
       <div class="right">
@@ -160,10 +181,12 @@ getNewsRecent()
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-
+.global-content {
+  padding-top: 57px;
+}
 .news-head {
   padding: 55px 0 36px 0;
-  border-bottom: 2px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
   display: flex;
   justify-content: space-between;
 
@@ -190,7 +213,6 @@ getNewsRecent()
     }
   }
 }
-
 .news-detail-content {
   margin-top: 44px;
   display: flex;
@@ -324,6 +346,15 @@ getNewsRecent()
 
       }
     }
+
+    .arco-image{
+      width: 768px;
+      height: 438px;
+      :deep(.arco-image-img){
+        width: 768px;
+        height: 438px;
+      }
+    }
   }
 
   .right {
@@ -333,7 +364,7 @@ getNewsRecent()
       color: #1D2129;
       font-size: 16px;
       font-weight: 700;
-      border-bottom: 2px solid #E5E6E8;
+      border-bottom: 1px solid #E5E6E8;
       padding: 9px 20px;
     }
 
@@ -352,6 +383,89 @@ getNewsRecent()
         color: $main-blue;
       }
     }
+  }
+}
+.pc-skeleton{
+  display: block;
+}
+.mobile-skeleton{
+  display: none;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .news-head {
+    display: block;
+    padding: 15px;
+
+    .left {
+      font-size: 28px;
+    }
+
+    .right {
+      display: none;
+    }
+  }
+  .news-detail-content{
+    display: block;
+    margin-top: 24px;
+    .left{
+      .time{
+        margin-top: 12px;
+      }
+      .title{
+        font-size: 24px;
+      }
+      .content {
+        margin-top: 12px;
+
+        :deep(*) {
+          max-width: calc(100vw - 30px);
+        }
+        :deep(img){
+          object-fit: cover;
+        }
+      }
+      .recent{
+        margin-top: 32px;
+        .control{
+          margin-bottom: 24px;
+        }
+        .line{
+          margin: 18px 0;
+        }
+        .recent-wrap{
+          display: block;
+          .news-block{
+            width: 100%;
+            .news-block-title{
+              margin-top: 6px;
+              width: 100%;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+      .arco-image{
+        width: 100%;
+        height: 200px;
+        :deep(.arco-image-img){
+          width: 100%;
+          height: 200px;
+        }
+      }
+    }
+    .right{
+      display: none;
+    }
+  }
+  .pc-skeleton{
+    display: none;
+  }
+  .mobile-skeleton{
+    display: block;
   }
 }
 </style>
