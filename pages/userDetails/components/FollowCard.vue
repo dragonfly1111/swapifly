@@ -102,6 +102,10 @@ const handleFollow = (row, index) => {
   :deep(.arco-btn) {
     width: 90%;
     margin: 10px auto;
+    height: 34px;
+    max-width: 118px;
   }
+}
+@media screen and (min-width: 0px) and (max-width: 1000px) {
 }
 </style>

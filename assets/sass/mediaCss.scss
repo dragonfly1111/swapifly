@@ -129,27 +129,8 @@
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
 
-  .follow-list-item {
-    width: 100% !important;
-  }
-  .follow-box {
-    .follow-box-body {
-      padding: 0 !important;
 
-      .arco-space-wrap {
-        flex-wrap: nowrap !important;
-        overflow-x: hidden !important;
-      }
-    }
 
-    .box-header {
-      padding: 0 0 20px 0 !important;
-    }
-
-    .arco-space-item {
-      margin-right: 0px !important;
-    }
-  }
 
   .main-pc-mobile {
     overflow-x: hidden !important;
@@ -282,30 +263,7 @@
       }
     }
   }
-  .evaluate-box {
-    .evaluate-box-body {
-      padding: 0 !important;
-    }
 
-    .evaluate-info {
-      padding: 0 !important;
-
-      .evaluate-total {
-        .evaluate-info-btn {
-          margin-left: 10px !important;
-
-          div {
-            padding: 4px 6px !important;
-          }
-
-          .arco-space-item {
-            margin-right: 0px !important;
-          }
-        }
-      }
-    }
-
-  }
   .business-box {
     .business-box-body {
       padding: 10px 30px !important;
@@ -376,12 +334,7 @@
       border: none !important;
     }
   }
-  .extra-btn {
-    position: absolute;
-    right: 10px;
-    top: 30%;
-    z-index: 888;
-  }
+
   // .user-detail-content {
   //   margin-top: 10px !important;
   // }

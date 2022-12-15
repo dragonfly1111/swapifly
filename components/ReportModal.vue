@@ -14,14 +14,14 @@
       @before-close="handleCancel"
   >
     <a-form :model="form" :rules="rules" auto-label-width size="large" ref="formRef">
-      <a-form-item field="contact" label="" hide-asterisk>
+      <a-form-item field="contact" label="" hide-asterisk hide-label>
         <a-input
             v-model="form.contact"
             :placeholder="$t('components.report.leaveYourContact')"
             :maxLength="100"
         />
       </a-form-item>
-      <a-form-item field="why" label="" hide-asterisk>
+      <a-form-item field="why" label="" hide-asterisk hide-label>
         <a-textarea
             v-model="form.why"
             :placeholder="$t('components.report.writeDownReporting')"

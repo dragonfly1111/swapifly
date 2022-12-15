@@ -1,12 +1,19 @@
 <template>
   <div class="evaluate-box">
     <div class="box-header">
-      <a-row justify="space-between" align="center" class="header-select" v-if="resize.screenType !== 'MOBILE'">
-        <a-col :flex="resize.screenType !== 'MOBILE'?'100px':'1'" class="title"> {{ $t("pages.evaluate") }} </a-col>
-        <a-col :flex="resize.screenType !== 'MOBILE'?'200px':'2'">
+      <a-row
+        justify="space-between"
+        align="center"
+        class="header-select"
+        v-if="resize.screenType !== 'MOBILE'"
+      >
+        <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">
+          {{ $t("pages.evaluate") }}
+        </a-col>
+        <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">
           <a-select v-model="queryParams.s_type" @change="initData">
             <a-option
-              v-for="item in evaluationSort"
+              v-for="item in sysData.evaluationSort"
               :value="item.value"
               :key="item.value"
               :label="item.key"
@@ -19,7 +26,7 @@
         <div class="evaluate-total">
           <div class="star-number">
             <div>
-              <span class="total">{{starts}}</span>
+              <span class="total">{{ starts }}</span>
               <span><icon-star-fill :size="18" /></span>
             </div>
             <div>({{ total }}{{ $t("pages.evaluate") }})</div>
@@ -29,7 +36,7 @@
               {{ $t("evaluate.sourceEvaluation.all") }}
             </div>
             <div
-              v-for="item in evaluationSource"
+              v-for="item in sysData.evaluationSource"
               :key="item.value"
               @click="changeType(item.value)"
               :class="{ active: queryParams.type == item.value }"
@@ -43,11 +50,17 @@
 
     <div class="evaluate-box-body">
       <EvaluateList :page-loading="pageLoading" :list="evaluationList"></EvaluateList>
-      <div class="see-more" v-if="(total > evaluationList.length) && (evaluationList.length > 0)">
+      <div class="see-more" v-if="total > evaluationList.length && evaluationList.length > 0">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
-    <a-button v-if="resize.screenType === 'MOBILE'  && !userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+    <a-button
+      v-if="resize.screenType === 'MOBILE' && !userInfo.token"
+      class="mobile-sell"
+      type="primary"
+      @click.stop="router.push('/saleEdit')"
+      >{{ $t("head.sell") }}</a-button
+    >
   </div>
 </template>
 
@@ -56,12 +69,10 @@ import EvaluateList from "./EvaluateList.vue";
 import { useSysData } from "~/stores/sysData";
 import { getEvaluationList } from "~/api/shop";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from '~/stores/resize'
+import { useResize } from "~/stores/resize";
 const resize = useResize();
 const userInfo = useUserInfo();
 const sysData = useSysData();
-const evaluationSort = ref([]); // 评论排序
-const evaluationSource = ref([]); // 评论来源
 const evaluationList = ref([]); // 评论列表
 const starts = ref(0); // 星星数量
 const pageLoading = ref(true);
@@ -84,13 +95,10 @@ const queryParams = ref({
   limit: 10,
 });
 
-onMounted(() => {
-  evaluationSort.value = sysData.evaluationSort;
-  evaluationSource.value = sysData.evaluationSource;
-});
+onMounted(() => {});
 
 const handleQuery = () => {
-  queryParams.value.id = router.currentRoute.value.query.userId
+  queryParams.value.id = router.currentRoute.value.query.userId;
   getEvaluationList(queryParams.value)
     .then((res) => {
       if (res.code == 0) {
@@ -130,7 +138,7 @@ defineExpose({
 @import "assets/sass/var";
 
 .evaluate-box {
-  .mobile-sell{
+  .mobile-sell {
     position: fixed;
     bottom: 10%;
     right: 4%;
@@ -205,11 +213,43 @@ defineExpose({
   }
 }
 
-
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .evaluate-box {
     width: 90%;
     margin: auto;
+    .evaluate-box-body {
+      padding: 0 !important;
+    }
+
+    .evaluate-info {
+      padding: 10px 0 30px;
+      .evaluate-total {
+        .star-number {
+          padding: 0 15px 0 0;
+          .total {
+            font-size: 22px;
+          }
+        }
+        .evaluate-info-btn {
+          margin-left: 10px;
+          font-size: 14px;
+          div {
+            flex-shrink: 0;
+            margin-right: 5px;
+            padding: 7px 10px;
+          }
+          .arco-space-item {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+    .evaluate-item {
+      .user-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 }
 </style>

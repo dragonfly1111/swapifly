@@ -70,7 +70,6 @@ const userInfo = useUserInfo();
 const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
-const authenticationStatus = ref([]);
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 
@@ -91,7 +90,7 @@ const form = ref({
 
 const getStatusLabel = () => {
   if (form.value.state != null) {
-    let obj = authenticationStatus.value.find((i) => i.value == form.value.state);
+    let obj = sysData.authenticationStatus.find((i) => i.value == form.value.state);
     return obj ? obj.key : "";
   }
 };
@@ -116,7 +115,6 @@ const toAuthentication = () => {
   businessRegistration.value.openDialog(form.value);
 };
 onMounted(() => {
-  authenticationStatus.value = sysData.authenticationStatus;
 });
 defineExpose({
   handleQuery,

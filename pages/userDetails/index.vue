@@ -160,10 +160,8 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
-  console.log(followRow)
   activeTab.value = "followRow";
   followRow.value.resetQuery(e);
-
 };
 
 const initData = () => {
@@ -249,6 +247,7 @@ onMounted(() => {
       color: $main-grey;
       padding-left: 5px;
       padding-right: 5px;
+      background-color: #fff;
       &:hover {
         background-color: #eee;
       }
@@ -288,5 +287,12 @@ onMounted(() => {
       padding-top: 40px;
     }
   }
+  .extra-btn {
+    position: absolute;
+    right: 10px;
+    top: 153px;
+    z-index: 888;
+  }
 }
+
 </style>
