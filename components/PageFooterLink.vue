@@ -195,3 +195,13 @@ onMounted(()=>{
 }
 
 </style>
+<style lang="scss" scoped>
+@media screen and (max-width:1000px){
+  .page-footer-link {
+    padding: 20px 0;
+    .search-box{
+      margin-bottom: 16px;
+    }
+  }
+}
+</style>

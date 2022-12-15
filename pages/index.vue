@@ -414,6 +414,9 @@ onMounted(() => {
       margin-top: 24px;
       margin-bottom: 14px;
     }
+    .section-header1{
+      margin-bottom: 15px;
+    }
 
     .brands-content {
       .brands-item {

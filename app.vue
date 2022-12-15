@@ -15,7 +15,6 @@ import {
 } from '~/model/res/staticDicts'
 import {useI18n} from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
-import {process} from "unenv/runtime/node/process/_process";
 
 const {t} = useI18n();
 const locale = useState<string>('locale.setting')
@@ -71,14 +70,16 @@ useHead({
 
 // console.log("=====onMounted====", resize)
 onMounted(async () => {
+  console.log('app onMounted')
+  console.log(process.client)
   resize.setWidth(window.innerWidth)
   // reurl()
   // 客户端设置系统属性数据
   if (process.client) {
     userInfo.initState()
     const sysDataRes = await initSysData()
+    console.log('initSysData')
     sysData.setSysDataServerSide(sysDataRes)
-
     sysData.setSysDataClientSide({
       gender: generateGender(t),
       evaluationSort: generateEvaluationSort(t),

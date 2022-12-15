@@ -528,7 +528,6 @@ p.arco-typography {
     }
   }
 }
-
 .empty-box {
   color: $grey-font-label;
   font-size: 12px;
@@ -541,5 +540,13 @@ p.arco-typography {
     color: $main-grey;
     font-size: 18px;
   }
+}
+</style>
+<style lang="scss" scoped>
+@media screen and (max-width:1000px){
+  .recommend-item {
+    padding: 12px 4px;
+  }
+
 }
 </style>
