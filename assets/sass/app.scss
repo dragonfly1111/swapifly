@@ -37,6 +37,11 @@ body {
     padding-left: 15px;
     padding-right: 15px;
   }
+  .global-content {
+    padding-top: 66px;
+    min-height: calc(100vh - 66px - 112px - 50px);
+  }
+
 }
 
 .arco-trigger-popup {

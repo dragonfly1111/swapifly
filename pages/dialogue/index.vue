@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content1">
+  <div class="global-content">
     <!--    展示对话列表,当PC端或者showDiaList为true时展示-->
     <div class="left-msg-list" v-if="resize.screenType !== 'MOBILE' || showDiaList">
       <div id="left-msg-list" class="msg-select">
@@ -15,7 +15,7 @@
           <a-select v-model="curMsgType" @change="changeMsgType"
                     :style="{width:resize.screenType === 'MOBILE'?'30%':'100%'}" :bordered="false">
             <a-option
-                v-for="item in msgType"
+                v-for="item in sysData.msgType"
                 :value="item.value"
                 :key="item.value"
                 :label="item.key"
@@ -457,7 +457,6 @@ const blockModal = ref(null);
 const sysData = useSysData();
 //移动端展示对话列表
 const showDiaList = ref(true);
-const msgType = ref([])
 // 左侧会话列表
 const conversationList = ref([])
 // 中间对话详情
@@ -965,7 +964,6 @@ const getAd = () => {
 }
 getAd()
 onMounted(() => {
-  msgType.value = sysData.msgType;
   dialogueOperationType.value = sysData.dialogueOperationType;
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
   // addEventToMainContent()
@@ -985,7 +983,7 @@ body {
   overflow: hidden;
 }
 
-.global-content1 {
+.global-content {
   height: 100%;
   display: flex;
   min-height: calc(100vh - 106px);

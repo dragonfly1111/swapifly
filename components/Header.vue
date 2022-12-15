@@ -194,7 +194,7 @@
 
         <div class="right">
           <div v-if="userInfo.token">
-            <icon-message class="icon-message" @click="router.push('/dialogue')"/>
+            <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
             <icon-list class="icon-list" @click="router.push('/mobileUserProfile')"/>
           </div>
           <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
@@ -228,10 +228,11 @@ const props = defineProps({
 
 // 移动端需要将logo替换成返回按钮的路由
 const needBackRoute = [
-  '/dialogue',
+  '/dialogue/mobile',
   '/notification',
   '/mobileUserProfile',
-  '/saleEdit'
+  '/saleEdit',
+  '/dialogue/chatDetail',
 ]
 
 const router = useRouter()

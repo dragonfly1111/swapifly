@@ -4,8 +4,8 @@
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
     <slot/>
-    <Footer v-if="headType === 'common'"/>
-    <HelpFooter v-else-if="headType === 'help'"/>
+    <Footer v-if="headType === 'common' && needFoot"/>
+    <HelpFooter v-else-if="headType === 'help' && needFoot"/>
   </main>
 </template>
 <script setup>
@@ -14,6 +14,7 @@ import {useResize} from '~/stores/resize'
 const router = useRouter()
 const resize = useResize()
 const headType = ref('common')
+const needFoot = ref(true)
 const helpArr = [
   '/helpCenter',
   '/helpCenter/detail',
@@ -23,6 +24,10 @@ const newsArr = [
   '/newsCenter',
   '/newsCenter/detail',
   '/newsCenter/search'
+]
+
+const noFootArr = [
+  '/dialogue/chatDetail'
 ]
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
@@ -36,8 +41,12 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   } else {
     headType.value = 'common'
   }
+
+  if(noFootArr.indexOf(newValue) !== -1){
+    needFoot.value = false
+  }
   console.log('needBack')
-  console.log(resize.screenType )
+  console.log(resize.screenType)
   console.log(headType.value)
 }, {immediate: true})
 </script>

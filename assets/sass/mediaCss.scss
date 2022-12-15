@@ -128,9 +128,6 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
-  .global-content {
-    padding-top: 66px !important;
-  }
   .user-container {
     margin-top: -50px !important;
 
@@ -167,7 +164,6 @@
     }
   }
   .main-pc-mobile {
-    padding-bottom: 50px;
     overflow-x: hidden !important;
   }
   .main-content {
@@ -411,9 +407,6 @@
   .media-mobile-block {
     display: block;
   }
-  .mobile-border-none {
-    border-bottom: none !important;
-  }
   .arco-divider-text-left {
     padding: 0 !important;
   }
@@ -552,18 +545,6 @@
   }
   .main-content {
     width: 100%;
-
-    .main-content-title {
-      .left {
-        margin: auto;
-        text-align: center;
-      }
-    }
-
-    .conversation-content {
-      height: calc(100vh - 55px - 171px - 64px) !important;
-      padding: 0;
-    }
   }
   .section-wrapper {
     margin: 10px 0 10px !important;

@@ -47,6 +47,7 @@ const toHelp = () =>{
   width: 100%;
 }
 .common-row-mobile{
+  padding-bottom: 50px;
   .two-row{
     padding: 20px 0;
     text-align: center;

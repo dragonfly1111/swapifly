@@ -1,9 +1,5 @@
 <template>
-  <div class="login-page">
-    <div class="login-title">
-      <icon-left  class="back-index" @click="handToIndex"/>
-      <img src="@/assets/images/logo-long.png" alt=""/>
-    </div>
+  <div class="login-page common-row global-content">
     <div class="title">{{ $t('loginDialog.title') }}</div>
     <ThirdLoginWrap></ThirdLoginWrap>
     <div class="or-wrap">{{ $t('loginDialog.or') }}</div>
@@ -87,7 +83,6 @@ const doLogin = () => {
 <style lang="scss" scoped>
 @import "assets/sass/var";
 .login-page {
-  padding: 20px 10px;
   .title {
     margin-top: 26px;
     text-align: center;
