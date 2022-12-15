@@ -17,7 +17,7 @@
             <a-dropdown @select="handleOperationSelect">
               <icon-more-vertical/>
               <template #content>
-                <a-doption v-for="item in sysData.dialogueOperationType" :value="item.value">{{ item.key }}</a-doption>
+                <a-doption v-for="item in dialogueOperationType" :value="item.value">{{ item.key }}</a-doption>
               </template>
             </a-dropdown>
           </div>
@@ -78,7 +78,9 @@
               </template>
             </div>
           </div>
-          <div class="meta-wrap wrap2">
+          <!--出售方已驳回和为出价不出现这一行-->
+          <div class="meta-wrap wrap2"
+               :style="(curConversationMeta.f_type === 2 && (curConversationMeta.status === 3 || curConversationMeta.status === 0)) ? 'padding: 0' : ''">
             <div class="right">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
@@ -266,18 +268,29 @@ const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const mainContentLoading = ref(false)
+const uploadLoading = ref(false)
+const acceptLoading = ref(false)
+const rejectLoading = ref(false)
+const offerLoading = ref(false)
+const editOfferLoading = ref(false)
+const cancelOfferLoading = ref(false)
+const soldLoading = ref(false)
 const route = useRoute();
 let mainContentEle = null
 const inputTxt = ref('')
+const openOffer = ref(false)
+const openEditOffer = ref(false)
+const offerNum = ref(0)
+const offerNum1 = ref(0)
 const evaluateDialog = ref(null)
 const checkEvaluateDialog = ref(null)
 const soldDialog = ref(null)
 const reportModal = ref(null)
 const blockModal = ref(null);
 const conversationDetail = ref([])
-const uploadLoading = ref(false)
 let pageTask = null
-
+// 操作列表
+const dialogueOperationType = ref([])
 // 当前对话的元信息
 const curConversationMeta = ref({})
 // 获取对话详情
@@ -293,7 +306,7 @@ const fetchDetailData = (toBottom = true) => {
       conversationDetail.value = res.data.reverse()
       // 获取到消息后滚到底部
       if (toBottom) {
-        setTimeout(()=>{
+        setTimeout(() => {
           scrollToBottom()
         }, 100)
       }
@@ -301,7 +314,6 @@ const fetchDetailData = (toBottom = true) => {
       Message.error(res.message)
     }
   }).catch(e => {
-    if (callback) callback()
     console.log('fetchDetailData catch')
     clearInterval(pageTask)
   })
@@ -322,12 +334,30 @@ const getChartMetaInfo = () => {
   }).then(res => {
     if (res.code === 0) {
       curConversationMeta.value = res.data
+      calcOperationOptions()
     } else {
       Message.error(res.message)
     }
-  }).catch(e=>{
+  }).catch(e => {
     console.log('getChartMetaInfo catch')
   })
+}
+// 根据当前对话属性计算操作下拉列表
+const calcOperationOptions = () => {
+  console.log('calcOperationOptions')
+  console.log(curConversationMeta.fs_type)
+  if (curConversationMeta.value.fs_type === 1) {
+    // 已封锁对方状态 展示解封对方
+    dialogueOperationType.value = sysData.dialogueOperationType.filter(item => {
+      return item.value !== 2
+    })
+  } else {
+    // 未封锁对方状态 展示封禁对方
+    dialogueOperationType.value = sysData.dialogueOperationType.filter(item => {
+      return item.value !== 3
+    })
+  }
+  console.log(dialogueOperationType.value)
 }
 // 打开评论面板
 const openEvaluateDialog = () => {
@@ -499,7 +529,7 @@ const sendMsg = (e, callbackSuc, callbackFail) => {
   postMsg(e).then(res => {
     if (res.code === 0) {
       if (callbackSuc) callbackSuc()
-      fetchDetailData(false)
+      fetchDetailData(true)
     } else {
       Message.error(res.message)
       if (callbackFail) callbackFail()
@@ -604,7 +634,7 @@ const uploadChatImg = (option) => {
 const pageLoopTask = () => {
   pageTask = setInterval(() => {
     getChartMetaInfo()
-    fetchDetailData( true)
+    fetchDetailData(false)
   }, 2000)
 }
 fetchDetailData()
@@ -627,6 +657,7 @@ onUnmounted(() => {
     text-align: center;
     position: relative;
     height: 32px;
+
     span {
       font-size: 14px;
       line-height: 32px;
@@ -636,7 +667,7 @@ onUnmounted(() => {
     :deep(.arco-icon-more-vertical) {
       cursor: pointer;
       width: 24px;
-      height:24px;
+      height: 24px;
       position: absolute;
       right: 0px;
       top: 50%;
@@ -655,6 +686,7 @@ onUnmounted(() => {
       display: flex;
       align-items: center;
       cursor: pointer;
+
       .goods-img {
         width: 50px;
         height: 50px;
@@ -679,13 +711,15 @@ onUnmounted(() => {
     .right {
       display: flex;
       align-items: center;
+
       span {
         margin-right: 21px;
       }
 
-      span + .but{
+      span + .but {
         margin-left: 12px;
       }
+
       .but {
         //width: 67px;
         height: 26px;
@@ -718,18 +752,22 @@ onUnmounted(() => {
     }
 
   }
-  .wrap1{
+
+  .wrap1 {
     justify-content: space-between;
-    .right{
+
+    .right {
       display: block;
     }
   }
-  .wrap2{
-    .right{
+
+  .wrap2 {
+    .right {
       width: 100%;
       justify-content: flex-end;
     }
   }
+
   .conversation-content {
     height: calc(100vh - 66px - 176px - 61px - 24px);
     padding-bottom: 24px;
@@ -865,7 +903,9 @@ onUnmounted(() => {
   .input-line {
     height: 60px;
     border-top: 1px solid #F2F2F2;
-
+    position: fixed;
+    width: 100%;
+    bottom: 0;
     .input-box {
       height: 100%;
       border-radius: 0;

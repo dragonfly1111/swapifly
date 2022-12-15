@@ -1,7 +1,6 @@
 <template>
   <a-modal v-model:visible="visible"
            :closable="false"
-           :width="resize.screenType === 'MOBILE' ? '80%' : '-'"
            :mask-closable="false" title-align="start" modal-class="block-dialog" :footer="false"
            @close="handleCancel">
     <template #title>
@@ -126,6 +125,12 @@ defineExpose({
       margin-top: 45px;
       height: 46px;
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .block-dialog{
+    width: 80%;
   }
 }
 </style>

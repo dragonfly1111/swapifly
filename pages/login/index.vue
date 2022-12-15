@@ -19,6 +19,22 @@
       {{ $t('loginDialog.noAcc') }}
       <span @click="handleReg">{{ $t('loginDialog.toRegister') }}</span>
     </div>
+
+    <div style="margin-top: 15px">
+      <div class="forget" style="margin-bottom: 10px">
+        <span>快捷切换账号（测试用 上线移除）</span>
+      </div>
+      <a-radio-group @change="changeAcc">
+        <a-radio :value="1">flf测试账号</a-radio>
+        <a-radio :value="2">ljn测试账号</a-radio>
+        <a-radio :value="3">测试账号001</a-radio>
+        <a-radio :value="4">测试账号002</a-radio>
+        <a-radio :value="5">测试账号003</a-radio>
+        <a-radio :value="6">测试账号004</a-radio>
+        <a-radio :value="7">测试账号005</a-radio>
+      </a-radio-group>
+    </div>
+
   </div>
 </template>
 
@@ -34,6 +50,40 @@ const userInfo = useUserInfo();
 const visible = ref(false);
 const router = useRouter()
 const toRegister = defineEmits(['toRegister'])
+const changeAcc = (e) =>{
+  console.log(e)
+  switch (e) {
+    case 1:
+      formData.email = '634401502@qq.com'
+      formData.pwd = '12345678'
+      break
+    case 2:
+      formData.email = '598348433@qq.com'
+      formData.pwd = 'Soin.3344'
+      break
+    case 3:
+      formData.email = 'swapifly001@gmail.com'
+      formData.pwd = '12345'
+      break
+    case 4:
+      formData.email = 'swapifly002@gmail.com'
+      formData.pwd = '12345'
+      break
+    case 5:
+      formData.email = 'swapifly003@gmail.com'
+      formData.pwd = '12345'
+      break
+    case 6:
+      formData.email = 'swapifly004@gmail.com'
+      formData.pwd = '12345'
+      break
+    case 7:
+      formData.email = 'swapifly005@gmail.com'
+      formData.pwd = '12345'
+      break
+  }
+}
+
 const formData = reactive({
   // email: '',
   // pwd: '',

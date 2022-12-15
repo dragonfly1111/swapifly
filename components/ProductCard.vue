@@ -382,7 +382,7 @@ p.arco-typography {
   grid-gap: 10px;
   .mobile-sell{
     position: fixed;
-    bottom: 4%;
+    bottom: 60px;
     right: 4%;
     background-color: deeppink;
     color: #fff;

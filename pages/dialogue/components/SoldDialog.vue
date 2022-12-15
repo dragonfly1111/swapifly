@@ -74,4 +74,10 @@ defineExpose({
     font-size: 18px;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .sold-dialog{
+    width: 80%;
+  }
+}
 </style>
