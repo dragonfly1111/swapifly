@@ -2,7 +2,11 @@
   <div>
     <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
       <a-row justify="space-between">
-        <a-col :span="resize.screenType === 'MOBILE' ? 12 : 5" v-for="item in (resize.screenType === 'MOBILE' ? 4 : 8)" style="padding: 10px">
+        <a-col
+          :span="resize.screenType === 'MOBILE' ? 12 : 5"
+          v-for="item in resize.screenType === 'MOBILE' ? 4 : 8"
+          style="padding: 10px"
+        >
           <a-row align="center" :gutter="20">
             <a-col :span="6">
               <a-skeleton-shape shape="circle" size="small" />
@@ -38,14 +42,23 @@
         <div class="product-img">
           <div class="img-box">
             <img :src="baseImgPrefix + item.image" alt="" />
-            <div class="status-box" v-if="(showStatus && item.state > 1 && (!item.delete_time || (item.delete_time && item.delete_time == 0)))">
+            <div
+              class="status-box"
+              v-if="
+                showStatus &&
+                item.state > 1 &&
+                (!item.delete_time || (item.delete_time && item.delete_time == 0))
+              "
+            >
               {{ getStateLabel(item) }}
             </div>
-            <div class="status-box" v-if="(showStatus && item.delete_time > 0)">
-              {{ $t('pages.deleted') }}
+            <div class="status-box" v-if="showStatus && item.delete_time > 0">
+              {{ $t("pages.deleted") }}
             </div>
           </div>
-          <div class="product-tag" v-if="item.t_type == 1 || item.type == 1">{{ $t("pages.recommendTag") }}</div>
+          <div class="product-tag" v-if="item.t_type == 1 || item.type == 1">
+            {{ $t("pages.recommendTag") }}
+          </div>
         </div>
         <div class="product-desc">
           <div>{{ item.title }}</div>
@@ -79,7 +92,7 @@
                 <a-doption @click.stop="openAchievement(item)">{{
                   $t("pages.viewtheResults")
                 }}</a-doption>
-                <a-doption @click.stop="handleRemove(item,index)" v-if="item.state != 2">{{
+                <a-doption @click.stop="handleRemove(item, index)" v-if="item.state != 2">{{
                   item.state == 3 ? $t("pages.putawayGoods") : $t("pages.removeGoods")
                 }}</a-doption>
                 <a-doption @click.stop="handleMark(item, index)" v-if="item.state != 2">{{
@@ -93,7 +106,13 @@
           </a-dropdown>
         </div>
       </div>
-      <a-button v-if="resize.screenType === 'MOBILE' && userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+      <a-button
+        v-if="resize.screenType === 'MOBILE' && userInfo.token"
+        class="mobile-sell"
+        type="primary"
+        @click.stop="router.push('/saleEdit')"
+        >{{ $t("head.sell") }}</a-button
+      >
     </div>
 
     <a-empty class="empty-box" v-if="!pageLoading && !list.length">
@@ -121,7 +140,7 @@ import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from '~/stores/resize'
+import { useResize } from "~/stores/resize";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const userInfo = useUserInfo();
@@ -186,17 +205,17 @@ const getStateLabel = (item) => {
 const resize = useResize();
 // 举报
 const handleReport = (item) => {
-  userInfo.checkLogin()
+  userInfo.checkLogin();
   reportModal.value.openDialog(item);
 };
 // 购买曝光率
 const openExposure = (item) => {
-  userInfo.checkLogin()
+  userInfo.checkLogin();
   exposurePayModal.value.openDialog(item.id);
 };
 // 下架 //商品狀態，1.出售中，2.已售出，3已下架
-const handleRemove = (item,index) => {
-  userInfo.checkLogin()
+const handleRemove = (item, index) => {
+  userInfo.checkLogin();
   let content = item.state == 3 ? t("pages.putawayGoodsTip") : t("pages.removeGoodsTip");
   Modal.info({
     content: content,
@@ -210,7 +229,7 @@ const handleRemove = (item,index) => {
           if (res.code === 0) {
             Message.success(res.message);
             let arr = [...props.list];
-            arr[index].state = item.state == 3 ? 1 : 3
+            arr[index].state = item.state == 3 ? 1 : 3;
             emits("update:list", arr);
             // emits("change");
           } else {
@@ -226,7 +245,6 @@ const handleRemove = (item,index) => {
 
 // 删除
 const handleDelete = (item, index) => {
-
   Modal.info({
     content: t("pages.delGoodsTip"),
     closable: true,
@@ -250,7 +268,7 @@ const handleDelete = (item, index) => {
   });
 };
 // 标记已售出
-const handleMark = (item,index) => {
+const handleMark = (item, index) => {
   Modal.info({
     content: t("pages.markSoldTip"),
     closable: true,
@@ -263,7 +281,7 @@ const handleMark = (item,index) => {
           if (res.code === 0) {
             Message.success(res.message);
             let arr = [...props.list];
-            arr[index].state = 2 // 已售出
+            arr[index].state = 2; // 已售出
             emits("update:list", arr);
             // emits("change");
           } else {
@@ -279,7 +297,7 @@ const handleMark = (item,index) => {
 
 // 用户详情
 const toUserDetails = (item) => {
-  console.log(item)
+  console.log(item);
   router.push("/userDetails?userId=" + item.uid);
 };
 
@@ -289,7 +307,7 @@ const handleEdit = (item) => {
 };
 // like商品
 const likeProduct = (item, index) => {
-  userInfo.checkLogin()
+  userInfo.checkLogin();
   if (props.hasLikeConfirm) {
     Modal.info({
       content: t("pages.likeConfirm"),
@@ -345,7 +363,7 @@ const toGoodsDetail = (id) => {
       } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
-      } else if(res.data.state === 4){
+      } else if (res.data.state === 4) {
         // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
@@ -355,7 +373,6 @@ const toGoodsDetail = (id) => {
       Message.error(res.message);
     }
   });
-
 };
 
 const openAchievement = (item) => {
@@ -380,7 +397,7 @@ p.arco-typography {
   flex-wrap: wrap;
   //   grid-template-columns: repeat(auto-fill, 24%);
   grid-gap: 10px;
-  .mobile-sell{
+  .mobile-sell {
     position: fixed;
     bottom: 60px;
     right: 4%;
@@ -498,7 +515,7 @@ p.arco-typography {
       padding-right: 10px;
       display: flex;
       align-items: center;
-      span{
+      span {
         padding-top: 1px;
       }
       &:hover {
@@ -548,10 +565,13 @@ p.arco-typography {
 }
 </style>
 <style lang="scss" scoped>
-@media screen and (max-width:1000px){
+@media screen and (max-width: 1000px) {
+  .goods-list {
+    grid-gap: 2%;
+  }
   .recommend-item {
     padding: 12px 4px;
+    width: 49%;
   }
-
 }
 </style>
