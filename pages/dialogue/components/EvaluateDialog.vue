@@ -112,4 +112,9 @@ defineExpose({
     font-size: 14px;
   }
 }
+@media screen and (max-width: 1000px) {
+  .eva-dialog{
+    width: 80%;
+  }
+}
 </style>

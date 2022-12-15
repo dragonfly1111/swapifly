@@ -363,7 +363,7 @@ dialogue:
   confirmEditOffer: 確認編輯
   operationCancelOffer: 取消出價
   operationRejectOffer: 驳回出价
-  operationAcceptOffer: 駁回出價
+  operationAcceptOffer: 接受出價
   offerSuc: 出價成功
   cancelOfferSuc: 已取消出價
   editOfferSuc: 出價已編輯

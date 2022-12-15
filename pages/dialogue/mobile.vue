@@ -75,7 +75,7 @@ const pageLoading = ref(true)
 const curMsgType = ref(0)
 const conversationList = ref([])
 const router = useRouter();
-
+let pageTask
 const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
@@ -101,6 +101,19 @@ const toChatDetail = (e) => {
   router.push(`/dialogue/chatDetail?id=${e.id}`)
 }
 fetchListData()
+const pageLoopTask = () => {
+  pageTask = setInterval(() => {
+    fetchListData()
+  }, 2000)
+}
+onMounted(() => {
+  pageLoopTask()
+});
+onUnmounted(() => {
+  console.log('onUnmounted')
+  clearInterval(pageTask)
+  // mainContentEle.removeEventListener("scroll", scrollListen)
+})
 </script>
 
 <style scoped lang="scss">

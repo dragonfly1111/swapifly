@@ -89,4 +89,10 @@ defineExpose({
     text-align: center;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .eva-detail-dialog{
+    width: 80%;
+  }
+}
 </style>
