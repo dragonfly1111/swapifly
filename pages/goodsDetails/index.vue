@@ -26,6 +26,9 @@
     <div v-show="!pageLoading">
       <section class="section-wrapper goods-wrapper">
         <a-breadcrumb v-if="resize.screenType !== 'MOBILE'">
+          <template #separator>
+            <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
+          </template>
           <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="section-content">
@@ -722,11 +725,11 @@ onMounted(async () => {
 
   :deep(.arco-breadcrumb-item) {
     color: $grey-font-label;
-    cursor: pointer;
-
-    &:hover {
-      color: $main-grey;
-    }
+    //cursor: pointer;
+    //
+    //&:hover {
+    //  color: $main-grey;
+    //}
   }
 
   .section-content {

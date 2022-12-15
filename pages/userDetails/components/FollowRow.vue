@@ -36,7 +36,7 @@
             </a-col>
           </a-row>
         </div>
-        <div v-else>
+        <div v-else class="follow-list">
           <follow-card v-for="(item, index) in dataList" :item="item" @change="changeFollow"></follow-card>
         </div>
 
@@ -78,7 +78,7 @@
         </a-empty>
       </div>
 
-      <div class="see-more" v-if="total < dataList.length">
+      <div class="see-more" v-if="dataList.length < total">
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>

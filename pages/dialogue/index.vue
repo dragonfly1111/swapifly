@@ -566,14 +566,16 @@ const fetchDetailData = (callback, toBottom = true) => {
         // 获取到消息后滚到底部
         if (toBottom) {
           nextTick(() => {
-            scrollToBottom()
           })
+          setTimeout(()=>{
+            scrollToBottom()
+          }, 100)
         }
         if (nextDetailNeedBottom.value) {
-          nextTick(() => {
+          setTimeout(()=>{
             scrollToBottom()
             nextDetailNeedBottom.value = false
-          })
+          }, 100)
         }
       }
 
@@ -829,7 +831,7 @@ const sendMsg = (e, callbackSuc, callbackFail) => {
   postMsg(e).then(res => {
     if (res.code === 0) {
       if (callbackSuc) callbackSuc()
-      fetchDetailData()
+      fetchDetailData(null, false)
       fetchListData(false)
     } else {
       Message.error(res.message)
@@ -926,8 +928,8 @@ const pageLoopTask = () => {
   pageTask = setInterval(() => {
     fetchListData(false)
     getChartMetaInfo()
-    fetchDetailData(null, false)
-  }, 1000)
+    fetchDetailData(null, true)
+  }, 2000)
 }
 // 对话详情页面滚到底部
 const scrollToBottom = () => {

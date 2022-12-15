@@ -85,7 +85,7 @@
         <a-form-item field="sex" :label="$t('profile.sex')">
           <a-select v-model="form.sex" :placeholder="$t('profile.countries_sex_empty')"  allow-clear>
             <a-option
-                v-for="item in sexOptions"
+                v-for="item in sysData.gender"
                 :value="item.value"
                 :key="item.value"
                 :label="item.key"
@@ -164,6 +164,7 @@
 </template>
 
 <script setup>
+// todo 时间选择 保存token失效
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo"
 import { useResize } from '~/stores/resize'
@@ -212,7 +213,6 @@ const rules = reactive({
     {required: true, message: ref(t('profile.user_name_validate'))},
   ]
 })
-const sexOptions = ref(null);
 const regionOptions = ref(null);
 const choosePreference = ref(null);
 const bindEmail = ref(null);
@@ -324,7 +324,6 @@ onMounted(() => {
       }
     })
   }
-  sexOptions.value = sysData.gender;
 
 });
 </script>
