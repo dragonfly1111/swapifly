@@ -24,7 +24,7 @@
           </a-select>
         </template>
       </div>
-      <div class="msg-list">
+      <div class="msg-list" :class="resize.screenType === 'MOBILE' ? 'common-row' : ''">
         <template v-if="pageLoading">
           <div>
             <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list" style="margin-left: 50px; margin-right: 16px">
@@ -1388,5 +1388,40 @@ body {
 :deep(.arco-list) {
   border-radius: 0;
   border-right: unset;
+}
+</style>
+
+
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .left-msg-list {
+    width: 100%;
+
+    .msg-list {
+      margin-top: 24px;
+      height: unset;
+    }
+
+    .msg-select {
+      //width: 100%;
+      text-align: right;
+      padding: 10px 0px;
+
+      .arco-select-view-single {
+        padding-right: 0px;
+      }
+
+      .arco-select {
+        padding-left: 0px;
+      }
+    }
+
+    .msg-item {
+      padding: 14px 0px 19px 0px;
+    }
+  }
+
 }
 </style>

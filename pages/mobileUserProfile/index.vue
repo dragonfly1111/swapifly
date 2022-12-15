@@ -1,9 +1,5 @@
 <template>
-  <div class="mobile-user-profile">
-    <div class="login-title">
-      <icon-left  class="back-index" @click="handleIndex"/>
-      {{ $t("mobile.user_center") }}
-    </div>
+  <div class="mobile-user-profile common-row global-content">
     <div class="setting-list">
       <p class="setting-list-one" @click="toPath('/like')">
         <icon-heart class="icon-mobile"></icon-heart>
@@ -48,29 +44,6 @@ const toPath = (data) =>{
 
 <style lang="scss" scoped>
 .mobile-user-profile{
-  .login-title {
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-    position: relative;
-    font-size: 18px;
-    font-weight: bold;
-    height: 45px;
-    line-height: 45px;
-    .back-index{
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      font-size: 25px;
-      font-weight: bold;
-      transform: translateY(-50%);
-    }
-    img {
-      width: 152px;
-      height: 36px;
-      display: inline-block;
-    }
-  }
   .setting-list{
     .setting-list-one{
       margin: 0;
@@ -89,5 +62,6 @@ const toPath = (data) =>{
       }
     }
   }
+  height: calc(100vh - 112px - 66px - 66px);
 }
 </style>

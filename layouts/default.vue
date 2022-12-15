@@ -1,6 +1,6 @@
 <template>
   <main class="main-pc-mobile">
-    <Header v-if="['common','dialogue','commonMobileAndPcPage'].includes(headType)"/>
+    <Header :need-back="needBack" v-if="['common','dialogue'].includes(headType)"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
     <slot/>
@@ -24,47 +24,20 @@ const newsArr = [
   '/newsCenter/detail',
   '/newsCenter/search'
 ]
-//新增的移动端页面
-const mobileArr = [
-    '/login',
-    '/register',
-    '/mobileUserProfile',
-    '/moreSearchFilter',
-    '/settingProfile',
-    '/mobileProfile',
-    '/mobileEditPassword',
-];
-//共用的移动端页面，头部需要
-const mobileAndPcArr = [
-  '/like',
-  '/userDetails',
-  '/goodsDetails',
-  '/saleEditGoods',
-  '/saleEdit'
-];
-//共用的移动端页面，头尾都不要
-const noHearderAndFooter = [
-  '/notification',
-]
+
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
   if (helpArr.indexOf(newValue) !== -1) {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
     headType.value = 'news'
-  } else if (mobileAndPcArr.includes(newValue) && resize.screenType === 'MOBILE'){
-    headType.value = 'commonMobileAndPcPage'
-}  else if (noHearderAndFooter.includes(newValue) && resize.screenType === 'MOBILE'){
-    headType.value = 'noHearderAndFooterPage'
-  } else if(newValue === '/dialogue' && resize.screenType !== 'MOBILE'){
+  } else if (newValue === '/dialogue') {
     headType.value = 'dialogue'
-  } else if(newValue === '/dialogue' && resize.screenType === 'MOBILE'){
-    headType.value = 'mobileDialoguePage'
-  } else if (mobileArr.includes(newValue)) {
-    headType.value = 'mobilePage'
   } else {
     headType.value = 'common'
   }
+  console.log('needBack')
+  console.log(resize.screenType )
   console.log(headType.value)
 }, {immediate: true})
 </script>

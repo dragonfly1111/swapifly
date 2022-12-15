@@ -403,7 +403,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 @media screen and (max-width:1000px){
   .banner-wrapper {
-    margin-top: 30px;
     .arco-carousel {
       height: 150px;
     }

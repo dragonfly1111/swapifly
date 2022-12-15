@@ -128,6 +128,9 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
+  .global-content {
+    padding-top: 66px !important;
+  }
   .user-container {
     margin-top: -50px !important;
 
@@ -164,7 +167,7 @@
     }
   }
   .main-pc-mobile {
-    padding: 0 15px 50px 15px !important;
+    padding-bottom: 50px;
     overflow-x: hidden !important;
   }
   .main-content {
@@ -547,31 +550,6 @@
   .seller-name {
     max-width: 100%;
   }
-  .left-msg-list {
-    width: 100%;
-
-    .msg-list {
-      height: calc(100vh - 70px) !important;
-    }
-
-    .msg-select {
-      //width: 100%;
-      text-align: right !important;
-      padding: 10px 0px !important;
-
-      .arco-select-view-single {
-        padding-right: 0px !important;
-      }
-
-      .arco-select {
-        padding-left: 0px !important;
-      }
-    }
-
-    .msg-item {
-      padding: 14px 0px 19px 0px;
-    }
-  }
   .main-content {
     width: 100%;
 
@@ -586,9 +564,6 @@
       height: calc(100vh - 55px - 171px - 64px) !important;
       padding: 0;
     }
-  }
-  .global-content {
-    padding-top: 60px !important;
   }
   .section-wrapper {
     margin: 10px 0 10px !important;

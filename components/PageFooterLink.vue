@@ -1,68 +1,68 @@
 <template>
   <div class="page-footer-link">
 
-   <div v-if="hotSearchLoading">
-    <a-skeleton animation :loading="hotSearchLoading">
-      <a-skeleton-line :rows="3" :widths="[200]" />
-      <div style="height:30px"></div>
-      <a-skeleton-line :rows="3" />
-      <div style="height:50px"></div>
-      <a-skeleton-line :rows="3" :widths="[200]" />
-      <div style="height:30px"></div>
-      <a-skeleton-line :rows="3" />
-  </a-skeleton>
-   </div>
+    <div v-if="hotSearchLoading">
+      <a-skeleton animation :loading="hotSearchLoading">
+        <a-skeleton-line :rows="3" :widths="[200]"/>
+        <div style="height:30px"></div>
+        <a-skeleton-line :rows="3"/>
+        <div style="height:50px"></div>
+        <a-skeleton-line :rows="3" :widths="[200]"/>
+        <div style="height:30px"></div>
+        <a-skeleton-line :rows="3"/>
+      </a-skeleton>
+    </div>
 
     <div v-if="!hotSearchLoading">
       <div class="search-box">
-      <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
-      <div class="hot-search">
-        <template v-if="hotSearchLoading">
-          <div style="width: 100%;">
-            <a-skeleton :animation="true">
-              <a-skeleton-line :rows="2" :line-height="15" :line-spacing="7"/>
-            </a-skeleton>
-          </div>
+        <div class="content-title">{{ $t("foot.recentTopSearches") }}</div>
+        <div class="hot-search">
+          <template v-if="hotSearchLoading">
+            <div style="width: 100%;">
+              <a-skeleton :animation="true">
+                <a-skeleton-line :rows="2" :line-height="15" :line-spacing="7"/>
+              </a-skeleton>
+            </div>
 
-        </template>
-        <template v-else>
-          <div class="hot-search-item" v-for="item in hotSearchList">
-            <a-link @click="toSearch(item)">{{ item.title }}</a-link>
-            <a-divider direction="vertical"/>
-          </div>
-        </template>
-      </div>
-    </div>
-    <div v-if="resize.screenType !== 'MOBILE'">
-      <section class="footer-link-box" v-for="firstType in sysData.goodsClass">
-        <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
-        <div class="content">
-          <div class="recommendation-item" v-for="secType in firstType.children">
-            <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="footer-mobile-coll" v-if="resize.screenType === 'MOBILE'">
-      <a-collapse
-        :show-expand-icon="false"
-        :bordered="false"
-      >
-        <a-collapse-item
-          v-for="(firstType,index) in sysData.goodsClass"
-          :header="firstType.title"
-          :key="index">
-          <template #extra>
-            <icon-down />
           </template>
+          <template v-else>
+            <div class="hot-search-item" v-for="item in hotSearchList">
+              <a-link @click="toSearch(item)">{{ item.title }}</a-link>
+              <a-divider direction="vertical"/>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div v-if="resize.screenType !== 'MOBILE'">
+        <section class="footer-link-box" v-for="firstType in sysData.goodsClass">
+          <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
           <div class="content">
             <div class="recommendation-item" v-for="secType in firstType.children">
               <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
             </div>
           </div>
-        </a-collapse-item>
-      </a-collapse>
-    </div>
+        </section>
+      </div>
+      <div class="footer-mobile-coll" v-if="resize.screenType === 'MOBILE'">
+        <a-collapse
+            :show-expand-icon="false"
+            :bordered="false"
+        >
+          <a-collapse-item
+              v-for="(firstType,index) in sysData.goodsClass"
+              :header="firstType.title"
+              :key="index">
+            <template #extra>
+              <icon-down/>
+            </template>
+            <div class="content">
+              <div class="recommendation-item" v-for="secType in firstType.children">
+                <a-link @click="toGoodsList(secType)">{{ secType.title }}</a-link>
+              </div>
+            </div>
+          </a-collapse-item>
+        </a-collapse>
+      </div>
     </div>
 
   </div>
@@ -71,7 +71,8 @@
 import {useSysData} from '~/stores/sysData'
 import {getHotSearch} from '~/api/goods'
 import {Message} from "@arco-design/web-vue";
-import { useResize } from '~/stores/resize'
+import {useResize} from '~/stores/resize'
+
 const router = useRouter()
 const resize = useResize();
 const sysData = useSysData()
@@ -125,7 +126,7 @@ const getHotSearchList = () => {
   })
 }
 
-onMounted(()=>{
+onMounted(() => {
   getHotSearchList()
 
 })
@@ -137,7 +138,8 @@ onMounted(()=>{
   padding: 20px 30px;
   border-top: 1px solid rgba(229, 229, 229, 1);
 }
-.footer-mobile-coll{
+
+.footer-mobile-coll {
   .content {
     display: flex;
     flex-wrap: wrap;
@@ -149,9 +151,11 @@ onMounted(()=>{
     }
   }
 }
+
 .content-title {
   margin: 10px 0;
   cursor: pointer;
+
   &.bold {
     font-weight: bold;
   }
@@ -196,12 +200,16 @@ onMounted(()=>{
 
 </style>
 <style lang="scss" scoped>
-@media screen and (max-width:1000px){
+@media screen and (max-width: 1000px) {
   .page-footer-link {
     padding: 20px 0;
-    .search-box{
+
+    .search-box {
       margin-bottom: 16px;
     }
+  }
+  :deep(.arco-divider-vertical){
+    margin: 0 6px;
   }
 }
 </style>
