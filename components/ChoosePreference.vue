@@ -31,7 +31,7 @@
 
     </div>
 
-<!--    移动端-->
+    <!--移动端-->
     <div class="mobile-card-box" v-else>
       <a-row>
         <a-col class="mobile-card-item" :span="6" v-for="card in labelList.value" :key="card.id" @click="card.checked = !card.checked">
@@ -62,9 +62,8 @@
   </a-modal>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
-import {IUserLabel} from "~/model/res/userLabel";
 import {Message} from '@arco-design/web-vue';
 import { useResize } from '~/stores/resize';
 const resize = useResize();
@@ -72,11 +71,11 @@ const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const visible = ref(false);
 const loading = ref(false);
-const labelList: IUserLabel[] = reactive({value: []})
+const labelList = reactive({value: []})
 const emits = defineEmits(['confirmPreference'])
 loading.value = true
 const handleOk = () => {
-  const ckeckedList: IUserLabel[] = labelList.value.filter(item => {
+  const ckeckedList = labelList.value.filter(item => {
     return item.checked
   })
   const ids = ckeckedList.map(item => item.id)
@@ -95,7 +94,7 @@ const handleOk = () => {
 };
 
 const resetForm = () => {
-  labelList.value.forEach((item: { checked: boolean; }) => {
+  labelList.value.forEach((item) => {
     item.checked = false
   })
 }
@@ -107,11 +106,11 @@ const handleCancel = () => {
     resetForm()
   }, 100)
 }
-const openDialog = (value: any) => {
+const openDialog = (value) => {
   visible.value = true;
   getUserLabel().then(res => {
     loading.value = false
-    res.data.data.forEach((item: { checked: boolean; }) => {
+    res.data.data.forEach((item) => {
       item.checked = false
     })
     labelList.value = res.data.data
@@ -138,7 +137,13 @@ defineExpose({
 @import "assets/sass/var";
 
 .preference-dialog {
+  padding: 20px 27px 40px 20px;
+  width: 999px;
   .arco-modal-header {
+    padding: 0;
+    height: unset;
+    align-items: start;
+    border-bottom: unset;
     .login-title {
       text-align: left;
 
@@ -153,6 +158,7 @@ defineExpose({
     padding: 0;
     color: $grey-font-label;
     .title {
+      margin-top: 27px;
       text-align: left;
       font-size: 16px;
       user-select: none;
@@ -249,22 +255,6 @@ defineExpose({
     }
   }
 
-  .mobile-card-box{
-    text-align: center;
-    padding-bottom: 40px;
-    .mobile-card-item{
-      position: relative;
-      .check-box{
-        position: absolute;
-        left: 5px;
-        top: 5px;
-      }
-    }
-    img{
-      width: 50px;
-      height: 50px;
-    }
-  }
   .card-item:nth-child(8n) {
     margin-right: 0;
   }
@@ -288,4 +278,58 @@ defineExpose({
     }
   }
 }
+</style>
+<style lang="scss">
+@import "assets/sass/var";
+@media screen and (max-width: 1000px) {
+  .preference-dialog {
+    padding: 10px;
+    width: 80%;
+
+    .arco-modal-header {
+    }
+
+    .arco-modal-body {
+      .title {
+        margin-top: 15px;
+      }
+
+      .foot {
+        .but {
+          width: 60px;
+          height: 30px;
+        }
+      }
+    }
+    .mobile-card-box{
+      text-align: center;
+      padding-bottom: 24px;
+      .mobile-card-item{
+        position: relative;
+        margin-top: 12px;
+        .check-box{
+          position: absolute;
+          left: 5px;
+          top: 5px;
+        }
+        .label-title {
+          color: #383838;
+          text-align: center;
+          font-size: 14px;
+          margin-top: 5px;
+          width: 80px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      img{
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+  }
+}
+
 </style>

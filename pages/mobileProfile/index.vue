@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <Profile />
+  <div class="global-content common-row">
+    <Profile/>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Profile from "../userProfile/components/Profile";
 </script>
 

@@ -34,7 +34,7 @@ body {
   }
   .global-content {
     padding-top: 66px;
-    min-height: calc(100vh - 66px - 112px - 50px);
+    min-height: calc(100vh - 66px - 182px);
   }
   // 移动端出售悬浮按钮
   .mobile-sell{
@@ -44,7 +44,7 @@ body {
     right: 4%;
     background-color: $main-pink !important;
     color: #fff;
-    z-index: 99999;
+    z-index: 99;
     height: 35px;
     width: 82px;
   }

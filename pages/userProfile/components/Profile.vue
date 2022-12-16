@@ -1,13 +1,8 @@
 <template>
   <div class="profile-box">
-    <div class="login-title" v-if="resize.screenType === 'MOBILE'">
-      <icon-left  class="back-index" @click="router.back()"/>
-      {{ $t("profile.edit_profile") }}
-    </div>
-    <div class="header" v-else>
+    <div class="header">
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
-    <div class="null-height" v-if="resize.screenType === 'MOBILE'"></div>
     <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">
@@ -336,37 +331,8 @@ onMounted(() => {
   //padding: 10px 30px 40px;
   //border-radius: 10px;
   //width: 665px;
-  .null-height{
-    height: 60px;
-    width: 100%;
-  }
-  .login-title {
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-    position: fixed;
-    font-size: 18px;
-    font-weight: bold;
-    height: 45px;
-    line-height: 45px;
-    width: 100%;
-    top: 0;
-    background-color: #fff;
-    left: 0;
-    z-index: 888;
-    .back-index{
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      font-size: 25px;
-      font-weight: bold;
-      transform: translateY(-50%);
-    }
-    img {
-      width: 152px;
-      height: 36px;
-      display: inline-block;
-    }
+  .header{
+    display: block;
   }
   .tip {
     color: $grey-font-label;
@@ -451,4 +417,16 @@ onMounted(() => {
   margin-top: 20px;
 }
 
+</style>
+
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .profile-box {
+    .header {
+      display: none;
+    }
+  }
+}
 </style>

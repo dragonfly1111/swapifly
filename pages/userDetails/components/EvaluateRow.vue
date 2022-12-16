@@ -138,14 +138,6 @@ defineExpose({
 @import "assets/sass/var";
 
 .evaluate-box {
-  .mobile-sell {
-    position: fixed;
-    bottom: 10%;
-    right: 4%;
-    background-color: deeppink;
-    color: #fff;
-    z-index: 99999;
-  }
   .box-header {
     .header-select {
       padding: 20px 30px 15px;

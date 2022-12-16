@@ -1,9 +1,5 @@
 <template>
-  <div class="setting-profile">
-    <div class="login-title">
-      <icon-left  class="back-index" @click="router.back()"/>
-      {{ $t("profile.mobile_setting") }}
-    </div>
+  <div class="global-content common-row setting-profile">
     <div class="content-setting-profile">
       <div class="line-one" @click="handlePage('/mobileProfile')">
         {{ $t("profile.edit_profile")}}
@@ -51,7 +47,6 @@ const handlePage = (data:string) => {
     }
   }
   .content-setting-profile{
-    padding-top: 10px;
     .line-one{
       position: relative;
       width: 100%;

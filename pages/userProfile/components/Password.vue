@@ -1,10 +1,6 @@
 <template>
   <div class="password-box">
-    <div class="login-title" v-if="resize.screenType === 'MOBILE'">
-      <icon-left class="back-index" @click="router.back()"/>
-      {{ $t("profile.edit_password") }}
-    </div>
-    <div v-else>
+    <div class="pwd-title">
       <h1>{{ $t("profile.edit_password") }}</h1>
     </div>
     <a-form :model="form" ref="formRef" layout="vertical" size="large" :rules="rules">
@@ -55,11 +51,9 @@ import {useI18n} from "vue-i18n";
 import {Message} from "@arco-design/web-vue";
 import {updatePassword} from '~/api/user'
 import {useUserInfo} from "~/stores/userInfo";
-import {useResize} from '~/stores/resize'
 
 const userInfo = useUserInfo()
 const router = useRouter()
-const resize = useResize()
 const {t} = useI18n();
 const pageLoading = ref(false);
 const saveLoading = ref(false);
@@ -112,36 +106,9 @@ const toForget = () => {
 @import "assets/sass/var";
 
 .password-box {
-  //border: 1px solid $grey-font-label;
-  //padding: 10px 30px 40px;
-  //border-radius: 10px;
-  //width: 665px;
-  .login-title {
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-    position: relative;
-    font-size: 18px;
-    font-weight: bold;
-    height: 45px;
-    line-height: 45px;
-    margin-bottom: 30px;
-    .back-index {
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      font-size: 25px;
-      font-weight: bold;
-      transform: translateY(-50%);
-    }
-
-    img {
-      width: 152px;
-      height: 36px;
-      display: inline-block;
-    }
+  .pwd-title {
+    display: block;
   }
-
   h1 {
     font-size: 30px;
   }
@@ -175,5 +142,17 @@ const toForget = () => {
       background-color: $main-grey;
     }
   }
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .password-box{
+    .pwd-title {
+      display: none;
+    }
+  }
+
 }
 </style>
