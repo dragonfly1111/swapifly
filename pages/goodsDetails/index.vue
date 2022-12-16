@@ -2,7 +2,7 @@
   <div class="common-row global-content">
     <AD v-if="resize.screenType !== 'MOBILE'" height="160px" :advert="googleAd.content"></AD>
 
-    <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
+    <a-skeleton :animation="true" v-if="pageLoading" :loading="pageLoading" class="skeleton">
       <div style="width: 100%">
         <a-skeleton-line :line-height="200" :line-spacing="10" />
       </div>
@@ -1147,6 +1147,10 @@ onMounted(async () => {
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
+
+  .skeleton{
+    padding: 0 20px;
+  }
   .pc-breadcrumb {
     display: none;
   }

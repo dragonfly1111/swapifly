@@ -160,7 +160,7 @@ onUnmounted(() => {
           margin-right: 18px;
 
           .msg-content {
-            max-width: calc(30vw - 51px - 50px - 15px - 18px - 50px - 16px - 10px);
+            max-width: 50vw;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

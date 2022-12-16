@@ -261,7 +261,7 @@ import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
 import {uploadToOss} from "~/api/comon"
-import { getProductFj } from "~/api/goods";
+import {getProductFj} from "~/api/goods";
 
 const sysData = useSysData();
 const router = useRouter();
@@ -305,6 +305,9 @@ const fetchDetailData = (toBottom = true) => {
       // 暂时不做分页
       // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
       conversationDetail.value = res.data.reverse()
+      nextTick(()=>{
+        mainContentEle = document.getElementsByClassName('conversation-content')[0]
+      })
     } else {
       Message.error(res.message)
     }
@@ -641,7 +644,7 @@ const toGoodsDetails = () => {
       } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
-      } else if(res.data.state === 4){
+      } else if (res.data.state === 4) {
         // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
@@ -664,9 +667,11 @@ getChartMetaInfo()
 onMounted(() => {
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
   watch(() => conversationDetail.value.length, (newValue, oldValue) => {
-        nextTick(()=>{
-          scrollToBottom()
-        })
+        if (newValue !== oldValue) {
+          nextTick(() => {
+            scrollToBottom()
+          })
+        }
       }, {immediate: true, deep: true}
   );
   pageLoopTask()
@@ -934,6 +939,7 @@ onUnmounted(() => {
     position: fixed;
     width: 100%;
     bottom: 0;
+
     .input-box {
       height: 100%;
       border-radius: 0;
