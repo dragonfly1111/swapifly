@@ -25,6 +25,8 @@
         <span @click="$router.push('/newsCenter')">{{$t('foot.media')}}</span>
       </div>
       <div class="one-row">
+        <AreaSwitcher />
+        <div style="width: 40px;"></div>
         <LanguageSwitcher />
       </div>
     </div>
@@ -107,10 +109,9 @@ const toHelp = () =>{
       text-align: center;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       flex-wrap: wrap;
       margin: auto;
-      width: 130px;
       img{
         display: inline-block;
         width: 24px;
