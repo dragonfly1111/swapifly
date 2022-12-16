@@ -131,6 +131,7 @@ const getInfo = () => {
 
 // 关注取消用户
 const handleFollow = () => {
+  if(!userInfo.checkLogin()) return
   let state = form.value.isfollow == 1 ? 2 : 1;
   btnLoading.value = true;
   followUser({
@@ -152,6 +153,7 @@ const handleFollow = () => {
 
 // 举报用户
 const handleReport = () => {
+  if(!userInfo.checkLogin()) return
   reportModal.value.openDialog(form.value, "user");
 };
 // 注册商户
@@ -160,6 +162,7 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
+  if(!userInfo.checkLogin()) return
   activeTab.value = "followRow";
   followRow.value.resetQuery(e);
 };
