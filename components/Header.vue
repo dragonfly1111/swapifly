@@ -1,6 +1,6 @@
 <template>
   <div class="global-head">
-    <div v-if="resize.screenType == 'PC'" @mouseleave="outClass">
+    <div class="class-bar-block" @mouseleave="outClass">
       <div class="head-bar">
         <div class="common-row">
           <div class="left">
@@ -92,7 +92,7 @@
 
       </div>
     </div>
-    <div v-if="resize.screenType === 'PC'" class="head-search">
+    <div class="head-search">
       <div class="common-row">
         <a-row style="width: 100%; display: flex; align-items: center">
           <a-col :span="4" class="img-col">
@@ -147,7 +147,7 @@
         </a-row>
       </div>
     </div>
-    <div v-if="resize.screenType === 'MOBILE'" class="mobile-head-search">
+    <div class="mobile-head-search">
       <div class="common-row">
         <div class="left">
           <div style="width: 36px; flex-shrink: 0" @click="$router.go(-1)"
@@ -162,7 +162,12 @@
           <div class="search-input">
             <a-input v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
                      @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
-                     search-button></a-input>
+                     search-button>
+              <template #suffix>
+                <img v-if="searchResPage" @click.prevent.stop="handleCollection" class="icon-collection"
+                     src="@/assets/images/icon/icon-collection.png" alt="">
+              </template>
+            </a-input>
             <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
               <div class="white-wrap wrap">
                 {{ $t('head.searchHis') }}
@@ -463,6 +468,10 @@ function toClassDetail(e) {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
+.class-bar-block{
+  display: block;
+}
+
 .global-head {
   position: fixed;
   top: 0;
@@ -661,7 +670,7 @@ function toClassDetail(e) {
   padding: 10px 0;
   border-bottom: 1px solid #E5E5E5;
   background: #FFFFFF;
-
+  display: block;
   .img-col {
     text-align: left;
 
@@ -795,6 +804,10 @@ function toClassDetail(e) {
   }
 }
 
+.mobile-head-search{
+  display: none;
+}
+
 .arco-empty {
   background: #F2F3F5;
 }
@@ -806,12 +819,20 @@ function toClassDetail(e) {
     background-size: 400% 100%;
   }
 }
+
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
+  .class-bar-block{
+    display: none;
+  }
+  .head-search{
+    display: none;
+  }
   .mobile-head-search {
+    display: block;
     width: 100%;
     padding: 15px 0;
     background: #FFFFFF;

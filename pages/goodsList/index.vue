@@ -198,8 +198,8 @@ const getBrad = () => {
       hotBradList.value = res.data.hot_brand
       subClassList.value = res.data.c_rule
       classPath.value = res.data.p_rule
-      // 判断是否需要出现下一页
       nextTick(()=>{
+        // 判断是否需要出现下一页
         if(process.client && curLevel.value <= 2){
           const ele = document.getElementById('brandsContent')
           const toLeft = ele.clientWidth * curBradPage.value
@@ -209,7 +209,6 @@ const getBrad = () => {
             bradNextShow.value = true
           }
         }
-
         if(process.client && curLevel.value === 1){
           const ele1 = document.getElementById('brandsContent1')
           const toLeft1 = ele1.clientWidth * curBradPage1.value
@@ -326,7 +325,6 @@ const toClassDetail = (e) => {
 // 页面初始化
 const initPageData = () => {
   getBanner()
-  getBrad()
   getProduct()
 }
 initPageData()
@@ -352,6 +350,7 @@ watch(() => route.query, (newValue, oldValue) => {
   })
 })
 onMounted(()=>{
+  getBrad()
   goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
 })
 </script>
