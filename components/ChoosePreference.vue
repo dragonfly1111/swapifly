@@ -200,7 +200,7 @@ defineExpose({
         color: #383838;
         text-align: center;
         font-size: 14px;
-        margin-top: 5px;
+        margin: 5px auto 0 auto;
         width: 80px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -283,8 +283,28 @@ defineExpose({
 @import "assets/sass/var";
 @media screen and (max-width: 1000px) {
   .preference-dialog {
-    padding: 10px;
-    width: 80%;
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    .mobile-card-box {
+      .skeleton-box {
+        .skeleton {
+          margin-right: 10px;
+          .arco-skeleton-shape-circle {
+            margin: 0 auto;
+          }
+
+          .arco-skeleton-line-row {
+            margin: 12px 0;
+          }
+        }
+      }
+    }
 
     .arco-modal-header {
     }
@@ -293,11 +313,10 @@ defineExpose({
       .title {
         margin-top: 15px;
       }
-
       .foot {
         .but {
           width: 60px;
-          height: 30px;
+          height: 32px;
         }
       }
     }
@@ -316,7 +335,7 @@ defineExpose({
           color: #383838;
           text-align: center;
           font-size: 14px;
-          margin-top: 5px;
+          margin: 5px auto 0 auto;
           width: 80px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -328,7 +347,6 @@ defineExpose({
         height: 50px;
       }
     }
-
   }
 }
 

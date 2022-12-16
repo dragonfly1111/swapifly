@@ -109,7 +109,7 @@
             <a-col v-if="resize.screenType === 'MOBILE'">
               <p>
                 <span>{{ $t("profile.preference_title") }}</span>
-                <span>{{ form.userlabel }}</span>
+                <span style="line-height: 24px">{{ form.userlabel }}</span>
               </p>
             </a-col>
             <a-col flex="auto" v-else>
@@ -426,6 +426,16 @@ onMounted(() => {
   .profile-box {
     .header {
       display: none;
+    }
+    h4.title {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  }
+  .save-btn {
+    margin-top: 0;
+    .arco-btn{
+      width: 100%;
     }
   }
 }

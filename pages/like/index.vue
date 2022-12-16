@@ -37,9 +37,6 @@ const likeList = ref([]);
 const handleQuery = (data) => {
   console.log("form", data);
 };
-const handleIndex = () => {
-  router.push("/mobileUserProfile");
-};
 
 // 加载更多
 const loadMore = () => {

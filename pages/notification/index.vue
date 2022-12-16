@@ -65,9 +65,7 @@ const handleQuery = () => {
         moreLoading.value = false;
       });
 };
-const handleIndex = () => {
-  router.push("/mobileUserProfile")
-};
+
 const loadMore = () => {
   if (noticeList.value.length < total.value && !moreLoading.value) {
     queryParams.page++

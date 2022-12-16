@@ -1,11 +1,11 @@
 <template>
   <div class="global-content common-row setting-profile">
     <div class="content-setting-profile">
-      <div class="line-one" @click="handlePage('/mobileProfile')">
+      <div class="line-one" @click="handlePage('profile')">
         {{ $t("profile.edit_profile")}}
         <img src="@/assets/images/icon/right-icon.png" class="go-setting-page" alt="">
       </div>
-      <div class="line-one" @click="handlePage('/mobileEditPassword')">
+      <div class="line-one" @click="handlePage('password')">
         {{ $t("profile.edit_password")}}
         <img src="@/assets/images/icon/right-icon.png" class="go-setting-page" alt="">
       </div>
@@ -13,10 +13,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const router = useRouter();
-const handlePage = (data:string) => {
-  router.push(data)
+const handlePage = (e) => {
+  router.push(`/userProfile?type=${e}`)
 };
 </script>
 
@@ -53,15 +53,11 @@ const handlePage = (data:string) => {
       height: 40px;
       line-height: 40px;
       border-bottom: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .go-setting-page{
-        width: 16px;
-        display: block;
-        position: absolute;
-        right: 5px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 30px;
-        font-weight: 400;
+        width: 14px;
       }
     }
   }

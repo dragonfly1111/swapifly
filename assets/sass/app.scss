@@ -5,12 +5,14 @@
 
 body {
   color: #383838;
-  // 处理打开弹窗禁用滚动条导致宽度变宽布局发生轻微变化问题
-  overflow: auto !important;
-  width: unset !important;
 }
 // pc
 @media screen and(min-width:1000px) {
+  body {
+    // 处理打开弹窗禁用滚动条导致宽度变宽布局发生轻微变化问题
+    overflow: auto !important;
+    width: unset !important;
+  }
   .common-row {
     max-width: 1295px;
     margin: 0 auto;

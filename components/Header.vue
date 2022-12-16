@@ -200,7 +200,7 @@
         <div class="right">
           <div v-if="userInfo.token">
             <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
-            <icon-list class="icon-list" @click="router.push('/mobileUserProfile')"/>
+            <icon-list class="icon-list" @click="toMobilePerson"/>
           </div>
           <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
         </div>
@@ -213,6 +213,7 @@
     <!--    <BindEmail ref="bindEmail"></BindEmail>-->
     <ResetPwd ref="resetPwdModal" @toLogin="toLogin"></ResetPwd>
     <BlockModal ref="blockModal"></BlockModal>
+    <MobilePersonCenterModal ref="mobilePersonCenterModal"></MobilePersonCenterModal>
   </div>
 </template>
 
@@ -243,6 +244,7 @@ const needBackRoute = [
   '/mobileEditPassword',
   '/userDetails',
   '/like',
+  '/userProfile',
 ]
 
 const router = useRouter()
@@ -260,6 +262,7 @@ const registerModal = ref(null)
 const choosePreference = ref(null)
 const resetPwdModal = ref(null)
 const blockModal = ref(null)
+const mobilePersonCenterModal = ref(null)
 const dropShow = ref(false)
 const suggestShow = ref(false)
 const sysData = useSysData()
@@ -340,6 +343,10 @@ function openLogin() {
   //   loginModal.value.openDialog()
   // }
   loginModal.value.openDialog()
+}
+
+function toMobilePerson() {
+  mobilePersonCenterModal.value.openDialog()
 }
 
 function toSell() {

@@ -38,7 +38,8 @@ const newsArr = [
 const noFootArr = [
   '/dialogue/chatDetail',
   '/dialogue',
-  '/dialogue/mobile'
+  '/dialogue/mobile',
+  '/userProfile'
 ]
 // 不需要'出售'按钮的路由
 const noSellButArr = [
@@ -49,6 +50,9 @@ const noSellButArr = [
   '/helpCenter',
   '/helpCenter/detail',
   '/helpCenter/search',
+  '/dialogue/mobile',
+  '/dialogue/chatDetail',
+  '/userProfile',
 ]
 
 

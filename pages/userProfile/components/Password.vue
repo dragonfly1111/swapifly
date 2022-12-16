@@ -152,6 +152,11 @@ const toForget = () => {
     .pwd-title {
       display: none;
     }
+    .save-btn {
+      .arco-btn{
+        width: 100%;
+      }
+    }
   }
 
 }

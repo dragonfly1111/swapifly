@@ -11,17 +11,6 @@
         <Profile v-if="activeTab == 'profile'" />
         <Password v-if="activeTab == 'password'" />
       </div>
-<!--      <a-row justify="end">-->
-<!--        <a-col flex="20%">-->
-<!--     -->
-<!--        </a-col>-->
-<!--        <a-col flex="70%">-->
-<!--          <div class="right-content">-->
-<!--            <Profile v-if="activeTab == 'profile'" />-->
-<!--            <Password v-if="activeTab == 'password'" />-->
-<!--          </div>-->
-<!--        </a-col>-->
-<!--      </a-row>-->
     </div>
   </div>
 </template>
@@ -29,9 +18,10 @@
 <script setup>
 import Profile from "./components/Profile";
 import Password from "./components/Password";
-
+const route = useRoute();
 const activeTab = ref("profile");
-
+const type = route.query.type;
+activeTab.value = type || 'profile'
 const handleTabChange = (e) => {
   activeTab.value = e;
 };
@@ -61,9 +51,24 @@ const handleTabChange = (e) => {
   }
 }
 .left-content{
+  display: block;
   margin-left: 170px;
 }
 .right-content {
   margin-left: 150px;
+}
+</style>
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .page-body{
+    padding-top: 0;
+  }
+  .left-content{
+    display: none;
+  }
+  .right-content{
+    margin-left: 0;
+    width: 100%;
+  }
 }
 </style>
