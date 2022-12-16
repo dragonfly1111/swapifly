@@ -1164,14 +1164,17 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
+  .sale-header{
+    padding:15px ;
+  }
   .edit-box {
-    margin: 20px;
+    margin: 20px 15px;
     display: block;
     &.border-box .right,
     &.border-box .left {
       width: 100%;
       border: 0;
-      padding: 0 10px;
+      padding: 0;
     }
     .right {
       .upload-area {

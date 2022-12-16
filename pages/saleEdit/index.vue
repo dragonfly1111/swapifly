@@ -265,11 +265,11 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
   .sale-header {
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 20px;
   }
   .edit-box {
-    margin: 20px;
+    margin: 20px 15px;
     display: block;
     .upload-area {
       height: 160px;
