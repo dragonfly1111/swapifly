@@ -177,12 +177,12 @@
           </div>
         </div>
         <div class="conversation-content common-row">
-          <div v-if="conversationDetail.length === 0" class="no-msg">
+          <div v-show="conversationDetail.length === 0" class="no-msg">
             <img src="@/assets/images/no-msg.png" alt="">
             <div class="no-msg-title">{{ $t('dialogue.noMsg') }}</div>
             <div class="no-msg-tip">{{ $t('dialogue.noMsgTip') }}</div>
           </div>
-          <div v-else class="conversation-main-block">
+          <div v-show="conversationDetail.length > 0" class="conversation-main-block">
             <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                  v-for="(item, index) in conversationDetail">
@@ -305,12 +305,6 @@ const fetchDetailData = (toBottom = true) => {
       // 暂时不做分页
       // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
       conversationDetail.value = res.data.reverse()
-      // 获取到消息后滚到底部
-      if (toBottom) {
-        setTimeout(() => {
-          scrollToBottom()
-        }, 100)
-      }
     } else {
       Message.error(res.message)
     }
@@ -321,7 +315,7 @@ const fetchDetailData = (toBottom = true) => {
 }
 // 对话详情页面滚到底部
 const scrollToBottom = () => {
-  console.log('执行了滚动到底')
+  console.log('执行了滚动到底11')
   const ele = document.getElementsByClassName('conversation-main-block')[0]
   mainContentEle && mainContentEle.scrollTo({
     top: ele.scrollHeight,
@@ -669,6 +663,12 @@ fetchDetailData()
 getChartMetaInfo()
 onMounted(() => {
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
+  watch(() => conversationDetail.value.length, (newValue, oldValue) => {
+        nextTick(()=>{
+          scrollToBottom()
+        })
+      }, {immediate: true, deep: true}
+  );
   pageLoopTask()
 });
 onUnmounted(() => {

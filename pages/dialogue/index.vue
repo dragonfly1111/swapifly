@@ -27,7 +27,8 @@
       <div class="msg-list" :class="resize.screenType === 'MOBILE' ? 'common-row' : ''">
         <template v-if="pageLoading">
           <div>
-            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list" style="margin-left: 50px; margin-right: 16px">
+            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list"
+                        style="margin-left: 50px; margin-right: 16px">
               <a-skeleton-line :line-height="80" :rows="5"/>
             </a-skeleton>
           </div>
@@ -350,12 +351,12 @@
           </div>
         </div>
         <div class="conversation-content">
-          <div v-if="conversationDetail.length === 0" class="no-msg">
+          <div v-show="conversationDetail.length === 0" class="no-msg">
             <img src="@/assets/images/no-msg.png" alt="">
             <div class="no-msg-title">{{ $t('dialogue.noMsg') }}</div>
             <div class="no-msg-tip">{{ $t('dialogue.noMsgTip') }}</div>
           </div>
-          <div v-else class="conversation-main-block">
+          <div v-show="conversationDetail.length > 0" class="conversation-main-block">
             <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                  v-for="(item, index) in conversationDetail">
@@ -440,7 +441,7 @@ import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import {useI18n} from "vue-i18n";
 import {Message} from '@arco-design/web-vue';
-import { getProductFj } from "~/api/goods";
+import {getProductFj} from "~/api/goods";
 
 const {t} = useI18n()
 const appConfig = useAppConfig();
@@ -486,6 +487,7 @@ const soldLoading = ref(false)
 const nextDetailNeedBottom = ref(false)
 const googleAd = ref({})
 
+
 const showDiaListFn = () => {
   console.log("点击了返回");
   showDiaList.value = true;
@@ -506,7 +508,7 @@ const toGoodsDetails = () => {
       } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
         // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
         blockModal.value.openDialog(4);
-      } else if(res.data.state === 4){
+      } else if (res.data.state === 4) {
         // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
@@ -534,7 +536,7 @@ const fetchListData = (autoFocus = true) => {
         calcOperationOptions()
       }
     }
-  }).catch(e=>{
+  }).catch(e => {
     console.log('fetchListData catch')
     clearInterval(pageTask)
   })
@@ -560,20 +562,6 @@ const fetchDetailData = (callback, toBottom = true) => {
         // 暂时不做分页
         // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
         conversationDetail.value = res.data.reverse()
-        // 获取到消息后滚到底部
-        if (toBottom) {
-          nextTick(() => {
-          })
-          setTimeout(()=>{
-            scrollToBottom()
-          }, 100)
-        }
-        if (nextDetailNeedBottom.value) {
-          setTimeout(()=>{
-            scrollToBottom()
-            nextDetailNeedBottom.value = false
-          }, 100)
-        }
       }
 
     } else {
@@ -601,7 +589,7 @@ const getChartMetaInfo = () => {
         Message.error(res.message)
       }
     }
-  }).catch(e=>{
+  }).catch(e => {
     console.log('getChartMetaInfo catch')
     clearInterval(pageTask)
   })
@@ -828,8 +816,9 @@ const sendMsg = (e, callbackSuc, callbackFail) => {
   postMsg(e).then(res => {
     if (res.code === 0) {
       if (callbackSuc) callbackSuc()
-      fetchDetailData(null, false)
+      nextDetailNeedBottom.value = true
       fetchListData(false)
+      fetchDetailData(null, true)
     } else {
       Message.error(res.message)
       if (callbackFail) callbackFail()
@@ -925,7 +914,7 @@ const pageLoopTask = () => {
   pageTask = setInterval(() => {
     fetchListData(false)
     getChartMetaInfo()
-    fetchDetailData(null, true)
+    fetchDetailData(null, false)
   }, 2000)
 }
 // 对话详情页面滚到底部
@@ -936,10 +925,6 @@ const scrollToBottom = () => {
     top: ele.scrollHeight,
     behavior: 'smooth'
   })
-}
-// 监听对话详情滚到顶加载数据
-const addEventToMainContent = () => {
-  mainContentEle && mainContentEle.addEventListener("scroll", scrollListen)
 }
 const scrollListen = (e) => {
   if (e.target.scrollTop === 0) {
@@ -956,15 +941,25 @@ const scrollListen = (e) => {
   }
 }
 const getAd = () => {
-  getChatAdvert().then(res=>{
+  getChatAdvert().then(res => {
     googleAd.value = res.data
   })
 }
 getAd()
+
+
 onMounted(() => {
   dialogueOperationType.value = sysData.dialogueOperationType;
+  // 监听对话主体部分数据长度变化 发生变化滚到底部
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
-  // addEventToMainContent()
+  watch(() => conversationDetail.value.length, (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          nextTick(() => {
+            scrollToBottom()
+          })
+        }
+      }, {immediate: true, deep: true}
+  );
   fetchListData()
   pageLoopTask()
 });
@@ -1167,6 +1162,7 @@ body {
       display: flex;
       align-items: center;
       cursor: pointer;
+
       .goods-img {
         width: 50px;
         height: 50px;
