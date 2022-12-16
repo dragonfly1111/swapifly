@@ -36,10 +36,6 @@
 import { useResize } from '~/stores/resize'
 const resize = useResize()
 const router = useRouter()
-
-const toHelp = () =>{
-  router.push('/helpCenter')
-}
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var";
@@ -93,7 +89,7 @@ const toHelp = () =>{
 
 @media screen and(max-width: 1000px) {
   .common-row-mobile{
-    padding-bottom: 50px;
+    padding-bottom: 25px;
     display: block;
     .two-row{
       padding: 20px 0;

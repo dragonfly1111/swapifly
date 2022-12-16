@@ -261,6 +261,7 @@ import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
 import {uploadToOss} from "~/api/comon"
+import { getProductFj } from "~/api/goods";
 
 const sysData = useSysData();
 const router = useRouter();
@@ -630,6 +631,33 @@ const uploadChatImg = (option) => {
     }
   })
 }
+// 跳转到用户详情
+const toUserDetail = () => {
+  router.push("/userDetails?userId=" + curConversationMeta.value.df_uid);
+}
+// 跳转到商品详情
+const toGoodsDetails = () => {
+  getProductFj(curConversationMeta.value.pid).then((res) => {
+    // type 1.自己，2他人
+    // state 商品狀態，1.出售中，2.交易完成，3已下架，4 已删除
+    if (res.code === 0) {
+      if (res.data.status === 2) {
+        // 打开封禁封禁弹窗
+        blockModal.value.openDialog(2, res.data.type);
+      } else if ((res.data.state === 2 || res.data.state === 3) && res.data.type === 2) {
+        // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(4);
+      } else if(res.data.state === 4){
+        // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
+        blockModal.value.openDialog(4);
+      } else if (res.data.status === 1) {
+        router.push("/goodsDetails?id=" + curConversationMeta.value.pid);
+      }
+    } else {
+      Message.error(res.message);
+    }
+  });
+};
 // 循环查询对话列表和当前对话详情
 const pageLoopTask = () => {
   pageTask = setInterval(() => {

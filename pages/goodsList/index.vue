@@ -344,6 +344,7 @@ watch(() => route.query, (newValue, oldValue) => {
 
   goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value, true)
   initPageData()
+  getBrad()
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -542,8 +543,8 @@ onMounted(()=>{
     }
   }
   .section-wrapper{
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     .section-header{
       font-size: 20px;
       margin: 12px 0;

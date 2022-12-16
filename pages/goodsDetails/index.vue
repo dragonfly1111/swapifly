@@ -343,7 +343,7 @@
 
     <div class="mobile-footer-goods">
       <div class="left">
-        <div class="icon-like-mobile" @click="handleLike">
+        <div class="icon-like-mobile" v-if="p_type == 1" @click="handleLike">
           <icon-heart class="heart" v-if="productInfo.islike == 0"/>
           <icon-heart-fill class="heart" v-if="productInfo.islike == 1"/>
           {{ productInfo.like }} like
@@ -354,7 +354,7 @@
           {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
         </a-button>
         <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
-        <a-button type="primary" @click="openOffer">{{ $t("pages.bid") }}</a-button>
+        <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{ $t("pages.bid") }}</a-button>
         <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose">{{
             $t('dialogue.cancel')
           }}
@@ -1162,7 +1162,4 @@ onMounted(async () => {
 }
 </style>
 <style lang="scss">
-.global-foot {
-  padding-bottom: 20px;
-}
 </style>

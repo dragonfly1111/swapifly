@@ -6,6 +6,7 @@
     <slot/>
     <Footer v-if="headType === 'common' && needFoot"/>
     <HelpFooter v-else-if="headType === 'help' && needFoot"/>
+    <div style="height: 50px;" v-if="needPb"></div>
     <a-button v-if="userInfo.token && needSell" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">
       {{ $t('head.sell') }}
     </a-button>
@@ -21,6 +22,7 @@ const resize = useResize()
 const headType = ref('common')
 const needFoot = ref(true)
 const needSell = ref(true)
+const needPb = ref(false)
 const userInfo = useUserInfo()
 // 帮助中心路由 使用帮助的头(pc)
 const helpArr = [
@@ -54,6 +56,10 @@ const noSellButArr = [
   '/dialogue/chatDetail',
   '/userProfile',
 ]
+// 底部需要加高一点的路由
+const needPaddingBRoute = [
+  '/goodsDetails',
+]
 
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
@@ -75,6 +81,11 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     needSell.value = false
   } else {
     needSell.value = true
+  }
+  if (needPaddingBRoute.indexOf(newValue) !== -1) {
+    needPb.value = true
+  } else {
+    needPb.value = false
   }
   console.log('needFoot')
   console.log(needFoot.value)

@@ -64,6 +64,9 @@
         </div>
       </div>
     </div>
+    <div class="foot-link">
+      <PageFooterLink></PageFooterLink>
+    </div>
 
     <!-- 举报用户 -->
     <ReportModal ref="reportModal"></ReportModal>
@@ -292,6 +295,9 @@ onMounted(() => {
     right: 10px;
     top: 153px;
     z-index: 888;
+  }
+  .foot-link{
+    padding: 0 17px;
   }
 }
 

@@ -160,7 +160,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .page-footer-link {
-  padding: 20px 30px;
+  padding: 20px 0;
   border-top: 1px solid rgba(229, 229, 229, 1);
 }
 
@@ -222,10 +222,11 @@ onMounted(() => {
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
   .page-footer-link {
-    padding: 20px 0;
-
     .search-box {
       margin-bottom: 16px;
+      .hot-search{
+        padding: 0;
+      }
     }
   }
   .footer-mobile-coll {
@@ -239,6 +240,9 @@ onMounted(() => {
         color: rgba(56, 56, 56, 1);
         margin-right: 20px;
       }
+    }
+    :deep(.arco-collapse-item-header){
+      padding: 8px 0;
     }
   }
   .footer-pc-coll{

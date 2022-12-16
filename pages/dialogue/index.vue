@@ -510,9 +510,7 @@ const toGoodsDetails = () => {
         // 如果数据已被删除 无乱是不是自己的 打开非上架弹窗
         blockModal.value.openDialog(4);
       } else if (res.data.status === 1) {
-        if (props.isToDetails) {
-          router.push("/goodsDetails?id=" + item.pid);
-        }
+        router.push("/goodsDetails?id=" + curConversationMeta.value.pid);
       }
     } else {
       Message.error(res.message);

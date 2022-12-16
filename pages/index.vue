@@ -275,7 +275,7 @@ onMounted(() => {
 }
 
 .section-wrapper {
-  //margin: 40px 0 40px;
+  margin: 40px 0 40px;
   overflow: hidden;
 
   .section-header {
@@ -409,6 +409,7 @@ onMounted(() => {
   }
 
   .section-wrapper{
+    margin: 12px 0 12px;
     .section-header{
       margin-top: 24px;
       margin-bottom: 14px;
