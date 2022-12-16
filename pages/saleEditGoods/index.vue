@@ -1,23 +1,41 @@
 <template>
   <div class="global-content">
     <div class="sale-header">{{ $t("sale.saleTitle") }}</div>
-    <div class="edit-box border-box media-sale-edit-goods">
+
+    <div style="margin: 20px" v-if="pageLoading">
+      <a-skeleton animation :loading="pageLoading">
+        <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+          <a-skeleton-line :line-height="160" />
+          <a-skeleton-line :line-height="20" />
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-skeleton-line :widths="['100%']" :line-height="160" />
+            </a-col>
+            <a-col :span="12">
+              <a-skeleton-line :widths="['100%']" :line-height="160" />
+            </a-col>
+          </a-row>
+        </a-space>
+      </a-skeleton>
+    </div>
+
+    <div class="edit-box border-box" v-if="!pageLoading">
       <div class="left" v-if="resize.screenType !== 'MOBILE'">
         <a-spin :loading="uploadLoading" style="width: 100%">
           <div>
             <a-upload
-                draggable
-                :show-file-list="false"
-                :file-list="fileList"
-                :action="uploadUrl"
-                accept="image/*,.png"
-                :headers="headers"
-                :limit="10"
-                :on-before-upload="beforeUpload"
-                :on-button-click="uploadClick"
-                @success="uploadSuccess"
-                @error="uploadError"
-                @exceed-limit="overLimit"
+              draggable
+              :show-file-list="false"
+              :file-list="fileList"
+              :action="uploadUrl"
+              accept="image/*,.png"
+              :headers="headers"
+              :limit="10"
+              :on-before-upload="beforeUpload"
+              :on-button-click="uploadClick"
+              @success="uploadSuccess"
+              @error="uploadError"
+              @exceed-limit="overLimit"
             >
               <template #upload-button>
                 <div class="upload-area">
@@ -159,12 +177,13 @@
               <div v-if="form.rid">
                 <a-breadcrumb>
                   <template #separator>
-                    <img src="@/assets/images/icon/breadcrumb-separator.png" alt="">
+                    <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
                   </template>
-                  <a-breadcrumb-item v-for="item in curClassPath">{{ item.title }}</a-breadcrumb-item>
+                  <a-breadcrumb-item v-for="item in curClassPath">{{
+                    item.title
+                  }}</a-breadcrumb-item>
                 </a-breadcrumb>
               </div>
-
             </template>
           </a-form-item>
           <div v-if="form.rid">
@@ -173,7 +192,7 @@
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
-                  <a-link :href="forbidLink">{{ $t('sale.forbidTipDetail') }}</a-link>
+                  <a-link :href="forbidLink">{{ $t("sale.forbidTipDetail") }}</a-link>
                 </div>
               </template>
             </a-form-item>
@@ -207,10 +226,12 @@
               />
               <template #extra>
                 <a-row justify="space-between">
-                  <a-col flex="auto" v-if="curClassPath.length === 3">{{ curClassPath[2].advice }}</a-col>
+                  <a-col flex="auto" v-if="curClassPath.length === 3">{{
+                    curClassPath[2].advice
+                  }}</a-col>
                   <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
-                    <a-link :href="forbidLink">{{ $t('sale.forbidTipDetail') }}</a-link>
+                    <a-link :href="forbidLink">{{ $t("sale.forbidTipDetail") }}</a-link>
                   </a-col>
                 </a-row>
               </template>
@@ -315,7 +336,7 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useSysData } from "~/stores/sysData";
 import { useResize } from "~/stores/resize";
 import { Message, Modal } from "@arco-design/web-vue";
-import { getPathByKey } from "~/utils/common"
+import { getPathByKey } from "~/utils/common";
 import {
   getProductDraftDetails,
   getProductInfo,
@@ -334,6 +355,7 @@ const pdwList = sysData.goodsPdwList || [];
 const userInfo = useUserInfo();
 const draftModal = ref(null);
 const locationLoading = ref(false);
+const pageLoading = ref(true);
 const resize = useResize();
 let headers = reactive({
   "X-Utoken": null,
@@ -366,11 +388,11 @@ const formRef = ref(null);
 const btnType = ref("draft");
 const appConfig = useAppConfig();
 const gdKey = appConfig.gdKey;
-const forbidLink = appConfig.forbidLink
-const baseImgPrefix = appConfig.baseImgPrefix
-const uploadUrl = appConfig.uploadUrl
+const forbidLink = appConfig.forbidLink;
+const baseImgPrefix = appConfig.baseImgPrefix;
+const uploadUrl = appConfig.uploadUrl;
 const uploadLoading = ref(false);
-const curClassPath = ref([])
+const curClassPath = ref([]);
 const rules = reactive({
   rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
   title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
@@ -380,9 +402,9 @@ const rules = reactive({
   region: [{ required: true, message: t("sale.regionTip") }],
 });
 
-const overLimit = (e) =>{
-  Message.warning(t('sale.overLimit'))
-}
+const overLimit = (e) => {
+  Message.warning(t("sale.overLimit"));
+};
 
 const listAll = () => {
   // 地址
@@ -411,7 +433,7 @@ const listAll = () => {
 
 // 选中分类
 const changeClass = (e) => {
-  curClassPath.value = getPathByKey(e, sysData.goodsClass)
+  curClassPath.value = getPathByKey(e, sysData.goodsClass);
 };
 
 // 搜索地址
@@ -477,39 +499,46 @@ const getDraftInfo = () => {
         };
       });
     }
-  });
+  }).finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 商品详情
 const getProduct = () => {
-  getProductInfo(form.value.id).then((res) => {
-    if (res.code == 0) {
-      form.value = res.data;
-      changeClass(res.data.rid)
-      if (res.data.offline_address && res.data.offline_address.length > 0) {
-        const arr = [];
-        res.data.offline_address.forEach((item) => {
-          const obj = {
-            location: `${item.lat},${item.lng}`,
-            address: item.address,
-            name: item.title,
+  pageLoading.value = true;
+  getProductInfo(form.value.id)
+    .then((res) => {
+      if (res.code == 0) {
+        form.value = res.data;
+        changeClass(res.data.rid);
+        if (res.data.offline_address && res.data.offline_address.length > 0) {
+          const arr = [];
+          res.data.offline_address.forEach((item) => {
+            const obj = {
+              location: `${item.lat},${item.lng}`,
+              address: item.address,
+              name: item.title,
+            };
+            arr.push(JSON.stringify(obj));
+            // addressOptions.value.push(obj)
+          });
+          offline_address.value = arr;
+        }
+        form.value.mail = res.data.mail ? 1 : false;
+        form.value.offline = res.data.offline ? 1 : false;
+        fileList.value = res.data.images.map((item, index) => {
+          return {
+            id: index + 1,
+            uid: index + 1,
+            url: baseImgPrefix + item,
           };
-          arr.push(JSON.stringify(obj));
-          // addressOptions.value.push(obj)
         });
-        offline_address.value = arr;
       }
-      form.value.mail = res.data.mail ? 1 : false;
-      form.value.offline = res.data.offline ? 1 : false;
-      fileList.value = res.data.images.map((item, index) => {
-        return {
-          id: index + 1,
-          uid: index + 1,
-          url: baseImgPrefix + item,
-        };
-      });
-    }
-  });
+    })
+    .finally(() => {
+      pageLoading.value = false;
+    });
 };
 
 // 删除图片
@@ -534,21 +563,21 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
-  console.log(e)
-  if(e.response.code === 999){
+  console.log(e);
+  if (e.response.code === 999) {
     uploadLoading.value = false;
     // 登录过期 跳转首页
     const router = useRouter();
-    const openLogin = useState<Boolean>('openLogin')
+    const openLogin = useState < Boolean > "openLogin";
     userInfo.logout();
-    if (resize.screenType !== 'MOBILE'){
+    if (resize.screenType !== "MOBILE") {
       userInfo.openDialog();
       openLogin.value = true;
       console.log(openLogin);
     }
     router.push({
-      path: '/'
-    })
+      path: "/",
+    });
   }
   if (e.response.code == 0) {
     fileList.value.push({
@@ -724,11 +753,15 @@ const addToSelect = (item) => {
 };
 
 // 监听sysData 获取到goodsClass之后给curClassPath赋值一次（防止出现刷新页面进入时 还未获取到系统数据就赋值的问题）
-watch(sysData, (val) => {
-  if(val.goodsClass.length && form.value.rid){
-    changeClass(form.value.rid)
-  }
-}, { immediate: true, deep: true })
+watch(
+  sysData,
+  (val) => {
+    if (val.goodsClass.length && form.value.rid) {
+      changeClass(form.value.rid);
+    }
+  },
+  { immediate: true, deep: true }
+);
 
 router.beforeEach((to, from, next) => {
   if (
@@ -1112,6 +1145,51 @@ onMounted(() => {
     margin-top: 2px;
     color: #4e5969;
     line-height: 22px;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .edit-box {
+    margin: 20px;
+    display: block;
+    .right {
+      .upload-area {
+        height: 160px;
+        padding-top: 35px;
+      }
+      .image-preview-list {
+        margin-top: 20px;
+        .image-item {
+          width: 31%;
+          height: 0;
+          padding-bottom: 31%;
+          margin-right: 3%;
+          &:nth-child(3n) {
+            margin-right: 0;
+          }
+          position: relative;
+          :deep(.arco-image) {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          &.is-cover{
+            .is-cover-span{
+              width: calc(100% + 8px);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .publish {
+    .publish-btn {
+      width: 100%;
+      height: 45px;
+    }
   }
 }
 </style>

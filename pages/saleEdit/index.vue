@@ -5,21 +5,21 @@
       <a-spin :loading="uploadLoading" style="width: 100%">
         <div>
           <a-upload
-              draggable
-              multiple
-              :show-file-list="false"
-              :fileList="fileList"
-              :action="uploadUrl"
-              :headers="headers"
-              ref="uploadRef"
-              :limit="10"
-              :on-before-upload="beforeUpload"
-              :on-button-click="uploadClick"
-              @success="uploadSuccess"
-              @error="uploadError"
-              @change="uploadChange"
-              @exceed-limit="overLimit"
-              accept="image/*,.png"
+            draggable
+            multiple
+            :show-file-list="false"
+            :fileList="fileList"
+            :action="uploadUrl"
+            :headers="headers"
+            ref="uploadRef"
+            :limit="10"
+            :on-before-upload="beforeUpload"
+            :on-button-click="uploadClick"
+            @success="uploadSuccess"
+            @error="uploadError"
+            @change="uploadChange"
+            @exceed-limit="overLimit"
+            accept="image/*,.png"
           >
             <template #upload-button>
               <div class="upload-area">
@@ -34,7 +34,7 @@
       <div class="draft-title" v-if="draftList.length > 0">{{ $t("sale.yourDraft") }}</div>
       <div class="image-preview-list">
         <div class="image-item" v-for="(item, index) in draftList" @click="toEdit(item)">
-          <a-image :src="baseImgPrefix + item.images" :preview="false" > </a-image>
+          <a-image :src="baseImgPrefix + item.images" :preview="false"> </a-image>
           <span class="draft">{{ $t("sale.draft") }}</span>
           <div class="image-info">
             <span class="goods-name">{{ item.title }}</span>
@@ -54,13 +54,13 @@
 import { useI18n } from "vue-i18n";
 import { Message, Modal } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from '~/stores/resize'
+import { useResize } from "~/stores/resize";
 import { delProductDraft, getProductDraftlist } from "~/api/goods";
 const resize = useResize();
 const { t } = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
-const uploadUrl = appConfig.uploadUrl
+const uploadUrl = appConfig.uploadUrl;
 const router = useRouter();
 const uploadLoading = ref(false);
 const pageLoading = ref(true);
@@ -94,16 +94,16 @@ const handleDelDraft = (item) => {
     titleAlign: "start",
     content: t("sale.deleteDraftComfirm"),
     closable: true,
-    width:resize.screenType === 'MOBILE' ? '80%' : '-',
+    width: resize.screenType === "MOBILE" ? "80%" : "-",
     hideCancel: false,
     cancelText: t("pages.cancel"),
     okText: t("sale.delete"),
     onBeforeOk: (done) => {
       done(true);
-      delProductDraft({id:item.id}).then((res) => {
+      delProductDraft({ id: item.id }).then((res) => {
         if (res.code === 0) {
           Message.success(res.message);
-          handleQuery()
+          handleQuery();
         } else {
           Message.error(res.message);
         }
@@ -128,21 +128,21 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
-  console.log(e)
-  if(e.response.code === 999){
+  console.log(e);
+  if (e.response.code === 999) {
     uploadLoading.value = false;
     // 登录过期 跳转首页
     const router = useRouter();
-    const openLogin = useState<Boolean>('openLogin')
+    const openLogin = useState < Boolean > "openLogin";
     userInfo.logout();
-    if (resize.screenType !== 'MOBILE'){
+    if (resize.screenType !== "MOBILE") {
       userInfo.openDialog();
       openLogin.value = true;
       console.log(openLogin);
     }
     router.push({
-      path: '/'
-    })
+      path: "/",
+    });
   }
   if (e.response.code == 0) {
     realFileList.value.push(e.response.data);
@@ -150,22 +150,22 @@ const uploadSuccess = (e) => {
   if (realFileList.value.length == fileList.value.length) {
     setUserDraft().value = realFileList.value;
     router.push({ name: "saleEditGoods", query: { type: "draft" } });
-    fileList.value = []
+    fileList.value = [];
   }
   uploadLoading.value = false;
 };
 
 const uploadError = (e) => {
-  console.log(e)
+  console.log(e);
   uploadLoading.value = false;
 };
 const uploadChange = (_, currentFile) => {
   fileList.value = _;
 };
 
-const overLimit = (e) =>{
-  Message.warning(t('sale.overLimit'))
-}
+const overLimit = (e) => {
+  Message.warning(t("sale.overLimit"));
+};
 
 onMounted(async () => {
   handleQuery();
@@ -254,6 +254,49 @@ onMounted(async () => {
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+    }
+  }
+}
+
+
+</style>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .sale-header {
+    padding: 10px 20px;
+    font-size: 22px;
+  }
+  .edit-box {
+    margin: 20px;
+    display: block;
+    .upload-area {
+      height: 160px;
+      padding-top: 35px;
+    }
+    .draft-title {
+      margin: 40px auto 15px;
+      font-size: 20px;
+    }
+    .image-preview-list {
+      .image-item {
+        width: 48%;
+        height: 0;
+        padding-bottom: 48%;
+        margin-right: 0;
+        &:nth-child(2n){
+          margin-left: 4%;
+        }
+        position: relative;
+        :deep(.arco-image){
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        .image-info{
+          margin-top: 100%;
+        }
       }
     }
   }

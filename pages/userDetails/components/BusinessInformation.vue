@@ -43,14 +43,13 @@
         <div class="auth-status">
           {{ $t("business.authStatus") }}：{{ getStatusLabel() || $t("business.authStatusNo") }}
         </div>
-        <div class="text-danger" v-if="(form.opinion && form.state == 2)">
+        <div class="text-danger" v-if="form.opinion && form.state == 2">
           {{ $t("business.auditResult") }}：{{ form.opinion }}
         </div>
-
       </a-form>
     </div>
     <a-button
-      v-if="resize.screenType === 'MOBILE'  && !userInfo.token"
+      v-if="resize.screenType === 'MOBILE' && !userInfo.token"
       class="mobile-sell"
       type="primary"
       @click.stop="router.push('/saleEdit')"
@@ -114,8 +113,7 @@ const handleQuery = () => {
 const toAuthentication = () => {
   businessRegistration.value.openDialog(form.value);
 };
-onMounted(() => {
-});
+onMounted(() => {});
 defineExpose({
   handleQuery,
   toAuthentication,
@@ -176,5 +174,15 @@ defineExpose({
 .auth-status {
   margin: 13px 0 20px;
   font-size: 16px;
+}
+</style>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .business-box {
+    .business-box-body {
+      padding: 30px;
+    }
+  }
 }
 </style>
