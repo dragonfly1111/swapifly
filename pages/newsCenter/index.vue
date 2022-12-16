@@ -52,7 +52,7 @@
                 </template>
               </a-image>
               <div class="info-box">
-                <div class="time">2022/09/01</div>
+                <div class="time">{{parseTime(item.news_time, '{y}-{m}-{d}')}}</div>
                 <div class="title">{{ item.title }}</div>
                 <div class="des">
                   {{ item.abstract }}

@@ -228,3 +228,23 @@ defineExpose({
   }
 }
 </style>
+<style lang="scss" >
+@import "assets/sass/var";
+@media screen and(max-width:1000px) {
+  .login-dialog {
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    .arco-modal-header {
+      align-items: center;
+    }
+
+  }
+}
+</style>
+

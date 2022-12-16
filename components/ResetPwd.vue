@@ -1,13 +1,28 @@
 <template>
-  <a-modal v-model:visible="visible" :title="curStep === 1 ? $t('profile.resetPwdTitle') : $t('profile.resetPwdTitle1')"
+  <a-modal v-model:visible="visible"
            :ok-text="curStep === 1 ? $t('profile.resetPwdNext') : $t('profile.resetPwdSave')"
            :cancel-text="$t('profile.resetPwdCancel')"
            title-align="center" modal-class="reset-pws-dialog" :on-before-ok="handleOk"
            :ok-loading="okLoading"
            :mask-closable="false"
            @cancel="handleCancel">
-    <div class="login-title">
-      <img src="@/assets/images/logo-long.png" alt=""/>
+    <template #title>
+      <div class="login-title">
+        <div class="pc-title">
+          {{curStep === 1 ? $t('profile.resetPwdTitle') : $t('profile.resetPwdTitle1')}}
+        </div>
+        <div class="m-title">
+          <img src="@/assets/images/logo-long.png" alt=""/>
+        </div>
+      </div>
+    </template>
+    <div class="login-title1">
+      <div class="pc-title">
+        <img src="@/assets/images/logo-long.png" alt=""/>
+      </div>
+      <div class="m-title">
+        {{curStep === 1 ? $t('profile.resetPwdTitle') : $t('profile.resetPwdTitle1')}}
+      </div>
     </div>
     <div class="tip">{{ curStep === 1 ? $t('profile.confirmEmail') : '' }}</div>
     <a-form ref="formRef" :model="formData" :rules="rules">
@@ -168,9 +183,24 @@ defineExpose({
 @import "assets/sass/var";
 
 .reset-pws-dialog {
+  .pc-title{
+    display: flex;
+  }
+  .m-title{
+    display: none;
+  }
   .login-title {
     text-align: center;
 
+    img {
+      width: 152px;
+      height: 36px;
+      margin: 0 auto;
+    }
+  }
+
+  .login-title1{
+    text-align: center;
     img {
       width: 152px;
       height: 36px;
@@ -218,6 +248,62 @@ defineExpose({
     .arco-btn {
       width: 70px;
       height: 32px;
+    }
+  }
+}
+</style>
+<style lang="scss" >
+@import "assets/sass/var";
+@media screen and(max-width:1000px) {
+  .reset-pws-dialog {
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    .login-title1{
+      text-align: center;
+      .m-title{
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+      }
+    }
+    .pc-title{
+      display: none;
+    }
+    .m-title{
+      display: block;
+    }
+    .arco-modal-header {
+      padding: 20px 27px;
+      height: unset;
+      align-items: center;
+      border-bottom: unset;
+      .arco-modal-title-align-center{
+        justify-content: flex-start;
+      }
+    }
+    .arco-modal-body{
+      padding: 0 27px;
+      .tip{
+        margin: 12px 0 24px 0;
+      }
+    }
+    .arco-modal-footer{
+      border-top: unset;
+      padding: 0 27px;
+      .arco-btn-secondary{
+        display: none;
+      }
+      .arco-btn-primary{
+        width: 100%;
+        margin-left: 0;
+        height: 42px;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <main class="main-pc-mobile">
-    <Header :need-back="needBack" v-if="['common','dialogue'].includes(headType)"/>
+    <Header v-if="headType === 'common'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>
     <slot/>
@@ -19,19 +19,23 @@ const resize = useResize()
 const headType = ref('common')
 const needFoot = ref(true)
 const userInfo = useUserInfo()
+// 帮助中心路由 使用帮助的头(pc)
 const helpArr = [
   '/helpCenter',
   '/helpCenter/detail',
   '/helpCenter/search'
 ]
+// 新闻中心路由 使用新闻的头(pc)
 const newsArr = [
   '/newsCenter',
   '/newsCenter/detail',
   '/newsCenter/search'
 ]
-
+// 不需要foot的路由
 const noFootArr = [
-  '/dialogue/chatDetail'
+  '/dialogue/chatDetail',
+  '/dialogue',
+  '/dialogue/mobile'
 ]
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
@@ -40,8 +44,6 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
     headType.value = 'news'
-  } else if (newValue === '/dialogue') {
-    headType.value = 'dialogue'
   } else {
     headType.value = 'common'
   }
@@ -51,8 +53,31 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   }
   console.log('needFoot')
   console.log(needFoot.value)
-  console.log('needBack')
   console.log(resize.screenType)
   console.log(headType.value)
 }, {immediate: true})
 </script>
+<style lang="scss">
+@import "assets/sass/var";
+@media screen and(min-width:1000px) {
+  .mobile-sell{
+    display: none;
+  }
+}
+
+// 移动端
+@media screen and(max-width:1000px) {
+  // 移动端出售悬浮按钮
+  .mobile-sell{
+    display: block ;
+    position: fixed;
+    bottom: 60px;
+    right: 4%;
+    background-color: $main-pink !important;
+    color: #fff;
+    z-index: 99;
+    height: 35px;
+    width: 82px;
+  }
+}
+</style>

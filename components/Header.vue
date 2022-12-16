@@ -1,3 +1,4 @@
+<!--通用header(移动&pc)-->
 <template>
   <div class="global-head">
     <div class="class-bar-block" @mouseleave="outClass">
@@ -150,10 +151,9 @@
     <div class="mobile-head-search">
       <div class="common-row">
         <div class="left">
-          <div style="width: 36px; flex-shrink: 0" @click="$router.go(-1)"
+          <div style="text-align: left; width: 36px; flex-shrink: 0" @click="$router.go(-1)"
                v-if="resize.screenType === 'MOBILE' && needBackRoute.indexOf($route.path) !== -1">
-            <icon-left :size="32"
-            />
+            <icon-left :size="24"/>
           </div>
 
           <nuxt-link v-else href="/">
@@ -238,6 +238,11 @@ const needBackRoute = [
   '/mobileUserProfile',
   '/saleEdit',
   '/dialogue/chatDetail',
+  '/settingProfile',
+  '/mobileProfile',
+  '/mobileEditPassword',
+  '/userDetails',
+  '/like',
 ]
 
 const router = useRouter()
@@ -329,11 +334,12 @@ function openRegister() {
 }
 
 function openLogin() {
-  if (resize.screenType === 'MOBILE') {
-    router.push('/login')
-  } else {
-    loginModal.value.openDialog()
-  }
+  // if (resize.screenType === 'MOBILE') {
+  //   router.push('/login')
+  // } else {
+  //   loginModal.value.openDialog()
+  // }
+  loginModal.value.openDialog()
 }
 
 function toSell() {

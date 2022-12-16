@@ -1,20 +1,20 @@
 <template>
   <div class="common-row global-content">
-    <div  v-if="resize.screenType === 'MOBILE'" class="page-header-Message">
-      <icon-left  class="back-index" @click="handleIndex"/>
-      {{ $t("pages.mobile_notice") }}
-    </div>
     <div class="notice-list">
-      <a-skeleton :animation="true" :loading="pageLoading" line-height="50">
+      <a-skeleton class="pc-sk" :animation="true" :loading="pageLoading" line-height="50">
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
           <a-skeleton-line :rows="3" :lineHeight="200" line-spacing="30"/>
         </a-space>
       </a-skeleton>
-
+      <a-skeleton class="m-sk" :animation="true" :loading="pageLoading" line-height="50">
+        <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+          <a-skeleton-line :rows="3" :lineHeight="120" line-spacing="12"/>
+        </a-space>
+      </a-skeleton>
       <div v-if="!pageLoading">
         <div class="notice-item" v-for="item in noticeList" :key="item.id">
           <div class="item-header">
-            <img class="long-logo" src="@/assets/images/logo-long.png" alt="" />
+            <img class="long-logo" src="@/assets/images/logo-long.png" alt=""/>
             <span>{{ parseTime(item.create_time, "{y}-{m}-{d} {h}:{i}:{s}") }}</span>
           </div>
           <div class="item-body">
@@ -22,13 +22,13 @@
             <div>{{ item.content }}</div>
           </div>
         </div>
-        <a-spin class="loading" v-if="moreLoading" />
+        <a-spin class="loading" v-if="moreLoading"/>
       </div>
 
       <div class="no-notice" v-if="!noticeList.length && !pageLoading">
         <a-empty>
           <template #image>
-            <img src="@/assets/images/icon/no_notice_grey.png" alt="" srcset="" />
+            <img src="@/assets/images/icon/no_notice_grey.png" alt="" srcset=""/>
           </template>
           <h5>{{ $t("pages.no_notice") }}</h5>
           <p>{{ $t("pages.no_notice_tip") }}</p>
@@ -38,11 +38,10 @@
   </div>
 </template>
 <script setup>
-import { noticelist } from "~/api/notice";
-import { parseTime } from "~/utils/time";
-import { useResize } from '~/stores/resize';
+import {noticelist} from "~/api/notice";
+import {parseTime} from "~/utils/time";
+
 const router = useRouter();
-const resize = useResize();
 const pageLoading = ref(true);
 const moreLoading = ref(false);
 const noticeList = ref([]);
@@ -53,24 +52,24 @@ const queryParams = reactive({
 const total = ref(0);
 const handleQuery = () => {
   noticelist(queryParams)
-    .then((res) => {
-      if (res.code === 0) {
-        noticeList.value = noticeList.value.concat(res.data.data);
-        total.value = res.data.total;
-      }
-    })
-    .finally(() => {
-      if (queryParams.page == 1) {
-        pageLoading.value = false;
-      }
-      moreLoading.value = false;
-    });
+      .then((res) => {
+        if (res.code === 0) {
+          noticeList.value = noticeList.value.concat(res.data.data);
+          total.value = res.data.total;
+        }
+      })
+      .finally(() => {
+        if (queryParams.page == 1) {
+          pageLoading.value = false;
+        }
+        moreLoading.value = false;
+      });
 };
 const handleIndex = () => {
   router.push("/mobileUserProfile")
 };
 const loadMore = () => {
-  if(noticeList.value.length < total.value && !moreLoading.value){
+  if (noticeList.value.length < total.value && !moreLoading.value) {
     queryParams.page++
     moreLoading.value = true
     handleQuery()
@@ -96,10 +95,6 @@ onMounted(async () => {
 });
 </script>
 <style lang="scss" scoped>
-.null-height{
-  height: 40px;
-  width: 100%;
-}
 .page-header-Message {
   border-bottom: 1px solid #ccc;
   text-align: center;
@@ -112,7 +107,8 @@ onMounted(async () => {
   height: 45px;
   line-height: 45px;
   background-color: #fff;
-  .back-index{
+
+  .back-index {
     display: block;
     position: absolute;
     left: 0;
@@ -121,6 +117,7 @@ onMounted(async () => {
     font-weight: bold;
     transform: translateY(-50%);
   }
+
   img {
     width: 152px;
     height: 36px;
@@ -133,11 +130,13 @@ onMounted(async () => {
   margin: auto;
   max-width: 700px;
   padding: 30px 5%;
+
   .notice-item {
     border: 1px solid #aaaaaa44;
     font-size: 14px;
     margin-bottom: 25px;
     min-height: 200px;
+
     .item-header {
       padding: 20px 25px;
       border-bottom: 1px solid #aaaaaa44;
@@ -145,13 +144,16 @@ onMounted(async () => {
       justify-content: space-between;
       align-items: center;
       color: #383838;
+
       .long-logo {
         height: 30px;
         object-fit: contain;
       }
     }
+
     .item-body {
       padding: 10px 25px;
+
       .title {
         font-weight: bold;
         font-size: 16px;
@@ -169,9 +171,32 @@ onMounted(async () => {
 
 .no-notice {
   padding: 15vh 0;
+
   img {
     width: 90px;
     object-fit: contain;
+  }
+}
+
+.pc-sk{
+  display: block;
+}
+.m-sk{
+  display: none;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var";
+
+@media screen and(max-width: 1000px) {
+  .notice-list {
+    padding: 8px 0;
+  }
+  .pc-sk{
+    display: none;
+  }
+  .m-sk{
+    display: block;
   }
 }
 </style>

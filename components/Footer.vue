@@ -1,6 +1,6 @@
 <template>
   <div class="global-foot">
-    <div class="common-row" v-if="resize.screenType !== 'MOBILE'">
+    <div class="common-row">
       <div class="left">
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
         <span class="info">©2022 Swapifly</span>
@@ -15,7 +15,7 @@
         <LanguageSwitcher />
       </div>
     </div>
-    <div class="common-row-mobile" v-else>
+    <div class="common-row-mobile">
       <div class="one-row">
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
         <span class="info">©2022 Swapifly</span>
@@ -45,33 +45,6 @@ const toHelp = () =>{
   //position: fixed;
   bottom: 0;
   width: 100%;
-}
-.common-row-mobile{
-  padding-bottom: 50px;
-  .two-row{
-    padding: 20px 0;
-    text-align: center;
-    span{
-      display: inline-block;
-    }
-    >span:last-child{
-      margin-left: 10px;
-    }
-  }
-  .one-row{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin: auto;
-    width: 130px;
-    img{
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-    }
-  }
 }
 .common-row{
   border-top: 1px solid #E5E5E5;
@@ -108,6 +81,45 @@ const toHelp = () =>{
       width: 40px;
     }
   }
+}
+.common-row-mobile{
+  display: none;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var";
 
+@media screen and(max-width: 1000px) {
+  .common-row-mobile{
+    padding-bottom: 50px;
+    display: block;
+    .two-row{
+      padding: 20px 0;
+      text-align: center;
+      span{
+        display: inline-block;
+      }
+      >span:last-child{
+        margin-left: 10px;
+      }
+    }
+    .one-row{
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin: auto;
+      width: 130px;
+      img{
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  .common-row{
+    display: none;
+  }
 }
 </style>
