@@ -29,7 +29,7 @@
           <template #separator>
             <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
           </template>
-          <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
+          <a-breadcrumb-item v-for="(item,index) in productInfo.rid"  @click="toTypePage(item,index)">{{ item.title }}</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="section-content">
           <div class="goods-swiper">
@@ -112,7 +112,7 @@
           </div>
           <div class="page-body-content">
             <a-breadcrumb class="mobile-breadcrumb">
-              <a-breadcrumb-item v-for="item in productInfo.rid">{{
+              <a-breadcrumb-item v-for="(item,index) in productInfo.rid" @click="toTypePage(item,index)">{{
                 item.title
               }}</a-breadcrumb-item>
             </a-breadcrumb>
@@ -519,6 +519,16 @@ const getAD = () => {
     googleAd.value = res.data;
   });
 };
+// 跳转分类
+const toTypePage = (e,index) =>{
+  // router.push({
+  //   path: '/goodsList',
+  //   query: {
+  //     id: e.id,
+  //     level: index +1
+  //   }
+  // })
+}
 // 相似商品
 const querySimilarlist = () => {
   var reqParams = {
@@ -763,11 +773,11 @@ onMounted(async () => {
 
   :deep(.arco-breadcrumb-item) {
     color: $grey-font-label;
-    //cursor: pointer;
-    //
-    //&:hover {
+    // cursor: pointer;
+    
+    // &:hover {
     //  color: $main-grey;
-    //}
+    // }
   }
 
   .section-content {
@@ -1176,7 +1186,7 @@ onMounted(async () => {
     }
   }
   .page-body-content {
-    margin: 15px;
+    margin: 20px 15px;
   }
 
   .mobile-footer-goods {

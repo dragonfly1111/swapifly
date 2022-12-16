@@ -266,7 +266,7 @@ onMounted(async () => {
 @media screen and (max-width: 1000px) {
   .sale-header {
     padding: 10px 20px;
-    font-size: 22px;
+    font-size: 20px;
   }
   .edit-box {
     margin: 20px;
