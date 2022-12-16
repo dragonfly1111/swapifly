@@ -63,11 +63,11 @@ const initPicker = () => {
 };
 
 const setInput = (val) => {
-  console.log("val");
-  console.log(val);
   if (val) {
-    const parsedDate = picker.value.dates.parseInput(new Date(val));
-    picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
+    nextTick(()=>{
+      const parsedDate = picker.value.dates.parseInput(new Date(val));
+      picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
+    })
   }
 };
 
