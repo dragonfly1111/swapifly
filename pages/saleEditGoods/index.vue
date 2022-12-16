@@ -170,8 +170,8 @@
               }"
               :placeholder="$t('sale.chooseType')"
               :tree-props="{
-            'default-expand-all': false
-          }"
+                'default-expand-all': false,
+              }"
               selectable="leaf"
               class="input-wrp"
               @change="changeClass"
@@ -476,36 +476,38 @@ const hasBanWord = (val) => {
 
 // 草稿详情
 const getDraftInfo = () => {
-  getProductDraftDetails(form.value.id).then((res) => {
-    if (res.code == 0) {
-      form.value = res.data;
-      if(res.data.region === 0){
-        res.data.region = null
-      }
-      if (res.data.offline_address && res.data.offline_address.length > 0) {
-        const arr = [];
-        res.data.offline_address.forEach((item) => {
-          const obj = {
-            location: `${item.lat},${item.lng}`,
-            address: item.address,
-            name: item.title,
+  getProductDraftDetails(form.value.id)
+    .then((res) => {
+      if (res.code == 0) {
+        form.value = res.data;
+        if (res.data.region === 0) {
+          res.data.region = null;
+        }
+        if (res.data.offline_address && res.data.offline_address.length > 0) {
+          const arr = [];
+          res.data.offline_address.forEach((item) => {
+            const obj = {
+              location: `${item.lat},${item.lng}`,
+              address: item.address,
+              name: item.title,
+            };
+            arr.push(JSON.stringify(obj));
+            // addressOptions.value.push(obj)
+          });
+          offline_address.value = arr;
+        }
+        form.value.mail = res.data.mail ? 1 : false;
+        form.value.offline = res.data.offline ? 1 : false;
+        fileList.value = res.data.images.map((item, index) => {
+          return {
+            id: index + 1,
+            uid: index + 1,
+            url: baseImgPrefix + item,
           };
-          arr.push(JSON.stringify(obj));
-          // addressOptions.value.push(obj)
         });
-        offline_address.value = arr;
       }
-      form.value.mail = res.data.mail ? 1 : false;
-      form.value.offline = res.data.offline ? 1 : false;
-      fileList.value = res.data.images.map((item, index) => {
-        return {
-          id: index + 1,
-          uid: index + 1,
-          url: baseImgPrefix + item,
-        };
-      });
-    }
-  }).finally(() => {
+    })
+    .finally(() => {
       pageLoading.value = false;
     });
 };
@@ -517,8 +519,8 @@ const getProduct = () => {
     .then((res) => {
       if (res.code == 0) {
         form.value = res.data;
-        if(res.data.region === 0){
-          res.data.region = null
+        if (res.data.region === 0) {
+          res.data.region = null;
         }
         changeClass(res.data.rid);
         if (res.data.offline_address && res.data.offline_address.length > 0) {
@@ -789,6 +791,7 @@ router.beforeEach((to, from, next) => {
 
 onMounted(() => {
   if (setUserDraft().value && setUserDraft().value.length) {
+    pageLoading.value = false;
     fileList.value = setUserDraft().value.map((item, index) => {
       return {
         id: index + 1,
@@ -798,6 +801,7 @@ onMounted(() => {
     });
   } else {
     fileList.value = [];
+    pageLoading.value = false;
   }
   if (router.currentRoute.value.query.id) {
     form.value.id = router.currentRoute.value.query.id;
@@ -1163,7 +1167,8 @@ onMounted(() => {
   .edit-box {
     margin: 20px;
     display: block;
-    &.border-box .right , &.border-box .left{
+    &.border-box .right,
+    &.border-box .left {
       width: 100%;
       border: 0;
       padding: 0 10px;
@@ -1189,8 +1194,8 @@ onMounted(() => {
             top: 0;
             left: 0;
           }
-          &.is-cover{
-            .is-cover-span{
+          &.is-cover {
+            .is-cover-span {
               width: calc(100% + 8px);
             }
           }
