@@ -6,7 +6,9 @@
     <slot/>
     <Footer v-if="headType === 'common' && needFoot"/>
     <HelpFooter v-else-if="headType === 'help' && needFoot"/>
-    <a-button v-if="userInfo.token" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">{{$t('head.sell')}}</a-button>
+    <a-button v-if="userInfo.token && needSell" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">
+      {{ $t('head.sell') }}
+    </a-button>
 
   </main>
 </template>
@@ -18,6 +20,7 @@ const router = useRouter()
 const resize = useResize()
 const headType = ref('common')
 const needFoot = ref(true)
+const needSell = ref(true)
 const userInfo = useUserInfo()
 // 帮助中心路由 使用帮助的头(pc)
 const helpArr = [
@@ -37,6 +40,17 @@ const noFootArr = [
   '/dialogue',
   '/dialogue/mobile'
 ]
+// 不需要'出售'按钮的路由
+const noSellButArr = [
+  '/saleEditGoods',
+  '/saleEdit',
+  '/newsCenter',
+  '/newsCenter/detail',
+  '/helpCenter',
+  '/helpCenter/detail',
+  '/helpCenter/search',
+]
+
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
@@ -48,28 +62,37 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     headType.value = 'common'
   }
 
-  if(noFootArr.indexOf(newValue) !== -1){
+  if (noFootArr.indexOf(newValue) !== -1) {
     needFoot.value = false
+  } else {
+    needFoot.value = true
+  }
+  if (noSellButArr.indexOf(newValue) !== -1) {
+    needSell.value = false
+  } else {
+    needSell.value = true
   }
   console.log('needFoot')
   console.log(needFoot.value)
-  console.log(resize.screenType)
+  console.log('needSell')
+  console.log(needSell.value)
   console.log(headType.value)
 }, {immediate: true})
 </script>
 <style lang="scss">
 @import "assets/sass/var";
-@media screen and(min-width:1000px) {
-  .mobile-sell{
+
+@media screen and(min-width: 1000px) {
+  .mobile-sell {
     display: none;
   }
 }
 
 // 移动端
-@media screen and(max-width:1000px) {
+@media screen and(max-width: 1000px) {
   // 移动端出售悬浮按钮
-  .mobile-sell{
-    display: block ;
+  .mobile-sell {
+    display: block;
     position: fixed;
     bottom: 60px;
     right: 4%;

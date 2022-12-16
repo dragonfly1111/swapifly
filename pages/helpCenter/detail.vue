@@ -213,6 +213,7 @@ getHelpDetail()
         }
         .content {
           max-width: 100%;
+          margin-bottom: 24px;
         }
       }
 

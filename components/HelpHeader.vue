@@ -9,7 +9,7 @@
       </div>
       <div class="right">
         <span class="view-home mobile-display-none" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
-        <LanguageSwitcher />
+        <LanguageSwitcher/>
       </div>
     </div>
   </div>
@@ -19,6 +19,7 @@
 </script>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+
 .global-head1 {
   position: fixed;
   top: 0;
@@ -26,33 +27,62 @@
   z-index: 998;
   background: #FFFFFF;
 }
-.common-row{
+
+.common-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .left{
+
+  .left {
     display: flex;
     align-items: center;
     padding: 18px 0;
-    .logo{
+
+    .logo {
       width: 156px;
       height: 36px;
     }
-    span{
+
+    span {
       cursor: pointer;
       font-size: 24px;
       margin-left: 25px;
       font-weight: 600;
     }
   }
-  .right{
+
+  .right {
     display: flex;
     align-items: center;
-    .view-home{
+
+    .view-home {
       font-weight: 500;
       cursor: pointer;
       font-size: 16px;
       margin-right: 26px;
+    }
+  }
+}
+</style>
+<style lang="scss" scoped>
+@media screen and(max-width: 1000px) {
+  .common-row {
+    .left {
+      display: flex;
+      align-items: center;
+      padding: 18px 0;
+
+      .logo {
+        width: 120px;
+        height: unset;
+      }
+
+      span {
+        cursor: pointer;
+        font-size: 20px;
+        margin-left: 12px;
+        font-weight: 600;
+      }
     }
   }
 }
