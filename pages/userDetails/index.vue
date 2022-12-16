@@ -275,7 +275,11 @@ onMounted(() => {
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .user-detail-content{
-    padding: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .user-banner{
+    height: 105px;
   }
   .user-detail-content {
     margin-top: 10px !important;
@@ -290,7 +294,7 @@ onMounted(() => {
   .extra-btn {
     position: absolute;
     right: 10px;
-    top: 153px;
+    top: 195px;
     z-index: 888;
   }
 }
