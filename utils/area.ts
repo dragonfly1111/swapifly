@@ -12,24 +12,26 @@ export let availableArea: ILocales = {}
 
 export function AreaManager() {
   // composable
-  const areaUserSetting = useCookie('area')
-
+  const areaUserSetting = useCookie<number>('area')
+  if(!areaUserSetting.value){
+    areaUserSetting.value = 1
+  }
   // methods
-  const getSystemArea = (): string => {
+  const getSystemArea = (): number => {
     try {
       // const foundLang = window
       //   ? window.navigator.language.substring(0, 2)
       //   : 'en'
-      return 'Hong Kong'
+      return 1
     } catch (error) {
-      return 'Hong Kong'
+      return 1
     }
   }
-  const getUseArea = (): string =>
+  const getUseArea = (): number =>
     areaUserSetting.value || getSystemArea()
 
   // state
-  const areaSetting = useState<string>('area.setting', () =>
+  const areaSetting = useState<number>('area.setting', () =>
     getUseArea()
   )
 

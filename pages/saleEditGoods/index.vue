@@ -476,6 +476,9 @@ const getDraftInfo = () => {
   getProductDraftDetails(form.value.id).then((res) => {
     if (res.code == 0) {
       form.value = res.data;
+      if(res.data.region === 0){
+        res.data.region = null
+      }
       if (res.data.offline_address && res.data.offline_address.length > 0) {
         const arr = [];
         res.data.offline_address.forEach((item) => {
@@ -511,6 +514,9 @@ const getProduct = () => {
     .then((res) => {
       if (res.code == 0) {
         form.value = res.data;
+        if(res.data.region === 0){
+          res.data.region = null
+        }
         changeClass(res.data.rid);
         if (res.data.offline_address && res.data.offline_address.length > 0) {
           const arr = [];

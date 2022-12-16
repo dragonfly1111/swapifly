@@ -11,7 +11,9 @@ export function LanguageManager() {
   // composable
   const { locale } = useI18n()
   const localeUserSetting = useCookie('locale')
-
+  if(!localeUserSetting.value){
+    localeUserSetting.value = 'zh-HK'
+  }
   // methods
   const getSystemLocale = (): string => {
     try {

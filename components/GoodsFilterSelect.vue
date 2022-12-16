@@ -111,7 +111,6 @@ import {findNode} from "~/utils/common";
 
 const sysData = useSysData();
 const sourceClassList = ref([]);
-const expandedKeys = ref([]);
 const resetParam = ref({});
 const classListAsync = ref([])
 watch(sysData, (val) => {
