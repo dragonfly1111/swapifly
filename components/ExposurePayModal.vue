@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="select-title">{{ $t("exposure.chooseTip") }}</div>
-            <div style="display: flex; width: 433px; justify-content: space-between; margin-top: 15px">
+            <div class="sk-card-pc">
               <div style="width: 100px;">
                 <a-skeleton-line :line-height="80" :widths="[131]" :rows="1" :line-spacing="10"/>
               </div>
@@ -36,7 +36,7 @@
                 <a-skeleton-line :line-height="80" :widths="[131]" :rows="1" :line-spacing="10"/>
               </div>
             </div>
-            <div style="display: flex; width: 433px; justify-content: space-between; margin-top: 15px">
+            <div class="sk-card-pc">
               <div style="width: 100px;">
                 <a-skeleton-line :line-height="80" :widths="[131]" :rows="1" :line-spacing="10"/>
               </div>
@@ -45,6 +45,29 @@
               </div>
               <div style="width: 100px;">
                 <a-skeleton-line :line-height="80" :widths="[131]" :rows="1" :line-spacing="10"/>
+              </div>
+            </div>
+
+            <div class="sk-card-m">
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
+              </div>
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
+              </div>
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
+              </div>
+            </div>
+            <div class="sk-card-m">
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
+              </div>
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
+              </div>
+              <div style="width: 100px;">
+                <a-skeleton-line :line-height="80" :widths="[90]" :rows="1" :line-spacing="10"/>
               </div>
             </div>
           </a-skeleton>
@@ -85,108 +108,6 @@
           {{ $t("exposure.payName") }}
         </a-button>
       </a-col>
-      <!--      <a-col :span="12" class="right-box">-->
-      <!--        <a-button class="apply-pay-btn">{{ $t("exposure.pay") }}</a-button>-->
-      <!--        <a-divider orientation="center">-->
-      <!--          <span class="grey fs12">{{ $t("exposure.orPayWay") }}</span>-->
-      <!--        </a-divider>-->
-      <!--        <a-form ref="formRef" :model="formData" :rules="rules" layout="vertical" size="small">-->
-      <!--          <a-form-item-->
-      <!--            hide-asterisk-->
-      <!--            field="title"-->
-      <!--            :label="$t('profile.email')"-->
-      <!--            :validate-trigger="['change', 'input']"-->
-      <!--          >-->
-      <!--            <a-input-->
-      <!--              class="input-warp"-->
-      <!--              v-model="formData.title"-->
-      <!--              :placeholder="$t('profile.email')"-->
-      <!--            ></a-input>-->
-      <!--          </a-form-item>-->
-      <!--          <a-form-item-->
-      <!--            hide-asterisk-->
-      <!--            field="address"-->
-      <!--            :label="$t('exposure.payType')"-->
-      <!--            :validate-trigger="['change', 'input']"-->
-      <!--          >-->
-      <!--            <a-radio-group v-model="formData.payway">-->
-      <!--              <a-radio :value="1">-->
-      <!--                <template #radio="{ checked }">-->
-      <!--                  <div class="payway-item" :checked="checked">-->
-      <!--                    <icon-wechatpay />-->
-      <!--                    <div>{{ $t("exposure.wechat") }}</div>-->
-      <!--                  </div>-->
-      <!--                </template>-->
-      <!--              </a-radio>-->
-      <!--              <a-radio :value="2">-->
-      <!--                <template #radio="{ checked }">-->
-      <!--                  <div class="payway-item" :checked="checked">-->
-      <!--                    <icon-wechat />-->
-      <!--                    <div>{{ $t("exposure.backCard") }}</div>-->
-      <!--                  </div>-->
-      <!--                </template>-->
-      <!--              </a-radio>-->
-      <!--              <a-radio :value="3">-->
-      <!--                <template #radio="{ checked }">-->
-      <!--                  <div class="payway-item" :checked="checked">-->
-      <!--                    <icon-alipay-circle />-->
-      <!--                    <div>{{ $t("exposure.alipay") }}</div>-->
-      <!--                  </div>-->
-      <!--                </template>-->
-      <!--              </a-radio>-->
-      <!--            </a-radio-group>-->
-      <!--          </a-form-item>-->
-      <!--          <a-form-item-->
-      <!--            hide-asterisk-->
-      <!--            field="contact"-->
-      <!--            maxlength="100"-->
-      <!--            :label="$t('exposure.bankCardInfo')"-->
-      <!--            :validate-trigger="['change', 'input']"-->
-      <!--            :content-flex="false"-->
-      <!--            class="backcard-box"-->
-      <!--          >-->
-      <!--            <div>-->
-      <!--              <a-input-->
-      <!--                v-model="formData.contact"-->
-      <!--                allow-clear-->
-      <!--                maxlength="100"-->
-      <!--                class="input-warp"-->
-      <!--              ></a-input>-->
-      <!--            </div>-->
-
-      <!--            <a-input-group>-->
-      <!--              <a-input-->
-      <!--                class="input-warp1"-->
-      <!--                :style="{ width: '50%' }"-->
-      <!--                :placeholder="$t('exposure.yearOrMonth')"-->
-      <!--              />-->
-      <!--              <a-input class="input-warp1" :style="{ width: '50%' }" placeholder="second" />-->
-      <!--            </a-input-group>-->
-      <!--          </a-form-item>-->
-      <!--          <a-form-item-->
-      <!--            hide-asterisk-->
-      <!--            field="title"-->
-      <!--            :label="$t('exposure.cardUserName')"-->
-      <!--            :validate-trigger="['change', 'input']"-->
-      <!--          >-->
-      <!--            <a-input class="input-warp" v-model="formData.cardUserName"></a-input>-->
-      <!--          </a-form-item>-->
-      <!--          <a-form-item-->
-      <!--            hide-asterisk-->
-      <!--            field="title"-->
-      <!--            :label="$t('exposure.countriesRegions')"-->
-      <!--            :validate-trigger="['change', 'input']"-->
-      <!--          >-->
-      <!--            <a-select class="input-warp">-->
-      <!--              <a-option>Beijing</a-option>-->
-      <!--              <a-option>Shanghai</a-option>-->
-      <!--            </a-select>-->
-      <!--          </a-form-item>-->
-      <!--        </a-form>-->
-      <!--        <a-button :loading="saveLoading" class="confirm black-btn" @click="handleSubmit">-->
-      <!--          {{ $t("exposure.payName") }}-->
-      <!--        </a-button>-->
-      <!--      </a-col>-->
     </a-row>
   </a-modal>
 </template>
@@ -195,6 +116,7 @@
 import {useI18n} from "vue-i18n";
 import {getExposureMeal, buyExposure} from "~/api/pay";
 import {Message} from "@arco-design/web-vue";
+
 const {t} = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
@@ -320,7 +242,7 @@ const handleSubmit = () => {
       Message.error(res.message)
     }
 
-  }).catch(()=>{
+  }).catch(() => {
     saveLoading.value = false
   })
   console.log(formData)
@@ -341,14 +263,20 @@ defineExpose({
 
   .right-close {
     position: absolute;
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 36px;
+    line-height: 36px;
     text-align: center;
-    line-height: 35px;
     color: #4e5969;
-    right: 0;
-    top: 0;
+    top: 20px;
+    right: 27px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    .arco-icon-close {
+      font-size: 20px;
+    }
   }
 
   .arco-modal-header {
@@ -399,6 +327,7 @@ defineExpose({
         display: flex;
         flex-wrap: wrap;
         width: 100%;
+
         .select-item {
           width: calc((100% - 40px) / 3);
           //width: 45%;
@@ -417,19 +346,19 @@ defineExpose({
             border-color: $main-grey;
           }
 
-          &:nth-child(3n) {
-            margin-left: 0;
-          }
-
           .price {
             color: #ed0e76;
             font-size: 14px;
             margin-top: 2px;
           }
         }
-        .select-item:nth-child(3n){
-          margin-right: 0;
+
+        @media screen and(min-width: 1001px) {
+          .select-item:nth-child(3n) {
+            margin-right: 0;
+          }
         }
+
       }
     }
 
@@ -437,70 +366,6 @@ defineExpose({
       width: 100%;
       height: 38px;
       margin-top: 24px;
-    }
-  }
-
-  .right-box {
-    border-left: 5px solid #eee;
-    padding: 30px 40px;
-
-    .apply-pay-btn {
-      width: 100%;
-      height: 40px;
-      background-color: #000;
-      color: #fff;
-      font-size: 16px;
-    }
-
-    .arco-form-item-label-col {
-      line-height: 20px;
-      margin-bottom: 2px;
-      color: $grey-font-label;
-    }
-
-    .arco-radio-group .arco-radio {
-      margin-right: 2px;
-    }
-
-    .payway-item {
-      width: 80px;
-      border-radius: 5px;
-      border: 1px solid #e5e5e5;
-      padding: 5px 8px;
-      line-height: 14px;
-      font-size: 12px;
-
-      .arco-icon {
-        font-size: 15px;
-        margin-bottom: 2px;
-      }
-
-      .arco-icon-wechatpay {
-        color: rgb(48, 188, 48);
-      }
-    }
-
-    .arco-radio-checked {
-      .payway-item {
-        border-color: $main-grey;
-      }
-    }
-
-    .backcard-box {
-      .input-warp {
-        background-color: #fff;
-        border: 1px solid #eee;
-      }
-
-      .input-warp1 {
-        background-color: #fff;
-        border: 1px solid #eee;
-      }
-    }
-
-    .black-btn {
-      width: 100%;
-      height: 38px;
     }
   }
 
@@ -528,6 +393,16 @@ defineExpose({
     animation: shiny .5s infinite;
   }
 
+  .sk-card-pc {
+    display: flex;
+    width: 433px;
+    justify-content: space-between;
+    margin-top: 15px
+  }
+  .sk-card-m{
+    display: none;
+  }
+
   @keyframes shiny {
     0% {
       color: rgb(var(--danger-6));
@@ -543,6 +418,51 @@ defineExpose({
     }
     100% {
       color: rgb(var(--danger-6));
+    }
+  }
+}
+</style>
+<style lang="scss">
+@import "assets/sass/var";
+
+@media screen and(max-width: 1000px) {
+  .exposure-dialog {
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+
+    .left-box {
+      .price-select {
+        //margin-left: 30px;
+        .select-content {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+
+          .select-item {
+            width: calc((100% - 20px) / 2);
+          }
+
+          .select-item:nth-child(2n) {
+            margin-right: 0;
+          }
+
+        }
+      }
+    }
+    .sk-card-pc{
+      display: none;
+    }
+    .sk-card-m{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      width: calc(100vw - 54px);
     }
   }
 }

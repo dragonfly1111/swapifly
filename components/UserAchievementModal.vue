@@ -1,4 +1,3 @@
-<!---->
 <template>
   <a-modal
     v-model:visible="visible"
