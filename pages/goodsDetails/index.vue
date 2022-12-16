@@ -2,7 +2,7 @@
   <div class="common-row global-content">
     <AD v-if="resize.screenType !== 'MOBILE'" height="160px" :advert="googleAd.content"></AD>
 
-    <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
+    <a-skeleton :animation="true" v-if="pageLoading" :loading="pageLoading" class="skeleton">
       <div style="width: 100%">
         <a-skeleton-line :line-height="200" :line-spacing="10" />
       </div>
@@ -29,7 +29,7 @@
           <template #separator>
             <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
           </template>
-          <a-breadcrumb-item v-for="item in productInfo.rid">{{ item.title }}</a-breadcrumb-item>
+          <a-breadcrumb-item v-for="(item,index) in productInfo.rid"  @click="toTypePage(item,index)">{{ item.title }}</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="section-content">
           <div class="goods-swiper">
@@ -112,7 +112,7 @@
           </div>
           <div class="page-body-content">
             <a-breadcrumb class="mobile-breadcrumb">
-              <a-breadcrumb-item v-for="item in productInfo.rid">{{
+              <a-breadcrumb-item v-for="(item,index) in productInfo.rid" @click="toTypePage(item,index)">{{
                 item.title
               }}</a-breadcrumb-item>
             </a-breadcrumb>
@@ -423,7 +423,7 @@ const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
 const resize = useResize();
-const userInfo = useUserInfo();
+const userInfo = useUserInfo()
 // 回复频率
 const getRStateLabel = () => {
   let rStateOptions = {
@@ -516,6 +516,16 @@ const getAD = () => {
     googleAd.value = res.data;
   });
 };
+// 跳转分类
+const toTypePage = (e,index) =>{
+  // router.push({
+  //   path: '/goodsList',
+  //   query: {
+  //     id: e.id,
+  //     level: index +1
+  //   }
+  // })
+}
 // 相似商品
 const querySimilarlist = () => {
   var reqParams = {
@@ -572,7 +582,6 @@ const handleOfferchat = () => {
 
 // 举报
 const handleReport = () => {
-  console.log(userInfo)
   if (!userInfo.checkLogin()) return;
   reportModal.value.openDialog(productInfo.value);
 };
@@ -761,11 +770,11 @@ onMounted(async () => {
 
   :deep(.arco-breadcrumb-item) {
     color: $grey-font-label;
-    //cursor: pointer;
-    //
-    //&:hover {
+    // cursor: pointer;
+
+    // &:hover {
     //  color: $main-grey;
-    //}
+    // }
   }
 
   .section-content {
@@ -1135,6 +1144,10 @@ onMounted(async () => {
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
+
+  .skeleton{
+    padding: 0 20px;
+  }
   .pc-breadcrumb {
     display: none;
   }
@@ -1174,7 +1187,7 @@ onMounted(async () => {
     }
   }
   .page-body-content {
-    margin: 15px;
+    margin: 20px 15px;
   }
 
   .mobile-footer-goods {
