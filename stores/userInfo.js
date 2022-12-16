@@ -96,16 +96,11 @@ export const useUserInfo = defineStore('userInfo', {
       const resize = useResize();
       const router = useRouter()
       if(!this.token){
-        if (resize.screenType !== 'MOBILE'){
           this.openDialog();
           this.openLogin = true;
-      }else{
-        router.push({
-          path: '/login'
-        })
-      }
          return false
       }
+      return true
 
     }
   }

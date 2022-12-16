@@ -134,6 +134,7 @@ const getInfo = () => {
 
 // 关注取消用户
 const handleFollow = () => {
+  if(!userInfo.checkLogin()) return
   let state = form.value.isfollow == 1 ? 2 : 1;
   btnLoading.value = true;
   followUser({
@@ -155,6 +156,7 @@ const handleFollow = () => {
 
 // 举报用户
 const handleReport = () => {
+  if(!userInfo.checkLogin()) return
   reportModal.value.openDialog(form.value, "user");
 };
 // 注册商户
@@ -163,6 +165,7 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
+  if(!userInfo.checkLogin()) return
   activeTab.value = "followRow";
   followRow.value.resetQuery(e);
 };
@@ -278,7 +281,11 @@ onMounted(() => {
 
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .user-detail-content{
-    padding: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .user-banner{
+    height: 105px;
   }
   .user-detail-content {
     margin-top: 10px !important;
@@ -293,7 +300,7 @@ onMounted(() => {
   .extra-btn {
     position: absolute;
     right: 10px;
-    top: 153px;
+    top: 195px;
     z-index: 888;
   }
   .foot-link{
