@@ -10,7 +10,7 @@
     :footer="false"
   >
     <a-skeleton :loading="pageLoading" animation>
-      <a-row :gutter="20">
+      <a-row :gutter="20" class="my-row">
         <a-col :span="12">
           <a-skeleton-shape class="mb10" />
           <a-skeleton-line :rows="3" :line-height="20" />
@@ -22,11 +22,11 @@
       </a-row>
     </a-skeleton>
 
-    <a-row v-if="productInfo.product && !pageLoading">
+    <a-row v-if="productInfo.product && !pageLoading" class="my-row">
       <a-col :span="12" class="left-box">
         <div class="goods-box">
           <a-image
-            :src="`https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp`"
+            :src="baseImgPrefix + productInfo.product.image"
             show-loader
           ></a-image>
           <div class="goods-desc">
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="refund-btn">
+        <div class="refund-btn-pc">
           <a-button class="black-btn" @click="comfirmVisible = true">{{
             $t("achievementModal.exposureRefund")
           }}</a-button>
@@ -92,7 +92,11 @@
         </a-tabs>
       </a-col>
     </a-row>
-
+    <div class="refund-btn-m">
+      <a-button class="black-btn" @click="comfirmVisible = true">{{
+          $t("achievementModal.exposureRefund")
+        }}</a-button>
+    </div>
     <a-modal
       v-model:visible="comfirmVisible"
       title=""
@@ -127,6 +131,8 @@ const pageLoading = ref(true);
 const activeTab = ref("1");
 const form = ref({});
 const productInfo = ref({});
+const appConfig = useAppConfig();
+const baseImgPrefix = appConfig.baseImgPrefix;
 const openDialog = (info) => {
   visible.value = true;
   form.value = info;
@@ -279,6 +285,9 @@ defineExpose({
 @import "assets/sass/var.scss";
 .achievement-dialog {
   width: 750px;
+  .mb10{
+    margin-bottom: 10px;
+  }
   .arco-modal-title {
     font-size: 20px;
     font-weight: 700;
@@ -328,12 +337,6 @@ defineExpose({
         margin: 5px 0;
       }
     }
-    .refund-btn {
-      margin-top: 100px;
-      .black-btn {
-        height: 36px;
-      }
-    }
   }
   .right-box {
     .arco-tabs-nav-tab-list {
@@ -353,6 +356,15 @@ defineExpose({
       text-align: center;
       margin: 10px auto 20px;
     }
+  }
+  .refund-btn-pc {
+    margin-top: 100px;
+    .black-btn {
+      height: 36px;
+    }
+  }
+  .refund-btn-m{
+    display: none;
   }
 }
 
@@ -380,6 +392,41 @@ defineExpose({
     width: 70%;
     height: 40px;
     margin-top: 30px;
+  }
+}
+</style>
+<style lang="scss" >
+@media screen and(max-width:1000px) {
+  .achievement-dialog {
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    .right-box {
+      .tab-title {
+        margin: 24px auto 12px;
+      }
+    }
+    .my-row{
+      display: block;
+      .arco-col-12{
+        width: 100%;
+      }
+    }
+    .refund-btn-pc {
+      display: none;
+    }
+    .refund-btn-m{
+      display: block;
+      margin-top: 24px;
+      .black-btn{
+        width: 100%;
+      }
+    }
   }
 }
 </style>

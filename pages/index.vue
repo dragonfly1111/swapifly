@@ -1,7 +1,7 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
         <template v-if="bannerLoading">
           <a-carousel-item>
             <a-skeleton :animation="true">
