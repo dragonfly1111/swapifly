@@ -4,15 +4,16 @@
       <a-tree-select
           :data="classListAsync"
           v-model="form.rid"
-          :load-more="loadMore"
           :class="form.rid ? 'has-val-item' : ''"
           :fieldNames="{
             key: 'id',
             title: 'title',
             children: 'children',
           }"
+          :tree-props="{
+            'default-expanded-keys': []
+          }"
           :placeholder="$t('pages.classification')"
-          @change="updateSearch"
       ></a-tree-select>
     </a-form-item>
     <a-form-item field="sort">
@@ -110,22 +111,12 @@ import {findNode} from "~/utils/common";
 
 const sysData = useSysData();
 const sourceClassList = ref([]);
+const expandedKeys = ref([]);
 const resetParam = ref({});
-let classList;
 const classListAsync = ref([])
 watch(sysData, (val) => {
   if(val.goodsClass.length){
     sourceClassList.value = val.goodsClass
-    classList = sysData.goodsClass.map(item => {
-      return {
-        id: item.id,
-        title: item.title,
-        children: []
-      }
-    })
-    // classListAsync.value = classList
-    console.log('sourceClassList')
-    console.log(sourceClassList.value)
     if(resetParam.value.needReset){
       generateTree()
     }
@@ -220,21 +211,6 @@ const updateSearch = () => {
   emits("change", setForm);
 };
 
-// 智障arco没有提供默认折叠全部节点功能 并且点击打开面板时非常卡，所以做成"动态"加载数据的样子
-const loadMore = (nodeData) => {
-  const {title, key} = nodeData;
-  // 从sourceClassList中找到id相同的节点 把他的children赋值过来
-  console.log(nodeData)
-  const tmpNode = findNode(sourceClassList.value, (node) => {
-    return node.id === nodeData.id
-  })
-  console.log(tmpNode)
-  return new Promise((resolve) => {
-    nodeData.children = tmpNode ? tmpNode.children : [];
-    resolve();
-  });
-};
-
 const resetTree = (id, level, generate = false) => {
   resetParam.value = {
     needReset: true,
@@ -260,13 +236,7 @@ const generateTree = () =>{
     console.log('tmpNode')
     console.log(tmpNode.children)
     if (tmpNode && tmpNode.children.length > 0) {
-      // 移除子节点
-      classListAsync.value = JSON.parse(JSON.stringify(tmpNode.children))
-      classListAsync.value.forEach(item => {
-        console.log(item)
-        item.children = []
-      })
-      console.log(classListAsync.value)
+      classListAsync.value = tmpNode.children
     }
   } else {
     // 如果是三级分类 不出现分类下拉
