@@ -169,6 +169,9 @@
                 children: 'children',
               }"
               :placeholder="$t('sale.chooseType')"
+              :tree-props="{
+            'default-expand-all': false
+          }"
               selectable="leaf"
               class="input-wrp"
               @change="changeClass"
@@ -830,15 +833,15 @@ onMounted(() => {
 }
 
 .edit-box {
-  //margin: 20px 10%;
+  margin: 20px 10%;
   display: flex;
   justify-content: space-between;
 
   &.border-box {
     .left,
     .right {
-      //border: 1px solid #e5e5e5;
-      //padding: 20px 24px;
+      border: 1px solid #e5e5e5;
+      padding: 20px 24px;
       box-sizing: border-box;
       height: fit-content;
     }
@@ -932,7 +935,7 @@ onMounted(() => {
   }
 
   .right {
-    //width: 52%;
+    width: 52%;
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -1160,6 +1163,11 @@ onMounted(() => {
   .edit-box {
     margin: 20px;
     display: block;
+    &.border-box .right , &.border-box .left{
+      width: 100%;
+      border: 0;
+      padding: 0 10px;
+    }
     .right {
       .upload-area {
         height: 160px;
