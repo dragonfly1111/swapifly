@@ -108,7 +108,17 @@ defineExpose({
 <style lang="scss">
 @media screen and (max-width: 1000px) {
   .report-dialog{
-    width: 80%;
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    .arco-modal-footer{
+      border-top: unset;
+    }
   }
 }
 </style>

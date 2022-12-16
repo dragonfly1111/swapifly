@@ -710,7 +710,7 @@ const openOffer = () => {
 // 移动端取消出价
 const handleOfferClose = () => {
   openEditOffer.value = false;
-  price.value = 0;
+  price.value = null;
 };
 
 const initSwiper = () => {
@@ -771,7 +771,7 @@ onMounted(async () => {
   :deep(.arco-breadcrumb-item) {
     color: $grey-font-label;
     // cursor: pointer;
-    
+
     // &:hover {
     //  color: $main-grey;
     // }
