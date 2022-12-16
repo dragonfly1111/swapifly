@@ -423,10 +423,7 @@ const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
 const resize = useResize();
-const userInfo = computed(() => {
-  // 传递函数
-  return useUserInfo();
-});
+const userInfo = useUserInfo();
 // 回复频率
 const getRStateLabel = () => {
   let rStateOptions = {
@@ -575,6 +572,7 @@ const handleOfferchat = () => {
 
 // 举报
 const handleReport = () => {
+  console.log(userInfo)
   if (!userInfo.checkLogin()) return;
   reportModal.value.openDialog(productInfo.value);
 };
@@ -703,7 +701,7 @@ const openOffer = () => {
 // 移动端取消出价
 const handleOfferClose = () => {
   openEditOffer.value = false;
-  price.value = 0;
+  price.value = null;
 };
 
 const initSwiper = () => {
