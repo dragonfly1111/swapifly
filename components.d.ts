@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    IconFaceFrownFill: typeof import('~icons/fa/ce-frown-fill')['default']
+    IconFaceSmileFill: typeof import('~icons/fa/ce-smile-fill')['default']
     IconRight: typeof import('~icons/ri/ght')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

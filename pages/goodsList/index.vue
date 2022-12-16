@@ -41,7 +41,12 @@
           </div>
           <div id="brandsContent" class="brands-content">
             <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item brands-item-hover">
-              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)" alt="" show-loader>
+              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -76,7 +81,12 @@
           </div>
           <div id="brandsContent1" class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)" alt="" show-loader>
+              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -102,8 +112,8 @@
           </a-breadcrumb>
         </a-space>
         <div class="select-wrapper">
-          <MobileGoodsFilterSelect v-if="resize.screenType === 'MOBILE'" @change="handleQuery"></MobileGoodsFilterSelect>
-          <GoodsFilterSelect v-else @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
+          <MobileGoodsFilterSelect class="mobile-select" @change="handleQuery"></MobileGoodsFilterSelect>
+          <GoodsFilterSelect class="pc-class" @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content">
@@ -500,6 +510,60 @@ onMounted(()=>{
   .arco-breadcrumb-item {
     color: $grey-font-label !important;
     font-weight: 400;
+  }
+}
+
+.mobile-select{
+  display: none;
+}
+.pc-class{
+  display: flex;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
+@media screen and (max-width: 1000px) {
+  .mobile-select{
+    display: block;
+  }
+  .pc-class{
+    display: none;
+  }
+  .banner-wrapper {
+    margin-top: 0;
+    .arco-carousel {
+      height: 150px;
+      border-radius: 5px;
+      overflow: hidden;
+      .carousel-img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .section-wrapper{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    .section-header{
+      font-size: 20px;
+      margin: 12px 0;
+    }
+    .brands-content {
+      .brands-item {
+        width: 80px;
+        margin-right: 15px;
+      }
+    }
+    .list-header{
+      margin-top: 0;
+      .select-wrapper{
+        margin-top: 12px;
+      }
+    }
+  }
+  .goods-wrapper{
+    margin-top: 0;
   }
 }
 </style>

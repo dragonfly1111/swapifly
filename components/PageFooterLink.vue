@@ -33,7 +33,7 @@
           </template>
         </div>
       </div>
-      <div v-if="resize.screenType !== 'MOBILE'">
+      <div class="footer-pc-coll">
         <section class="footer-link-box" v-for="firstType in sysData.goodsClass">
           <div class="content-title bold" @click="toGoodsList(firstType)">{{ firstType.title }}</div>
           <div class="content">
@@ -43,17 +43,29 @@
           </div>
         </section>
       </div>
-      <div class="footer-mobile-coll" v-if="resize.screenType === 'MOBILE'">
+      <div class="footer-mobile-coll">
         <a-collapse
-            :show-expand-icon="false"
+            :show-expand-icon="true"
+            expand-icon-position="right"
             :bordered="false"
+            :accordion="true"
+            :active-key="activeCol"
         >
           <a-collapse-item
               v-for="(firstType,index) in sysData.goodsClass"
-              :header="firstType.title"
+              :disabled="true"
               :key="index">
-            <template #extra>
-              <icon-down/>
+            <template #header>
+              <div class="title" @click="toGoodsList(firstType)">
+                {{ firstType.title }}
+              </div>
+            </template>
+            <template #expand-icon="{ active }">
+              <div style="width: 50px; text-align: right" @click="changeCol(index)">
+                <icon-down v-if="active"/>
+                <icon-left style="transform: rotate(180deg)" v-else/>
+              </div>
+
             </template>
             <div class="content">
               <div class="recommendation-item" v-for="secType in firstType.children">
@@ -78,6 +90,7 @@ const resize = useResize();
 const sysData = useSysData()
 const hotSearchLoading = ref(true)
 const hotSearchList = ref([])
+const activeCol = ref([])
 const props = defineProps({
   // hotSearchList: {
   //   type: Array,
@@ -126,6 +139,18 @@ const getHotSearchList = () => {
   })
 }
 
+const changeCol = (e) =>{
+  const index = activeCol.value.findIndex((item)=>{
+    return item === e
+  })
+  console.log(index)
+  if(index === -1){
+    activeCol.value.push(e)
+  } else {
+    activeCol.value.splice(index, 1)
+  }
+}
+
 onMounted(() => {
   getHotSearchList()
 
@@ -139,17 +164,12 @@ onMounted(() => {
   border-top: 1px solid rgba(229, 229, 229, 1);
 }
 
-.footer-mobile-coll {
-  .content {
-    display: flex;
-    flex-wrap: wrap;
+.footer-pc-coll{
+  display: block;
+}
 
-    .arco-link {
-      padding: 0;
-      color: rgba(56, 56, 56, 1);
-      margin-right: 20px;
-    }
-  }
+.footer-mobile-coll{
+  display: none;
 }
 
 .content-title {
@@ -208,8 +228,27 @@ onMounted(() => {
       margin-bottom: 16px;
     }
   }
+  .footer-mobile-coll {
+    display: block;
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 12px;
+      .arco-link {
+        padding: 0;
+        color: rgba(56, 56, 56, 1);
+        margin-right: 20px;
+      }
+    }
+  }
+  .footer-pc-coll{
+    display: none;
+  }
   :deep(.arco-divider-vertical){
     margin: 0 6px;
+  }
+  :deep(.arco-collapse-item-header-disabled){
+    color: unset;
   }
 }
 </style>
