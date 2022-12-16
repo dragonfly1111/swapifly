@@ -54,7 +54,6 @@
                         item.new_text ? (item.new_text.c_type === 0 ? item.new_text.content : $t('dialogue.imgMsg')) : '-'
                       }}
                     </div>
-                    <!--{{ item.x_type }}-->
                     <div class="new-msg" v-if="item.x_type === 1">{{ $t('dialogue.newMsg') }}</div>
                     <div class="tip">{{
                         item.f_type === 1 ? $t('dialogue.yourPrice') : $t('dialogue.hisPrice')
@@ -554,14 +553,14 @@ const fetchDetailData = (callback, toBottom = true) => {
     mainContentLoading.value = false
     if (res.code === 0) {
       lastPage.value = res.data.last_page
-      console.log('-----')
-      console.log(id, curConversationMeta.value.id)
       // 在轮询的过程中 可能中途被切换了对话详情 如果切换了 放弃上一次轮询的结果 id相同 说明没有切换
       if (id === curConversationMeta.value.id) {
-        console.log('toBottom', toBottom)
         // 暂时不做分页
         // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
         conversationDetail.value = res.data.reverse()
+        nextTick(()=>{
+          mainContentEle = document.getElementsByClassName('conversation-content')[0]
+        })
       }
 
     } else {
@@ -951,15 +950,13 @@ getAd()
 onMounted(() => {
   dialogueOperationType.value = sysData.dialogueOperationType;
   // 监听对话主体部分数据长度变化 发生变化滚到底部
-  mainContentEle = document.getElementsByClassName('conversation-content')[0]
   watch(() => conversationDetail.value.length, (newValue, oldValue) => {
         if (newValue !== oldValue) {
           nextTick(() => {
             scrollToBottom()
           })
         }
-      }, {immediate: true, deep: true}
-  );
+      }, {immediate: true, deep: true});
   fetchListData()
   pageLoopTask()
 });
