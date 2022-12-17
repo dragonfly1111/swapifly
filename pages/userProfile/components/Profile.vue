@@ -320,10 +320,7 @@ onMounted(() => {
   padding: 10px 30px 40px;
   border-radius: 10px;
   width: 665px;
-<<<<<<< HEAD
-=======
   min-height: 500px;
->>>>>>> 2ce3c5425a9290d5b48699633886b7139f7a5241
   .header{
     display: block;
   }

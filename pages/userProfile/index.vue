@@ -65,12 +65,7 @@ const handleTabChange = (e) => {
   margin-left: 170px;
 }
 .right-content {
-<<<<<<< HEAD
   margin-left: 5vw;
-=======
-  margin-left: 150px;
-  min-height: 500px;
->>>>>>> 2ce3c5425a9290d5b48699633886b7139f7a5241
 }
 </style>
 <style lang="scss" scoped>
