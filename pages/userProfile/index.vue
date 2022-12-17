@@ -55,7 +55,7 @@ const handleTabChange = (e) => {
   margin-left: 170px;
 }
 .right-content {
-  margin-left: 150px;
+  margin-left: 5vw;
 }
 </style>
 <style lang="scss" scoped>
@@ -70,5 +70,6 @@ const handleTabChange = (e) => {
     margin-left: 0;
     width: 100%;
   }
+
 }
 </style>

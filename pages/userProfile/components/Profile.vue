@@ -317,10 +317,10 @@ onMounted(() => {
 @import "assets/sass/var";
 
 .profile-box {
-  //border: 1px solid $grey-font-label;
-  //padding: 10px 30px 40px;
-  //border-radius: 10px;
-  //width: 665px;
+  border: 1px solid $grey-font-label;
+  padding: 10px 30px 40px;
+  border-radius: 10px;
+  width: 665px;
   .header{
     display: block;
   }
@@ -424,6 +424,9 @@ onMounted(() => {
 
 @media screen and (max-width: 1000px) {
   .profile-box {
+    border: 0;
+    width: 100%;
+    padding: 0;
     .header {
       display: none;
     }

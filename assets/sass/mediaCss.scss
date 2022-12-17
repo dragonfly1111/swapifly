@@ -24,30 +24,7 @@
       width: 500px;
     }
   }
-  .tab-content {
-    display: flex;
-    justify-content: space-between;
 
-    .left-content {
-      width: 300px;
-      flex-shrink: 0;
-      margin-right: 30px;
-    }
-
-    .right-content {
-      border: 1px solid #e5e5e5;
-      border-radius: 2px;
-      width: calc(100% - 340px);
-      flex: auto;
-      margin-top: 10px;
-    }
-  }
-  .profile-box {
-    border: 1px solid $grey-font-label;
-    padding: 10px 30px 40px;
-    border-radius: 10px;
-    width: 665px;
-  }
   .password-box {
     border: 1px solid $grey-font-label;
     padding: 10px 30px 40px;
@@ -118,23 +95,6 @@
   .mobile-a-skeleton-con {
     width: 100% !important;
   }
-  .profile-box {
-    .mobile-flex-none {
-      display: block !important;
-
-      .arco-skeleton-line {
-        .arco-skeleton-line-row {
-          width: 100% !important;
-          margin-top: 10px !important;
-        }
-      }
-    }
-
-    .arco-skeleton-shape {
-      width: 118px !important;
-      height: 118px !important;
-    }
-  }
   .media-pc-block {
     display: none;
   }
@@ -169,28 +129,7 @@
       width: 95%;
     }
   }
-  .tab-content {
-    .left-content {
-      width: 100% !important;
-    }
 
-    .right-content {
-      width: 100% !important;
-      margin-top: -10px !important;
-      border: none !important;
-    }
-  }
-
-  // .user-detail-content {
-  //   margin-top: 10px !important;
-  // }
-  // .profile-box {
-  //   width: 100%;
-
-  //   .header {
-  //     padding-top: 40px;
-  //   }
-  // }
   .password-box {
     width: 100%;
   }
