@@ -5,7 +5,6 @@
         justify="space-between"
         align="center"
         class="header-select"
-        v-if="resize.screenType !== 'MOBILE'"
       >
         <a-col flex="180px" class="title"> {{ $t("pages.businessInformation") }} </a-col>
         <a-col flex="100px">
@@ -48,13 +47,6 @@
         </div>
       </a-form>
     </div>
-    <a-button
-      v-if="resize.screenType === 'MOBILE' && !userInfo.token"
-      class="mobile-sell"
-      type="primary"
-      @click.stop="router.push('/saleEdit')"
-      >{{ $t("head.sell") }}</a-button
-    >
     <BusinessRegistration ref="businessRegistration" @change="handleQuery"></BusinessRegistration>
   </div>
 </template>
@@ -62,9 +54,7 @@
 <script setup>
 import { getBusinessInfo } from "~/api/business";
 import { useSysData } from "~/stores/sysData";
-import { useResize } from "~/stores/resize";
 import { useUserInfo } from "~/stores/userInfo";
-const resize = useResize();
 const userInfo = useUserInfo();
 const sysData = useSysData();
 const router = useRouter();
@@ -126,6 +116,7 @@ defineExpose({
 }
 .business-box {
   .box-header {
+    display: block;
     .header-select {
       padding: 20px 15px 15px 30px;
       border-bottom: 1px solid #e5e5e5;
@@ -180,6 +171,10 @@ defineExpose({
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
   .business-box {
+    .box-header {
+      display: none;
+    }
+
     .business-box-body {
       padding: 30px;
     }

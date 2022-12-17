@@ -11,10 +11,10 @@
     </div>
 
     <div class="user-details">
-      <a-tabs v-if="['PC', 'SCALE'].includes(resize.screenType)" :active-key="activeTab"
+      <a-tabs class="pc-tab" :active-key="activeTab"
         @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
         <template #extra>
-          <a-space class="extra-btn">
+          <a-space class="extra-btn" v-if="hasMounted">
             <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/userProfile')">{{
                 $t("profile.edit_profile")
             }}</a-button>
@@ -35,10 +35,7 @@
       <div class="tab-content" v-if="hasMounted">
         <div class="left-content">
           <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
-          <a-space class="extra-btn" v-if="resize.screenType === 'MOBILE'">
-<!--            <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/settingProfile')">{{-->
-<!--                $t("profile.mobile_setting")-->
-<!--            }}</a-button>-->
+          <a-space class="extra-btn extra-btn-m">
             <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
@@ -47,7 +44,7 @@
             }}</a-button>
           </a-space>
         </div>
-        <a-tabs v-if="resize.screenType === 'MOBILE'" style="margin-left: 0px" :active-key="activeTab"
+        <a-tabs class="m-tab" style="margin-left: 0px" :active-key="activeTab"
           @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
           <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
           <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
@@ -80,12 +77,10 @@ import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
 import { useUserInfo } from "~/stores/userInfo";
 import { getUserDetails, followUser } from "~/api/shop";
-import { useResize } from "~/stores/resize";
 import { Message } from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
 const userInfo = useUserInfo();
 const router = useRouter();
-const resize = useResize();
 const form = ref({ id: "", isfollow: 0 });
 const reportModal = ref(null);
 const evaluateRow = ref(null);
@@ -279,6 +274,18 @@ onMounted(() => {
  }
 }
 
+.pc-tab{
+  display: block;
+}
+.m-tab{
+  display: none;
+}
+.extra-btn-m{
+  display: none;
+}
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var";
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .user-detail-content{
     padding-left: 0;
@@ -306,6 +313,14 @@ onMounted(() => {
   .foot-link{
     padding: 0 17px;
   }
+  .pc-tab{
+    display: none;
+  }
+  .m-tab{
+    display: block;
+  }
+  .extra-btn-m{
+    display: flex;
+  }
 }
-
 </style>

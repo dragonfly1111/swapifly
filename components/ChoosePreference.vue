@@ -8,7 +8,7 @@
     </template>
     <div class="title">{{ $t('loginDialog.preferenceTip') }}</div>
 
-    <div class="card-box" v-if="resize.screenType !== 'MOBILE'">
+    <div class="card-box">
       <div class="card-item" :class="card.checked ? 'check-item' : ''" v-for="card in labelList.value" :key="card.id"
            @click="card.checked = !card.checked">
         <a-image :src="baseImgPrefix + card.background" :preview="false" show-loader>
@@ -19,7 +19,6 @@
         <div class="label-title">{{ card.title }}</div>
         <a-checkbox v-if="card.checked" class="check-box" v-model="card.checked"></a-checkbox>
       </div>
-
       <div class="skeleton-box" v-if="loading">
         <div v-for="i in 24" :key="i">
           <a-skeleton :animation="true" class="skeleton">
@@ -28,11 +27,10 @@
           </a-skeleton>
         </div>
       </div>
-
     </div>
 
     <!--移动端-->
-    <div class="mobile-card-box" v-else>
+    <div class="mobile-card-box">
       <a-row>
         <a-col class="mobile-card-item" :span="6" v-for="card in labelList.value" :key="card.id" @click="card.checked = !card.checked">
           <a-image :src="baseImgPrefix + card.background" :preview="false" show-loader>
@@ -65,8 +63,6 @@
 <script setup>
 import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
-import { useResize } from '~/stores/resize';
-const resize = useResize();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const visible = ref(false);
@@ -254,7 +250,9 @@ defineExpose({
       }
     }
   }
-
+  .mobile-card-box{
+    display: none;
+  }
   .card-item:nth-child(8n) {
     margin-right: 0;
   }
@@ -291,21 +289,6 @@ defineExpose({
     width: 100%;
     height: 100%;
     pointer-events: auto;
-    .mobile-card-box {
-      .skeleton-box {
-        .skeleton {
-          margin-right: 10px;
-          .arco-skeleton-shape-circle {
-            margin: 0 auto;
-          }
-
-          .arco-skeleton-line-row {
-            margin: 12px 0;
-          }
-        }
-      }
-    }
-
     .arco-modal-header {
     }
 
@@ -321,8 +304,21 @@ defineExpose({
       }
     }
     .mobile-card-box{
+      display: block;
       text-align: center;
       padding-bottom: 24px;
+      .skeleton-box {
+        .skeleton {
+          margin-right: 10px;
+          .arco-skeleton-shape-circle {
+            margin: 0 auto;
+          }
+
+          .arco-skeleton-line-row {
+            margin: 12px 0;
+          }
+        }
+      }
       .mobile-card-item{
         position: relative;
         margin-top: 12px;
@@ -346,6 +342,9 @@ defineExpose({
         width: 50px;
         height: 50px;
       }
+    }
+    .card-box{
+      display: none;
     }
   }
 }

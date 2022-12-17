@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { userLogOut } from '~/api/loginAndRegister'
-import { useResize } from '~/stores/resize';
 import { Message } from "@arco-design/web-vue";
 
 export const useUserInfo = defineStore('userInfo', {
@@ -93,7 +92,6 @@ export const useUserInfo = defineStore('userInfo', {
       }
     },
     checkLogin(){
-      const resize = useResize();
       const router = useRouter()
       if(!this.token){
           this.openDialog();

@@ -1,10 +1,10 @@
 <template>
   <div class="goods-box">
-    <a-row justify="space-between" align="center" class="box-header" v-if="resize.screenType !== 'MOBILE'">
-      <a-col :flex="resize.screenType !== 'MOBILE' ? '180px' : '1'" class="title">
+    <a-row justify="space-between" align="center" class="box-header">
+      <a-col flex="180px" class="title">
         {{ $t("pages.goods") }}
       </a-col>
-      <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">
+      <a-col flex="200px">
         <a-input-search
           v-model="queryParams.title"
           :style="{ width: '200px' }"
@@ -33,14 +33,12 @@
 <script setup>
 import { useUserInfo } from "~/stores/userInfo";
 import { userProduct } from "~/api/shop";
-import { useResize } from "~/stores/resize";
 const pageLoading = ref(true);
 const btnLoading = ref(false);
 const total = ref(0);
 const productList = ref([]);
 const userInfo = useUserInfo();
 const router = useRouter();
-const resize = useResize();
 const isMySelf = computed(() => {
   return userInfo.id == router.currentRoute.value.query.userId;
 });
@@ -105,6 +103,7 @@ defineExpose({
 .goods-box {
   .box-header {
     padding: 20px 30px 10px;
+    display: flex;
     .title {
       font-size: 24px;
     }
@@ -117,12 +116,16 @@ defineExpose({
     padding: 0 20px 30px;
   }
 }
-
+</style>
+<style lang="scss" scoped>
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .goods-box {
-  .goods-box-body {
-    padding: 0 10px 30px;
+    .box-header{
+      display: none;
+    }
+    .goods-box-body {
+      padding: 0 10px 30px;
+    }
   }
-}
 }
 </style>

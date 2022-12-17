@@ -10,7 +10,8 @@
             <a-breadcrumb-item>{{ articleDetail.r1 }}</a-breadcrumb-item>
             <a-breadcrumb-item>{{ articleDetail.r2 }}</a-breadcrumb-item>
           </a-breadcrumb>
-          <a-input-search v-if="resize.screenType === 'MOBILE'"  class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
+          <a-input-search class="search-input"
+                          :placeholder="$t('newsCenter.search')" v-model="searchKey"
                           @press-enter="searchHandleKey" @search="searchHandle" search-button/>
           <div class="time">{{ articleDetail.create_time }}</div>
           <div class="title">{{ articleDetail.title }}</div>
@@ -40,7 +41,8 @@
 
       </div>
       <div class="right">
-        <a-input-search v-if="resize.screenType !== 'MOBILE'"  class="search-input" :placeholder="$t('newsCenter.search')" v-model="searchKey"
+        <a-input-search class="search-input"
+                        :placeholder="$t('newsCenter.search')" v-model="searchKey"
                         @press-enter="searchHandleKey" @search="searchHandle" search-button/>
         <div class="same-title">{{ $t('helpCenter.sameTheme') }}</div>
         <template v-if="!dataLoading">
@@ -62,8 +64,6 @@ import {helpDetail} from '~/api/helpCenter'
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {watch} from "vue";
-import { useResize } from '~/stores/resize';
-const resize = useResize();
 const searchKey = ref('')
 const route = useRoute();
 const dataLoading = ref(true);
@@ -110,9 +110,11 @@ getHelpDetail()
 
   .left {
     color: $main-grey;
-    .search-input{
+
+    .search-input {
       width: 100%;
       margin-top: 15px;
+      display: none;
       :deep(.arco-btn) {
         background: $main-pink;
         width: 46px;
@@ -124,6 +126,7 @@ getHelpDetail()
         height: 15px;
       }
     }
+
     .time {
       font-size: 14px;
       margin-top: 10px;
@@ -141,6 +144,7 @@ getHelpDetail()
     .content {
       margin-top: 17px;
       max-width: 750px;
+
       :deep(*) {
         max-width: 750px;
       }
@@ -153,7 +157,7 @@ getHelpDetail()
     .search-input {
       width: 305px;
       height: 46px;
-
+      display: block;
       :deep(.arco-btn) {
         background: $main-pink;
         width: 46px;
@@ -200,16 +204,21 @@ getHelpDetail()
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+
 @media screen and (max-width: 1000px) {
-  .global-content{
+  .global-content {
     min-height: calc(100vh - 66px - 117px);
+
     .detail-content {
       padding-top: 0px;
       display: block;
 
       .left {
-        .title{
+        .title {
           font-size: 28px;
+        }
+        .search-input {
+          display: block;
         }
         .content {
           max-width: 100%;
@@ -221,12 +230,17 @@ getHelpDetail()
         width: 100%;
         margin-bottom: 24px;
         border-top: 1px solid #cccccc;
-        .same-title{
+        .search-input {
+          display: none;
+        }
+
+        .same-title {
           margin-top: 24px;
           padding-left: 0;
           font-size: 24px;
         }
-        .other-title{
+
+        .other-title {
           padding-left: 0;
         }
       }

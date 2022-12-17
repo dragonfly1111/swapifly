@@ -33,8 +33,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useResize } from '~/stores/resize'
-const resize = useResize()
 const router = useRouter()
 </script>
 <style scoped lang="scss">

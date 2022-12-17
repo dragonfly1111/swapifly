@@ -83,10 +83,7 @@
 import {useSysData} from '~/stores/sysData'
 import {getHotSearch} from '~/api/goods'
 import {Message} from "@arco-design/web-vue";
-import {useResize} from '~/stores/resize'
-
 const router = useRouter()
-const resize = useResize();
 const sysData = useSysData()
 const hotSearchLoading = ref(true)
 const hotSearchList = ref([])

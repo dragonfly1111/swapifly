@@ -1,7 +1,6 @@
 <template>
   <div class="global-content">
-    <!--    展示对话列表,当PC端或者showDiaList为true时展示-->
-    <div class="left-msg-list" v-if="resize.screenType !== 'MOBILE' || showDiaList">
+    <div class="left-msg-list">
       <div id="left-msg-list" class="msg-select">
         <template v-if="pageLoading">
           <div>
@@ -11,9 +10,7 @@
           </div>
         </template>
         <template v-else>
-          <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile" @click="router.back()"></icon-left>
-          <a-select v-model="curMsgType" @change="changeMsgType"
-                    :style="{width:resize.screenType === 'MOBILE'?'30%':'100%'}" :bordered="false">
+          <a-select v-model="curMsgType" @change="changeMsgType" :bordered="false">
             <a-option
                 v-for="item in sysData.msgType"
                 :value="item.value"
@@ -24,7 +21,7 @@
           </a-select>
         </template>
       </div>
-      <div class="msg-list" :class="resize.screenType === 'MOBILE' ? 'common-row' : ''">
+      <div class="msg-list">
         <template v-if="pageLoading">
           <div>
             <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list"
@@ -75,22 +72,19 @@
         </template>
       </div>
     </div>
-    <!--    展示对话详情，不是移动端或者showDiaList为false时展示-->
-    <div class="main-content" v-if="resize.screenType !== 'MOBILE' || !showDiaList">
+    <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
         <div class="info-wrap">
           <div class="main-content-title">
             <div class="left" @click="toUserDetail">
-              <icon-left v-if="resize.screenType === 'MOBILE'" class="back-icon-mobile"
-                         @click="showDiaListFn"></icon-left>
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 160px">
                   <a-skeleton-line :line-height="50" :rows="1"/>
                 </a-skeleton>
               </template>
               <template v-else>
-                <a-image v-if="resize.screenType !== 'MOBILE'" width="50" height="50" show-loader fit="cover"
+                <a-image width="50" height="50" show-loader fit="cover"
                          :src="baseImgPrefix + curConversationMeta.avatar"
                          :preview="false"
                          alt="">
@@ -131,115 +125,6 @@
             </div>
             <!--"f_type": 1.当前用户为购买方，显示你出价，編輯出價，取消出價，2.为出售方，显示对方出价，接受出价，驳回 按钮-->
             <!--"status": 0.沟通中，1.已出价，买方，显示你出價：HK$788，编辑出价，卖方显示：接受出价，驳回出价，2.已接受出价，卖方显示评价，显示评价/查看评价，3.驳回出价-->
-            <div class="right" v-if="resize.screenType !== 'MOBILE'">
-              <template v-if="pageLoading">
-                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
-                  <a-skeleton-line :line-height="50" :rows="1"/>
-                </a-skeleton>
-              </template>
-              <template v-else>
-                <!--购买方按钮-->
-                <template v-if="curConversationMeta.f_type === 1">
-                  <!--还未出价 展示出价按钮-->
-                  <template v-if="curConversationMeta.status === 0">
-                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                        $t('dialogue.offer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--已经出价 展示修改价格按钮-->
-                  <template v-else-if="curConversationMeta.status === 1">
-                    <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
-                    <span v-if="!openEditOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                    <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
-                        openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading"
-                              @click="cancelOffer">
-                      {{ $t('dialogue.operationCancelOffer') }}
-                    </a-button>
-                  </template>
-                  <!--已接受出价 展示出价信息 评价按钮-->
-                  <template v-else-if="curConversationMeta.status === 2">
-                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
-                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
-                        $t('dialogue.evaluateBut')
-                      }}
-                    </a-button>
-                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
-                        $t('dialogue.evaluateShowBut')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--已拒绝出价 展示拒绝信息和出价按钮-->
-                  <template v-else-if="curConversationMeta.status === 3">
-                    <span v-if="!openOffer">{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                    <span class="rejected" v-if="!openOffer">{{ $t('dialogue.rejected1') }}</span>
-                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                        $t('dialogue.offer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-
-                  </template>
-                </template>
-                <!--出售方按钮-->
-                <template v-if="curConversationMeta.f_type === 2">
-                  <!--对方已经出价 展示接受/拒绝按钮-->
-                  <template v-if="curConversationMeta.status === 1">
-                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
-                    <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
-                        $t('dialogue.accept')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
-                        $t('dialogue.refuse')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--我方已接受出价 展示已售出 评价按钮-->
-                  <template v-if="curConversationMeta.status === 2">
-                    <span>{{ $t('dialogue.yourPrice') }}：{{ curConversationMeta.price }}</span>
-                    <span class="accepted">{{ $t('dialogue.accepted') }}</span>
-                    <a-button v-if="curConversationMeta.p_state === 1" class="but accept" :loading="soldLoading"
-                              @click="openSoldDialog">{{
-                        $t('dialogue.markSold')
-                      }}
-                    </a-button>
-                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
-                        $t('dialogue.evaluateBut')
-                      }}
-                    </a-button>
-                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
-                        $t('dialogue.evaluateShowBut')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--已拒绝出价 -->
-                  <template v-else-if="curConversationMeta.status === 3">
-                    <span>{{ $t('dialogue.hisPrice') }}：{{ curConversationMeta.price }}</span>
-                    <span class="rejected">{{ $t('dialogue.rejected') }}</span>
-                  </template>
-                </template>
-              </template>
-            </div>
-          </div>
-          <div class="meta-wrap" v-if="resize.screenType === 'MOBILE'">
             <div class="right">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
@@ -415,7 +300,7 @@
       </a-spin>
 
     </div>
-    <div class="right-ad" v-if="resize.screenType !== 'MOBILE'">
+    <div>
       <!--            {{ JSON.stringify(curConversationMeta) }}-->
       <AD width="160px" height="600px" :advert="googleAd.content"></AD>
     </div>
@@ -436,7 +321,6 @@ import {getChatAdvert} from "~/api/ad"
 import EvaluateDialog from "./components/EvaluateDialog";
 import CheckEvaluateDialog from "./components/CheckEvaluateDialog";
 import SoldDialog from "./components/SoldDialog";
-import {useResize} from "~/stores/resize";
 import {parseTime} from "~/utils/time"
 import {useI18n} from "vue-i18n";
 import {Message} from '@arco-design/web-vue';
@@ -446,7 +330,6 @@ const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
-const resize = useResize();
 let pageTask = null
 let mainContentEle = null
 const evaluateDialog = ref(null)
@@ -487,10 +370,6 @@ const nextDetailNeedBottom = ref(false)
 const googleAd = ref({})
 
 
-const showDiaListFn = () => {
-  console.log("点击了返回");
-  showDiaList.value = true;
-}
 // 跳转到用户详情
 const toUserDetail = () => {
   router.push("/userDetails?userId=" + curConversationMeta.value.df_uid);

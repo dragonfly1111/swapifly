@@ -1,6 +1,6 @@
 <template>
   <div class="common-row global-content">
-    <AD v-if="resize.screenType !== 'MOBILE'" height="160px" :advert="googleAd.content"></AD>
+    <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
 
     <a-skeleton :animation="true" v-if="pageLoading" :loading="pageLoading" class="skeleton">
       <div style="width: 100%">
@@ -237,7 +237,7 @@
                           </div>
                         </div>
                       </a-col>
-                      <a-col flex="auto" class="comment-box" v-if="resize.screenType !== 'MOBILE'">
+                      <a-col flex="auto" class="comment-box">
                         <a-space class="comment-header">
                           <span>{{ sellerInfo.nickname }}</span>
                           <span>{{ $t("pages.reviews") }}</span>
@@ -264,7 +264,7 @@
                   </div>
                 </div>
                 <!-- 用户信息 -->
-                <div class="right-box" v-if="resize.screenType !== 'MOBILE'">
+                <div class="right-box">
                   <div class="user-card">
                     <a-comment
                       :author="sellerInfo.nickname"
@@ -766,7 +766,9 @@ onMounted(async () => {
 .mt30 {
   margin-top: 30px;
 }
-
+.head-ad{
+  display: block;
+}
 .mobile-footer-goods {
   display: none;
 }
@@ -999,6 +1001,7 @@ onMounted(async () => {
       }
 
       .comment-box {
+        display: block;
         .comment-header {
           margin-bottom: 20px;
         }
@@ -1150,6 +1153,9 @@ onMounted(async () => {
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
+  .head-ad{
+    display: none;
+  }
   .section-wrapper {
     :deep(.swiper-wrapper) {
       justify-content: start !important;
@@ -1180,6 +1186,9 @@ onMounted(async () => {
             height: 80px !important;
           }
         }
+        .comment-box {
+          display: none;
+        }
       }
       .goods-name {
         height: auto;
@@ -1195,6 +1204,10 @@ onMounted(async () => {
         width: 100%;
       }
     }
+    .right-box {
+      display: none;
+    }
+
   }
   .page-body-content {
     margin: 20px 15px;

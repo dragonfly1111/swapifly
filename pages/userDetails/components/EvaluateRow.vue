@@ -5,12 +5,11 @@
         justify="space-between"
         align="center"
         class="header-select"
-        v-if="resize.screenType !== 'MOBILE'"
       >
-        <a-col :flex="resize.screenType !== 'MOBILE' ? '100px' : '1'" class="title">
+        <a-col flex="100px" class="title">
           {{ $t("pages.evaluate") }}
         </a-col>
-        <a-col :flex="resize.screenType !== 'MOBILE' ? '200px' : '2'">
+        <a-col flex="200px">
           <a-select v-model="queryParams.s_type" @change="initData">
             <a-option
               v-for="item in sysData.evaluationSort"
@@ -54,13 +53,6 @@
         <a-button type="outline" @click="loadMore">{{ $t("pages.seeMore") }}</a-button>
       </div>
     </div>
-    <a-button
-      v-if="resize.screenType === 'MOBILE' && !userInfo.token"
-      class="mobile-sell"
-      type="primary"
-      @click.stop="router.push('/saleEdit')"
-      >{{ $t("head.sell") }}</a-button
-    >
   </div>
 </template>
 
@@ -69,8 +61,6 @@ import EvaluateList from "./EvaluateList.vue";
 import { useSysData } from "~/stores/sysData";
 import { getEvaluationList } from "~/api/shop";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from "~/stores/resize";
-const resize = useResize();
 const userInfo = useUserInfo();
 const sysData = useSysData();
 const evaluationList = ref([]); // 评论列表
@@ -139,6 +129,7 @@ defineExpose({
 
 .evaluate-box {
   .box-header {
+    display: block;
     .header-select {
       padding: 20px 30px 15px;
       border-bottom: 1px solid #e5e5e5;
@@ -205,12 +196,19 @@ defineExpose({
   }
 }
 
+</style>
+<style lang="scss" scoped>
+@import "assets/sass/var";
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .evaluate-box {
     width: 90%;
     margin: auto;
+    .box-header {
+      display: none;
+    }
     .evaluate-box-body {
       padding: 0 !important;
+      margin-top: 24px;
     }
 
     .evaluate-info {

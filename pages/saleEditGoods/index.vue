@@ -20,7 +20,7 @@
     </div>
 
     <div class="edit-box border-box" v-if="!pageLoading">
-      <div class="left" v-if="resize.screenType !== 'MOBILE'">
+      <div class="left">
         <a-spin :loading="uploadLoading" style="width: 100%">
           <div>
             <a-upload
@@ -88,7 +88,7 @@
         <!-- </div> -->
       </div>
       <div class="right">
-        <div v-if="resize.screenType === 'MOBILE'">
+        <div class="m-upload">
           <div>
             <a-upload
               draggable
@@ -111,9 +111,7 @@
               </template>
             </a-upload>
           </div>
-          <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
-          <!-- <div class="image-preview-list"> -->
-          　
+          <p class="cover-tip">{{ $t("sale.coverTip") }}</p>　
           <draggable
             v-model="fileList"
             class="image-preview-list"
@@ -136,20 +134,6 @@
               </div>
             </template>
           </draggable>
-          <!-- <div
-              class="image-item"
-              v-for="(item, index) in images"
-              :class="{ 'is-cover': index == 0 }"
-            >
-              <a-image :src="item"> </a-image>
-              <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
-              <icon-close
-                @click="handleDelImage(item)"
-                class="icon-close"
-                :title="$t('sale.delete')"
-              />
-            </div> -->
-          <!-- </div> -->
         </div>
         <a-form
           size="large"
@@ -581,14 +565,8 @@ const uploadSuccess = (e) => {
     const router = useRouter();
     const openLogin = useState < Boolean > "openLogin";
     userInfo.logout();
-    if (resize.screenType !== "MOBILE") {
-      userInfo.openDialog();
-      openLogin.value = true;
-      console.log(openLogin);
-    }
-    router.push({
-      path: "/",
-    });
+    userInfo.openDialog();
+    openLogin.value = true;
   }
   if (e.response.code == 0) {
     fileList.value.push({
@@ -853,7 +831,7 @@ onMounted(() => {
 
   .left {
     width: 45%;
-
+    display: block;
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -940,6 +918,9 @@ onMounted(() => {
 
   .right {
     width: 52%;
+    .m-upload{
+      display: none;
+    }
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -1176,7 +1157,13 @@ onMounted(() => {
       border: 0;
       padding: 0;
     }
+    .left{
+      display: none;
+    }
     .right {
+      .m-upload{
+        display: block;
+      }
       .upload-area {
         height: 160px;
         padding-top: 35px;

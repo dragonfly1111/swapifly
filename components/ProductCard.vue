@@ -133,7 +133,6 @@ import { Modal, Button, Message } from "@arco-design/web-vue";
 import { deleteProduct, upanddownProduct, collectionProduct, getProductFj } from "~/api/goods";
 import { setSoldOut } from "~/api/dialogue";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from "~/stores/resize";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const userInfo = useUserInfo();
@@ -195,7 +194,6 @@ const getStateLabel = (item) => {
   };
   return stateOptions[item.state] || "";
 };
-const resize = useResize();
 // 举报
 const handleReport = (item) => {
   userInfo.checkLogin();

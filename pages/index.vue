@@ -42,12 +42,12 @@
           </div>
           <div class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -85,7 +85,6 @@
 <script setup>
 import {getHotBrad, getProductList} from '~/api/goods'
 import {getHomeAdvert} from '~/api/ad'
-import {useResize} from '~/stores/resize'
 import {useUserInfo} from "~/stores/userInfo";
 import {Message} from "@arco-design/web-vue";
 import {watch} from "vue";
@@ -113,9 +112,7 @@ const bradNextShow = ref(true)
 const curBradPage = ref(0)
 const page = ref(1)
 const lastPage = ref(999)
-const resize = useResize();
-let isMobile = resize.screenType === 'MOBILE'
-let isMobileRef = ref(isMobile)
+
 const userInfo = useUserInfo()
 const openLink = (e) => {
   console.log(e)
@@ -398,6 +395,12 @@ onMounted(() => {
     height: 38px;
   }
 }
+.pc-img{
+  display: block;
+}
+.m-image{
+  display: none;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -424,6 +427,11 @@ onMounted(() => {
       }
     }
   }
-
+  .pc-img{
+    display: none;
+  }
+  .m-image{
+    display: block;
+  }
 }
 </style>

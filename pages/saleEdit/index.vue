@@ -135,14 +135,8 @@ const uploadSuccess = (e) => {
     const router = useRouter();
     const openLogin = useState < Boolean > "openLogin";
     userInfo.logout();
-    if (resize.screenType !== "MOBILE") {
-      userInfo.openDialog();
-      openLogin.value = true;
-      console.log(openLogin);
-    }
-    router.push({
-      path: "/",
-    });
+    userInfo.openDialog();
+    openLogin.value = true;
   }
   if (e.response.code == 0) {
     realFileList.value.push(e.response.data);

@@ -41,12 +41,12 @@
           </div>
           <div id="brandsContent" class="brands-content">
             <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item brands-item-hover">
-              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -81,12 +81,12 @@
           </div>
           <div id="brandsContent1" class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image v-if="resize.screenType === 'PC'" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <a-image v-else :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
                 <template #loader>
                   <div class="loader-animate"/>
                 </template>
@@ -135,14 +135,12 @@
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Message } from '@arco-design/web-vue';
-import { useResize } from '~/stores/resize'
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
 const butLoading = ref(false)
-const resize = useResize();
 const bannerList = ref([])
 const productList = ref([])
 const hotBradList = ref([])
@@ -444,6 +442,12 @@ onMounted(()=>{
 
       }
     }
+    .pc-img{
+      display: block;
+    }
+    .m-image{
+      display: none;
+    }
   }
   .section-content {
     position: relative;
@@ -553,6 +557,12 @@ onMounted(()=>{
       .brands-item {
         width: 80px;
         margin-right: 15px;
+      }
+      .pc-img{
+        display: none;
+      }
+      .m-image{
+        display: block;
       }
     }
     .list-header{

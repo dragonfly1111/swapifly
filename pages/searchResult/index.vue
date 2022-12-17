@@ -31,13 +31,11 @@
 import { productSearch } from '~/api/goods'
 import { getSearchAdvert } from '~/api/ad'
 import { useSearchKey } from "../../stores/search";
-import { useResize } from '~/stores/resize'
 import { Message } from "@arco-design/web-vue";
 import { getSearchHistory } from "~/api/goods";
 import { useSysData } from '~/stores/sysData'
 
 const route = useRoute()
-const resize = useResize();
 const searchKey = useSearchKey()
 const page = ref(1)
 const limit = ref(8)

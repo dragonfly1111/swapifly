@@ -63,8 +63,6 @@ import { getFollowers, getFollowList, followUser } from "~/api/shop";
 import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import FollowCard from "~/pages/userDetails/components/FollowCard";
-import { useResize } from "~/stores/resize";
-const resize = useResize();
 const { t } = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;

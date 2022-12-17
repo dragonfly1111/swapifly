@@ -23,12 +23,10 @@
 </template>
 
 <script setup>
-import { useResize } from "~/stores/resize";
 import { getLikeLog } from "~/api/user";
 import { Message } from "@arco-design/web-vue";
 
 const router = useRouter();
-const resize = useResize();
 const lastPage = ref(999);
 const page = ref(1);
 const pageLoading = ref(true);

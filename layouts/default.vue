@@ -14,11 +14,9 @@
   </main>
 </template>
 <script setup>
-import {useResize} from '~/stores/resize'
 import {useUserInfo} from "~/stores/userInfo";
 
 const router = useRouter()
-const resize = useResize()
 const headType = ref('common')
 const needFoot = ref(true)
 const needSell = ref(true)

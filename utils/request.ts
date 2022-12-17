@@ -3,7 +3,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { baseApiPrefix } from '~/config/baseUrl'
 import { Message } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
-import { useResize } from '~/stores/resize';
 const request = axios.create({
   baseURL: baseApiPrefix,
   timeout: 30000,
@@ -96,13 +95,8 @@ request.interceptors.response.use(
       // 登录过期 跳转首页
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
-      const resize = useResize();
-      userInfo.logout();
-      if (resize.screenType !== 'MOBILE'){
-          userInfo.openDialog();
-          openLogin.value = true;
-          console.log(openLogin);
-      }
+      userInfo.openDialog();
+      openLogin.value = true;
       // 如果是对话页面相关的接口 跳到首页
       if(dialogReq.indexOf(<string>response.config.url) !== -1){
         router.replace('/')

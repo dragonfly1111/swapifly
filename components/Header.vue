@@ -142,7 +142,7 @@
             </div>
           </a-col>
           <a-col :span="10" style="text-align: right;" class="btn-col">
-            <a-button class="sell-but" @click="toSell" v-if="showSell && resize.screenType !== 'MOBILE'">
+            <a-button class="sell-but" @click="toSell" v-if="showSell">
               {{ $t('head.sell') }}
             </a-button>
           </a-col>
@@ -153,7 +153,7 @@
       <div class="common-row">
         <div class="left">
           <div style="text-align: left; width: 36px; flex-shrink: 0" @click="$router.go(-1)"
-               v-if="resize.screenType === 'MOBILE' && needBackRoute.indexOf($route.path) !== -1">
+               v-if="needBackRoute.indexOf($route.path) !== -1">
             <icon-left :size="24"/>
           </div>
 
@@ -222,7 +222,6 @@
 import {useSysData} from '~/stores/sysData'
 import {useSearchKey} from '~/stores/search'
 import {useUserInfo} from "~/stores/userInfo";
-import {useResize} from '~/stores/resize'
 import {searchAdd, searchScDel, getSearchHistory} from '~/api/goods'
 import {Message} from "@arco-design/web-vue";
 
@@ -246,7 +245,9 @@ const needBackRoute = [
   '/userDetails',
   '/like',
   '/userProfile',
+  '/goodsList',
   '/goodsDetails',
+  '/searchResult',
 ]
 
 const router = useRouter()
@@ -274,13 +275,11 @@ const collectionList = ref([])
 const showHeadPanel = ref(false)
 const searchResPage = ref(false)
 let searchKey = ref('')
-const resize = useResize();
 let curClass = reactive({value: []})
 const showSell = computed(() => {
   var routerUrl = router.currentRoute.value.path
   return routerUrl != '/saleEdit' && routerUrl != '/saleEditGoods'
 })
-// console.log("===resize.screenType====",resize.screenType)
 // 监听路由 如果是搜索结果页面 搜索框加上星星icon
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log(newValue)
@@ -339,11 +338,6 @@ function openRegister() {
 }
 
 function openLogin() {
-  // if (resize.screenType === 'MOBILE') {
-  //   router.push('/login')
-  // } else {
-  //   loginModal.value.openDialog()
-  // }
   loginModal.value.openDialog()
 }
 
@@ -884,6 +878,7 @@ function toClassDetail(e) {
 
           .icon-collection {
             cursor: pointer;
+            width: 24px;
           }
 
           .search-suggest {

@@ -105,27 +105,20 @@
           ></TempusDatePicker>
         </a-form-item>
         <a-form-item>
-          <a-row justify="space-between" style="width: 100%" align="center">
-            <a-col v-if="resize.screenType === 'MOBILE'">
-              <p>
-                <span>{{ $t("profile.preference_title") }}</span>
-                <span style="line-height: 24px">{{ form.userlabel }}</span>
-              </p>
-            </a-col>
-            <a-col flex="auto" v-else>
-              <div class="tip">
-                <a-space>
-                  <span>{{ $t("profile.preference_title") }}</span>
-                  <span class="label-content">{{ form.userlabel }}</span>
-                </a-space>
-              </div>
-            </a-col>
-            <a-col :flex="resize.screenType === 'MOBILE' ? '1' : '90px'" class="mobile-text-right">
+          <div class="preference-row">
+            <div class="tip">
+              <a-space>
+                <span class="label-title">{{ $t("profile.preference_title") }}</span>
+                <span class="label-content">{{ form.userlabel }}</span>
+              </a-space>
+            </div>
+            <div class="edit-but">
               <a-button type="primary" @click="editPreference">{{
                   $t("profile.edit_preference")
                 }}</a-button>
-            </a-col>
-          </a-row>
+            </div>
+
+          </div>
         </a-form-item>
         <div class="save-btn">
           <a-button size="large" type="primary" :loading="btnLoading" @click="handleSave">{{
@@ -159,10 +152,8 @@
 </template>
 
 <script setup>
-// todo 时间选择 保存token失效
 import { useI18n } from "vue-i18n";
 import { useUserInfo } from "~/stores/userInfo"
-import { useResize } from '~/stores/resize'
 import { Message } from '@arco-design/web-vue';
 import { useSysData } from "~/stores/sysData";
 import { getUserInfo, updateUserInfo } from "~/api/user";
@@ -172,7 +163,6 @@ const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const uploadUrl = appConfig.uploadUrl
 const sysData = useSysData();
-const resize = useResize()
 const {t} = useI18n();
 const props = defineProps({
   ckeckedList: {
@@ -388,6 +378,12 @@ onMounted(() => {
     border-radius: 2px;
     width: 100%;
   }
+  .preference-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   :deep(.arco-input-wrapper) {
     @extend .input-box;
   }
@@ -410,6 +406,10 @@ onMounted(() => {
   :deep(.arco-btn-primary) {
     background-color: $main-grey;
   }
+  :deep(.arco-skeleton-shape){
+    width: 118px;
+    height: 118px;
+  }
 }
 
 .save-btn {
@@ -431,6 +431,30 @@ onMounted(() => {
       margin-top: 12px;
       margin-bottom: 12px;
     }
+    .preference-row{
+      display: block;
+      :deep(.arco-space){
+        align-items: unset;
+      }
+      :deep(.arco-space-item){
+        align-items: unset;
+      }
+      .label-title{
+        flex-shrink: 0;
+      }
+      .label-content{
+        width: 100%;
+        max-width: 100%;
+        margin-left: 12px;
+        overflow: unset;
+        text-overflow: unset;
+        white-space: unset;
+      }
+      .edit-but{
+        margin-top: 8px;
+        text-align: right;
+      }
+    }
   }
   .save-btn {
     margin-top: 0;
@@ -438,5 +462,6 @@ onMounted(() => {
       width: 100%;
     }
   }
+
 }
 </style>
