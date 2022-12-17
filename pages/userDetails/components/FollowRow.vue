@@ -150,7 +150,7 @@ defineExpose({
     }
     :deep(.arco-input-wrapper) {
       background-color: #fff;
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
     }
   }
   .follow-box-body {
@@ -163,7 +163,7 @@ defineExpose({
   flex-wrap: wrap;
   &-item {
     text-align: center;
-    border: 1px solid #e5e5e5;
+    border: 1px solid $main-grey-border;
     padding: 15px 10px 10px;
     width: 150px;
     box-sizing: border-box;

@@ -298,7 +298,7 @@ defineExpose({
     .goods-box {
       display: flex;
       padding-bottom: 20px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid $main-grey-border;
       img {
         width: 60px;
         height: 60px;
@@ -342,7 +342,7 @@ defineExpose({
     .arco-tabs-nav-tab-list {
       margin: auto;
       padding: 0;
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
       .arco-tabs-tab {
         background-color: #fff;
         padding: 4px 25px;

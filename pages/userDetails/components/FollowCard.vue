@@ -69,9 +69,11 @@ const handleFollow = (row, index) => {
 };
 </script>
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
+
 .follow-list-item {
   text-align: center;
-  border: 1px solid #e5e5e5;
+  border: 1px solid $main-grey-border;
   padding: 15px 10px 10px;
   width: 150px;
   box-sizing: border-box;

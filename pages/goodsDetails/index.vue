@@ -937,7 +937,7 @@ onMounted(async () => {
     }
 
     .goods-desc {
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid $main-grey-border;
       padding-bottom: 20px;
       margin-bottom: 30px;
 
@@ -1018,7 +1018,7 @@ onMounted(async () => {
 
   .right-box {
     .user-card {
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
       padding: 20px;
       border-radius: 2px;
       margin-bottom: 35px;
@@ -1123,7 +1123,7 @@ onMounted(async () => {
     }
 
     .achievement-card {
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
       border-radius: 2px;
       padding: 25px 20px 20px;
       margin-top: -10px;

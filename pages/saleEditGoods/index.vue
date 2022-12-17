@@ -811,7 +811,7 @@ onMounted(() => {
   font-size: 24px;
   padding: 15px 10%;
   box-sizing: border-box;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $main-grey-border;
 }
 
 .edit-box {
@@ -822,7 +822,7 @@ onMounted(() => {
   &.border-box {
     .left,
     .right {
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
       padding: 20px 24px;
       box-sizing: border-box;
       height: fit-content;
@@ -1007,7 +1007,7 @@ onMounted(() => {
     .right-form {
       .input-wrp {
         background-color: #fff;
-        border: 1px solid #e5e5e5;
+        border: 1px solid $main-grey-border;
         padding-top: 5px;
         padding-bottom: 5px;
       }

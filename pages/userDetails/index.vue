@@ -266,7 +266,7 @@ onMounted(() => {
    margin-right: 30px;
  }
  .right-content {
-   border: 1px solid #e5e5e5;
+   border: 1px solid $main-grey-border;
    border-radius: 2px;
    width: calc(100% - 340px);
    flex: auto;

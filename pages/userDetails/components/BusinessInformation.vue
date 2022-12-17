@@ -119,7 +119,7 @@ defineExpose({
     display: block;
     .header-select {
       padding: 20px 15px 15px 30px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid $main-grey-border;
     }
     .title {
       font-size: 24px;

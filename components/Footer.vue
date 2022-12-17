@@ -43,7 +43,7 @@ const router = useRouter()
   width: 100%;
 }
 .common-row{
-  border-top: 1px solid #E5E5E5;
+  border-top: 1px solid $main-grey-border;
   padding-top: 25px;
   padding-bottom: 25px;
   display: flex;

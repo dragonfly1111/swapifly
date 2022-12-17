@@ -132,14 +132,14 @@ defineExpose({
     display: block;
     .header-select {
       padding: 20px 30px 15px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid $main-grey-border;
     }
     .title {
       font-size: 24px;
     }
     :deep(.arco-select) {
       background-color: #fff;
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
     }
   }
   .evaluate-info {

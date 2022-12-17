@@ -24,7 +24,7 @@
   width: 100vw;
   z-index: 998;
   background: #FFFFFF;
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid $main-grey-border;
 }
 .common-row{
   display: flex;

@@ -677,7 +677,7 @@ function toClassDetail(e) {
 
 .head-search {
   padding: 10px 0;
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid $main-grey-border;
   background: #FFFFFF;
   display: block;
   .img-col {

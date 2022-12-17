@@ -175,7 +175,7 @@ onMounted(async () => {
   font-size: 24px;
   padding: 15px 10%;
   box-sizing: border-box;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $main-grey-border;
 }
 
 .edit-box {

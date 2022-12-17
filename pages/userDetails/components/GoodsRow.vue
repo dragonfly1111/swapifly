@@ -100,6 +100,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
 .goods-box {
   .box-header {
     padding: 20px 30px 10px;
@@ -109,7 +110,7 @@ defineExpose({
     }
     :deep(.arco-input-wrapper) {
       background-color: #fff;
-      border: 1px solid #e5e5e5;
+      border: 1px solid $main-grey-border;
     }
   }
   .goods-box-body {
