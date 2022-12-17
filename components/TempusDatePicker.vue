@@ -13,7 +13,7 @@
 <script setup>
 import { TempusDominus } from "@eonasdan/tempus-dominus";
 import { useI18n } from "vue-i18n";
-import { parseTime } from "~/utils/time"
+import { parseTime } from "~/utils/time";
 const { t, locale } = useI18n();
 const inputValue = ref(null);
 // const showPicker = ref(false);
@@ -38,10 +38,10 @@ const props = defineProps({
   },
 });
 const picker = ref(null);
-const initPicker = () => {
-  console.log("initPicker");
+const initPicker = (data) => {
   nextTick(() => {
-    if (document.getElementById("datetimepicker")) {
+    setTimeout(() => { // 防止加载不到dom
+      if (document.getElementById("datetimepicker")) {
       picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
         localization: {
           locale: locale.value,
@@ -57,22 +57,25 @@ const initPicker = () => {
         },
       });
       changeInput();
+      if(data){
+        setInput(data)
+      }
       //logs the selected index. This will always be 0 if multipleDates is false
     }
+    }, 10);
   });
 };
 
 const setInput = (val) => {
   if (val) {
-    nextTick(()=>{
+    nextTick(() => {
       const parsedDate = picker.value.dates.parseInput(new Date(val));
       picker.value.dates.setValue(parsedDate, picker.value.dates.lastPickedIndex);
-    })
+    });
   }
 };
 
 const changeInput = (e) => {
-  console.log("changeInput");
   console.log(e);
   document
     .getElementById("datetimepicker")

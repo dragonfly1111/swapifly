@@ -1,5 +1,10 @@
 <template>
   <div class="common-row global-content">
+
+    <div class="mobile-extra-box">
+
+    </div>
+
     <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
 
     <a-skeleton :animation="true" v-if="pageLoading" :loading="pageLoading" class="skeleton">
@@ -397,6 +402,18 @@
       <a-image-preview-group v-model:visible="previewVisible" infinite :srcList="allImages">
       </a-image-preview-group>
     </client-only>
+
+    <!-- 移动端事件 -->
+    <a-drawer
+    width="100%"
+    :height="340"
+    :visible="drawerVisible"
+    placement="bottom"
+    unmountOnClose
+  >
+    <div>You can customize modal body text by the current situation. This modal will be closed immediately once you press the OK button.</div>
+  </a-drawer>
+
   </div>
 </template>
 
@@ -445,6 +462,7 @@ const shareModal = ref(null);
 const blockModal = ref(null);
 const pageLoading = ref(true);
 const btnLoading = ref(false);
+const drawerVisible = ref(false);
 const previewVisible = ref(false);
 const openEditOffer = ref(false);
 const allImages = ref([]);

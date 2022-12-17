@@ -235,7 +235,7 @@ const handleSave = () => {
     const data = JSON.parse(JSON.stringify(form))
     delete data.id
     data.ularr = data.userLabel_id
-    data.birth_time = new Date(data.birth_time).getTime()
+    data.birth_time = +(new Date(data.birth_time).getTime()/1000);
     console.log(data)
     btnLoading.value = true
     for(const item in data){
@@ -298,8 +298,8 @@ onMounted(() => {
         form.region = arr.length ? arr[0].id : ''
         form.birth_time = data.birth_time
         nextTick(()=>{
-          datePicker.value.initPicker();
-          datePicker.value.setInput(form.birth_time)
+          datePicker.value && datePicker.value.initPicker(form.birth_time);
+          // datePicker.value && datePicker.value.setInput(form.birth_time)
         })
         form.userlabel = data.userlabel
         form.userLabel_id = data.userLabel_id
