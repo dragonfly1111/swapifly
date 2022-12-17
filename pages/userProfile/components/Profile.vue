@@ -427,13 +427,8 @@ onMounted(() => {
 
 @media screen and (max-width: 1000px) {
   .profile-box {
-<<<<<<< HEAD
-    border: 0;
-    width: 100%;
-=======
     width: 100%;
     border: unset;
->>>>>>> 2ce3c5425a9290d5b48699633886b7139f7a5241
     padding: 0;
     .header {
       display: none;

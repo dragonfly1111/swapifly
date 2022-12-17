@@ -256,10 +256,6 @@ onMounted(() => {
 }
 
 .tab-content {
-<<<<<<< HEAD
-  //mediaCss文件写了
-=======
->>>>>>> 2ce3c5425a9290d5b48699633886b7139f7a5241
  display: flex;
  justify-content: space-between;
  .left-content {
