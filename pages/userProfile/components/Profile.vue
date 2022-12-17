@@ -315,12 +315,15 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "assets/sass/var";
 
+
 .profile-box {
   border: 1px solid $grey-font-label;
   padding: 10px 30px 40px;
   border-radius: 10px;
-  width: 665px;
+  width: 100%;
+  max-width: 750px;
   min-height: 500px;
+  margin: auto;
   .header{
     display: block;
   }

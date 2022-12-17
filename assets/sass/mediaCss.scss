@@ -1,0 +1,161 @@
+@import "assets/sass/var";
+
+@media screen and (min-width: 1000px) {
+  .media-pc-block {
+    display: block;
+  }
+  .media-mobile-block {
+    display: none;
+  }
+  .save-btn {
+    text-align: right;
+    margin-top: 60px;
+  }
+  .recommend-wrapper {
+    margin-top: 46px;
+  }
+  .recommend-item {
+    width: 24%;
+    min-width: 180px;
+    max-width: 350px;
+  }
+  .search-col {
+    .search-input {
+      width: 500px;
+    }
+  }
+
+  .password-box {
+    border: 1px solid $grey-font-label;
+    padding: 10px 30px 40px;
+    border-radius: 10px;
+    width: 665px;
+  }
+
+  .business-dialog {
+    width: 446px;
+  }
+  .seller-name {
+    max-width: 10vw;
+  }
+  .left-msg-list {
+    width: 30%;
+
+    .msg-select {
+      width: 110px;
+    }
+
+    .msg-item {
+      padding: 14px 16px 19px 51px;
+    }
+  }
+  .main-content {
+    width: 55%;
+    border: 1px solid #F2F2F2;
+
+    .conversation-content {
+      height: calc(100vh - 105px - 171px - 60px - 20px);
+      padding: 0 14px 20px 24px;
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+
+
+
+
+  .main-pc-mobile {
+    overflow-x: hidden !important;
+  }
+  .main-content {
+    .meta-wrap {
+      .right {
+        span {
+          margin-right: 0px !important;
+        }
+      }
+    }
+  }
+  .common-row {
+    .link-wrap {
+      span {
+        display: block !important;
+      }
+
+      span + span {
+        margin-left: 0px !important;
+        margin-top: 8px !important;
+      }
+    }
+  }
+  .mobile-display-none {
+    display: none !important;
+  }
+  .mobile-a-skeleton-con {
+    width: 100% !important;
+  }
+  .media-pc-block {
+    display: none;
+  }
+  .media-mobile-block {
+    display: block;
+  }
+  .skeleton-dialogue-mobile {
+    margin-left: 0px !important;
+  }
+  .skeleton-dialogue-mobile-list {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+  .save-btn {
+    text-align: right;
+    margin-top: 0px;
+  }
+  .user-details {
+    .arco-tabs-nav-tab {
+      padding-left: 0px !important;
+      padding-top: 0px !important;
+    }
+  }
+  .recommend-wrapper {
+    margin-top: 25px;
+  }
+  .recommend-item {
+    width: 48%;
+  }
+  .search-col {
+    .search-input {
+      width: 95%;
+    }
+  }
+
+  .password-box {
+    width: 100%;
+  }
+
+  .business-dialog {
+    width: 80%;
+  }
+  .mobile-goods-detail {
+    padding: 10px 0;
+  }
+  .seller-name {
+    max-width: 100%;
+  }
+  .main-content {
+    width: 100%;
+  }
+  .footer-mobile-coll {
+    .arco-collapse-item-header-left {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .arco-collapse-item-content {
+      padding-left: 0;
+      padding-right: 0;
+      background-color: #fff;
+    }
+  }
+}

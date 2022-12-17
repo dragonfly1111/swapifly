@@ -298,9 +298,6 @@ onMounted(() => {
   .user-banner{
     height: 105px;
   }
-  .user-detail-content {
-    margin-top: 10px !important;
-  }
   .profile-box {
     width: 100%;
 
@@ -336,5 +333,19 @@ onMounted(() => {
   .extra-btn-m{
     display: flex;
   }
+  .tab-content {
+  //mediaCss文件写了
+ display: block;
+ .left-content {
+   width: 100%;
+   margin-right: 0;
+ }
+ .right-content {
+   border: 0;
+   border-radius: 0;
+   width: 100%;
+   margin-top: -10px;
+ }
+}
 }
 </style>
