@@ -200,8 +200,14 @@
 
         <div class="right">
           <div v-if="userInfo.token">
-            <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
-            <icon-list class="icon-list" @click="toMobilePerson"/>
+            <template v-if="actionRoute.indexOf($route.path) !== -1">
+              <icon-more-vertical class="icon-more"/>
+            </template>
+            <template v-else>
+              <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
+              <icon-list class="icon-list" @click="toMobilePerson"/>
+            </template>
+
           </div>
           <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
         </div>
@@ -248,6 +254,9 @@ const needBackRoute = [
   '/goodsList',
   '/goodsDetails',
   '/searchResult',
+]
+const actionRoute = [
+  '/goodsDetails',
 ]
 
 const router = useRouter()
@@ -700,6 +709,7 @@ function toClassDetail(e) {
   .search-col {
     .search-input {
       height: 46px;
+      width: 500px;
       margin-left: 10px;
       position: relative;
 
@@ -946,6 +956,11 @@ function toClassDetail(e) {
           width: 20px;
           height: 20px;
           margin-left: 15px;
+        }
+
+        .icon-more{
+          width: 20px;
+          height: 20px;
         }
 
         .login-but-mobile {

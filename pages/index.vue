@@ -378,7 +378,7 @@ onMounted(() => {
 }
 
 .recommend-wrapper {
-  //margin-top: 46px;
+  margin-top: 46px;
   .section-content {
     padding: 0 2px;
   }
@@ -410,7 +410,9 @@ onMounted(() => {
       height: 150px;
     }
   }
-
+  .recommend-wrapper {
+    margin-top: 25px;
+  }
   .section-wrapper{
     margin: 12px 0 12px;
     .section-header{

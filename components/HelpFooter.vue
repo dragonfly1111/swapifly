@@ -19,7 +19,7 @@ const toHelp = () =>{
   router.push('/helpCenter')
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "assets/sass/var";
 .global-foot{
   //position: fixed;
@@ -56,7 +56,12 @@ const toHelp = () =>{
     .common-row{
       padding: 0;
       span{
+        display: block;
         font-size: 14px;
+      }
+      span + span {
+        margin-left: 0;
+        margin-top: 12px;
       }
     }
   }

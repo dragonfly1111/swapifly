@@ -16,7 +16,7 @@
     <div class="content common-row">
       <p class="big-title">{{ $t('helpCenter.theme') }}</p>
       <div class="main-content">
-        <div v-if="dataLoading" class="mobile-a-skeleton-con" style="width: 835px">
+        <div v-if="dataLoading" class="skeleton-con">
           <a-skeleton :animation="true" class="skeleton">
             <a-skeleton-line :line-height="60" :rows="4"/>
           </a-skeleton>
@@ -286,6 +286,9 @@ const toDetail = (e) => {
     }
   }
 }
+.skeleton-con{
+  width: 835px;
+}
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
@@ -411,6 +414,9 @@ const toDetail = (e) => {
         margin-top: 24px;
       }
     }
+  }
+  .skeleton-con{
+    width: 100%;
   }
 }
 </style>

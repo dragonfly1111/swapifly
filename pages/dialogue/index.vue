@@ -4,7 +4,7 @@
       <div id="left-msg-list" class="msg-select">
         <template v-if="pageLoading">
           <div>
-            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile" style="margin-left: 8px">
+            <a-skeleton :animation="true" class="skeleton" style="margin-left: 8px">
               <a-skeleton-line :line-height="30" :rows="1"/>
             </a-skeleton>
           </div>
@@ -24,7 +24,7 @@
       <div class="msg-list">
         <template v-if="pageLoading">
           <div>
-            <a-skeleton :animation="true" class="skeleton skeleton-dialogue-mobile-list"
+            <a-skeleton :animation="true" class="skeleton"
                         style="margin-left: 50px; margin-right: 16px">
               <a-skeleton-line :line-height="80" :rows="5"/>
             </a-skeleton>
@@ -300,7 +300,7 @@
       </a-spin>
 
     </div>
-    <div>
+    <div class="right-ad">
       <!--            {{ JSON.stringify(curConversationMeta) }}-->
       <AD width="160px" height="600px" :advert="googleAd.content"></AD>
     </div>
@@ -860,10 +860,11 @@ body {
 
 .left-msg-list {
   border-top: 1px solid #F2F2F2;
-
+  width: 30%;
   .msg-select {
     padding: 20px 12px;
     position: relative;
+    width: 110px;
 
     .back-icon-mobile {
       position: absolute;
@@ -903,7 +904,7 @@ body {
 
     .msg-item {
       cursor: pointer;
-      //padding: 14px 16px 19px 51px;
+      padding: 14px 16px 19px 51px;
       display: flex;
       justify-content: space-between;
       border-top: 1px solid #F2F2F2;
@@ -982,8 +983,8 @@ body {
 }
 
 .main-content {
-  //width: 55%;
-  //border: 1px solid #F2F2F2;
+  width: 55%;
+  border: 1px solid #F2F2F2;
 
   .main-content-title {
     padding: 16px 18px;
@@ -1100,9 +1101,9 @@ body {
   }
 
   .conversation-content {
-    //height: calc(100vh - 105px - 171px - 60px - 20px);
+    height: calc(100vh - 105px - 171px - 60px - 20px);
     overflow-y: scroll;
-    //padding: 0 14px 20px 24px;
+    padding: 0 14px 20px 24px;
 
     .nomore {
       color: $grey-font-label;

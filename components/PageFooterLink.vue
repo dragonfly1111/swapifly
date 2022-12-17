@@ -231,12 +231,21 @@ onMounted(() => {
     .content {
       display: flex;
       flex-wrap: wrap;
-      padding: 0 12px;
+      //padding: 0 12px;
       .arco-link {
         padding: 0;
         color: rgba(56, 56, 56, 1);
         margin-right: 20px;
       }
+    }
+    :deep(.arco-collapse-item-header-left) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    :deep(.arco-collapse-item-content) {
+      padding-left: 0;
+      padding-right: 0;
+      background-color: #fff;
     }
     :deep(.arco-collapse-item-header){
       padding: 8px 0;

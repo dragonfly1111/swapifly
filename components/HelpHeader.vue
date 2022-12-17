@@ -8,7 +8,7 @@
         <span class="mobile-help-center" @click="$router.push('/helpCenter')">{{ $t('helpCenter.helpCenter') }}</span>
       </div>
       <div class="right">
-        <span class="view-home mobile-display-none" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
+        <span class="view-home" @click="$router.push('/')">{{ $t('head.viewHome') }}</span>
         <LanguageSwitcher/>
       </div>
     </div>
@@ -63,6 +63,9 @@
     }
   }
 }
+.view-home{
+  display: block;
+}
 </style>
 <style lang="scss" scoped>
 @media screen and(max-width: 1000px) {
@@ -84,6 +87,9 @@
         font-weight: 600;
       }
     }
+  }
+  .view-home{
+    display: none;
   }
 }
 </style>
