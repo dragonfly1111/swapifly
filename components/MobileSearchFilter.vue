@@ -106,7 +106,7 @@ const classList = sysData.goodsClass.map((item) => {
   };
 });
 const classListAsync = ref(classList);
-const visible = ref(true);
+const visible = ref(false);
 const sortList = sysData.goodsSort;
 const newOldList = sysData.goodsOan;
 const emits = defineEmits(["change"]);
