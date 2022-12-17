@@ -1,16 +1,19 @@
 <template>
   <div>
     <a-row class="search-data-mobile">
-      <a-col :span="10">
+      <a-col :span="10" v-if="treeShow">
         <a-tree-select
-          :data="classListAsync"
+          :data="treeList"
           v-model="form.rid"
-          :load-more="loadMore"
           :fieldNames="{
             key: 'id',
             title: 'title',
             children: 'children',
           }"
+          :tree-props="{
+            'default-expand-all': false,
+          }"
+          allow-search
           :placeholder="$t('pages.classification')"
           @change="updateSearch"
           class="search-data-mobile"
@@ -39,16 +42,23 @@
       </a-col>
     </a-row>
 
-    <MobileSearchFilter v-model:form="form" ref="mobileSearchFilter" @change="changeFilter"></MobileSearchFilter>
+    <MobileSearchFilter
+      v-model:form="form"
+      ref="mobileSearchFilter"
+      @change="changeFilter"
+    ></MobileSearchFilter>
   </div>
 </template>
 
 <script setup>
 import { useSysData } from "~/stores/sysData";
+import { findNode } from "~/utils/common";
+
 const router = useRouter();
 const sysData = useSysData();
-const sortList = sysData.goodsSort;
-const sourceClassList = sysData.goodsClass;
+const sourceClassList = ref([]);
+const resetParam = ref({});
+
 const classList = sysData.goodsClass.map((item) => {
   return {
     id: item.id,
@@ -56,22 +66,52 @@ const classList = sysData.goodsClass.map((item) => {
     children: [],
   };
 });
+
 const mobileSearchFilter = ref(null);
 const emits = defineEmits(["change"]);
-const classListAsync = ref(classList);
 let form = ref({
   sort: "",
   nid: [],
 });
 
+watch(
+  sysData,
+  (val) => {
+    if (val.goodsClass.length) {
+      sourceClassList.value = val.goodsClass;
+    }
+  },
+  { immediate: true, deep: true }
+);
+
+const treeShow = computed(() => {
+  let level = router.currentRoute.value.query?.level || "";
+  // 如果是三级分类 不出现分类下拉
+  if(+level == 3) return false 
+  return true
+})
+const treeList = computed(() => {
+  let treeId = router.currentRoute.value.query?.id || "";
+  let level = router.currentRoute.value.query?.level || "";
+  if (treeId && level < 3) {
+    // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
+    const tmpNode = findNode(sourceClassList.value, (node) => {
+      return node.id === +treeId;
+    });
+    if (tmpNode && tmpNode.children.length > 0) {
+      return tmpNode.children;
+    }
+  }
+  return sysData.goodsClass;
+});
+
 // 传值
 const updateSearch = () => {
-  console.log(form);
   let setForm = { ...form.value };
   console.log(setForm);
   setForm.nid = form.value.nid.join(",");
-  setForm.offline = setForm.offline ? 1 : 0
-  setForm.mail = setForm.mail ? 1 : 0
+  setForm.offline = setForm.offline ? 1 : 0;
+  setForm.mail = setForm.mail ? 1 : 0;
   if (!setForm.min && !setForm.max) {
     setForm.min = "";
     setForm.max = "";
@@ -82,40 +122,14 @@ const updateSearch = () => {
     // 如果有最小没有最大 手动塞一个999999
     setForm.max = 9999999999;
   }
-  console.log(setForm);
   emits("change", setForm);
 };
 
 const changeFilter = (data) => {
   form.value = { ...form.value, ...data };
-  updateSearch()
+  updateSearch();
 };
 
-// 智障arco没有提供默认折叠全部节点功能 并且点击打开面板时非常卡，所以做成"动态"加载数据的样子
-const loadMore = (nodeData) => {
-  const { title, key } = nodeData;
-  // 从sourceClassList中找到id相同的节点 把他的children赋值过来
-  console.log(nodeData);
-  const tmpNode = findNodeById(sourceClassList, nodeData.id);
-  console.log(tmpNode);
-  return new Promise((resolve) => {
-    nodeData.children = tmpNode ? tmpNode.children : [];
-    resolve();
-  });
-};
-
-const findNodeById = (arr, targetId) => {
-  let node = null;
-  arr.forEach((item) => {
-    if (item.id === targetId) {
-      node = item;
-    }
-    if (item.children) {
-      findNodeById(item.children, targetId);
-    }
-  });
-  return node;
-};
 const toMoreSearch = () => {
   mobileSearchFilter.value.openDialog(form.value);
 };
