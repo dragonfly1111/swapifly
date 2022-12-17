@@ -47,9 +47,7 @@
             </a-upload>
           </div>
         </a-spin>
-        <p class="cover-tip">{{ $t("sale.coverTip") }}</p>
-        <!-- <div class="image-preview-list"> -->
-        　
+        <p class="cover-tip">{{ $t("sale.coverTip") }}</p>　
         <draggable
           v-model="fileList"
           class="image-preview-list"

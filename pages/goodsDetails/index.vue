@@ -470,7 +470,7 @@ const userAchievementModal = ref(null);
 const googleAd = ref({});
 const reportModal = ref(null);
 const p_type = ref(null);
-const price = ref(null); // 出价
+const price = ref(0); // 出价
 const productInfo = ref({
   // 商品信息
   id: null,
@@ -734,7 +734,7 @@ const openOffer = () => {
 // 移动端取消出价
 const handleOfferClose = () => {
   openEditOffer.value = false;
-  price.value = null;
+  price.value = 0;
 };
 
 const initSwiper = () => {
@@ -1259,7 +1259,7 @@ onMounted(async () => {
 
     .arco-btn {
       background: $main-pink;
-      padding: 0 25px;
+      //padding: 0 25px;
     }
 
     .arco-btn + .arco-btn {
