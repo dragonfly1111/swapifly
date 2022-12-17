@@ -8,8 +8,8 @@
           <h2>{{$t('pages.has')}}{{ productTotal }}{{$t('pages.searchResult')}}</h2>
         </div>
         <div class="select-wrapper">
-          <MobileGoodsFilterSelect v-if="resize.screenType === 'MOBILE'" @change="handleQuery"></MobileGoodsFilterSelect>
-          <GoodsFilterSelect v-else @change="handleQuery"></GoodsFilterSelect>
+          <MobileGoodsFilterSelect class="m-select" @change="handleQuery"></MobileGoodsFilterSelect>
+          <GoodsFilterSelect class="pc-select" @change="handleQuery"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content goods-content">
@@ -173,7 +173,6 @@ getAd()
   margin-top: 30px;
 }
 
-
 .see-more {
   text-align: center;
   margin: 30px auto;
@@ -189,6 +188,26 @@ getAd()
   margin: 10px 0;
   .arco-breadcrumb {
     color: $grey-font-label;
+  }
+}
+
+.m-select{
+  display: none;
+}
+
+.pc-select{
+  display: flex;
+}
+
+</style>
+<style lang="scss" scoped>
+@media screen and (max-width: 1000px) {
+  .m-select{
+    display: block;
+  }
+
+  .pc-select{
+    display: none;
   }
 }
 </style>

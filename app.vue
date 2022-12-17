@@ -140,17 +140,6 @@ html, body, #__nuxt {
   padding: 0;
 }
 
-.search-data-mobile {
-  height: 60px;
-  background-color: #fff;
-
-  .arco-col-8 {
-    .arco-select-view-single {
-      background-color: #fff;
-      color: #000;
-    }
-  }
-}
 
 html.dark {
   background: #222;

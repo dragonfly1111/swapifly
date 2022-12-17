@@ -87,7 +87,7 @@ watch(
 const treeShow = computed(() => {
   let level = router.currentRoute.value.query?.level || "";
   // 如果是三级分类 不出现分类下拉
-  if(+level == 3) return false 
+  if(+level == 3) return false
   return true
 })
 const treeList = computed(() => {
@@ -137,10 +137,10 @@ const toMoreSearch = () => {
 
 <style scoped lang="scss">
 .search-data-mobile {
-  height: 60px;
+  height: 45px;
   background-color: #fff;
   text-align: center;
-  line-height: 60px;
+  line-height: 45px;
   border-top: 1px solid #a1a1a1;
   border-bottom: 1px solid #a1a1a1;
   width: 100%;
@@ -148,6 +148,8 @@ const toMoreSearch = () => {
     cursor: pointer;
   }
   :deep(.arco-select-view-single) {
+    background-color: #fff;
+    color: #000;
     &:hover,
     &:focus-within,
     &.arco-select-view-focus {
