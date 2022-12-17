@@ -1,9 +1,7 @@
 <template>
   <div class="common-row global-content">
-
-    <div class="mobile-extra-box">
-
-    </div>
+    <!-- 手机端操作 -->
+    <div class="mobile-extra-box" @click="drawerVisible = true" v-if="userInfo && p_type == 2"></div>
 
     <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
 
@@ -405,15 +403,36 @@
 
     <!-- 移动端事件 -->
     <a-drawer
-    width="100%"
-    :height="340"
-    :visible="drawerVisible"
-    placement="bottom"
-    unmountOnClose
-  >
-    <div>You can customize modal body text by the current situation. This modal will be closed immediately once you press the OK button.</div>
-  </a-drawer>
-
+      width="100%"
+      height="auto"
+      :visible="drawerVisible"
+      placement="bottom"
+      unmountOnClose
+      :header="false"
+      class="drawer-box"
+    >
+      <div>
+        <div class="drawer-item" @click="handleEdit">
+          <icon-pen />
+          <span>{{ $t("pages.editGoods") }}</span>
+        </div>
+        <div class="drawer-item" v-if="productInfo.state == 1" @click="handleRemove">
+          <label class="minus-icon">-</label>
+          <span>{{ $t("pages.removeGoods") }}</span>
+        </div>
+        <div class="drawer-item" v-if="productInfo.state == 3" @click="handleRemove">
+          <icon-upload />
+          <span>{{ $t("pages.putawayGoods") }}</span>
+        </div>
+        <div class="drawer-item pink" @click="handleDelete">
+          <icon-delete />
+          <span>{{ $t("pages.delGoods") }}</span>
+        </div>
+      </div>
+      <template #footer>
+        <a-button type="text" @click="drawerVisible = false">{{ $t("pages.cancel") }}</a-button>
+      </template>
+    </a-drawer>
   </div>
 </template>
 
@@ -784,7 +803,7 @@ onMounted(async () => {
 .mt30 {
   margin-top: 30px;
 }
-.head-ad{
+.head-ad {
   display: block;
 }
 .mobile-footer-goods {
@@ -1168,11 +1187,58 @@ onMounted(async () => {
 }
 </style>
 
+<style lang="scss">
+@import "assets/sass/var.scss";
+
+.drawer-box {
+  .arco-drawer-body {
+    padding: 0;
+  }
+  .drawer-item {
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $main-grey-border;
+    .arco-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+    .minus-icon {
+      font-size: 22px;
+      margin-right: 18px;
+    }
+  }
+  .pink {
+    color: $main-pink;
+  }
+  .arco-drawer-footer {
+    text-align: center;
+    .arco-btn {
+      font-size: 16px;
+      width: 100%;
+      color: $main-grey;
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
-  .head-ad{
+  .mobile-extra-box {
+    position: fixed;
+    top: 10px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    z-index: 999;
+  }
+  .head-ad {
     display: none;
   }
   .section-wrapper {
@@ -1237,7 +1303,6 @@ onMounted(async () => {
     .right-box {
       display: none;
     }
-
   }
   .page-body-content {
     margin: 20px 15px;
