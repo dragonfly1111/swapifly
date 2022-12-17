@@ -646,10 +646,10 @@ function toClassDetail(e) {
 .class-panel {
   position: absolute;
   left: 0;
-  width: calc(100% - 110px);
+  width: 100%;
   z-index: 999;
   background: #FFFFFF;
-  padding: 5px 55px 91px 55px;
+  padding: 5px 0 91px;
   border: 1px solid rgba(229, 230, 235, 1);
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
 
@@ -661,7 +661,13 @@ function toClassDetail(e) {
     display: flex;
     text-align: left;
     //color: rgba(29, 33, 41, 1);
-
+    .arco-link{
+      display: block;
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     .sec-title {
       margin-bottom: 10px;
       font-size: 14px;
@@ -674,7 +680,6 @@ function toClassDetail(e) {
       padding-left: 22px;
       font-size: 14px;
       line-height: 22px;
-      max-width: 100px;
     }
 
     .class-item + .class-item {
