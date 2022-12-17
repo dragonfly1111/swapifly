@@ -33,7 +33,7 @@ const props = defineProps({
   .ad-content {
     width: 100%;
     height: 100%;
-    border: 1px solid;
+    // border: 1px solid;
     margin: 10px 0;
   }
 }
