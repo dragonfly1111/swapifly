@@ -110,6 +110,7 @@ request.interceptors.response.use(
     return response.data
   },
   (error: any) => {
+    Message.error('Error')
     return Promise.reject(error)
   },
 )
