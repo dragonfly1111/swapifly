@@ -29,7 +29,11 @@
           <template #separator>
             <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
           </template>
-          <a-breadcrumb-item v-for="(item,index) in productInfo.rid"  @click="toTypePage(item,index)">{{ item.title }}</a-breadcrumb-item>
+          <a-breadcrumb-item
+            v-for="(item, index) in productInfo.rid"
+            @click="toTypePage(item, index)"
+            >{{ item.title }}</a-breadcrumb-item
+          >
         </a-breadcrumb>
         <div class="section-content">
           <div class="goods-swiper">
@@ -112,9 +116,11 @@
           </div>
           <div class="page-body-content">
             <a-breadcrumb class="mobile-breadcrumb">
-              <a-breadcrumb-item v-for="(item,index) in productInfo.rid" @click="toTypePage(item,index)">{{
-                item.title
-              }}</a-breadcrumb-item>
+              <a-breadcrumb-item
+                v-for="(item, index) in productInfo.rid"
+                @click="toTypePage(item, index)"
+                >{{ item.title }}</a-breadcrumb-item
+              >
             </a-breadcrumb>
             <div class="goods-info">
               <div class="goods-info-body">
@@ -356,7 +362,7 @@
       <div class="left">
         <a-space v-if="p_type == 1" @click="handleLike" size="small">
           <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
-          <icon-heart-fill class="heart" v-if="productInfo.islike == 1"  :size="18" />
+          <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
           <span>{{ productInfo.like }} like</span>
         </a-space>
       </div>
@@ -423,7 +429,7 @@ const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
 const resize = useResize();
-const userInfo = useUserInfo()
+const userInfo = useUserInfo();
 // 回复频率
 const getRStateLabel = () => {
   let rStateOptions = {
@@ -517,7 +523,7 @@ const getAD = () => {
   });
 };
 // 跳转分类
-const toTypePage = (e,index) =>{
+const toTypePage = (e, index) => {
   // router.push({
   //   path: '/goodsList',
   //   query: {
@@ -525,7 +531,7 @@ const toTypePage = (e,index) =>{
   //     level: index +1
   //   }
   // })
-}
+};
 // 相似商品
 const querySimilarlist = () => {
   var reqParams = {
@@ -1144,8 +1150,12 @@ onMounted(async () => {
 @import "assets/sass/var.scss";
 
 @media screen and (max-width: 1000px) {
-
-  .skeleton{
+  .section-wrapper {
+    :deep(.swiper-wrapper) {
+      justify-content: start !important;
+    }
+  }
+  .skeleton {
     padding: 0 20px;
   }
   .pc-breadcrumb {
