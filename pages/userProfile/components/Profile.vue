@@ -3,6 +3,21 @@
     <div class="header">
       <h1>{{ $t("profile.edit_profile") }}</h1>
     </div>
+    <a-skeleton :loading="pageLoading" :animation="true">
+      <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
+      <div style="margin-top: 22px; display: flex; align-items: flex-end">
+        <a-skeleton-shape shape="circle" size="large" />
+        <div style="width: 28px"></div>
+        <a-skeleton-line :rows="1" :line-height="50" :widths="[300]" />
+      </div>
+      <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
+      <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+        <a-skeleton-line :rows="2" :line-height="46" />
+        <a-skeleton-line :rows="1" :line-height="164" />
+        <a-skeleton-line :rows="5" :line-height="46" />
+      </a-space>
+    </a-skeleton>
+
     <template v-if="!pageLoading">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div class="upload-box">
@@ -127,22 +142,6 @@
         </div>
       </a-form>
     </template>
-    <temlpate v-else>
-      <a-skeleton :loading="pageLoading" :animation="true">
-        <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
-        <div class="mobile-flex-none" style="margin-top: 22px; display: flex; align-items: flex-end">
-          <a-skeleton-shape shape="circle" size="large" />
-          <div style="width: 28px"></div>
-          <a-skeleton-line :rows="1" :line-height="50" :widths="[300]" />
-        </div>
-        <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
-        <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-          <a-skeleton-line :rows="2" :line-height="46" />
-          <a-skeleton-line :rows="1" :line-height="164" />
-          <a-skeleton-line :rows="5" :line-height="46" />
-        </a-space>
-      </a-skeleton>
-    </temlpate>
     <ChoosePreference
       ref="choosePreference"
       @confirmPreference="confirmPreference"
@@ -317,10 +316,11 @@ onMounted(() => {
 @import "assets/sass/var";
 
 .profile-box {
-  //border: 1px solid $grey-font-label;
-  //padding: 10px 30px 40px;
-  //border-radius: 10px;
-  //width: 665px;
+  border: 1px solid $grey-font-label;
+  padding: 10px 30px 40px;
+  border-radius: 10px;
+  width: 665px;
+  min-height: 500px;
   .header{
     display: block;
   }
@@ -424,6 +424,9 @@ onMounted(() => {
 
 @media screen and (max-width: 1000px) {
   .profile-box {
+    width: 100%;
+    border: unset;
+    padding: 0;
     .header {
       display: none;
     }
@@ -456,6 +459,7 @@ onMounted(() => {
       }
     }
   }
+
   .save-btn {
     margin-top: 0;
     .arco-btn{

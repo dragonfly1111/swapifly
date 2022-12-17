@@ -2,10 +2,15 @@
   <div class="common-row global-content">
     <div class="page-body">
       <div class="left-content">
-        <a-tabs position="right" :active-key="activeTab" @change="handleTabChange">
+        <a-tabs v-if="isMounted" position="right" :active-key="activeTab" @change="handleTabChange">
           <a-tab-pane key="profile" :title="$t('profile.edit_profile')"> </a-tab-pane>
           <a-tab-pane key="password" :title="$t('profile.edit_password')"> </a-tab-pane>
         </a-tabs>
+        <div v-else style="width: 120px">
+          <a-skeleton :animation="true">
+            <a-skeleton-line :rows="2" :line-height="24" :line-spacing="12"/>
+          </a-skeleton>
+        </div>
       </div>
       <div class="right-content">
         <Profile v-if="activeTab == 'profile'" />
@@ -20,6 +25,10 @@ import Profile from "./components/Profile";
 import Password from "./components/Password";
 const route = useRoute();
 const activeTab = ref("profile");
+const isMounted = ref(false)
+onMounted(()=>{
+  isMounted.value = true
+})
 const type = route.query.type;
 activeTab.value = type || 'profile'
 const handleTabChange = (e) => {
@@ -52,10 +61,12 @@ const handleTabChange = (e) => {
 }
 .left-content{
   display: block;
+  width: 120px;
   margin-left: 170px;
 }
 .right-content {
   margin-left: 150px;
+  min-height: 500px;
 }
 </style>
 <style lang="scss" scoped>

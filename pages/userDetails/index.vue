@@ -216,7 +216,6 @@ onMounted(() => {
 .user-details {
   margin-bottom: 40px;
 
-  //mediaCss写了
   :deep(.arco-tabs-nav-tab) {
     padding-left: 320px;
     padding-top: 15px;
@@ -257,9 +256,8 @@ onMounted(() => {
 }
 
 .tab-content {
-  //mediaCss文件写了
- //display: flex;
- //justify-content: space-between;
+ display: flex;
+ justify-content: space-between;
  .left-content {
    width: 300px;
    flex-shrink: 0;
@@ -287,6 +285,12 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "assets/sass/var";
 @media screen and (min-width: 0px) and (max-width: 1000px) {
+  .user-details {
+    :deep(.arco-tabs-nav-tab) {
+      padding-left: 0;
+      padding-top: 0;
+    }
+  }
   .user-detail-content{
     padding-left: 0;
     padding-right: 0;
@@ -312,6 +316,16 @@ onMounted(() => {
   }
   .foot-link{
     padding: 0 17px;
+  }
+  .tab-content{
+    display: block;
+    .left-content {
+      width: 100%;
+    }
+    .right-content {
+      width: 100%;
+      border: unset;
+    }
   }
   .pc-tab{
     display: none;

@@ -700,6 +700,7 @@ function toClassDetail(e) {
   .search-col {
     .search-input {
       height: 46px;
+      width: 500px;
       margin-left: 10px;
       position: relative;
 

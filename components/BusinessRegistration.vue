@@ -254,7 +254,7 @@ defineExpose({
 @import "assets/sass/var";
 .business-dialog {
   padding: 20px 27px;
-
+  width: 446px;
   .arco-modal-header {
     padding: 0;
     height: unset;
@@ -297,4 +297,17 @@ defineExpose({
     }
   }
 }
+@media screen and (max-width: 1000px) {
+  .business-dialog{
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+  }
+}
+
 </style>

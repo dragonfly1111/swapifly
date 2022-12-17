@@ -106,6 +106,10 @@ const toForget = () => {
 @import "assets/sass/var";
 
 .password-box {
+  border: 1px solid $grey-font-label;
+  padding: 10px 30px 40px;
+  border-radius: 10px;
+  width: 665px;
   .pwd-title {
     display: block;
   }
@@ -134,9 +138,8 @@ const toForget = () => {
   }
 
   .save-btn {
-    //mediaCss haved
-    //text-align: right;
-    //margin-top: 60px;
+    text-align: right;
+    margin-top: 60px;
 
     :deep(.arco-btn-primary) {
       background-color: $main-grey;
@@ -149,6 +152,9 @@ const toForget = () => {
 
 @media screen and (max-width: 1000px) {
   .password-box{
+    width: 100%;
+    border: unset;
+    padding: 0;
     .pwd-title {
       display: none;
     }

@@ -981,6 +981,7 @@ onMounted(async () => {
           .seller-name {
             cursor: pointer;
             word-break: break-all;
+            max-width: 10vw;
           }
 
           div {
@@ -1160,6 +1161,17 @@ onMounted(async () => {
     :deep(.swiper-wrapper) {
       justify-content: start !important;
     }
+    .goods-info {
+      .module-box {
+        .seller-box {
+          .seller-info {
+            .seller-name {
+              max-width: 100%;
+            }
+          }
+        }
+      }
+    }
   }
   .skeleton {
     padding: 0 20px;
@@ -1258,6 +1270,9 @@ onMounted(async () => {
 
   :deep(.page-footer-link) {
     padding: 20px;
+  }
+  .mobile-goods-detail {
+    padding: 10px 0;
   }
 }
 </style>

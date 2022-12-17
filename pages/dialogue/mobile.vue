@@ -127,7 +127,6 @@ onUnmounted(() => {
 
   .msg-item {
     cursor: pointer;
-    //padding: 14px 16px 19px 51px;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #F2F2F2;

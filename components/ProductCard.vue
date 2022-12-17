@@ -399,6 +399,8 @@ p.arco-typography {
   color: #333333;
   cursor: pointer;
   position: relative;
+  width: 24%;
+
   &:last-child {
     margin-right: auto;
   }
@@ -551,6 +553,12 @@ p.arco-typography {
       flex: 0 0 24%;
     }
   }
+@media screen and (min-width: 1000px) {
+  .recommend-item{
+    min-width: 180px;
+    max-width: 350px;
+  }
+}
 </style>
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
@@ -559,7 +567,7 @@ p.arco-typography {
   }
   .recommend-item {
     padding: 12px 4px;
-    width: 49%;
+    width: 48%;
   }
   .skeleton-row{
     .skeleton-col{

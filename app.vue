@@ -132,7 +132,6 @@ function reurl() { // 解决第一次进入不加载js文件
 </template>
 
 <style lang="scss">
-@import "assets/sass/mediaCss.scss";
 
 html, body, #__nuxt {
   height: 100vh;
