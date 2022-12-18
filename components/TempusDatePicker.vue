@@ -1,20 +1,21 @@
 <template>
   <div class="input-group log-event" data-td-target-input="nearest" data-td-target-toggle="nearest">
     <a-input
-      :model-value="inputValue"
-      id="datetimepicker"
-      data-td-target="#datetimepicker"
-      data-td-toggle="datetimepicker"
-      @input="changeInput"
-      :placeholder="$t('profile.countries_birth_empty')"
+        :model-value="inputValue"
+        id="datetimepicker"
+        data-td-target="#datetimepicker"
+        data-td-toggle="datetimepicker"
+        @input="changeInput"
+        :placeholder="$t('profile.countries_birth_empty')"
     ></a-input>
   </div>
 </template>
 <script setup>
-import { TempusDominus } from "@eonasdan/tempus-dominus";
-import { useI18n } from "vue-i18n";
-import { parseTime } from "~/utils/time";
-const { t, locale } = useI18n();
+import {TempusDominus} from "@eonasdan/tempus-dominus";
+import {useI18n} from "vue-i18n";
+import {parseTime} from "~/utils/time";
+
+const {t, locale} = useI18n();
 const inputValue = ref(null);
 // const showPicker = ref(false);
 const emits = defineEmits(["change"]);
@@ -39,29 +40,30 @@ const props = defineProps({
 });
 const picker = ref(null);
 const initPicker = (data) => {
+  console.log('----initPicker----')
   nextTick(() => {
     setTimeout(() => { // 防止加载不到dom
       if (document.getElementById("datetimepicker")) {
-      picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-        localization: {
-          locale: locale.value,
-        },
-        useCurrent: false,
-        display: {
-          buttons: {
-            today: true,
-            clear: true,
-            close: true,
+        picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+          localization: {
+            locale: locale.value,
           },
-          ...props.pickOptions,
-        },
-      });
-      changeInput();
-      if(data){
-        setInput(data)
+          useCurrent: false,
+          display: {
+            buttons: {
+              today: true,
+              clear: true,
+              close: true,
+            },
+            ...props.pickOptions,
+          },
+        });
+        changeInput();
+        if (data) {
+          setInput(data)
+        }
+        //logs the selected index. This will always be 0 if multipleDates is false
       }
-      //logs the selected index. This will always be 0 if multipleDates is false
-    }
     }, 10);
   });
 };
@@ -78,15 +80,15 @@ const setInput = (val) => {
 const changeInput = (e) => {
   console.log(e);
   document
-    .getElementById("datetimepicker")
-    .getElementsByTagName("input")[0]
-    .addEventListener("change", function (e) {
-      console.log(e.detail.date);
-      // inputValue.value = e.target.value;
-      inputValue.value = parseTime(e.detail.date, "{y}-{m}-{d}");
-      console.log(inputValue.value);
-      emits("change", inputValue.value);
-    });
+      .getElementById("datetimepicker")
+      .getElementsByTagName("input")[0]
+      .addEventListener("change", function (e) {
+        console.log(e.detail.date);
+        // inputValue.value = e.target.value;
+        inputValue.value = parseTime(e.detail.date, "{y}-{m}-{d}");
+        console.log(inputValue.value);
+        emits("change", inputValue.value);
+      });
 };
 
 // 删除弹出层

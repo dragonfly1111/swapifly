@@ -298,7 +298,9 @@ onMounted(() => {
         form.region = arr.length ? arr[0].id : ''
         form.birth_time = data.birth_time
         nextTick(()=>{
-          datePicker.value && datePicker.value.initPicker(form.birth_time);
+          console.log('datePicker.value')
+          console.log(datePicker.value)
+          datePicker.value && datePicker.value.initPicker(form.birth_time * 1000);
           // datePicker.value && datePicker.value.setInput(form.birth_time)
         })
         form.userlabel = data.userlabel

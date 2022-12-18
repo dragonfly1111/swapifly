@@ -61,7 +61,7 @@ const handleTabChange = (e) => {
 }
 .left-content{
   display: block;
-  width: 120px;
+  min-width: 120px;
   margin-left: 6vw;
 }
 .right-content {

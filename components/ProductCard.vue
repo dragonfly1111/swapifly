@@ -501,24 +501,6 @@ p.arco-typography {
       span {
         padding-top: 1px;
       }
-      &:hover {
-        :deep(.arco-icon-heart) {
-          display: none !important;
-        }
-        :deep(.arco-icon-heart-fill) {
-          display: inline-block !important;
-        }
-      }
-      &.active {
-        &:hover {
-          :deep(.arco-icon-heart) {
-            display: inline-block !important;
-          }
-          :deep(.arco-icon-heart-fill) {
-            display: none !important;
-          }
-        }
-      }
     }
     .arco-icon {
       cursor: pointer;
@@ -561,6 +543,27 @@ p.arco-typography {
     min-width: 180px;
     max-width: 350px;
   }
+  .like-box {
+    &:hover {
+      :deep(.arco-icon-heart) {
+        display: none;
+      }
+      :deep(.arco-icon-heart-fill) {
+        display: inline-block;
+      }
+    }
+    &.active {
+      &:hover {
+        :deep(.arco-icon-heart) {
+          display: inline-block;
+        }
+        :deep(.arco-icon-heart-fill) {
+          display: none;
+        }
+      }
+    }
+  }
+
 }
 </style>
 <style lang="scss" scoped>

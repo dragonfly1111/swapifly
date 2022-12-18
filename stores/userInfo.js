@@ -45,6 +45,7 @@ export const useUserInfo = defineStore('userInfo', {
       this.type = e.type
       this.openLogin = false
       this.userBlock = false
+      e.token = this.token
       sessionStorage.setItem('USER-INFO', JSON.stringify(e))
     },
     openDialog() {
