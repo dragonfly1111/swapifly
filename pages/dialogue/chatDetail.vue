@@ -317,6 +317,7 @@ const fetchDetailData = (toBottom = true) => {
   }).catch(e => {
     console.log('fetchDetailData catch')
     alert('fetchDetailData catch')
+    alert(e)
     clearInterval(pageTask)
   })
 }
