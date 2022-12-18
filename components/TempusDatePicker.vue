@@ -19,7 +19,7 @@ const {t, locale} = useI18n();
 const inputValue = ref(null);
 // const showPicker = ref(false);
 const emits = defineEmits(["change"]);
-
+let initData = null;
 const props = defineProps({
   pickOptions: {
     default: () => ({
@@ -40,36 +40,49 @@ const props = defineProps({
 });
 const picker = ref(null);
 const initPicker = (data) => {
-  console.log('----initPicker----')
-  console.log(document.getElementById("datetimepicker"))
-  nextTick(() => {
-    console.log(document.getElementById("datetimepicker"))
-    if (document.getElementById("datetimepicker")) {
-      console.log(TempusDominus)
-      console.log(document.getElementById("datetimepicker"))
-      picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-        localization: {
-          locale: locale.value,
-        },
-        useCurrent: false,
-        display: {
-          buttons: {
-            today: true,
-            clear: true,
-            close: true,
-          },
-          ...props.pickOptions,
-        },
-      });
-      console.log(picker.value)
-      changeInput();
-      if (data) {
-        setInput(data)
-      }
-      //logs the selected index. This will always be 0 if multipleDates is false
-    }
+  initData = data
+  picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+    localization: {
+      locale: locale.value,
+    },
+    useCurrent: false,
+    display: {
+      buttons: {
+        today: true,
+        clear: true,
+        close: true,
+      },
+      ...props.pickOptions,
+    },
   });
+  console.log(picker.value)
+  changeInput();
+  if (data) {
+    setInput(data)
+  }
 };
+
+onMounted(()=>{
+  picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+    localization: {
+      locale: locale.value,
+    },
+    useCurrent: false,
+    display: {
+      buttons: {
+        today: true,
+        clear: true,
+        close: true,
+      },
+      ...props.pickOptions,
+    },
+  });
+  console.log(picker.value)
+  changeInput();
+  if (initData) {
+    setInput(initData)
+  }
+})
 
 const setInput = (val) => {
   if (val) {
