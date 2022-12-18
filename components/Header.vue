@@ -200,10 +200,10 @@
 
         <div class="right">
           <div v-if="userInfo.token">
-            <template v-show="actionRoute.indexOf($route.path) !== -1">
+            <template v-if="actionRoute.indexOf($route.path) !== -1">
               <icon-more-vertical class="icon-more"/>
             </template>
-            <template v-show="actionRoute.indexOf($route.path) === -1">
+            <template v-else>
               <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
               <icon-list class="icon-list" @click="toMobilePerson"/>
             </template>
