@@ -16,16 +16,16 @@
             </div>
             <div class="class-bar" v-else>
               <!--            <div class="class-bar">-->
-              <a-skeleton :animation="true" class="skeleton"
-                          style="margin-left: 30px;display: flex; width: 600px; justify-content: space-between">
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>
-              </a-skeleton>
+<!--              <a-skeleton :animation="sysData.goodsClass.length === 0" class="skeleton"-->
+<!--                          style="margin-left: 30px;display: flex; width: 600px; justify-content: space-between">-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--                <a-skeleton-line :line-height="30" :widths="[70]" :rows="1"/>-->
+<!--              </a-skeleton>-->
             </div>
           </div>
           <div class="right">
