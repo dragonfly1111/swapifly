@@ -1,38 +1,38 @@
 <template>
   <div class="common-row global-content">
-    <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
-        <template v-if="bannerLoading">
-          <a-carousel-item>
+<!--    <div class="banner-wrapper">-->
+<!--      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">-->
+<!--        <template v-if="bannerLoading">-->
+<!--          <a-carousel-item>-->
 <!--            <a-skeleton :animation="true">-->
 <!--              <a-skeleton-line :rows="1" :line-height="260"/>-->
 <!--            </a-skeleton>-->
-          </a-carousel-item>
-        </template>
-        <template v-else>
-          <a-carousel-item v-for="item in bannerList">
-            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                     :src="baseImgPrefix + item.img" class="carousel-img">
-              <template #loader>
-                <div class="loader-animate"/>
-              </template>
-            </a-image>
-          </a-carousel-item>
-        </template>
-      </a-carousel>
+<!--          </a-carousel-item>-->
+<!--        </template>-->
+<!--        <template v-else>-->
+<!--          <a-carousel-item v-for="item in bannerList">-->
+<!--            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"-->
+<!--                     :src="baseImgPrefix + item.img" class="carousel-img">-->
+<!--              <template #loader>-->
+<!--                <div class="loader-animate"/>-->
+<!--              </template>-->
+<!--            </a-image>-->
+<!--          </a-carousel-item>-->
+<!--        </template>-->
+<!--      </a-carousel>-->
 
-    </div>
+<!--    </div>-->
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in bradLoading" class="brands-item">
-<!--              <a-skeleton :animation="true">-->
-<!--                <a-skeleton-shape shape="circle"/>-->
-<!--                <div style="height: 5px"></div>-->
-<!--                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>-->
-<!--              </a-skeleton>-->
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+              </a-skeleton>
             </div>
           </div>
         </template>
@@ -65,7 +65,7 @@
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
       <div class="section-content">
-<!--        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>-->
+        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
       </div>
     </section>
 
@@ -74,7 +74,7 @@
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
-<!--    <PageFooterLink></PageFooterLink>-->
+    <PageFooterLink></PageFooterLink>
     <!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
     <!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
     <!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
