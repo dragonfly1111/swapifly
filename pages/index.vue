@@ -74,7 +74,7 @@
       <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
     </div>
 
-    <PageFooterLink></PageFooterLink>
+<!--    <PageFooterLink></PageFooterLink>-->
     <!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
     <!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
     <!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
