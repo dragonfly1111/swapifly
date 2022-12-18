@@ -545,22 +545,22 @@ p.arco-typography {
   }
   .like-box {
     &:hover {
-      :deep(.arco-icon-heart) {
-        display: none;
-      }
-      :deep(.arco-icon-heart-fill) {
-        display: inline-block;
-      }
+      //:deep(.arco-icon-heart) {
+      //  display: none;
+      //}
+      //:deep(.arco-icon-heart-fill) {
+      //  display: inline-block;
+      //}
     }
     &.active {
-      &:hover {
-        :deep(.arco-icon-heart) {
-          display: inline-block;
-        }
-        :deep(.arco-icon-heart-fill) {
-          display: none;
-        }
-      }
+      //&:hover {
+      //  :deep(.arco-icon-heart) {
+      //    display: inline-block;
+      //  }
+      //  :deep(.arco-icon-heart-fill) {
+      //    display: none;
+      //  }
+      //}
     }
   }
 

@@ -78,35 +78,8 @@
                 </div>
               </div>
             </swiper>
-            <!-- Swiper -->
-            <!-- <div class="swiper mySwiper">
-              <div
-                class="swiper-wrapper"
-                :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''"
-              >
-                <div class="swiper-slide" v-for="(item, index) in productInfo.images">
-                  <a-image height="350px" fit="cover" :src="baseImgPrefix + item" />
-                </div>
-              </div>
-              <div class="goods-tags">
-                <a-space class="handle-header">
-                  <a-button class="black-btn" @click="handleShare">分享</a-button>
-                  <a-button class="black-btn" @click="handleLike">
-                    <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
-                    <icon-heart class="heart" v-if="productInfo.islike == 0" />
-                    {{ productInfo.like }} like
-                  </a-button>
-                  <a-button class="black-btn" @click="handleReport">举报</a-button>
-                </a-space>
-                <div class="handle-bottom">
-                  <a-button class="black-btn" @click="previewAll"
-                    >{{ productInfo.images.length }} image</a-button
-                  >
-                </div>
-              </div>
-            </div> -->
             <!-- 分页 -->
-            <div v-show="productInfo.images.length > 3">
+            <div v-show="productInfo.images.length > 3 || resize.screenType === 'MOBILE'">
               <div
                 class="swiper-button-next swiper-button-next-self"
                 @click="swiperRef.$el.swiper.slideNext()"

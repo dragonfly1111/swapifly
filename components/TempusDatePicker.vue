@@ -19,7 +19,6 @@ const {t, locale} = useI18n();
 const inputValue = ref(null);
 // const showPicker = ref(false);
 const emits = defineEmits(["change"]);
-let initData = null;
 const props = defineProps({
   pickOptions: {
     default: () => ({
@@ -40,49 +39,37 @@ const props = defineProps({
 });
 const picker = ref(null);
 const initPicker = (data) => {
-  initData = data
-  picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-    localization: {
-      locale: locale.value,
-    },
-    useCurrent: false,
-    display: {
-      buttons: {
-        today: true,
-        clear: true,
-        close: true,
-      },
-      ...props.pickOptions,
-    },
-  });
-  console.log(picker.value)
-  changeInput();
-  if (data) {
-    setInput(data)
-  }
-};
+  let interval = null
+  // 防止id拿不到
+  interval = setInterval(()=>{
+    const ele = document.getElementById("datetimepicker")
+    console.log('ele')
+    console.log(ele)
+    if(ele){
+      picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+        localization: {
+          locale: locale.value,
+        },
+        useCurrent: false,
+        display: {
+          buttons: {
+            today: true,
+            clear: true,
+            close: true,
+          },
+          ...props.pickOptions,
+        },
+      });
+      console.log(picker.value)
+      changeInput();
+      if (data) {
+        setInput(data)
+      }
+      clearInterval(interval)
+    }
+  }, 100)
 
-onMounted(()=>{
-  picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-    localization: {
-      locale: locale.value,
-    },
-    useCurrent: false,
-    display: {
-      buttons: {
-        today: true,
-        clear: true,
-        close: true,
-      },
-      ...props.pickOptions,
-    },
-  });
-  console.log(picker.value)
-  changeInput();
-  if (initData) {
-    setInput(initData)
-  }
-})
+};
 
 const setInput = (val) => {
   if (val) {
