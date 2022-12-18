@@ -4,9 +4,9 @@
       <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
         <template v-if="bannerLoading">
           <a-carousel-item>
-            <a-skeleton :animation="true">
-              <a-skeleton-line :rows="1" :line-height="260"/>
-            </a-skeleton>
+<!--            <a-skeleton :animation="true">-->
+<!--              <a-skeleton-line :rows="1" :line-height="260"/>-->
+<!--            </a-skeleton>-->
           </a-carousel-item>
         </template>
         <template v-else>
