@@ -4,7 +4,7 @@
       <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
         <template v-if="bannerLoading">
           <a-carousel-item>
-            <a-skeleton :animation="true">
+            <a-skeleton :animation="bannerLoading">
               <a-skeleton-line :rows="1" :line-height="260"/>
             </a-skeleton>
           </a-carousel-item>
@@ -28,7 +28,7 @@
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in bradLoading" class="brands-item">
-              <a-skeleton :animation="true">
+              <a-skeleton :animation="bradLoading">
                 <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>
                 <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
