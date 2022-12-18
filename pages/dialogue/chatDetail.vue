@@ -308,6 +308,9 @@ const fetchDetailData = (toBottom = true) => {
       nextTick(()=>{
         mainContentEle = document.getElementsByClassName('conversation-content')[0]
       })
+      if(toBottom){
+        scrollToBottom(true)
+      }
     } else {
       Message.error(res.message)
     }
@@ -317,13 +320,21 @@ const fetchDetailData = (toBottom = true) => {
   })
 }
 // 对话详情页面滚到底部
-const scrollToBottom = () => {
-  console.log('执行了滚动到底11')
-  const ele = document.getElementsByClassName('conversation-main-block')[0]
-  mainContentEle && mainContentEle.scrollTo({
-    top: ele.scrollHeight,
-    behavior: 'smooth'
-  })
+const scrollToBottom = (forceBottom = false) => {
+  console.log('执行了滚动到底')
+  const distance = mainContentEle.scrollHeight - mainContentEle.clientHeight - mainContentEle.scrollTop
+  // clientHeight + scrollTop === scrollHeight 判断当前是不是在底部 如果是 就滚 否则不滚
+  if(distance <= 100 || forceBottom){
+    console.log('滚啊！')
+    nextTick(()=>{
+      const ele = document.getElementsByClassName('conversation-main-block')[0]
+      mainContentEle && mainContentEle.scrollTo({
+        top: ele.scrollHeight,
+        behavior: 'smooth'
+      })
+    })
+  }
+
 }
 // 获取对话元信息
 const getChartMetaInfo = () => {
@@ -662,7 +673,7 @@ const pageLoopTask = () => {
     fetchDetailData(false)
   }, 2000)
 }
-fetchDetailData()
+fetchDetailData(true)
 getChartMetaInfo()
 onMounted(() => {
   mainContentEle = document.getElementsByClassName('conversation-content')[0]

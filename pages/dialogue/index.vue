@@ -420,7 +420,7 @@ const fetchListData = (autoFocus = true) => {
   })
 }
 // 获取对话详情
-const fetchDetailData = (callback, toBottom = true) => {
+const fetchDetailData = (callback) => {
   if (!curConversationMeta.value.id) return
   const id = curConversationMeta.value.id
   getChatDetail({
@@ -511,6 +511,7 @@ const changeChatDetail = (item) => {
   // flag
   fetchDetailData(() => {
     mainContentLoading.value = false
+    scrollToBottom(true)
   })
 }
 // 上传图片
@@ -696,7 +697,9 @@ const sendMsg = (e, callbackSuc, callbackFail) => {
       if (callbackSuc) callbackSuc()
       nextDetailNeedBottom.value = true
       fetchListData(false)
-      fetchDetailData(null, true)
+      fetchDetailData(() =>{
+        scrollToBottom(true)
+      })
     } else {
       Message.error(res.message)
       if (callbackFail) callbackFail()
@@ -792,17 +795,25 @@ const pageLoopTask = () => {
   pageTask = setInterval(() => {
     fetchListData(false)
     getChartMetaInfo()
-    fetchDetailData(null, false)
+    fetchDetailData(null)
   }, 2000)
 }
 // 对话详情页面滚到底部
-const scrollToBottom = () => {
+const scrollToBottom = (forceBottom = false) => {
   console.log('执行了滚动到底')
-  const ele = document.getElementsByClassName('conversation-main-block')[0]
-  mainContentEle && mainContentEle.scrollTo({
-    top: ele.scrollHeight,
-    behavior: 'smooth'
-  })
+  const distance = mainContentEle.scrollHeight - mainContentEle.clientHeight - mainContentEle.scrollTop
+  // clientHeight + scrollTop === scrollHeight 判断当前是不是在底部 如果是 就滚 否则不滚
+  if(distance <= 100 || forceBottom){
+    console.log('滚啊！')
+    nextTick(()=>{
+      const ele = document.getElementsByClassName('conversation-main-block')[0]
+      mainContentEle && mainContentEle.scrollTo({
+        top: ele.scrollHeight,
+        behavior: 'smooth'
+      })
+    })
+  }
+
 }
 const scrollListen = (e) => {
   if (e.target.scrollTop === 0) {
@@ -813,7 +824,7 @@ const scrollListen = (e) => {
       page.value++
       fetchDetailData(() => {
         mainContentLoading.value = false
-      }, false)
+      })
     }
 
   }
