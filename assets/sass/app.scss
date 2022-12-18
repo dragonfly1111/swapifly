@@ -3,12 +3,12 @@
 @import "./fontawesome.min";
 @import "./solid.min";
 
-html{
+body{
   color: #383838;
   background: #FFFFFF;
 }
 @media (prefers-color-scheme: dark) {
-  html {
+  body {
     background: #fff;
     color: #383838;
   }
