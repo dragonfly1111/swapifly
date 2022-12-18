@@ -3,17 +3,16 @@
 @import "./fontawesome.min";
 @import "./solid.min";
 
-body {
+html{
   color: #383838;
   background: #FFFFFF;
 }
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #fff;
-    color: #383838;
-  }
-}
+//@media (prefers-color-scheme: dark) {
+//  body {
+//    background: #fff;
+//    color: #383838;
+//  }
+//}
 
 // pc
 @media screen and(min-width: 1000px) {

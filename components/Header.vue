@@ -334,7 +334,7 @@ function goBack() {
   console.log('gobak')
   router.go(-1)
   if (navigator.userAgent.indexOf("Safari") > -1) {
-    location.reload()
+    // location.reload()
   } //判断是否Safari浏览器
 
 }
