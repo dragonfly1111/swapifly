@@ -5,15 +5,18 @@
 
 body {
   color: #383838;
+  background: #FFFFFF;
 }
+
 @media (prefers-color-scheme: dark) {
   body {
-  background: #fff;
-  color: #383838;
+    background: #fff;
+    color: #383838;
   }
 }
+
 // pc
-@media screen and(min-width:1000px) {
+@media screen and(min-width: 1000px) {
   body {
     // 处理打开弹窗禁用滚动条导致宽度变宽布局发生轻微变化问题
     overflow: auto !important;
@@ -32,7 +35,7 @@ body {
 }
 
 // 移动端
-@media screen and(max-width:1000px) {
+@media screen and(max-width: 1000px) {
   .common-row {
     padding-left: 15px;
     padding-right: 15px;
@@ -41,7 +44,7 @@ body {
     padding-top: 66px;
     min-height: calc(100vh - 66px - 182px);
   }
-  .arco-modal-simple{
+  .arco-modal-simple {
     width: 70% !important;
   }
 }
@@ -50,6 +53,7 @@ body {
   //zoom: var(--scale);
   transform: scale(var(--scale));
 }
+
 .arco-modal-footer {
   .arco-btn-primary,
   .arco-btn-primary[type="button"],
@@ -57,33 +61,41 @@ body {
     background-color: $main-grey;
   }
 }
+
 .grey {
   color: #aaaaaa;
 }
+
 .fs12 {
   font-size: 12px;
 }
+
 .black-btn.arco-btn {
   background: $main-grey !important;
   color: #ffffff !important;
+
   &:hover {
     background: #515050 !important;
     color: #ffffff !important;
   }
 }
+
 .black-outline-btn {
   background-color: #fff !important;
   color: $main-grey !important;
   border: 1px solid $main-grey !important;
+
   &:hover {
     background: #f7f8fa !important;
     color: $main-grey !important;
     border: 1px solid $main-grey !important;
   }
 }
+
 .see-more {
   text-align: center;
   margin: 30px auto;
+
   .arco-btn-outline,
   .arco-btn-outline[type="button"],
   .arco-btn-outline[type="submit"] {
@@ -91,6 +103,7 @@ body {
     color: rgba(56, 56, 56, 1);
     padding: 0 20px;
     height: 38px;
+
     &:hover {
       background-color: $main-grey;
       border: 1px solid $main-grey;
@@ -107,10 +120,10 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    -60deg,
-    var(--color-fill-2) 25%,
-    var(--color-neutral-3) 40%,
-    var(--color-fill-3) 55%
+      -60deg,
+      var(--color-fill-2) 25%,
+      var(--color-neutral-3) 40%,
+      var(--color-fill-3) 55%
   );
   background-size: 400% 100%;
   animation: loop-circle 1.5s cubic-bezier(0.34, 0.69, 0.1, 1) infinite;
@@ -126,14 +139,15 @@ body {
   }
 }
 
-.arco-Message{
+.arco-Message {
   align-items: center;
 }
-.arco-link:hover{
+
+.arco-link:hover {
   color: $main-blue !important;
 }
 
-.arco-tree-select-popup{
+.arco-tree-select-popup {
   max-height: 260px;
 }
 

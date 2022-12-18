@@ -356,7 +356,12 @@ onMounted(() => {
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
-
+      .brands-title{
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       &:hover {
         .brands-title {
           color: $main-blue;

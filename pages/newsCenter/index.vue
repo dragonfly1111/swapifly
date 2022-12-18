@@ -46,6 +46,7 @@
             <div class="news-box" v-for="item in newsDataList" @click="toNewsDetail(item)">
               <a-image
                   :src="baseImgPrefix + item.img"
+                  fit="cover"
                   show-loader>
                 <template #loader>
                   <div class="loader-animate"/>

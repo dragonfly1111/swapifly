@@ -104,7 +104,7 @@
           </a-col>
           <a-col :span="10" class="search-col">
             <div class="search-input">
-              <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel"
+              <a-input-search v-model="searchKey" ref="inputSearchPc" @focus="openHisPanel" @blur="hideHisPanel"
                               @press-enter="toSearchResult" @search="toSearchResult" @input="changeSearchKey"
                               :placeholder="$t('head.searchKey')" search-button>
                 <template #suffix>
@@ -161,7 +161,7 @@
             <img class="phone-logo" src="@/assets/images/swapifly-logo.png" alt="">
           </nuxt-link>
           <div class="search-input">
-            <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
+            <a-input-search v-model="searchKey" ref="inputSearchM" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
                      @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
                      search-button>
               <template #suffix>
@@ -271,6 +271,8 @@ import {watch} from "vue";
 const {t} = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
+const inputSearchPc = ref(null)
+const inputSearchM = ref(null)
 const loginModal = ref(null)
 const registerModal = ref(null)
 const choosePreference = ref(null)
@@ -384,6 +386,8 @@ function confirmPreference() {
 }
 
 function toSearchResult() {
+  inputSearchPc.value && inputSearchPc.value.blur()
+  inputSearchM.value && inputSearchM.value.blur()
   suggestShow.value = false
   router.push({
     path: '/searchResult',
