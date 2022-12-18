@@ -209,7 +209,9 @@
             </template>
 
           </div>
-          <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
+          <div v-else>
+            <a-button class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
+          </div>
         </div>
       </div>
     </div>
