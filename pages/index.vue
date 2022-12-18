@@ -22,45 +22,45 @@
 <!--      </a-carousel>-->
 
 <!--    </div>-->
-    <section class="section-wrapper">
-      <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content">
-        <template v-if="bradLoading">
-          <div class="brands-content">
-            <div v-for="item in bradLoading" class="brands-item">
-              <a-skeleton :animation="true">
-                <a-skeleton-shape shape="circle"/>
-                <div style="height: 5px"></div>
-                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
-              </a-skeleton>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
-          </div>
-          <div class="brands-content">
-            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-              <div class="brands-title">{{ item.title }}</div>
-            </div>
-          </div>
-          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
-          </div>
-        </template>
-      </div>
-    </section>
+<!--    <section class="section-wrapper">-->
+<!--      <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>-->
+<!--      <div class="section-content">-->
+<!--        <template v-if="bradLoading">-->
+<!--          <div class="brands-content">-->
+<!--            <div v-for="item in bradLoading" class="brands-item">-->
+<!--              <a-skeleton :animation="true">-->
+<!--                <a-skeleton-shape shape="circle"/>-->
+<!--                <div style="height: 5px"></div>-->
+<!--                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>-->
+<!--              </a-skeleton>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--        <template v-else>-->
+<!--          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">-->
+<!--            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>-->
+<!--          </div>-->
+<!--          <div class="brands-content">-->
+<!--            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">-->
+<!--              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>-->
+<!--                <template #loader>-->
+<!--                  <div class="loader-animate"/>-->
+<!--                </template>-->
+<!--              </a-image>-->
+<!--              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>-->
+<!--                <template #loader>-->
+<!--                  <div class="loader-animate"/>-->
+<!--                </template>-->
+<!--              </a-image>-->
+<!--              <div class="brands-title">{{ item.title }}</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">-->
+<!--            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </div>-->
+<!--    </section>-->
 
     <section class="section-wrapper recommend-wrapper">
       <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
