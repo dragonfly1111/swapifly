@@ -152,7 +152,7 @@
     <div class="mobile-head-search">
       <div class="common-row">
         <div class="left">
-          <div style="text-align: left; width: 36px; flex-shrink: 0" @click="$router.go(-1)"
+          <div style="text-align: left; width: 36px; flex-shrink: 0" @click="goBack"
                v-if="needBackRoute.indexOf($route.path) !== -1">
             <icon-left :size="24"/>
           </div>
@@ -329,6 +329,15 @@ watch(() => userInfo.userBlock, (newValue, oldValue) => {
     })
   }
 }, {immediate: true});
+
+function goBack() {
+  console.log('gobak')
+  router.go(-1)
+  if (navigator.userAgent.indexOf("Safari") > -1) {
+    location.reload()
+  } //判断是否Safari浏览器
+
+}
 
 function selectMenu(e) {
   switch (e) {
@@ -981,7 +990,7 @@ function toClassDetail(e) {
         .login-but-mobile {
           background: $main-pink;
           color: #FFFFFF;
-          height: 36px;
+          height: 32px;
         }
       }
 

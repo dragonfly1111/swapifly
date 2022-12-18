@@ -183,7 +183,7 @@
             <div class="no-msg-tip">{{ $t('dialogue.noMsgTip') }}</div>
           </div>
           <div v-show="conversationDetail.length > 0" class="conversation-main-block">
-            <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
+            <div class="nomore">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                  v-for="(item, index) in conversationDetail">
               <div class="time-line" v-if="index % 20 === 0">{{
@@ -269,6 +269,7 @@ const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const mainContentLoading = ref(false)
+const pageLoading = ref(true)
 const uploadLoading = ref(false)
 const acceptLoading = ref(false)
 const rejectLoading = ref(false)
@@ -296,52 +297,60 @@ const dialogueOperationType = ref([])
 const curConversationMeta = ref({})
 // 获取对话详情
 const fetchDetailData = (toBottom = true) => {
+  console.log('fetchDetailData')
   getChatDetail({
     id: route.query.id,
+    key: new Date().getTime()
   }).then(res => {
+    console.log('fetchDetailData res')
+    console.log(res)
     mainContentLoading.value = false
+    pageLoading.value = false
     if (res.code === 0) {
       console.log('toBottom', toBottom)
       // 暂时不做分页
       // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
       conversationDetail.value = res.data.reverse()
+      console.log(conversationDetail.value.length)
       nextTick(()=>{
         mainContentEle = document.getElementsByClassName('conversation-content')[0]
+        if(toBottom){
+          scrollToBottom(true)
+        }
       })
-      if(toBottom){
-        scrollToBottom(true)
-      }
     } else {
       Message.error(res.message)
     }
   }).catch(e => {
     console.log('fetchDetailData catch')
-    alert('fetchDetailData catch')
-    alert(e)
+    console.log(e)
     clearInterval(pageTask)
   })
 }
 // 对话详情页面滚到底部
 const scrollToBottom = (forceBottom = false) => {
   console.log('执行了滚动到底')
-  const distance = mainContentEle.scrollHeight - mainContentEle.clientHeight - mainContentEle.scrollTop
-  // clientHeight + scrollTop === scrollHeight 判断当前是不是在底部 如果是 就滚 否则不滚
-  if(distance <= 100 || forceBottom){
-    console.log('滚啊！')
-    nextTick(()=>{
-      const ele = document.getElementsByClassName('conversation-main-block')[0]
-      mainContentEle && mainContentEle.scrollTo({
-        top: ele.scrollHeight,
-        behavior: 'smooth'
+  console.log(mainContentEle)
+  if(mainContentEle){
+    const distance = mainContentEle.scrollHeight - mainContentEle.clientHeight - mainContentEle.scrollTop
+    // clientHeight + scrollTop === scrollHeight 判断当前是不是在底部 如果是 就滚 否则不滚
+    if(distance <= 100 || forceBottom){
+      console.log('滚啊！')
+      nextTick(()=>{
+        const ele = document.getElementsByClassName('conversation-main-block')[0]
+        mainContentEle && mainContentEle.scrollTo({
+          top: ele.scrollHeight,
+          behavior: 'smooth'
+        })
       })
-    })
+    }
   }
-
 }
 // 获取对话元信息
 const getChartMetaInfo = () => {
   getChatMeta({
-    id: route.query.id
+    id: route.query.id,
+    key: new Date().getTime()
   }).then(res => {
     if (res.code === 0) {
       curConversationMeta.value = res.data
@@ -355,8 +364,6 @@ const getChartMetaInfo = () => {
 }
 // 根据当前对话属性计算操作下拉列表
 const calcOperationOptions = () => {
-  console.log('calcOperationOptions')
-  console.log(curConversationMeta.fs_type)
   if (curConversationMeta.value.fs_type === 1) {
     // 已封锁对方状态 展示解封对方
     dialogueOperationType.value = sysData.dialogueOperationType.filter(item => {
@@ -368,7 +375,6 @@ const calcOperationOptions = () => {
       return item.value !== 3
     })
   }
-  console.log(dialogueOperationType.value)
 }
 // 打开评论面板
 const openEvaluateDialog = () => {
@@ -671,6 +677,7 @@ const toGoodsDetails = () => {
 // 循环查询对话列表和当前对话详情
 const pageLoopTask = () => {
   pageTask = setInterval(() => {
+    console.log('task 执行')
     getChartMetaInfo()
     fetchDetailData(false)
   }, 2000)

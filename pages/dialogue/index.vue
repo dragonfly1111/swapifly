@@ -241,7 +241,7 @@
             <div class="no-msg-tip">{{ $t('dialogue.noMsgTip') }}</div>
           </div>
           <div v-show="conversationDetail.length > 0" class="conversation-main-block">
-            <div class="nomore" v-if="page >= lastPage">--{{ $t('dialogue.noMore') }}--</div>
+            <div class="nomore">--{{ $t('dialogue.noMore') }}--</div>
             <div class="conversation-item" :class="item.wz === 'left' ? 'conversation-left' : 'conversation-right'"
                  v-for="(item, index) in conversationDetail">
               <div class="time-line" v-if="index % 20 === 0">{{
@@ -345,7 +345,6 @@ const conversationList = ref([])
 // 中间对话详情
 const conversationDetail = ref([])
 const page = ref(1)
-const lastPage = ref(0)
 // 当前对话的元信息
 const curConversationMeta = ref({})
 // 操作列表
@@ -400,7 +399,8 @@ const toGoodsDetails = () => {
 // 获取左侧对话列表
 const fetchListData = (autoFocus = true) => {
   getChatList({
-    type: curMsgType.value
+    type: curMsgType.value,
+    key: new Date().getTime()
   }).then(res => {
     pageLoading.value = false
     conversationList.value = res.data
@@ -425,13 +425,13 @@ const fetchDetailData = (callback) => {
   const id = curConversationMeta.value.id
   getChatDetail({
     id: curConversationMeta.value.id,
+    key: new Date().getTime()
     // limit: 999
     // 暂时不做分页
     // page: page.value
   }).then(res => {
     mainContentLoading.value = false
     if (res.code === 0) {
-      lastPage.value = res.data.last_page
       // 在轮询的过程中 可能中途被切换了对话详情 如果切换了 放弃上一次轮询的结果 id相同 说明没有切换
       if (id === curConversationMeta.value.id) {
         // 暂时不做分页
@@ -457,7 +457,8 @@ const getChartMetaInfo = () => {
   if (!curConversationMeta.value.id) return
   const id = curConversationMeta.value.id
   getChatMeta({
-    id: curConversationMeta.value.id
+    id: curConversationMeta.value.id,
+    key: new Date().getTime()
   }).then(res => {
     // 在轮询的过程中 可能中途被切换了对话详情 如果切换了 放弃上一次轮询的结果 id相同 说明没有切换
     if (id === curConversationMeta.value.id) {
@@ -493,17 +494,14 @@ const markSuc = () => {
 // 切换消息类型
 const changeMsgType = () => {
   page.value = 1
-  lastPage.value = 0
   mainContentLoading.value = true
   fetchListData()
 }
 // 切换对话详情
 const changeChatDetail = (item) => {
-
   showDiaList.value = false
   conversationDetail.value = []
   page.value = 1
-  lastPage.value = 0
   curConversationMeta.value = item
   calcOperationOptions()
   mainContentLoading.value = true
@@ -815,20 +813,6 @@ const scrollToBottom = (forceBottom = false) => {
   }
 
 }
-const scrollListen = (e) => {
-  if (e.target.scrollTop === 0) {
-    // 滚到顶部 加载下一页数据
-    console.log('加载')
-    if (page.value < lastPage.value) {
-      mainContentLoading.value = true
-      page.value++
-      fetchDetailData(() => {
-        mainContentLoading.value = false
-      })
-    }
-
-  }
-}
 const getAd = () => {
   getChatAdvert().then(res => {
     googleAd.value = res.data
@@ -853,7 +837,6 @@ onMounted(() => {
 onUnmounted(() => {
   console.log('onUnmounted')
   clearInterval(pageTask)
-  // mainContentEle.removeEventListener("scroll", scrollListen)
 })
 </script>
 <style lang="scss" scoped>

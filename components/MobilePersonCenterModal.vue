@@ -1,6 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" title-align="start" modal-class="mobile-person-dialog" :footer="false"
-           @close="handleCancel">
+  <a-modal v-model:visible="visible" title-align="start" modal-class="mobile-person-dialog" :footer="false">
     <template #title>
       <div class="login-title">
         <img src="@/assets/images/logo-long.png" alt=""/>

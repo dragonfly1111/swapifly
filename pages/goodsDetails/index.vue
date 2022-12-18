@@ -79,7 +79,7 @@
               </div>
             </swiper>
             <!-- 分页 -->
-            <div v-show="productInfo.images.length > 3 || resize.screenType === 'MOBILE'">
+            <div v-show="productInfo.images.length > 3 || (resize.screenType === 'MOBILE' && productInfo.images.length > 2)">
               <div
                 class="swiper-button-next swiper-button-next-self"
                 @click="swiperRef.$el.swiper.slideNext()"
