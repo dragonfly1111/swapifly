@@ -51,7 +51,7 @@
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <div>{{ item.title }}</div>
+              <div class="brands-label">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
@@ -91,7 +91,7 @@
                   <div class="loader-animate"/>
                 </template>
               </a-image>
-              <div>{{ item.title }}</div>
+              <div class="brands-label">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow1" class="arrow arrow-right" @click="bradChangePage1('next')">
@@ -112,8 +112,8 @@
           </a-breadcrumb>
         </a-space>
         <div class="select-wrapper">
-          <MobileGoodsFilterSelect class="mobile-select" @change="handleQuery"></MobileGoodsFilterSelect>
-          <GoodsFilterSelect class="pc-class" @change="handleQuery" ref="goodsFilterSelect"></GoodsFilterSelect>
+          <MobileGoodsFilterSelect class="mobile-select" ref="mobileGoodsFilterSelect" @change="handleQuery" :cur-level="curLevel" :cur-rid="rId"></MobileGoodsFilterSelect>
+          <GoodsFilterSelect class="pc-class" @change="handleQuery" ref="goodsFilterSelect" :cur-level="curLevel" :cur-rid="rId"></GoodsFilterSelect>
         </div>
       </div>
       <div class="section-content">
@@ -154,6 +154,7 @@ const bradNextShow1 = ref(true)
 const curLevel = ref(0)
 const rId = ref(null)
 const goodsFilterSelect = ref(null)
+const mobileGoodsFilterSelect = ref(null)
 const classPath = ref([])
 curLevel.value = parseInt(route.query.level)
 rId.value = parseInt(route.query.id)
@@ -340,7 +341,8 @@ watch(() => route.query, (newValue, oldValue) => {
   hotBradList.value = []
   subClassList.value = []
 
-  goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value, true)
+  goodsFilterSelect.value && goodsFilterSelect.value.resetForm && goodsFilterSelect.value.resetForm()
+  mobileGoodsFilterSelect.value && mobileGoodsFilterSelect.value.resetForm && mobileGoodsFilterSelect.value.resetForm()
   initPageData()
   getBrad()
   window.scrollTo({
@@ -350,7 +352,7 @@ watch(() => route.query, (newValue, oldValue) => {
 })
 onMounted(()=>{
   getBrad()
-  goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
+  // goodsFilterSelect.value && goodsFilterSelect.value.resetTree && goodsFilterSelect.value.resetTree(rId.value, curLevel.value)
 })
 </script>
 
@@ -405,7 +407,12 @@ onMounted(()=>{
         object-fit: cover;
         margin-bottom: 5px;
       }
-
+      .brands-label{
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       :deep(.arco-image-error) {
         border-radius: 50%;
 
@@ -557,6 +564,9 @@ onMounted(()=>{
       .brands-item {
         width: 80px;
         margin-right: 15px;
+      }
+      .arco-image{
+        margin: 0 auto;
       }
       .pc-img{
         display: none;

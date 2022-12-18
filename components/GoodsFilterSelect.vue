@@ -11,8 +11,9 @@
             children: 'children',
           }"
           :tree-props="{
-            'default-expanded-keys': []
+              'default-expand-all': false,
           }"
+          @change="updateSearch"
           :placeholder="$t('pages.classification')"
       ></a-tree-select>
     </a-form-item>
@@ -110,19 +111,40 @@ import {findNode} from "~/utils/common";
 
 
 const sysData = useSysData();
-const sourceClassList = ref([]);
 const resetParam = ref({});
-const classListAsync = ref([])
-watch(sysData, (val) => {
-  if(val.goodsClass.length){
-    sourceClassList.value = val.goodsClass
-    if(resetParam.value.needReset){
-      generateTree()
-    }
+const props = defineProps({
+  curLevel: {
+    type: Number,
+    default: null
+  },
+  curRid: {
+    type: Number,
+    default: null
   }
-}, { immediate: true, deep: true });
+});
+const classListAsync = computed(() => {
+  if(props.curRid){
+    // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
+    const tmpNode = findNode(sysData.goodsClass, (node) => {
+      return node.id === props.curRid
+    })
+    console.log('tmpNode')
+    return tmpNode && tmpNode.children
+  } else {
+    return sysData.goodsClass
+  }
+
+})
+
+
+const treeShow = computed(() => {
+  if (!props.curLevel) {
+    return  true
+  }
+  return props.curLevel < 3;
+})
+
 const showPriceBox = ref(false);
-const treeShow = ref(true);
 let form = reactive({
   sort: "",
   nid: [],
@@ -136,9 +158,7 @@ const priceForm = reactive({
   min: null,
   max: null,
 });
-
 const emits = defineEmits(["change"]);
-
 const formRef = ref(null);
 const resetForm = () => {
   priceForm.min = null
@@ -210,47 +230,10 @@ const updateSearch = () => {
   emits("change", setForm);
 };
 
-const resetTree = (id, level, generate = false) => {
-  resetParam.value = {
-    needReset: true,
-    id,
-    level
-  }
-  if(generate){
-    form.rid = ''
-    generateTree()
-  }
-}
-
-const generateTree = () =>{
-  if (!resetParam.value.level) {
-    treeShow.value = true
-  }
-  if (resetParam.value.level < 3) {
-    treeShow.value = true
-    // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
-    const tmpNode = findNode(sourceClassList.value, (node) => {
-      return node.id === resetParam.value.id
-    })
-    console.log('tmpNode')
-    console.log(tmpNode.children)
-    if (tmpNode && tmpNode.children.length > 0) {
-      classListAsync.value = tmpNode.children
-    }
-  } else {
-    // 如果是三级分类 不出现分类下拉
-    treeShow.value = false
-  }
-  resetParam.value = {
-    needReset: false,
-    id: null,
-    level: null
-  }
-}
-
 defineExpose({
-  resetTree
-})
+  resetForm
+});
+
 </script>
 
 <style lang="scss" scoped>

@@ -161,14 +161,14 @@
             <img class="phone-logo" src="@/assets/images/swapifly-logo.png" alt="">
           </nuxt-link>
           <div class="search-input">
-            <a-input v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
+            <a-input-search v-model="searchKey" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
                      @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
                      search-button>
               <template #suffix>
                 <img v-if="searchResPage" @click.prevent.stop="handleCollection" class="icon-collection"
                      src="@/assets/images/icon/icon-collection.png" alt="">
               </template>
-            </a-input>
+            </a-input-search>
             <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
               <div class="white-wrap wrap">
                 {{ $t('head.searchHis') }}
@@ -946,6 +946,10 @@ function toClassDetail(e) {
 
           .hide-suggest {
             max-height: 0;
+          }
+
+          :deep(.arco-input-append){
+            display: none;
           }
         }
       }

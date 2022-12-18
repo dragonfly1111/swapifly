@@ -15,11 +15,10 @@
           layout="vertical"
           ref="formRef"
         >
-          <a-form-item field="rid" :label="$t('pages.classification')">
+          <a-form-item v-if="treeShow" field="rid" :label="$t('pages.classification')">
             <a-tree-select
               :data="classListAsync"
               v-model="form.rid"
-              :load-more="loadMore"
               :fieldNames="{
                 key: 'id',
                 title: 'title',
@@ -33,7 +32,7 @@
           <a-form-item field="sort" :label="$t('pages.sort')">
             <a-select v-model="form.sort">
               <a-option
-                v-for="item in sortList"
+                v-for="item in sysData.goodsSort"
                 :key="item.id"
                 :value="item.id"
                 :label="item.title"
@@ -47,7 +46,7 @@
                 <icon-down />
               </template>
               <a-option
-                v-for="item in newOldList"
+                v-for="item in sysData.goodsOan"
                 :key="item.id"
                 :value="item.id"
                 :label="item.title"
@@ -85,6 +84,9 @@
           </a-form-item>
         </a-form>
         <div class="bottom-search">
+          <a-button @click="resetForm">{{
+              $t("pages.reset")
+            }}</a-button>
           <a-button type="primary" class="black-btn" @click="updateSearch">{{
             $t("pages.mobile_search")
           }}</a-button>
@@ -97,32 +99,12 @@
 <script setup>
 import { useSysData } from "~/stores/sysData";
 const sysData = useSysData();
-const sourceClassList = sysData.goodsClass;
-const classList = sysData.goodsClass.map((item) => {
-  return {
-    id: item.id,
-    title: item.title,
-    children: [],
-  };
-});
-const classListAsync = ref(classList);
+
+
 const visible = ref(false);
-const sortList = sysData.goodsSort;
-const newOldList = sysData.goodsOan;
+const treeShow = ref(true);
+const classListAsync = ref([])
 const emits = defineEmits(["change"]);
-// const props = defineProps({
-//   form: {
-//     default: () => ({
-//       sort: "",
-//       nid: [],
-//       rid: "",
-//       min: null,
-//       max: null,
-//       offline: false,
-//       mail: false,
-//     }),
-//   },
-// });
 const form = ref({
   sort: "",
   nid: [],
@@ -132,10 +114,6 @@ const form = ref({
   offline: false,
   mail: false,
 });
-// const priceForm = reactive({
-//   min: null,
-//   max: null,
-// });
 
 const formRef = ref(null);
 const resetForm = () => {
@@ -148,48 +126,27 @@ const resetForm = () => {
     offline: false,
     mail: false,
   };
+  updateSearch()
 };
-const openDialog = (e) => {
-  console.log(e,'??')
-
+const openDialog = (e , tree, show) => {
+  console.log('treeShow')
+  console.log(treeShow)
+  treeShow.value = show
+  classListAsync.value = tree
   visible.value = true;
   form.value = { ...form.value, ...e };
 };
 
 const handleCancel = () => {
-  resetForm();
+  // resetForm();
   visible.value = false;
 };
 
 const updateSearch = () => {
-  console.log(form);
+  console.log('updateSearch');
   let setForm = { ...form.value };
   emits("change", setForm);
   visible.value = false;
-};
-
-// 智障arco没有提供默认折叠全部节点功能 并且点击打开面板时非常卡，所以做成"动态"加载数据的样子
-const loadMore = (nodeData) => {
-  const { title, key } = nodeData;
-  // 从sourceClassList中找到id相同的节点 把他的children赋值过来
-  const tmpNode = findNodeById(sourceClassList, nodeData.id);
-  return new Promise((resolve) => {
-    nodeData.children = tmpNode ? tmpNode.children : [];
-    resolve();
-  });
-};
-
-const findNodeById = (arr, targetId) => {
-  let node = null;
-  arr.forEach((item) => {
-    if (item.id === targetId) {
-      node = item;
-    }
-    if (item.children) {
-      findNodeById(item.children, targetId);
-    }
-  });
-  return node;
 };
 
 defineExpose({
@@ -238,12 +195,13 @@ defineExpose({
     padding: 10px 0;
   }
   .bottom-search {
-    text-align: center;
     margin-top: 30px;
-    .black-btn {
-      width: 80%;
+    display: flex;
+    justify-content: space-between;
+    .arco-btn{
+      width: 45%;
       margin: auto;
-      height: 50px;
+      height: 42px;
     }
   }
 }
