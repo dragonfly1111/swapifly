@@ -28,11 +28,11 @@
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in bradLoading" class="brands-item">
-              <a-skeleton :animation="true">
-                <a-skeleton-shape shape="circle"/>
-                <div style="height: 5px"></div>
-                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
-              </a-skeleton>
+<!--              <a-skeleton :animation="true">-->
+<!--                <a-skeleton-shape shape="circle"/>-->
+<!--                <div style="height: 5px"></div>-->
+<!--                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>-->
+<!--              </a-skeleton>-->
             </div>
           </div>
         </template>
