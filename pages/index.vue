@@ -62,19 +62,19 @@
 <!--      </div>-->
 <!--    </section>-->
 
-    <section class="section-wrapper recommend-wrapper">
-      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
-      <div class="section-content">
-        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
-      </div>
-    </section>
+<!--    <section class="section-wrapper recommend-wrapper">-->
+<!--      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>-->
+<!--      <div class="section-content">-->
+<!--        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>-->
+<!--      </div>-->
+<!--    </section>-->
 
-    <AD :advert="googleAd.content"></AD>
-    <div class="see-more" v-if="page < lastPage && productList.length > 0">
-      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
-    </div>
+<!--    <AD :advert="googleAd.content"></AD>-->
+<!--    <div class="see-more" v-if="page < lastPage && productList.length > 0">-->
+<!--      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>-->
+<!--    </div>-->
 
-    <PageFooterLink></PageFooterLink>
+<!--    <PageFooterLink></PageFooterLink>-->
     <!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
     <!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
     <!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
