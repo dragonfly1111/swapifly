@@ -44,6 +44,8 @@ const initPicker = (data) => {
   nextTick(() => {
     setTimeout(() => { // 防止加载不到dom
       if (document.getElementById("datetimepicker")) {
+        console.log(TempusDominus)
+        console.log(document.getElementById("datetimepicker"))
         picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
           localization: {
             locale: locale.value,
@@ -58,6 +60,7 @@ const initPicker = (data) => {
             ...props.pickOptions,
           },
         });
+        console.log(picker.value)
         changeInput();
         if (data) {
           setInput(data)
