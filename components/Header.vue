@@ -198,19 +198,19 @@
           </div>
         </div>
 
-        <div class="right">
-          <div v-if="userInfo.token">
-            <template v-if="actionRoute.indexOf($route.path) !== -1">
-              <icon-more-vertical class="icon-more"/>
-            </template>
-            <template v-else>
-              <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
-              <icon-list class="icon-list" @click="toMobilePerson"/>
-            </template>
+<!--        <div class="right">-->
+<!--          <div v-if="userInfo.token">-->
+<!--            <template v-if="actionRoute.indexOf($route.path) !== -1">-->
+<!--              <icon-more-vertical class="icon-more"/>-->
+<!--            </template>-->
+<!--            <template v-else>-->
+<!--              <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>-->
+<!--              <icon-list class="icon-list" @click="toMobilePerson"/>-->
+<!--            </template>-->
 
-          </div>
-          <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>
-        </div>
+<!--          </div>-->
+<!--          <a-button v-else class="login-but-mobile" @click="openLogin">{{ $t('head.login') }}</a-button>-->
+<!--        </div>-->
       </div>
     </div>
 

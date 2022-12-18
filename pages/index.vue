@@ -1,80 +1,80 @@
 <template>
   <div class="common-row global-content">
-<!--    <div class="banner-wrapper">-->
-<!--      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">-->
-<!--        <template v-if="bannerLoading">-->
-<!--          <a-carousel-item>-->
-<!--            <a-skeleton :animation="true">-->
-<!--              <a-skeleton-line :rows="1" :line-height="260"/>-->
-<!--            </a-skeleton>-->
-<!--          </a-carousel-item>-->
-<!--        </template>-->
-<!--        <template v-else>-->
-<!--          <a-carousel-item v-for="item in bannerList">-->
-<!--            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"-->
-<!--                     :src="baseImgPrefix + item.img" class="carousel-img">-->
-<!--              <template #loader>-->
-<!--                <div class="loader-animate"/>-->
-<!--              </template>-->
-<!--            </a-image>-->
-<!--          </a-carousel-item>-->
-<!--        </template>-->
-<!--      </a-carousel>-->
+    <div class="banner-wrapper">
+      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
+        <template v-if="bannerLoading">
+          <a-carousel-item>
+            <a-skeleton :animation="true">
+              <a-skeleton-line :rows="1" :line-height="260"/>
+            </a-skeleton>
+          </a-carousel-item>
+        </template>
+        <template v-else>
+          <a-carousel-item v-for="item in bannerList">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                     :src="baseImgPrefix + item.img" class="carousel-img">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
+          </a-carousel-item>
+        </template>
+      </a-carousel>
 
-<!--    </div>-->
-<!--    <section class="section-wrapper">-->
-<!--      <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>-->
-<!--      <div class="section-content">-->
-<!--        <template v-if="bradLoading">-->
-<!--          <div class="brands-content">-->
-<!--            <div v-for="item in bradLoading" class="brands-item">-->
-<!--              <a-skeleton :animation="true">-->
-<!--                <a-skeleton-shape shape="circle"/>-->
-<!--                <div style="height: 5px"></div>-->
-<!--                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>-->
-<!--              </a-skeleton>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </template>-->
-<!--        <template v-else>-->
-<!--          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">-->
-<!--            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>-->
-<!--          </div>-->
-<!--          <div class="brands-content">-->
-<!--            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">-->
-<!--              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>-->
-<!--                <template #loader>-->
-<!--                  <div class="loader-animate"/>-->
-<!--                </template>-->
-<!--              </a-image>-->
-<!--              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>-->
-<!--                <template #loader>-->
-<!--                  <div class="loader-animate"/>-->
-<!--                </template>-->
-<!--              </a-image>-->
-<!--              <div class="brands-title">{{ item.title }}</div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">-->
-<!--            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </div>-->
-<!--    </section>-->
+    </div>
+    <section class="section-wrapper">
+      <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
+      <div class="section-content">
+        <template v-if="bradLoading">
+          <div class="brands-content">
+            <div v-for="item in bradLoading" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+          <div class="brands-content">
+            <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
+              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-title">{{ item.title }}</div>
+            </div>
+          </div>
+          <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+        </template>
+      </div>
+    </section>
 
-<!--    <section class="section-wrapper recommend-wrapper">-->
-<!--      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>-->
-<!--      <div class="section-content">-->
-<!--        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>-->
-<!--      </div>-->
-<!--    </section>-->
+    <section class="section-wrapper recommend-wrapper">
+      <h3 class="section-header1">{{ $t("pages.recommendTitle") }}</h3>
+      <div class="section-content">
+        <ProductCard :list="productList" :pageLoading="productLoading"></ProductCard>
+      </div>
+    </section>
 
-<!--    <AD :advert="googleAd.content"></AD>-->
-<!--    <div class="see-more" v-if="page < lastPage && productList.length > 0">-->
-<!--      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>-->
-<!--    </div>-->
+    <AD :advert="googleAd.content"></AD>
+    <div class="see-more" v-if="page < lastPage && productList.length > 0">
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
+    </div>
 
-<!--    <PageFooterLink></PageFooterLink>-->
+    <PageFooterLink></PageFooterLink>
     <!--    <LoginModal ref="loginModal" @toRegister="toRegister" @toForget="toForget"></LoginModal>-->
     <!--    <RegisterModal ref="registerModal" @toLogin="toLogin" @toPreference="toPreference"></RegisterModal>-->
     <!--    <ChoosePreference ref="choosePreference" @confirmPreference="confirmPreference"></ChoosePreference>-->
