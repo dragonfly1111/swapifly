@@ -136,6 +136,7 @@ const doLogin = () => {
         const user = res.data
         userInfo.setUserInfo(user)
         visible.value = false;
+        location.reload()
       } else if(res.code === 998){
         visible.value = false;
       } else {

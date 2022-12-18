@@ -95,6 +95,7 @@ request.interceptors.response.use(
       // 登录过期 跳转首页
       const router = useRouter();
       const openLogin = useState<Boolean>('openLogin')
+      userInfo.logout();
       userInfo.openDialog();
       openLogin.value = true;
       // 如果是对话页面相关的接口 跳到首页
