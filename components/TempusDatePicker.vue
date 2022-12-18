@@ -41,33 +41,33 @@ const props = defineProps({
 const picker = ref(null);
 const initPicker = (data) => {
   console.log('----initPicker----')
+  console.log(document.getElementById("datetimepicker"))
   nextTick(() => {
-    setTimeout(() => { // 防止加载不到dom
-      if (document.getElementById("datetimepicker")) {
-        console.log(TempusDominus)
-        console.log(document.getElementById("datetimepicker"))
-        picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
-          localization: {
-            locale: locale.value,
+    console.log(document.getElementById("datetimepicker"))
+    if (document.getElementById("datetimepicker")) {
+      console.log(TempusDominus)
+      console.log(document.getElementById("datetimepicker"))
+      picker.value = new TempusDominus(document.getElementById("datetimepicker"), {
+        localization: {
+          locale: locale.value,
+        },
+        useCurrent: false,
+        display: {
+          buttons: {
+            today: true,
+            clear: true,
+            close: true,
           },
-          useCurrent: false,
-          display: {
-            buttons: {
-              today: true,
-              clear: true,
-              close: true,
-            },
-            ...props.pickOptions,
-          },
-        });
-        console.log(picker.value)
-        changeInput();
-        if (data) {
-          setInput(data)
-        }
-        //logs the selected index. This will always be 0 if multipleDates is false
+          ...props.pickOptions,
+        },
+      });
+      console.log(picker.value)
+      changeInput();
+      if (data) {
+        setInput(data)
       }
-    }, 10);
+      //logs the selected index. This will always be 0 if multipleDates is false
+    }
   });
 };
 
