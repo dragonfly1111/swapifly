@@ -5,51 +5,55 @@
     <div class="user-banner">
       <a-image :src="testImg" fit="cover" show-loader>
         <template #loader>
-          <div class="loader-animate" />
+          <div class="loader-animate"/>
         </template>
       </a-image>
     </div>
 
     <div class="user-details">
       <a-tabs class="pc-tab" :active-key="activeTab"
-        @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
+              @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
         <template #extra>
           <a-space class="extra-btn" v-if="hasMounted">
             <a-button type="outline" v-if="userInfo.id == form.id" @click="router.push('/userProfile')">{{
                 $t("profile.edit_profile")
-            }}</a-button>
+              }}
+            </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
                 $t("pages.report")
-            }}</a-button>
+              }}
+            </a-button>
           </a-space>
         </template>
         <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
         <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
         <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
-          v-if="form.shop == 1 || form.p_type == 2">
+                    v-if="form.shop == 1 || form.p_type == 2">
         </a-tab-pane>
       </a-tabs>
       <div class="tab-content" v-if="hasMounted">
         <div class="left-content">
-          <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow" @openRegBusiness="openRegBusiness"></UserCard>
+          <UserCard :advert="advert" :page-loading="pageLoading" :form="form" @toFollow="toFollow"
+                    @openRegBusiness="openRegBusiness"></UserCard>
           <a-space class="extra-btn extra-btn-m">
             <a-button type="outline" v-if="userInfo.id != form.id" :loading="btnLoading" @click="handleFollow">
               {{ form.isfollow == 1 ? $t("pages.cancelFollow") : $t("pages.follow") }}
             </a-button>
             <a-button type="outline" v-if="userInfo.id != form.id" @click="handleReport">{{
                 $t("pages.report")
-            }}</a-button>
+              }}
+            </a-button>
           </a-space>
         </div>
         <a-tabs class="m-tab" style="margin-left: 0px" :active-key="activeTab"
-          @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
+                @change="handleTabChange" :class="{ noline: activeTab == 'followRow' }">
           <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
           <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
           <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
-            v-if="form.shop == 1 || form.p_type == 2">
+                      v-if="form.shop == 1 || form.p_type == 2">
           </a-tab-pane>
         </a-tabs>
         <div class="right-content">
@@ -75,13 +79,14 @@ import GoodsRow from "./components/GoodsRow";
 import FollowRow from "./components/FollowRow";
 import EvaluateRow from "./components/EvaluateRow";
 import BusinessInformation from "./components/BusinessInformation";
-import { useUserInfo } from "~/stores/userInfo";
-import { getUserDetails, followUser } from "~/api/shop";
-import { Message } from "@arco-design/web-vue";
+import {useUserInfo} from "~/stores/userInfo";
+import {getUserDetails, followUser} from "~/api/shop";
+import {Message} from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
+
 const userInfo = useUserInfo();
 const router = useRouter();
-const form = ref({ id: "", isfollow: 0 });
+const form = ref({id: "", isfollow: 0});
 const reportModal = ref(null);
 const evaluateRow = ref(null);
 const goodsRow = ref(null);
@@ -98,17 +103,17 @@ const handleTabChange = (e) => {
   activeTab.value = e;
   switch (e) {
     case "goodsRow":
-      nextTick(()=>{
+      nextTick(() => {
         goodsRow.value.initData();
       })
       break;
     case "evaluateRow":
-      nextTick(()=>{
+      nextTick(() => {
         evaluateRow.value.initData();
       })
       break;
     case "businessInformation":
-      nextTick(()=>{
+      nextTick(() => {
         businessInformation.value.handleQuery();
       })
       break;
@@ -122,36 +127,36 @@ const getInfo = () => {
       form.value.p_type = res.data.p_type;
       advert.value = res.data.advert.content;
     }
-  }).finally(()=>{
+  }).finally(() => {
     pageLoading.value = false
   })
 };
 
 // 关注取消用户
 const handleFollow = () => {
-  if(!userInfo.checkLogin()) return
+  if (!userInfo.checkLogin()) return
   let state = form.value.isfollow == 1 ? 2 : 1;
   btnLoading.value = true;
   followUser({
     id: form.value.id,
     state,
   })
-    .then((res) => {
-      if (res.code === 0) {
-        Message.success(res.message);
-        getInfo();
-      } else {
-        Message.error(res.message);
-      }
-    })
-    .finally(() => {
-      btnLoading.value = false;
-    });
+      .then((res) => {
+        if (res.code === 0) {
+          Message.success(res.message);
+          getInfo();
+        } else {
+          Message.error(res.message);
+        }
+      })
+      .finally(() => {
+        btnLoading.value = false;
+      });
 };
 
 // 举报用户
 const handleReport = () => {
-  if(!userInfo.checkLogin()) return
+  if (!userInfo.checkLogin()) return
   reportModal.value.openDialog(form.value, "user");
 };
 // 注册商户
@@ -160,7 +165,7 @@ const openRegBusiness = () => {
   businessInformation.value.toAuthentication();
 };
 const toFollow = (e) => {
-  if(!userInfo.checkLogin()) return
+  if (!userInfo.checkLogin()) return
   activeTab.value = "followRow";
   followRow.value.resetQuery(e);
 };
@@ -172,17 +177,17 @@ const initData = () => {
   goodsRow.value.initData();
 };
 watch(
-  () => router.currentRoute.value.query.userId,
-  (newValue, oldValue) => {
-    if (router.currentRoute.value.path == "/userDetails" && newValue !== oldValue) {
-      initData();
+    () => router.currentRoute.value.query.userId,
+    (newValue, oldValue) => {
+      if (router.currentRoute.value.path == "/userDetails" && newValue !== oldValue) {
+        initData();
+      }
     }
-  }
 );
 
 onMounted(() => {
   hasMounted.value = true
-  nextTick(()=>{
+  nextTick(() => {
     if (router.currentRoute.value.query.userId) {
       form.value.id = router.currentRoute.value.query.userId;
       getInfo();
@@ -248,6 +253,7 @@ onMounted(() => {
       padding-left: 5px;
       padding-right: 5px;
       background-color: #fff;
+
       &:hover {
         background-color: #eee;
       }
@@ -256,34 +262,39 @@ onMounted(() => {
 }
 
 .tab-content {
- display: flex;
- justify-content: space-between;
- .left-content {
-   width: 300px;
-   flex-shrink: 0;
-   margin-right: 30px;
- }
- .right-content {
-   border: 1px solid $main-grey-border;
-   border-radius: 2px;
-   width: calc(100% - 340px);
-   flex: auto;
-   margin-top: 10px;
- }
+  display: flex;
+  justify-content: space-between;
+
+  .left-content {
+    width: 300px;
+    flex-shrink: 0;
+    margin-right: 30px;
+  }
+
+  .right-content {
+    border: 1px solid $main-grey-border;
+    border-radius: 2px;
+    width: calc(100% - 340px);
+    flex: auto;
+    margin-top: 10px;
+  }
 }
 
-.pc-tab{
+.pc-tab {
   display: block;
 }
-.m-tab{
+
+.m-tab {
   display: none;
 }
-.extra-btn-m{
+
+.extra-btn-m {
   display: none;
 }
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var";
+
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .user-details {
     :deep(.arco-tabs-nav-tab) {
@@ -291,11 +302,11 @@ onMounted(() => {
       padding-top: 0;
     }
   }
-  .user-detail-content{
+  .user-detail-content {
     padding-left: 0;
     padding-right: 0;
   }
-  .user-banner{
+  .user-banner {
     height: 105px;
   }
   .profile-box {
@@ -311,41 +322,44 @@ onMounted(() => {
     top: 195px;
     z-index: 888;
   }
-  .foot-link{
+  .foot-link {
     padding: 0 17px;
   }
-  .tab-content{
+  .tab-content {
     display: block;
+
     .left-content {
       width: 100%;
     }
+
     .right-content {
       width: 100%;
       border: unset;
     }
   }
-  .pc-tab{
+  .pc-tab {
     display: none;
   }
-  .m-tab{
+  .m-tab {
     display: block;
   }
-  .extra-btn-m{
+  .extra-btn-m {
     display: flex;
   }
   .tab-content {
-  //mediaCss文件写了
- display: block;
- .left-content {
-   width: 100%;
-   margin-right: 0;
- }
- .right-content {
-   border: 0;
-   border-radius: 0;
-   width: 100%;
-   margin-top: -10px;
- }
-}
+    display: block;
+
+    .left-content {
+      width: 100%;
+      margin-right: 0;
+    }
+
+    .right-content {
+      border: 0;
+      border-radius: 0;
+      width: 100%;
+      margin-top: -10px;
+    }
+  }
 }
 </style>

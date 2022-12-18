@@ -261,12 +261,30 @@ onMounted(() => {
   .arco-carousel {
     height: 260px;
     border-radius: 5px;
-    overflow: hidden;
 
     .carousel-img {
       width: 100%;
       height: 100%;
       cursor: pointer;
+    }
+    :deep(.arco-carousel-arrow){
+      .arco-icon{
+        font-size: 24px;
+        color: rgb(87, 88, 90);
+      }
+      & > div{
+        box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
+        background: #FFFFFF;
+        opacity: 0.8;
+        width: 50px;
+        height: 50px;
+      }
+      .arco-carousel-arrow-left{
+        left: -25px;
+      }
+      .arco-carousel-arrow-right{
+        right: -25px;
+      }
     }
   }
 }
@@ -345,6 +363,9 @@ onMounted(() => {
         }
       }
     }
+    :deep(.arco-image){
+      margin: 0 auto;
+    }
   }
 
   .section-content {
@@ -408,7 +429,27 @@ onMounted(() => {
   .banner-wrapper {
     .arco-carousel {
       height: 150px;
+      :deep(.arco-carousel-arrow){
+        .arco-icon{
+          font-size: 20px;
+        }
+        & > div{
+          box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
+          background: #FFFFFF;
+          opacity: 0.8;
+          width: 35px;
+          height: 35px;
+        }
+        .arco-carousel-arrow-left{
+          left: 5px;
+        }
+        .arco-carousel-arrow-right{
+          right: 5px;
+        }
+      }
+
     }
+
   }
   .recommend-wrapper {
     margin-top: 25px;
@@ -425,7 +466,7 @@ onMounted(() => {
 
     .brands-content {
       .brands-item {
-        width: 80px;
+        width: 90px;
       }
     }
   }

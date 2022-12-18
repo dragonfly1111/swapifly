@@ -387,7 +387,6 @@ p.arco-typography {
   display: flex;
   flex-wrap: wrap;
   //   grid-template-columns: repeat(auto-fill, 24%);
-  grid-gap: 10px;
 }
 .recommend-item + .recommend-item {
 }
@@ -399,7 +398,8 @@ p.arco-typography {
   color: #333333;
   cursor: pointer;
   position: relative;
-  width: 24%;
+  margin-right: 12px;
+  width: calc((100% - 36px) / 4);
 
   &:last-child {
     margin-right: auto;
@@ -554,6 +554,9 @@ p.arco-typography {
     }
   }
 @media screen and (min-width: 1000px) {
+  .recommend-item:nth-child(4n) {
+    margin-right: 0;
+  }
   .recommend-item{
     min-width: 180px;
     max-width: 350px;
@@ -563,11 +566,17 @@ p.arco-typography {
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
   .goods-list {
-    grid-gap: 2%;
+    justify-content: space-between;
   }
   .recommend-item {
     padding: 12px 4px;
-    width: 48%;
+    width: calc((100% - 12px) / 2);
+    &:hover {
+      box-shadow: unset;
+    }
+  }
+  .recommend-item:nth-child(2n) {
+    margin-right: 0;
   }
   .skeleton-row{
     .skeleton-col{

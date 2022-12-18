@@ -5,14 +5,14 @@
     <div style="margin: 20px" v-if="pageLoading">
       <a-skeleton animation :loading="pageLoading">
         <a-space direction="vertical" :style="{ width: '100%' }" size="large">
-          <a-skeleton-line :line-height="160" />
-          <a-skeleton-line :line-height="20" />
+          <a-skeleton-line :line-height="160"/>
+          <a-skeleton-line :line-height="20"/>
           <a-row :gutter="20">
             <a-col :span="12">
-              <a-skeleton-line :widths="['100%']" :line-height="160" />
+              <a-skeleton-line :widths="['100%']" :line-height="160"/>
             </a-col>
             <a-col :span="12">
-              <a-skeleton-line :widths="['100%']" :line-height="160" />
+              <a-skeleton-line :widths="['100%']" :line-height="160"/>
             </a-col>
           </a-row>
         </a-space>
@@ -24,22 +24,22 @@
         <a-spin :loading="uploadLoading" style="width: 100%">
           <div>
             <a-upload
-              draggable
-              :show-file-list="false"
-              :file-list="fileList"
-              :action="uploadUrl"
-              accept="image/*,.png"
-              :headers="headers"
-              :limit="10"
-              :on-before-upload="beforeUpload"
-              :on-button-click="uploadClick"
-              @success="uploadSuccess"
-              @error="uploadError"
-              @exceed-limit="overLimit"
+                draggable
+                :show-file-list="false"
+                :file-list="fileList"
+                :action="uploadUrl"
+                accept="image/*,.png"
+                :headers="headers"
+                :limit="10"
+                :on-before-upload="beforeUpload"
+                :on-button-click="uploadClick"
+                @success="uploadSuccess"
+                @error="uploadError"
+                @exceed-limit="overLimit"
             >
               <template #upload-button>
                 <div class="upload-area">
-                  <icon-plus :strokeWidth="10" :size="18" />
+                  <icon-plus :strokeWidth="10" :size="18"/>
                   <div>{{ $t("sale.uploadTip") }}</div>
                   <span>{{ $t("sale.uploadAlert") }}</span>
                 </div>
@@ -49,23 +49,23 @@
         </a-spin>
         <p class="cover-tip">{{ $t("sale.coverTip") }}</p>　
         <draggable
-          v-model="fileList"
-          class="image-preview-list"
-          ghost-class="ghost"
-          chosen-class="chosenClass"
-          animation="300"
-          @end="onEnd"
-          :fallback-on-body="true"
-          item-key="id"
+            v-model="fileList"
+            class="image-preview-list"
+            ghost-class="ghost"
+            chosen-class="chosenClass"
+            animation="300"
+            @end="onEnd"
+            :fallback-on-body="true"
+            item-key="id"
         >
           <template #item="{ element, index }">
             <div class="item image-item" :class="{ 'is-cover': index == 0 }">
               <a-image :src="element.url"></a-image>
               <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
               <icon-close
-                @click="handleDelImage(element, index)"
-                class="icon-close"
-                :title="$t('sale.delete')"
+                  @click="handleDelImage(element, index)"
+                  class="icon-close"
+                  :title="$t('sale.delete')"
               />
             </div>
           </template>
@@ -89,20 +89,20 @@
         <div class="m-upload">
           <div>
             <a-upload
-              draggable
-              :show-file-list="false"
-              :file-list="fileList"
-              :action="uploadUrl"
-              accept="image/*,.png"
-              :headers="headers"
-              :limit="10"
-              :on-before-upload="beforeUpload"
-              @success="uploadSuccess"
-              @error="uploadError"
+                draggable
+                :show-file-list="false"
+                :file-list="fileList"
+                :action="uploadUrl"
+                accept="image/*,.png"
+                :headers="headers"
+                :limit="10"
+                :on-before-upload="beforeUpload"
+                @success="uploadSuccess"
+                @error="uploadError"
             >
               <template #upload-button>
                 <div class="upload-area">
-                  <icon-plus :strokeWidth="10" :size="18" />
+                  <icon-plus :strokeWidth="10" :size="18"/>
                   <div>{{ $t("sale.uploadTip") }}</div>
                   <span>{{ $t("sale.uploadAlert") }}</span>
                 </div>
@@ -111,69 +111,70 @@
           </div>
           <p class="cover-tip">{{ $t("sale.coverTip") }}</p>　
           <draggable
-            v-model="fileList"
-            class="image-preview-list"
-            ghost-class="ghost"
-            chosen-class="chosenClass"
-            animation="300"
-            @end="onEnd"
-            :fallback-on-body="true"
-            item-key="id"
+              v-model="fileList"
+              class="image-preview-list"
+              ghost-class="ghost"
+              chosen-class="chosenClass"
+              animation="300"
+              @end="onEnd"
+              :fallback-on-body="true"
+              item-key="id"
           >
             <template #item="{ element, index }">
               <div class="item image-item" :class="{ 'is-cover': index == 0 }">
                 <a-image :src="element.url"></a-image>
                 <span class="is-cover-span" v-if="index == 0">{{ $t("sale.cover") }}</span>
                 <icon-close
-                  @click="handleDelImage(element, index)"
-                  class="icon-close"
-                  :title="$t('sale.delete')"
+                    @click="handleDelImage(element, index)"
+                    class="icon-close"
+                    :title="$t('sale.delete')"
                 />
               </div>
             </template>
           </draggable>
         </div>
         <a-form
-          size="large"
-          :rules="rules"
-          :model="form"
-          layout="vertical"
-          ref="formRef"
-          class="right-form"
+            size="large"
+            :rules="rules"
+            :model="form"
+            layout="vertical"
+            ref="formRef"
+            class="right-form"
         >
           <a-form-item field="rid" hide-label hide-asterisk>
             <a-tree-select
-              :data="sysData.goodsClass"
-              v-model="form.rid"
-              :fieldNames="{
+                :data="sysData.goodsClass"
+                v-model="form.rid"
+                :fieldNames="{
                 key: 'id',
                 title: 'title',
                 children: 'children',
               }"
-              :placeholder="$t('sale.chooseType')"
-              :tree-props="{
+                :placeholder="$t('sale.chooseType')"
+                :tree-props="{
                 'default-expand-all': false,
               }"
-              selectable="leaf"
-              class="input-wrp"
-              @change="changeClass"
+                selectable="leaf"
+                class="input-wrp"
+                @change="changeClass"
             ></a-tree-select>
             <template #extra>
               <div v-if="form.rid">
                 <a-breadcrumb>
                   <template #separator>
-                    <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
+                    <img src="@/assets/images/icon/breadcrumb-separator.png" alt=""/>
                   </template>
                   <a-breadcrumb-item v-for="item in curClassPath">{{
-                    item.title
-                  }}</a-breadcrumb-item>
+                      item.title
+                    }}
+                  </a-breadcrumb-item>
                 </a-breadcrumb>
               </div>
             </template>
           </a-form-item>
           <div v-if="form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
-              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" />
+              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')"/>
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
@@ -203,17 +204,18 @@
             </a-form-item>
             <a-form-item field="describe" :label="$t('sale.goodsDesc')" hide-asterisk>
               <a-textarea
-                class="input-wrp"
-                :placeholder="$t('sale.goodsDescTip')"
-                allow-clear
-                :auto-size="{ minRows: 8, maxRows: 8 }"
-                v-model="form.describe"
+                  class="input-wrp"
+                  :placeholder="$t('sale.goodsDescTip')"
+                  allow-clear
+                  :auto-size="{ minRows: 8, maxRows: 8 }"
+                  v-model="form.describe"
               />
               <template #extra>
                 <a-row justify="space-between">
                   <a-col flex="auto" v-if="curClassPath.length === 3">{{
-                    curClassPath[2].advice
-                  }}</a-col>
+                      curClassPath[2].advice
+                    }}
+                  </a-col>
                   <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
                     <a-link :href="forbidLink">{{ $t("sale.forbidTipDetail") }}</a-link>
@@ -223,15 +225,15 @@
             </a-form-item>
             <a-form-item field="region" :label="$t('profile.countries_regions')" hide-asterisk>
               <a-select
-                v-model="form.region"
-                :placeholder="$t('profile.countries_regions_empty')"
-                allow-clear
+                  v-model="form.region"
+                  :placeholder="$t('profile.countries_regions_empty')"
+                  allow-clear
               >
                 <a-option
-                  v-for="item in sysData.region"
-                  :value="item.id"
-                  :key="item.id"
-                  :label="item.title"
+                    v-for="item in sysData.region"
+                    :value="item.id"
+                    :key="item.id"
+                    :label="item.title"
                 >
                   {{ item.title }}
                 </a-option>
@@ -240,25 +242,25 @@
             <div class="form-title">{{ $t("sale.trading") }}</div>
             <a-form-item field="address" hide-label hide-asterisk :content-flex="false">
               <a-checkbox v-model="form.offline" :value="1"
-                >{{ $t("pages.handDeliver") }}
+              >{{ $t("pages.handDeliver") }}
               </a-checkbox>
               <a-select
-                v-if="form.offline == 1"
-                v-model="offline_address"
-                :placeholder="$t('sale.deliverAddress')"
-                allow-clear
-                allow-search
-                :loading="locationLoading"
-                class="input-wrp"
-                @search="handleSearch"
-                multiple
-                :filter-option="false"
+                  v-if="form.offline == 1"
+                  v-model="offline_address"
+                  :placeholder="$t('sale.deliverAddress')"
+                  allow-clear
+                  allow-search
+                  :loading="locationLoading"
+                  class="input-wrp"
+                  @search="handleSearch"
+                  multiple
+                  :filter-option="false"
               >
                 <a-option
-                  v-for="item in addressOptions"
-                  :value="JSON.stringify(item)"
-                  :key="item.location"
-                  :label="item.name"
+                    v-for="item in addressOptions"
+                    :value="JSON.stringify(item)"
+                    :key="item.location"
+                    :label="item.name"
                 >
                   <div class="ad-option">
                     <div class="ad-title">{{ item.name }}</div>
@@ -272,29 +274,29 @@
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
               <div class="offline-address" v-if="form.offline == 1">
                 <div
-                  class="offline-address-item"
-                  v-for="item in addressSaveOptions1"
-                  @click="addToSelect(item)"
+                    class="offline-address-item"
+                    v-for="item in addressSaveOptions1"
+                    @click="addToSelect(item)"
                 >
                   <p>{{ item.name }}</p>
                   <span>{{ item.address }}</span>
                   <div class="close-box" @click="removeAdd(item)">
-                    <icon-close />
+                    <icon-close/>
                   </div>
                 </div>
               </div>
             </a-form-item>
             <a-form-item field="mail_note" hide-label :content-flex="false" hide-asterisk>
               <a-checkbox v-model="form.mail" :value="1"
-                >{{ $t("pages.postAndCourier") }}
+              >{{ $t("pages.postAndCourier") }}
               </a-checkbox>
               <a-textarea
-                class="input-wrp"
-                v-if="form.mail == 1"
-                :placeholder="$t('sale.postTip')"
-                allow-clear
-                :auto-size="{ minRows: 5, maxRows: 5 }"
-                v-model="form.mail_note"
+                  class="input-wrp"
+                  v-if="form.mail == 1"
+                  :placeholder="$t('sale.postTip')"
+                  allow-clear
+                  :auto-size="{ minRows: 5, maxRows: 5 }"
+                  v-model="form.mail_note"
               />
             </a-form-item>
             <div class="publish">
@@ -316,12 +318,12 @@ export default {
 </script>
 <script setup>
 import draggable from "vuedraggable";
-import { useI18n } from "vue-i18n";
-import { useUserInfo } from "~/stores/userInfo";
-import { useSysData } from "~/stores/sysData";
-import { useResize } from "~/stores/resize";
-import { Message, Modal } from "@arco-design/web-vue";
-import { getPathByKey } from "~/utils/common";
+import {useI18n} from "vue-i18n";
+import {useUserInfo} from "~/stores/userInfo";
+import {useSysData} from "~/stores/sysData";
+import {useResize} from "~/stores/resize";
+import {Message, Modal} from "@arco-design/web-vue";
+import {getPathByKey} from "~/utils/common";
 import {
   getProductDraftDetails,
   getProductInfo,
@@ -333,7 +335,7 @@ import {
 } from "~/api/goods";
 import axios from "axios";
 
-const { t } = useI18n();
+const {t} = useI18n();
 const router = useRouter();
 const sysData = useSysData();
 const pdwList = sysData.goodsPdwList || [];
@@ -379,12 +381,12 @@ const uploadUrl = appConfig.uploadUrl;
 const uploadLoading = ref(false);
 const curClassPath = ref([]);
 const rules = reactive({
-  rid: [{ required: true, message: t("sale.formValidate.typeValidate") }],
-  title: [{ required: true, message: t("sale.formValidate.goodsNameValidate") }],
-  describe: [{ required: true, message: t("sale.formValidate.describeValidate") }],
-  nid: [{ required: true, message: t("sale.formValidate.oldAndNewValidate") }],
-  price: [{ required: true, message: t("sale.formValidate.priceValidate") }],
-  region: [{ required: true, message: t("sale.regionTip") }],
+  rid: [{required: true, message: t("sale.formValidate.typeValidate")}],
+  title: [{required: true, message: t("sale.formValidate.goodsNameValidate")}],
+  describe: [{required: true, message: t("sale.formValidate.describeValidate")}],
+  nid: [{required: true, message: t("sale.formValidate.oldAndNewValidate")}],
+  price: [{required: true, message: t("sale.formValidate.priceValidate")}],
+  region: [{required: true, message: t("sale.regionTip")}],
 });
 
 const overLimit = (e) => {
@@ -426,13 +428,13 @@ const handleSearch = (value) => {
   if (value) {
     locationLoading.value = true;
     axios
-      .get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`)
-      .then((res) => {
-        console.log(res);
-        addressOptions.value = [...addressSaveOptions.value, ...res.data.pois];
-        console.log(addressOptions.value);
-        locationLoading.value = false;
-      });
+        .get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`)
+        .then((res) => {
+          console.log(res);
+          addressOptions.value = [...addressSaveOptions.value, ...res.data.pois];
+          console.log(addressOptions.value);
+          locationLoading.value = false;
+        });
   } else {
     addressOptions.value = [];
   }
@@ -448,9 +450,9 @@ const filterNewOldAdvice = () => {
 const hasBanWord = (val) => {
   if (val && pdwList) {
     return (
-      pdwList.filter((i) => {
-        return val.indexOf(i) > -1;
-      }).length > 0
+        pdwList.filter((i) => {
+          return val.indexOf(i) > -1;
+        }).length > 0
     );
   }
   return false;
@@ -459,79 +461,79 @@ const hasBanWord = (val) => {
 // 草稿详情
 const getDraftInfo = () => {
   getProductDraftDetails(form.value.id)
-    .then((res) => {
-      if (res.code == 0) {
-        form.value = res.data;
-        if (res.data.region === 0) {
-          res.data.region = null;
-        }
-        if (res.data.offline_address && res.data.offline_address.length > 0) {
-          const arr = [];
-          res.data.offline_address.forEach((item) => {
-            const obj = {
-              location: `${item.lat},${item.lng}`,
-              address: item.address,
-              name: item.title,
+      .then((res) => {
+        if (res.code == 0) {
+          form.value = res.data;
+          if (res.data.region === 0) {
+            res.data.region = null;
+          }
+          if (res.data.offline_address && res.data.offline_address.length > 0) {
+            const arr = [];
+            res.data.offline_address.forEach((item) => {
+              const obj = {
+                location: `${item.lat},${item.lng}`,
+                address: item.address,
+                name: item.title,
+              };
+              arr.push(JSON.stringify(obj));
+              // addressOptions.value.push(obj)
+            });
+            offline_address.value = arr;
+          }
+          form.value.mail = res.data.mail ? 1 : false;
+          form.value.offline = res.data.offline ? 1 : false;
+          fileList.value = res.data.images.map((item, index) => {
+            return {
+              id: index + 1,
+              uid: index + 1,
+              url: baseImgPrefix + item,
             };
-            arr.push(JSON.stringify(obj));
-            // addressOptions.value.push(obj)
           });
-          offline_address.value = arr;
         }
-        form.value.mail = res.data.mail ? 1 : false;
-        form.value.offline = res.data.offline ? 1 : false;
-        fileList.value = res.data.images.map((item, index) => {
-          return {
-            id: index + 1,
-            uid: index + 1,
-            url: baseImgPrefix + item,
-          };
-        });
-      }
-    })
-    .finally(() => {
-      pageLoading.value = false;
-    });
+      })
+      .finally(() => {
+        pageLoading.value = false;
+      });
 };
 
 // 商品详情
 const getProduct = () => {
   pageLoading.value = true;
   getProductInfo(form.value.id)
-    .then((res) => {
-      if (res.code == 0) {
-        form.value = res.data;
-        if (res.data.region === 0) {
-          res.data.region = null;
-        }
-        changeClass(res.data.rid);
-        if (res.data.offline_address && res.data.offline_address.length > 0) {
-          const arr = [];
-          res.data.offline_address.forEach((item) => {
-            const obj = {
-              location: `${item.lat},${item.lng}`,
-              address: item.address,
-              name: item.title,
+      .then((res) => {
+        if (res.code == 0) {
+          form.value = res.data;
+          if (res.data.region === 0) {
+            res.data.region = null;
+          }
+          changeClass(res.data.rid);
+          if (res.data.offline_address && res.data.offline_address.length > 0) {
+            const arr = [];
+            res.data.offline_address.forEach((item) => {
+              const obj = {
+                location: `${item.lat},${item.lng}`,
+                address: item.address,
+                name: item.title,
+              };
+              arr.push(JSON.stringify(obj));
+              // addressOptions.value.push(obj)
+            });
+            offline_address.value = arr;
+          }
+          form.value.mail = res.data.mail ? 1 : false;
+          form.value.offline = res.data.offline ? 1 : false;
+          fileList.value = res.data.images.map((item, index) => {
+            return {
+              id: index + 1,
+              uid: index + 1,
+              url: baseImgPrefix + item,
             };
-            arr.push(JSON.stringify(obj));
-            // addressOptions.value.push(obj)
           });
-          offline_address.value = arr;
         }
-        form.value.mail = res.data.mail ? 1 : false;
-        form.value.offline = res.data.offline ? 1 : false;
-        fileList.value = res.data.images.map((item, index) => {
-          return {
-            id: index + 1,
-            uid: index + 1,
-            url: baseImgPrefix + item,
-          };
-        });
-      }
-    })
-    .finally(() => {
-      pageLoading.value = false;
-    });
+      })
+      .finally(() => {
+        pageLoading.value = false;
+      });
 };
 
 // 删除图片
@@ -552,7 +554,8 @@ const beforeUpload = (e) => {
   return true;
 };
 const uploadClick = () => {
-  if (uploadLoading.value) return new Promise(() => {});
+  if (uploadLoading.value) return new Promise(() => {
+  });
 };
 // 上传成功
 const uploadSuccess = (e) => {
@@ -741,23 +744,23 @@ const addToSelect = (item) => {
 
 // 监听sysData 获取到goodsClass之后给curClassPath赋值一次（防止出现刷新页面进入时 还未获取到系统数据就赋值的问题）
 watch(
-  sysData,
-  (val) => {
-    if (val.goodsClass.length && form.value.rid) {
-      changeClass(form.value.rid);
-    }
-  },
-  { immediate: true, deep: true }
+    sysData,
+    (val) => {
+      if (val.goodsClass.length && form.value.rid) {
+        changeClass(form.value.rid);
+      }
+    },
+    {immediate: true, deep: true}
 );
 
 router.beforeEach((to, from, next) => {
   if (
-    router.currentRoute.value.path == "/saleEditGoods" &&
-    from.path != to.path &&
-    from.path == "/saleEditGoods" &&
-    btnType.value != "publish" &&
-    btnType.value != "isSaveDraft" &&
-    clickNumber.value === 0
+      router.currentRoute.value.path == "/saleEditGoods" &&
+      from.path != to.path &&
+      from.path == "/saleEditGoods" &&
+      btnType.value != "publish" &&
+      btnType.value != "isSaveDraft" &&
+      clickNumber.value === 0
   ) {
     saveDraftModal(to);
   } else {
@@ -830,6 +833,7 @@ onMounted(() => {
   .left {
     width: 45%;
     display: block;
+
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -916,9 +920,11 @@ onMounted(() => {
 
   .right {
     width: 52%;
-    .m-upload{
+
+    .m-upload {
       display: none;
     }
+
     .upload-area {
       width: 100%;
       background-color: #f2f3f5;
@@ -1091,6 +1097,7 @@ onMounted(() => {
     box-sizing: border-box;
     border-bottom: 1px solid #e5e6e8;
     cursor: pointer;
+
     &:nth-child(2n) {
       margin-left: 4%;
     }
@@ -1139,49 +1146,60 @@ onMounted(() => {
     line-height: 22px;
   }
 }
+
 </style>
 
 <style lang="scss" scoped>
 @media screen and (max-width: 1000px) {
-  .sale-header{
-    padding:15px ;
+  .sale-header {
+    padding: 15px;
   }
   .edit-box {
     margin: 20px 15px;
     display: block;
+
     &.border-box .right,
     &.border-box .left {
       width: 100%;
       border: 0;
       padding: 0;
     }
-    .left{
+
+    .left {
       display: none;
     }
+
     .right {
-      .m-upload{
+      .m-upload {
         display: block;
       }
+
       .upload-area {
         height: 160px;
         padding-top: 35px;
       }
+
       .image-preview-list {
         margin-top: 20px;
+
         .image-item {
           width: 31%;
           height: 0;
           padding-bottom: 31%;
           margin-right: 3%;
+
           &:nth-child(3n) {
             margin-right: 0;
           }
+
           position: relative;
+
           :deep(.arco-image) {
             position: absolute;
             top: 0;
             left: 0;
           }
+
           &.is-cover {
             .is-cover-span {
               width: calc(100% + 8px);
@@ -1191,7 +1209,6 @@ onMounted(() => {
       }
     }
   }
-
   .publish {
     .publish-btn {
       width: 100%;
