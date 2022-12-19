@@ -30,7 +30,7 @@
       </div>
     </template>
 
-    <div v-show="!pageLoading">
+    <template v-else>
       <section class="section-wrapper goods-wrapper">
         <a-breadcrumb class="pc-breadcrumb">
           <template #separator>
@@ -336,7 +336,7 @@
           </div>
         </div>
       </section>
-    </div>
+    </template>
 
     <div class="mobile-footer-goods">
       <div class="left">
