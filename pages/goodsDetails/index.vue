@@ -774,11 +774,9 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 @import "assets/sass/swiper.scss";
-
 .grey {
   color: $grey-font-label;
 }
-
 .mt30 {
   margin-top: 30px;
 }
@@ -786,9 +784,8 @@ onMounted(async () => {
   display: block;
 }
 .mobile-footer-goods {
-  display: none;
+  display: none !important;
 }
-
 .section-wrapper {
   margin: 30px auto;
 
@@ -1291,9 +1288,8 @@ onMounted(async () => {
   .page-body-content {
     margin: 20px 15px;
   }
-
   .mobile-footer-goods {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     height: 36px;
     line-height: 36px;
@@ -1334,7 +1330,6 @@ onMounted(async () => {
       }
     }
   }
-
   :deep(.page-footer-link) {
     padding: 20px !important;
   }
