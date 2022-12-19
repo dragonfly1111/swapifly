@@ -338,25 +338,27 @@
       </section>
     </template>
 
-    <div class="mobile-footer-goods">
-      <div class="left">
-        <a-space v-if="p_type == 1" @click="handleLike" size="small">
-          <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
-          <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
-          <span>{{ productInfo.like }} like</span>
-        </a-space>
-      </div>
-      <div class="right">
-        <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
-          {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
-        </a-button>
-        <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
-        <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
-          $t("pages.bid")
-        }}</a-button>
-        <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
+    <div>
+      <div class="mobile-footer-goods">
+        <div class="left">
+          <a-space v-if="p_type == 1" @click="handleLike" size="small">
+            <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
+            <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
+            <span>{{ productInfo.like }} like</span>
+          </a-space>
+        </div>
+        <div class="right">
+          <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
+            {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+          </a-button>
+          <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
+          <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
+              $t("pages.bid")
+            }}</a-button>
+          <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
           >{{ $t("dialogue.cancel") }}
-        </a-button>
+          </a-button>
+        </div>
       </div>
     </div>
 
