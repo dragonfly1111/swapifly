@@ -2,22 +2,23 @@
   <div class="common-row global-content">
     <div class="banner-wrapper">
       <template v-if="bradLoading">
-        <a-skeleton :animation="bradLoading">
-          <a-skeleton-line :rows="1" :line-height="260"/>
-        </a-skeleton>
+        <div>
+          <a-skeleton :animation="bradLoading">
+            <a-skeleton-line :rows="1" :line-height="260"/>
+          </a-skeleton>
+        </div>
       </template>
       <template v-if="!bradLoading">
         <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
-          <template>
-            <a-carousel-item v-for="item in bannerList">
-              <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                       :src="baseImgPrefix + item.img" class="carousel-img">
-                <template #loader>
-                  <div class="loader-animate"/>
-                </template>
-              </a-image>
-            </a-carousel-item>
-          </template>
+          <a-carousel-item v-for="item in bannerList">
+            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                     :src="baseImgPrefix + item.img" class="carousel-img">
+              <template #loader>
+                <div class="loader-animate"/>
+              </template>
+            </a-image>
+          </a-carousel-item>
+
         </a-carousel>
       </template>
     </div>
