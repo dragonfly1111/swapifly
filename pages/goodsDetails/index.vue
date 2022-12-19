@@ -1334,7 +1334,7 @@ onMounted(async () => {
   }
 
   :deep(.page-footer-link) {
-    padding: 20px;
+    padding: 20px !important;
   }
   .mobile-goods-detail {
     padding: 10px 0;
