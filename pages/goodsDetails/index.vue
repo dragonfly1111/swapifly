@@ -5,26 +5,30 @@
 
     <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
 
-    <a-skeleton :animation="true" v-if="pageLoading" :loading="pageLoading" class="skeleton">
-      <div style="width: 100%">
-        <a-skeleton-line :line-height="200" :line-spacing="10" />
+    <template v-if="pageLoading">
+      <div>
+        <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
+          <div style="width: 100%">
+            <a-skeleton-line :line-height="200" :line-spacing="10" />
+          </div>
+          <div style="height: 20px"></div>
+          <div style="width: 60%; margin-right: 10%; display: inline-block">
+            <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
+          </div>
+          <div style="width: 30%; display: inline-block">
+            <a-skeleton-line :line-height="200" :line-spacing="10" />
+          </div>
+          <div style="height: 36px"></div>
+          <div style="width: 70%">
+            <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
+          </div>
+          <div style="height: 36px"></div>
+          <div style="width: 70%; margin-bottom: 30px">
+            <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
+          </div>
+        </a-skeleton>
       </div>
-      <div style="height: 20px"></div>
-      <div style="width: 60%; margin-right: 10%; display: inline-block">
-        <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
-      </div>
-      <div style="width: 30%; display: inline-block">
-        <a-skeleton-line :line-height="200" :line-spacing="10" />
-      </div>
-      <div style="height: 36px"></div>
-      <div style="width: 70%">
-        <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
-      </div>
-      <div style="height: 36px"></div>
-      <div style="width: 70%; margin-bottom: 30px">
-        <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
-      </div>
-    </a-skeleton>
+    </template>
 
     <div v-show="!pageLoading">
       <section class="section-wrapper goods-wrapper">
