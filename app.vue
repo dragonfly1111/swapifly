@@ -144,14 +144,13 @@ function reurl() { // 解决第一次进入不加载js文件
 </template>
 
 <style lang="scss">
-
+@import "assets/sass/var.scss";
 html, body, #__nuxt {
-  height: 100vh;
+  //height: 100vh;
   margin: 0;
   padding: 0;
 }
-
-
+// 页面切换样式
 .page-enter-active,
 .page-leave-active {
   transition: all 0.3s;

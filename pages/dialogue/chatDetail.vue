@@ -5,14 +5,7 @@
         <div class="info-wrap common-row">
           <div class="main-content-title">
             <div class="left" @click="toUserDetail">
-              <template v-if="pageLoading">
-                <a-skeleton :animation="true" class="skeleton" style="width: 160px">
-                  <a-skeleton-line :line-height="50" :rows="1"/>
-                </a-skeleton>
-              </template>
-              <template v-else>
-                <span>{{ curConversationMeta.nickname }}</span>
-              </template>
+              <span>{{ curConversationMeta.nickname }}</span>
             </div>
             <a-dropdown @select="handleOperationSelect">
               <icon-more-vertical/>
@@ -23,23 +16,16 @@
           </div>
           <div class="meta-wrap wrap1">
             <div class="left" @click="toGoodsDetails">
-              <template v-if="pageLoading">
-                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
-                  <a-skeleton-line :line-height="50" :rows="1"/>
-                </a-skeleton>
-              </template>
-              <template v-else>
-                <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
-                         :src="baseImgPrefix + curConversationMeta.p_image" alt="">
-                  <template #loader>
-                    <div class="loader-animate"/>
-                  </template>
-                </a-image>
-                <div class="info-box">
-                  <div>{{ curConversationMeta.p_title }}</div>
-                  <div>HK$ {{ curConversationMeta.p_price }}</div>
-                </div>
-              </template>
+              <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
+                       :src="baseImgPrefix + curConversationMeta.p_image" alt="">
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="info-box">
+                <div>{{ curConversationMeta.p_title }}</div>
+                <div>HK$ {{ curConversationMeta.p_price }}</div>
+              </div>
             </div>
             <div class="right">
               <!--购买方按钮-->
@@ -82,95 +68,88 @@
           <div class="meta-wrap wrap2"
                :style="(curConversationMeta.f_type === 2 && (curConversationMeta.status === 3 || curConversationMeta.status === 0)) ? 'padding: 0' : ''">
             <div class="right">
-              <template v-if="pageLoading">
-                <a-skeleton :animation="true" class="skeleton" style="width: 250px">
-                  <a-skeleton-line :line-height="50" :rows="1"/>
-                </a-skeleton>
-              </template>
-              <template v-else>
-                <!--购买方按钮-->
-                <template v-if="curConversationMeta.f_type === 1">
-                  <!--还未出价 展示出价按钮-->
-                  <template v-if="curConversationMeta.status === 0">
-                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                        $t('dialogue.offer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--已经出价 展示修改价格按钮-->
-                  <template v-else-if="curConversationMeta.status === 1">
-                    <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
-                    <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
-                        openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading"
-                              @click="cancelOffer">
-                      {{ $t('dialogue.operationCancelOffer') }}
-                    </a-button>
-                  </template>
-                  <!--已接受出价 展示出价信息 评价按钮-->
-                  <template v-else-if="curConversationMeta.status === 2">
-                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
-                        $t('dialogue.evaluateBut')
-                      }}
-                    </a-button>
-                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
-                        $t('dialogue.evaluateShowBut')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--已拒绝出价 展示拒绝信息和出价按钮-->
-                  <template v-else-if="curConversationMeta.status === 3">
-                    <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
-                    <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
-                        $t('dialogue.offer')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
-                        $t('dialogue.cancel')
-                      }}
-                    </a-button>
-                  </template>
+              <!--购买方按钮-->
+              <template v-if="curConversationMeta.f_type === 1">
+                <!--还未出价 展示出价按钮-->
+                <template v-if="curConversationMeta.status === 0">
+                  <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                  <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                      $t('dialogue.offer')
+                    }}
+                  </a-button>
+                  <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                      $t('dialogue.cancel')
+                    }}
+                  </a-button>
                 </template>
-                <!--出售方按钮-->
-                <template v-if="curConversationMeta.f_type === 2">
-                  <!--对方已经出价 展示接受/拒绝按钮-->
-                  <template v-if="curConversationMeta.status === 1">
-                    <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
-                        $t('dialogue.accept')
-                      }}
-                    </a-button>
-                    <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
-                        $t('dialogue.refuse')
-                      }}
-                    </a-button>
-                  </template>
-                  <!--我方已接受出价 展示已售出 评价按钮-->
-                  <template v-if="curConversationMeta.status === 2">
-                    <a-button v-if="curConversationMeta.p_state === 1" class="but accept" :loading="soldLoading"
-                              @click="openSoldDialog">{{
-                        $t('dialogue.markSold')
-                      }}
-                    </a-button>
-                    <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
-                        $t('dialogue.evaluateBut')
-                      }}
-                    </a-button>
-                    <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
-                        $t('dialogue.evaluateShowBut')
-                      }}
-                    </a-button>
-                  </template>
+                <!--已经出价 展示修改价格按钮-->
+                <template v-else-if="curConversationMeta.status === 1">
+                  <a-input-number v-model="offerNum1" v-if="openEditOffer" :precision="2"></a-input-number>
+                  <a-button class="but accept" @click="editOffer" :loading="editOfferLoading">{{
+                      openEditOffer ? $t('dialogue.confirmEditOffer') : $t('dialogue.operationEditOffer')
+                    }}
+                  </a-button>
+                  <a-button class="but reject" v-if="openEditOffer" @click="handleOfferClose1">{{
+                      $t('dialogue.cancel')
+                    }}
+                  </a-button>
+                  <a-button class="but reject" v-if="!openEditOffer" :loading="cancelOfferLoading"
+                            @click="cancelOffer">
+                    {{ $t('dialogue.operationCancelOffer') }}
+                  </a-button>
+                </template>
+                <!--已接受出价 展示出价信息 评价按钮-->
+                <template v-else-if="curConversationMeta.status === 2">
+                  <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                      $t('dialogue.evaluateBut')
+                    }}
+                  </a-button>
+                  <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                      $t('dialogue.evaluateShowBut')
+                    }}
+                  </a-button>
+                </template>
+                <!--已拒绝出价 展示拒绝信息和出价按钮-->
+                <template v-else-if="curConversationMeta.status === 3">
+                  <a-input-number v-model="offerNum" v-if="openOffer" :precision="2"></a-input-number>
+                  <a-button class="but accept" :loading="offerLoading" @click="handleOffer">{{
+                      $t('dialogue.offer')
+                    }}
+                  </a-button>
+                  <a-button class="but reject" v-if="openOffer" @click="handleOfferClose">{{
+                      $t('dialogue.cancel')
+                    }}
+                  </a-button>
+                </template>
+              </template>
+              <!--出售方按钮-->
+              <template v-if="curConversationMeta.f_type === 2">
+                <!--对方已经出价 展示接受/拒绝按钮-->
+                <template v-if="curConversationMeta.status === 1">
+                  <a-button class="but accept" :loading="acceptLoading" @click="handleAccept(curConversationMeta)">{{
+                      $t('dialogue.accept')
+                    }}
+                  </a-button>
+                  <a-button class="but reject" :loading="rejectLoading" @click="handleReject(curConversationMeta)">{{
+                      $t('dialogue.refuse')
+                    }}
+                  </a-button>
+                </template>
+                <!--我方已接受出价 展示已售出 评价按钮-->
+                <template v-if="curConversationMeta.status === 2">
+                  <a-button v-if="curConversationMeta.p_state === 1" class="but accept" :loading="soldLoading"
+                            @click="openSoldDialog">{{
+                      $t('dialogue.markSold')
+                    }}
+                  </a-button>
+                  <a-button v-if="curConversationMeta.pj_type === 0" class="but reject" @click="openEvaluateDialog">{{
+                      $t('dialogue.evaluateBut')
+                    }}
+                  </a-button>
+                  <a-button v-else class="but reject" @click="openEvaluateDetailDialog">{{
+                      $t('dialogue.evaluateShowBut')
+                    }}
+                  </a-button>
                 </template>
               </template>
             </div>
@@ -269,7 +248,6 @@ const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const mainContentLoading = ref(false)
-const pageLoading = ref(true)
 const uploadLoading = ref(false)
 const acceptLoading = ref(false)
 const rejectLoading = ref(false)
@@ -305,7 +283,6 @@ const fetchDetailData = (toBottom = true) => {
     console.log('fetchDetailData res')
     console.log(res)
     mainContentLoading.value = false
-    pageLoading.value = false
     if (res.code === 0) {
       console.log('toBottom', toBottom)
       // 暂时不做分页
@@ -682,7 +659,7 @@ const pageLoopTask = () => {
     fetchDetailData(false)
   }, 2000)
 }
-fetchDetailData(true)
+fetchDetailData()
 getChartMetaInfo()
 onMounted(() => {
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
@@ -692,8 +669,10 @@ onMounted(() => {
             scrollToBottom()
           })
         }
-      }, {immediate: true, deep: true}
-  );
+      }, {immediate: true, deep: true});
+  setTimeout(()=>{
+    fetchDetailData(true)
+  }, 500)
   pageLoopTask()
 });
 onUnmounted(() => {

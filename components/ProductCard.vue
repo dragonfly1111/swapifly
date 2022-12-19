@@ -572,7 +572,7 @@ p.arco-typography {
     justify-content: space-between;
   }
   .recommend-item {
-    padding: 12px 4px;
+    padding: 12px 0;
     width: calc((100% - 12px) / 2);
     &:hover {
       box-shadow: unset;
