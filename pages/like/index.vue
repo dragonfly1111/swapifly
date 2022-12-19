@@ -68,6 +68,7 @@ getList();
 </script>
 
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
 .page-header {
   margin: 40px 10px 20px;
   h2 {
@@ -83,7 +84,7 @@ getList();
   width: 100%;
   z-index: 2;
   border-bottom: 1px solid #ccc;
-  background-color: #fff;
+  background-color: $main-white;
   text-align: center;
   top: 0;
   .back-index {
@@ -101,8 +102,8 @@ getList();
   margin: 30px auto;
 
   .arco-btn {
-    border-color: rgba(56, 56, 56, 1);
-    color: rgba(56, 56, 56, 1);
+    border-color: $main-grey-rbg;
+    color: $main-grey-rbg;
     padding: 0 20px;
     height: 38px;
   }

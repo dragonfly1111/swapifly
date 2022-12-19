@@ -22,7 +22,7 @@ const router = useRouter()
   justify-content: center;
   margin-top: 250px;
   .title{
-    color: #333333;
+    color: $main-black-333;
     margin-top: 23px;
     font-size: 18px;
   }
@@ -34,7 +34,7 @@ const router = useRouter()
   .back-but{
     margin-top: 40px;
     background: $main-pink;
-    color: #FFFFFF;
+    color: $main-white;
     height: 42px;
     width: 300px;
   }

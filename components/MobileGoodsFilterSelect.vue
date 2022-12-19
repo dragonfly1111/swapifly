@@ -129,9 +129,10 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
+@import "assets/sass/var.scss";
 .search-data-mobile {
   height: 45px;
-  background-color: #fff;
+  background-color: $main-white;
   text-align: center;
   line-height: 45px;
   border-top: 1px solid #a1a1a1;
@@ -141,13 +142,13 @@ defineExpose({
     cursor: pointer;
   }
   :deep(.arco-select-view-single) {
-    background-color: #fff;
-    color: #000;
+    background-color: $main-white;
+    color: $main-black;
     &:hover,
     &:focus-within,
     &.arco-select-view-focus {
       border: 0;
-      background-color: #fff;
+      background-color: $main-white;
     }
   }
 }

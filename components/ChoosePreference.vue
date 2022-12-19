@@ -193,7 +193,7 @@ defineExpose({
       }
 
       .label-title {
-        color: #383838;
+        color: $main-grey;
         text-align: center;
         font-size: 14px;
         margin: 5px auto 0 auto;
@@ -272,7 +272,7 @@ defineExpose({
     .confirm-but {
       margin-left: 26px;
       background: $main-pink;
-      color: #FFFFFF;
+      color: $main-white;
     }
   }
 }
@@ -328,7 +328,7 @@ defineExpose({
           top: 5px;
         }
         .label-title {
-          color: #383838;
+          color: $main-grey;
           text-align: center;
           font-size: 14px;
           margin: 5px auto 0 auto;

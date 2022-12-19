@@ -252,7 +252,7 @@ onMounted(() => {
       color: $main-grey;
       padding-left: 5px;
       padding-right: 5px;
-      background-color: #fff;
+      background-color: $main-white;
 
       &:hover {
         background-color: #eee;

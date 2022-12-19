@@ -158,7 +158,7 @@ const toDetail = (e) => {
       .info {
         font-size: 42px;
         font-weight: 700;
-        color: #FFFFFF;
+        color: $main-white;
         margin-bottom: 16px;
       }
 
@@ -169,7 +169,7 @@ const toDetail = (e) => {
         color: $grey-font-label;
 
         :deep(.arco-input-suffix) {
-          color: #FFFFFF;
+          color: $main-white;
           font-weight: 700;
 
           .arco-icon-hover:hover::before {
@@ -214,7 +214,7 @@ const toDetail = (e) => {
         padding: 0;
         height: 22px;
         line-height: 22px;
-        color: #1D2129;
+        color: $main-black-1D;
 
         .font1 {
           font-size: 18px;
@@ -271,7 +271,7 @@ const toDetail = (e) => {
         background: #E5E6E8;
         padding: 9px 20px;
         font-size: 14px;
-        color: #1D2129;
+        color: $main-black-1D;
         box-shadow: 0px 1px 0px 0px #E5E6E8;
         cursor: pointer;
 
@@ -308,7 +308,7 @@ const toDetail = (e) => {
           font-size: 26px;
           font-weight: 700;
           font-family: '思源黑体';
-          color: #FFFFFF;
+          color: $main-white;
           margin-bottom: 12px;
         }
 
@@ -362,7 +362,7 @@ const toDetail = (e) => {
           padding: 0;
           height: 22px;
           line-height: 22px;
-          color: #1D2129;
+          color: $main-black-1D;
 
           .font1 {
             font-size: 16px;

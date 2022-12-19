@@ -356,7 +356,7 @@ onMounted(() => {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      border: 1px solid #aaaaaa;
+      border: 1px solid $main-grey;
       flex-shrink: 0;
       overflow: hidden;
       object-fit: cover;
@@ -376,7 +376,7 @@ onMounted(() => {
     width: 100%;
   }
   .input-box {
-    background-color: #fff;
+    background-color: $main-white;
     border: 1px solid $main-grey-border;
     padding-top: 4px;
     padding-bottom: 4px;

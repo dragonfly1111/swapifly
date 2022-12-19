@@ -215,7 +215,7 @@ defineExpose({
       width: 100%;
       background: $main-grey;
       height: 46px;
-      color: #FFFFFF;
+      color: $main-white;
     }
     .register{
       margin-top: 30px;

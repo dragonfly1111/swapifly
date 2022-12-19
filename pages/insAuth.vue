@@ -55,7 +55,7 @@ onMounted(()=>{
     width: 95px;
   }
   .title{
-    color: #333333;
+    color: $main-black-333;
     margin-top: 20px;
   }
   .msg{

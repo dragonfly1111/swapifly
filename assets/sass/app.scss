@@ -62,7 +62,7 @@ body{
 }
 
 .grey {
-  color: #aaaaaa;
+  color: $main-grey;
 }
 
 .fs12 {
@@ -99,7 +99,7 @@ body{
   .arco-btn-outline[type="button"],
   .arco-btn-outline[type="submit"] {
     border: 1px solid $main-grey;
-    color: rgba(56, 56, 56, 1);
+    color: $main-grey-rbg;
     padding: 0 20px;
     height: 38px;
 

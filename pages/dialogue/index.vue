@@ -883,7 +883,7 @@ body {
       }
 
       .arco-icon-down {
-        color: #333333;
+        color: $main-black-333;
       }
     }
   }
@@ -915,7 +915,7 @@ body {
           display: flex;
           justify-content: space-between;
           font-size: 14px;
-          color: #333333;
+          color: $main-black-333;
 
           .time {
             font-size: 12px;
@@ -941,7 +941,7 @@ body {
             }
 
             .new-msg {
-              color: #E33C64;
+              color: $sub-main-pink;
               margin-top: 4px;
               line-height: 21px;
               height: 21px;
@@ -1011,7 +1011,7 @@ body {
       span {
         margin-left: 15px;
         font-size: 14px;
-        color: #333333;
+        color: $main-black-333;
       }
     }
 
@@ -1066,7 +1066,7 @@ body {
       .but {
         //width: 67px;
         height: 34px;
-        color: #FFFFFF;
+        color: $main-white;
       }
 
       .but + .but {
@@ -1119,7 +1119,7 @@ body {
 
       .no-msg-title {
         font-size: 18px;
-        color: #333333;
+        color: $main-black-333;
         margin-top: 15px;
       }
 
@@ -1134,7 +1134,7 @@ body {
       text-align: center;
       margin-top: 18px;
       margin-bottom: 18px;
-      color: #333333;
+      color: $main-black-333;
       font-size: 12px;
     }
 
@@ -1157,7 +1157,7 @@ body {
           max-width: 70%;
           line-height: 22px;
           font-size: 14px;
-          color: #333333;
+          color: $main-black-333;
 
           .operation-msg {
             font-weight: bold;
@@ -1233,7 +1233,7 @@ body {
     .input-box {
       height: 100%;
       border-radius: 0;
-      background: #FFFFFF;
+      background: $main-white;
     }
 
     :deep(.arco-icon-image) {

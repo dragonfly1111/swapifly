@@ -243,10 +243,10 @@ defineExpose({
   margin: 10px 5px;
 
   :deep(.arco-select-view-single) {
-    background-color: #fff;
+    background-color: $main-white;
     border-radius: 50px;
     border: 1px solid $grey-font-label;
-    color: #383838;
+    color: $main-grey;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
@@ -267,10 +267,10 @@ defineExpose({
 }
 
 :deep(.multiple-select) {
-  background-color: #fff;
+  background-color: $main-white;
   border-radius: 50px;
-  border: 1px solid #aaaaaa;
-  color: #383838;
+  border: 1px solid $main-grey;
+  color: $main-grey;
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;

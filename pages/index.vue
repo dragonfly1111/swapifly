@@ -274,7 +274,7 @@ onMounted(() => {
       }
       & > div{
         box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
-        background: #FFFFFF;
+        background: $main-white;
         opacity: 0.8;
         width: 50px;
         height: 50px;
@@ -415,8 +415,8 @@ onMounted(() => {
   margin: 30px auto;
 
   .arco-btn {
-    border-color: rgba(56, 56, 56, 1);
-    color: rgba(56, 56, 56, 1);
+    border-color: $main-grey-rbg;
+    color: $main-grey-rbg;
     padding: 0 20px;
     height: 38px;
   }
@@ -430,6 +430,7 @@ onMounted(() => {
 </style>
 
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
 @media screen and (max-width:1000px){
   .banner-wrapper {
     .arco-carousel {
@@ -440,7 +441,7 @@ onMounted(() => {
         }
         & > div{
           box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
-          background: #FFFFFF;
+          background: $main-white;
           opacity: 0.8;
           width: 35px;
           height: 35px;

@@ -177,7 +177,7 @@ const changePage = (e) => {
         font-size: 42px;
         font-weight: 700;
         font-family: '思源黑体';
-        color: #FFFFFF;
+        color: $main-white;
         margin-bottom: 16px;
       }
 
@@ -188,7 +188,7 @@ const changePage = (e) => {
         color: $grey-font-label;
 
         :deep(.arco-input-suffix) {
-          color: #FFFFFF;
+          color: $main-white;
           font-weight: 700;
 
           .arco-icon-hover:hover::before {
@@ -222,7 +222,7 @@ const changePage = (e) => {
       max-width: 500px;
 
       .title {
-        color: #1D2129;
+        color: $main-black-1D;
         font-size: 20px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -259,7 +259,7 @@ const changePage = (e) => {
 
       .title {
         margin-top: 11px;
-        color: #333333;
+        color: $main-black-333;
         font-size: 18px;
       }
 
@@ -275,7 +275,7 @@ const changePage = (e) => {
     width: 320px;
 
     .theme {
-      color: #1D2129;
+      color: $main-black-1D;
       font-size: 16px;
       margin-top: 23px;
       font-weight: 700;
@@ -283,7 +283,7 @@ const changePage = (e) => {
     }
 
     .theme-name {
-      color: #1D2129;
+      color: $main-black-1D;
       margin-top: 20px;
       cursor: pointer;
       font-size: 14px;
@@ -339,7 +339,7 @@ const changePage = (e) => {
           font-size: 26px;
           font-weight: 700;
           font-family: '思源黑体';
-          color: #FFFFFF;
+          color: $main-white;
           margin-bottom: 12px;
         }
 

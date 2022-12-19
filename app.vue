@@ -152,11 +152,6 @@ html, body, #__nuxt {
 }
 
 
-html.dark {
-  background: #222;
-  color: white;
-}
-
 .page-enter-active,
 .page-leave-active {
   transition: all 0.3s;

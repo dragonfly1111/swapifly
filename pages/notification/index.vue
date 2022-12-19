@@ -93,6 +93,8 @@ onMounted(async () => {
 });
 </script>
 <style lang="scss" scoped>
+@import "assets/sass/var";
+
 .page-header-Message {
   border-bottom: 1px solid #ccc;
   text-align: center;
@@ -104,7 +106,7 @@ onMounted(async () => {
   font-weight: bold;
   height: 45px;
   line-height: 45px;
-  background-color: #fff;
+  background-color: $main-white;
 
   .back-index {
     display: block;
@@ -124,7 +126,6 @@ onMounted(async () => {
 }
 
 .notice-list {
-  // width: 90%;
   margin: auto;
   max-width: 700px;
   padding: 30px 5%;
@@ -141,7 +142,7 @@ onMounted(async () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #383838;
+      color: $main-grey;
 
       .long-logo {
         height: 30px;

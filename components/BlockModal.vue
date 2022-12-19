@@ -110,15 +110,15 @@ defineExpose({
 
     .big-title {
       text-align: center;
-      color: #333333;
+      color: $main-black-333;
       font-size: 24px;
       margin: 21px 0 35px;
       font-weight: 500;
     }
 
     .confirm {
-      background: #383838;
-      color: #FFFFFF;
+      background: $main-grey;
+      color: $main-white;
       width: 100%;
       margin-top: 45px;
       height: 46px;

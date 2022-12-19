@@ -113,7 +113,7 @@ defineExpose({
     }
 
     .arco-input-append {
-      color: #FFFFFF;
+      color: $main-white;
       background: $main-pink;
       user-select: none;
       cursor: pointer;

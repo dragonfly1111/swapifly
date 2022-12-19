@@ -122,7 +122,7 @@ const toForget = () => {
   }
 
   .input-box {
-    background-color: #fff;
+    background-color: $main-white;
     border: 1px solid $main-grey-border;
     padding-top: 4px;
     padding-bottom: 4px;

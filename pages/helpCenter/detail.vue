@@ -191,11 +191,11 @@ getHelpDetail()
 }
 
 :deep(.arco-breadcrumb) {
-  color: #333333 !important;
+  color: $main-black-333 !important;
   font-size: 16px;
 
   .arco-breadcrumb-item {
-    color: #333333 !important;
+    color: $main-black-333 !important;
     font-weight: 400;
   }
 }

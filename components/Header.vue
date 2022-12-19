@@ -521,7 +521,7 @@ function toClassDetail(e) {
   font-weight: 400;
   text-align: left;
   position: relative;
-  color: #FFFFFF;
+  color: $main-white;
 
   .common-row {
     display: flex;
@@ -642,7 +642,7 @@ function toClassDetail(e) {
       &:hover::after {
         content: '';
         border: 6px solid #53555900;
-        border-bottom-color: #FFFFFF;
+        border-bottom-color: $main-white;
         position: absolute;
         width: 0px;
         height: 0px;
@@ -663,13 +663,13 @@ function toClassDetail(e) {
   left: 0;
   width: 100%;
   z-index: 999;
-  background: #FFFFFF;
+  background: $main-white;
   padding: 5px 0 91px;
   border: 1px solid rgba(229, 230, 235, 1);
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
 
   .arco-link {
-    color: rgba(29, 33, 41, 1);
+    color: $main-black-1D-rbg;
   }
 
   .class-wrap {
@@ -707,7 +707,7 @@ function toClassDetail(e) {
 .head-search {
   padding: 10px 0;
   border-bottom: 1px solid $main-grey-border;
-  background: #FFFFFF;
+  background: $main-white;
   display: block;
   .img-col {
     text-align: left;
@@ -763,7 +763,7 @@ function toClassDetail(e) {
         }
 
         .white-wrap {
-          background: #FFFFFF;
+          background: $main-white;
         }
 
         .gray-wrap {
@@ -803,7 +803,7 @@ function toClassDetail(e) {
     .sell-but-mobile {
       height: 35px;
       background: $main-pink;
-      color: #FFFFFF;
+      color: $main-white;
       line-height: 46px;
 
       :deep(.arco-btn) {
@@ -817,7 +817,7 @@ function toClassDetail(e) {
       height: 35px;
       width: 82px;
       background: $main-pink;
-      color: #FFFFFF;
+      color: $main-white;
       line-height: 46px;
       margin-top: 5px;
 
@@ -854,7 +854,7 @@ function toClassDetail(e) {
 .class-bar {
   :deep(.arco-skeleton-line-row) {
     //animation: my-skeleton 1.5s cubic-bezier(0, 0, 1, 1) infinite;
-    background: linear-gradient(90deg, #545252 25%, #383838 37%, #545252 63%);
+    background: linear-gradient(90deg, #545252 25%, $main-grey 37%, #545252 63%);
     background-size: 400% 100%;
   }
 }
@@ -874,7 +874,7 @@ function toClassDetail(e) {
     display: block;
     width: 100%;
     padding: 15px 0;
-    background: #FFFFFF;
+    background: $main-white;
 
     .common-row {
       display: flex;
@@ -927,7 +927,7 @@ function toClassDetail(e) {
             }
 
             .white-wrap {
-              background: #FFFFFF;
+              background: $main-white;
             }
 
             .gray-wrap {
@@ -989,7 +989,7 @@ function toClassDetail(e) {
 
         .login-but-mobile {
           background: $main-pink;
-          color: #FFFFFF;
+          color: $main-white;
           height: 32px;
         }
       }

@@ -25,7 +25,7 @@
   top: 0;
   width: 100vw;
   z-index: 998;
-  background: #FFFFFF;
+  background: $main-white;
 }
 
 .common-row {

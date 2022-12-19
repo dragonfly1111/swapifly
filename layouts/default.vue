@@ -110,7 +110,7 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     bottom: 60px;
     right: 4%;
     background-color: $main-pink !important;
-    color: #fff;
+    color: $main-white;
     z-index: 99;
     height: 35px;
     width: 82px;

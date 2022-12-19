@@ -254,7 +254,7 @@ getNewsRecent()
           height: 1px;
           width: 100%;
           position: absolute;
-          background: #383838;
+          background: $main-grey;
           top: -8px;
           left: 0;
         }
@@ -266,7 +266,7 @@ getNewsRecent()
 
         .news-block {
           margin-top: 10px;
-          color: #383838;
+          color: $main-grey;
           font-size: 14px;
           width: 237px;
           cursor: pointer;
@@ -361,7 +361,7 @@ getNewsRecent()
     width: 322px;
 
     .title {
-      color: #1D2129;
+      color: $main-black-1D;
       font-size: 16px;
       font-weight: 700;
       border-bottom: 1px solid #E5E6E8;

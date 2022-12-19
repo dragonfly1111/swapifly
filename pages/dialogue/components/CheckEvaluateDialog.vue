@@ -72,7 +72,7 @@ defineExpose({
     padding: 20px 30px;
   }
   .eva-wrap{
-    color: #383838;
+    color: $main-grey;
     font-size: 14px;
     display: flex;
     align-items: center;

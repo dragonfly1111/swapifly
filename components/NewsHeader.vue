@@ -23,7 +23,7 @@
   top: 0;
   width: 100vw;
   z-index: 998;
-  background: #FFFFFF;
+  background: $main-white;
   border-bottom: 1px solid $main-grey-border;
 }
 .common-row{

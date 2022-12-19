@@ -143,7 +143,7 @@ onUnmounted(() => {
         display: flex;
         justify-content: space-between;
         font-size: 14px;
-        color: #333333;
+        color: $main-black-333;
 
         .time {
           font-size: 12px;
@@ -169,7 +169,7 @@ onUnmounted(() => {
           }
 
           .new-msg {
-            color: #E33C64;
+            color: $sub-main-pink;
             margin-top: 4px;
             line-height: 21px;
             height: 21px;
@@ -222,7 +222,7 @@ onUnmounted(() => {
     }
 
     .arco-icon-down {
-      color: #333333;
+      color: $main-black-333;
     }
   }
 }

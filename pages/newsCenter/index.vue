@@ -293,7 +293,7 @@ getRecentNews()
 
       .title {
         margin-top: 11px;
-        color: #333333;
+        color: $main-black-333;
         font-size: 18px;
       }
 
@@ -321,7 +321,7 @@ getRecentNews()
     flex-shrink: 0;
 
     .title {
-      color: #1D2129;
+      color: $main-black-1D;
       font-size: 16px;
       font-weight: 700;
       border-bottom: 1px solid #E5E6E8;

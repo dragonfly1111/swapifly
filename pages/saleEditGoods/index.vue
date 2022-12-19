@@ -896,7 +896,7 @@ onMounted(() => {
             left: -4px;
             right: 0;
             text-align: center;
-            color: #fff;
+            color: $main-white;
             background-color: $main-grey;
             height: 26px;
             line-height: 26px;
@@ -987,7 +987,7 @@ onMounted(() => {
             left: -4px;
             right: 0;
             text-align: center;
-            color: #fff;
+            color: $main-white;
             background-color: $main-grey;
             height: 26px;
             line-height: 26px;
@@ -1010,7 +1010,7 @@ onMounted(() => {
 
     .right-form {
       .input-wrp {
-        background-color: #fff;
+        background-color: $main-white;
         border: 1px solid $main-grey-border;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -1073,7 +1073,7 @@ onMounted(() => {
 
   .publish-btn {
     background-color: $main-pink;
-    color: #fff;
+    color: $main-white;
   }
 }
 
@@ -1126,6 +1126,7 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
+@import "assets/sass/var";
 .address-popover {
   width: 600px;
 }
@@ -1136,7 +1137,7 @@ onMounted(() => {
   margin-bottom: 6px;
 
   .ad-title {
-    color: #1d2129;
+    color: $main-black-1D;
     line-height: 22px;
   }
 

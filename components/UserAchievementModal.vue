@@ -344,11 +344,11 @@ defineExpose({
       padding: 0;
       border: 1px solid $main-grey-border;
       .arco-tabs-tab {
-        background-color: #fff;
+        background-color: $main-white;
         padding: 4px 25px;
         &.arco-tabs-tab-active {
           background-color: $main-grey;
-          color: #fff;
+          color: $main-white;
         }
       }
     }

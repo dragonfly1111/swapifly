@@ -201,8 +201,8 @@ defineExpose({
   text-align: center;
   margin: 30px auto 10px;
   .arco-btn {
-    border-color: rgba(56, 56, 56, 1);
-    color: rgba(56, 56, 56, 1);
+    border-color: $main-grey-rbg;
+    color: $main-grey-rbg;
     padding: 0 20px;
     height: 38px;
   }

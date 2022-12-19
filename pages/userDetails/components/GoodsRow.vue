@@ -109,7 +109,7 @@ defineExpose({
       font-size: 24px;
     }
     :deep(.arco-input-wrapper) {
-      background-color: #fff;
+      background-color: $main-white;
       border: 1px solid $main-grey-border;
     }
   }

@@ -391,11 +391,11 @@ p.arco-typography {
 .recommend-item + .recommend-item {
 }
 .recommend-item {
-  background: #fff;
+  background: $main-white;
   padding: 15px 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  color: #333333;
+  color: $main-black-333;
   cursor: pointer;
   position: relative;
   margin-right: 12px;
@@ -465,14 +465,14 @@ p.arco-typography {
         left: 0;
         width: 100%;
         background-color: #333333bc;
-        color: #fff;
+        color: $main-white;
         padding: 8px 15px;
       }
     }
 
     .product-tag {
       background-color: $main-pink;
-      color: #fff;
+      color: $main-white;
       padding: 5px 10px;
       border-radius: 2px;
       display: inline-block;
@@ -509,7 +509,7 @@ p.arco-typography {
       margin-left: 3px;
     }
     .arco-btn {
-      color: #333333;
+      color: $main-black-333;
       height: 20px;
       padding: 0;
     }

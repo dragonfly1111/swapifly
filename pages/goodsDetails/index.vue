@@ -788,11 +788,6 @@ onMounted(async () => {
 
   :deep(.arco-breadcrumb-item) {
     color: $grey-font-label;
-    // cursor: pointer;
-
-    // &:hover {
-    //  color: $main-grey;
-    // }
   }
 
   .section-content {
@@ -839,11 +834,11 @@ onMounted(async () => {
 
         &:hover {
           background-color: $main-grey;
-          color: #fff;
+          color: $main-white;
 
           &::after {
             font-size: 14px;
-            color: #fff;
+            color: $main-white;
           }
         }
       }
@@ -1020,7 +1015,7 @@ onMounted(async () => {
         .see-more-comment {
           .arco-icon {
             transform: rotate(180deg);
-            color: #2a82e4;
+            color: $main-blue;
           }
         }
       }
@@ -1046,11 +1041,6 @@ onMounted(async () => {
         color: #ffb400;
       }
 
-      :deep(.arco-comment-title-align-left) {
-        // display: flex;
-        // flex-wrap: wrap;
-      }
-
       :deep(.arco-comment-author) {
         font-size: 16px;
         display: inline-block;
@@ -1061,7 +1051,7 @@ onMounted(async () => {
       }
 
       .to-talk {
-        color: #fff;
+        color: $main-white;
         width: 100%;
         background-color: $main-pink;
         height: 38px;
@@ -1074,7 +1064,7 @@ onMounted(async () => {
 
       .center {
         text-align: center;
-        color: #2a82e4;
+        color: $main-blue;
         cursor: pointer;
         font-size: 14px;
 
@@ -1142,7 +1132,7 @@ onMounted(async () => {
       .pink-btn {
         width: 100%;
         background-color: $main-pink;
-        color: #fff;
+        color: $main-white;
         height: 38px;
         margin-top: 22px;
 
@@ -1261,7 +1251,7 @@ onMounted(async () => {
           &:hover{
             background: #f2f2f2 !important;
             &:after{
-              color: #383838;
+              color: $main-grey;
             }
           }
         }
@@ -1271,7 +1261,7 @@ onMounted(async () => {
           &:hover{
             background: #f2f2f2 !important;
             &:after{
-              color: #383838;
+              color: $main-grey;
             }
           }
         }
@@ -1306,7 +1296,7 @@ onMounted(async () => {
     bottom: 0;
     z-index: 3;
     border-top: 1px solid #ccc;
-    background-color: #fff;
+    background-color: $main-white;
     padding: 10px 15px;
     left: 0;
 
@@ -1324,7 +1314,7 @@ onMounted(async () => {
     }
     .cancel-but {
       background: $main-grey;
-      color: #ffffff;
+      color: $main-white;
     }
     .left {
       flex-shrink: 0;

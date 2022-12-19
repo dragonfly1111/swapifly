@@ -56,7 +56,7 @@
           <a-form-item field="price" :label="$t('pages.price_degree')">
             <a-space style="width: 320px">
               <a-input-number
-                style="background-color: #fff; border: 1px solid #ccc"
+                style="background-color: #FFF; border: 1px solid #ccc"
                 v-model="form.min"
                 :placeholder="$t('pages.minPrice')"
                 :min="0"
@@ -64,7 +64,7 @@
               />
               <div style="width: 8px; height: 1px; background: #ccc"></div>
               <a-input-number
-                style="background-color: #fff; border: 1px solid #ccc"
+                style="background-color: #FFF; border: 1px solid #ccc"
                 v-model="form.max"
                 :min="0"
                 size="large"
@@ -180,7 +180,7 @@ defineExpose({
 .more-search-filter-modal {
   .arco-select-view-single,
   .arco-select-view-multiple {
-    background-color: #fff;
+    background-color: $main-white;
     border-bottom: 1px solid #eee;
     padding-left: 0;
     &.arco-select-view-focus {

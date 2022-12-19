@@ -44,7 +44,7 @@
           <div class="border-bottom-mobile">
             <p class="p-word-mobile">{{ $t("pages.degree_of_old_and_new") }}</p>
             <a-select
-                style="width: 100%;border: none;padding-left: 0;background-color: #fff;"
+                style="width: 100%;border: none;padding-left: 0;background-color: $main-white;"
                 :placeholder="$t('pages.oldAndNew')"
                 v-model="form.nid"
                 multiple
@@ -66,7 +66,7 @@
         <a-form-item field="price">
           <a-space style="width: 320px;">
             <a-input-number
-                style="background-color: #fff;border: 1px solid #ccc"
+                style="background-color: $main-white;border: 1px solid #ccc"
                 v-model="priceForm.min"
                 :placeholder="$t('pages.minPrice')"
                 :min="0"
@@ -75,7 +75,7 @@
             />
             <div style="width: 8px; height: 1px; background: #ccc"></div>
             <a-input-number
-                style="background-color: #fff;border: 1px solid #ccc"
+                style="background-color: $main-white;border: 1px solid #ccc"
                 v-model="priceForm.max"
                 :placeholder="$t('pages.maxPrice')"
                 :min="0"
@@ -223,7 +223,7 @@ const handToIndex=()=>{
       bottom: 10px;
       width: 80%;
       left: 10%;
-      background-color: #fff;
+      background-color: $main-white;
       text-align: center;
       .btn{
         width: 100%;
@@ -240,10 +240,10 @@ const handToIndex=()=>{
       }
     }
     :deep(.arco-select-view-single) {
-      background-color: #fff;
+      background-color: $main-white;
       border-radius: 50px;
       border: 1px solid $grey-font-label;
-      color: #383838;
+      color: $main-grey;
       padding-left: 15px;
       padding-right: 15px;
       width: min-content;

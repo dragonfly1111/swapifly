@@ -714,7 +714,7 @@ onUnmounted(() => {
     span {
       font-size: 14px;
       line-height: 32px;
-      color: #333333;
+      color: $main-black-333;
     }
 
     :deep(.arco-icon-more-vertical) {
@@ -776,7 +776,7 @@ onUnmounted(() => {
       .but {
         //width: 67px;
         height: 26px;
-        color: #FFFFFF;
+        color: $main-white;
       }
 
       .but + .but {
@@ -846,7 +846,7 @@ onUnmounted(() => {
 
       .no-msg-title {
         font-size: 18px;
-        color: #333333;
+        color: $main-black-333;
         margin-top: 15px;
       }
 
@@ -861,7 +861,7 @@ onUnmounted(() => {
       text-align: center;
       margin-top: 18px;
       margin-bottom: 18px;
-      color: #333333;
+      color: $main-black-333;
       font-size: 12px;
     }
 
@@ -884,7 +884,7 @@ onUnmounted(() => {
           max-width: 70%;
           line-height: 22px;
           font-size: 14px;
-          color: #333333;
+          color: $main-black-333;
 
           .operation-msg {
             font-weight: bold;
@@ -963,7 +963,7 @@ onUnmounted(() => {
     .input-box {
       height: 100%;
       border-radius: 0;
-      background: #FFFFFF;
+      background: $main-white;
     }
 
     :deep(.arco-icon-image) {

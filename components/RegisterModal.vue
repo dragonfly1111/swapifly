@@ -211,7 +211,7 @@ defineExpose({
       margin-top: 26px;
 
       .arco-input-append {
-        color: #FFFFFF;
+        color: $main-white;
         background: $main-pink;
         user-select: none;
         cursor: pointer;
@@ -246,7 +246,7 @@ defineExpose({
       width: 100%;
       background: $main-grey;
       height: 46px;
-      color: #FFFFFF;
+      color: $main-white;
     }
 
     .register {

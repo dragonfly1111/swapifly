@@ -156,6 +156,8 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import "assets/sass/var.scss";
+
 .page-footer-link {
   padding: 20px 0;
   border-top: 1px solid rgba(229, 229, 229, 1);
@@ -193,8 +195,7 @@ onMounted(() => {
       margin-bottom: 10px;
 
       .arco-link {
-        color: rgba(42, 130, 228, 1);
-
+        color: $main-blue
       }
     }
   }
@@ -209,7 +210,7 @@ onMounted(() => {
 
     .arco-link {
       padding: 0;
-      color: rgba(56, 56, 56, 1);
+      color: $main-grey;
       margin-right: 20px;
     }
   }
@@ -217,6 +218,7 @@ onMounted(() => {
 
 </style>
 <style lang="scss" scoped>
+@import "assets/sass/var.scss";
 @media screen and (max-width: 1000px) {
   .page-footer-link {
     .search-box {
@@ -234,7 +236,7 @@ onMounted(() => {
       //padding: 0 12px;
       .arco-link {
         padding: 0;
-        color: rgba(56, 56, 56, 1);
+        color: $main-grey;
         margin-right: 20px;
       }
     }
@@ -245,7 +247,7 @@ onMounted(() => {
     :deep(.arco-collapse-item-content) {
       padding-left: 0;
       padding-right: 0;
-      background-color: #fff;
+      background-color: $main-white;
     }
     :deep(.arco-collapse-item-header){
       padding: 8px 0;
