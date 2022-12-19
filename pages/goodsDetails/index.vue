@@ -1,417 +1,419 @@
 <template>
-  <div class="common-row global-content">
-    <!-- 手机端操作 -->
-    <div class="mobile-extra-box" @click="drawerVisible = true" v-if="userInfo && p_type == 2"></div>
+  <div class="goods-detail-root-class">
+    <div class="common-row global-content">
+      <!-- 手机端操作 -->
+      <div class="mobile-extra-box" @click="drawerVisible = true" v-if="userInfo && p_type == 2"></div>
 
-    <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
+      <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
 
-    <template v-if="pageLoading">
-      <div>
-        <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
-          <div style="width: 100%">
-            <a-skeleton-line :line-height="200" :line-spacing="10" />
-          </div>
-          <div style="height: 20px"></div>
-          <div style="width: 60%; margin-right: 10%; display: inline-block">
-            <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
-          </div>
-          <div style="width: 30%; display: inline-block">
-            <a-skeleton-line :line-height="200" :line-spacing="10" />
-          </div>
-          <div style="height: 36px"></div>
-          <div style="width: 70%">
-            <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
-          </div>
-          <div style="height: 36px"></div>
-          <div style="width: 70%; margin-bottom: 30px">
-            <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
-          </div>
-        </a-skeleton>
-      </div>
-    </template>
-
-    <template v-else>
-      <section class="section-wrapper goods-wrapper">
-        <a-breadcrumb class="pc-breadcrumb">
-          <template #separator>
-            <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
-          </template>
-          <a-breadcrumb-item
-            v-for="(item, index) in productInfo.rid"
-            @click="toTypePage(item, index)"
-            >{{ item.title }}</a-breadcrumb-item
-          >
-        </a-breadcrumb>
-        <div class="section-content">
-          <div class="goods-swiper">
-            <swiper
-              :slidesPerView="resize.screenType === 'MOBILE' ? 1 : 3"
-              :spaceBetween="6"
-              :loop="false"
-              :navigation="false"
-              :modules="modules"
-              class="mySwiper swiper"
-              ref="swiperRef"
-              :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''"
-            >
-              <swiper-slide
-                class="swiper-slide"
-                v-for="(item, index) in productInfo.images"
-                :key="index"
-              >
-                <a-image height="350px" fit="cover" :src="baseImgPrefix + item" />
-              </swiper-slide>
-              <div class="goods-tags">
-                <a-space class="handle-header">
-                  <a-button class="black-btn" @click="handleShare">{{
-                    $t("pages.share")
-                  }}</a-button>
-                  <a-button class="black-btn" @click="handleLike">
-                    <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
-                    <icon-heart class="heart" v-if="productInfo.islike == 0" />
-                    {{ productInfo.like }} like
-                  </a-button>
-                  <a-button class="black-btn" @click="handleReport">{{
-                    $t("pages.report")
-                  }}</a-button>
-                </a-space>
-                <div class="handle-bottom">
-                  <a-button class="black-btn" @click="previewAll"
-                    >{{ productInfo.images.length }} image
-                  </a-button>
-                </div>
-              </div>
-            </swiper>
-            <!-- 分页 -->
-            <div v-show="productInfo.images.length > 3 || (resize.screenType === 'MOBILE' && productInfo.images.length > 2)">
-              <div
-                class="swiper-button-next swiper-button-next-self"
-                @click="swiperRef.$el.swiper.slideNext()"
-              ></div>
-              <div
-                class="swiper-button-prev swiper-button-prev-self"
-                @click="swiperRef.$el.swiper.slidePrev()"
-              ></div>
+      <template v-if="pageLoading">
+        <div>
+          <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
+            <div style="width: 100%">
+              <a-skeleton-line :line-height="200" :line-spacing="10" />
             </div>
-          </div>
-          <div class="page-body-content">
-            <a-breadcrumb class="mobile-breadcrumb">
-              <a-breadcrumb-item
+            <div style="height: 20px"></div>
+            <div style="width: 60%; margin-right: 10%; display: inline-block">
+              <a-skeleton-line :line-height="22" :rows="6" :line-spacing="10" />
+            </div>
+            <div style="width: 30%; display: inline-block">
+              <a-skeleton-line :line-height="200" :line-spacing="10" />
+            </div>
+            <div style="height: 36px"></div>
+            <div style="width: 70%">
+              <a-skeleton-line :line-height="30" :rows="2" :line-spacing="10" />
+            </div>
+            <div style="height: 36px"></div>
+            <div style="width: 70%; margin-bottom: 30px">
+              <a-skeleton-line :line-height="22" :rows="2" :line-spacing="10" />
+            </div>
+          </a-skeleton>
+        </div>
+      </template>
+
+      <template v-else>
+        <section class="section-wrapper goods-wrapper">
+          <a-breadcrumb class="pc-breadcrumb">
+            <template #separator>
+              <img src="@/assets/images/icon/breadcrumb-separator.png" alt="" />
+            </template>
+            <a-breadcrumb-item
                 v-for="(item, index) in productInfo.rid"
                 @click="toTypePage(item, index)"
-                >{{ item.title }}</a-breadcrumb-item
+            >{{ item.title }}</a-breadcrumb-item
+            >
+          </a-breadcrumb>
+          <div class="section-content">
+            <div class="goods-swiper">
+              <swiper
+                  :slidesPerView="resize.screenType === 'MOBILE' ? 1 : 3"
+                  :spaceBetween="6"
+                  :loop="false"
+                  :navigation="false"
+                  :modules="modules"
+                  class="mySwiper swiper"
+                  ref="swiperRef"
+                  :class="productInfo.images.length < 3 ? 'less-3-swiper' : ''"
               >
-            </a-breadcrumb>
-            <div class="goods-info">
-              <div class="goods-info-body">
-                <div class="goods-content">
-                  <div class="goods-name">
-                    <div>{{ productInfo.title }}</div>
-                    <h2>HK${{ productInfo.price }}</h2>
+                <swiper-slide
+                    class="swiper-slide"
+                    v-for="(item, index) in productInfo.images"
+                    :key="index"
+                >
+                  <a-image height="350px" fit="cover" :src="baseImgPrefix + item" />
+                </swiper-slide>
+                <div class="goods-tags">
+                  <a-space class="handle-header">
+                    <a-button class="black-btn" @click="handleShare">{{
+                        $t("pages.share")
+                      }}</a-button>
+                    <a-button class="black-btn" @click="handleLike">
+                      <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
+                      <icon-heart class="heart" v-if="productInfo.islike == 0" />
+                      {{ productInfo.like }} like
+                    </a-button>
+                    <a-button class="black-btn" @click="handleReport">{{
+                        $t("pages.report")
+                      }}</a-button>
+                  </a-space>
+                  <div class="handle-bottom">
+                    <a-button class="black-btn" @click="previewAll"
+                    >{{ productInfo.images.length }} image
+                    </a-button>
                   </div>
-                  <a-row justify="space-between" class="goods-desc">
-                    <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
-                    >
-                      <icon-common />
-                      <span>{{ productInfo.newold }}</span>
-                      <icon-info-circle
-                        style="cursor: pointer"
-                        @click="newAndOldModal.openDialog()"
-                      />
-                    </a-col>
-                    <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
-                    >
-                      <icon-user-group />
-                      <span v-if="productInfo.offline == 1" class="mr5">{{
-                        $t("pages.handDeliver")
-                      }}</span>
-                      <span v-if="productInfo.mail == 1">{{ $t("pages.postAndCourier") }}</span>
-                    </a-col>
-                    <a-col
-                      :span="resize.screenType === 'MOBILE' ? 24 : 8"
-                      class="mobile-goods-detail"
-                    >
-                      <icon-location />
-                      <span>{{ productInfo.region }}</span>
-                    </a-col>
-                  </a-row>
-                  <a-typography>
-                    <a-typography-paragraph
-                      :ellipsis="{
+                </div>
+              </swiper>
+              <!-- 分页 -->
+              <div v-show="productInfo.images.length > 3 || (resize.screenType === 'MOBILE' && productInfo.images.length > 2)">
+                <div
+                    class="swiper-button-next swiper-button-next-self"
+                    @click="swiperRef.$el.swiper.slideNext()"
+                ></div>
+                <div
+                    class="swiper-button-prev swiper-button-prev-self"
+                    @click="swiperRef.$el.swiper.slidePrev()"
+                ></div>
+              </div>
+            </div>
+            <div class="page-body-content">
+              <a-breadcrumb class="mobile-breadcrumb">
+                <a-breadcrumb-item
+                    v-for="(item, index) in productInfo.rid"
+                    @click="toTypePage(item, index)"
+                >{{ item.title }}</a-breadcrumb-item
+                >
+              </a-breadcrumb>
+              <div class="goods-info">
+                <div class="goods-info-body">
+                  <div class="goods-content">
+                    <div class="goods-name">
+                      <div>{{ productInfo.title }}</div>
+                      <h2>HK${{ productInfo.price }}</h2>
+                    </div>
+                    <a-row justify="space-between" class="goods-desc">
+                      <a-col
+                          :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                          class="mobile-goods-detail"
+                      >
+                        <icon-common />
+                        <span>{{ productInfo.newold }}</span>
+                        <icon-info-circle
+                            style="cursor: pointer"
+                            @click="newAndOldModal.openDialog()"
+                        />
+                      </a-col>
+                      <a-col
+                          :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                          class="mobile-goods-detail"
+                      >
+                        <icon-user-group />
+                        <span v-if="productInfo.offline == 1" class="mr5">{{
+                            $t("pages.handDeliver")
+                          }}</span>
+                        <span v-if="productInfo.mail == 1">{{ $t("pages.postAndCourier") }}</span>
+                      </a-col>
+                      <a-col
+                          :span="resize.screenType === 'MOBILE' ? 24 : 8"
+                          class="mobile-goods-detail"
+                      >
+                        <icon-location />
+                        <span>{{ productInfo.region }}</span>
+                      </a-col>
+                    </a-row>
+                    <a-typography>
+                      <a-typography-paragraph
+                          :ellipsis="{
                         rows: resize.screenType === 'MOBILE' ? 4 : 6,
                         expandable: true,
                       }"
-                    >
-                      {{ productInfo.describe }}
-                      <template #expand-node="{ expanded }">
-                        {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
-                      </template>
-                    </a-typography-paragraph>
-                    <a-typography-title :heading="4" class="mt30"
+                      >
+                        {{ productInfo.describe }}
+                        <template #expand-node="{ expanded }">
+                          {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
+                        </template>
+                      </a-typography-paragraph>
+                      <a-typography-title :heading="4" class="mt30"
                       >{{ $t("pages.handDeliver") }}
-                    </a-typography-title>
-                    <template v-if="productInfo.offline">
-                      <a-typography-paragraph>
-                        <div class="trade-type-item" v-for="item in productInfo.offline_address">
-                          <a-space align="start" :strokeWidth="2">
-                            <icon-location :size="18" />
-                            <div>
-                              <div>{{ item.title }}</div>
-                              <div class="grey">{{ item.address }}</div>
-                            </div>
-                          </a-space>
-                        </div>
-                      </a-typography-paragraph>
-                    </template>
-                    <template v-else>
-                      <a-typography-paragraph class="grey">
-                        {{ $t("pages.noHandDeliver") }}
-                      </a-typography-paragraph>
-                    </template>
-                    <a-typography-title :heading="4" class="mt30"
-                      >{{ $t("pages.postAndCourier") }}
-                    </a-typography-title>
-                    <template v-if="productInfo.mail == 1">
-                      <a-typography-paragraph class="grey">
-                        {{ productInfo.mail_note || $t("pages.noPostTip") }}
-                      </a-typography-paragraph>
-                    </template>
-                    <template v-else>
-                      <a-typography-paragraph class="grey">
-                        {{ $t("pages.noPostAndCourier") }}
-                      </a-typography-paragraph>
-                    </template>
-                  </a-typography>
-                  <div class="module-box">
-                    <a-divider orientation="left" class="module-header"
-                      >{{ $t("pages.viewSeller") }}
-                    </a-divider>
-                    <a-row justify="space-between" :gutter="20">
-                      <a-col flex="250px" class="seller-box">
-                        <a-avatar :size="100">
-                          <img
-                            alt="avatar"
-                            @click="toUserDetails(sellerInfo)"
-                            :src="baseImgPrefix + sellerInfo.avatar"
-                          />
-                        </a-avatar>
-                        <div class="seller-info">
-                          <div class="seller-name" @click="toUserDetails(sellerInfo)">
-                            {{ sellerInfo.nickname }}
-                          </div>
-                          <div class="grey">@{{ sellerInfo.realname }}</div>
-                          <div class="fs12">
-                            <span>joined</span>
-                            <span>{{ sellerInfo.create_time }}</span>
-                          </div>
-                          <div class="fs12">{{ getRStateLabel() }}</div>
-                          <div v-if="sellerInfo.email">
-                            <a-space size="mini">
-                              <img class="email-icon" src="@/assets/images/icon/email_black.png" />
-                              <span class="fs12">{{ $t("pages.verified") }}</span>
+                      </a-typography-title>
+                      <template v-if="productInfo.offline">
+                        <a-typography-paragraph>
+                          <div class="trade-type-item" v-for="item in productInfo.offline_address">
+                            <a-space align="start" :strokeWidth="2">
+                              <icon-location :size="18" />
+                              <div>
+                                <div>{{ item.title }}</div>
+                                <div class="grey">{{ item.address }}</div>
+                              </div>
                             </a-space>
                           </div>
-                        </div>
-                      </a-col>
-                      <a-col flex="auto" class="comment-box">
-                        <a-space class="comment-header">
-                          <span>{{ sellerInfo.nickname }}</span>
-                          <span>{{ $t("pages.reviews") }}</span>
-                          <span class="fs12">{{ sellerInfo.stars }}</span>
-                          <span><icon-star-fill /></span>
-                          <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
+                        </a-typography-paragraph>
+                      </template>
+                      <template v-else>
+                        <a-typography-paragraph class="grey">
+                          {{ $t("pages.noHandDeliver") }}
+                        </a-typography-paragraph>
+                      </template>
+                      <a-typography-title :heading="4" class="mt30"
+                      >{{ $t("pages.postAndCourier") }}
+                      </a-typography-title>
+                      <template v-if="productInfo.mail == 1">
+                        <a-typography-paragraph class="grey">
+                          {{ productInfo.mail_note || $t("pages.noPostTip") }}
+                        </a-typography-paragraph>
+                      </template>
+                      <template v-else>
+                        <a-typography-paragraph class="grey">
+                          {{ $t("pages.noPostAndCourier") }}
+                        </a-typography-paragraph>
+                      </template>
+                    </a-typography>
+                    <div class="module-box">
+                      <a-divider orientation="left" class="module-header"
+                      >{{ $t("pages.viewSeller") }}
+                      </a-divider>
+                      <a-row justify="space-between" :gutter="20">
+                        <a-col flex="250px" class="seller-box">
+                          <a-avatar :size="100">
+                            <img
+                                alt="avatar"
+                                @click="toUserDetails(sellerInfo)"
+                                :src="baseImgPrefix + sellerInfo.avatar"
+                            />
+                          </a-avatar>
+                          <div class="seller-info">
+                            <div class="seller-name" @click="toUserDetails(sellerInfo)">
+                              {{ sellerInfo.nickname }}
+                            </div>
+                            <div class="grey">@{{ sellerInfo.realname }}</div>
+                            <div class="fs12">
+                              <span>joined</span>
+                              <span>{{ sellerInfo.create_time }}</span>
+                            </div>
+                            <div class="fs12">{{ getRStateLabel() }}</div>
+                            <div v-if="sellerInfo.email">
+                              <a-space size="mini">
+                                <img class="email-icon" src="@/assets/images/icon/email_black.png" />
+                                <span class="fs12">{{ $t("pages.verified") }}</span>
+                              </a-space>
+                            </div>
+                          </div>
+                        </a-col>
+                        <a-col flex="auto" class="comment-box">
+                          <a-space class="comment-header">
+                            <span>{{ sellerInfo.nickname }}</span>
+                            <span>{{ $t("pages.reviews") }}</span>
+                            <span class="fs12">{{ sellerInfo.stars }}</span>
+                            <span><icon-star-fill /></span>
+                            <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
+                          </a-space>
+                          <EvaluateList
+                              :list="eltlist"
+                              :page-loading="pageLoading"
+                              :showSource="false"
+                              :showLine="false"
+                          ></EvaluateList>
+                          <a-link
+                              class="see-more-comment"
+                              @click="seeMoreComment"
+                              v-if="eltlist.length"
+                          >
+                            {{ $t("pages.viewAllComment") }}
+                            <icon-left />
+                          </a-link>
+                        </a-col>
+                      </a-row>
+                    </div>
+                  </div>
+                  <!-- 用户信息 -->
+                  <div class="right-box">
+                    <div class="user-card">
+                      <a-comment
+                          :author="sellerInfo.nickname"
+                          :datetime="'@' + sellerInfo.realname"
+                          class="user-info"
+                          @click="toUserDetails(sellerInfo)"
+                      >
+                        <template #content>
+                          <span>{{ sellerInfo.stars }}</span>
+                          <icon-star-fill :size="16" />
+                          <span>（{{ sellerInfo.e_num }}review）</span>
+                        </template>
+                        <template #avatar>
+                          <a-image
+                              :width="50"
+                              :height="50"
+                              :src="baseImgPrefix + sellerInfo.avatar"
+                              fit="cover"
+                              show-loader
+                              :preview="false"
+                              style="border-radius: 50%"
+                          >
+                            <template #loader>
+                              <div class="loader-animate" />
+                            </template>
+                          </a-image>
+                        </template>
+                      </a-comment>
+                      <a-button class="to-talk" @click="handleDialogue">
+                        {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+                      </a-button>
+                      <div class="center" v-if="!userInfo || !userInfo.id">
+                        {{ $t("pages.shouldLoginTip") }}
+                      </div>
+                      <a-input-search
+                          placeholder="HK$ "
+                          :button-text="$t('pages.bid')"
+                          search-button
+                          class="bid-input"
+                          v-if="userInfo && p_type == 1"
+                          v-model="price"
+                          @search="handleOfferchat"
+                          :disabled="!userInfo || !userInfo.id"
+                      />
+                      <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
+                      <div class="self-handle" v-if="userInfo && p_type == 2">
+                        <a-space @click="handleEdit">
+                          <icon-pen />
+                          <span>{{ $t("pages.editGoods") }}</span>
                         </a-space>
-                        <EvaluateList
-                          :list="eltlist"
-                          :page-loading="pageLoading"
-                          :showSource="false"
-                          :showLine="false"
-                        ></EvaluateList>
-                        <a-link
-                          class="see-more-comment"
-                          @click="seeMoreComment"
-                          v-if="eltlist.length"
-                        >
-                          {{ $t("pages.viewAllComment") }}
-                          <icon-left />
-                        </a-link>
-                      </a-col>
-                    </a-row>
-                  </div>
-                </div>
-                <!-- 用户信息 -->
-                <div class="right-box">
-                  <div class="user-card">
-                    <a-comment
-                      :author="sellerInfo.nickname"
-                      :datetime="'@' + sellerInfo.realname"
-                      class="user-info"
-                      @click="toUserDetails(sellerInfo)"
-                    >
-                      <template #content>
-                        <span>{{ sellerInfo.stars }}</span>
-                        <icon-star-fill :size="16" />
-                        <span>（{{ sellerInfo.e_num }}review）</span>
-                      </template>
-                      <template #avatar>
-                        <a-image
-                          :width="50"
-                          :height="50"
-                          :src="baseImgPrefix + sellerInfo.avatar"
-                          fit="cover"
-                          show-loader
-                          :preview="false"
-                          style="border-radius: 50%"
-                        >
-                          <template #loader>
-                            <div class="loader-animate" />
-                          </template>
-                        </a-image>
-                      </template>
-                    </a-comment>
-                    <a-button class="to-talk" @click="handleDialogue">
-                      {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
-                    </a-button>
-                    <div class="center" v-if="!userInfo || !userInfo.id">
-                      {{ $t("pages.shouldLoginTip") }}
+                        <a-space v-if="productInfo.state == 1" @click="handleRemove">
+                          <label class="minus-icon">-</label>
+                          <span>{{ $t("pages.removeGoods") }}</span>
+                        </a-space>
+                        <a-space v-if="productInfo.state == 3" @click="handleRemove">
+                          <icon-upload />
+                          <span>{{ $t("pages.putawayGoods") }}</span>
+                        </a-space>
+                        <a-space class="pink" @click="handleDelete">
+                          <icon-delete />
+                          <span>{{ $t("pages.delGoods") }}</span>
+                        </a-space>
+                      </div>
                     </div>
-                    <a-input-search
-                      placeholder="HK$ "
-                      :button-text="$t('pages.bid')"
-                      search-button
-                      class="bid-input"
-                      v-if="userInfo && p_type == 1"
-                      v-model="price"
-                      @search="handleOfferchat"
-                      :disabled="!userInfo || !userInfo.id"
-                    />
-                    <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
-                    <div class="self-handle" v-if="userInfo && p_type == 2">
-                      <a-space @click="handleEdit">
-                        <icon-pen />
-                        <span>{{ $t("pages.editGoods") }}</span>
-                      </a-space>
-                      <a-space v-if="productInfo.state == 1" @click="handleRemove">
-                        <label class="minus-icon">-</label>
-                        <span>{{ $t("pages.removeGoods") }}</span>
-                      </a-space>
-                      <a-space v-if="productInfo.state == 3" @click="handleRemove">
-                        <icon-upload />
-                        <span>{{ $t("pages.putawayGoods") }}</span>
-                      </a-space>
-                      <a-space class="pink" @click="handleDelete">
-                        <icon-delete />
-                        <span>{{ $t("pages.delGoods") }}</span>
-                      </a-space>
-                    </div>
-                  </div>
-                  <div class="achievement-card" v-if="userInfo && p_type == 2">
-                    <div>
-                      {{ $t("pages.last7days") }}{{ productInfo.qday }}{{ $t("pages.days") }}
-                    </div>
-                    <a-button class="pink-btn" @click="openAchievement"
+                    <div class="achievement-card" v-if="userInfo && p_type == 2">
+                      <div>
+                        {{ $t("pages.last7days") }}{{ productInfo.qday }}{{ $t("pages.days") }}
+                      </div>
+                      <a-button class="pink-btn" @click="openAchievement"
                       >{{ $t("pages.viewtheResults") }}
-                    </a-button>
+                      </a-button>
+                    </div>
+                    <AD width="86%" height="560px" :advert="googleAd.content"></AD>
                   </div>
-                  <AD width="86%" height="560px" :advert="googleAd.content"></AD>
                 </div>
-              </div>
-              <!-- 相似商品 -->
-              <div class="module-box">
-                <a-divider orientation="left" class="module-header"
+                <!-- 相似商品 -->
+                <div class="module-box">
+                  <a-divider orientation="left" class="module-header"
                   >{{ $t("pages.similarGoods") }}
-                </a-divider>
-                <ProductCard :list="similar.list" :page-loading="pageLoading"></ProductCard>
-              </div>
-              <div class="see-more" v-if="similar.total > similar.list.length">
-                <a-button :loading="btnLoading" type="outline" @click="loadMoreSimilar"
+                  </a-divider>
+                  <ProductCard :list="similar.list" :page-loading="pageLoading"></ProductCard>
+                </div>
+                <div class="see-more" v-if="similar.total > similar.list.length">
+                  <a-button :loading="btnLoading" type="outline" @click="loadMoreSimilar"
                   >{{ $t("pages.seeMore") }}
-                </a-button>
+                  </a-button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </template>
-
-    <div>
-      <div class="mobile-footer">
-        <div class="left">
-          <a-space v-if="p_type == 1" @click="handleLike" size="small">
-            <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
-            <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
-            <span>{{ productInfo.like }} like</span>
-          </a-space>
-        </div>
-        <div class="right">
-          <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
-            {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
-          </a-button>
-          <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
-          <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
-              $t("pages.bid")
-            }}</a-button>
-          <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
-          >{{ $t("dialogue.cancel") }}
-          </a-button>
-        </div>
-      </div>
-    </div>
-
-    <PageFooterLink />
-
-    <!-- 举报 -->
-    <ReportModal ref="reportModal"></ReportModal>
-
-    <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
-
-    <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
-
-    <ShareModal ref="shareModal"></ShareModal>
-    <!-- 商品封禁 -->
-    <BlockModal ref="blockModal"></BlockModal>
-    <!-- 预览所有图片 -->
-    <client-only>
-      <a-image-preview-group v-model:visible="previewVisible" infinite :srcList="allImages">
-      </a-image-preview-group>
-    </client-only>
-
-    <!-- 移动端事件 -->
-    <a-drawer
-      width="100%"
-      height="auto"
-      :visible="drawerVisible"
-      placement="bottom"
-      unmountOnClose
-      :header="false"
-      class="drawer-box"
-    >
-      <div>
-        <div class="drawer-item" @click="handleEdit">
-          <icon-pen />
-          <span>{{ $t("pages.editGoods") }}</span>
-        </div>
-        <div class="drawer-item" v-if="productInfo.state == 1" @click="handleRemove">
-          <label class="minus-icon">-</label>
-          <span>{{ $t("pages.removeGoods") }}</span>
-        </div>
-        <div class="drawer-item" v-if="productInfo.state == 3" @click="handleRemove">
-          <icon-upload />
-          <span>{{ $t("pages.putawayGoods") }}</span>
-        </div>
-        <div class="drawer-item pink" @click="handleDelete">
-          <icon-delete />
-          <span>{{ $t("pages.delGoods") }}</span>
-        </div>
-      </div>
-      <template #footer>
-        <a-button type="text" @click="drawerVisible = false">{{ $t("pages.cancel") }}</a-button>
+        </section>
       </template>
-    </a-drawer>
+
+      <div>
+        <div class="mobile-footer">
+          <div class="left">
+            <a-space v-if="p_type == 1" @click="handleLike" size="small">
+              <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
+              <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
+              <span>{{ productInfo.like }} like</span>
+            </a-space>
+          </div>
+          <div class="right">
+            <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
+              {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+            </a-button>
+            <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
+            <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
+                $t("pages.bid")
+              }}</a-button>
+            <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
+            >{{ $t("dialogue.cancel") }}
+            </a-button>
+          </div>
+        </div>
+      </div>
+
+      <PageFooterLink />
+
+      <!-- 举报 -->
+      <ReportModal ref="reportModal"></ReportModal>
+
+      <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
+
+      <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
+
+      <ShareModal ref="shareModal"></ShareModal>
+      <!-- 商品封禁 -->
+      <BlockModal ref="blockModal"></BlockModal>
+      <!-- 预览所有图片 -->
+      <client-only>
+        <a-image-preview-group v-model:visible="previewVisible" infinite :srcList="allImages">
+        </a-image-preview-group>
+      </client-only>
+
+      <!-- 移动端事件 -->
+      <a-drawer
+          width="100%"
+          height="auto"
+          :visible="drawerVisible"
+          placement="bottom"
+          unmountOnClose
+          :header="false"
+          class="drawer-box"
+      >
+        <div>
+          <div class="drawer-item" @click="handleEdit">
+            <icon-pen />
+            <span>{{ $t("pages.editGoods") }}</span>
+          </div>
+          <div class="drawer-item" v-if="productInfo.state == 1" @click="handleRemove">
+            <label class="minus-icon">-</label>
+            <span>{{ $t("pages.removeGoods") }}</span>
+          </div>
+          <div class="drawer-item" v-if="productInfo.state == 3" @click="handleRemove">
+            <icon-upload />
+            <span>{{ $t("pages.putawayGoods") }}</span>
+          </div>
+          <div class="drawer-item pink" @click="handleDelete">
+            <icon-delete />
+            <span>{{ $t("pages.delGoods") }}</span>
+          </div>
+        </div>
+        <template #footer>
+          <a-button type="text" @click="drawerVisible = false">{{ $t("pages.cancel") }}</a-button>
+        </template>
+      </a-drawer>
+    </div>
   </div>
 </template>
 
@@ -1155,152 +1157,155 @@ onMounted(async () => {
 }
 
 </style>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "assets/sass/var.scss";
 //@import "assets/sass/swiper.scss";
 @media screen and (max-width: 1000px) {
-  .global-content{
-    .mobile-extra-box {
-      position: fixed;
-      top: 10px;
-      right: 0;
-      width: 40px;
-      height: 40px;
-      z-index: 999;
-    }
-    .head-ad {
-      display: none;
-    }
-    .section-wrapper {
-      margin: 0;
-      :deep(.swiper-wrapper) {
-        justify-content: start !important;
+  .goods-detail-root-class{
+    .global-content{
+      .mobile-extra-box {
+        position: fixed;
+        top: 10px;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        z-index: 999;
       }
-      .goods-info {
-        .module-box {
-          width: 100%;
-          .seller-box {
-            :deep(.arco-avatar) {
-              width: 80px !important;
-              height: 80px !important;
-            }
-            .seller-info {
-              .seller-name {
-                max-width: 100%;
-              }
-            }
-          }
-          .comment-box {
-            display: none;
-          }
-        }
-        .goods-name {
-          height: auto;
-          margin-bottom: 20px;
-          h2 {
-            font-size: 22px;
-          }
-        }
-        .goods-info-body {
-          display: block;
-        }
-        .goods-content {
-          width: 100%;
-        }
-      }
-      .right-box {
+      .head-ad {
         display: none;
       }
-      .section-content {
-        .goods-swiper {
-          .swiper-button-prev-self {
-            left: 10px;
-            &:hover{
-              background: #f2f2f2 !important;
-              &:after{
-                color: $main-grey;
+      .section-wrapper {
+        margin: 0;
+        :deep(.swiper-wrapper) {
+          justify-content: start !important;
+        }
+        .goods-info {
+          .module-box {
+            width: 100%;
+            .seller-box {
+              :deep(.arco-avatar) {
+                width: 80px !important;
+                height: 80px !important;
+              }
+              .seller-info {
+                .seller-name {
+                  max-width: 100%;
+                }
               }
             }
+            .comment-box {
+              display: none;
+            }
           }
+          .goods-name {
+            height: auto;
+            margin-bottom: 20px;
+            h2 {
+              font-size: 22px;
+            }
+          }
+          .goods-info-body {
+            display: block;
+          }
+          .goods-content {
+            width: 100%;
+          }
+        }
+        .right-box {
+          display: none;
+        }
+        .section-content {
+          .goods-swiper {
+            .swiper-button-prev-self {
+              left: 10px;
+              &:hover{
+                background: #f2f2f2 !important;
+                &:after{
+                  color: $main-grey;
+                }
+              }
+            }
 
-          .swiper-button-next-self {
-            right: 10px;
-            &:hover{
-              background: #f2f2f2 !important;
-              &:after{
-                color: $main-grey;
+            .swiper-button-next-self {
+              right: 10px;
+              &:hover{
+                background: #f2f2f2 !important;
+                &:after{
+                  color: $main-grey;
+                }
               }
             }
           }
         }
-      }
 
-    }
-    .skeleton {
-      padding: 0 20px;
-    }
-    .pc-breadcrumb {
-      display: none;
-    }
-    .mobile-breadcrumb {
-      display: block;
-    }
-    .page-body-content {
-      margin: 20px 15px;
-    }
-    .mobile-footer {
-      display: flex !important;
-      justify-content: space-between;
-      height: 36px;
-      line-height: 36px;
-      width: calc(100vw - 30px);
-      position: fixed;
-      bottom: 0;
-      z-index: 3;
-      border-top: 1px solid #ccc;
-      background-color: $main-white;
-      padding: 10px 15px;
-      left: 0;
+      }
+      .skeleton {
+        padding: 0 20px;
+      }
+      .pc-breadcrumb {
+        display: none;
+      }
+      .mobile-breadcrumb {
+        display: block;
+      }
+      .page-body-content {
+        margin: 20px;
+      }
+      .mobile-footer {
+        display: flex !important;
+        justify-content: space-between;
+        height: 36px;
+        line-height: 36px;
+        width: calc(100vw - 30px);
+        position: fixed;
+        bottom: 0;
+        z-index: 3;
+        border-top: 1px solid #ccc;
+        background-color: $main-white;
+        padding: 10px 15px;
+        left: 0;
 
-      .arco-btn {
-        background: $main-pink;
-        //padding: 0 25px;
-      }
+        .arco-btn {
+          background: $main-pink;
+          //padding: 0 25px;
+        }
 
-      .arco-btn + .arco-btn {
-        margin-left: 15px;
-      }
+        .arco-btn + .arco-btn {
+          margin-left: 15px;
+        }
 
-      :deep(.arco-icon-heart-fill) {
-        color: $main-pink;
-      }
-      .cancel-but {
-        background: $main-grey;
-        color: $main-white;
-      }
-      .left {
-        flex-shrink: 0;
-      }
-      .right {
-        margin-left: 24px;
-        display: flex;
-        justify-content: flex-end;
-        :deep(.arco-input-wrapper) {
-          margin-right: 12px;
+        :deep(.arco-icon-heart-fill) {
+          color: $main-pink;
+        }
+        .cancel-but {
+          background: $main-grey;
+          color: $main-white;
+        }
+        .left {
+          flex-shrink: 0;
+        }
+        .right {
+          margin-left: 24px;
+          display: flex;
+          justify-content: flex-end;
+          :deep(.arco-input-wrapper) {
+            margin-right: 12px;
+          }
         }
       }
+      .page-footer-link {
+        padding: 20px !important;
+      }
+      .mobile-goods-detail {
+        padding: 10px 0;
+      }
     }
-    :deep(.page-footer-link) {
-      padding: 20px !important;
-    }
-    .mobile-goods-detail {
-      padding: 10px 0;
+    .common-row {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
-  .common-row {
-    padding-left: 0;
-    padding-right: 0;
-  }
+
 }
 </style>
 <style lang="scss">
