@@ -339,7 +339,7 @@
     </template>
 
     <div>
-      <div class="mobile-footer-goods">
+      <div class="mobile-footer">
         <div class="left">
           <a-space v-if="p_type == 1" @click="handleLike" size="small">
             <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
@@ -783,7 +783,7 @@ onMounted(async () => {
 .head-ad {
   display: block;
 }
-.mobile-footer-goods {
+.mobile-footer {
   display: none !important;
 }
 .section-wrapper {
@@ -1288,7 +1288,7 @@ onMounted(async () => {
   .page-body-content {
     margin: 20px 15px;
   }
-  .mobile-footer-goods {
+  .mobile-footer {
     display: flex !important;
     justify-content: space-between;
     height: 36px;
