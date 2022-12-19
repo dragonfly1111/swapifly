@@ -773,7 +773,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-@import "assets/sass/swiper.scss";
 .grey {
   color: $grey-font-label;
 }
@@ -1151,10 +1150,10 @@ onMounted(async () => {
 .mobile-breadcrumb {
   display: none;
 }
+@import "assets/sass/swiper.scss";
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-@import "assets/sass/swiper.scss";
 @media screen and (max-width: 1000px) {
   .mobile-extra-box {
     position: fixed;
@@ -1297,6 +1296,7 @@ onMounted(async () => {
     padding: 10px 0;
   }
 }
+@import "assets/sass/swiper.scss";
 </style>
 <style lang="scss">
 @import "assets/sass/var.scss";
