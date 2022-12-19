@@ -1164,9 +1164,7 @@ onMounted(async () => {
       display: none;
     }
   }
-  .mobile-footer {
-    display: none !important;
-  }
+
 }
 
 
@@ -1174,6 +1172,11 @@ onMounted(async () => {
 <style lang="scss">
 @import "assets/sass/var.scss";
 //@import "assets/sass/swiper.scss";
+@media screen and (min-width:1001px) {
+  .mobile-footer {
+    display: none;
+  }
+}
 @media screen and (max-width: 1000px) {
   .goods-detail-root-class{
     .global-content{
