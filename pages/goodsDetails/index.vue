@@ -344,31 +344,29 @@
         </section>
       </template>
 
-      <div>
-        <div class="mobile-footer">
-          <div class="left">
-            <a-space v-if="p_type == 1" @click="handleLike" size="small">
-              <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
-              <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
-              <span>{{ productInfo.like }} like</span>
-            </a-space>
-          </div>
-          <div class="right">
-            <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
-              {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
-            </a-button>
-            <a-input-number class="price-input" v-model="price" v-if="openEditOffer" :precision="2">
-              <template #prepend>
-                HK$
-              </template>
-            </a-input-number>
-            <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
-                $t("pages.bid")
-              }}</a-button>
-            <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
-            >{{ $t("dialogue.cancel") }}
-            </a-button>
-          </div>
+      <div class="mobile-footer">
+        <div class="left">
+          <a-space v-if="p_type == 1" @click="handleLike" size="small">
+            <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
+            <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
+            <span>{{ productInfo.like }} like</span>
+          </a-space>
+        </div>
+        <div class="right">
+          <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
+            {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
+          </a-button>
+          <a-input-number class="price-input" v-model="price" v-if="openEditOffer" :precision="2">
+            <template #prepend>
+              HK$
+            </template>
+          </a-input-number>
+          <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
+              $t("pages.bid")
+            }}</a-button>
+          <a-button type="primary" class="cancel-but" v-if="openEditOffer" @click="handleOfferClose"
+          >{{ $t("dialogue.cancel") }}
+          </a-button>
         </div>
       </div>
 
@@ -785,389 +783,392 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 //@import "assets/sass/swiper.scss";
-.global-content{
-  .grey {
-    color: $grey-font-label;
-  }
-  .mt30 {
-    margin-top: 30px;
-  }
-  .head-ad {
-    display: block;
-  }
-  .mobile-footer {
-    display: none !important;
-  }
-  .section-wrapper {
-    margin: 30px auto;
-
-    :deep(.arco-breadcrumb-item) {
+.goods-detail-root-class{
+  .global-content{
+    .grey {
       color: $grey-font-label;
     }
+    .mt30 {
+      margin-top: 30px;
+    }
+    .head-ad {
+      display: block;
+    }
+    .section-wrapper {
+      margin: 30px auto;
 
-    .section-content {
-      .mySwiper {
-        position: relative;
+      :deep(.arco-breadcrumb-item) {
+        color: $grey-font-label;
       }
 
-      .goods-swiper {
-        height: 350px;
-        position: relative;
+      .section-content {
+        .mySwiper {
+          position: relative;
+        }
 
-        .swiper-wrapper {
+        .goods-swiper {
           height: 350px;
-        }
+          position: relative;
 
-        .less-3-swiper {
-          background: #cccccc7f;
-          display: flex;
-          justify-content: center;
+          .swiper-wrapper {
+            height: 350px;
+          }
 
-          :deep(.swiper-wrapper) {
+          .less-3-swiper {
+            background: #cccccc7f;
+            display: flex;
             justify-content: center;
-          }
-        }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          height: 50px;
-          width: 50px;
-          border-radius: 50%;
-          font-weight: bold;
-          background-color: #f2f2f2;
-          z-index: 33;
-          font-size: 18px;
-          cursor: pointer;
-
-          &::after {
-            font-size: 14px;
-            color: $main-grey;
+            :deep(.swiper-wrapper) {
+              justify-content: center;
+            }
           }
 
-          &:hover {
-            background-color: $main-grey;
-            color: $main-white;
+          .swiper-button-next,
+          .swiper-button-prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            background-color: #f2f2f2;
+            z-index: 33;
+            font-size: 18px;
+            cursor: pointer;
 
             &::after {
               font-size: 14px;
+              color: $main-grey;
+            }
+
+            &:hover {
+              background-color: $main-grey;
               color: $main-white;
-            }
-          }
-        }
 
-        .swiper-slide {
-          position: relative;
-
-          .goods-tag {
-            position: absolute;
-            right: 10px;
-            top: 0;
-          }
-        }
-
-        .arco-image {
-          height: 0;
-          //padding-bottom: 100%;
-          cursor: pointer;
-          //background-color: #333;
-          width: 100%;
-
-          :deep(.arco-image-img) {
-            position: absolute;
-            //height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-          }
-        }
-
-        .swiper-button-prev-self {
-          left: -10px;
-        }
-
-        .swiper-button-next-self {
-          right: -10px;
-        }
-
-        .handle-header {
-          position: absolute;
-          top: 10px;
-          right: 0;
-          z-index: 33;
-
-          :deep(.arco-space-item) {
-            margin-right: 15px !important;
-          }
-
-          :deep(.arco-icon-heart-fill) {
-            color: $main-pink;
-          }
-        }
-
-        .handle-bottom {
-          position: absolute;
-          bottom: 20px;
-          right: 15px;
-          z-index: 33;
-        }
-      }
-    }
-
-    .goods-content {
-      width: calc(100% - 340px);
-
-      :deep(.arco-typography-operation-expand) {
-        display: block;
-        margin: 10px 0;
-      }
-
-      .trade-type-item {
-        margin-bottom: 18px;
-      }
-    }
-
-    .goods-info {
-      margin-top: 25px;
-
-      .goods-info-body {
-        display: flex;
-        justify-content: space-between;
-
-        .goods-content {
-          flex: auto;
-          margin-right: 40px;
-        }
-
-        .right-box {
-          width: 340px;
-        }
-      }
-
-      .goods-name {
-        font-size: 20px;
-        height: 80px;
-        margin-bottom: 10px;
-
-        h2 {
-          margin: 8px 0;
-        }
-      }
-
-      .goods-desc {
-        border-bottom: 1px solid $main-grey-border;
-        padding-bottom: 20px;
-        margin-bottom: 30px;
-
-        .arco-col {
-          display: flex;
-          align-items: center;
-
-          .arco-icon {
-            font-size: 17px;
-            flex-shrink: 0;
-          }
-
-          span {
-            margin: 0 8px;
-          }
-        }
-      }
-
-      .module-box {
-        margin-top: 60px;
-
-        .module-header {
-          margin: 40px 0;
-        }
-
-        :deep(.arco-divider-text-left) {
-          left: 0;
-          font-size: 24px;
-          padding-left: 0;
-        }
-
-        .seller-box {
-          display: flex;
-
-          .arco-avatar {
-            margin-right: 20px;
-            cursor: pointer;
-          }
-
-          .seller-info {
-            .seller-name {
-              cursor: pointer;
-              word-break: break-all;
-              max-width: 10vw;
-            }
-
-            div {
-              margin-bottom: 11px;
-
-              &:first-child,
-              &:nth-child(2) {
-                font-size: 16px;
+              &::after {
+                font-size: 14px;
+                color: $main-white;
               }
             }
+          }
 
-            .email-icon {
-              width: 18px;
-              height: 18px;
-              vertical-align: middle;
+          .swiper-slide {
+            position: relative;
+
+            .goods-tag {
+              position: absolute;
+              right: 10px;
+              top: 0;
+            }
+          }
+
+          .arco-image {
+            height: 0;
+            //padding-bottom: 100%;
+            cursor: pointer;
+            //background-color: #333;
+            width: 100%;
+
+            :deep(.arco-image-img) {
+              position: absolute;
+              //height: 100%;
+              width: 100%;
+              top: 0;
+              left: 0;
+            }
+          }
+
+          .swiper-button-prev-self {
+            left: -10px;
+          }
+
+          .swiper-button-next-self {
+            right: -10px;
+          }
+
+          .handle-header {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            z-index: 33;
+
+            :deep(.arco-space-item) {
+              margin-right: 15px !important;
+            }
+
+            :deep(.arco-icon-heart-fill) {
+              color: $main-pink;
+            }
+          }
+
+          .handle-bottom {
+            position: absolute;
+            bottom: 20px;
+            right: 15px;
+            z-index: 33;
+          }
+        }
+      }
+
+      .goods-content {
+        width: calc(100% - 340px);
+
+        :deep(.arco-typography-operation-expand) {
+          display: block;
+          margin: 10px 0;
+        }
+
+        .trade-type-item {
+          margin-bottom: 18px;
+        }
+      }
+
+      .goods-info {
+        margin-top: 25px;
+
+        .goods-info-body {
+          display: flex;
+          justify-content: space-between;
+
+          .goods-content {
+            flex: auto;
+            margin-right: 40px;
+          }
+
+          .right-box {
+            width: 340px;
+          }
+        }
+
+        .goods-name {
+          font-size: 20px;
+          height: 80px;
+          margin-bottom: 10px;
+
+          h2 {
+            margin: 8px 0;
+          }
+        }
+
+        .goods-desc {
+          border-bottom: 1px solid $main-grey-border;
+          padding-bottom: 20px;
+          margin-bottom: 30px;
+
+          .arco-col {
+            display: flex;
+            align-items: center;
+
+            .arco-icon {
+              font-size: 17px;
+              flex-shrink: 0;
+            }
+
+            span {
+              margin: 0 8px;
             }
           }
         }
 
-        .comment-box {
-          display: block;
-          .comment-header {
-            margin-bottom: 20px;
+        .module-box {
+          margin-top: 60px;
+
+          .module-header {
+            margin: 40px 0;
           }
 
-          .see-more-comment {
-            .arco-icon {
-              transform: rotate(180deg);
-              color: $main-blue;
+          :deep(.arco-divider-text-left) {
+            left: 0;
+            font-size: 24px;
+            padding-left: 0;
+          }
+
+          .seller-box {
+            display: flex;
+
+            .arco-avatar {
+              margin-right: 20px;
+              cursor: pointer;
+            }
+
+            .seller-info {
+              .seller-name {
+                cursor: pointer;
+                word-break: break-all;
+                max-width: 10vw;
+              }
+
+              div {
+                margin-bottom: 11px;
+
+                &:first-child,
+                &:nth-child(2) {
+                  font-size: 16px;
+                }
+              }
+
+              .email-icon {
+                width: 18px;
+                height: 18px;
+                vertical-align: middle;
+              }
+            }
+          }
+
+          .comment-box {
+            display: block;
+            .comment-header {
+              margin-bottom: 20px;
+            }
+
+            .see-more-comment {
+              .arco-icon {
+                transform: rotate(180deg);
+                color: $main-blue;
+              }
             }
           }
         }
       }
-    }
 
-    .right-box {
-      .user-card {
-        border: 1px solid $main-grey-border;
-        padding: 20px;
-        border-radius: 2px;
-        margin-bottom: 35px;
+      .right-box {
+        .user-card {
+          border: 1px solid $main-grey-border;
+          padding: 20px;
+          border-radius: 2px;
+          margin-bottom: 35px;
 
-        .user-info {
-          cursor: pointer;
-
-          span {
-            margin-right: 5px;
-          }
-        }
-
-        .arco-icon-star-fill {
-          color: #ffb400;
-        }
-
-        :deep(.arco-comment-author) {
-          font-size: 16px;
-          display: inline-block;
-        }
-
-        :deep(.arco-comment-avatar) {
-          margin-right: 8px;
-        }
-
-        .to-talk {
-          color: $main-white;
-          width: 100%;
-          background-color: $main-pink;
-          height: 38px;
-          margin: 15px 0 26px;
-
-          &:hover {
-            background-color: #f53991;
-          }
-        }
-
-        .center {
-          text-align: center;
-          color: $main-blue;
-          cursor: pointer;
-          font-size: 14px;
-
-          &:hover {
-            color: #0d4e99;
-          }
-        }
-
-        .bid-input {
-          margin-top: 20px;
-          height: 44px;
-          .append{
+          .user-info {
             cursor: pointer;
-            height: 44px;
-            width: 80px;
+
+            span {
+              margin-right: 5px;
+            }
+          }
+
+          .arco-icon-star-fill {
+            color: #ffb400;
+          }
+
+          :deep(.arco-comment-author) {
+            font-size: 16px;
+            display: inline-block;
+          }
+
+          :deep(.arco-comment-avatar) {
+            margin-right: 8px;
+          }
+
+          .to-talk {
             color: $main-white;
+            width: 100%;
             background-color: $main-pink;
-            border-radius: 0;
+            height: 38px;
+            margin: 15px 0 26px;
+
             &:hover {
               background-color: #f53991;
             }
           }
-          :deep(.arco-input-append) {
-            padding: 0;
-          }
-        }
 
-        .self-handle {
-          .arco-space {
-            display: flex;
-            margin-bottom: 15px;
+          .center {
+            text-align: center;
+            color: $main-blue;
             cursor: pointer;
-
-            &:last-child {
-              margin-bottom: 0;
-            }
+            font-size: 14px;
 
             &:hover {
-              color: $main-blue;
-            }
-
-            span {
-              margin-left: 10px;
+              color: #0d4e99;
             }
           }
 
-          .minus-icon {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          .bid-input {
+            margin-top: 20px;
+            height: 44px;
+            .append{
+              cursor: pointer;
+              height: 44px;
+              width: 80px;
+              color: $main-white;
+              background-color: $main-pink;
+              border-radius: 0;
+              &:hover {
+                background-color: #f53991;
+              }
+            }
+            :deep(.arco-input-append) {
+              padding: 0;
+            }
           }
 
-          .pink {
-            color: $main-pink;
+          .self-handle {
+            .arco-space {
+              display: flex;
+              margin-bottom: 15px;
+              cursor: pointer;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+
+              &:hover {
+                color: $main-blue;
+              }
+
+              span {
+                margin-left: 10px;
+              }
+            }
+
+            .minus-icon {
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              border: 1px solid;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .pink {
+              color: $main-pink;
+            }
           }
         }
-      }
 
-      .achievement-card {
-        border: 1px solid $main-grey-border;
-        border-radius: 2px;
-        padding: 25px 20px 20px;
-        margin-top: -10px;
+        .achievement-card {
+          border: 1px solid $main-grey-border;
+          border-radius: 2px;
+          padding: 25px 20px 20px;
+          margin-top: -10px;
 
-        .pink-btn {
-          width: 100%;
-          background-color: $main-pink;
-          color: $main-white;
-          height: 38px;
-          margin-top: 22px;
+          .pink-btn {
+            width: 100%;
+            background-color: $main-pink;
+            color: $main-white;
+            height: 38px;
+            margin-top: 22px;
 
-          &:hover {
-            background-color: #f53991;
+            &:hover {
+              background-color: #f53991;
+            }
           }
         }
       }
     }
+    .pc-breadcrumb {
+    }
+    .mobile-breadcrumb {
+      display: none;
+    }
   }
-  .pc-breadcrumb {
-  }
-  .mobile-breadcrumb {
-    display: none;
+  .mobile-footer {
+    display: none !important;
   }
 }
+
 
 </style>
 <style lang="scss">
