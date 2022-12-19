@@ -1,5 +1,5 @@
 <template>
-  <main class="main-pc-mobile">
+  <main>
     <Header v-if="headType === 'common'"/>
     <HelpHeader v-else-if="headType === 'help'"/>
     <NewsHeader v-else-if="headType === 'news'"/>

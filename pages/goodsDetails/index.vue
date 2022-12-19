@@ -517,7 +517,7 @@ const handleQuery = () => {
             },
           ],
         });
-        swiperRef.value.$el.swiper.update();
+        swiperRef.value && swiperRef.value.$el.swiper.update();
       } else if (res.code === 997) {
         blockModal.value.openDialog(3, 2);
       } else {
