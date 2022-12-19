@@ -1152,46 +1152,6 @@ onMounted(async () => {
   display: none;
 }
 </style>
-
-<style lang="scss">
-@import "assets/sass/var.scss";
-
-.drawer-box {
-  .arco-drawer-body {
-    padding: 0;
-  }
-  .drawer-item {
-    width: 100%;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    padding: 20px 30px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $main-grey-border;
-    .arco-icon {
-      font-size: 20px;
-      flex-shrink: 0;
-      margin-right: 10px;
-    }
-    .minus-icon {
-      font-size: 22px;
-      margin-right: 18px;
-    }
-  }
-  .pink {
-    color: $main-pink;
-  }
-  .arco-drawer-footer {
-    text-align: center;
-    .arco-btn {
-      font-size: 16px;
-      width: 100%;
-      color: $main-grey;
-    }
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
@@ -1335,6 +1295,43 @@ onMounted(async () => {
   }
   .mobile-goods-detail {
     padding: 10px 0;
+  }
+}
+</style>
+<style lang="scss">
+@import "assets/sass/var.scss";
+.drawer-box {
+  .arco-drawer-body {
+    padding: 0;
+  }
+  .drawer-item {
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $main-grey-border;
+    .arco-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+    .minus-icon {
+      font-size: 22px;
+      margin-right: 18px;
+    }
+  }
+  .pink {
+    color: $main-pink;
+  }
+  .arco-drawer-footer {
+    text-align: center;
+    .arco-btn {
+      font-size: 16px;
+      width: 100%;
+      color: $main-grey;
+    }
   }
 }
 </style>
