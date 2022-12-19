@@ -1,15 +1,15 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
-        <template v-if="bannerLoading">
-          <a-carousel-item>
-            <a-skeleton :animation="true">
-              <a-skeleton-line :rows="1" :line-height="260"/>
-            </a-skeleton>
-          </a-carousel-item>
-        </template>
-        <template v-else>
+      <template v-if="bannerLoading">
+        <div>
+          <a-skeleton :animation="true">
+            <a-skeleton-line :rows="1" :line-height="260"/>
+          </a-skeleton>
+        </div>
+      </template>
+      <template v-if="!bannerLoading">
+        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
                      :src="baseImgPrefix + item.img" class="carousel-img">
@@ -18,15 +18,15 @@
               </template>
             </a-image>
           </a-carousel-item>
-        </template>
-      </a-carousel>
+        </a-carousel>
+      </template>
     </div>
 
     <section class="section-wrapper" v-if="curLevel <= 2">
       <div class="section-content">
         <template v-if="bradLoading">
           <div class="brands-content">
-            <div v-for="item in bradLoading" class="brands-item">
+            <div v-for="item in 12" class="brands-item">
               <a-skeleton :animation="true">
                 <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>
@@ -66,7 +66,7 @@
       <div class="section-content">
         <template v-if="bradLoading">
           <div class="brands-content">
-            <div v-for="item in bradLoading" class="brands-item">
+            <div v-for="item in 12" class="brands-item">
               <a-skeleton :animation="true">
                 <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>

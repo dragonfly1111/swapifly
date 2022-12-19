@@ -1,14 +1,14 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <template v-if="bradLoading">
+      <template v-if="bannerLoading">
         <div>
-          <a-skeleton :animation="bradLoading">
+          <a-skeleton :animation="true">
             <a-skeleton-line :rows="1" :line-height="260"/>
           </a-skeleton>
         </div>
       </template>
-      <template v-if="!bradLoading">
+      <template v-if="!bannerLoading">
         <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
