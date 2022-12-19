@@ -1154,7 +1154,7 @@ onMounted(async () => {
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-
+@import "assets/sass/swiper.scss";
 @media screen and (max-width: 1000px) {
   .mobile-extra-box {
     position: fixed;
