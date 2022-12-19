@@ -504,21 +504,21 @@ const handleQuery = () => {
           arr.push(baseImgPrefix + item);
         });
         allImages.value = arr;
-        useHead({
-          title: appConfig.name + productInfo.value.title,
-          meta: [
-            {
-              hid: "description",
-              name: "description",
-              content: productInfo.value.describe,
-            },
-            {
-              hid: "og:image",
-              name: "og:image",
-              content: baseImgPrefix + productInfo.value.images[0],
-            },
-          ],
-        });
+        // useHead({
+        //   title: appConfig.name + productInfo.value.title,
+        //   meta: [
+        //     {
+        //       hid: "description",
+        //       name: "description",
+        //       content: productInfo.value.describe,
+        //     },
+        //     {
+        //       hid: "og:image",
+        //       name: "og:image",
+        //       content: baseImgPrefix + productInfo.value.images[0],
+        //     },
+        //   ],
+        // });
         swiperRef.value && swiperRef.value.$el.swiper.update();
       } else if (res.code === 997) {
         blockModal.value.openDialog(3, 2);
