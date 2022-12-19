@@ -1,33 +1,32 @@
 <template>
   <div class="common-row global-content">
     <div class="banner-wrapper">
-      <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
-        <template v-if="bannerLoading">
-          <a-carousel-item>
-            <a-skeleton :animation="true">
-              <a-skeleton-line :rows="1" :line-height="260"/>
-            </a-skeleton>
-          </a-carousel-item>
-        </template>
-        <template v-else>
-          <a-carousel-item v-for="item in bannerList">
-            <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                     :src="baseImgPrefix + item.img" class="carousel-img">
-              <template #loader>
-                <div class="loader-animate"/>
-              </template>
-            </a-image>
-          </a-carousel-item>
-        </template>
-      </a-carousel>
-
+      <template v-if="bradLoading">
+        <a-skeleton :animation="bradLoading">
+          <a-skeleton-line :rows="1" :line-height="260"/>
+        </a-skeleton>
+      </template>
+      <template v-if="!bradLoading">
+        <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
+          <template>
+            <a-carousel-item v-for="item in bannerList">
+              <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
+                       :src="baseImgPrefix + item.img" class="carousel-img">
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+            </a-carousel-item>
+          </template>
+        </a-carousel>
+      </template>
     </div>
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
       <div class="section-content">
         <template v-if="bradLoading">
           <div class="brands-content">
-            <div v-for="item in bradLoading" class="brands-item">
+            <div v-for="item in 12" class="brands-item">
               <a-skeleton :animation="true">
                 <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>
