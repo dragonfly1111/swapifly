@@ -773,530 +773,535 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-.grey {
-  color: $grey-font-label;
-}
-.mt30 {
-  margin-top: 30px;
-}
-.head-ad {
-  display: block;
-}
-.mobile-footer {
-  display: none !important;
-}
-.section-wrapper {
-  margin: 30px auto;
-
-  :deep(.arco-breadcrumb-item) {
+@import "assets/sass/swiper.scss";
+.global-content{
+  .grey {
     color: $grey-font-label;
   }
+  .mt30 {
+    margin-top: 30px;
+  }
+  .head-ad {
+    display: block;
+  }
+  .mobile-footer {
+    display: none !important;
+  }
+  .section-wrapper {
+    margin: 30px auto;
 
-  .section-content {
-    .mySwiper {
-      position: relative;
+    :deep(.arco-breadcrumb-item) {
+      color: $grey-font-label;
     }
 
-    .goods-swiper {
-      height: 350px;
-      position: relative;
+    .section-content {
+      .mySwiper {
+        position: relative;
+      }
 
-      .swiper-wrapper {
+      .goods-swiper {
         height: 350px;
-      }
+        position: relative;
 
-      .less-3-swiper {
-        background: #cccccc7f;
-        display: flex;
-        justify-content: center;
+        .swiper-wrapper {
+          height: 350px;
+        }
 
-        :deep(.swiper-wrapper) {
+        .less-3-swiper {
+          background: #cccccc7f;
+          display: flex;
           justify-content: center;
-        }
-      }
 
-      .swiper-button-next,
-      .swiper-button-prev {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        font-weight: bold;
-        background-color: #f2f2f2;
-        z-index: 33;
-        font-size: 18px;
-        cursor: pointer;
-
-        &::after {
-          font-size: 14px;
-          color: $main-grey;
+          :deep(.swiper-wrapper) {
+            justify-content: center;
+          }
         }
 
-        &:hover {
-          background-color: $main-grey;
-          color: $main-white;
+        .swiper-button-next,
+        .swiper-button-prev {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          font-weight: bold;
+          background-color: #f2f2f2;
+          z-index: 33;
+          font-size: 18px;
+          cursor: pointer;
 
           &::after {
             font-size: 14px;
+            color: $main-grey;
+          }
+
+          &:hover {
+            background-color: $main-grey;
             color: $main-white;
+
+            &::after {
+              font-size: 14px;
+              color: $main-white;
+            }
           }
         }
-      }
 
-      .swiper-slide {
-        position: relative;
+        .swiper-slide {
+          position: relative;
 
-        .goods-tag {
-          position: absolute;
-          right: 10px;
-          top: 0;
-        }
-      }
-
-      .arco-image {
-        height: 0;
-        //padding-bottom: 100%;
-        cursor: pointer;
-        //background-color: #333;
-        width: 100%;
-
-        :deep(.arco-image-img) {
-          position: absolute;
-          //height: 100%;
-          width: 100%;
-          top: 0;
-          left: 0;
-        }
-      }
-
-      .swiper-button-prev-self {
-        left: -10px;
-      }
-
-      .swiper-button-next-self {
-        right: -10px;
-      }
-
-      .handle-header {
-        position: absolute;
-        top: 10px;
-        right: 0;
-        z-index: 33;
-
-        :deep(.arco-space-item) {
-          margin-right: 15px !important;
+          .goods-tag {
+            position: absolute;
+            right: 10px;
+            top: 0;
+          }
         }
 
-        :deep(.arco-icon-heart-fill) {
-          color: $main-pink;
-        }
-      }
-
-      .handle-bottom {
-        position: absolute;
-        bottom: 20px;
-        right: 15px;
-        z-index: 33;
-      }
-    }
-  }
-
-  .goods-content {
-    width: calc(100% - 340px);
-
-    :deep(.arco-typography-operation-expand) {
-      display: block;
-      margin: 10px 0;
-    }
-
-    .trade-type-item {
-      margin-bottom: 18px;
-    }
-  }
-
-  .goods-info {
-    margin-top: 25px;
-
-    .goods-info-body {
-      display: flex;
-      justify-content: space-between;
-
-      .goods-content {
-        flex: auto;
-        margin-right: 40px;
-      }
-
-      .right-box {
-        width: 340px;
-      }
-    }
-
-    .goods-name {
-      font-size: 20px;
-      height: 80px;
-      margin-bottom: 10px;
-
-      h2 {
-        margin: 8px 0;
-      }
-    }
-
-    .goods-desc {
-      border-bottom: 1px solid $main-grey-border;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
-
-      .arco-col {
-        display: flex;
-        align-items: center;
-
-        .arco-icon {
-          font-size: 17px;
-          flex-shrink: 0;
-        }
-
-        span {
-          margin: 0 8px;
-        }
-      }
-    }
-
-    .module-box {
-      margin-top: 60px;
-
-      .module-header {
-        margin: 40px 0;
-      }
-
-      :deep(.arco-divider-text-left) {
-        left: 0;
-        font-size: 24px;
-        padding-left: 0;
-      }
-
-      .seller-box {
-        display: flex;
-
-        .arco-avatar {
-          margin-right: 20px;
+        .arco-image {
+          height: 0;
+          //padding-bottom: 100%;
           cursor: pointer;
+          //background-color: #333;
+          width: 100%;
+
+          :deep(.arco-image-img) {
+            position: absolute;
+            //height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+          }
         }
 
-        .seller-info {
-          .seller-name {
-            cursor: pointer;
-            word-break: break-all;
-            max-width: 10vw;
+        .swiper-button-prev-self {
+          left: -10px;
+        }
+
+        .swiper-button-next-self {
+          right: -10px;
+        }
+
+        .handle-header {
+          position: absolute;
+          top: 10px;
+          right: 0;
+          z-index: 33;
+
+          :deep(.arco-space-item) {
+            margin-right: 15px !important;
           }
 
-          div {
-            margin-bottom: 11px;
+          :deep(.arco-icon-heart-fill) {
+            color: $main-pink;
+          }
+        }
 
-            &:first-child,
-            &:nth-child(2) {
-              font-size: 16px;
+        .handle-bottom {
+          position: absolute;
+          bottom: 20px;
+          right: 15px;
+          z-index: 33;
+        }
+      }
+    }
+
+    .goods-content {
+      width: calc(100% - 340px);
+
+      :deep(.arco-typography-operation-expand) {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .trade-type-item {
+        margin-bottom: 18px;
+      }
+    }
+
+    .goods-info {
+      margin-top: 25px;
+
+      .goods-info-body {
+        display: flex;
+        justify-content: space-between;
+
+        .goods-content {
+          flex: auto;
+          margin-right: 40px;
+        }
+
+        .right-box {
+          width: 340px;
+        }
+      }
+
+      .goods-name {
+        font-size: 20px;
+        height: 80px;
+        margin-bottom: 10px;
+
+        h2 {
+          margin: 8px 0;
+        }
+      }
+
+      .goods-desc {
+        border-bottom: 1px solid $main-grey-border;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+
+        .arco-col {
+          display: flex;
+          align-items: center;
+
+          .arco-icon {
+            font-size: 17px;
+            flex-shrink: 0;
+          }
+
+          span {
+            margin: 0 8px;
+          }
+        }
+      }
+
+      .module-box {
+        margin-top: 60px;
+
+        .module-header {
+          margin: 40px 0;
+        }
+
+        :deep(.arco-divider-text-left) {
+          left: 0;
+          font-size: 24px;
+          padding-left: 0;
+        }
+
+        .seller-box {
+          display: flex;
+
+          .arco-avatar {
+            margin-right: 20px;
+            cursor: pointer;
+          }
+
+          .seller-info {
+            .seller-name {
+              cursor: pointer;
+              word-break: break-all;
+              max-width: 10vw;
+            }
+
+            div {
+              margin-bottom: 11px;
+
+              &:first-child,
+              &:nth-child(2) {
+                font-size: 16px;
+              }
+            }
+
+            .email-icon {
+              width: 18px;
+              height: 18px;
+              vertical-align: middle;
+            }
+          }
+        }
+
+        .comment-box {
+          display: block;
+          .comment-header {
+            margin-bottom: 20px;
+          }
+
+          .see-more-comment {
+            .arco-icon {
+              transform: rotate(180deg);
+              color: $main-blue;
+            }
+          }
+        }
+      }
+    }
+
+    .right-box {
+      .user-card {
+        border: 1px solid $main-grey-border;
+        padding: 20px;
+        border-radius: 2px;
+        margin-bottom: 35px;
+
+        .user-info {
+          cursor: pointer;
+
+          span {
+            margin-right: 5px;
+          }
+        }
+
+        .arco-icon-star-fill {
+          color: #ffb400;
+        }
+
+        :deep(.arco-comment-author) {
+          font-size: 16px;
+          display: inline-block;
+        }
+
+        :deep(.arco-comment-avatar) {
+          margin-right: 8px;
+        }
+
+        .to-talk {
+          color: $main-white;
+          width: 100%;
+          background-color: $main-pink;
+          height: 38px;
+          margin: 15px 0 26px;
+
+          &:hover {
+            background-color: #f53991;
+          }
+        }
+
+        .center {
+          text-align: center;
+          color: $main-blue;
+          cursor: pointer;
+          font-size: 14px;
+
+          &:hover {
+            color: #0d4e99;
+          }
+        }
+
+        .bid-input {
+          margin-top: 20px;
+          height: 44px;
+
+          :deep(.arco-input-search-btn) {
+            height: 44px;
+            width: 80px;
+            background-color: $main-pink;
+
+            &:hover {
+              background-color: #f53991;
+            }
+          }
+        }
+
+        .self-handle {
+          .arco-space {
+            display: flex;
+            margin-bottom: 15px;
+            cursor: pointer;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            &:hover {
+              color: $main-blue;
+            }
+
+            span {
+              margin-left: 10px;
             }
           }
 
-          .email-icon {
-            width: 18px;
-            height: 18px;
-            vertical-align: middle;
+          .minus-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .pink {
+            color: $main-pink;
           }
         }
       }
 
-      .comment-box {
-        display: block;
-        .comment-header {
-          margin-bottom: 20px;
-        }
+      .achievement-card {
+        border: 1px solid $main-grey-border;
+        border-radius: 2px;
+        padding: 25px 20px 20px;
+        margin-top: -10px;
 
-        .see-more-comment {
-          .arco-icon {
-            transform: rotate(180deg);
-            color: $main-blue;
-          }
-        }
-      }
-    }
-  }
-
-  .right-box {
-    .user-card {
-      border: 1px solid $main-grey-border;
-      padding: 20px;
-      border-radius: 2px;
-      margin-bottom: 35px;
-
-      .user-info {
-        cursor: pointer;
-
-        span {
-          margin-right: 5px;
-        }
-      }
-
-      .arco-icon-star-fill {
-        color: #ffb400;
-      }
-
-      :deep(.arco-comment-author) {
-        font-size: 16px;
-        display: inline-block;
-      }
-
-      :deep(.arco-comment-avatar) {
-        margin-right: 8px;
-      }
-
-      .to-talk {
-        color: $main-white;
-        width: 100%;
-        background-color: $main-pink;
-        height: 38px;
-        margin: 15px 0 26px;
-
-        &:hover {
-          background-color: #f53991;
-        }
-      }
-
-      .center {
-        text-align: center;
-        color: $main-blue;
-        cursor: pointer;
-        font-size: 14px;
-
-        &:hover {
-          color: #0d4e99;
-        }
-      }
-
-      .bid-input {
-        margin-top: 20px;
-        height: 44px;
-
-        :deep(.arco-input-search-btn) {
-          height: 44px;
-          width: 80px;
+        .pink-btn {
+          width: 100%;
           background-color: $main-pink;
+          color: $main-white;
+          height: 38px;
+          margin-top: 22px;
 
           &:hover {
             background-color: #f53991;
           }
         }
       }
-
-      .self-handle {
-        .arco-space {
-          display: flex;
-          margin-bottom: 15px;
-          cursor: pointer;
-
-          &:last-child {
-            margin-bottom: 0;
-          }
-
-          &:hover {
-            color: $main-blue;
-          }
-
-          span {
-            margin-left: 10px;
-          }
-        }
-
-        .minus-icon {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          border: 1px solid;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .pink {
-          color: $main-pink;
-        }
-      }
-    }
-
-    .achievement-card {
-      border: 1px solid $main-grey-border;
-      border-radius: 2px;
-      padding: 25px 20px 20px;
-      margin-top: -10px;
-
-      .pink-btn {
-        width: 100%;
-        background-color: $main-pink;
-        color: $main-white;
-        height: 38px;
-        margin-top: 22px;
-
-        &:hover {
-          background-color: #f53991;
-        }
-      }
     }
   }
+  .pc-breadcrumb {
+  }
+  .mobile-breadcrumb {
+    display: none;
+  }
 }
-.pc-breadcrumb {
-}
-.mobile-breadcrumb {
-  display: none;
-}
-@import "assets/sass/swiper.scss";
+
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+@import "assets/sass/swiper.scss";
 @media screen and (max-width: 1000px) {
-  .mobile-extra-box {
-    position: fixed;
-    top: 10px;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    z-index: 999;
-  }
-  .head-ad {
-    display: none;
-  }
-  .section-wrapper {
-    margin: 0;
-    :deep(.swiper-wrapper) {
-      justify-content: start !important;
+  .global-content{
+    .mobile-extra-box {
+      position: fixed;
+      top: 10px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      z-index: 999;
     }
-    .goods-info {
-      .module-box {
-        width: 100%;
-        .seller-box {
-          :deep(.arco-avatar) {
-            width: 80px !important;
-            height: 80px !important;
-          }
-          .seller-info {
-            .seller-name {
-              max-width: 100%;
-            }
-          }
-        }
-        .comment-box {
-          display: none;
-        }
-      }
-      .goods-name {
-        height: auto;
-        margin-bottom: 20px;
-        h2 {
-          font-size: 22px;
-        }
-      }
-      .goods-info-body {
-        display: block;
-      }
-      .goods-content {
-        width: 100%;
-      }
-    }
-    .right-box {
+    .head-ad {
       display: none;
     }
-    .section-content {
-      .goods-swiper {
-        .swiper-button-prev-self {
-          left: 10px;
-          &:hover{
-            background: #f2f2f2 !important;
-            &:after{
-              color: $main-grey;
+    .section-wrapper {
+      margin: 0;
+      :deep(.swiper-wrapper) {
+        justify-content: start !important;
+      }
+      .goods-info {
+        .module-box {
+          width: 100%;
+          .seller-box {
+            :deep(.arco-avatar) {
+              width: 80px !important;
+              height: 80px !important;
+            }
+            .seller-info {
+              .seller-name {
+                max-width: 100%;
+              }
             }
           }
+          .comment-box {
+            display: none;
+          }
         }
+        .goods-name {
+          height: auto;
+          margin-bottom: 20px;
+          h2 {
+            font-size: 22px;
+          }
+        }
+        .goods-info-body {
+          display: block;
+        }
+        .goods-content {
+          width: 100%;
+        }
+      }
+      .right-box {
+        display: none;
+      }
+      .section-content {
+        .goods-swiper {
+          .swiper-button-prev-self {
+            left: 10px;
+            &:hover{
+              background: #f2f2f2 !important;
+              &:after{
+                color: $main-grey;
+              }
+            }
+          }
 
-        .swiper-button-next-self {
-          right: 10px;
-          &:hover{
-            background: #f2f2f2 !important;
-            &:after{
-              color: $main-grey;
+          .swiper-button-next-self {
+            right: 10px;
+            &:hover{
+              background: #f2f2f2 !important;
+              &:after{
+                color: $main-grey;
+              }
             }
           }
         }
       }
-    }
 
-  }
-  .skeleton {
-    padding: 0 20px;
-  }
-  .pc-breadcrumb {
-    display: none;
-  }
-  .mobile-breadcrumb {
-    display: block;
+    }
+    .skeleton {
+      padding: 0 20px;
+    }
+    .pc-breadcrumb {
+      display: none;
+    }
+    .mobile-breadcrumb {
+      display: block;
+    }
+    .page-body-content {
+      margin: 20px 15px;
+    }
+    .mobile-footer {
+      display: flex !important;
+      justify-content: space-between;
+      height: 36px;
+      line-height: 36px;
+      width: calc(100vw - 30px);
+      position: fixed;
+      bottom: 0;
+      z-index: 3;
+      border-top: 1px solid #ccc;
+      background-color: $main-white;
+      padding: 10px 15px;
+      left: 0;
+
+      .arco-btn {
+        background: $main-pink;
+        //padding: 0 25px;
+      }
+
+      .arco-btn + .arco-btn {
+        margin-left: 15px;
+      }
+
+      :deep(.arco-icon-heart-fill) {
+        color: $main-pink;
+      }
+      .cancel-but {
+        background: $main-grey;
+        color: $main-white;
+      }
+      .left {
+        flex-shrink: 0;
+      }
+      .right {
+        margin-left: 24px;
+        display: flex;
+        justify-content: flex-end;
+        :deep(.arco-input-wrapper) {
+          margin-right: 12px;
+        }
+      }
+    }
+    :deep(.page-footer-link) {
+      padding: 20px !important;
+    }
+    .mobile-goods-detail {
+      padding: 10px 0;
+    }
   }
   .common-row {
     padding-left: 0;
     padding-right: 0;
   }
-  .page-body-content {
-    margin: 20px 15px;
-  }
-  .mobile-footer {
-    display: flex !important;
-    justify-content: space-between;
-    height: 36px;
-    line-height: 36px;
-    width: calc(100vw - 30px);
-    position: fixed;
-    bottom: 0;
-    z-index: 3;
-    border-top: 1px solid #ccc;
-    background-color: $main-white;
-    padding: 10px 15px;
-    left: 0;
-
-    .arco-btn {
-      background: $main-pink;
-      //padding: 0 25px;
-    }
-
-    .arco-btn + .arco-btn {
-      margin-left: 15px;
-    }
-
-    :deep(.arco-icon-heart-fill) {
-      color: $main-pink;
-    }
-    .cancel-but {
-      background: $main-grey;
-      color: $main-white;
-    }
-    .left {
-      flex-shrink: 0;
-    }
-    .right {
-      margin-left: 24px;
-      display: flex;
-      justify-content: flex-end;
-      :deep(.arco-input-wrapper) {
-        margin-right: 12px;
-      }
-    }
-  }
-  :deep(.page-footer-link) {
-    padding: 20px !important;
-  }
-  .mobile-goods-detail {
-    padding: 10px 0;
-  }
 }
-@import "assets/sass/swiper.scss";
 </style>
 <style lang="scss">
 @import "assets/sass/var.scss";
