@@ -773,7 +773,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-@import "assets/sass/swiper.scss";
+//@import "assets/sass/swiper.scss";
 .global-content{
   .grey {
     color: $grey-font-label;
@@ -1157,7 +1157,7 @@ onMounted(async () => {
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-@import "assets/sass/swiper.scss";
+//@import "assets/sass/swiper.scss";
 @media screen and (max-width: 1000px) {
   .global-content{
     .mobile-extra-box {
