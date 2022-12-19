@@ -280,16 +280,21 @@
                       <div class="center" v-if="!userInfo || !userInfo.id">
                         {{ $t("pages.shouldLoginTip") }}
                       </div>
-                      <a-input-search
-                          placeholder="HK$ "
-                          :button-text="$t('pages.bid')"
-                          search-button
+                      <a-input-number
                           class="bid-input"
                           v-if="userInfo && p_type == 1"
                           v-model="price"
                           @search="handleOfferchat"
                           :disabled="!userInfo || !userInfo.id"
-                      />
+                          :precision="2"
+                      >
+                        <template #prepend>
+                          HK$
+                        </template>
+                        <template #append>
+                          <a-button class="append">{{ $t('pages.bid') }}</a-button>
+                        </template>
+                      </a-input-number>
                       <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
                       <div class="self-handle" v-if="userInfo && p_type == 2">
                         <a-space @click="handleEdit">
@@ -352,7 +357,11 @@
             <a-button type="primary" v-if="!openEditOffer" @click="handleDialogue">
               {{ p_type == 2 ? $t("pages.viewConversations") : $t("pages.conversations") }}
             </a-button>
-            <a-input-number v-model="price" v-if="openEditOffer" :precision="2"></a-input-number>
+            <a-input-number class="price-input" v-model="price" v-if="openEditOffer" :precision="2">
+              <template #prepend>
+                HK$
+              </template>
+            </a-input-number>
             <a-button type="primary" v-if="p_type == 1" @click="openOffer">{{
                 $t("pages.bid")
               }}</a-button>
@@ -1082,15 +1091,19 @@ onMounted(async () => {
         .bid-input {
           margin-top: 20px;
           height: 44px;
-
-          :deep(.arco-input-search-btn) {
+          .append{
+            cursor: pointer;
             height: 44px;
             width: 80px;
+            color: $main-white;
             background-color: $main-pink;
-
+            border-radius: 0;
             &:hover {
               background-color: #f53991;
             }
+          }
+          :deep(.arco-input-append) {
+            padding: 0;
           }
         }
 
@@ -1254,6 +1267,7 @@ onMounted(async () => {
       .mobile-footer {
         display: flex !important;
         justify-content: space-between;
+        align-items: center;
         height: 36px;
         line-height: 36px;
         width: calc(100vw - 30px);
@@ -1271,7 +1285,7 @@ onMounted(async () => {
         }
 
         .arco-btn + .arco-btn {
-          margin-left: 15px;
+          margin-left: 12px;
         }
 
         :deep(.arco-icon-heart-fill) {
@@ -1288,8 +1302,13 @@ onMounted(async () => {
           margin-left: 24px;
           display: flex;
           justify-content: flex-end;
-          :deep(.arco-input-wrapper) {
+          align-items: center;
+          .price-input{
+            height: 32px;
             margin-right: 12px;
+            .arco-input-prepend{
+              padding: 0 5px;
+            }
           }
         }
       }
