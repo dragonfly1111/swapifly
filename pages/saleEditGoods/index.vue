@@ -216,6 +216,7 @@
                       curClassPath[2].advice
                     }}
                   </a-col>
+                  <a-col flex="auto" v-else></a-col>
                   <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
                     <a-link @click="toForbid">{{ $t("sale.forbidTipDetail") }}</a-link>

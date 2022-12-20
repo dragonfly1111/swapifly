@@ -30,6 +30,10 @@
         <LanguageSwitcher />
       </div>
     </div>
+    <div class="tec-sup">
+      <img src="~@/assets/images/HL-logo.png" alt="">
+      <div class="info">{{ $t("foot.sup") }}</div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -81,6 +85,15 @@ const router = useRouter()
 .common-row-mobile{
   display: none;
 }
+.tec-sup{
+  text-align: center;
+  padding-bottom: 24px;
+  color: #999999;
+  img{
+    height: 24px;
+    margin-bottom: 8px;
+  }
+}
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var";
@@ -115,6 +128,14 @@ const router = useRouter()
   }
   .common-row{
     display: none;
+  }
+  .tec-sup{
+    margin-top: -10px;
+    color: #999999;
+    img{
+      height: 18px;
+      margin-bottom: 4px;
+    }
   }
 }
 </style>
