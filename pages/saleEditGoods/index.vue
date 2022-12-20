@@ -655,6 +655,9 @@ const setReqForm = () => {
       return i.url.replace(baseImgPrefix, "");
     }),
   };
+  if(!formData.region){
+    formData.region = ''
+  }
   return formData;
 };
 

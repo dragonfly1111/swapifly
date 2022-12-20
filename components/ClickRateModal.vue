@@ -4,7 +4,6 @@
     v-model:visible="visible"
     :title="$t('dataStatistics.dataStatisticsName')"
     :on-before-cancel="handleCancel"
-    @before-ok="handleBeforeOk"
     unmount-on-close
     title-align="start"
     modal-class="click-rate-dialog"

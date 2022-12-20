@@ -3,7 +3,6 @@
     v-model:visible="visible"
     :title="$t('achievementModal.goodsReport')"
     :on-before-cancel="handleCancel"
-    @before-ok="handleBeforeOk"
     unmount-on-close
     title-align="start"
     modal-class="achievement-dialog"
