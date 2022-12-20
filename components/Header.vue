@@ -84,7 +84,13 @@
         <div class="class-wrap common-row">
           <div v-for="item in curClass.value" :key="item.id" class="class-item">
             <div class="sec-title">
-              <a-link @click="toClassDetail(item)"> {{ item.title }}</a-link>
+              <a-link @click="toClassDetail(item)">
+<!--                <a-image :src="baseImgPrefix + item.image" show-loader>-->
+<!--                  <template #loader>-->
+<!--                    <div class="loader-animate"/>-->
+<!--                  </template>-->
+<!--                </a-image>-->
+                {{ item.title }}</a-link>
             </div>
             <div class="class-sub-item" v-for="sub in item.children" :key="sub.id">
               <a-link @click="toClassDetail(sub)"> {{ sub.title }}</a-link>
@@ -859,9 +865,18 @@ function toClassDetail(e) {
   }
 }
 
+@media screen and (min-width: 1001px) and (max-width: 1200px) {
+  .name-box{
+    .username{
+      display: none;
+    }
+  }
+}
+
 </style>
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
+
 
 @media screen and (max-width: 1000px) {
   .class-bar-block{

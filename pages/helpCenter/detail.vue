@@ -157,7 +157,7 @@ getHelpDetail()
     .search-input {
       width: 305px;
       height: 46px;
-      display: block;
+      display: flex;
       :deep(.arco-btn) {
         background: $main-pink;
         width: 46px;
@@ -218,7 +218,7 @@ getHelpDetail()
           font-size: 28px;
         }
         .search-input {
-          display: block;
+          display: flex;
         }
         .content {
           max-width: 100%;

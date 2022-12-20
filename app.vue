@@ -26,7 +26,7 @@ AppSetup()
 const app = useAppConfig()
 // const route = useRoute()
 // const router = useRouter()
-useAsyncData(async () => {
+useAsyncData(async (ctx) => {
   // const areaSetting = useCookie('area')
   // const areaSetting = useCookie('locale')
   // const headers = useRequestHeaders(['cookie'])

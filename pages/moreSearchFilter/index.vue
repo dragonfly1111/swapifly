@@ -164,9 +164,7 @@ const lastFormData = () => {
 const loadMore = (nodeData) => {
   const { title, key } = nodeData;
   // 从sourceClassList中找到id相同的节点 把他的children赋值过来
-  console.log(nodeData)
   const tmpNode = findNodeById(sourceClassList, nodeData.id)
-  console.log(tmpNode)
   return new Promise((resolve) => {
     nodeData.children = tmpNode ? tmpNode.children : [];
     resolve();

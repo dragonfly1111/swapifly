@@ -85,11 +85,13 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   } else {
     needPb.value = false
   }
-  console.log('needFoot')
-  console.log(needFoot.value)
-  console.log('needSell')
-  console.log(needSell.value)
-  console.log(headType.value)
+  if(process.client){
+    console.log('needFoot')
+    console.log(needFoot.value)
+    console.log('needSell')
+    console.log(needSell.value)
+    console.log(headType.value)
+  }
 }, {immediate: true})
 </script>
 <style lang="scss">

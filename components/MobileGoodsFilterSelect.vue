@@ -79,7 +79,6 @@ const classListAsync = computed(() => {
   const tmpNode = findNode(sysData.goodsClass, (node) => {
     return node.id === props.curRid
   })
-  console.log('tmpNode')
   return tmpNode && tmpNode.children
 })
 const treeShow = computed(() => {

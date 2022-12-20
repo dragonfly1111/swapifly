@@ -128,7 +128,6 @@ const classListAsync = computed(() => {
     const tmpNode = findNode(sysData.goodsClass, (node) => {
       return node.id === props.curRid
     })
-    console.log('tmpNode')
     return tmpNode && tmpNode.children
   } else {
     return sysData.goodsClass
@@ -269,12 +268,12 @@ defineExpose({
 :deep(.multiple-select) {
   background-color: $main-white;
   border-radius: 50px;
-  border: 1px solid $main-grey;
+  border: 1px solid $grey-font-label;
   color: $main-grey;
   padding-left: 15px;
   padding-right: 15px;
-  width: 100%;
-  min-width: 140px;
+  //width: 210px;
+  min-width: 210px;
 }
 
 .handle-price {

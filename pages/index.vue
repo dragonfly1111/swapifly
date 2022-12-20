@@ -88,6 +88,7 @@ import {getHomeAdvert} from '~/api/ad'
 import {useUserInfo} from "~/stores/userInfo";
 import {Message} from "@arco-design/web-vue";
 import {watch} from "vue";
+import initSysData from "../utils/sysInit";
 
 const router = useRouter()
 const route = useRoute()
@@ -238,6 +239,23 @@ const initPageData = () => {
 }
 
 initPageData()
+
+useAsyncData(async (ctx) => {
+  console.log('ctx1')
+  const lang = ctx.payload.state['$slocale.setting']
+  const area = ctx.payload.state['$sarea.setting']
+  const localeSetting = useState('locale.setting')
+
+  console.log(localeSetting.value)
+  // console.log(payload.pinia)
+  console.log(area)
+  // getProductList({
+  //   limit: 8,
+  //   page: page.value
+  // }).then(res => {
+  //   console.log(res.data.data)
+  // })
+})
 
 onMounted(() => {
   useHead({

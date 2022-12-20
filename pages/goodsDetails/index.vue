@@ -70,7 +70,7 @@
                     <a-button class="black-btn" @click="handleLike">
                       <icon-heart-fill class="heart" v-if="productInfo.islike == 1" />
                       <icon-heart class="heart" v-if="productInfo.islike == 0" />
-                      {{ productInfo.like }} like
+                      &nbsp{{ productInfo.like }} like
                     </a-button>
                     <a-button class="black-btn" @click="handleReport">{{
                         $t("pages.report")
@@ -284,7 +284,7 @@
                           class="bid-input"
                           v-if="userInfo && p_type == 1"
                           v-model="price"
-                          @search="handleOfferchat"
+                          @press-enter="handleOfferchat"
                           :disabled="!userInfo || !userInfo.id"
                           :precision="2"
                       >
@@ -292,7 +292,7 @@
                           HK$
                         </template>
                         <template #append>
-                          <a-button class="append">{{ $t('pages.bid') }}</a-button>
+                          <a-button class="append" @click="handleOfferchat">{{ $t('pages.bid') }}</a-button>
                         </template>
                       </a-input-number>
                       <!-- //商品狀態，1.出售中，2.已售出，3已下架 -->
@@ -598,6 +598,7 @@ const handleDialogue = () => {
 
 // 出价
 const handleOfferchat = () => {
+  console.log(1231)
   if (!userInfo.checkLogin()) return;
   offerchat({
     id: productInfo.value.id,
