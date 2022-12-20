@@ -30,7 +30,7 @@
         <LanguageSwitcher />
       </div>
     </div>
-    <div class="tec-sup">
+    <div class="tec-sup" @click="toHL">
       <img src="~@/assets/images/HL-logo.png" alt="">
       <div class="info">{{ $t("foot.sup") }}</div>
     </div>
@@ -38,6 +38,9 @@
 </template>
 <script setup lang="ts">
 const router = useRouter()
+const toHL = () => {
+  window.open('https://honglanshuzi.com/', '_blank')
+}
 </script>
 <style scoped lang="scss">
 @import "assets/sass/var";
@@ -87,10 +90,12 @@ const router = useRouter()
 }
 .tec-sup{
   text-align: center;
-  padding-bottom: 24px;
+  padding-top: 12px;
+  padding-bottom: 32px;
+  font-size: 10px;
   color: #999999;
   img{
-    height: 24px;
+    height: 20px;
     margin-bottom: 8px;
   }
 }
@@ -130,10 +135,9 @@ const router = useRouter()
     display: none;
   }
   .tec-sup{
-    margin-top: -10px;
-    color: #999999;
+    margin-top: 0;
+    margin-bottom: 20px;
     img{
-      height: 18px;
       margin-bottom: 4px;
     }
   }

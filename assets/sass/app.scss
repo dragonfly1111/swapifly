@@ -46,6 +46,13 @@ body{
   .arco-modal-simple {
     width: 70% !important;
   }
+  .see-more .arco-btn-outline:hover,
+  .see-more .arco-btn-outline[type=button]:hover,
+  .see-more .arco-btn-outline[type=submit]:hover{
+    background: #FFFFFF !important;
+    border-color: rgb(56, 56, 56) !important;
+    color: rgb(56, 56, 56) !important;
+  }
 }
 
 .arco-trigger-popup {
