@@ -321,6 +321,9 @@ onMounted(() => {
     right: 10px;
     top: 195px;
     z-index: 888;
+    .arco-btn:hover{
+      background: $main-white;
+    }
   }
   .foot-link {
     padding: 0 17px;

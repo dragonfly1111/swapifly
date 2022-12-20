@@ -338,10 +338,11 @@ watch(() => userInfo.userBlock, (newValue, oldValue) => {
 
 function goBack() {
   console.log('gobak')
-  router.go(-1)
-  if (navigator.userAgent.indexOf("Safari") > -1) {
-    // location.reload()
-  } //判断是否Safari浏览器
+  history.back()
+  // router.go(-1)
+  // if (navigator.userAgent.indexOf("Safari") > -1) {
+  //   // location.reload()
+  // } //判断是否Safari浏览器
 
 }
 
@@ -719,7 +720,7 @@ function toClassDetail(e) {
     text-align: left;
 
     .phone-logo {
-      height: 36px;
+      height: 32px;
       margin-left: 10px;
       //margin-top:5px;
       object-fit: contain;
