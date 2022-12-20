@@ -178,7 +178,7 @@
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
-                  <a-link :href="forbidLink">{{ $t("sale.forbidTipDetail") }}</a-link>
+                  <a-link @click="toForbid">{{ $t("sale.forbidTipDetail") }}</a-link>
                 </div>
               </template>
             </a-form-item>
@@ -218,7 +218,7 @@
                   </a-col>
                   <a-col flex="170px" v-if="hasBanWord(form.describe)" class="tip-danger">
                     {{ $t("sale.forbidTip") }}
-                    <a-link :href="forbidLink">{{ $t("sale.forbidTipDetail") }}</a-link>
+                    <a-link @click="toForbid">{{ $t("sale.forbidTipDetail") }}</a-link>
                   </a-col>
                 </a-row>
               </template>
@@ -338,7 +338,9 @@ import axios from "axios";
 const {t} = useI18n();
 const router = useRouter();
 const sysData = useSysData();
-const pdwList = sysData.goodsPdwList || [];
+const pdwList = computed(() => {
+  return sysData.goodsPdwList || [];
+});
 const userInfo = useUserInfo();
 const draftModal = ref(null);
 const locationLoading = ref(false);
@@ -418,6 +420,10 @@ const listAll = () => {
   });
 };
 
+const toForbid = () =>{
+  window.open(forbidLink, '_blank')
+}
+
 // 选中分类
 const changeClass = (e) => {
   curClassPath.value = getPathByKey(e, sysData.goodsClass);
@@ -448,9 +454,9 @@ const filterNewOldAdvice = () => {
 
 // 是否含有违禁词汇
 const hasBanWord = (val) => {
-  if (val && pdwList) {
+  if (val && pdwList.value) {
     return (
-        pdwList.filter((i) => {
+        pdwList.value.filter((i) => {
           return val.indexOf(i) > -1;
         }).length > 0
     );
