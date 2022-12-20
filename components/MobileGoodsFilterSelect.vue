@@ -91,7 +91,7 @@ const treeShow = computed(() => {
 const updateSearch = () => {
   let setForm = { ...form.value };
   console.log(setForm);
-  setForm.nid = '';
+  // setForm.nid = '';
   setForm.offline = setForm.offline ? 1 : 0;
   setForm.mail = setForm.mail ? 1 : 0;
   if (!setForm.min && !setForm.max) {

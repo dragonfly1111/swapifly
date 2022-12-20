@@ -1165,7 +1165,6 @@ onMounted(async () => {
       display: none;
     }
   }
-
 }
 
 
@@ -1190,10 +1189,10 @@ onMounted(async () => {
         z-index: 999;
       }
       .head-ad {
-        display: none;
+        display: none !important;
       }
       .section-wrapper {
-        margin: 0;
+        margin: 0 !important;
         :deep(.swiper-wrapper) {
           justify-content: start !important;
         }
@@ -1207,49 +1206,49 @@ onMounted(async () => {
               }
               .seller-info {
                 .seller-name {
-                  max-width: 100%;
+                  max-width: 100% !important;
                 }
               }
             }
             .comment-box {
-              display: none;
+              display: none !important;
             }
           }
           .goods-name {
-            height: auto;
-            margin-bottom: 20px;
+            height: auto !important;
+            margin-bottom: 20px !important;
             h2 {
-              font-size: 22px;
+              font-size: 22px !important;
             }
           }
           .goods-info-body {
-            display: block;
+            display: block !important;
           }
           .goods-content {
-            width: 100%;
+            width: 100% !important;
           }
         }
         .right-box {
-          display: none;
+          display: none !important;
         }
         .section-content {
           .goods-swiper {
             .swiper-button-prev-self {
-              left: 10px;
+              left: 10px !important;
               &:hover{
                 background: #f2f2f2 !important;
                 &:after{
-                  color: $main-grey;
+                  color: $main-grey !important;
                 }
               }
             }
 
             .swiper-button-next-self {
-              right: 10px;
+              right: 10px !important;
               &:hover{
                 background: #f2f2f2 !important;
                 &:after{
-                  color: $main-grey;
+                  color: $main-grey !important;
                 }
               }
             }
@@ -1258,16 +1257,16 @@ onMounted(async () => {
 
       }
       .skeleton {
-        padding: 0 20px;
+        padding: 0 20px !important;
       }
       .pc-breadcrumb {
-        display: none;
+        display: none !important;
       }
       .mobile-breadcrumb {
-        display: block;
+        display: block !important;
       }
       .page-body-content {
-        margin: 20px;
+        margin: 20px !important;
       }
       .mobile-footer {
         display: flex !important;
@@ -1321,12 +1320,12 @@ onMounted(async () => {
         padding: 20px !important;
       }
       .mobile-goods-detail {
-        padding: 10px 0;
+        padding: 10px 0 !important;
       }
     }
     .common-row {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
     }
   }
 

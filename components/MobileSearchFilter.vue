@@ -144,6 +144,7 @@ const handleCancel = () => {
 
 const updateSearch = () => {
   console.log('updateSearch');
+  console.log(form.value.nid)
   let setForm = { ...form.value };
   emits("change", setForm);
   visible.value = false;

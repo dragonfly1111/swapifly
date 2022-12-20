@@ -61,7 +61,7 @@
               </div>
             </template>
             <template #expand-icon="{ active }">
-              <div style="width: 50px; text-align: right" @click="changeCol(index)">
+              <div style="width: 120px; text-align: right; height: 32px; display: flex;align-items: center; justify-content: flex-end" @click="changeCol(index)">
                 <icon-down v-if="active"/>
                 <icon-left style="transform: rotate(180deg)" v-else/>
               </div>
@@ -251,6 +251,11 @@ onMounted(() => {
     }
     :deep(.arco-collapse-item-header){
       padding: 8px 0;
+    }
+    :deep(.arco-collapse-item-icon-right){
+      &::before{
+        display: none;
+      }
     }
   }
   .footer-pc-coll{

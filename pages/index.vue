@@ -12,7 +12,7 @@
         <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                     :src="baseImgPrefix + item.img" class="carousel-img">
+                     :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)" class="carousel-img">
               <template #loader>
                 <div class="loader-animate"/>
               </template>
@@ -83,17 +83,19 @@
 </template>
 
 <script setup>
-import {getHotBrad, getProductList} from '~/api/goods'
-import {getHomeAdvert} from '~/api/ad'
-import {useUserInfo} from "~/stores/userInfo";
-import {Message} from "@arco-design/web-vue";
-import {watch} from "vue";
-import initSysData from "../utils/sysInit";
+import { getHotBrad, getProductList } from '~/api/goods'
+import { getHomeAdvert } from '~/api/ad'
+import { useUserInfo } from "~/stores/userInfo";
+import { Message } from "@arco-design/web-vue";
+import { watch } from "vue";
+import { useResize } from "~/stores/resize";
 
 const router = useRouter()
 const route = useRoute()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
+const resize = useResize()
+
 // const loginModal = ref(null)
 // const registerModal = ref(null)
 // const choosePreference = ref(null)
@@ -473,7 +475,9 @@ onMounted(() => {
       }
 
     }
-
+    :deep(.arco-skeleton-line-row){
+      height: 150px !important;
+    }
   }
   .recommend-wrapper {
     margin-top: 25px;

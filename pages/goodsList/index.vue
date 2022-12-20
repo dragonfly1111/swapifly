@@ -12,7 +12,7 @@
         <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
-                     :src="baseImgPrefix + item.img" class="carousel-img">
+                     :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)" class="carousel-img">
               <template #loader>
                 <div class="loader-animate"/>
               </template>
@@ -135,12 +135,14 @@
 import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Message } from '@arco-design/web-vue';
+import { useResize } from "~/stores/resize";
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
 const butLoading = ref(false)
+const resize = useResize()
 const bannerList = ref([])
 const productList = ref([])
 const hotBradList = ref([])
