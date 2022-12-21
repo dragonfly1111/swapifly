@@ -25,8 +25,9 @@
           <div>
             <a-upload
                 draggable
+                multiple
                 :show-file-list="false"
-                :file-list="fileList"
+                :file-list="realFileList"
                 :action="uploadUrl"
                 accept="image/*,.png"
                 :headers="headers"
@@ -90,8 +91,9 @@
           <div>
             <a-upload
                 draggable
+                multiple
                 :show-file-list="false"
-                :file-list="fileList"
+                :file-list="realFileList"
                 :action="uploadUrl"
                 accept="image/*,.png"
                 :headers="headers"
@@ -370,6 +372,7 @@ const form = ref({
   images: [],
 });
 const fileList = ref([]);
+const realFileList = ref([]);
 const addressOptions = ref([]);
 const addressSaveOptions = ref([]);
 const addressSaveOptions1 = ref([]);
@@ -566,7 +569,6 @@ const uploadClick = () => {
 };
 // 上传成功
 const uploadSuccess = (e) => {
-  console.log(e);
   if (e.response.code === 999) {
     uploadLoading.value = false;
     // 登录过期 跳转首页
