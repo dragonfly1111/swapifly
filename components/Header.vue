@@ -79,8 +79,8 @@
           </div>
         </div>
       </div>
-<!--      <div v-if="showHeadPanel" class="class-panel">-->
-      <div class="class-panel">
+      <div v-if="showHeadPanel" class="class-panel">
+<!--      <div class="class-panel">-->
         <div class="class-wrap common-row">
           <div v-for="item in curClass.value" :key="item.id" class="class-item">
             <div class="sec-title">
