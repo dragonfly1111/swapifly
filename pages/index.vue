@@ -4,11 +4,52 @@
       <template v-if="bannerLoading">
         <div>
           <a-skeleton :animation="true">
-            <a-skeleton-line :rows="1" :line-height="260"/>
+            <a-skeleton-line :rows="1" :line-height="260" />
           </a-skeleton>
         </div>
       </template>
       <template v-if="!bannerLoading">
+        <div class="swiper-box">
+          <swiper
+            :slidesPerView="1"
+            :loop="true"
+            :navigation="false"
+            :autoplay="{
+              delay: 4000,
+            }"
+            :modules="[Autoplay]"
+            class="my-swiper swiper"
+            ref="swiperRef"
+          >
+            <swiper-slide class="swiper-slide" v-for="(item, index) in bannerList" :key="index">
+              <a-image
+                show-loader
+                fit="cover"
+                @click.native="openLink(item)"
+                height="100%"
+                width="100%"
+                :preview="false"
+                :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)"
+                class="carousel-img"
+              >
+                <template #loader>
+                  <div class="loader-animate" />
+                </template>
+              </a-image>
+            </swiper-slide>
+          </swiper>
+          <div v-show="bannerList.length > 2 && resize.screenType !== 'MOBILE'">
+            <div
+              class="swiper-button-next swiper-button-next-self"
+              @click="swiperRef.$el.swiper.slideNext()"
+            ></div>
+            <div
+              class="swiper-button-prev swiper-button-prev-self"
+              @click="swiperRef.$el.swiper.slidePrev()"
+            ></div>
+          </div>
+        </div>
+        <!-- 
         <a-carousel :auto-play="true" indicator-type="dot" :animation-name="resize.screenType === 'PC' ? 'fade' : 'slide'">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
@@ -18,8 +59,7 @@
               </template>
             </a-image>
           </a-carousel-item>
-
-        </a-carousel>
+        </a-carousel> -->
       </template>
     </div>
     <section class="section-wrapper">
@@ -29,34 +69,50 @@
           <div class="brands-content">
             <div v-for="item in 12" class="brands-item">
               <a-skeleton :animation="true">
-                <a-skeleton-shape shape="circle"/>
+                <a-skeleton-shape shape="circle" />
                 <div style="height: 5px"></div>
-                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21" />
               </a-skeleton>
             </div>
           </div>
         </template>
         <template v-else>
           <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt="" />
           </div>
           <div class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image
+                class="pc-img"
+                :preview="false"
+                :width="80"
+                :height="80"
+                :src="baseImgPrefix + item.img"
+                alt=""
+                show-loader
+              >
                 <template #loader>
-                  <div class="loader-animate"/>
+                  <div class="loader-animate" />
                 </template>
               </a-image>
-              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
+              <a-image
+                class="m-image"
+                :preview="false"
+                :width="55"
+                :height="55"
+                :src="baseImgPrefix + item.img"
+                alt=""
+                show-loader
+              >
                 <template #loader>
-                  <div class="loader-animate"/>
+                  <div class="loader-animate" />
                 </template>
               </a-image>
               <div class="brands-title">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt="" />
           </div>
         </template>
       </div>
@@ -71,7 +127,9 @@
 
     <AD :advert="googleAd.content"></AD>
     <div class="see-more" v-if="page < lastPage && productList.length > 0">
-      <a-button type="outline" @click="loadMore" :loading="butLoading">{{ $t("pages.seeMore") }}</a-button>
+      <a-button type="outline" @click="loadMore" :loading="butLoading">{{
+        $t("pages.seeMore")
+      }}</a-button>
     </div>
 
     <PageFooterLink></PageFooterLink>
@@ -83,45 +141,50 @@
 </template>
 
 <script setup>
-import { getHotBrad, getProductList } from '~/api/goods'
-import { getHomeAdvert } from '~/api/ad'
+import { getHotBrad, getProductList } from "~/api/goods";
+import { getHomeAdvert } from "~/api/ad";
 import { useUserInfo } from "~/stores/userInfo";
 import { Message } from "@arco-design/web-vue";
 import { watch } from "vue";
 import { useResize } from "~/stores/resize";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
-const resize = useResize()
+const resize = useResize();
 
 // const loginModal = ref(null)
 // const registerModal = ref(null)
 // const choosePreference = ref(null)
 // const resetPwdModal = ref(null)
 
-const bannerLoading = ref(true)
-const bradLoading = ref(true)
-const productLoading = ref(true)
-const butLoading = ref(false)
+const bannerLoading = ref(true);
+const bradLoading = ref(true);
+const productLoading = ref(true);
+const butLoading = ref(false);
 
-const googleAd = ref({})
-const bannerList = ref([])
-const productList = ref([])
-const hotBradList = ref([])
+const swiperRef = ref(null);
+const googleAd = ref({});
+const bannerList = ref([]);
+const productList = ref([]);
+const hotBradList = ref([]);
 
-const bradNextShow = ref(true)
-const curBradPage = ref(0)
-const page = ref(1)
-const lastPage = ref(999)
+const bradNextShow = ref(true);
+const curBradPage = ref(0);
+const page = ref(1);
+const lastPage = ref(999);
 
-const userInfo = useUserInfo()
+const userInfo = useUserInfo();
 const openLink = (e) => {
-  console.log(e)
-  if (!e.link) return
-  window.open(e.link, '_blank')
-}
+  console.log(e);
+  if (!e.link) return;
+  window.open(e.link, "_blank");
+};
 // const toRegister = () => {
 //   loginModal.value.handleCancel()
 //   registerModal.value.openDialog()
@@ -140,124 +203,125 @@ const openLink = (e) => {
 // }
 const toSearch = (item) => {
   router.push({
-    path: '/searchResult',
+    path: "/searchResult",
     query: {
-      keyword: item.title
-    }
-  })
-}
+      keyword: item.title,
+    },
+  });
+};
 
 const bradChangePage = (type) => {
-  const ele = document.getElementsByClassName('brands-content')[0]
-  console.log(ele, type)
-  if (type === 'next') {
-    curBradPage.value++
+  const ele = document.getElementsByClassName("brands-content")[0];
+  console.log(ele, type);
+  if (type === "next") {
+    curBradPage.value++;
   } else {
-    curBradPage.value--
+    curBradPage.value--;
   }
-  console.log(curBradPage.value)
-  const toLeft = ele.clientWidth * curBradPage.value
+  console.log(curBradPage.value);
+  const toLeft = ele.clientWidth * curBradPage.value;
   ele.scrollTo({
     left: toLeft,
-    behavior: 'smooth'
-  })
+    behavior: "smooth",
+  });
   if (toLeft + ele.clientWidth >= ele.scrollWidth) {
-    bradNextShow.value = false
+    bradNextShow.value = false;
   } else {
-    bradNextShow.value = true
+    bradNextShow.value = true;
   }
-}
+};
 
 // 获取banner和谷歌广告
 const getBanner = () => {
-  bannerLoading.value = true
-  getHomeAdvert().then(res => {
-    bannerLoading.value = false
+  bannerLoading.value = true;
+  getHomeAdvert().then((res) => {
+    bannerLoading.value = false;
     if (res.code === 0) {
       nextTick(() => {
-        bannerList.value = res.data.home_advert
-        googleAd.value = res.data.google_advert
-      })
+        bannerList.value = res.data.home_advert;
+        googleAd.value = res.data.google_advert;
+        swiperRef.value && swiperRef.value.$el.swiper.update();
+      });
     } else {
-      Message.error(res.message)
+      Message.error(res.message);
     }
-  })
-}
+  });
+};
 // 获取热门品牌
 const getBrad = () => {
-  bradLoading.value = true
-  getHotBrad().then(res => {
-    bradLoading.value = false
+  bradLoading.value = true;
+  getHotBrad().then((res) => {
+    bradLoading.value = false;
     if (res.code === 0) {
-      hotBradList.value = res.data
+      hotBradList.value = res.data;
       if (process.client) {
         nextTick(() => {
           // 判断是否需要出现下一页
-          const ele = document.getElementsByClassName('brands-content')[0]
-          const toLeft = ele.clientWidth * curBradPage.value
+          const ele = document.getElementsByClassName("brands-content")[0];
+          const toLeft = ele.clientWidth * curBradPage.value;
           if (toLeft + ele.clientWidth >= ele.scrollWidth) {
-            bradNextShow.value = false
+            bradNextShow.value = false;
           } else {
-            bradNextShow.value = true
+            bradNextShow.value = true;
           }
-        })
+        });
       }
     } else {
-      Message.error(res.message)
+      Message.error(res.message);
     }
-  })
-}
+  });
+};
 // 获取商品列表
 const getProduct = () => {
-  productLoading.value = true
+  productLoading.value = true;
   getProductList({
     limit: 8,
-    page: page.value
-  }).then(res => {
-    productLoading.value = false
-    butLoading.value = false
+    page: page.value,
+  }).then((res) => {
+    productLoading.value = false;
+    butLoading.value = false;
     if (res.code === 0) {
-      lastPage.value = res.data.last_page
+      lastPage.value = res.data.last_page;
       nextTick(() => {
-        productList.value = [...productList.value, ...res.data.data]
-      })
+        productList.value = [...productList.value, ...res.data.data];
+      });
     } else {
-      Message.error(res.message)
+      Message.error(res.message);
     }
-  })
-}
+  });
+};
 // 加载更多
 const loadMore = () => {
-  page.value++
-  butLoading.value = true
-  getProduct()
-}
+  page.value++;
+  butLoading.value = true;
+  getProduct();
+};
 
 // 页面初始化
 const initPageData = () => {
-  getBanner()
-  getBrad()
-  getProduct()
-}
+  getBanner();
+  getBrad();
+  getProduct();
+};
 
-initPageData()
+initPageData();
 
 useAsyncData(async (ctx) => {
-  console.log('ctx1')
-  const lang = ctx.payload.state['$slocale.setting']
-  const area = ctx.payload.state['$sarea.setting']
-  const localeSetting = useState('locale.setting')
+  console.log("ctx1");
+  const lang = ctx.payload.state["$slocale.setting"];
+  const area = ctx.payload.state["$sarea.setting"];
+  const localeSetting = useState("locale.setting");
 
-  console.log(localeSetting.value)
+  console.log(localeSetting.value);
   // console.log(payload.pinia)
-  console.log(area)
+  console.log(area);
   // getProductList({
   //   limit: 8,
   //   page: page.value
   // }).then(res => {
   //   console.log(res.data.data)
   // })
-})
+});
 
 onMounted(() => {
   useHead({
@@ -265,11 +329,9 @@ onMounted(() => {
       {
         // 'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
       },
-    ]
-  })
-})
-
-
+    ],
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -287,23 +349,63 @@ onMounted(() => {
       height: 100%;
       cursor: pointer;
     }
-    :deep(.arco-carousel-arrow){
-      .arco-icon{
+    :deep(.arco-carousel-arrow) {
+      .arco-icon {
         font-size: 24px;
         color: rgb(87, 88, 90);
       }
-      & > div{
+      & > div {
         box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
         background: $main-white;
         opacity: 0.8;
         width: 50px;
         height: 50px;
       }
-      .arco-carousel-arrow-left{
+      .arco-carousel-arrow-left {
         left: -25px;
       }
-      .arco-carousel-arrow-right{
+      .arco-carousel-arrow-right {
         right: -25px;
+      }
+    }
+  }
+  .swiper-box {
+    position: relative;
+    .my-swiper {
+      height: 260px;
+    }
+
+    .carousel-img {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      position: absolute;
+      top: 58%;
+      transform: translateY(-50%);
+      height: 38px;
+      width: 38px;
+      border-radius: 50%;
+      font-weight: bold;
+      z-index: 33;
+      cursor: pointer;
+      background-color: $main-grey;
+      opacity: 0.4;
+      &::after {
+        font-size: 12px;
+        color: $main-white;
+      }
+
+      &:hover {
+        background-color: #f2f2f2;
+        color: $main-grey;
+        &::after {
+          font-size: 12px;
+          color: $main-grey;
+        }
       }
     }
   }
@@ -376,7 +478,7 @@ onMounted(() => {
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
-      .brands-title{
+      .brands-title {
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -388,7 +490,7 @@ onMounted(() => {
         }
       }
     }
-    :deep(.arco-image){
+    :deep(.arco-image) {
       margin: 0 auto;
     }
   }
@@ -441,54 +543,59 @@ onMounted(() => {
     height: 38px;
   }
 }
-.pc-img{
+.pc-img {
   display: block;
 }
-.m-image{
+.m-image {
   display: none;
 }
 </style>
 
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
-@media screen and (max-width:1000px){
+@media screen and (max-width: 1000px) {
   .banner-wrapper {
+    .swiper-box {
+      .my-swiper {
+        height: 150px;
+      }
+    }
+
     .arco-carousel {
       height: 150px;
-      :deep(.arco-carousel-arrow){
-        .arco-icon{
+      :deep(.arco-carousel-arrow) {
+        .arco-icon {
           font-size: 20px;
         }
-        & > div{
+        & > div {
           box-shadow: 0 8px 12px 0 rgb(44 44 45 / 27%), 0 0 0 1px rgb(44 44 45 / 7%);
           background: $main-white;
           opacity: 0.8;
           width: 35px;
           height: 35px;
         }
-        .arco-carousel-arrow-left{
+        .arco-carousel-arrow-left {
           left: 5px;
         }
-        .arco-carousel-arrow-right{
+        .arco-carousel-arrow-right {
           right: 5px;
         }
       }
-
     }
-    :deep(.arco-skeleton-line-row){
+    :deep(.arco-skeleton-line-row) {
       height: 150px !important;
     }
   }
   .recommend-wrapper {
     margin-top: 25px;
   }
-  .section-wrapper{
+  .section-wrapper {
     margin: 12px 0 12px;
-    .section-header{
+    .section-header {
       margin-top: 24px;
       margin-bottom: 14px;
     }
-    .section-header1{
+    .section-header1 {
       margin-bottom: 15px;
     }
 
@@ -498,10 +605,10 @@ onMounted(() => {
       }
     }
   }
-  .pc-img{
+  .pc-img {
     display: none;
   }
-  .m-image{
+  .m-image {
     display: block;
   }
 }
