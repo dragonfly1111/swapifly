@@ -19,7 +19,7 @@
           </div>
           <div class="item-body">
             <div class="title">{{ item.title }}</div>
-            <div>{{ item.content }}</div>
+            <div class="content">{{ item.content }}</div>
           </div>
         </div>
         <a-spin class="loading" v-if="moreLoading"/>
@@ -157,6 +157,10 @@ onMounted(async () => {
         font-weight: bold;
         font-size: 16px;
         margin-bottom: 15px;
+        word-break: break-all;
+      }
+      .content{
+        word-break: break-all;
       }
     }
   }

@@ -79,8 +79,8 @@
           </div>
         </div>
       </div>
-      <div v-if="showHeadPanel" class="class-panel">
-<!--      <div class="class-panel">-->
+<!--      <div v-if="showHeadPanel" class="class-panel">-->
+      <div class="class-panel">
         <div class="class-wrap common-row">
           <div v-for="item in curClass.value" :key="item.id" class="class-item">
             <div class="sec-title">
@@ -674,7 +674,8 @@ function toClassDetail(e) {
   padding: 5px 0 91px;
   border: 1px solid rgba(229, 230, 235, 1);
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
-
+  max-height: 75vh;
+  overflow-y: auto;
   .arco-link {
     color: $main-black-1D-rbg;
   }
@@ -682,6 +683,7 @@ function toClassDetail(e) {
   .class-wrap {
     display: flex;
     text-align: left;
+    flex-wrap: wrap;
     //color: rgba(29, 33, 41, 1);
     .arco-link{
       display: block;
@@ -704,8 +706,8 @@ function toClassDetail(e) {
       line-height: 22px;
     }
 
-    .class-item + .class-item {
-      margin-left: 66px;
+    .class-item{
+      margin-right: 66px;
     }
 
   }

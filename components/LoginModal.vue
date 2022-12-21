@@ -144,6 +144,8 @@ const doLogin = () => {
       }
       saveLoading.value = false
     })
+  }).finally(()=>{
+    saveLoading.value = false
   })
 }
 defineExpose({

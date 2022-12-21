@@ -42,7 +42,7 @@
               </div>
               <div class="conv-main-content">
                 <div class="content-title">
-                  <span>{{ item.nickname }}</span>
+                  <span class="nick-name">{{ item.nickname }}</span>
                   <span class="time">{{ item.latest_time ? parseTime(item.latest_time, "{y}/{m}/{d}") : '-/-' }}</span>
                 </div>
                 <div class="content">
@@ -908,7 +908,7 @@ body {
       }
 
       .conv-main-content {
-        width: 100%;
+        width: calc(100% - 65px);
         margin-left: 15px;
 
         .content-title {
@@ -916,7 +916,13 @@ body {
           justify-content: space-between;
           font-size: 14px;
           color: $main-black-333;
-
+          //width: 100%;
+          .nick-name{
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
           .time {
             font-size: 12px;
           }

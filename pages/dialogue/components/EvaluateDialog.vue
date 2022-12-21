@@ -76,6 +76,7 @@ const changeRateVal = (e) => {
 const openDialog = (value) => {
   console.log(value)
   formData.id = value
+  formData.num = 5
   formData.content = ''
   rateComp.value.setValue(formData.num)
   visible.value = true;

@@ -12,7 +12,7 @@
     <div class="big-title" v-if="blockType === 1">{{ $t('block.user') }}</div>
     <div class="big-title" v-else-if="blockType === 2 || blockType === 3">{{ selfType === 1 ? $t('block.product') : $t('block.product1') }}</div>
     <div class="big-title" v-else-if="blockType === 4">{{ $t('block.product2') }}</div>
-    <div v-if="selfType !== 2">
+    <div v-if="selfType !== 2 || blockType === 1">
       <div class="title">{{ $t('block.feedback') }}</div>
       <div class="title">service@gmail.com</div>
     </div>

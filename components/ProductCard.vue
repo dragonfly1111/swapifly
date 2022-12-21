@@ -196,7 +196,8 @@ const getStateLabel = (item) => {
 };
 // 举报
 const handleReport = (item) => {
-  userInfo.checkLogin();
+  // userInfo.checkLogin();
+  if (!userInfo.checkLogin()) return;
   reportModal.value.openDialog(item);
 };
 // 购买曝光率
