@@ -82,16 +82,17 @@
         </div>
       </div>
       <div v-if="showHeadPanel" class="class-panel">
-        <!--      <div class="class-panel">-->
+<!--              <div class="class-panel">-->
         <div class="class-wrap common-row">
           <div v-for="item in curClass.value" :key="item.id" class="class-item">
             <div class="sec-title">
               <a-link @click="toClassDetail(item)">
-                <!--                <a-image :src="baseImgPrefix + item.image" show-loader>-->
-                <!--                  <template #loader>-->
-                <!--                    <div class="loader-animate"/>-->
-                <!--                  </template>-->
-                <!--                </a-image>-->
+<!--                <a-image :width="25" :height="25" show-loader>-->
+<!--                  <template #loader>-->
+<!--                    <div class="loader-animate"/>-->
+<!--                  </template>-->
+<!--                </a-image>-->
+                <img :src="baseImgPrefix + item.background" alt="">
                 {{ item.title }}
               </a-link>
             </div>
@@ -738,6 +739,17 @@ function toClassDetail(e) {
       font-size: 14px;
       font-weight: 700;
       line-height: 22px;
+      padding-left: 22px;
+      position: relative;
+      img{
+        width: 25px;
+        height: 25px;
+        object-fit: cover;
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        transform: translateY(-50%);
+      }
     }
 
     .class-sub-item {
