@@ -49,4 +49,10 @@ export const getPdw = () => {
   })
 }
 
-
+// 新消息提示
+export const getMsgDot = () => {
+  return request({
+    url: '/index/user_center/notice',
+    method: 'get'
+  })
+}

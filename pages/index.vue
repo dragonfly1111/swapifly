@@ -9,7 +9,7 @@
         </div>
       </template>
       <template v-if="!bannerLoading">
-        <a-carousel :auto-play="true" indicator-type="dot" animation-name="fade">
+        <a-carousel :auto-play="true" indicator-type="dot" :animation-name="resize.screenType === 'PC' ? 'fade' : 'slide'">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
                      :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)" class="carousel-img">

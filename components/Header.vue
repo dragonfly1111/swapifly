@@ -61,10 +61,12 @@
                 </a-dropdown>
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt=""
                      @click="router.push('/like')">
-                <img class="user-menu-icon" src="@/assets/images/icon/icon_msg.png" alt=""
-                     @click="router.push('/dialogue')">
-                <img class="user-menu-icon" src="@/assets/images/icon/icon_alert.png" alt=""
-                     @click="router.push('/notification')">
+                <a-badge class="user-menu-icon" :count="newMessage" @click="router.push('/dialogue')">
+                  <img src="@/assets/images/icon/icon_msg.png" alt="">
+                </a-badge>
+                <a-badge class="user-menu-icon" :count="newNotice" @click="router.push('/notification')">
+                  <img src="@/assets/images/icon/icon_alert.png" alt="">
+                </a-badge>
               </div>
             </template>
             <template v-else>
@@ -80,17 +82,18 @@
         </div>
       </div>
       <div v-if="showHeadPanel" class="class-panel">
-<!--      <div class="class-panel">-->
+        <!--      <div class="class-panel">-->
         <div class="class-wrap common-row">
           <div v-for="item in curClass.value" :key="item.id" class="class-item">
             <div class="sec-title">
               <a-link @click="toClassDetail(item)">
-<!--                <a-image :src="baseImgPrefix + item.image" show-loader>-->
-<!--                  <template #loader>-->
-<!--                    <div class="loader-animate"/>-->
-<!--                  </template>-->
-<!--                </a-image>-->
-                {{ item.title }}</a-link>
+                <!--                <a-image :src="baseImgPrefix + item.image" show-loader>-->
+                <!--                  <template #loader>-->
+                <!--                    <div class="loader-animate"/>-->
+                <!--                  </template>-->
+                <!--                </a-image>-->
+                {{ item.title }}
+              </a-link>
             </div>
             <div class="class-sub-item" v-for="sub in item.children" :key="sub.id">
               <a-link @click="toClassDetail(sub)"> {{ sub.title }}</a-link>
@@ -167,9 +170,10 @@
             <img class="phone-logo" src="@/assets/images/swapifly-logo.png" alt="">
           </nuxt-link>
           <div class="search-input">
-            <a-input-search v-model="searchKey" ref="inputSearchM" @focus="openHisPanel" @blur="hideHisPanel" @press-enter="toSearchResult"
-                     @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
-                     search-button>
+            <a-input-search v-model="searchKey" ref="inputSearchM" @focus="openHisPanel" @blur="hideHisPanel"
+                            @press-enter="toSearchResult"
+                            @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
+                            search-button>
               <template #suffix>
                 <img v-if="searchResPage" @click.prevent.stop="handleCollection" class="icon-collection"
                      src="@/assets/images/icon/icon-collection.png" alt="">
@@ -210,7 +214,9 @@
               <icon-more-vertical class="icon-more"/>
             </template>
             <template v-else>
-              <icon-message class="icon-message" @click="router.push('/dialogue/mobile')"/>
+              <a-badge class="icon-message" :count="newMessage" @click="router.push('/dialogue/mobile')">
+                <icon-message class="icon-message"/>
+              </a-badge>
               <icon-list class="icon-list" @click="toMobilePerson"/>
             </template>
 
@@ -237,6 +243,7 @@ import {useSysData} from '~/stores/sysData'
 import {useSearchKey} from '~/stores/search'
 import {useUserInfo} from "~/stores/userInfo";
 import {searchAdd, searchScDel, getSearchHistory} from '~/api/goods'
+import {getMsgDot} from '~/api/comon'
 import {Message} from "@arco-design/web-vue";
 
 const props = defineProps({
@@ -286,6 +293,8 @@ const resetPwdModal = ref(null)
 const blockModal = ref(null)
 const mobilePersonCenterModal = ref(null)
 const dropShow = ref(false)
+const newMessage = ref(0)
+const newNotice = ref(0)
 const suggestShow = ref(false)
 const sysData = useSysData()
 const searchLog = ref([])
@@ -335,6 +344,22 @@ watch(() => userInfo.userBlock, (newValue, oldValue) => {
     })
   }
 }, {immediate: true});
+
+function getMsgRedDot() {
+  getMsgDot().then(res => {
+    if (res.code === 0) {
+      newMessage.value = res.data.newmessage
+      newNotice.value = res.data.newnotice
+    } else {
+      newMessage.value = 0
+      newNotice.value = 0
+    }
+  })
+}
+
+setInterval(() => {
+  getMsgRedDot()
+}, 2000)
 
 function goBack() {
   console.log('gobak')
@@ -508,7 +533,7 @@ function toClassDetail(e) {
 <style lang="scss" scoped>
 @import "assets/sass/var.scss";
 
-.class-bar-block{
+.class-bar-block {
   display: block;
 }
 
@@ -596,6 +621,19 @@ function toClassDetail(e) {
 
       .user-menu-icon {
         width: 20px;
+
+        img {
+          width: 20px;
+        }
+
+        :deep(.arco-badge-number) {
+          width: 15px;
+          height: 15px;
+          min-height: unset;
+          min-width: unset;
+          line-height: 15px;
+          font-size: 10px;
+        }
       }
 
       .user-menu-icon + .user-menu-icon {
@@ -676,6 +714,7 @@ function toClassDetail(e) {
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
   max-height: 75vh;
   overflow-y: auto;
+
   .arco-link {
     color: $main-black-1D-rbg;
   }
@@ -685,13 +724,14 @@ function toClassDetail(e) {
     text-align: left;
     flex-wrap: wrap;
     //color: rgba(29, 33, 41, 1);
-    .arco-link{
+    .arco-link {
       display: block;
       max-width: 100px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     .sec-title {
       margin-bottom: 10px;
       font-size: 14px;
@@ -706,7 +746,7 @@ function toClassDetail(e) {
       line-height: 22px;
     }
 
-    .class-item{
+    .class-item {
       margin-right: 66px;
     }
 
@@ -718,6 +758,7 @@ function toClassDetail(e) {
   border-bottom: 1px solid $main-grey-border;
   background: $main-white;
   display: block;
+
   .img-col {
     text-align: left;
 
@@ -842,6 +883,14 @@ function toClassDetail(e) {
     font-size: 25px;
     font-weight: bold;
     //margin-top: 8px;
+    :deep(.arco-badge-number) {
+      width: 12px;
+      height: 12px;
+      min-height: unset;
+      min-width: unset;
+      line-height: 12px;
+      font-size: 9px;
+    }
   }
 
   .icon-list {
@@ -852,7 +901,7 @@ function toClassDetail(e) {
   }
 }
 
-.mobile-head-search{
+.mobile-head-search {
   display: none;
 }
 
@@ -869,8 +918,8 @@ function toClassDetail(e) {
 }
 
 @media screen and (min-width: 1001px) and (max-width: 1200px) {
-  .name-box{
-    .username{
+  .name-box {
+    .username {
       display: none;
     }
   }
@@ -882,10 +931,10 @@ function toClassDetail(e) {
 
 
 @media screen and (max-width: 1000px) {
-  .class-bar-block{
+  .class-bar-block {
     display: none;
   }
-  .head-search{
+  .head-search {
     display: none;
   }
   .mobile-head-search {
@@ -979,7 +1028,7 @@ function toClassDetail(e) {
             max-height: 0;
           }
 
-          :deep(.arco-input-append){
+          :deep(.arco-input-append) {
             display: none;
           }
         }
@@ -1000,7 +1049,7 @@ function toClassDetail(e) {
           margin-left: 15px;
         }
 
-        .icon-more{
+        .icon-more {
           width: 20px;
           height: 20px;
         }
