@@ -105,6 +105,8 @@ defineExpose({
             margin-right: 12px;
           }
           .arco-badge {
+            display: flex;
+            align-items: center;
             .arco-badge-number{
               width: 15px;
               height: 15px;
