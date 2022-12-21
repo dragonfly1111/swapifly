@@ -73,7 +73,7 @@ const arrUnique = (list) => {
 };
 
 const refreshPage = () => {
-  // initData(true);
+  initData(true);
 };
 
 const initData = (isSearch) => {
