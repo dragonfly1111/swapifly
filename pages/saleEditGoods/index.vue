@@ -597,9 +597,14 @@ const submitForm = () => {
       Message.error(t("sale.submitTip"));
       return;
     }
-    console.log("", fileList.value);
+    console.log('form.value');
+    console.log(form.value);
     if (!fileList.value.length) {
       Message.error(t("sale.shouldUpload"));
+      return;
+    }
+    if(hasBanWord(form.value.describe) || hasBanWord(form.value.title)){
+      Message.error(t("sale.forbidTip"));
       return;
     }
     publishProduct();
