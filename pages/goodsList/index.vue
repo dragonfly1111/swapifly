@@ -23,7 +23,7 @@
     </div>
 
     <section class="section-wrapper" v-if="curLevel <= 2">
-      <div class="section-content">
+      <div class="section-content section-content-pc">
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in 12" class="brands-item">
@@ -59,11 +59,36 @@
           </div>
         </template>
       </div>
+      <div class="section-content section-content-m">
+        <template v-if="bradLoading">
+          <div class="brands-content">
+            <div v-for="item in 12" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[55]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="brands-content">
+            <div v-for="item in subClassList" @click="toClassDetail(item)" class="brands-item brands-item-hover">
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-label">{{ item.title }}</div>
+            </div>
+          </div>
+        </template>
+      </div>
     </section>
 
     <section class="section-wrapper" v-if="curLevel === 1">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content">
+      <div class="section-content section-content-pc">
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in 12" class="brands-item">
@@ -96,6 +121,52 @@
           </div>
           <div v-if="bradNextShow1" class="arrow arrow-right" @click="bradChangePage1('next')">
             <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+        </template>
+      </div>
+      <div class="section-content section-content-m">
+        <template v-if="bradLoading">
+          <div class="brands-content">
+            <div v-for="item in 12" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[55]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+          <div style="height: 12px;"></div>
+          <div class="brands-content">
+            <div v-for="item in 12" class="brands-item">
+              <a-skeleton :animation="true">
+                <a-skeleton-shape shape="circle"/>
+                <div style="height: 5px"></div>
+                <a-skeleton-line :rows="1" :widths="[55]" :line-height="21"/>
+              </a-skeleton>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="brands-content">
+            <div v-for="item in hotBradListTop" @click="toSearch(item)" class="brands-item">
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-label">{{ item.title }}</div>
+            </div>
+          </div>
+          <div style="height: 12px;"></div>
+          <div class="brands-content">
+            <div v-for="item in hotBradListBottom" @click="toSearch(item)" class="brands-item">
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + (item.background || item.img)"  alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-label">{{ item.title }}</div>
+            </div>
           </div>
         </template>
       </div>
@@ -158,6 +229,15 @@ const rId = ref(null)
 const goodsFilterSelect = ref(null)
 const mobileGoodsFilterSelect = ref(null)
 const classPath = ref([])
+const hotBradListTop = computed(() => {
+  const center = Math.ceil(hotBradList.value.length / 2)
+  return hotBradList.value.slice(0, center);
+});
+const hotBradListBottom = computed(() => {
+  const center = Math.ceil(hotBradList.value.length / 2)
+  return hotBradList.value.slice(center);
+});
+
 curLevel.value = parseInt(route.query.level)
 rId.value = parseInt(route.query.id)
 const curFilter = ref({
@@ -345,7 +425,7 @@ watch(() => route.query, (newValue, oldValue) => {
 
   goodsFilterSelect.value && goodsFilterSelect.value.resetForm && goodsFilterSelect.value.resetForm()
   mobileGoodsFilterSelect.value && mobileGoodsFilterSelect.value.resetForm && mobileGoodsFilterSelect.value.resetForm()
-  initPageData()
+  // initPageData()
   getBrad()
   window.scrollTo({
     top: 0,
@@ -486,6 +566,12 @@ onMounted(()=>{
       transform: rotateY(180deg);
     }
   }
+  .section-content-pc{
+    display: block;
+  }
+  .section-content-m{
+    display: none;
+  }
 }
 
 .goods-wrapper {
@@ -582,6 +668,25 @@ onMounted(()=>{
       .select-wrapper{
         margin-top: 12px;
       }
+    }
+    .section-content-pc{
+      display: none;
+    }
+    .section-content-m{
+      display: block;
+      overflow-x: auto;
+      :deep(.arco-skeleton-shape){
+        width: 55px !important;
+        height: 55px !important;
+        margin: 0 auto;
+      }
+      .brands-content{
+        display: inline-flex;
+      }
+      &::-webkit-scrollbar{
+        display: none;
+      }
+
     }
   }
   .goods-wrapper{

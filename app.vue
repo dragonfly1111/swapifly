@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import {AppSetup} from './utils/app'
 import {useResize} from '~/stores/resize'
 import initSysData from '~/utils/sysInit'
@@ -15,10 +15,11 @@ import {
 } from '~/model/res/staticDicts'
 import {useI18n} from "vue-i18n";
 import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
+import {getMsgDot} from '~/api/comon'
 
 const {t} = useI18n();
-const locale = useState<string>('locale.setting')
-const area = useState<string>('area.setting')
+const locale = useState('locale.setting')
+const area = useState('area.setting')
 const resize = useResize()
 const sysData = useSysData()
 const userInfo = useUserInfo()
@@ -123,15 +124,28 @@ function handleResize() {
   resize.setWidth(window.innerWidth)
 }
 
-function reurl() { // 解决第一次进入不加载js文件
-  if (location.href.indexOf('#reloaded') === -1) {
-    location.href = location.href + '#reloaded'
-    location.reload()
-  }
+
+function getMsgRedDot() {
+  getMsgDot().then(res => {
+    if (res.code === 0) {
+      userInfo.setMsg({
+        newMessage: res.data.newmessage,
+        newNotice: res.data.newnotice
+      })
+    } else {
+      userInfo.setMsg({
+        newMessage: 0,
+        newNotice: 0
+      })
+    }
+  })
 }
 
+setInterval(() => {
+  if (!userInfo.token) return
+  getMsgRedDot()
+}, 2000)
 
-// watch()
 </script>
 
 <template>

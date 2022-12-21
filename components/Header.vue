@@ -61,10 +61,10 @@
                 </a-dropdown>
                 <img class="user-menu-icon" src="@/assets/images/icon/icon_like.png" alt=""
                      @click="router.push('/like')">
-                <a-badge class="user-menu-icon" :count="newMessage" @click="router.push('/dialogue')">
+                <a-badge class="user-menu-icon" :count="userInfo.newMessage" @click="router.push('/dialogue')">
                   <img src="@/assets/images/icon/icon_msg.png" alt="">
                 </a-badge>
-                <a-badge class="user-menu-icon" :count="newNotice" @click="router.push('/notification')">
+                <a-badge class="user-menu-icon" :count="userInfo.newNotice" @click="router.push('/notification')">
                   <img src="@/assets/images/icon/icon_alert.png" alt="">
                 </a-badge>
               </div>
@@ -215,7 +215,7 @@
               <icon-more-vertical class="icon-more"/>
             </template>
             <template v-else>
-              <a-badge class="icon-message" :count="newMessage" @click="router.push('/dialogue/mobile')">
+              <a-badge class="icon-message" :count="userInfo.newMessage" @click="router.push('/dialogue/mobile')">
                 <icon-message class="icon-message"/>
               </a-badge>
               <icon-list class="icon-list" @click="toMobilePerson"/>
@@ -244,7 +244,6 @@ import {useSysData} from '~/stores/sysData'
 import {useSearchKey} from '~/stores/search'
 import {useUserInfo} from "~/stores/userInfo";
 import {searchAdd, searchScDel, getSearchHistory} from '~/api/goods'
-import {getMsgDot} from '~/api/comon'
 import {Message} from "@arco-design/web-vue";
 
 const props = defineProps({
@@ -294,8 +293,6 @@ const resetPwdModal = ref(null)
 const blockModal = ref(null)
 const mobilePersonCenterModal = ref(null)
 const dropShow = ref(false)
-const newMessage = ref(0)
-const newNotice = ref(0)
 const suggestShow = ref(false)
 const sysData = useSysData()
 const searchLog = ref([])
@@ -345,23 +342,6 @@ watch(() => userInfo.userBlock, (newValue, oldValue) => {
     })
   }
 }, {immediate: true});
-
-function getMsgRedDot() {
-  getMsgDot().then(res => {
-    if (res.code === 0) {
-      newMessage.value = res.data.newmessage
-      newNotice.value = res.data.newnotice
-    } else {
-      newMessage.value = 0
-      newNotice.value = 0
-    }
-  })
-}
-
-setInterval(() => {
-  if (!userInfo.token) return
-  getMsgRedDot()
-}, 2000)
 
 function goBack() {
   console.log('gobak')

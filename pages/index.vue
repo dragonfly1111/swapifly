@@ -99,7 +99,7 @@
         <template v-if="bradLoading">
           <div>
             <div class="brands-content">
-              <div v-for="item in 4" class="brands-item">
+              <div v-for="item in 12" class="brands-item">
                 <a-skeleton :animation="true">
                   <a-skeleton-shape shape="circle"/>
                   <div style="height: 5px"></div>
@@ -109,7 +109,7 @@
             </div>
             <div style="height: 12px;"></div>
             <div class="brands-content">
-              <div v-for="item in 4" class="brands-item">
+              <div v-for="item in 12" class="brands-item">
                 <a-skeleton :animation="true">
                   <a-skeleton-shape shape="circle"/>
                   <div style="height: 5px"></div>

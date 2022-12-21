@@ -13,6 +13,8 @@ export const useUserInfo = defineStore('userInfo', {
       type: -1,
       openLogin: false,
       userBlock: false,
+      newMessage: 0,
+      newNotice: 0
     }
   },
   actions: {
@@ -47,6 +49,10 @@ export const useUserInfo = defineStore('userInfo', {
       this.userBlock = false
       e.token = this.token
       sessionStorage.setItem('USER-INFO', JSON.stringify(e))
+    },
+    setMsg(e){
+      this.newMessage = e.newMessage
+      this.newNotice = e.newNotice
     },
     openDialog() {
       this.openLogin = true

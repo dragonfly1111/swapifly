@@ -12,8 +12,10 @@
           <span>{{ $t('pages.like_title') }}</span>
         </p>
         <p class="setting-list-one" @click="toPath('/notification')">
-          <icon-notification class="icon-mobile"></icon-notification>
-          <span>{{ $t('pages.mobile_notice') }}</span>
+          <a-badge :count="userInfo.newMessage">
+            <icon-notification class="icon-mobile"></icon-notification>
+            <span>{{ $t('pages.mobile_notice') }}</span>
+          </a-badge>
         </p>
         <p class="setting-list-one" @click="toPath(`/userDetails?userId=${userInfo.id}`)">
           <icon-user class="icon-mobile"></icon-user>
@@ -101,6 +103,19 @@ defineExpose({
           .icon-mobile {
             font-size: 20px;
             margin-right: 12px;
+          }
+          .arco-badge {
+            .arco-badge-number{
+              width: 15px;
+              height: 15px;
+              min-height: unset;
+              min-width: unset;
+              line-height: 15px;
+              font-size: 10px;
+              right: -10px;
+              padding: 0;
+            }
+
           }
         }
       }
