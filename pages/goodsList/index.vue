@@ -9,7 +9,37 @@
         </div>
       </template>
       <template v-if="!bannerLoading">
-        <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
+        <div class="swiper-box">
+          <swiper
+            :slidesPerView="1"
+            :loop="false"
+            :navigation="false"
+            :autoplay="{
+              delay: 4000,
+            }"
+            :modules="[Autoplay]"
+            class="my-swiper swiper"
+            ref="swiperRef"
+          >
+            <swiper-slide class="swiper-slide" v-for="(item, index) in bannerList" :key="index">
+              <a-image
+                show-loader
+                fit="cover"
+                @click.native="openLink(item)"
+                height="100%"
+                width="100%"
+                :preview="false"
+                :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)"
+                class="carousel-img"
+              >
+                <template #loader>
+                  <div class="loader-animate" />
+                </template>
+              </a-image>
+            </swiper-slide>
+          </swiper>
+        </div>
+        <!-- <a-carousel :auto-play="true" indicator-type="dot" show-arrow="hover" animation-name="fade">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
                      :src="baseImgPrefix + (resize.screenType === 'MOBILE' ? item.img_m : item.img)" class="carousel-img">
@@ -18,7 +48,7 @@
               </template>
             </a-image>
           </a-carousel-item>
-        </a-carousel>
+        </a-carousel> -->
       </template>
     </div>
 
@@ -207,12 +237,17 @@ import { getCategoryAdvert } from '~/api/ad'
 import { categoryHotBrand, getCategoryProductList } from '~/api/goods'
 import { Message } from '@arco-design/web-vue';
 import { useResize } from "~/stores/resize";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)
 const butLoading = ref(false)
+const swiperRef = ref(null);
 const resize = useResize()
 const bannerList = ref([])
 const productList = ref([])
@@ -263,6 +298,7 @@ const getBanner = () => {
     if (res.code === 0) {
       bannerList.value = res.data.home_advert
       googleAd.value = res.data.google_advert
+      swiperRef.value && swiperRef.value.$el.swiper.update();
     } else {
       Message.error(res.message)
     }
@@ -443,6 +479,19 @@ onMounted(()=>{
 
 .banner-wrapper {
   margin-top: 16px;
+  .swiper-box {
+    position: relative;
+    .my-swiper {
+      height: 260px;
+    }
+
+    .carousel-img {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  }
   .arco-carousel {
     height: 260px;
     border-radius: 5px;
@@ -631,6 +680,11 @@ onMounted(()=>{
   }
   .banner-wrapper {
     margin-top: 0;
+    .swiper-box {
+      .my-swiper {
+        height: 150px;
+      }
+    }
     .arco-carousel {
       height: 150px;
       border-radius: 5px;

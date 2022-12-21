@@ -600,6 +600,7 @@ const hotBradListBottom = computed(() => {
 @import "assets/sass/var.scss";
 @media screen and (max-width: 1000px) {
   .banner-wrapper {
+    margin-top: 0;
     .swiper-box {
       .my-swiper {
         height: 150px;
