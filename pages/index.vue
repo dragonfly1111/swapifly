@@ -49,7 +49,7 @@
             ></div>
           </div>
         </div>
-        <!-- 
+        <!--
         <a-carousel :auto-play="true" indicator-type="dot" :animation-name="resize.screenType === 'PC' ? 'fade' : 'slide'">
           <a-carousel-item v-for="item in bannerList">
             <a-image show-loader fit="cover" @click.native="openLink(item)" height="100%" width="100%" :preview="false"
@@ -64,55 +64,82 @@
     </div>
     <section class="section-wrapper">
       <h3 class="section-header">{{ $t("pages.hotBrands") }}</h3>
-      <div class="section-content">
+      <div class="section-content section-content-pc">
         <template v-if="bradLoading">
           <div class="brands-content">
             <div v-for="item in 12" class="brands-item">
               <a-skeleton :animation="true">
-                <a-skeleton-shape shape="circle" />
+                <a-skeleton-shape shape="circle"/>
                 <div style="height: 5px"></div>
-                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21" />
+                <a-skeleton-line :rows="1" :widths="[80]" :line-height="21"/>
               </a-skeleton>
             </div>
           </div>
         </template>
         <template v-else>
           <div v-if="curBradPage > 0" class="arrow arrow-left" @click="bradChangePage('pre')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt="" />
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
           </div>
           <div class="brands-content">
             <div v-for="item in hotBradList" @click="toSearch(item)" class="brands-item">
-              <a-image
-                class="pc-img"
-                :preview="false"
-                :width="80"
-                :height="80"
-                :src="baseImgPrefix + item.img"
-                alt=""
-                show-loader
-              >
+              <a-image class="pc-img" :preview="false" :width="80" :height="80" :src="baseImgPrefix + item.img" alt="" show-loader>
                 <template #loader>
-                  <div class="loader-animate" />
-                </template>
-              </a-image>
-              <a-image
-                class="m-image"
-                :preview="false"
-                :width="55"
-                :height="55"
-                :src="baseImgPrefix + item.img"
-                alt=""
-                show-loader
-              >
-                <template #loader>
-                  <div class="loader-animate" />
+                  <div class="loader-animate"/>
                 </template>
               </a-image>
               <div class="brands-title">{{ item.title }}</div>
             </div>
           </div>
           <div v-if="bradNextShow" class="arrow arrow-right" @click="bradChangePage('next')">
-            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt="" />
+            <img src="@/assets/images/icon/arrow-right-bg-b.png" alt=""/>
+          </div>
+        </template>
+      </div>
+      <div class="section-content section-content-m">
+        <template v-if="bradLoading">
+          <div>
+            <div class="brands-content">
+              <div v-for="item in 4" class="brands-item">
+                <a-skeleton :animation="true">
+                  <a-skeleton-shape shape="circle"/>
+                  <div style="height: 5px"></div>
+                  <a-skeleton-line :rows="1" :widths="[55]" :line-height="21"/>
+                </a-skeleton>
+              </div>
+            </div>
+            <div style="height: 12px;"></div>
+            <div class="brands-content">
+              <div v-for="item in 4" class="brands-item">
+                <a-skeleton :animation="true">
+                  <a-skeleton-shape shape="circle"/>
+                  <div style="height: 5px"></div>
+                  <a-skeleton-line :rows="1" :widths="[55]" :line-height="21"/>
+                </a-skeleton>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="brands-content">
+            <div v-for="(item, index) in hotBradListTop" @click="toSearch(item)" class="brands-item">
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-title">{{ item.title }}</div>
+            </div>
+          </div>
+          <div style="height: 12px;"></div>
+          <div class="brands-content">
+            <div v-for="(item, index) in hotBradListBottom" @click="toSearch(item)" class="brands-item">
+              <a-image class="m-image" :preview="false" :width="55" :height="55" :src="baseImgPrefix + item.img" alt="" show-loader>
+                <template #loader>
+                  <div class="loader-animate"/>
+                </template>
+              </a-image>
+              <div class="brands-title">{{ item.title }}</div>
+            </div>
           </div>
         </template>
       </div>
@@ -152,11 +179,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
-const resize = useResize();
+const resize = useResize()
 
 // const loginModal = ref(null)
 // const registerModal = ref(null)
@@ -243,17 +270,17 @@ const getBanner = () => {
         swiperRef.value && swiperRef.value.$el.swiper.update();
       });
     } else {
-      Message.error(res.message);
+      Message.error(res.message)
     }
-  });
-};
+  })
+}
 // 获取热门品牌
 const getBrad = () => {
-  bradLoading.value = true;
-  getHotBrad().then((res) => {
-    bradLoading.value = false;
+  bradLoading.value = true
+  getHotBrad().then(res => {
+    bradLoading.value = false
     if (res.code === 0) {
-      hotBradList.value = res.data;
+      hotBradList.value = res.data
       if (process.client) {
         nextTick(() => {
           // 判断是否需要出现下一页
@@ -329,9 +356,20 @@ onMounted(() => {
       {
         // 'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
       },
-    ],
-  });
+    ]
+  })
+})
+
+const hotBradListTop = computed(() => {
+  const center = Math.ceil(hotBradList.value.length / 2)
+  return hotBradList.value.slice(0, center);
 });
+
+const hotBradListBottom = computed(() => {
+  const center = Math.ceil(hotBradList.value.length / 2)
+  return hotBradList.value.slice(center);
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -478,7 +516,7 @@ onMounted(() => {
       :deep(.arco-skeleton-line-row) {
         margin: 0 auto;
       }
-      .brands-title {
+      .brands-title{
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -490,7 +528,7 @@ onMounted(() => {
         }
       }
     }
-    :deep(.arco-image) {
+    :deep(.arco-image){
       margin: 0 auto;
     }
   }
@@ -522,6 +560,13 @@ onMounted(() => {
       left: 5px;
       transform: rotateY(180deg);
     }
+  }
+
+  .section-content-pc{
+    display: block;
+  }
+  .section-content-m{
+    display: none;
   }
 }
 
@@ -597,15 +642,35 @@ onMounted(() => {
     }
     .section-header1 {
       margin-bottom: 15px;
+      margin-top: 15px;
     }
-
     .brands-content {
       .brands-item {
         width: 90px;
       }
     }
+    .section-content-pc{
+      display: none;
+    }
+    .section-content-m{
+      display: block;
+      overflow-x: scroll;
+      :deep(.arco-skeleton-shape){
+        width: 55px !important;
+        height: 55px !important;
+        margin: 0 auto;
+      }
+      .brands-content{
+        overflow: unset;
+        display: inline-flex;
+      }
+      &::-webkit-scrollbar{
+        display: none;
+      }
+    }
   }
-  .pc-img {
+
+  .pc-img{
     display: none;
   }
   .m-image {
