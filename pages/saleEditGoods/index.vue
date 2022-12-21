@@ -705,6 +705,12 @@ const saveDraftModal = (to) => {
     cancelText: t("pages.cancel"),
     okText: t("sale.saveDraft"),
     onBeforeOk: (done) => {
+      if(hasBanWord(form.value.describe) || hasBanWord(form.value.title)){
+        Message.error(t("sale.forbidTip"));
+        clickNumber.value = 0;
+        done(true);
+        return
+      }
       done(true);
       addProductDraft(setReqForm()).then((res) => {
         clickNumber.value = 0;
