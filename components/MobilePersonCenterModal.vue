@@ -12,7 +12,7 @@
           <span>{{ $t('pages.like_title') }}</span>
         </p>
         <p class="setting-list-one" @click="toPath('/notification')">
-          <a-badge :count="userInfo.newMessage">
+          <a-badge :count="userInfo.newNotice">
             <icon-notification class="icon-mobile"></icon-notification>
             <span>{{ $t('pages.mobile_notice') }}</span>
           </a-badge>
