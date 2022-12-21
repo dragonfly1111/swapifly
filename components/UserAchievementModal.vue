@@ -60,6 +60,9 @@
           <a-button class="black-btn" @click="comfirmVisible = true">{{
             $t("achievementModal.exposureRefund")
           }}</a-button>
+             <a-button class="pink-btn" @click="handleExposure">{{
+          $t("pages.exposureGoods")
+        }}</a-button>
         </div>
       </a-col>
       <a-col :span="12">
@@ -94,6 +97,9 @@
     <div class="refund-btn-m">
       <a-button class="black-btn" @click="comfirmVisible = true">{{
           $t("achievementModal.exposureRefund")
+        }}</a-button>
+      <a-button class="pink-btn" @click="handleExposure">{{
+          $t("pages.exposureGoods")
         }}</a-button>
     </div>
     <a-modal
@@ -133,6 +139,7 @@ const productInfo = ref({});
 const appConfig = useAppConfig();
 const serviceEmail = appConfig.serviceEmail;
 const baseImgPrefix = appConfig.baseImgPrefix;
+const emits = defineEmits(['handleExposureGoods'])
 const openDialog = (info) => {
   visible.value = true;
   form.value = info;
@@ -276,6 +283,11 @@ const barCharts = (x, y, dom) => {
   chart.setOption(option);
 };
 
+// 曝光推广
+const handleExposure = () =>{
+  emits('handleExposureGoods',form.value)
+}
+
 defineExpose({
   openDialog,
   handleCancel,
@@ -362,6 +374,13 @@ defineExpose({
     .black-btn {
       height: 36px;
     }
+    .pink-btn{
+      height: 36px;
+      margin-left: 30px;
+      background-color: $main-pink;
+      color: $main-white;
+      width: 120px;
+    }
   }
   .refund-btn-m{
     display: none;
@@ -396,6 +415,7 @@ defineExpose({
 }
 </style>
 <style lang="scss" >
+@import "assets/sass/var.scss";
 @media screen and(max-width:1000px) {
   .achievement-dialog {
     top: 0;
@@ -425,7 +445,15 @@ defineExpose({
       margin-top: 24px;
       .black-btn{
         width: 100%;
+        height: 40px;
       }
+      .pink-btn{
+      background-color: $main-pink;
+      color: $main-white;
+      width: 100%;
+      margin-top: 20px;
+      height: 40px;
+     }
     }
   }
 }

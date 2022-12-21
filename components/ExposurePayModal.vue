@@ -5,6 +5,7 @@
       modal-class="exposure-dialog"
       :footer="false"
       @close="handleCancel"
+
   >
     <div class="right-close" @click="handleCancel">
       <icon-close/>
@@ -160,7 +161,7 @@ const handleCancel = () => {
   }, 100);
 };
 const resetForm = () => {
-  formRef.value.resetFields();
+  // formRef.value.resetFields();
 };
 const openDialog = (id) => {
   formData.id = id

@@ -992,6 +992,7 @@ onMounted(async () => {
             .arco-avatar {
               margin-right: 20px;
               cursor: pointer;
+              flex-shrink: 0;
             }
 
             .seller-info {
@@ -1203,6 +1204,7 @@ onMounted(async () => {
               :deep(.arco-avatar) {
                 width: 80px !important;
                 height: 80px !important;
+                flex-shrink: 0;
               }
               .seller-info {
                 .seller-name {

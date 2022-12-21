@@ -86,7 +86,7 @@
               </template>
               <template v-if="isMySelf">
                 <a-doption @click.stop="handleEdit(item)">{{ $t("pages.editGoods") }}</a-doption>
-                <a-doption @click.stop="openExposure(item)">{{
+                <a-doption @click.stop="openExposure(item)" class="pink-item">{{
                   $t("pages.exposureGoods")
                 }}</a-doption>
                 <a-doption @click.stop="openAchievement(item)">{{
@@ -124,7 +124,7 @@
     <BlockModal ref="blockModal"></BlockModal>
     <div v-if="isMySelf">
       <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
-      <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
+      <UserAchievementModal ref="userAchievementModal" @handle-exposure-goods="openExposure"></UserAchievementModal>
     </div>
   </div>
 </template>
@@ -202,6 +202,7 @@ const handleReport = (item) => {
 };
 // 购买曝光率
 const openExposure = (item) => {
+  console.log('item',item)
   userInfo.checkLogin();
   exposurePayModal.value.openDialog(item.id);
 };
@@ -535,6 +536,9 @@ p.arco-typography {
       width: 24%;
       flex: 0 0 24%;
     }
+  }
+  .pink-item{
+    color: $main-pink;
   }
 @media screen and (min-width: 1000px) {
   .recommend-item:nth-child(4n) {
