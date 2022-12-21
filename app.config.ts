@@ -17,4 +17,5 @@ export default defineAppConfig({
   forbidLink: DOMAIN + '/swapifly/helpCenter/detail?id=31', // 封禁文章
   serviceLink: DOMAIN + '/swapifly/helpCenter/detail?id=2', // 服务条款
   privateLink: DOMAIN + '/swapifly/helpCenter/detail?id=32', // 隐私政策
+  serviceEmail: 'swapifly.ga@gmail.com' // 服务邮箱
 })

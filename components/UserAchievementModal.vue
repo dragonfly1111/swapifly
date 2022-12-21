@@ -109,7 +109,7 @@
       </div>
       <div class="dialog-content">
         <div class="title">{{ $t("achievementModal.refundTip") }}</div>
-        <div class="sub">{{ $t("achievementModal.refundEmailTip") }}service@gmail.com</div>
+        <div class="sub">{{ $t("achievementModal.refundEmailTip") }}{{serviceEmail}}</div>
         <a-button class="black-btn" @click="comfirmVisible = false">{{
           $t("pages.know")
         }}</a-button>
@@ -131,6 +131,7 @@ const activeTab = ref("1");
 const form = ref({});
 const productInfo = ref({});
 const appConfig = useAppConfig();
+const serviceEmail = appConfig.serviceEmail;
 const baseImgPrefix = appConfig.baseImgPrefix;
 const openDialog = (info) => {
   visible.value = true;
