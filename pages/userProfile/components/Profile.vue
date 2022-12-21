@@ -56,7 +56,7 @@
           <a-input v-model="form.id" placeholder="" disabled />
         </a-form-item>
         <a-form-item field="nickname" :label="$t('profile.user_name')">
-          <a-input v-model="form.nickname" :placeholder="$t('profile.user_name_empty')" />
+          <a-input v-model="form.nickname" :max-length="25" :show-word-limit="true" :placeholder="$t('profile.user_name_empty')" />
         </a-form-item>
         <a-form-item field="describe" :label="$t('profile.user_describe')">
           <a-textarea
