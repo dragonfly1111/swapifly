@@ -359,6 +359,7 @@ function getMsgRedDot() {
 }
 
 setInterval(() => {
+  if (!userInfo.token) return
   getMsgRedDot()
 }, 2000)
 
