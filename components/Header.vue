@@ -633,6 +633,7 @@ function toClassDetail(e) {
           min-width: unset;
           line-height: 15px;
           font-size: 10px;
+          padding: 0;
         }
       }
 

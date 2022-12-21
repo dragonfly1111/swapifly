@@ -5,7 +5,7 @@
         <div class="info-wrap common-row">
           <div class="main-content-title">
             <div class="left" @click="toUserDetail">
-              <span>{{ curConversationMeta.nickname }}</span>
+              <p class="nick-name">{{ curConversationMeta.nickname }}</p>
             </div>
             <a-dropdown @select="handleOperationSelect">
               <icon-more-vertical/>
@@ -689,6 +689,13 @@ onUnmounted(() => {
     text-align: center;
     position: relative;
     height: 32px;
+
+    .nick-name{
+      width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     span {
       font-size: 14px;
