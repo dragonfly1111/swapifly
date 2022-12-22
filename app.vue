@@ -126,7 +126,9 @@ function handleResize() {
 
 
 function getMsgRedDot() {
-  getMsgDot().then(res => {
+  getMsgDot({
+    key: new Date().getTime()
+  }).then(res => {
     if (res.code === 0) {
       userInfo.setMsg({
         newMessage: res.data.newmessage,

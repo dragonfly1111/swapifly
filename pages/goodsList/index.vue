@@ -462,6 +462,7 @@ watch(() => route.query, (newValue, oldValue) => {
   goodsFilterSelect.value && goodsFilterSelect.value.resetForm && goodsFilterSelect.value.resetForm()
   mobileGoodsFilterSelect.value && mobileGoodsFilterSelect.value.resetForm && mobileGoodsFilterSelect.value.resetForm()
   // initPageData()
+  getBanner()
   getBrad()
   window.scrollTo({
     top: 0,

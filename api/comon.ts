@@ -50,9 +50,10 @@ export const getPdw = () => {
 }
 
 // 新消息提示
-export const getMsgDot = () => {
+export const getMsgDot = (params: any) => {
   return request({
     url: '/index/user_center/notice',
-    method: 'get'
+    method: 'get',
+    params
   })
 }

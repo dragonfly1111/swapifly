@@ -558,7 +558,7 @@ const toTypePage = (e, index) => {
   // })
 };
 // 相似商品
-const querySimilarlist = () => {
+const querySimilarlist = (flag = true) => {
   var reqParams = {
     id: productInfo.value.id,
     ...similar.value.params,
@@ -567,7 +567,11 @@ const querySimilarlist = () => {
   getSimilarlist(reqParams)
     .then((res) => {
       if (res.code == 0) {
-        similar.value.list = similar.value.list.concat(res.data.data);
+        if(flag){
+          similar.value.list = similar.value.list.concat(res.data.data);
+        } else {
+          similar.value.list = res.data.data;
+        }
         similar.value.total = res.data.total;
       }
     })
@@ -585,15 +589,25 @@ const loadMoreSimilar = () => {
 // 查看对话
 const handleDialogue = () => {
   if (!userInfo.checkLogin()) return;
-  toDialogue(productInfo.value.id).then((res) => {
-    if (res.code === 0) {
-      if (resize.screenType === "MOBILE") {
-        router.push(`/dialogue/chatDetail?id=${res.data.id}`);
-      } else {
-        router.push("/dialogue");
-      }
+  if(p_type.value == 2){
+    // 如果是自己的 直接跳到对话列表
+    if (resize.screenType === "MOBILE") {
+      router.push(`/dialogue/mobile`);
+    } else {
+      router.push("/dialogue");
     }
-  });
+  } else {
+    toDialogue(productInfo.value.id).then((res) => {
+      if (res.code === 0) {
+        if (resize.screenType === "MOBILE") {
+          router.push(`/dialogue/chatDetail?id=${res.data.id}`);
+        } else {
+          router.push("/dialogue");
+        }
+      }
+    });
+  }
+
 };
 
 // 出价
@@ -759,10 +773,11 @@ const initSwiper = () => {
 
 const initData = () => {
   productInfo.value.id = router.currentRoute.value.query.id;
+  similar.value.params.page = 1;
   pageLoading.value = true;
   handleQuery();
   getAD();
-  querySimilarlist();
+  querySimilarlist(false);
 };
 
 watch(
