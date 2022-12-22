@@ -176,7 +176,7 @@
           </a-form-item>
           <div v-if="form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
-              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')"/>
+              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" :max-length="100" :show-word-limit="true"/>
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
@@ -211,6 +211,7 @@
                   allow-clear
                   :auto-size="{ minRows: 8, maxRows: 8 }"
                   v-model="form.describe"
+                  :max-length="1000" :show-word-limit="true"
               />
               <template #extra>
                 <a-row justify="space-between">
@@ -300,6 +301,7 @@
                   allow-clear
                   :auto-size="{ minRows: 5, maxRows: 5 }"
                   v-model="form.mail_note"
+                  :max-length="255" :show-word-limit="true"
               />
             </a-form-item>
             <div class="publish">
