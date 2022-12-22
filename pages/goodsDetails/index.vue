@@ -1284,6 +1284,9 @@ onMounted(async () => {
         background-color: $main-white;
         padding: 10px 15px;
         left: 0;
+        .arco-icon-heart-fill {
+              color: $main-pink;
+        }
 
         .arco-btn {
           background: $main-pink;
