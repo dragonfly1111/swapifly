@@ -203,7 +203,7 @@ defineExpose({
   .evaluate-box {
     width: 90%;
     margin: auto;
-    .box-header {
+    .header-select {
       display: none;
     }
     .evaluate-box-body {
