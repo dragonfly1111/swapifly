@@ -281,7 +281,7 @@ achievementModal:
   payExposure: 付費曝光
   natureExposure: 自然曝光
   refundTip: 付費曝光量未達到預期?
-  refundEmailTip: 如果你需要申诉退款，可发送电邮至邮箱
+  refundEmailTip: 如果你需要申訴退款，可發送電郵至郵箱
   publishAt: 發佈於
 dataStatistics:
   dataStatisticsName: 數據統計
