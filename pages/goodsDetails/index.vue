@@ -346,7 +346,7 @@
 
       <div class="mobile-footer">
         <div class="left">
-          <a-space v-if="p_type == 1" @click="handleLike" size="small">
+          <a-space @click="handleLike" size="small">
             <icon-heart class="heart" v-if="productInfo.islike == 0" :size="18" />
             <icon-heart-fill class="heart" v-if="productInfo.islike == 1" :size="18" />
             <span>{{ productInfo.like }} like</span>
