@@ -62,7 +62,9 @@ const getList = () => {
   });
 };
 const changeLike = (item, index) => {
-  likeList.value.splice(index, 1);
+  likeList.value = []
+  page.value = 1
+  getList()
 };
 getList();
 </script>
