@@ -143,7 +143,7 @@ const uploadSuccess = (e) => {
   }
   if (realFileList.value.length == fileList.value.length) {
     setUserDraft().value = realFileList.value;
-    router.push({ name: "saleEditGoods", query: { type: "draft" } });
+    router.replace({ name: "saleEditGoods", query: { type: "draft" } });
     fileList.value = [];
   }
   uploadLoading.value = false;

@@ -601,8 +601,6 @@ const submitForm = () => {
       Message.error(t("sale.submitTip"));
       return;
     }
-    console.log('form.value');
-    console.log(form.value);
     if (!fileList.value.length) {
       Message.error(t("sale.shouldUpload"));
       return;
@@ -632,7 +630,7 @@ const publishProduct = (type) => {
       reqUrl(setReqForm()).then((res) => {
         if (res.code === 0) {
           Message.success(t("sale.publishSucc"));
-          router.push(`/userDetails?userId=${userInfo.id}`);
+          router.replace(`/userDetails?userId=${userInfo.id}`);
         } else {
           Message.error(res.message);
           btnType.value = "draft"; // 发布错误能够继续保存草稿
@@ -719,7 +717,7 @@ const saveDraftModal = (to) => {
         if (res.code === 0) {
           btnType.value = "isSaveDraft";
           Message.success(res.message);
-          router.push(`/userDetails?userId=${userInfo.id}`);
+          router.replace(`/userDetails?userId=${userInfo.id}`);
         } else {
           Message.error(res.message);
         }
