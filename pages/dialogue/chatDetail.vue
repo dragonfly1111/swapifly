@@ -871,7 +871,7 @@ onUnmounted(() => {
           line-height: 22px;
           font-size: 14px;
           color: $main-black-333;
-
+          word-break: break-all;
           .operation-msg {
             font-weight: bold;
           }
