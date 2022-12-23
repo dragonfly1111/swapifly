@@ -487,6 +487,9 @@ p.arco-typography {
   .product-desc {
     div {
       margin-bottom: 5px;
+      overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     }
     .price {
       font-size: 18px;
