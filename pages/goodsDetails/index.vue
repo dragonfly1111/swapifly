@@ -497,12 +497,16 @@ const similar = ref({
     limit: 8,
   },
 });
+
+// 服务端获取商品数据 设置分享属性
+const product = await useAsyncData('product', () => getProductDetails(router.currentRoute.value.query.id))
+const productRef = product.data.value.data.product
 useHead({
   meta: [
     {
       hid: "og:url",
       name: "og:url",
-      content: 'https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=148',
+      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
     },
     {
       hid: "og:type",
@@ -512,12 +516,12 @@ useHead({
     {
       hid: "og:title",
       name: "og:title",
-      content: "商品名称",
+      content: productRef.title,
     },
     {
       hid: "og:description",
       name: "og:description",
-      content: "商品描述",
+      content: productRef.describe,
     },
     {
       hid: "og:image",
@@ -527,7 +531,7 @@ useHead({
     {
       hid: "og:image",
       name: "og:image",
-      content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
+      content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
     },
     {
       hid: "og:image:width",
@@ -541,6 +545,7 @@ useHead({
     },
   ],
 });
+
 // 商品详情
 const handleQuery = () => {
   getProductDetails(productInfo.value.id)
