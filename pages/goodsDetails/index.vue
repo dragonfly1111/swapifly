@@ -544,6 +544,16 @@ useHead({
       content: 200,
     },
     {
+      hid: "twitter:title",
+      name: "twitter:title",
+      content: productRef.title,
+    },
+    {
+      hid: "twitter:description",
+      name: "twitter:description",
+      content: productRef.describe,
+    },
+    {
       hid: "twitter:card",
       name: "twitter:card",
       content: 'product',
@@ -569,9 +579,24 @@ useHead({
       content: 200,
     },
     {
-      hid: "twitter:description",
-      name: "twitter:description",
-      content: productRef.describe,
+      hid: "twitter:label1",
+      name: "twitter:label1",
+      content: 'PRICE',
+    },
+    {
+      hid: "twitter:data1",
+      name: "twitter:data1",
+      content: 'HK$' + productRef.price,
+    },
+    {
+      hid: "twitter:label2",
+      name: "twitter:label2",
+      content: 'LOCATION',
+    },
+    {
+      hid: "twitter:data2",
+      name: "twitter:data2",
+      content: productRef.region,
     },
   ],
 });
