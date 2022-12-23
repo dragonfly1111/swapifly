@@ -10,9 +10,10 @@
            data-size="small">
         <a target="_blank"
             href="https://www.facebook.com/sharer/sharer.php?u=https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=148&amp;src=sdkpreparse"
-            class="fb-xfbml-parse-ignore">分享？？</a>
+            class="fb-xfbml-parse-ignore">
+          <img src="@/assets/images/icon/icon_facebook.png" alt="">
+        </a>
       </div>
-      <img @click="handleShare(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
       <img @click="handleShare(2)" src="@/assets/images/icon/icon-messenger.png" alt="">
       <img @click="handleShare(3)" src="@/assets/images/icon/icon-whatsapp.png" alt="">
       <img @click="handleShare(4)" src="@/assets/images/icon/icon-twitter.png" alt="">
@@ -40,19 +41,20 @@ const urlLink = ref('');
 const productDetail = ref(null);
 const handleShare = (e) => {
   const appConfig = useAppConfig()
-  const url = appConfig.domain + route.fullPath.replace('#reloaded', '')
+  const url = appConfig.domain + '/swapifly' + route.fullPath.replace('#reloaded', '')
   switch (e) {
     case 1:
-      FB.ui({
-        method: 'share',
-        href: url,
-        quote: productDetail.value.title
-      }, function (response) {
-        //分享回调
-        console.log(response)
-      })
+      // FB.ui({
+      //   method: 'share',
+      //   href: url,
+      //   quote: productDetail.value.title
+      // }, function (response) {
+      //   //分享回调
+      //   console.log(response)
+      // })
       break
     case 2:
+      window.open(`https://www.facebook.com/dialog/send?app_id=${appConfig.facebookKey}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
       break
     case 3:
       let _href = "https://api.whatsapp.com/send?";
@@ -110,7 +112,12 @@ defineExpose({
   align-items: center;
   justify-content: center;
   margin-top: 24px;
-
+  a{
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin-right: 27px;
+  }
   img {
     width: 50px;
     height: 50px;
@@ -155,9 +162,6 @@ defineExpose({
 }
 
 .fb-share-button {
-  width: 200px;
-  height: 200px;
-  background: red;
 }
 
 @media screen and (max-width: 1000px) {

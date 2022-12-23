@@ -543,6 +543,36 @@ useHead({
       name: "og:image:height",
       content: 200,
     },
+    {
+      hid: "twitter:card",
+      name: "twitter:card",
+      content: 'product',
+    },
+    {
+      hid: "twitter:site",
+      name: "twitter:site",
+      content: '@swapifly',
+    },
+    {
+      hid: "twitter:image",
+      name: "twitter:image",
+      content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
+    },
+    {
+      hid: "twitter:image:width",
+      name: "twitter:image:width",
+      content: 200,
+    },
+    {
+      hid: "twitter:image:height",
+      name: "twitter:image:height",
+      content: 200,
+    },
+    {
+      hid: "twitter:description",
+      name: "twitter:description",
+      content: productRef.describe,
+    },
   ],
 });
 
