@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="product-desc">
-          <div>{{ item.title }}</div>
+          <div class="title">{{ item.title }}</div>
           <div class="price">HK${{ item.price }}</div>
           <div class="desc">{{ item.newold }}</div>
         </div>
@@ -485,6 +485,12 @@ p.arco-typography {
     }
   }
   .product-desc {
+    .title{
+      width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     div {
       margin-bottom: 5px;
       overflow: hidden;

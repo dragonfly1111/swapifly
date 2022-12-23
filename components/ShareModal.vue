@@ -5,8 +5,10 @@
            :footer="false">
     <div class="login-type-wrap">
       <img @click="handleShare(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
-      <!--      <img @click="handleShare(2)" src="@/assets/images/icon/icon_ins.png" alt="">-->
-      <img @click="handleShare(3)" src="@/assets/images/icon/icon_gmail.png" alt="">
+      <img @click="handleShare(2)" src="@/assets/images/icon/icon-messenger.png" alt="">
+      <img @click="handleShare(3)" src="@/assets/images/icon/icon-whatsapp.png" alt="">
+      <img @click="handleShare(4)" src="@/assets/images/icon/icon-twitter.png" alt="">
+      <img @click="handleShare(5)" src="@/assets/images/icon/icon_gmail.png" alt="">
     </div>
     <a-input class="input-warp" disabled v-model="urlLink">
       <template #append>
@@ -34,8 +36,9 @@ const handleShare = (e) => {
   switch (e) {
     case 1:
       FB.ui({
-        method: 'stream.share',
-        u: url
+        method: 'share',
+        href: url,
+        quote: productDetail.value.title
       }, function (response) {
         //分享回调
         console.log(response)
@@ -44,6 +47,17 @@ const handleShare = (e) => {
     case 2:
       break
     case 3:
+      let _href = "https://api.whatsapp.com/send?";
+      const text = productDetail.value.title
+      const link = url // 分享的页面
+      _href += "&text=" + text;//标题
+      _href += "&url=" + encodeURIComponent(link);//链接
+      window.open(_href)
+      break
+    case 4:
+      window.open(`https://twitter.com/intent/tweet?text=` + encodeURIComponent(url))
+      break
+    case 5:
       const ele = document.createElement("a"); //创建a标签
       ele.href = `mailto:?to=&subject=${productDetail.value.title}&body=${url}`;
       ele.target = "_blank";

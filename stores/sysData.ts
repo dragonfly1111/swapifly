@@ -57,8 +57,6 @@ export const useSysData = defineStore('sysData', {
       this.authenticationStatus = e.authenticationStatus
     },
     setSearchHis(e: any){
-      console.log('setSearchHis')
-      console.log(e)
       this.searchLog = e.searchLog
       this.collectionList = e.collectionList
     }

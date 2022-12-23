@@ -1,5 +1,6 @@
 <template>
   <div class="global-content">
+    <div id="map" style="width: 100%; height: 0"></div>
     <div class="sale-header">{{ $t("sale.saleTitle") }}</div>
 
     <div style="margin: 20px" v-if="pageLoading">
@@ -176,7 +177,8 @@
           </a-form-item>
           <div v-if="form.rid">
             <a-form-item field="title" hide-asterisk hide-label>
-              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" :max-length="30" :show-word-limit="true"/>
+              <a-input class="input-wrp" v-model="form.title" :placeholder="$t('sale.goodsName')" :max-length="30"
+                       :show-word-limit="true"/>
               <template #extra v-if="hasBanWord(form.title)">
                 <div class="form-item-danger tip-danger">
                   {{ $t("sale.forbidTip") }}
@@ -257,34 +259,49 @@
                   :loading="locationLoading"
                   class="input-wrp"
                   @search="handleSearch"
+                  @remove="removeLocation"
                   multiple
                   :filter-option="false"
+                  id="ship-address"
+                  :show-extra-options="false"
               >
                 <a-option
                     v-for="item in addressOptions"
-                    :value="JSON.stringify(item)"
+                    @click="handlePlaceDetail(item)"
+                    :value="item.address"
                     :key="item.location"
-                    :label="item.name"
+                    :label="item.title"
                 >
                   <div class="ad-option">
-                    <div class="ad-title">{{ item.name }}</div>
+                    <div class="ad-title">{{ item.title }}</div>
                     <div class="ad-des">{{ item.address }}</div>
                   </div>
                 </a-option>
               </a-select>
-              <!--              {{offline_address}}-->
+              <!--              <input-->
+              <!--                  id="ship-address"-->
+              <!--                  name="ship-address"-->
+              <!--                  required-->
+              <!--                  autocomplete="off"-->
+              <!--              />-->
+<!--              当前选中的key-->
+<!--              {{offline_address}}-->
+<!--              <div>搜索结果</div>-->
+<!--              {{addressOptions}}-->
+<!--              <div>当选选中的对象</div>-->
+<!--              {{addressSelectedOptions}}-->
               <!--              <div style="height: 20px"></div>-->
-              <!--              {{addressOptions}}-->
+              <!--                            {{addressOptions}}-->
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
               <div class="offline-address" v-if="form.offline == 1">
                 <div
                     class="offline-address-item"
-                    v-for="item in addressSaveOptions1"
+                    v-for="item in addressSaveOptions"
                     @click="addToSelect(item)"
                 >
-                  <p>{{ item.name }}</p>
+                  <p>{{ item.title }}</p>
                   <span>{{ item.address }}</span>
-                  <div class="close-box" @click="removeAdd(item)">
+                  <div class="close-box" @click.stop="removeAdd(item)">
                     <icon-close/>
                   </div>
                 </div>
@@ -377,7 +394,7 @@ const fileList = ref([]);
 const realFileList = ref([]);
 const addressOptions = ref([]);
 const addressSaveOptions = ref([]);
-const addressSaveOptions1 = ref([]);
+const addressSelectedOptions = ref([]);
 const clickNumber = ref(0); // 保存草稿点击事件
 const formRef = ref(null);
 const btnType = ref("draft");
@@ -396,7 +413,9 @@ const rules = reactive({
   price: [{required: true, message: t("sale.formValidate.priceValidate")}],
   region: [{required: true, message: t("sale.regionTip")}],
 });
-
+const app = useAppConfig()
+let autocomplete = null
+let map = null
 const overLimit = (e) => {
   Message.warning(t("sale.overLimit"));
 };
@@ -404,29 +423,11 @@ const overLimit = (e) => {
 const listAll = () => {
   // 地址
   getProductAddress().then((res) => {
-    const arr = [];
-    const arr1 = [];
-    // 放到options里面去 回显已选
-    res.data.forEach((item) => {
-      arr.push({
-        location: `${item.lat},${item.lng}`,
-        address: item.address,
-        name: item.title,
-      });
-      arr1.push({
-        id: item.id,
-        location: `${item.lat},${item.lng}`,
-        address: item.address,
-        name: item.title,
-      });
-    });
-    addressSaveOptions.value = arr;
-    addressSaveOptions1.value = arr1;
-    addressOptions.value = [...arr, ...addressOptions.value];
+    addressSaveOptions.value = res.data;
   });
 };
 
-const toForbid = () =>{
+const toForbid = () => {
   window.open(forbidLink, '_blank')
 }
 
@@ -439,18 +440,39 @@ const changeClass = (e) => {
 const handleSearch = (value) => {
   if (value) {
     locationLoading.value = true;
-    axios
-        .get(`https://restapi.amap.com/v5/place/text?keywords=${value}&key=${gdKey}`)
-        .then((res) => {
-          console.log(res);
-          addressOptions.value = [...addressSaveOptions.value, ...res.data.pois];
-          console.log(addressOptions.value);
-          locationLoading.value = false;
-        });
+    googleAutocompleteService.getPlacePredictions({
+      input: value,
+      language: 'zh-HK',
+      location: new google.maps.LatLng(22.414522, 114.109767),
+      radius: 45000
+    }, (predictions, status) => {
+      const arr = []
+      predictions.forEach(item => {
+        arr.push({
+          title: item.structured_formatting.main_text,
+          address: item.description,
+          placeId: item.place_id
+          // location: `${item.geometry.location.lat()},${item.geometry.location.lng()}`
+        })
+      })
+      addressOptions.value = arr;
+      console.log(predictions)
+      locationLoading.value = false;
+    });
+
   } else {
     addressOptions.value = [];
   }
 };
+
+// 移除一个选中的地址
+const removeLocation = (e) =>{
+  console.log(e)
+  addressSelectedOptions.value = addressSelectedOptions.value.filter(item=>{
+    return item.address !== e
+  })
+
+}
 
 // 新旧程度说明
 const filterNewOldAdvice = () => {
@@ -482,16 +504,11 @@ const getDraftInfo = () => {
           if (res.data.offline_address && res.data.offline_address.length > 0) {
             const arr = [];
             res.data.offline_address.forEach((item) => {
-              const obj = {
-                location: `${item.lat},${item.lng}`,
-                address: item.address,
-                name: item.title,
-              };
-              arr.push(JSON.stringify(obj));
-              // addressOptions.value.push(obj)
+              arr.push(item.title);
             });
             offline_address.value = arr;
           }
+          addressSelectedOptions.value = res.data.offline_address
           form.value.mail = res.data.mail ? 1 : false;
           form.value.offline = res.data.offline ? 1 : false;
           fileList.value = res.data.images.map((item, index) => {
@@ -522,16 +539,11 @@ const getProduct = () => {
           if (res.data.offline_address && res.data.offline_address.length > 0) {
             const arr = [];
             res.data.offline_address.forEach((item) => {
-              const obj = {
-                location: `${item.lat},${item.lng}`,
-                address: item.address,
-                name: item.title,
-              };
-              arr.push(JSON.stringify(obj));
-              // addressOptions.value.push(obj)
+              arr.push(item.title);
             });
             offline_address.value = arr;
           }
+          addressSelectedOptions.value = res.data.offline_address
           form.value.mail = res.data.mail ? 1 : false;
           form.value.offline = res.data.offline ? 1 : false;
           fileList.value = res.data.images.map((item, index) => {
@@ -605,7 +617,7 @@ const submitForm = () => {
       Message.error(t("sale.shouldUpload"));
       return;
     }
-    if(hasBanWord(form.value.describe) || hasBanWord(form.value.title)){
+    if (hasBanWord(form.value.describe) || hasBanWord(form.value.title)) {
       Message.error(t("sale.forbidTip"));
       return;
     }
@@ -647,29 +659,17 @@ const publishProduct = (type) => {
 const setReqForm = () => {
   let arr = [];
   const route = useRoute();
-  console.log(offline_address);
-  if (offline_address.value && offline_address.value.length > 0) {
-    offline_address.value.forEach((item) => {
-      const obj = JSON.parse(item);
-      arr.push({
-        title: obj.name,
-        address: obj.address,
-        lat: obj.location.split(",")[0],
-        lng: obj.location.split(",")[1],
-      });
-    });
-  }
   let formData = {
     ...form.value,
     offline: form.value.offline ? 1 : 0,
     mail: form.value.mail ? 1 : 0,
-    offline_address: arr,
+    offline_address: addressSelectedOptions.value,
     cid: route.query.draftId ? route.query.draftId : "",
     images: fileList.value.map((i) => {
       return i.url.replace(baseImgPrefix, "");
     }),
   };
-  if(!formData.region){
+  if (!formData.region) {
     formData.region = ''
   }
   return formData;
@@ -705,7 +705,7 @@ const saveDraftModal = (to) => {
     cancelText: t("pages.cancel"),
     okText: t("sale.saveDraft"),
     onBeforeOk: (done) => {
-      if(hasBanWord(form.value.describe) || hasBanWord(form.value.title)){
+      if (hasBanWord(form.value.describe) || hasBanWord(form.value.title)) {
         Message.error(t("sale.forbidTip"));
         clickNumber.value = 0;
         done(true);
@@ -736,11 +736,6 @@ const removeAdd = (item) => {
     id: item.id,
   }).then((res) => {
     if (res.code === 0) {
-      // 删除保存的地址同时也要删除选中的
-      offline_address.value = offline_address.value.filter((e) => {
-        const jso = JSON.parse(e);
-        return jso.location !== item.location;
-      });
       Message.success(res.message);
       listAll();
     } else {
@@ -753,17 +748,46 @@ const removeAdd = (item) => {
 const addToSelect = (item) => {
   // 如果点击的地址已选中 return
   if (offline_address.value) {
-    const tmpArr = offline_address.value.filter((add) => {
-      const obj = JSON.parse(add);
-      return obj.name === item.name;
+    const tmpArr = addressSelectedOptions.value.filter((add) => {
+      return add.name === item.name;
     });
     if (tmpArr.length > 0) return;
   }
-
-  let tmp = JSON.parse(JSON.stringify(item));
-  delete tmp.id;
-  offline_address.value.push(JSON.stringify(tmp));
+  addressSelectedOptions.value.push(item)
+  offline_address.value.push(item.name);
 };
+
+const initService = () => {
+  const inter = setInterval(() => {
+    const ele = document.getElementById('map')
+    if (ele) {
+      console.log(ele)
+      const hk = new google.maps.LatLng(22.3193039, 114.1693611);
+      map = new google.maps.Map(document.getElementById('map'), {center: hk, zoom: 15});
+      window.googleAutocompleteService = new google.maps.places.AutocompleteService();
+      console.log(map)
+      window.googlePlacesService = new google.maps.places.PlacesService(map);
+      clearInterval(inter)
+    }
+  }, 200)
+}
+
+const handlePlaceDetail = (option) => {
+  console.log(option)
+  const request = {
+    placeId: option.placeId,
+    fields: ['name', 'geometry']
+  };
+  googlePlacesService.getDetails(request, (place, status) => {
+    console.log(place)
+    addressSelectedOptions.value.push({
+      title: option.title,
+      address: option.address,
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
+    })
+  });
+}
 
 // 监听sysData 获取到goodsClass之后给curClassPath赋值一次（防止出现刷新页面进入时 还未获取到系统数据就赋值的问题）
 watch(
@@ -816,6 +840,17 @@ onMounted(() => {
     getDraftInfo();
   }
   listAll();
+  window.initService = initService;
+  useHead({
+    script: [
+      {
+        src: `https://maps.googleapis.com/maps/api/js?key=${app.googleMapKey}&callback=initService&libraries=places&v=weekly`,
+        async: true,
+        defer: true
+        // src: `https://maps.googleapis.com/maps/api/js?key=${app.googleMapKey}&callback=initAutocomplete&libraries=places&v=weekly`, async: true, defer: true
+      }
+    ]
+  })
   // window.addEventListener("beforeunload", (e) => beforeunloadHandler(e));
 });
 </script>
@@ -1150,6 +1185,7 @@ onMounted(() => {
 
 <style lang="scss">
 @import "assets/sass/var";
+
 .address-popover {
   width: 600px;
 }

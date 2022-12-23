@@ -350,16 +350,6 @@ useAsyncData(async (ctx) => {
   // })
 });
 
-onMounted(() => {
-  useHead({
-    script: [
-      {
-        // 'src': 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmMRzK_-jmJ9jiDaTTFARirS44lln8evo&libraries=places&callback=initAutocomplete', async: true, defer: true
-      },
-    ]
-  })
-})
-
 const hotBradListTop = computed(() => {
   const center = Math.ceil(hotBradList.value.length / 2)
   return hotBradList.value.slice(0, center);

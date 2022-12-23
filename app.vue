@@ -108,15 +108,6 @@ onMounted(async () => {
   // 设置全局缩放属性
   // console.log("===window.innerWidth===", window.innerWidth)
   window.addEventListener('resize', handleResize)
-  // 检测浏览器路由改变页面不刷新问题,hash模式的工作原理是hashchange事件
-  // window.addEventListener('hashchange', () => {
-  //   console.log('hashchange')
-  //   let currentPath = window.location.hash.slice(1)
-  //   console.log(currentPath)
-  //   if (route.path !== currentPath) {
-  //     router.push(currentPath)
-  //   }
-  // }, false)
 })
 
 function handleResize() {
@@ -145,8 +136,17 @@ function getMsgRedDot() {
 
 setInterval(() => {
   if (!userInfo.token) return
-  getMsgRedDot()
+  // getMsgRedDot()
 }, 2000)
+let map;
+let service;
+function initMap() {
+  const hk = new google.maps.LatLng(22.3193039, 114.1693611);
+  map = new google.maps.Map(document.getElementById('map'), {center: hk, zoom: 15});
+  console.log(map)
+  const service = new google.maps.places.PlacesService(map);
+  window.googleLocationService = service
+}
 
 </script>
 

@@ -10,6 +10,7 @@ export default defineAppConfig({
   gdKey: '33572afc82950a2748b645ded7062b76',
   facebookKey: '489813939845259',
   googleKey: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com',
+  googleMapKey: 'AIzaSyDS3riYkx_d0VQGPfkH81jxHuOCfXTq5dA',
   insKey: '490995173091962',
   insRedirect: DOMAIN + '/swapifly/insAuth', // ins登录回调地址
   baseImgPrefix: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/', // 全局oss图片前缀
