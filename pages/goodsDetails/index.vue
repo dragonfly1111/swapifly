@@ -549,6 +549,11 @@ useHead({
       content: productRef.title,
     },
     {
+      hid: "twitter:url",
+      name: "twitter:url",
+      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+    },
+    {
       hid: "twitter:description",
       name: "twitter:description",
       content: productRef.describe,
@@ -556,12 +561,12 @@ useHead({
     {
       hid: "twitter:card",
       name: "twitter:card",
-      content: 'product',
+      content: 'summary_large_image',
     },
     {
       hid: "twitter:site",
       name: "twitter:site",
-      content: '@swapifly',
+      content: appConfig.domain,
     },
     {
       hid: "twitter:image",
@@ -577,26 +582,6 @@ useHead({
       hid: "twitter:image:height",
       name: "twitter:image:height",
       content: 200,
-    },
-    {
-      hid: "twitter:label1",
-      name: "twitter:label1",
-      content: 'PRICE',
-    },
-    {
-      hid: "twitter:data1",
-      name: "twitter:data1",
-      content: 'HK$' + productRef.price,
-    },
-    {
-      hid: "twitter:label2",
-      name: "twitter:label2",
-      content: 'LOCATION',
-    },
-    {
-      hid: "twitter:data2",
-      name: "twitter:data2",
-      content: productRef.region,
     },
   ],
 });
