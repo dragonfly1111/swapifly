@@ -4,6 +4,14 @@
            modal-class="share-dialog"
            :footer="false">
     <div class="login-type-wrap">
+      <div class="fb-share-button"
+           data-href="https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=148"
+           data-layout="button_count"
+           data-size="small">
+        <a target="_blank"
+            href="https://www.facebook.com/sharer/sharer.php?u=https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=148&amp;src=sdkpreparse"
+            class="fb-xfbml-parse-ignore">分享？？</a>
+      </div>
       <img @click="handleShare(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
       <img @click="handleShare(2)" src="@/assets/images/icon/icon-messenger.png" alt="">
       <img @click="handleShare(3)" src="@/assets/images/icon/icon-whatsapp.png" alt="">
@@ -146,9 +154,26 @@ defineExpose({
   }
 }
 
+.fb-share-button {
+  width: 200px;
+  height: 200px;
+  background: red;
+}
+
 @media screen and (max-width: 1000px) {
   .share-dialog {
-    width: 80%;
+    top: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+
+    .login-type-wrap {
+      margin-top: 30vh;
+    }
 
     .input-warp {
       width: calc(100% - 40px);

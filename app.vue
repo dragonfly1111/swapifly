@@ -55,7 +55,12 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      src: `https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v12.0&appId=${app.facebookKey}&autoLogAppEvents=1`,
+      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v12.0&appId=${app.facebookKey}&autoLogAppEvents=1`,
+      async: true,
+      defer: true
+    },
+    {
+      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v3.0`,
       async: true,
       defer: true
     },

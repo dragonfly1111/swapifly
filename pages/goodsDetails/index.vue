@@ -497,7 +497,35 @@ const similar = ref({
     limit: 8,
   },
 });
-
+useHead({
+  meta: [
+    {
+      hid: "og:url",
+      name: "og:url",
+      content: 'https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=148',
+    },
+    {
+      hid: "og:type",
+      name: "og:type",
+      content: 'website',
+    },
+    {
+      hid: "og:title",
+      name: "og:title",
+      content: "商品名称",
+    },
+    {
+      hid: "og:description",
+      name: "og:description",
+      content: "商品描述",
+    },
+    {
+      hid: "og:image",
+      name: "og:image",
+      content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
+    },
+  ],
+});
 // 商品详情
 const handleQuery = () => {
   getProductDetails(productInfo.value.id)
@@ -513,21 +541,6 @@ const handleQuery = () => {
           arr.push(baseImgPrefix + item);
         });
         allImages.value = arr;
-        // useHead({
-        //   title: appConfig.name + productInfo.value.title,
-        //   meta: [
-        //     {
-        //       hid: "description",
-        //       name: "description",
-        //       content: productInfo.value.describe,
-        //     },
-        //     {
-        //       hid: "og:image",
-        //       name: "og:image",
-        //       content: baseImgPrefix + productInfo.value.images[0],
-        //     },
-        //   ],
-        // });
         swiperRef.value && swiperRef.value.$el.swiper.update();
       } else if (res.code === 997) {
         blockModal.value.openDialog(3, 2);
