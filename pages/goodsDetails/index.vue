@@ -524,6 +524,21 @@ useHead({
       name: "og:image",
       content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
     },
+    {
+      hid: "og:image",
+      name: "og:image",
+      content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
+    },
+    {
+      hid: "og:image:width",
+      name: "og:image:width",
+      content: 200,
+    },
+    {
+      hid: "og:image:height",
+      name: "og:image:height",
+      content: 200,
+    },
   ],
 });
 // 商品详情
