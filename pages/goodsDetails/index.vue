@@ -566,7 +566,7 @@ useHead({
     {
       hid: "twitter:site",
       name: "twitter:site",
-      content: appConfig.domain,
+      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
     },
     {
       hid: "twitter:image",

@@ -65,7 +65,7 @@ const handleShare = (e) => {
       window.open(_href)
       break
     case 4:
-      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(url)}`)
+      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`)
       break
     case 5:
       const ele = document.createElement("a"); //创建a标签
