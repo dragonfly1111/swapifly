@@ -284,12 +284,12 @@
               <!--                  required-->
               <!--                  autocomplete="off"-->
               <!--              />-->
-<!--              当前选中的key-->
-<!--              {{offline_address}}-->
-<!--              <div>搜索结果</div>-->
-<!--              {{addressOptions}}-->
-<!--              <div>当选选中的对象</div>-->
-<!--              {{addressSelectedOptions}}-->
+              当前选中的key
+              {{offline_address}}
+              <div>搜索结果</div>
+              {{addressOptions}}
+              <div>当选选中的对象</div>
+              {{addressSelectedOptions}}
               <!--              <div style="height: 20px"></div>-->
               <!--                            {{addressOptions}}-->
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
@@ -469,7 +469,7 @@ const handleSearch = (value) => {
 const removeLocation = (e) =>{
   console.log(e)
   addressSelectedOptions.value = addressSelectedOptions.value.filter(item=>{
-    return item.address !== e
+    return item.title !== e
   })
 
 }
@@ -508,7 +508,7 @@ const getDraftInfo = () => {
             });
             offline_address.value = arr;
           }
-          addressSelectedOptions.value = res.data.offline_address
+          addressSelectedOptions.value = res.data.offline_address ? res.data.offline_address : []
           form.value.mail = res.data.mail ? 1 : false;
           form.value.offline = res.data.offline ? 1 : false;
           fileList.value = res.data.images.map((item, index) => {
@@ -543,7 +543,7 @@ const getProduct = () => {
             });
             offline_address.value = arr;
           }
-          addressSelectedOptions.value = res.data.offline_address
+          addressSelectedOptions.value = res.data.offline_address ? res.data.offline_address : []
           form.value.mail = res.data.mail ? 1 : false;
           form.value.offline = res.data.offline ? 1 : false;
           fileList.value = res.data.images.map((item, index) => {
@@ -747,14 +747,16 @@ const removeAdd = (item) => {
 // 点击保存地址 添加到选中
 const addToSelect = (item) => {
   // 如果点击的地址已选中 return
+  console.log(item)
+  console.log(addressSelectedOptions.value)
   if (offline_address.value) {
     const tmpArr = addressSelectedOptions.value.filter((add) => {
-      return add.name === item.name;
+      return add.title === item.title;
     });
     if (tmpArr.length > 0) return;
   }
   addressSelectedOptions.value.push(item)
-  offline_address.value.push(item.name);
+  offline_address.value.push(item.title);
 };
 
 const initService = () => {
