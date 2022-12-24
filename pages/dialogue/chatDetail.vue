@@ -653,20 +653,28 @@ const pageLoopTask = () => {
 }
 // 获取浏览器可用高度
 const getBrowserInterfaceSize = () => {
-  let pageWidth = window.innerWidth;
-  let pageHeight = window.innerHeight;
+  const inter = setInterval(() =>{
+    if(window){
+      let pageWidth = window.innerWidth;
+      let pageHeight = window.innerHeight;
 
-  if (typeof pageWidth !== "number") {
-    //在标准模式下面
-    if (document.compatMode == "CSS1Compat") {
-      pageWidth = document.documentElement.clientWidth;
-      pageHeight = document.documentElement.clientHeight;
-    } else {
-      pageWidth = document.body.clientWidth;
-      pageHeight = window.body.clientHeight;
+      if (typeof pageWidth !== "number") {
+        //在标准模式下面
+        if (document.compatMode == "CSS1Compat") {
+          pageWidth = document.documentElement.clientWidth;
+          pageHeight = document.documentElement.clientHeight;
+        } else {
+          pageWidth = document.body.clientWidth;
+          pageHeight = window.body.clientHeight;
+        }
+      }
+      clearInterval(inter)
+      console.log('--pageHeight--')
+      console.log(pageHeight)
+      interfaceHeight.value = pageHeight
     }
-  }
-  return pageHeight
+  }, 100)
+
 }
 
 fetchDetailData()
@@ -683,12 +691,15 @@ onMounted(() => {
   setTimeout(() => {
     fetchDetailData(true)
   }, 500)
-  interfaceHeight.value = getBrowserInterfaceSize()
-
+  getBrowserInterfaceSize()
+  console.log('window')
+  console.log(window)
+  window.addEventListener('resize', getBrowserInterfaceSize)
   pageLoopTask()
 });
 onUnmounted(() => {
   clearInterval(pageTask)
+  window.removeEventListener('resize', getBrowserInterfaceSize)
 })
 </script>
 
