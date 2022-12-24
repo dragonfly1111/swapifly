@@ -685,7 +685,7 @@ onMounted(() => {
   }, 500)
   interfaceHeight.value = getBrowserInterfaceSize()
 
-  pageLoopTask()
+  // pageLoopTask()
 });
 onUnmounted(() => {
   clearInterval(pageTask)
