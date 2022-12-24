@@ -693,12 +693,15 @@ onUnmounted(() => {
     text-align: center;
     position: relative;
     height: 32px;
-
     .nick-name{
+      margin: 0 auto;
       width: 300px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      text-align: center;
+      line-height: 32px;
+      height: 32px;
     }
 
     span {
@@ -813,7 +816,7 @@ onUnmounted(() => {
 
   .conversation-content {
     height: calc(100vh - 66px - 118px - 61px - 30px);
-    padding-bottom: 24px;
+    padding-bottom: 70px;
     overflow-y: scroll;
 
     .nomore {
