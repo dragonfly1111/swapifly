@@ -1,5 +1,5 @@
 <template>
-  <div class="global-content">
+  <div class="global-content" :style="'--innerHeight:' + interfaceHeight + 'px'">
     <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <div class="info-wrap common-row">
@@ -145,7 +145,7 @@
             </div>
           </div>
         </div>
-        <div class="conversation-content common-row">
+        <div class="conversation-content common-row" :style="'height: ' + (interfaceHeight - 66 - 143 - 61 - 20) + 'px'">
           <div v-show="conversationDetail.length === 0" class="no-msg">
             <img src="@/assets/images/no-msg.png" alt="">
             <div class="no-msg-title">{{ $t('dialogue.noMsg') }}</div>
@@ -827,7 +827,7 @@ onUnmounted(() => {
 
   .conversation-content {
     //height: calc(100vh - 66px - 118px - 61px - 30px - 100px);
-    height: calc(669px - 66px - 143px - 61px - 15px);
+    //height: calc(669px - 66px - 143px - 61px - 15px);
     padding-bottom: 15px;
     overflow-y: scroll;
 
