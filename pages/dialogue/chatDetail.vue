@@ -3,18 +3,7 @@
     <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <div class="info-wrap common-row">
-          {{interfaceHeight}}
-          <div class="main-content-title">
-            <div class="left" @click="toUserDetail">
-              <p class="nick-name">{{ curConversationMeta.nickname }}</p>
-            </div>
-            <a-dropdown @select="handleOperationSelect">
-              <icon-more-vertical/>
-              <template #content>
-                <a-doption v-for="item in dialogueOperationType" :value="item.value">{{ item.key }}</a-doption>
-              </template>
-            </a-dropdown>
-          </div>
+<!--          {{interfaceHeight}}-->
           <div class="meta-wrap wrap1">
             <div class="left" @click="toGoodsDetails">
               <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
@@ -837,8 +826,9 @@ onUnmounted(() => {
   }
 
   .conversation-content {
-    height: calc(100vh - 66px - 118px - 61px - 30px - 100px);
-    padding-bottom: 70px;
+    //height: calc(100vh - 66px - 118px - 61px - 30px - 100px);
+    height: calc(669px - 66px - 143px - 61px - 15px);
+    padding-bottom: 15px;
     overflow-y: scroll;
 
     .nomore {
