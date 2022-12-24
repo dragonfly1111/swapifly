@@ -815,7 +815,7 @@ onUnmounted(() => {
   }
 
   .conversation-content {
-    height: calc(100vh - 66px - 118px - 61px - 30px);
+    height: calc(100vh - 66px - 118px - 61px - 30px - 100px);
     padding-bottom: 70px;
     overflow-y: scroll;
 
