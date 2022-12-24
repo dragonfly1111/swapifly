@@ -42,6 +42,7 @@ const loginThird = (type: number) =>{
       },{scope: 'email'});
       break
     case 2:
+      console.log(app.insRedirect)
       const insUrl = `https://api.instagram.com/oauth/authorize?client_id=${app.insKey}&redirect_uri=${app.insRedirect}&scope=user_profile,user_media&response_type=code`
       // const iWidth=500;                         //弹出窗口的宽度;
       // const iHeight=570;                        //弹出窗口的高度;
