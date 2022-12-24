@@ -3,6 +3,7 @@
     <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <div class="info-wrap common-row">
+          {{interfaceHeight}}
           <div class="main-content-title">
             <div class="left" @click="toUserDetail">
               <p class="nick-name">{{ curConversationMeta.nickname }}</p>
@@ -262,6 +263,7 @@ const openOffer = ref(false)
 const openEditOffer = ref(false)
 const offerNum = ref(0)
 const offerNum1 = ref(0)
+const interfaceHeight = ref(0)
 const evaluateDialog = ref(null)
 const checkEvaluateDialog = ref(null)
 const soldDialog = ref(null)
@@ -659,6 +661,24 @@ const pageLoopTask = () => {
     fetchDetailData(false)
   }, 2000)
 }
+// 获取浏览器可用高度
+const getBrowserInterfaceSize = () => {
+  let pageWidth = window.innerWidth;
+  let pageHeight = window.innerHeight;
+
+  if (typeof pageWidth !== "number") {
+    //在标准模式下面
+    if (document.compatMode == "CSS1Compat" ) {
+      pageWidth = document.documentElement.clientWidth;
+      pageHeight = document.documentElement.clientHeight;
+    } else {
+      pageWidth = document.body.clientWidth;
+      pageHeight = window.body.clientHeight;
+    }
+  }
+  return pageHeight
+}
+
 fetchDetailData()
 getChartMetaInfo()
 onMounted(() => {
@@ -673,6 +693,8 @@ onMounted(() => {
   setTimeout(()=>{
     fetchDetailData(true)
   }, 500)
+  interfaceHeight.value = getBrowserInterfaceSize()
+
   pageLoopTask()
 });
 onUnmounted(() => {
