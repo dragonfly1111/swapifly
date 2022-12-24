@@ -3,7 +3,7 @@
     <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <div class="info-wrap common-row">
-<!--          {{interfaceHeight}}-->
+          <!--          {{interfaceHeight}}-->
           <div class="meta-wrap wrap1">
             <div class="left" @click="toGoodsDetails">
               <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
@@ -145,7 +145,8 @@
             </div>
           </div>
         </div>
-        <div class="conversation-content common-row" :style="'height: ' + (interfaceHeight - 66 - 143 - 61 - 20) + 'px'">
+        <div class="conversation-content common-row"
+             :style="'height: ' + (interfaceHeight - 66 - ((curConversationMeta.f_type === 2 && (curConversationMeta.status === 3 || curConversationMeta.status === 0)) ? 85 : 143 ) - 61 - 20) + 'px'">
           <div v-show="conversationDetail.length === 0" class="no-msg">
             <img src="@/assets/images/no-msg.png" alt="">
             <div class="no-msg-title">{{ $t('dialogue.noMsg') }}</div>
@@ -280,9 +281,9 @@ const fetchDetailData = (toBottom = true) => {
       // conversationDetail.value = [...res.data.data.reverse(), ...conversationDetail.value]
       conversationDetail.value = res.data.reverse()
       console.log(conversationDetail.value.length)
-      nextTick(()=>{
+      nextTick(() => {
         mainContentEle = document.getElementsByClassName('conversation-content')[0]
-        if(toBottom){
+        if (toBottom) {
           scrollToBottom(true)
         }
       })
@@ -299,12 +300,12 @@ const fetchDetailData = (toBottom = true) => {
 const scrollToBottom = (forceBottom = false) => {
   console.log('执行了滚动到底')
   console.log(mainContentEle)
-  if(mainContentEle){
+  if (mainContentEle) {
     const distance = mainContentEle.scrollHeight - mainContentEle.clientHeight - mainContentEle.scrollTop
     // clientHeight + scrollTop === scrollHeight 判断当前是不是在底部 如果是 就滚 否则不滚
-    if(distance <= 100 || forceBottom){
+    if (distance <= 100 || forceBottom) {
       console.log('滚啊！')
-      nextTick(()=>{
+      nextTick(() => {
         const ele = document.getElementsByClassName('conversation-main-block')[0]
         mainContentEle && mainContentEle.scrollTo({
           top: ele.scrollHeight,
@@ -657,7 +658,7 @@ const getBrowserInterfaceSize = () => {
 
   if (typeof pageWidth !== "number") {
     //在标准模式下面
-    if (document.compatMode == "CSS1Compat" ) {
+    if (document.compatMode == "CSS1Compat") {
       pageWidth = document.documentElement.clientWidth;
       pageHeight = document.documentElement.clientHeight;
     } else {
@@ -673,13 +674,13 @@ getChartMetaInfo()
 onMounted(() => {
   mainContentEle = document.getElementsByClassName('conversation-content')[0]
   watch(() => conversationDetail.value.length, (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          nextTick(() => {
-            scrollToBottom()
-          })
-        }
-      }, {immediate: true, deep: true});
-  setTimeout(()=>{
+    if (newValue !== oldValue) {
+      nextTick(() => {
+        scrollToBottom()
+      })
+    }
+  }, {immediate: true, deep: true});
+  setTimeout(() => {
     fetchDetailData(true)
   }, 500)
   interfaceHeight.value = getBrowserInterfaceSize()
@@ -693,7 +694,8 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
-.global-content{
+
+.global-content {
   min-height: unset;
   overflow-y: hidden;
 }
@@ -704,7 +706,8 @@ onUnmounted(() => {
     text-align: center;
     position: relative;
     height: 32px;
-    .nick-name{
+
+    .nick-name {
       margin: 0 auto;
       width: 300px;
       overflow: hidden;
@@ -891,6 +894,7 @@ onUnmounted(() => {
           font-size: 14px;
           color: $main-black-333;
           word-break: break-all;
+
           .operation-msg {
             font-weight: bold;
           }
