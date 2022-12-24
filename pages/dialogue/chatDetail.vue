@@ -682,6 +682,10 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 @import "assets/sass/var.scss";
+.global-content{
+  min-height: unset;
+  overflow-y: hidden;
+}
 
 .main-content {
   .main-content-title {
@@ -808,7 +812,7 @@ onUnmounted(() => {
   }
 
   .conversation-content {
-    height: calc(100vh - 66px - 176px - 61px - 24px);
+    height: calc(100vh - 66px - 118px - 61px - 30px);
     padding-bottom: 24px;
     overflow-y: scroll;
 
