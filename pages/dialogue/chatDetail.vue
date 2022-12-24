@@ -196,20 +196,20 @@
             </div>
           </div>
         </div>
-        <div class="input-line">
-          <a-input class="input-box" v-model="inputTxt" :max-length='500' @press-enter="sendTxt"
-                   :placeholder="$t('dialogue.inputHere')" allow-clear>
-            <template #suffix>
-              <a-upload :custom-request="uploadChatImg" :show-file-list="false">
-                <template #upload-button>
-                  <icon-loading v-if="uploadLoading"/>
-                  <icon-image v-else/>
-                </template>
-              </a-upload>
-            </template>
-          </a-input>
-        </div>
       </a-spin>
+      <div class="input-line">
+        <a-input key="inputTxtBox" class="input-box" v-model="inputTxt" :max-length='500' @press-enter="sendTxt"
+                 :placeholder="$t('dialogue.inputHere')" allow-clear>
+          <template #suffix>
+            <a-upload :custom-request="uploadChatImg" :show-file-list="false">
+              <template #upload-button>
+                <icon-loading v-if="uploadLoading"/>
+                <icon-image v-else/>
+              </template>
+            </a-upload>
+          </template>
+        </a-input>
+      </div>
     </div>
 
     <EvaluateDialog ref="evaluateDialog"/>
@@ -648,7 +648,7 @@ const pageLoopTask = () => {
   pageTask = setInterval(() => {
     console.log('task 执行')
     getChartMetaInfo()
-    fetchDetailData(false)
+    // fetchDetailData(false)
   }, 2000)
 }
 // 获取浏览器可用高度
@@ -685,7 +685,7 @@ onMounted(() => {
   }, 500)
   interfaceHeight.value = getBrowserInterfaceSize()
 
-  // pageLoopTask()
+  pageLoopTask()
 });
 onUnmounted(() => {
   clearInterval(pageTask)

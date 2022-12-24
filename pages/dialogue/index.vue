@@ -284,21 +284,20 @@
             </div>
           </div>
         </div>
-        <div class="input-line">
-          <a-input class="input-box" v-model="inputTxt" :max-length='500' @press-enter="sendTxt"
-                   :placeholder="$t('dialogue.inputHere')" allow-clear>
-            <template #suffix>
-              <a-upload :custom-request="uploadChatImg" :show-file-list="false">
-                <template #upload-button>
-                  <icon-loading v-if="uploadLoading"/>
-                  <icon-image v-else/>
-                </template>
-              </a-upload>
-            </template>
-          </a-input>
-        </div>
       </a-spin>
-
+      <div class="input-line">
+        <a-input class="input-box" v-model="inputTxt" :max-length='500' @press-enter="sendTxt"
+                 :placeholder="$t('dialogue.inputHere')" allow-clear>
+          <template #suffix>
+            <a-upload :custom-request="uploadChatImg" :show-file-list="false">
+              <template #upload-button>
+                <icon-loading v-if="uploadLoading"/>
+                <icon-image v-else/>
+              </template>
+            </a-upload>
+          </template>
+        </a-input>
+      </div>
     </div>
     <div class="right-ad">
       <!--            {{ JSON.stringify(curConversationMeta) }}-->
