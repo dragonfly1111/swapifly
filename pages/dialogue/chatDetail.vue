@@ -13,7 +13,7 @@
                 </template>
               </a-image>
               <div class="info-box">
-                <div>{{ curConversationMeta.p_title }}</div>
+                <div class="p-title">{{ curConversationMeta.p_title }}</div>
                 <div>HK$ {{ curConversationMeta.p_price }}</div>
               </div>
             </div>
@@ -757,7 +757,7 @@ onUnmounted(() => {
       display: flex;
       align-items: center;
       cursor: pointer;
-
+      width: 50%;
       .goods-img {
         width: 50px;
         height: 50px;
@@ -767,7 +767,13 @@ onUnmounted(() => {
       .info-box {
         margin-left: 15px;
         font-size: 14px;
-
+        .p-title{
+          max-width: 200px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+        }
         div {
           height: 24px;
           line-height: 24px;

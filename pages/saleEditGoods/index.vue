@@ -284,12 +284,12 @@
               <!--                  required-->
               <!--                  autocomplete="off"-->
               <!--              />-->
-              当前选中的key
-              {{offline_address}}
-              <div>搜索结果</div>
-              {{addressOptions}}
-              <div>当选选中的对象</div>
-              {{addressSelectedOptions}}
+<!--              当前选中的key-->
+<!--              {{offline_address}}-->
+<!--              <div>搜索结果</div>-->
+<!--              {{addressOptions}}-->
+<!--              <div>当选选中的对象</div>-->
+<!--              {{addressSelectedOptions}}-->
               <!--              <div style="height: 20px"></div>-->
               <!--                            {{addressOptions}}-->
               <!-- <a-input-search class="input-wrp" v-if="form.mail == 1" :placeholder="$t('sale.deliverAddress')" /> -->
