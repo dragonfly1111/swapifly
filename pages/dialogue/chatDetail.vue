@@ -768,7 +768,7 @@ onUnmounted(() => {
         margin-left: 15px;
         font-size: 14px;
         .p-title{
-          max-width: 200px;
+          max-width: 31vw;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
