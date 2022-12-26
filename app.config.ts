@@ -1,4 +1,5 @@
-const DOMAIN = 'https://swapiflyapi.honglanshuzi.com'
+// const DOMAIN = 'https://swapiflyapi.honglanshuzi.com'
+const DOMAIN = 'https://swapifly.com'
 
 export default defineAppConfig({
   name: 'Swapifly - 24小時無休二手買賣平台。集結全球買家、賣家，輕鬆轉讓二手物品， 不論你喺香港定已經移民海外，上Swapifly 一定幫到你。早鳥優惠，注冊賣家帳戶，$0開網店! ',
@@ -16,7 +17,7 @@ export default defineAppConfig({
   // insKey: '490995173091962', // 测试
   insKey: '1298038900984971',
   insRedirect: DOMAIN + '/swapifly/insAuth', // ins登录回调地址
-  baseImgPrefix: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/', // 全局oss图片前缀
+  baseImgPrefix: 'http://oss.swapifly.com', // 全局oss图片前缀
   uploadUrl: DOMAIN + '/index.php/index/oss/Upload', // 全局文件上传前缀
   forbidLink: DOMAIN + '/swapifly/helpCenter/detail?id=31', // 封禁文章
   serviceLink: DOMAIN + '/swapifly/helpCenter/detail?id=2', // 服务条款
