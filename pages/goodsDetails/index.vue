@@ -675,7 +675,7 @@ const handleDialogue = () => {
         if (resize.screenType === "MOBILE") {
           router.push(`/dialogue/chatDetail?id=${res.data.id}`);
         } else {
-          router.push("/dialogue");
+          router.push(`/dialogue?id=${res.data.id}`);
         }
       }
     });

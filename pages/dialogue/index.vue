@@ -329,6 +329,8 @@ const {t} = useI18n()
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;
 const router = useRouter();
+const route = useRoute();
+let dialogId = parseInt(route.query.id);
 let pageTask = null
 let mainContentEle = null
 const evaluateDialog = ref(null)
@@ -408,8 +410,16 @@ const fetchListData = (autoFocus = true) => {
       if (autoFocus) {
         console.log('autoFocus')
         console.log(res.data[0])
+        if(dialogId){
+          const data = res.data.filter((item)=>{
+            return item.id === dialogId
+          })
+          curConversationMeta.value = data[0]
+          dialogId = null
+        } else {
+          curConversationMeta.value = res.data[0]
+        }
         fetchDetailData()
-        curConversationMeta.value = res.data[0]
         calcOperationOptions()
       }
     }
