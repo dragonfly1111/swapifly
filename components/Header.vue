@@ -171,7 +171,7 @@
             <img class="phone-logo" src="@/assets/images/swapifly-logo.png" alt="">
           </nuxt-link>
           <div class="search-input">
-            <a-input-search v-model="searchKey" ref="inputSearchM" @focus="openHisPanel" @blur="hideHisPanel"
+            <a-input-search v-if="$route.path !== '/dialogue/chatDetail'" v-model="searchKey" ref="inputSearchM" @focus="openHisPanel" @blur="hideHisPanel"
                             @press-enter="toSearchResult"
                             @search="toSearchResult" @input="changeSearchKey" :placeholder="$t('head.searchKey')"
                             search-button>
@@ -180,6 +180,7 @@
                      src="@/assets/images/icon/icon-collection.png" alt="">
               </template>
             </a-input-search>
+            <div v-else>{{  dialogName || '' }}</div>
             <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
               <div class="white-wrap wrap">
                 {{ $t('head.searchHis') }}
@@ -272,6 +273,7 @@ const needBackRoute = [
 ]
 const actionRoute = [
   '/goodsDetails',
+  '/dialogue/chatDetail',
 ]
 
 const router = useRouter()
@@ -281,6 +283,7 @@ const searchKeyState = useSearchKey()
 import {useI18n} from "vue-i18n";
 import {watch} from "vue";
 
+const dialogName = useState('dialog.name')
 const {t} = useI18n();
 const appConfig = useAppConfig();
 const baseImgPrefix = appConfig.baseImgPrefix;

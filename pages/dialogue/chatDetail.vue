@@ -1,5 +1,12 @@
 <template>
   <div class="global-content" :style="'--innerHeight:' + interfaceHeight + 'px'">
+
+    <a-dropdown @select="handleOperationSelect">
+      <div class="mobile-extra-box" @click="drawerVisible = true"></div>
+      <template #content>
+        <a-doption v-for="item in dialogueOperationType" :value="item.value">{{ item.key }}</a-doption>
+      </template>
+    </a-dropdown>
     <div class="main-content">
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <div class="info-wrap common-row">
@@ -323,6 +330,9 @@ const getChartMetaInfo = () => {
   }).then(res => {
     if (res.code === 0) {
       curConversationMeta.value = res.data
+      const dialogName = useState('dialog.name')
+      dialogName.value = res.data.nickname
+      console.log(dialogName.value)
       calcOperationOptions()
     } else {
       Message.error(res.message)
@@ -1000,4 +1010,12 @@ onUnmounted(() => {
   }
 }
 
+.mobile-extra-box {
+  position: fixed;
+  top: 10px;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  z-index: 999;
+}
 </style>
