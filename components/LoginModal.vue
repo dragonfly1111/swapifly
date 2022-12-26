@@ -1,5 +1,6 @@
 <template>
-  <a-modal v-model:visible="visible" title-align="start" modal-class="login-dialog" :footer="false" @close="handleCancel">
+  <a-modal v-model:visible="visible" title-align="start" modal-class="login-dialog" :footer="false"
+           @close="handleCancel">
     <template #title>
       <div class="login-title">
         <img src="@/assets/images/logo-long.png" alt=""/>
@@ -13,7 +14,8 @@
         <a-input class="input-warp" v-model="formData.email" :placeholder="$t('loginDialog.acc') "></a-input>
       </a-form-item>
       <a-form-item :hide-label="true" field="pwd" :validate-trigger="['change','input']">
-        <a-input-password v-model="formData.pwd" class="input-warp input-warp1" :placeholder="$t('loginDialog.pwd') "></a-input-password>
+        <a-input-password v-model="formData.pwd" class="input-warp input-warp1"
+                          :placeholder="$t('loginDialog.pwd') "></a-input-password>
       </a-form-item>
     </a-form>
     <div class="forget" @click="handleForget">
@@ -26,20 +28,20 @@
     </div>
 
     <!--快捷切换账号（测试用 上线移除）-->
-    <div style="margin-top: 15px">
-      <div class="forget" style="margin-bottom: 10px">
-        <span>快捷切换账号（测试用 上线移除）</span>
-      </div>
-      <a-radio-group @change="changeAcc">
-        <a-radio :value="1">flf测试账号</a-radio>
-        <a-radio :value="2">ljn测试账号</a-radio>
-        <a-radio :value="3">测试账号001</a-radio>
-        <a-radio :value="4">测试账号002</a-radio>
-        <a-radio :value="5">测试账号003</a-radio>
-        <a-radio :value="6">测试账号004</a-radio>
-        <a-radio :value="7">测试账号005</a-radio>
-      </a-radio-group>
-    </div>
+    <!--    <div style="margin-top: 15px">-->
+    <!--      <div class="forget" style="margin-bottom: 10px">-->
+    <!--        <span>快捷切换账号（测试用 上线移除）</span>-->
+    <!--      </div>-->
+    <!--      <a-radio-group @change="changeAcc">-->
+    <!--        <a-radio :value="1">flf测试账号</a-radio>-->
+    <!--        <a-radio :value="2">ljn测试账号</a-radio>-->
+    <!--        <a-radio :value="3">测试账号001</a-radio>-->
+    <!--        <a-radio :value="4">测试账号002</a-radio>-->
+    <!--        <a-radio :value="5">测试账号003</a-radio>-->
+    <!--        <a-radio :value="6">测试账号004</a-radio>-->
+    <!--        <a-radio :value="7">测试账号005</a-radio>-->
+    <!--      </a-radio-group>-->
+    <!--    </div>-->
   </a-modal>
 </template>
 
@@ -48,6 +50,7 @@ import {useUserInfo} from "~/stores/userInfo";
 import {useI18n} from "vue-i18n";
 import {emailLogin} from "~/api/loginAndRegister";
 import {Message} from "@arco-design/web-vue";
+
 const formRef = ref(null);
 const saveLoading = ref(false);
 const {t} = useI18n();
@@ -66,7 +69,7 @@ const rules = reactive({
     {required: true, message: ref(t('loginDialog.formValidate.emailCode'))},
   ],
 })
-const changeAcc = (e) =>{
+const changeAcc = (e) => {
   console.log(e)
   switch (e) {
     case 1:
@@ -128,26 +131,26 @@ const openDialog = (e) => {
 }
 
 const doLogin = () => {
-  formRef.value.validate().then(validate =>{
-    if(validate) return
+  formRef.value.validate().then(validate => {
+    if (validate) return
     saveLoading.value = true
-    emailLogin(formData).then(res=>{
+    emailLogin(formData).then(res => {
       console.log('doLogin')
       console.log(res)
-      if(res.code === 0){
+      if (res.code === 0) {
         Message.success(t('loginDialog.loginSuc'))
         const user = res.data
         userInfo.setUserInfo(user)
         visible.value = false;
         location.reload()
-      } else if(res.code === 998){
+      } else if (res.code === 998) {
         visible.value = false;
       } else {
         Message.error(res.message)
       }
       saveLoading.value = false
     })
-  }).finally(()=>{
+  }).finally(() => {
     saveLoading.value = false
     resetForm()
   })
@@ -160,6 +163,7 @@ defineExpose({
 
 <style lang="scss">
 @import "assets/sass/var";
+
 .login-dialog {
   padding: 20px 27px;
   width: 446px;
@@ -169,6 +173,7 @@ defineExpose({
     height: unset;
     align-items: start;
     border-bottom: unset;
+
     .login-title {
       text-align: left;
 
@@ -198,9 +203,11 @@ defineExpose({
       user-select: none;
       margin-bottom: 26px;
     }
-    .arco-form-item{
+
+    .arco-form-item {
       margin-bottom: 26px;
     }
+
     .input-warp {
       height: 46px;
     }
@@ -216,28 +223,32 @@ defineExpose({
         user-select: none;
       }
     }
-    .confirm{
+
+    .confirm {
       margin-top: 22px;
       width: 100%;
       background: $main-grey;
       height: 46px;
       color: $main-white;
     }
-    .register{
+
+    .register {
       margin-top: 30px;
       text-align: center;
       cursor: pointer;
       user-select: none;
-      span{
+
+      span {
         color: $main-pink;
       }
     }
   }
 }
 </style>
-<style lang="scss" >
+<style lang="scss">
 @import "assets/sass/var";
-@media screen and(max-width:1000px) {
+
+@media screen and(max-width: 1000px) {
   .login-dialog {
     top: 0;
     border-radius: 0;
@@ -247,6 +258,7 @@ defineExpose({
     width: 100%;
     height: 100%;
     pointer-events: auto;
+
     .arco-modal-header {
       align-items: center;
     }
