@@ -17,7 +17,7 @@ export default defineAppConfig({
   // insKey: '490995173091962', // 测试
   insKey: '1298038900984971',
   insRedirect: DOMAIN + '/swapifly/insAuth', // ins登录回调地址
-  baseImgPrefix: 'http://oss.swapifly.com', // 全局oss图片前缀
+  baseImgPrefix: 'http://oss.swapifly.com/', // 全局oss图片前缀
   uploadUrl: DOMAIN + '/index.php/index/oss/Upload', // 全局文件上传前缀
   forbidLink: DOMAIN + '/swapifly/helpCenter/detail?id=31', // 封禁文章
   serviceLink: DOMAIN + '/swapifly/helpCenter/detail?id=2', // 服务条款

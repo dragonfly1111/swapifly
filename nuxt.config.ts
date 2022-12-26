@@ -10,7 +10,7 @@ declare module '@nuxt/schema' {
 export default defineNuxtConfig({
   app: {
     pageTransition: {name: 'page', mode: 'out-in'},
-    baseURL: '/swapifly/',
+    baseURL: '/',
     head: {
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/swapifly/favicon.ico' }],
       meta: [
