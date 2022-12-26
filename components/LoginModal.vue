@@ -117,7 +117,10 @@ const handleCancel = () => {
 }
 
 const resetForm = () => {
-  formRef.value.resetFields()
+  console.log('resetForm')
+  formData.email = ''
+  formData.pwd = ''
+  console.log(formData)
 }
 const openDialog = (e) => {
   formData.email = e
@@ -146,6 +149,7 @@ const doLogin = () => {
     })
   }).finally(()=>{
     saveLoading.value = false
+    resetForm()
   })
 }
 defineExpose({

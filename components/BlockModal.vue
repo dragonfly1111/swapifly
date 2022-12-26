@@ -15,7 +15,7 @@
     </template>
     <div
       class="title hover"
-      v-if="blockType !== 4"
+      v-if="blockType !== 4 && blockType !== 5"
       @click="$router.push(`/helpCenter/detail?id=2`)"
     >
       {{ $t("block.tip") }}
@@ -24,7 +24,7 @@
     <div class="big-title" v-else-if="blockType === 2 || blockType === 3">
       {{ selfType === 1 ? $t("block.product") : $t("block.product1") }}
     </div>
-    <div class="big-title" v-else-if="blockType === 4">{{ $t("block.product2") }}</div>
+    <div class="big-title" v-else-if="blockType === 4 || blockType === 5">{{ $t("block.product2") }}</div>
     <div v-if="selfType !== 2 || blockType === 1">
       <div class="title">{{ $t("block.feedback") }}</div>
       <div class="title">{{serviceEmail}}</div>
@@ -44,7 +44,7 @@ const { t } = useI18n();
 const appConfig = useAppConfig();
 const serviceEmail = appConfig.serviceEmail;
 const visible = ref(false);
-const blockType = ref(1); // 1 用户 2 商品封禁 关闭后不做跳转 3 商品封禁 关闭后跳转到首页 4 商品 非上架状态
+const blockType = ref(1); // 1 用户 2 商品封禁 关闭后不做跳转 3 商品封禁 关闭后跳转到首页 4 商品 非上架状态 5 商品 非上架状态关闭后返回首页
 const selfType = ref(1); // 1 自己的 2 别人的
 const handleCancel = () => {
   visible.value = false;
@@ -71,7 +71,7 @@ const handleOk = () => {
     }
   } else if (blockType.value === 2) {
     handleCancel();
-  } else if (blockType.value === 3) {
+  } else if (blockType.value === 3 || blockType.value === 5) {
     handleCancel();
     router.replace("/");
   } else if (blockType.value === 4) {

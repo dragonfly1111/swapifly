@@ -500,91 +500,94 @@ const similar = ref({
 
 // 服务端获取商品数据 设置分享属性
 const product = await useAsyncData('product', () => getProductDetails(router.currentRoute.value.query.id))
-const productRef = product.data.value.data.product
-useHead({
-  meta: [
-    {
-      hid: "og:url",
-      name: "og:url",
-      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
-    },
-    {
-      hid: "og:type",
-      name: "og:type",
-      content: 'website',
-    },
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: productRef.title,
-    },
-    {
-      hid: "og:description",
-      name: "og:description",
-      content: productRef.describe,
-    },
-    {
-      hid: "og:image",
-      name: "og:image",
-      content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
-    },
-    {
-      hid: "og:image",
-      name: "og:image",
-      content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
-    },
-    {
-      hid: "og:image:width",
-      name: "og:image:width",
-      content: 200,
-    },
-    {
-      hid: "og:image:height",
-      name: "og:image:height",
-      content: 200,
-    },
-    {
-      hid: "twitter:title",
-      name: "twitter:title",
-      content: productRef.title,
-    },
-    {
-      hid: "twitter:url",
-      name: "twitter:url",
-      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
-    },
-    {
-      hid: "twitter:description",
-      name: "twitter:description",
-      content: productRef.describe,
-    },
-    {
-      hid: "twitter:card",
-      name: "twitter:card",
-      content: 'summary_large_image',
-    },
-    {
-      hid: "twitter:site",
-      name: "twitter:site",
-      content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
-    },
-    {
-      hid: "twitter:image",
-      name: "twitter:image",
-      content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
-    },
-    {
-      hid: "twitter:image:width",
-      name: "twitter:image:width",
-      content: 200,
-    },
-    {
-      hid: "twitter:image:height",
-      name: "twitter:image:height",
-      content: 200,
-    },
-  ],
-});
+const productRef = product.data.value.data.code === 0 ? product.data.value.data.product : null
+console.log(productRef)
+if(productRef){
+  useHead({
+    meta: [
+      {
+        hid: "og:url",
+        name: "og:url",
+        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+      },
+      {
+        hid: "og:type",
+        name: "og:type",
+        content: 'website',
+      },
+      {
+        hid: "og:title",
+        name: "og:title",
+        content: productRef.title,
+      },
+      {
+        hid: "og:description",
+        name: "og:description",
+        content: productRef.describe,
+      },
+      {
+        hid: "og:image",
+        name: "og:image",
+        content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
+      },
+      {
+        hid: "og:image",
+        name: "og:image",
+        content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
+      },
+      {
+        hid: "og:image:width",
+        name: "og:image:width",
+        content: 200,
+      },
+      {
+        hid: "og:image:height",
+        name: "og:image:height",
+        content: 200,
+      },
+      {
+        hid: "twitter:title",
+        name: "twitter:title",
+        content: productRef.title,
+      },
+      {
+        hid: "twitter:url",
+        name: "twitter:url",
+        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+      },
+      {
+        hid: "twitter:description",
+        name: "twitter:description",
+        content: productRef.describe,
+      },
+      {
+        hid: "twitter:card",
+        name: "twitter:card",
+        content: 'summary_large_image',
+      },
+      {
+        hid: "twitter:site",
+        name: "twitter:site",
+        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+      },
+      {
+        hid: "twitter:image",
+        name: "twitter:image",
+        content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
+      },
+      {
+        hid: "twitter:image:width",
+        name: "twitter:image:width",
+        content: 200,
+      },
+      {
+        hid: "twitter:image:height",
+        name: "twitter:image:height",
+        content: 200,
+      },
+    ],
+  });
+}
 
 // 商品详情
 const handleQuery = () => {
@@ -605,7 +608,9 @@ const handleQuery = () => {
       } else if (res.code === 997) {
         blockModal.value.openDialog(3, 2);
       } else {
-        Message.error(res.message);
+        // 如果不是自己的商品 并且不是上架状态 打开非上架状态弹窗
+        blockModal.value.openDialog(5);
+        // Message.error(res.message);
       }
     })
     .finally(() => {
