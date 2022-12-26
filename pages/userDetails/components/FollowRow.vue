@@ -1,7 +1,7 @@
 <template>
   <div class="follow-box">
     <a-row justify="space-between" align="center" class="box-header">
-      <a-col flex="100px" class="title"> {{ title }} </a-col>
+      <a-col flex="100px" class="title"> {{ title }}</a-col>
     </a-row>
     <div class="follow-box-body">
       <div :gutter="24" class="skeleton-col-2">
@@ -81,7 +81,8 @@ const queryParams = ref({
 
 const handleQuery = (type) => {
   pageLoading.value = true;
-  if (type.value == 1) {
+  console.log(type)
+  if (type == 1) {
     handleQueryFollowList();
   } else {
     handleQueryFollowersList();
@@ -89,6 +90,7 @@ const handleQuery = (type) => {
 };
 
 const resetQuery = (e) => {
+  console.log(e)
   dataList.value = [];
   queryParams.value.page = 1;
   title.value = e == 1 ? t("pages.followIn") : t("pages.followers");

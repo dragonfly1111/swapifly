@@ -141,7 +141,7 @@ function getMsgRedDot() {
 
 setInterval(() => {
   if (!userInfo.token) return
-  getMsgRedDot()
+  // getMsgRedDot()
 }, 2000)
 let map;
 let service;
