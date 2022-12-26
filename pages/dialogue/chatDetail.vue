@@ -6,7 +6,7 @@
           <!--          {{interfaceHeight}}-->
           <div class="meta-wrap wrap1">
             <div class="left" @click="toGoodsDetails">
-              <a-image class="goods-img" width="50" height="50" show-loader fit="cover"
+              <a-image class="goods-img" :preview="false" width="50" height="50" show-loader fit="cover"
                        :src="baseImgPrefix + curConversationMeta.p_image" alt="">
                 <template #loader>
                   <div class="loader-animate"/>

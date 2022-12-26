@@ -44,7 +44,7 @@ const { t } = useI18n();
 const appConfig = useAppConfig();
 const serviceEmail = appConfig.serviceEmail;
 const visible = ref(false);
-const blockType = ref(1); // 1 用户 2 商品封禁 关闭后不做跳转 3 商品封禁 关闭后跳转到首页 4 商品 非上架状态 5 商品 非上架状态关闭后返回首页
+const blockType = ref(1); // 1 用户 2 商品封禁 关闭后不做跳转 3 商品封禁 关闭后跳转到首页 4 商品 非上架状态 5 商品 非上架状态关闭后返回上一页
 const selfType = ref(1); // 1 自己的 2 别人的
 const handleCancel = () => {
   visible.value = false;
@@ -71,11 +71,14 @@ const handleOk = () => {
     }
   } else if (blockType.value === 2) {
     handleCancel();
-  } else if (blockType.value === 3 || blockType.value === 5) {
+  } else if (blockType.value === 3) {
     handleCancel();
     router.replace("/");
   } else if (blockType.value === 4) {
     handleCancel();
+  } else if(blockType.value === 5) {
+    handleCancel();
+    router.go(-1);
   }
 };
 defineExpose({
