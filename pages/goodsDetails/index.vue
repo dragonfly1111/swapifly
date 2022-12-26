@@ -223,7 +223,7 @@
                             <span>{{ sellerInfo.nickname }}</span>
                             <span>{{ $t("pages.reviews") }}</span>
                             <span class="fs12">{{ sellerInfo.stars }}</span>
-                            <span><icon-star-fill /></span>
+                            <span><icon-star-fill style="color: #ffb400;"/></span>
                             <span class="fs12">（{{ sellerInfo.e_num }}review）</span>
                           </a-space>
                           <EvaluateList

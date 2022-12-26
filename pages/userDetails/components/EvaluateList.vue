@@ -114,8 +114,9 @@ const getTypeLabel = (type) => {
 
 // 商品详情
 const toGoodsDetails = (item) => {
+  console.log(item)
   // 判断封禁状态
-  getProductFj(item.pid).then((res) => {
+  getProductFj(item.pid || item.id).then((res) => {
     // type 1.自己，2他人
     // state 商品狀態，1.出售中，2.交易完成，3已下架，4 已删除
     if (res.code === 0) {
