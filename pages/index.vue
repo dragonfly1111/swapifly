@@ -182,6 +182,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
 const router = useRouter()
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig();
+const app = useAppConfig()
 const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const resize = useResize()
 
@@ -359,6 +360,106 @@ const hotBradListBottom = computed(() => {
   const center = Math.ceil(hotBradList.value.length / 2)
   return hotBradList.value.slice(center);
 });
+
+useHead({
+  title: app.name,
+  meta: [
+    {
+      hid: "og:url",
+      name: "og:url",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "og:type",
+      name: "og:type",
+      content: 'website',
+    },
+    {
+      hid: "og:title",
+      name: "og:title",
+      content: app.name,
+    },
+    {
+      hid: "og:description",
+      name: "og:description",
+      content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
+    },
+    {
+      hid: "og:image",
+      name: "og:image",
+      content: `https://oss.swapifly.com/swapifly/20221227/44d839444f86c9f815ca48a3285d21894bf0a6f4.jpg`,
+    },
+    {
+      hid: "og:favicon",
+      name: "og:favicon",
+      content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
+    },
+    {
+      hid: "twitter:title",
+      name: "twitter:title",
+      content: app.name,
+    },
+    {
+      hid: "twitter:url",
+      name: "twitter:url",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "twitter:description",
+      name: "twitter:description",
+      content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
+    },
+    {
+      hid: "twitter:card",
+      name: "twitter:card",
+      content: 'summary_large_image',
+    },
+    {
+      hid: "twitter:site",
+      name: "twitter:site",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "twitter:image",
+      name: "twitter:image",
+      content: `https://oss.swapifly.com/swapifly/20221227/44d839444f86c9f815ca48a3285d21894bf0a6f4.jpg`,
+    },
+    {
+      hid: "twitter:image:width",
+      name: "twitter:image:width",
+      content: 200,
+    },
+    {
+      hid: "twitter:image:height",
+      name: "twitter:image:height",
+      content: 200,
+    },
+
+  ],
+  // todo sdk 支持对语言
+  script: [
+    {
+      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v12.0&appId=${runtimeConfig.VITE_FB_KEY}&autoLogAppEvents=1`,
+      async: true,
+      defer: true
+    },
+    {
+      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v3.0`,
+      async: true,
+      defer: true
+    },
+    {
+      src: 'https://accounts.google.com/gsi/client', async: true, defer: true
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
+    },
+    {
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', async: true, defer: true
+    }
+  ]
+})
+
 </script>
 
 <style lang="scss" scoped>
