@@ -60,7 +60,7 @@ const handleShare = (e) => {
       let _href = "https://api.whatsapp.com/send?";
       const text = productDetail.value.title
       const link = url // 分享的页面
-      _href += "&text=" + text;//标题
+      _href += "&text=" + encodeURIComponent(link);//标题
       _href += "&url=" + encodeURIComponent(link);//链接
       window.open(_href)
       break

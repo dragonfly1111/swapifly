@@ -510,7 +510,7 @@ if(productRef){
       {
         hid: "og:url",
         name: "og:url",
-        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+        content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "og:type",
