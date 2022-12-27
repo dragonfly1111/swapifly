@@ -80,12 +80,12 @@ useHead({
     {
       hid: "og:image",
       name: "og:image",
-      content: `https://oss.swapifly.com/swapifly/20221228/0371482f267124306cb5583ad84ca659e9338a53.jpg`,
+      content: `https://oss.swapifly.com/swapifly/20221227/44d839444f86c9f815ca48a3285d21894bf0a6f4.jpg`,
     },
     {
       hid: "og:favicon",
       name: "og:favicon",
-      content: `https://oss.swapifly.com/swapifly/20221228/0371482f267124306cb5583ad84ca659e9338a53.jpg`,
+      content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
     },
     {
       hid: "twitter:title",
@@ -115,7 +115,7 @@ useHead({
     {
       hid: "twitter:image",
       name: "twitter:image",
-      content: `https://oss.swapifly.com/swapifly/20221228/0371482f267124306cb5583ad84ca659e9338a53.jpg`,
+      content: `https://oss.swapifly.com/swapifly/20221227/44d839444f86c9f815ca48a3285d21894bf0a6f4.jpg`,
     },
     {
       hid: "twitter:image:width",
