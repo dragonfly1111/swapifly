@@ -1,7 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
 import {Message} from "@arco-design/web-vue";
 import {useUserInfo} from "~/stores/userInfo";
-import {process} from "unenv/runtime/node/process/_process";
 
 // @ts-ignore
 const request = axios.create(() => {

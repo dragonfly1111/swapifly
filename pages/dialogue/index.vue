@@ -76,14 +76,14 @@
       <a-spin :loading="mainContentLoading" style="width: 100%;">
         <!--      <div class="info-wrap" v-if="conversationList.length > 0">-->
         <div class="info-wrap">
-          <div class="main-content-title">
+          <div class="main-content-title"  v-if="Object.keys(curConversationMeta).length">
             <div class="left" @click="toUserDetail">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 160px">
                   <a-skeleton-line :line-height="50" :rows="1"/>
                 </a-skeleton>
               </template>
-              <template v-else>
+              <template v-if="!pageLoading">
                 <a-image width="50" height="50" show-loader fit="cover"
                          :src="baseImgPrefix + curConversationMeta.avatar"
                          :preview="false"
@@ -102,7 +102,7 @@
               </template>
             </a-dropdown>
           </div>
-          <div class="meta-wrap mobile-border-none">
+          <div class="meta-wrap mobile-border-none" v-if="Object.keys(curConversationMeta).length">
             <div class="left" @click="toGoodsDetails">
               <template v-if="pageLoading">
                 <a-skeleton :animation="true" class="skeleton" style="width: 250px">
@@ -285,7 +285,7 @@
           </div>
         </div>
       </a-spin>
-      <div class="input-line">
+      <div class="input-line" v-if="Object.keys(curConversationMeta).length">
         <a-input class="input-box" v-model="inputTxt" :max-length='500' @press-enter="sendTxt"
                  :placeholder="$t('dialogue.inputHere')" allow-clear>
           <template #suffix>
