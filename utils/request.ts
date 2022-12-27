@@ -51,9 +51,9 @@ request.interceptors.request.use(
       const areaSetting = useState<string>('area.setting')
       const localeSetting = useState<string>('locale.setting')
       // @ts-ignore
-      areaSetting.value ? config.headers['X-Region'] = areaSetting.value : ''
+      areaSetting.value ? config.headers['X-Region'] = areaSetting.value : '1'
       // @ts-ignore
-      localeSetting.value ? config.headers['X-Lang'] = localeSetting.value : ''
+      localeSetting.value ? config.headers['X-Lang'] = localeSetting.value : 'zh-HK'
     }
 
 
