@@ -83,6 +83,11 @@ useHead({
       content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
     },
     {
+      hid: "og:favicon",
+      name: "og:favicon",
+      content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
+    },
+    {
       hid: "og:image:width",
       name: "og:image:width",
       content: 200,
