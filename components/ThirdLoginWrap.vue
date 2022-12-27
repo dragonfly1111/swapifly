@@ -52,9 +52,14 @@ const loginThird = (type: number) =>{
     case 3:
       // const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
       // window.open(googleUrl,'_blank');
+      // google.accounts.id.prompt();
+      console.log(runtimeConfig.VITE_GOOGLE_KEY)
+      console.log(google.accounts)
       google.accounts.id.initialize({
         client_id: runtimeConfig.VITE_GOOGLE_KEY,
         callback: (e:any) =>{
+          console.log('googleUserInfo')
+          console.log(e)
           const strings = e.credential.split("."); //截取token，获取载体
           const googleUserInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析
           console.log(googleUserInfo)

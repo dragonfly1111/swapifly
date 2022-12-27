@@ -26,7 +26,8 @@ const userInfo = useUserInfo()
 AppSetup()
 const app = useAppConfig()
 const runtimeConfig = useRuntimeConfig()
-
+console.log('app')
+console.log(app)
 // const route = useRoute()
 // const router = useRouter()
 useAsyncData(async (ctx) => {
@@ -42,7 +43,10 @@ useAsyncData(async (ctx) => {
 useHead({
   title: app.name,
   meta: [
-  { name: 'viewport', content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0' },
+    {
+      name: 'viewport',
+      content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0'
+    },
     {
       hid: 'description',
       name: 'description',
@@ -73,7 +77,7 @@ useHead({
       src: 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
     },
     {
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',  async: true, defer: true
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', async: true, defer: true
     }
   ]
 })
@@ -146,6 +150,7 @@ setInterval(() => {
 }, 2000)
 let map;
 let service;
+
 function initMap() {
   const hk = new google.maps.LatLng(22.3193039, 114.1693611);
   map = new google.maps.Map(document.getElementById('map'), {center: hk, zoom: 15});
@@ -167,16 +172,19 @@ function initMap() {
 
 <style lang="scss">
 @import "assets/sass/var.scss";
+
 html, body, #__nuxt {
   //height: 100vh;
   margin: 0;
   padding: 0;
 }
+
 // 页面切换样式
 .page-enter-active,
 .page-leave-active {
   transition: all 0.3s;
 }
+
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
