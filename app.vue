@@ -58,10 +58,81 @@ useHead({
       content: 'swapifly,轉手,二手,轉售,絕版,名牌手袋,手錶,潮流電子,傢私,電器,二手車,物業',
     },
     {
-      hid: 'og:image',
-      name: 'og:image',
-      content: 'https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg',
-    }
+      hid: "og:url",
+      name: "og:url",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "og:type",
+      name: "og:type",
+      content: 'website',
+    },
+    {
+      hid: "og:title",
+      name: "og:title",
+      content: app.name,
+    },
+    {
+      hid: "og:description",
+      name: "og:description",
+      content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
+    },
+    {
+      hid: "og:image",
+      name: "og:image",
+      content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
+    },
+    {
+      hid: "og:image:width",
+      name: "og:image:width",
+      content: 200,
+    },
+    {
+      hid: "og:image:height",
+      name: "og:image:height",
+      content: 200,
+    },
+    {
+      hid: "twitter:title",
+      name: "twitter:title",
+      content: app.name,
+    },
+    {
+      hid: "twitter:url",
+      name: "twitter:url",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "twitter:description",
+      name: "twitter:description",
+      content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
+    },
+    {
+      hid: "twitter:card",
+      name: "twitter:card",
+      content: 'summary_large_image',
+    },
+    {
+      hid: "twitter:site",
+      name: "twitter:site",
+      content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
+    },
+    {
+      hid: "twitter:image",
+      name: "twitter:image",
+      content: `https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg`,
+    },
+    {
+      hid: "twitter:image:width",
+      name: "twitter:image:width",
+      content: 200,
+    },
+    {
+      hid: "twitter:image:height",
+      name: "twitter:image:height",
+      content: 200,
+    },
+
   ],
   // todo sdk 支持对语言
   script: [
