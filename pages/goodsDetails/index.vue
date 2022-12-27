@@ -508,7 +508,7 @@ if(productRef){
       {
         hid: "og:url",
         name: "og:url",
-        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "og:type",
@@ -528,12 +528,7 @@ if(productRef){
       {
         hid: "og:image",
         name: "og:image",
-        content: 'https://swapifly.oss-cn-hongkong.aliyuncs.com/swapifly/20221214/33ace334be00e0cc59f31d471bcbef0f902387b4.jpg',
-      },
-      {
-        hid: "og:image",
-        name: "og:image",
-        content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.images[0]}`,
       },
       {
         hid: "og:image:width",
@@ -553,7 +548,7 @@ if(productRef){
       {
         hid: "twitter:url",
         name: "twitter:url",
-        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "twitter:description",
@@ -568,12 +563,12 @@ if(productRef){
       {
         hid: "twitter:site",
         name: "twitter:site",
-        content: `${appConfig.domain}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
+        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "twitter:image",
         name: "twitter:image",
-        content: `${appConfig.baseImgPrefix}${productRef.images[0]}`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.images[0]}`,
       },
       {
         hid: "twitter:image:width",
