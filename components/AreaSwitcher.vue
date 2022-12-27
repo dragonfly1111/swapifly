@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useSysData } from '~/stores/sysData'
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const areaSetting = useState<string>('area.setting')
 const sysData = useSysData()
 </script>

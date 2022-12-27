@@ -136,9 +136,9 @@ const pageLoading = ref(true);
 const activeTab = ref("1");
 const form = ref({});
 const productInfo = ref({});
-const appConfig = useAppConfig();
-const serviceEmail = appConfig.serviceEmail;
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const serviceEmail = runtimeConfig.VITE_SERVICE_EMAIL;
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const emits = defineEmits(['handleExposureGoods'])
 const openDialog = (info) => {
   visible.value = true;

@@ -68,8 +68,8 @@ const userInfo = useUserInfo();
 const sysData = useSysData();
 const router = useRouter();
 const businessRegistration = ref(null);
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 
 const props = defineProps({
   userData: {

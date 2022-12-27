@@ -449,8 +449,8 @@ import "swiper/css/navigation";
 const modules = [];
 
 const { t } = useI18n();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const router = useRouter();
 const resize = useResize();
 const userInfo = useUserInfo();
@@ -598,7 +598,7 @@ const handleQuery = () => {
         productInfo.value = res.data.product;
         sellerInfo.value = res.data.seller;
         eltlist.value = res.data.eltlist;
-        const appConfig = useAppConfig();
+        const runtimeConfig = useRuntimeConfig();
         const arr = [];
         res.data.product.images.forEach((item) => {
           arr.push(baseImgPrefix + item);

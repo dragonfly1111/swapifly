@@ -55,9 +55,9 @@ import {IUserInfo} from "~/model/res/userInfo";
 import {useUserInfo} from "~/stores/userInfo";
 const userInfo = useUserInfo();
 const {t} = useI18n();
-const appConfig = useAppConfig();
-const serviceLink = appConfig.serviceLink
-const privateLink = appConfig.privateLink
+const runtimeConfig = useRuntimeConfig();
+const serviceLink = runtimeConfig.VITE_SERVICE_LINK
+const privateLink = runtimeConfig.VITE_PRIVATE_LINK
 const visible = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);

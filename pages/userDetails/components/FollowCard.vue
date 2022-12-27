@@ -33,8 +33,8 @@ import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 const { t } = useI18n();
 const router = useRouter();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const btnLoading = ref(false);
 const emits = defineEmits(["change"]);
 const props = defineProps({

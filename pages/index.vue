@@ -181,8 +181,8 @@ import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
 
 const router = useRouter()
 const route = useRoute()
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const resize = useResize()
 
 // const loginModal = ref(null)
@@ -359,7 +359,6 @@ const hotBradListBottom = computed(() => {
   const center = Math.ceil(hotBradList.value.length / 2)
   return hotBradList.value.slice(center);
 });
-
 </script>
 
 <style lang="scss" scoped>

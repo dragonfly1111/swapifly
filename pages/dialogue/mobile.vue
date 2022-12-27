@@ -77,8 +77,8 @@ const conversationList = ref([])
 const router = useRouter();
 let pageTask
 const {t} = useI18n()
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const sysData = useSysData();
 // 切换消息类型
 const changeMsgType = () => {

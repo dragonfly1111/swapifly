@@ -5,11 +5,11 @@
            :footer="false">
     <div class="login-type-wrap">
       <div class="fb-share-button"
-           :data-href="'https://swapifly.com/goodsDetails?id=' + $route.query.id"
+           :data-href="runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + 'goodsDetails?id=' + $route.query.id"
            data-layout="button_count"
            data-size="small">
         <a target="_blank"
-            :href="'https://www.facebook.com/sharer/sharer.php?u=https://swapifly.com/goodsDetails?id=' + $route.query.id + '&amp;src=sdkpreparse'"
+            :href="'https://www.facebook.com/sharer/sharer.php?u=' + runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + 'goodsDetails?id=' + $route.query.id + '&amp;src=sdkpreparse'"
             class="fb-xfbml-parse-ignore">
           <img src="@/assets/images/icon/icon_facebook.png" alt="">
         </a>
@@ -39,9 +39,9 @@ const visible = ref(false);
 const route = useRoute();
 const urlLink = ref('');
 const productDetail = ref(null);
+const runtimeConfig = useRuntimeConfig()
 const handleShare = (e) => {
-  const appConfig = useAppConfig()
-  const url = appConfig.domain + '/swapifly' + route.fullPath.replace('#reloaded', '')
+  const url = runtimeConfig.VITE_DOMAIN + '/swapifly' + route.fullPath.replace('#reloaded', '')
   switch (e) {
     case 1:
       // FB.ui({
@@ -54,7 +54,7 @@ const handleShare = (e) => {
       // })
       break
     case 2:
-      window.open(`https://www.facebook.com/dialog/send?app_id=${appConfig.facebookKey}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
+      window.open(`https://www.facebook.com/dialog/send?app_id=${runtimeConfig.VITE_FB_KEY}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
       break
     case 3:
       let _href = "https://api.whatsapp.com/send?";

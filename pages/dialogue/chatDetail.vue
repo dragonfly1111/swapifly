@@ -243,8 +243,8 @@ import {getProductFj} from "~/api/goods";
 const sysData = useSysData();
 const router = useRouter();
 const {t} = useI18n()
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const mainContentLoading = ref(false)
 const uploadLoading = ref(false)
 const acceptLoading = ref(false)

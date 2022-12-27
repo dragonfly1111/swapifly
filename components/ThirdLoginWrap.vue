@@ -15,7 +15,7 @@ const { t } = useI18n();
 import { useUserInfo } from "~/stores/userInfo";
 const userInfo = useUserInfo()
 const emits = defineEmits(['closeDialog'])
-const app = useAppConfig()
+const runtimeConfig = useRuntimeConfig()
 
 const loginThird = (type: number) =>{
   switch (type) {
@@ -42,8 +42,7 @@ const loginThird = (type: number) =>{
       },{scope: 'email'});
       break
     case 2:
-      console.log(app.insRedirect)
-      const insUrl = `https://api.instagram.com/oauth/authorize?client_id=${app.insKey}&redirect_uri=${app.insRedirect}&scope=user_profile,user_media&response_type=code`
+      const insUrl = `https://api.instagram.com/oauth/authorize?client_id=${runtimeConfig.VITE_INS_KEY}&redirect_uri=${runtimeConfig.VITE_INS_REDIRECT}&scope=user_profile,user_media&response_type=code`
       // const iWidth=500;                         //弹出窗口的宽度;
       // const iHeight=570;                        //弹出窗口的高度;
       // const iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
@@ -54,7 +53,7 @@ const loginThird = (type: number) =>{
       // const googleUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&redirect_uri=https://swapiflyapi.honglanshuzi.com/swapifly/googleAuth&client_id=937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com'
       // window.open(googleUrl,'_blank');
       google.accounts.id.initialize({
-        client_id: app.googleKey,
+        client_id: runtimeConfig.VITE_GOOGLE_KEY,
         callback: (e:any) =>{
           const strings = e.credential.split("."); //截取token，获取载体
           const googleUserInfo = JSON.parse(decodeURIComponent(escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/"))))); //解析，需要吧‘_’,'-'进行转换否则会无法解析

@@ -64,8 +64,8 @@ import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import FollowCard from "~/pages/userDetails/components/FollowCard";
 const { t } = useI18n();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const router = useRouter();
 const emits = defineEmits(["change"]);
 const title = ref(t("pages.followIn"));

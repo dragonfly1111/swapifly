@@ -285,8 +285,8 @@ import {watch} from "vue";
 
 const dialogName = useState('dialog.name')
 const {t} = useI18n();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const inputSearchPc = ref(null)
 const inputSearchM = ref(null)
 const loginModal = ref(null)

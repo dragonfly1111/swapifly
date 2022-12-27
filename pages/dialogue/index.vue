@@ -326,8 +326,8 @@ import {Message} from '@arco-design/web-vue';
 import {getProductFj} from "~/api/goods";
 
 const {t} = useI18n()
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const router = useRouter();
 const route = useRoute();
 let dialogId = parseInt(route.query.id);

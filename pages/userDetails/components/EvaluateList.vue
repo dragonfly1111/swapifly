@@ -103,8 +103,8 @@ const props = defineProps({
     default: true,
   },
 });
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const getTypeLabel = (type) => {
   let typeMap = {
     1: t("evaluate.evaluationType.formBuyer"),

@@ -25,6 +25,8 @@ const sysData = useSysData()
 const userInfo = useUserInfo()
 AppSetup()
 const app = useAppConfig()
+const runtimeConfig = useRuntimeConfig()
+
 // const route = useRoute()
 // const router = useRouter()
 useAsyncData(async (ctx) => {
@@ -55,7 +57,7 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
-      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v12.0&appId=${app.facebookKey}&autoLogAppEvents=1`,
+      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v12.0&appId=${runtimeConfig.VITE_FB_KEY}&autoLogAppEvents=1`,
       async: true,
       defer: true
     },
@@ -78,7 +80,6 @@ useHead({
 
 // console.log("=====onMounted====", resize)
 onMounted(async () => {
-  console.log('app onMounted')
   console.log(process.client)
   resize.setWidth(window.innerWidth)
   // reurl()

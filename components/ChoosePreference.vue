@@ -63,8 +63,8 @@
 <script setup>
 import {getUserLabel, setUserLabel} from '~/api/loginAndRegister'
 import {Message} from '@arco-design/web-vue';
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const visible = ref(false);
 const loading = ref(false);
 const labelList = reactive({value: []})

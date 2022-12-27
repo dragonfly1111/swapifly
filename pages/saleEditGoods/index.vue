@@ -398,11 +398,10 @@ const addressSelectedOptions = ref([]);
 const clickNumber = ref(0); // 保存草稿点击事件
 const formRef = ref(null);
 const btnType = ref("draft");
-const appConfig = useAppConfig();
-const gdKey = appConfig.gdKey;
-const forbidLink = appConfig.forbidLink;
-const baseImgPrefix = appConfig.baseImgPrefix;
-const uploadUrl = appConfig.uploadUrl;
+const runtimeConfig = useRuntimeConfig();
+const forbidLink = runtimeConfig.VITE_FORBID_LINK;
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
+const uploadUrl = runtimeConfig.VITE_UPLOAD ;
 const uploadLoading = ref(false);
 const curClassPath = ref([]);
 const rules = reactive({
@@ -413,7 +412,6 @@ const rules = reactive({
   price: [{required: true, message: t("sale.formValidate.priceValidate")}],
   region: [{required: true, message: t("sale.regionTip")}],
 });
-const app = useAppConfig()
 let autocomplete = null
 let map = null
 const overLimit = (e) => {
@@ -846,10 +844,9 @@ onMounted(() => {
   useHead({
     script: [
       {
-        src: `https://maps.googleapis.com/maps/api/js?key=${app.googleMapKey}&callback=initService&libraries=places&v=weekly`,
+        src: `https://maps.googleapis.com/maps/api/js?key=${runtimeConfig.VITE_GOOGLE_MAP_KEY}&callback=initService&libraries=places&v=weekly`,
         async: true,
         defer: true
-        // src: `https://maps.googleapis.com/maps/api/js?key=${app.googleMapKey}&callback=initAutocomplete&libraries=places&v=weekly`, async: true, defer: true
       }
     ]
   })

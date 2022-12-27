@@ -113,9 +113,9 @@ import { addBusiness, reApplyBusiness, undoApplyBusiness } from "~/api/business"
 import { Message } from "@arco-design/web-vue";
 import { Modal, Button } from "@arco-design/web-vue";
 import { useUserInfo } from "~/stores/userInfo";
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
-const uploadUrl = appConfig.uploadUrl
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
+const uploadUrl = runtimeConfig.VITE_UPLOAD
 const formRef = ref(null);
 const uploadRef = ref(null);
 const saveLoading = ref(false);

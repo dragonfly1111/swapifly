@@ -1,33 +1,16 @@
 /*
- * @Description: 
+ * @Description:
  * @Autor: ljn
  * @Date: 2022-12-27 09:08:13
  * @LastEditors: ljn
  * @LastEditTime: 2022-12-27 09:10:20
  */
-// const DOMAIN = 'https://swapiflyapi.honglanshuzi.com'
-const DOMAIN = 'https://swapifly.com'
-
-export default defineAppConfig({
-  name: 'Swapifly - 24小時無休二手買賣平台。集結全球買家、賣家，輕鬆轉讓二手物品， 不論你喺香港定已經移民海外，上Swapifly 一定幫到你。早鳥優惠，注冊賣家帳戶，$0開網店! ',
-  author: {
-    name: '',
-    link: '',
-  },
-  domain: DOMAIN, // 域名
-  gdKey: '33572afc82950a2748b645ded7062b76',
-  // facebookKey: '489813939845259', // 测试
-  facebookKey: '1243032056388539',
-  // googleKey: '937590701446-11ocgsktalnalr813c14mjm1ih6o18sm.apps.googleusercontent.com', // 测试
-  googleKey: '717264536168-d6uje6f2o4fqqf7et4p4ad9ekajmgj2j.apps.googleusercontent.com',
-  googleMapKey: 'AIzaSyDS3riYkx_d0VQGPfkH81jxHuOCfXTq5dA',
-  // insKey: '490995173091962', // 测试
-  insKey: '1298038900984971',
-  insRedirect: DOMAIN + '/insAuth', // ins登录回调地址
-  baseImgPrefix: 'http://oss.swapifly.com/', // 全局oss图片前缀
-  uploadUrl: DOMAIN + '/index.php/index/oss/Upload', // 全局文件上传前缀
-  forbidLink: DOMAIN + '/helpCenter/detail?id=31', // 封禁文章
-  serviceLink: DOMAIN + '/helpCenter/detail?id=2', // 服务条款
-  privateLink: DOMAIN + '/helpCenter/detail?id=32', // 隐私政策
-  serviceEmail: 'swapifly.ga@gmail.com' // 服务邮箱
+export default defineAppConfig(() => {
+  return {
+    name: 'Swapifly - 24小時無休二手買賣平台。集結全球買家、賣家，輕鬆轉讓二手物品， 不論你喺香港定已經移民海外，上Swapifly 一定幫到你。早鳥優惠，注冊賣家帳戶，$0開網店! ',
+    author: {
+      name: '',
+      link: '',
+    },
+  }
 })

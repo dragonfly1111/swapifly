@@ -62,8 +62,8 @@ import {useUserInfo} from "~/stores/userInfo";
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const userInfo = useUserInfo();
 const router = useRouter();
 const clickRateModal = ref(null);

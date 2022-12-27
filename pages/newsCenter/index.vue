@@ -101,8 +101,8 @@ import {newsList, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const searchKey = ref('')
 const dataLoading = ref(true);
 const dataLoading1 = ref(true);

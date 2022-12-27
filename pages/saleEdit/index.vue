@@ -58,9 +58,9 @@ import { useResize } from "~/stores/resize";
 import { delProductDraft, getProductDraftlist } from "~/api/goods";
 const resize = useResize();
 const { t } = useI18n();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
-const uploadUrl = appConfig.uploadUrl;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
+const uploadUrl = runtimeConfig.VITE_UPLOAD ;
 const router = useRouter();
 const uploadLoading = ref(false);
 const pageLoading = ref(true);

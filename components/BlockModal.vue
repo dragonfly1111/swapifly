@@ -41,8 +41,8 @@ import { Message } from "@arco-design/web-vue";
 const userInfo = useUserInfo();
 const router = useRouter();
 const { t } = useI18n();
-const appConfig = useAppConfig();
-const serviceEmail = appConfig.serviceEmail;
+const runtimeConfig = useRuntimeConfig();
+const serviceEmail = runtimeConfig.VITE_SERVICE_EMAIL;
 const visible = ref(false);
 const blockType = ref(1); // 1 用户 2 商品封禁 关闭后不做跳转 3 商品封禁 关闭后跳转到首页 4 商品 非上架状态 5 商品 非上架状态关闭后返回上一页
 const selfType = ref(1); // 1 自己的 2 别人的

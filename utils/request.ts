@@ -1,12 +1,15 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-// todo 切换至env
-import { baseApiPrefix } from '~/config/baseUrl'
-import { Message } from "@arco-design/web-vue";
-import { useUserInfo } from "~/stores/userInfo";
-const request = axios.create({
-  baseURL: baseApiPrefix,
-  timeout: 30000,
-  // withCredentials: true
+import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
+import {Message} from "@arco-design/web-vue";
+import {useUserInfo} from "~/stores/userInfo";
+import {process} from "unenv/runtime/node/process/_process";
+
+// @ts-ignore
+const request = axios.create(() => {
+  return {
+    baseURL: '',
+    timeout: 30000,
+    // withCredentials: true
+  }
 })
 
 const dialogReq = [
@@ -26,6 +29,8 @@ const dialogReq = [
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    const config1 = useRuntimeConfig()
+    config.url = config1.public.VITE_API_BASE + config.url
     const info = process.client ? sessionStorage.getItem('USER-INFO') : ''
     let userObj: any
     if (info) {
@@ -42,7 +47,7 @@ request.interceptors.request.use(
     // config.headers['X-Region'] = 1
     // @ts-ignore
     // config.headers['X-lang'] = 'zh'
-    if(process.client){
+    if (process.client) {
       const areaSetting = useState<string>('area.setting')
       const localeSetting = useState<string>('locale.setting')
       // @ts-ignore
@@ -61,9 +66,9 @@ request.interceptors.request.use(
           var arr = config.data[key]
           // @ts-ignore
           arr.map((item, i) => {
-            if(typeof item === 'object') {
+            if (typeof item === 'object') {
               // 展开数组里的对象
-              for(const itemKey in item){
+              for (const itemKey in item) {
                 formData.append(`${key}[${i}][${itemKey}]`, item[itemKey])
               }
             } else {
@@ -88,6 +93,7 @@ request.interceptors.request.use(
 // 响应拦截
 request.interceptors.response.use(
   (response: AxiosResponse) => {
+    if(!process.client) return response.data
     const userInfo = useUserInfo();
     if (response.data.code === 999) {
       console.log('登录失效拦截')
@@ -99,11 +105,11 @@ request.interceptors.response.use(
       userInfo.openDialog();
       openLogin.value = true;
       // 如果是对话页面相关的接口 跳到首页
-      if(dialogReq.indexOf(<string>response.config.url) !== -1){
+      if (dialogReq.indexOf(<string>response.config.url) !== -1) {
         router.replace('/')
       }
       return Promise.reject({})
-    } else if(response.data.code === 998){
+    } else if (response.data.code === 998) {
       // 账号封禁
       userInfo.openBlockDialog()
       return Promise.reject({})

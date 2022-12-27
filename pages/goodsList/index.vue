@@ -241,8 +241,8 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCore, { Autoplay, Navigation, Pagination, A11y } from "swiper";
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const bannerLoading = ref(true)
 const bradLoading = ref(true)
 const productLoading = ref(true)

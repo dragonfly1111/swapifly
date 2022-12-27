@@ -136,8 +136,8 @@ import { useUserInfo } from "~/stores/userInfo";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const userInfo = useUserInfo();
-const appConfig = useAppConfig();
-const baseImgPrefix = appConfig.baseImgPrefix;
+const runtimeConfig = useRuntimeConfig();
+const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const props = defineProps({
   list: {
     type: Array,
