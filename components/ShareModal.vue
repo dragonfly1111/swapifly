@@ -5,11 +5,11 @@
            :footer="false">
     <div class="login-type-wrap">
       <div class="fb-share-button"
-           :data-href="'https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=' + $route.query.id"
+           :data-href="'https://swapifly.com/goodsDetails?id=' + $route.query.id"
            data-layout="button_count"
            data-size="small">
         <a target="_blank"
-            :href="'https://www.facebook.com/sharer/sharer.php?u=https://swapiflyapi.honglanshuzi.com/swapifly/goodsDetails?id=' + $route.query.id + '&amp;src=sdkpreparse'"
+            :href="'https://www.facebook.com/sharer/sharer.php?u=https://swapifly.com/goodsDetails?id=' + $route.query.id + '&amp;src=sdkpreparse'"
             class="fb-xfbml-parse-ignore">
           <img src="@/assets/images/icon/icon_facebook.png" alt="">
         </a>
