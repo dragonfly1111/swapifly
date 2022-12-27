@@ -260,8 +260,8 @@ exposure:
   countriesRegions: Country or Area
   exposureNums: Impressions
   exposureDays: Days
-  paySuc: Success
-  paySucTip: Successfully purchased exposure
+  paySuc: Thank you for choosing Swapifly’s Purchase Visits! 
+  paySucTip: Your chosen number of impressions has been successfully setup to your item and will complete deliver within the next few days. Please check if you will find “Recommended items” label at the upper left of your item, this implies that the Purchase Visits is effective. If you have any questions, please click your item page’s button “Review Results” to contact us.
   payFail: Payment failed
   payFailTip: Failure to complete payment
   back: Back

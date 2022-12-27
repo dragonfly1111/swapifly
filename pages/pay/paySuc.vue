@@ -71,6 +71,7 @@ getOrderStatus()
     margin-top: 10px;
     color: $grey-font-label;
     font-size: 12px;
+    max-width: 70%;
   }
   .back-but{
     margin-top: 40px;
