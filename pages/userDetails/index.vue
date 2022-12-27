@@ -3,7 +3,12 @@
 
 
     <div class="user-banner">
-      <a-image :src="testImg" fit="cover" show-loader>
+      <a-image class="pc-banner" :src="testImg" fit="cover" show-loader>
+        <template #loader>
+          <div class="loader-animate"/>
+        </template>
+      </a-image>
+      <a-image class="mobile-banner" :src="testImgMobile" fit="cover" show-loader>
         <template #loader>
           <div class="loader-animate"/>
         </template>
@@ -83,6 +88,7 @@ import {useUserInfo} from "~/stores/userInfo";
 import {getUserDetails, followUser} from "~/api/shop";
 import {Message} from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
+import testBannerMobile from "@/assets/images/test-banner-mobile.jpeg";
 
 const userInfo = useUserInfo();
 const router = useRouter();
@@ -96,6 +102,7 @@ const btnLoading = ref(false);
 const pageLoading = ref(true);
 const advert = ref("");
 const testImg = testBanner;
+const testImgMobile = testBannerMobile;
 const activeTab = ref("goodsRow"); //goodsRow
 const hasMounted = ref(false)
 
@@ -206,6 +213,12 @@ onMounted(() => {
 .user-banner {
   width: 100%;
   height: 130px;
+  .pc-banner{
+      display: block;
+    }
+    .mobile-banner{
+      display: none;
+    }
 
   :deep(.arco-image-img) {
     width: 100%;
@@ -308,6 +321,12 @@ onMounted(() => {
   }
   .user-banner {
     height: 105px;
+    .pc-banner{
+      display: none;
+    }
+    .mobile-banner{
+      display: block;
+    }
   }
   .profile-box {
     width: 100%;

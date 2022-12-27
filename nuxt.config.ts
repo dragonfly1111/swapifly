@@ -65,7 +65,8 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/navbar.ts',
     // '~/plugins/piniaPersist.ts',
-    '~/plugins/arco.ts'
+    '~/plugins/arco.ts',
+    '~/plugins/vuestic.ts',
   ],
   css: [
     '~/assets/sass/app.scss',
