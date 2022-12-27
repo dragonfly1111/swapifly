@@ -56,6 +56,11 @@ useHead({
       hid: 'keyword',
       name: 'keyword',
       content: 'swapifly,轉手,二手,轉售,絕版,名牌手袋,手錶,潮流電子,傢私,電器,二手車,物業',
+    },
+    {
+      hid: 'og:image',
+      name: 'og:image',
+      content: 'https://oss.swapifly.com/swapifly/20221227/9b25b39895c7da3b970bbcfd1cc073e5826b8d64.jpg',
     }
   ],
   // todo sdk 支持对语言
