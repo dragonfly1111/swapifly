@@ -500,7 +500,9 @@ const similar = ref({
 
 // 服务端获取商品数据 设置分享属性
 const product = await useAsyncData('product', () => getProductDetails(router.currentRoute.value.query.id))
-const productRef = product.data.value.data.code === 0 ? product.data.value.data.product : null
+console.log(product.data.value)
+const productRef = product.data.value.code === 0 ? product.data.value.data.product : null
+console.log('productRef')
 console.log(productRef)
 if(productRef){
   useHead({

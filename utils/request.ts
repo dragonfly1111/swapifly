@@ -1,14 +1,16 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
 import {Message} from "@arco-design/web-vue";
 import {useUserInfo} from "~/stores/userInfo";
+import { baseApiPrefix } from '~/config/baseUrl'
 
+console.log('baseApiPrefix')
+console.log(baseApiPrefix)
+// todo 想办法放到环境配置
 // @ts-ignore
-const request = axios.create(() => {
-  return {
-    baseURL: '',
-    timeout: 30000,
-    // withCredentials: true
-  }
+const request = axios.create({
+  baseURL: baseApiPrefix,
+  timeout: 30000,
+  // withCredentials: true
 })
 
 const dialogReq = [
@@ -28,8 +30,7 @@ const dialogReq = [
 // 请求拦截
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const config1 = useRuntimeConfig()
-    config.url = config1.public.VITE_API_BASE + config.url
+    // const config1 = useRuntimeConfig()
     const info = process.client ? sessionStorage.getItem('USER-INFO') : ''
     let userObj: any
     if (info) {
