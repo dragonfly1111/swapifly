@@ -76,10 +76,13 @@ const props = defineProps({
 });
 const classListAsync = computed(() => {
   // 如果父组件传了pid 根据pid获取他的子节点作为下拉列表
-  const tmpNode = findNode(sysData.goodsClass, (node) => {
+  if(props.curRid){
+    const tmpNode = findNode(sysData.goodsClass, (node) => {
     return node.id === props.curRid
-  })
-  return tmpNode && tmpNode.children
+    })
+    return tmpNode && tmpNode.children
+  }
+  return sysData.goodsClass
 })
 const treeShow = computed(() => {
   if (!props.curLevel) {
