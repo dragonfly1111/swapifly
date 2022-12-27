@@ -3,7 +3,7 @@
     <div class="common-row">
       <div class="left">
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
-        <span class="info">©2022 Swapifly</span>
+        <span class="info">©2022 Swapifly Limited 轉手快科技有限公司</span>
         <div class="other">
           <a-link @click="$router.push('/helpCenter')">{{$t('foot.helpCenter')}}</a-link>
           <a-link @click="$router.push('/newsCenter')">{{$t('foot.media')}}</a-link>
@@ -18,7 +18,7 @@
     <div class="common-row-mobile">
       <div class="one-row">
         <img class="logo" src="@/assets/images/swapifly-logo.png" alt="">
-        <span class="info">©2022 Swapifly</span>
+        <span class="info">©2022 Swapifly Limited 轉手快科技有限公司</span>
       </div>
       <div class="two-row">
         <span @click="$router.push('/helpCenter')">{{$t('foot.helpCenter')}}</span>
