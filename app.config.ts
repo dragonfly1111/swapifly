@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Autor: ljn
+ * @Date: 2022-12-27 09:08:13
+ * @LastEditors: ljn
+ * @LastEditTime: 2022-12-27 09:10:20
+ */
 // const DOMAIN = 'https://swapiflyapi.honglanshuzi.com'
 const DOMAIN = 'https://swapifly.com'
 
@@ -16,11 +23,11 @@ export default defineAppConfig({
   googleMapKey: 'AIzaSyDS3riYkx_d0VQGPfkH81jxHuOCfXTq5dA',
   // insKey: '490995173091962', // 测试
   insKey: '1298038900984971',
-  insRedirect: DOMAIN + '/swapifly/insAuth', // ins登录回调地址
+  insRedirect: DOMAIN + '/insAuth', // ins登录回调地址
   baseImgPrefix: 'http://oss.swapifly.com/', // 全局oss图片前缀
   uploadUrl: DOMAIN + '/index.php/index/oss/Upload', // 全局文件上传前缀
-  forbidLink: DOMAIN + '/swapifly/helpCenter/detail?id=31', // 封禁文章
-  serviceLink: DOMAIN + '/swapifly/helpCenter/detail?id=2', // 服务条款
-  privateLink: DOMAIN + '/swapifly/helpCenter/detail?id=32', // 隐私政策
+  forbidLink: DOMAIN + '/helpCenter/detail?id=31', // 封禁文章
+  serviceLink: DOMAIN + '/helpCenter/detail?id=2', // 服务条款
+  privateLink: DOMAIN + '/helpCenter/detail?id=32', // 隐私政策
   serviceEmail: 'swapifly.ga@gmail.com' // 服务邮箱
 })
