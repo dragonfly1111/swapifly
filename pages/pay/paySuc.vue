@@ -62,6 +62,7 @@ getOrderStatus()
   align-items: center;
   justify-content: center;
   margin-top: 250px;
+  max-width: 70%;
   .title{
     color: $main-black-333;
     margin-top: 23px;
@@ -79,6 +80,7 @@ getOrderStatus()
     color: $main-white;
     height: 42px;
     width: 300px;
+    margin-bottom: 40px;
   }
 }
 </style>
