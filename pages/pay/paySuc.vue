@@ -64,8 +64,10 @@ getOrderStatus()
   margin-top: 250px;
   .title{
     color: $main-black-333;
-    margin-top: 23px;
     font-size: 18px;
+    max-width: 70%;
+    margin: auto;
+    margin-top: 23px;
   }
   .tip{
     margin-top: 10px;
@@ -79,6 +81,13 @@ getOrderStatus()
     color: $main-white;
     height: 42px;
     width: 300px;
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .pay-res{
+    margin-top: 120px;
   }
 }
 </style>
