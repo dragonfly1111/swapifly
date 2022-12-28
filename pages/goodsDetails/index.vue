@@ -374,8 +374,8 @@
 
       <!-- 举报 -->
       <ReportModal ref="reportModal"></ReportModal>
-
-      <UserAchievementModal ref="userAchievementModal"></UserAchievementModal>
+      <ExposurePayModal ref="exposurePayModal"></ExposurePayModal>
+      <UserAchievementModal ref="userAchievementModal" @handle-exposure-goods="openExposure"></UserAchievementModal>
 
       <NewAndOldModal ref="newAndOldModal"></NewAndOldModal>
 
@@ -467,6 +467,7 @@ const swiperRef = ref(null);
 const newAndOldModal = ref(null);
 const shareModal = ref(null);
 const blockModal = ref(null);
+const exposurePayModal = ref(null);
 const pageLoading = ref(true);
 const btnLoading = ref(false);
 const drawerVisible = ref(false);
@@ -701,6 +702,8 @@ const handleOfferchat = () => {
   });
 };
 
+
+
 // 举报
 const handleReport = () => {
   if (!userInfo.checkLogin()) return;
@@ -797,6 +800,12 @@ const handleShare = () => {
 // 检视成果
 const openAchievement = () => {
   userAchievementModal.value.openDialog(productInfo.value);
+};
+
+// 购买曝光率
+const openExposure = (item) => {
+  userInfo.checkLogin();
+  exposurePayModal.value.openDialog(item.id);
 };
 
 // 查看所有评价
