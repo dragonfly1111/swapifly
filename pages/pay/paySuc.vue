@@ -1,7 +1,8 @@
 <template>
   <div class="common-row global-content">
     <div class="pay-res">
-      <img src="@/assets/images/paySuc.png" alt="">
+      <img v-if="status === 0" src="@/assets/images/paySuc1.png" alt="">
+      <img v-if="status !== 0" src="@/assets/images/paySuc.png" alt="">
       <div class="title" v-if="status === 999">{{ $t('exposure.noOrder') }}</div>
       <div class="title" v-if="status === 1">{{ $t('exposure.orderLoading') }}</div>
       <div class="title" v-else-if="status === 0">{{ $t('exposure.paySuc') }}</div>
