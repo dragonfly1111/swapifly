@@ -88,7 +88,7 @@ import {useUserInfo} from "~/stores/userInfo";
 import {getUserDetails, followUser} from "~/api/shop";
 import {Message} from "@arco-design/web-vue";
 import testBanner from "@/assets/images/test-banner.png";
-import testBannerMobile from "@/assets/images/test-banner-mobile.jpeg";
+import testBannerMobile from "@/assets/images/test-banner-mobile.png";
 
 const userInfo = useUserInfo();
 const router = useRouter();

@@ -148,7 +148,7 @@ useHead({
       src: 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
     },
     {
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6048577945842361', crossorigin: 'anonymous'
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6048577945842361', async: true, defer: true, crossorigin: 'anonymous'
     }
   ]
 })
