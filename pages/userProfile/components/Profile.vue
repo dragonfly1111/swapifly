@@ -6,9 +6,9 @@
     <a-skeleton :loading="pageLoading" :animation="true">
       <h4 class="title">{{ $t("profile.user_head_portrait") }}</h4>
       <div style="margin-top: 22px; display: flex; align-items: flex-end">
-        <a-skeleton-shape shape="circle" size="large" />
+        <a-skeleton-shape shape="circle" size="large" style="flex-shrink: 0;" />
         <div style="width: 28px"></div>
-        <a-skeleton-line :rows="1" :line-height="50" :widths="[300]" />
+        <a-skeleton-line :rows="1" :line-height="50" :widths="[200]" />
       </div>
       <h4 class="title">{{ $t("profile.open_user_profile") }}</h4>
       <a-space direction="vertical" :style="{ width: '100%' }" size="large">
