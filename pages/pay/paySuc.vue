@@ -84,4 +84,10 @@ getOrderStatus()
     margin-bottom: 40px;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .pay-res{
+    margin-top: 150px;
+  }
+}
 </style>
