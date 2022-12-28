@@ -68,7 +68,6 @@ getOrderStatus()
     max-width: 70%;
     margin: auto;
     margin-top: 23px;
-
   }
   .tip{
     margin-top: 10px;
