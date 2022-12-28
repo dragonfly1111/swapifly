@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Autor: ljn
+ * @Date: 2022-12-27 09:08:14
+ * @LastEditors: ljn
+ * @LastEditTime: 2022-12-28 17:52:44
+-->
 <template>
   <div class="common-row global-content">
     <div class="pay-res">
@@ -37,6 +44,12 @@ const router = useRouter()
     color: $main-white;
     height: 42px;
     width: 300px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .pay-res{
+    margin-top: 120px;
   }
 }
 </style>

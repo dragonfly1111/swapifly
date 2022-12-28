@@ -87,7 +87,7 @@ getOrderStatus()
 
 @media screen and (max-width: 1000px) {
   .pay-res{
-    margin-top: 150px;
+    margin-top: 120px;
   }
 }
 </style>
