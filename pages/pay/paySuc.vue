@@ -62,11 +62,13 @@ getOrderStatus()
   align-items: center;
   justify-content: center;
   margin-top: 250px;
-  max-width: 70%;
   .title{
     color: $main-black-333;
-    margin-top: 23px;
     font-size: 18px;
+    max-width: 70%;
+    margin: auto;
+    margin-top: 23px;
+
   }
   .tip{
     margin-top: 10px;
