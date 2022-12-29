@@ -128,7 +128,14 @@
             format="YYYY-MM-DD"
             :placeholder="$t('profile.birth_empty')"
           /> -->
-          <va-date-input
+          <el-date-picker
+        v-model="form.birth_time"
+        type="date"
+        :placeholder="$t('profile.birth_empty')"
+        size="default"
+        format="YYYY-MM-DD"
+      />
+          <!-- <va-date-input
             v-model="form.birth_time"
             :format="formatFn"
             :is-open="dateOpen"
@@ -137,7 +144,7 @@
             @click="dateOpen = true"
             @blur="dateOpen = false"
             class="va-date"
-          />
+          /> -->
           <!-- <TempusDatePicker
               v-model="form.birth_time"
               @change="form.birth_time = $event"
@@ -454,6 +461,14 @@ onMounted(() => {
     width: 118px;
     height: 118px;
   }
+  :deep(.el-date-editor){
+    width: 100%;
+    height: 40px;
+    .el-input__wrapper{
+      border-radius: 2px;
+    }
+   
+  }
   .va-date {
     width: 100%;
     @extend .input-box;
@@ -486,6 +501,17 @@ onMounted(() => {
 .save-btn {
   text-align: right;
   margin-top: 20px;
+}
+</style>
+
+<style lang="scss">
+@import "assets/sass/var.scss";
+
+.el-date-table td.current:not(.disabled) .el-date-table-cell__text{
+  background: $main-grey;
+}
+.el-date-table td.today .el-date-table-cell__text{
+  color:  $main-grey;
 }
 </style>
 
