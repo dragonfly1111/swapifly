@@ -36,7 +36,7 @@ import { getBindEmailCode, bindEmail } from "~/api/user";
 import {Message} from "@arco-design/web-vue";
 const {t} = useI18n();
 const emits = defineEmits(['binSuc'])
-const visible = ref(false);
+const visible = ref(true);
 const okLoading = ref(false);
 const sendLoading = ref(false);
 const saveLoading = ref(false);
@@ -172,6 +172,7 @@ defineExpose({
 @media screen and(max-width: 1000px) {
   .bind-email-dialog {
     width: 100%;
+    height: 100%;
     pointer-events: auto;
   }
 }
