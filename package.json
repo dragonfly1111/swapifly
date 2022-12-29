@@ -39,7 +39,6 @@
     "@vuestic/nuxt": "^1.0.9",
     "axios": "^1.1.3",
     "clipboard": "^2.0.11",
-    "element-plus": "^2.2.27",
     "pinia-plugin-persist": "^1.0.0",
     "swiper": "^8.4.5",
     "vuedraggable": "^4.1.0"
