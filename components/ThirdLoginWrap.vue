@@ -1,8 +1,8 @@
 <template>
   <div class="login-type-wrap">
     <img @click="loginThird(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
-    <img @click="loginThird(2)" src="@/assets/images/icon/icon_ins.png" alt="">
-    <img @click="loginThird(3)" src="@/assets/images/icon/icon_gmail.png" alt="">
+    <!-- <img @click="loginThird(2)" src="@/assets/images/icon/icon_ins.png" alt=""> -->
+    <!-- <img @click="loginThird(3)" src="@/assets/images/icon/icon_gmail.png" alt=""> -->
   </div>
 </template>
 
