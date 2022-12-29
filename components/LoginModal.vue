@@ -66,7 +66,7 @@ const rules = reactive({
     {required: true, message: ref(t('loginDialog.formValidate.email'))},
   ],
   pwd: [
-    {required: true, message: ref(t('loginDialog.formValidate.emailCode'))},
+    {required: true, message: ref(t('loginDialog.formValidate.password'))},
   ],
 })
 const changeAcc = (e) => {
