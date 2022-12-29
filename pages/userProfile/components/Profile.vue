@@ -147,10 +147,8 @@
         <a-form-item>
           <div class="preference-row">
             <div class="tip">
-              <a-space>
                 <span class="label-title">{{ $t("profile.preference_title") }}</span>
                 <span class="label-content">{{ form.userlabel }}</span>
-              </a-space>
             </div>
             <div class="edit-but">
               <a-button type="primary" @click="editPreference">{{
@@ -377,11 +375,11 @@ onMounted(() => {
   h4.mb20 {
     margin-bottom: 20px;
   }
+  .label-title{
+    flex-shrink: 0;
+  }
   .label-content {
-    max-width: 365px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 84%;
   }
   .upload-box {
     display: flex;
@@ -425,6 +423,10 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .tip{
+      display: flex;
+      width: 80%;
+    }
   }
   :deep(.arco-input-wrapper) {
     @extend .input-box;
@@ -504,6 +506,10 @@ onMounted(() => {
     }
     .preference-row {
       display: block;
+      .tip{
+        width: 100%;
+        display: block;
+      }
       :deep(.arco-space) {
         align-items: unset;
       }
