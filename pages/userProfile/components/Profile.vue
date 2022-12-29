@@ -128,14 +128,14 @@
             format="YYYY-MM-DD"
             :placeholder="$t('profile.birth_empty')"
           /> -->
-          <el-date-picker
+          <!-- <el-date-picker
         v-model="form.birth_time"
         type="date"
         :placeholder="$t('profile.birth_empty')"
         size="default"
         format="YYYY-MM-DD"
-      />
-          <!-- <va-date-input
+      /> -->
+          <va-date-input
             v-model="form.birth_time"
             :format="formatFn"
             :is-open="dateOpen"
@@ -144,7 +144,7 @@
             @click="dateOpen = true"
             @blur="dateOpen = false"
             class="va-date"
-          /> -->
+          />
           <!-- <TempusDatePicker
               v-model="form.birth_time"
               @change="form.birth_time = $event"

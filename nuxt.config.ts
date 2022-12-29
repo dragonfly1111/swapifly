@@ -67,11 +67,11 @@ export default defineNuxtConfig({
     // '~/plugins/piniaPersist.ts',
     '~/plugins/arco.ts',
     '~/plugins/vuestic.ts',
-    '~/plugins/element-plus.ts',
+    // '~/plugins/element-plus.ts',
   ],
   css: [
     '~/assets/sass/app.scss',
-    'element-plus/dist/index.css',
+    // 'element-plus/dist/index.css',
   ],
   colorMode: {
     classSuffix: '',
