@@ -7,6 +7,7 @@
       data-td-toggle="datetimepicker"
       @input="changeInput"
       :placeholder="$t('profile.countries_birth_empty')"
+      readonly
     ></a-input>
   </div>
 </template>
@@ -124,6 +125,11 @@ defineExpose({
     i {
       color: $main-grey;
     }
+  }
+  .date-container-days {
+    .dow,.old,.new{
+    color: #666 !important;
+  }
   }
 }
 </style>
