@@ -135,7 +135,7 @@
         size="default"
         format="YYYY-MM-DD"
       /> -->
-          <va-date-input
+          <!-- <va-date-input
             v-model="form.birth_time"
             :format="formatFn"
             :is-open="dateOpen"
@@ -144,12 +144,12 @@
             @click="dateOpen = true"
             @blur="dateOpen = false"
             class="va-date"
-          />
-          <!-- <TempusDatePicker
+          /> -->
+          <TempusDatePicker
               v-model="form.birth_time"
               @change="form.birth_time = $event"
               ref="datePicker"
-          ></TempusDatePicker> -->
+          ></TempusDatePicker>
         </a-form-item>
         <a-form-item>
           <div class="preference-row">
@@ -342,7 +342,7 @@ onMounted(() => {
         nextTick(() => {
           // console.log("datePicker.value");
           // console.log(datePicker.value);
-          // datePicker.value && datePicker.value.initPicker(form.birth_time * 1000);
+          datePicker.value && datePicker.value.initPicker(form.birth_time * 1000);
           // datePicker.value && datePicker.value.setInput(form.birth_time)
         });
         form.userlabel = data.userlabel;
