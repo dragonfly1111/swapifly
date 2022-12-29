@@ -461,7 +461,7 @@ onMounted(() => {
       background-color: #fff;
     }
     :deep(.va-dropdown__content){
-      box-shadow: 0 5px 20px 5px #e6e6e6;
+      box-shadow: 0 2px 10px 5px #e6e6e652;
     }
     :deep(.material-icons) {
       color: $main-grey !important;
