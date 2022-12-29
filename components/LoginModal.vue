@@ -116,6 +116,7 @@ const handleCancel = () => {
   // 延迟清空 避免出现先清空了表单 对话框再消失视觉问题
   setTimeout(() => {
     resetForm()
+    formRef.value.clearValidate()
   }, 100)
 }
 

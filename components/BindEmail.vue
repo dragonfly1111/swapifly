@@ -165,3 +165,14 @@ defineExpose({
   }
 }
 </style>
+
+<style lang="scss">
+@import "assets/sass/var";
+
+@media screen and(max-width: 1000px) {
+  .bind-email-dialog {
+    width: 100%;
+    pointer-events: auto;
+  }
+}
+</style>
