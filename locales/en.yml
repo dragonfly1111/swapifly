@@ -179,6 +179,7 @@ profile:
   phone: Phone number
   sex: Gender
   birthday: Birthday
+  age: Age
   birth_empty: Birthday has not been filled in
   preference_title: Area of interest：
   edit_preference: Change preferences
@@ -188,6 +189,7 @@ profile:
   cpwd: Confirm new password
   changeSuc: Password modified successfully, please login again
   formValidate:
+    age: Please enter the correct age
     opwd: Please enter the current password
     cpwd: Please confirm the password
   bindEmail: Please link with your email account

@@ -120,7 +120,11 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item field="birth_time" :label="$t('profile.birthday')">
+        <a-form-item field="age" :label="$t('profile.age')">
+          <a-input-number v-model="form.age"  :precision="0" :min="0" :max="150"/>
+        </a-form-item>
+
+        <!-- <a-form-item field="birth_time" :label="$t('profile.birthday')"> -->
           <!-- <a-date-picker
             v-model="form.birth_time"
             style="width: 100%"
@@ -145,12 +149,12 @@
             @blur="dateOpen = false"
             class="va-date"
           /> -->
-          <TempusDatePicker
+          <!-- <TempusDatePicker
               v-model="form.birth_time"
               @change="form.birth_time = $event"
               ref="datePicker"
-          ></TempusDatePicker>
-        </a-form-item>
+          ></TempusDatePicker> -->
+        <!-- </a-form-item> -->
         <a-form-item>
           <div class="preference-row">
             <div class="tip">
@@ -219,9 +223,10 @@ let form = reactive({
   email: null,
   phone: null,
   sex: null,
-  birth_time: null,
+  // birth_time: null,
   userlabel: null,
   userLabel_id: null,
+  age:null
 });
 let headers = reactive({
   "X-Utoken": null,
@@ -275,7 +280,7 @@ const handleSave = () => {
     const data = JSON.parse(JSON.stringify(form));
     delete data.id;
     data.ularr = data.userLabel_id;
-    data.birth_time = +(new Date(data.birth_time).getTime() / 1000);
+    // data.birth_time = +(new Date(data.birth_time).getTime() / 1000);
     console.log(data);
     btnLoading.value = true;
     for (const item in data) {
@@ -338,11 +343,11 @@ onMounted(() => {
           return item.type === 1;
         });
         form.region = arr.length ? arr[0].id : "";
-        form.birth_time =  new Date(data.birth_time* 1000).toLocaleString();
+        // form.birth_time =  new Date(data.birth_time* 1000).toLocaleString();
         nextTick(() => {
           // console.log("datePicker.value");
           // console.log(datePicker.value);
-          datePicker.value && datePicker.value.initPicker(form.birth_time * 1000);
+          // datePicker.value && datePicker.value.initPicker(form.birth_time * 1000);
           // datePicker.value && datePicker.value.setInput(form.birth_time)
         });
         form.userlabel = data.userlabel;
