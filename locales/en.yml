@@ -33,6 +33,7 @@ foot:
   help: help
   sup: Red Blue Digital Marketing provides technical support
 loginDialog:
+  facebook: Login with Facebook
   title: Login with a third-party platform account
   or: or
   acc: Email account

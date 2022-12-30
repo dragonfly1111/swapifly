@@ -32,6 +32,7 @@ foot:
   news: 新闻
   help: 幫助
 loginDialog:
+  facebook: 用Facebook登入
   title: 使用第三方平台登录
   or: 或
   acc: 邮箱账户

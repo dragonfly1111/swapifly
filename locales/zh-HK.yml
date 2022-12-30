@@ -33,6 +33,7 @@ foot:
   help: 帮助
   sup: 红蓝数字提供技术支持
 loginDialog:
+  facebook: 用Facebook登入
   title: 使用第三方平台帳號登入
   or: 或
   acc: 郵箱賬戶

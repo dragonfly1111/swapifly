@@ -1,6 +1,10 @@
 <template>
   <div class="login-type-wrap">
-    <img @click="loginThird(1)" src="@/assets/images/icon/icon_facebook.png" alt="">
+    <div class="fb-login" @click="loginThird(1)">
+      <img src="@/assets/images/icon/facebook-fill.png" alt="">
+      <div>{{ $t('loginDialog.facebook') }}</div>
+    </div>
+    <!-- <img @click="loginThird(1)" src="@/assets/images/icon/icon_facebook.png" alt=""> -->
     <!-- <img @click="loginThird(2)" src="@/assets/images/icon/icon_ins.png" alt=""> -->
     <!-- <img @click="loginThird(3)" src="@/assets/images/icon/icon_gmail.png" alt=""> -->
   </div>
@@ -90,7 +94,7 @@ const loginThird = (type: number) =>{
   align-items: center;
   justify-content: center;
   margin-top: 24px;
-
+  /**
   img {
     width: 50px;
     height: 50px;
@@ -100,6 +104,22 @@ const loginThird = (type: number) =>{
 
   img + img {
     margin-left: 27px;
+  }
+  **/
+  .fb-login{
+    background-color: $main-blue-d;
+    color: $main-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 7px 0;
+    img{
+      width: 35px;
+      object-fit: contain;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
   }
 }
 
