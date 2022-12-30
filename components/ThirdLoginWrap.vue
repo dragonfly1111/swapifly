@@ -115,6 +115,9 @@ const loginThird = (type: number) =>{
     width: 100%;
     padding: 7px 0;
     cursor: pointer;
+    &:hover{
+      background-color: $main-blue;
+    }
     img{
       width: 35px;
       object-fit: contain;
