@@ -132,22 +132,26 @@ useHead({
   // todo sdk 支持对语言
   script: [
     {
+      // FB SDK
       src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v12.0&appId=${runtimeConfig.VITE_FB_KEY}&autoLogAppEvents=1`,
       async: true,
       defer: true
     },
+    // {
+    //   src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v3.0`,
+    //   async: true,
+    //   defer: true
+    // },
     {
-      src: `https://connect.facebook.net/zh_HK/sdk.js#xfbml=1&version=v3.0`,
-      async: true,
-      defer: true
-    },
-    {
+      // 谷歌账号授权
       src: 'https://accounts.google.com/gsi/client', async: true, defer: true
     },
     {
+      // echart
       src: 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js', async: true, defer: true
     },
     {
+      // 谷歌广告
       src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6048577945842361', async: true, defer: true, crossorigin: 'anonymous'
     }
   ]

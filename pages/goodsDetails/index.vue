@@ -531,7 +531,7 @@ if(productRef){
       {
         hid: "og:image",
         name: "og:image",
-        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.images[0]}`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
       },
       {
         hid: "og:image:width",
