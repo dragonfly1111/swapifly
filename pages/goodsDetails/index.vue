@@ -569,8 +569,8 @@ if(productRef){
         content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
-        hid: "twitter:image",
-        name: "twitter:image",
+        hid: "twitter:image:src",
+        name: "twitter:image:src",
         content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
       },
       {

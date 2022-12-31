@@ -420,8 +420,8 @@ useHead({
       content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
     },
     {
-      hid: "twitter:image",
-      name: "twitter:image",
+      hid: "twitter:image:src",
+      name: "twitter:image:src",
       content: `https://oss.swapifly.com/swapifly/20221231/5151f74b9575be05211fc0e47a8345c49fe01375.jpg`,
     },
     {
