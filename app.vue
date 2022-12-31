@@ -105,7 +105,7 @@ useHead({
     {
       hid: "twitter:card",
       name: "twitter:card",
-      content: 'summary',
+      content: 'product',
     },
     {
       hid: "twitter:site",
