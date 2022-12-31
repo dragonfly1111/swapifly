@@ -139,17 +139,17 @@ const formData = reactive({
   id: null,
   tid: null,
 });
-const rules = reactive({
-  title: [{required: true, message: t("exposure.formValidate.businessTitle")}],
-  address: [{required: true, message: t("exposure.formValidate.businessAddress")}],
-  contact: [{required: true, message: t("exposure.formValidate.businessContact")}],
-  image: [
-    {
-      required: true,
-      message: t("exposure.authApplyForm.businessCertificateTip"),
-    },
-  ],
-});
+// const rules = reactive({
+//   title: [{required: true, message: t("exposure.formValidate.businessTitle")}],
+//   address: [{required: true, message: t("exposure.formValidate.businessAddress")}],
+//   contact: [{required: true, message: t("exposure.formValidate.businessContact")}],
+//   image: [
+//     {
+//       required: true,
+//       message: t("exposure.authApplyForm.businessCertificateTip"),
+//     },
+//   ],
+// });
 const updatePage = () => {
   emits("change");
 };

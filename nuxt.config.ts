@@ -81,9 +81,9 @@ export default defineNuxtConfig({
   intlify: {
     localeDir: 'locales',
     vueI18n: {
-      locale: 'zh',
-      fallbackLocale: 'zh',
-      availableLocales: ['zh', 'en'],
+      locale: 'zh-HK',
+      fallbackLocale: 'zh-HK',
+      availableLocales: ['zh-HK', 'en'],
     },
   },
   vite: {
