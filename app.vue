@@ -59,32 +59,32 @@ useHead({
     },
     {
       hid: "og:url",
-      name: "og:url",
+      property: "og:url",
       content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}`,
     },
     {
       hid: "og:type",
-      name: "og:type",
+      property: "og:type",
       content: 'website',
     },
     {
       hid: "og:title",
-      name: "og:title",
+      property: "og:title",
       content: app.name,
     },
     {
       hid: "og:description",
-      name: "og:description",
+      property: "og:description",
       content: 'Swapifly轉手快是一家創立於香港的分類在線交易平台,專注於限量版和奢侈品的轉售。無論身處香港本地或已移民海外, 均可輕鬆放隻或搜羅絕版心頭好，如: 各式名牌手袋手錶、潮流電子、傢俬、電器、二手車或物業等。立即登入Swapifly開始轉手快的體驗。',
     },
     {
       hid: "og:image",
-      name: "og:image",
+      property: "og:image",
       content: `https://oss.swapifly.com/swapifly/20221231/5151f74b9575be05211fc0e47a8345c49fe01375.jpg`,
     },
     {
       hid: "og:favicon",
-      name: "og:favicon",
+      property: "og:favicon",
       content: `https://oss.swapifly.com/swapifly/20221231/5151f74b9575be05211fc0e47a8345c49fe01375.jpg`,
     },
     {

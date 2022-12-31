@@ -510,37 +510,37 @@ if(productRef){
     meta: [
       {
         hid: "og:url",
-        name: "og:url",
+        property: "og:url",
         content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "og:type",
-        name: "og:type",
+        property: "og:type",
         content: 'website',
       },
       {
         hid: "og:title",
-        name: "og:title",
+        property: "og:title",
         content: productRef.title,
       },
       {
         hid: "og:description",
-        name: "og:description",
+        property: "og:description",
         content: productRef.describe,
       },
       {
         hid: "og:image",
-        name: "og:image",
+        property: "og:image",
         content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
       },
       {
         hid: "og:image:width",
-        name: "og:image:width",
+        property: "og:image:width",
         content: 300,
       },
       {
         hid: "og:image:height",
-        name: "og:image:height",
+        property: "og:image:height",
         content: 200,
       },
       {
