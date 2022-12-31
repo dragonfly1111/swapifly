@@ -571,7 +571,7 @@ if(productRef){
       {
         hid: "twitter:image",
         name: "twitter:image",
-        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.images[0]}`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
       },
       {
         hid: "twitter:image:width",
