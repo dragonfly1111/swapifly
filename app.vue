@@ -120,7 +120,7 @@ useHead({
     {
       hid: "twitter:image:width",
       name: "twitter:image:width",
-      content: 200,
+      content: 300,
     },
     {
       hid: "twitter:image:height",

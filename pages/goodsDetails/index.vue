@@ -536,7 +536,7 @@ if(productRef){
       {
         hid: "og:image:width",
         name: "og:image:width",
-        content: 200,
+        content: 300,
       },
       {
         hid: "og:image:height",
@@ -544,14 +544,14 @@ if(productRef){
         content: 200,
       },
       {
+        hid: "twitter:card",
+        name: "twitter:card",
+        content: 'summary',
+      },
+      {
         hid: "twitter:title",
         name: "twitter:title",
         content: productRef.title,
-      },
-      {
-        hid: "twitter:url",
-        name: "twitter:url",
-        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
       },
       {
         hid: "twitter:description",
@@ -559,29 +559,9 @@ if(productRef){
         content: productRef.describe,
       },
       {
-        hid: "twitter:card",
-        name: "twitter:card",
-        content: 'product',
-      },
-      {
-        hid: "twitter:site",
-        name: "twitter:site",
-        content: `${runtimeConfig.VITE_DOMAIN}/swapifly/goodsDetails?id=${router.currentRoute.value.query.id}`,
-      },
-      {
-        hid: "twitter:image:src",
-        name: "twitter:image:src",
+        hid: "twitter:image",
+        name: "twitter:image",
         content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
-      },
-      {
-        hid: "twitter:image:width",
-        name: "twitter:image:width",
-        content: 200,
-      },
-      {
-        hid: "twitter:image:height",
-        name: "twitter:image:height",
-        content: 200,
       },
     ],
   });
