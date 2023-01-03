@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'swapifly-prod',
+      name: 'swapifly-test',
       exec_mode: 'cluster',
       instances: 'max',
       script: './.output/server/index.mjs',
@@ -11,7 +11,7 @@ module.exports = {
       },
       env_test: {
         PORT: 3001,
-        NODE_ENV: "development"
+        NODE_ENV: "test"
       }
     }
   ]
