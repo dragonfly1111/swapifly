@@ -43,42 +43,42 @@ const urlLink = ref('');
 const productDetail = ref(null);
 const runtimeConfig = useRuntimeConfig()
 const handleShare = (e) => {
-  const url = runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + route.fullPath.replace('#reloaded', '').replace('/', '')
-  switch (e) {
-    case 1:
-      // FB.ui({
-      //   method: 'share',
-      //   href: url,
-      //   quote: productDetail.value.title
-      // }, function (response) {
-      //   //分享回调
-      //   console.log(response)
-      // })
-      break
-    case 2:
-      if(resize.screenType === 'MOBILE'){
-        window.open('fb-messenger://share?link=' + encodeURIComponent(url) + '&app_id=' + encodeURIComponent(runtimeConfig.VITE_FB_KEY));
-      } else {
+  if(resize.screenType === 'MOBILE'){
+    navigator.share({});
+  } else {
+    const url = runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + route.fullPath.replace('#reloaded', '').replace('/', '')
+    switch (e) {
+      case 1:
+        // FB.ui({
+        //   method: 'share',
+        //   href: url,
+        //   quote: productDetail.value.title
+        // }, function (response) {
+        //   //分享回调
+        //   console.log(response)
+        // })
+        break
+      case 2:
         window.open(`https://www.facebook.com/dialog/send?app_id=${runtimeConfig.VITE_FB_KEY}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
-      }
-      break
-    case 3:
-      let _href = "https://api.whatsapp.com/send?";
-      const text = productDetail.value.title
-      const link = url // 分享的页面
-      _href += "&text=" + encodeURIComponent(link);//标题
-      _href += "&url=" + encodeURIComponent(link);//链接
-      window.open(_href)
-      break
-    case 4:
-      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`)
-      break
-    case 5:
-      const ele = document.createElement("a"); //创建a标签
-      ele.href = `mailto:?to=&subject=${productDetail.value.title}&body=${url}`;
-      // ele.target = "_blank";
-      ele.click();
-      break
+        break
+      case 3:
+        let _href = "https://api.whatsapp.com/send?";
+        const text = productDetail.value.title
+        const link = url // 分享的页面
+        _href += "&text=" + encodeURIComponent(link);//标题
+        _href += "&url=" + encodeURIComponent(link);//链接
+        window.open(_href)
+        break
+      case 4:
+        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`)
+        break
+      case 5:
+        const ele = document.createElement("a"); //创建a标签
+        ele.href = `mailto:?to=&subject=${productDetail.value.title}&body=${url}`;
+        // ele.target = "_blank";
+        ele.click();
+        break
+    }
   }
 };
 
