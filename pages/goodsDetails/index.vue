@@ -781,7 +781,11 @@ const handleLike = () => {
 
 // 分享
 const handleShare = () => {
-  shareModal.value.openDialog(productInfo.value);
+  if(resize.screenType === 'MOBILE'){
+    navigator.share({});
+  } else {
+    shareModal.value.openDialog(productInfo.value);
+  }
 };
 
 // 检视成果
