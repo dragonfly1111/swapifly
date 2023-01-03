@@ -3,7 +3,7 @@
   "packageManager": "pnpm@7.9.0",
   "scripts": {
     "build": "nuxi build",
-    "build:test": "nuxi build --mode dev",
+    "build:test": "nuxi build --mode test",
     "build:prod": "nuxi build --mode production",
     "dev": "nuxi dev --mode dev",
     "dev:prod": "nuxi dev --mode production",
