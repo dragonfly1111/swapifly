@@ -32,11 +32,13 @@
 import {useI18n} from "vue-i18n";
 import {Message} from "@arco-design/web-vue";
 import Clipboard from "clipboard";
+import { useResize } from "~/stores/resize";
 
 const {t} = useI18n();
 let clipboard = null;
 const visible = ref(false);
 const route = useRoute();
+const resize = useResize();
 const urlLink = ref('');
 const productDetail = ref(null);
 const runtimeConfig = useRuntimeConfig()
@@ -54,7 +56,11 @@ const handleShare = (e) => {
       // })
       break
     case 2:
-      window.open(`https://www.facebook.com/dialog/send?app_id=${runtimeConfig.VITE_FB_KEY}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
+      if(resize.screenType === 'MOBILE'){
+        window.open('fb-messenger://share?link=' + encodeURIComponent(url) + '&app_id=' + encodeURIComponent(runtimeConfig.VITE_FB_KEY));
+      } else {
+        window.open(`https://www.facebook.com/dialog/send?app_id=${runtimeConfig.VITE_FB_KEY}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`)
+      }
       break
     case 3:
       let _href = "https://api.whatsapp.com/send?";
