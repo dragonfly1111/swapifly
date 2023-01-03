@@ -561,14 +561,14 @@ if(productRef){
       {
         hid: "twitter:image",
         name: "twitter:image",
-        // content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
-        content: `https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
+        // content: `https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg`,
       },
       {
         hid: "twitter:image:src",
         name: "twitter:image:src",
-        // content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
-        content: `https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg`,
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${productRef.image}`,
+        // content: `https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg`,
       },
     ],
   });
