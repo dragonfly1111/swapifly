@@ -41,7 +41,7 @@ const urlLink = ref('');
 const productDetail = ref(null);
 const runtimeConfig = useRuntimeConfig()
 const handleShare = (e) => {
-  const url = runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + route.fullPath.replace('#reloaded', '')
+  const url = runtimeConfig.VITE_DOMAIN + runtimeConfig.VITE_PUBLIC_URL + route.fullPath.replace('#reloaded', '').replace('/', '')
   switch (e) {
     case 1:
       // FB.ui({
