@@ -73,7 +73,7 @@ const formData = reactive<IRegisterForm>({
 const rules = reactive({
   email: [
     {required: true, message: ref<string>(t('loginDialog.formValidate.email'))},
-    {type: 'email', message: ref<string>(t('loginDialog.formValidate.emailErr'))}
+    {match: /^[a-z0-9]+(?:\.{0,1}[\w|-]+)*@[\w|-]+\.[a-z]{2,}(?:\.{0,1}[a-z]+)*/, message: ref<string>(t('loginDialog.formValidate.emailErr'))}
   ],
   code: [
     {required: true, message: ref<string>(t('loginDialog.formValidate.emailCode'))},
