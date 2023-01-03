@@ -70,7 +70,7 @@ const handleShare = (e) => {
     case 5:
       const ele = document.createElement("a"); //创建a标签
       ele.href = `mailto:?to=&subject=${productDetail.value.title}&body=${url}`;
-      ele.target = "_blank";
+      // ele.target = "_blank";
       ele.click();
       break
   }
