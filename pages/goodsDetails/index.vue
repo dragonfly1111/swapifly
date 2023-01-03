@@ -783,9 +783,9 @@ const handleLike = () => {
 const handleShare = () => {
   if(resize.screenType === 'MOBILE'){
     navigator.share({
-      title: productInfo.value.title,
-      text: productInfo.value.describe,
-      url: location.href
+      title: '',
+      text: '',
+      url: ''
     });
   } else {
     shareModal.value.openDialog(productInfo.value);
