@@ -782,7 +782,11 @@ const handleLike = () => {
 // 分享
 const handleShare = () => {
   if(resize.screenType === 'MOBILE'){
-    navigator.share({});
+    navigator.share({
+      title: productInfo.value.title,
+      text: productInfo.value.describe,
+      url: location.href
+    });
   } else {
     shareModal.value.openDialog(productInfo.value);
   }
