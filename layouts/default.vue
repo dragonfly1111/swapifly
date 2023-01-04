@@ -8,9 +8,13 @@
     <HelpFooter v-else-if="headType === 'help' && needFoot"/>
     <div style="height: 50px;" v-if="needPb"></div>
     <a-button v-if="userInfo.token && needSell" class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">
+<!--    <a-button class="mobile-sell" type="primary" @click.stop="router.push('/saleEdit')">-->
       {{ $t('head.sell') }}
     </a-button>
 
+    <div v-if="needHome" class="float-home" @click.stop="router.push('/')">
+      <img src="@/assets/images/icon/go-home.svg" alt="">
+    </div>
   </main>
 </template>
 <script setup>
@@ -18,6 +22,7 @@ import {useUserInfo} from "~/stores/userInfo";
 
 const router = useRouter()
 const headType = ref('common')
+const needHome = ref(false)
 const needFoot = ref(true)
 const needSell = ref(true)
 const needPb = ref(false)
@@ -62,6 +67,11 @@ const needPaddingBRoute = [
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   console.log('watch', newValue);
+  if(newValue === '/'){
+    needHome.value = false
+  } else {
+    needHome.value = true
+  }
   if (helpArr.indexOf(newValue) !== -1) {
     headType.value = 'help'
   } else if (newsArr.indexOf(newValue) !== -1) {
@@ -116,6 +126,19 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     z-index: 99;
     height: 35px;
     width: 82px;
+  }
+  .float-home{
+    display: block;
+    position: fixed;
+    width: 38px;
+    height: 38px;
+    right: 4%;
+    bottom: 120px;
+    img{
+      width: 38px;
+      height: 38px;
+    }
+
   }
 }
 </style>
