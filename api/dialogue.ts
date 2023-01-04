@@ -2,17 +2,19 @@ import request from '../utils/request'
 
 // 获取对话列表
 export const getChatList = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/index',
+    url: config.VITE_API_BASE + '/index/chat/index',
     method: 'get',
     params
   })
 }
 
 // 获取对话元信息
-export const getChatMeta= (params: any) => {
+export const getChatMeta = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/dialoguestate',
+    url: config.VITE_API_BASE + '/index/chat/dialoguestate',
     method: 'get',
     params
   })
@@ -20,8 +22,9 @@ export const getChatMeta= (params: any) => {
 
 // 获取对话详情
 export const getChatDetail = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/details',
+    url: config.VITE_API_BASE + '/index/chat/details',
     method: 'get',
     params
   })
@@ -29,8 +32,9 @@ export const getChatDetail = (params: any) => {
 
 // 发送信息
 export const postMsg = (data: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/add',
+    url: config.VITE_API_BASE + '/index/chat/add',
     method: 'post',
     data
   })
@@ -38,8 +42,9 @@ export const postMsg = (data: any) => {
 
 // 评价
 export const addEvaluation = (data: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/evaluation',
+    url: config.VITE_API_BASE + '/index/chat/evaluation',
     method: 'post',
     data
   })
@@ -47,8 +52,9 @@ export const addEvaluation = (data: any) => {
 
 // 查看评价
 export const viewEvaluation = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/view',
+    url: config.VITE_API_BASE + '/index/chat/view',
     method: 'get',
     params
   })
@@ -56,8 +62,9 @@ export const viewEvaluation = (params: any) => {
 
 // 标记售出
 export const setSoldOut = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/soldout',
+    url: config.VITE_API_BASE + '/index/chat/soldout',
     method: 'get',
     params
   })
@@ -65,8 +72,9 @@ export const setSoldOut = (params: any) => {
 
 // 封存 / 取消封存
 export const fcsave = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/fcsave',
+    url: config.VITE_API_BASE + '/index/chat/fcsave',
     method: 'get',
     params
   })
@@ -74,8 +82,9 @@ export const fcsave = (params: any) => {
 
 // 封锁 / 取消封锁
 export const fssave = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/fssave',
+    url: config.VITE_API_BASE + '/index/chat/fssave',
     method: 'get',
     params
   })
@@ -83,16 +92,18 @@ export const fssave = (params: any) => {
 
 // 删除对话
 export const deleteChat = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/delete',
+    url: config.VITE_API_BASE + '/index/chat/delete',
     method: 'get',
     params
   })
 }
 // 对话
 export const toDialogue = (id: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/chat/dialogue?id=' + id,
+    url: config.VITE_API_BASE + '/index/chat/dialogue?id=' + id,
     method: 'get',
   })
 }

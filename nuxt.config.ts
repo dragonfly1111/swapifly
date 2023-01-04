@@ -27,7 +27,6 @@ console.log(envName)
 const envData = loadEnv(envName, 'env') as unknown as VITE_ENV_CONFIG
 console.log('envData')
 console.log(envData)
-
 declare module '@nuxt/schema' {
   interface NuxtConfig {
     intlify?: IntlifyModuleOptions

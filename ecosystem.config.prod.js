@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'swapifly-test',
+      name: 'swapifly-prod',
       exec_mode: 'cluster',
       instances: 'max',
       script: './.output/server/index.mjs',

@@ -5,7 +5,7 @@
     "build": "nuxi build",
     "build:test": "nuxi build --mode test",
     "build:prod": "nuxi build --mode production",
-    "dev": "nuxi dev --mode dev",
+    "dev:test": "nuxi dev --mode test",
     "dev:prod": "nuxi dev --mode production",
     "start": "node .output/server/index.mjs",
     "lint": "eslint .",

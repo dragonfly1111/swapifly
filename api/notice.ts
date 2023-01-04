@@ -2,8 +2,9 @@ import request from '../utils/request'
 
 // 通知消息
 export const noticelist = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/user_center/noticelist',
+    url: config.VITE_API_BASE + '/index/user_center/noticelist',
     method: 'get',
     params
   })

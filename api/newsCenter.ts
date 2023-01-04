@@ -2,8 +2,9 @@ import request from '../utils/request'
 
 // 新闻列表
 export const newsList = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/news/index',
+    url: config.VITE_API_BASE + '/index/news/index',
     method: 'get',
     params
   })
@@ -11,16 +12,18 @@ export const newsList = (params: any) => {
 
 // 近期新闻
 export const recentNews = () => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/news/nearfuture',
+    url: config.VITE_API_BASE + '/index/news/nearfuture',
     method: 'get'
   })
 }
 
 // 新闻详情
 export const newsDetail = (params: any) => {
+  const config = useRuntimeConfig()
   return request({
-    url: '/index/news/details',
+    url: config.VITE_API_BASE + '/index/news/details',
     method: 'get',
     params
   })

@@ -26,8 +26,6 @@ const userInfo = useUserInfo()
 AppSetup()
 const app = useAppConfig()
 const runtimeConfig = useRuntimeConfig()
-console.log('app')
-console.log(app)
 // const route = useRoute()
 // const router = useRouter()
 useAsyncData(async (ctx) => {

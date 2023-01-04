@@ -335,7 +335,6 @@ const initPageData = () => {
 initPageData();
 
 useAsyncData(async (ctx) => {
-  console.log("ctx1");
   const lang = ctx.payload.state["$slocale.setting"];
   const area = ctx.payload.state["$sarea.setting"];
   const localeSetting = useState("locale.setting");

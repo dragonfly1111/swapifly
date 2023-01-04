@@ -66,7 +66,6 @@ const needPaddingBRoute = [
 
 
 watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
-  console.log('watch', newValue);
   if(newValue === '/'){
     needHome.value = false
   } else {

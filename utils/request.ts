@@ -1,14 +1,11 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
-import {Message} from "@arco-design/web-vue";
-import {useUserInfo} from "~/stores/userInfo";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Message } from "@arco-design/web-vue";
+import { useUserInfo } from "~/stores/userInfo";
 import { baseApiPrefix } from '~/config/baseUrl'
-
-console.log('baseApiPrefix')
-console.log(baseApiPrefix)
 // todo 想办法放到环境配置
 // @ts-ignore
 const request = axios.create({
-  baseURL: baseApiPrefix,
+  // baseURL: baseApiPrefix,
   timeout: 30000,
   // withCredentials: true
 })
