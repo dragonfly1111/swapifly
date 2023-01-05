@@ -110,6 +110,9 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
   .mobile-sell {
     display: none;
   }
+  .float-home{
+    display: none;
+  }
 }
 
 // 移动端
@@ -137,7 +140,6 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
       width: 38px;
       height: 38px;
     }
-
   }
 }
 </style>
