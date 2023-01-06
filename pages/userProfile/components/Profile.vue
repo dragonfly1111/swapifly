@@ -279,7 +279,7 @@ const handleSave = () => {
     const data = JSON.parse(JSON.stringify(form));
     delete data.id;
     data.ularr = data.userLabel_id;
-    data.age = data.age || null
+    data.age = data.age || ( data.age == 0 ? 0 : '')
     // data.birth_time = +(new Date(data.birth_time).getTime() / 1000);
     btnLoading.value = true;
     for (const item in data) {
@@ -338,7 +338,7 @@ onMounted(() => {
         form.email = data.email;
         form.phone = data.phone;
         form.sex = data.sex;
-        form.age = data.age
+        form.age =  (data.age || data.age == '0') ? +data.age : '' // 转为number
         const arr = data.region.filter((item) => {
           return item.type === 1;
         });
