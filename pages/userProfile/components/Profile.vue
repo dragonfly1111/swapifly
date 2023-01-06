@@ -276,12 +276,11 @@ const changeDay = (e) => {
 const handleSave = () => {
   formRef.value.validate().then((validate) => {
     if (validate) return;
-    console.log(form);
     const data = JSON.parse(JSON.stringify(form));
     delete data.id;
     data.ularr = data.userLabel_id;
+    data.age = data.age || null
     // data.birth_time = +(new Date(data.birth_time).getTime() / 1000);
-    console.log(data);
     btnLoading.value = true;
     for (const item in data) {
       if (data[item] === null) {
@@ -339,6 +338,7 @@ onMounted(() => {
         form.email = data.email;
         form.phone = data.phone;
         form.sex = data.sex;
+        form.age = data.age
         const arr = data.region.filter((item) => {
           return item.type === 1;
         });
