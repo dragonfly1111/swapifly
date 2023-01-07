@@ -79,5 +79,15 @@ export const getUserProductReport = (id: any) => {
     method: 'post',
   })
 }
+// 搜索商户
+export const getShopList = (params: any) => {
+  const config = useRuntimeConfig()
+  return request({
+    url: config.VITE_API_BASE + '/index/search/shoplist',
+    method: 'get',
+    params
+
+  })
+}
 
 

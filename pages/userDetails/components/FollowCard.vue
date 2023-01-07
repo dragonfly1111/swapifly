@@ -20,7 +20,7 @@
         class="black-btn"
         :loading="btnLoading"
         v-if="item.type == 1"
-        @click="handleFollow(item, index)"
+        @click.stop="handleFollow(item, index)"
         >{{ $t("pages.followIn") }}</a-button
       >
     </div>

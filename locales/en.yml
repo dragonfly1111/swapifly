@@ -23,6 +23,8 @@ head:
   collectionKey: Collect
   collectionSuc: Success
   deleteSuc: Deletion succeeded
+  search: Search
+  user: User
 foot:
   helpCenter: Help Center
   media: News
@@ -153,6 +155,9 @@ pages:
   reviews: Reviews
   searchResult: search results
   has: ''
+  searchUser: User search result for 
+  searchUserEmpty: No User
+  searchUserEmptyTip: Sorry, we couldn’t find anyone
 profile:
   edit_profile: Edit file
   mobile_setting: Setup

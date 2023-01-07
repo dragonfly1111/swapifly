@@ -23,6 +23,8 @@ head:
   collectionKey: 收藏關鍵詞
   collectionSuc: 收藏成功
   deleteSuc: 删除成功
+  search: 搜尋
+  user: 用戶
 foot:
   helpCenter: 幫助中心
   media: 媒體新聞
@@ -153,6 +155,9 @@ pages:
   reviews: 获得的评价
   searchResult: 個搜尋結果
   has: 有
+  searchUser: 用戶搜索
+  searchUserEmpty: 暫無用戶
+  searchUserEmptyTip: 沒有符合條件的用戶
 profile:
   edit_profile: 編輯檔案
   mobile_setting: 設置

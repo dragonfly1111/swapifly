@@ -23,6 +23,8 @@ head:
   collectionKey: 收藏关键词
   collectionSuc: 收藏成功
   deleteSuc: 删除成功
+  search: 搜索
+  user: 用戶
 foot:
   helpCenter: 帮助中心
   media: 媒体新闻
