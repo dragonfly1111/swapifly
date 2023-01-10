@@ -19,7 +19,7 @@
           :key="item.id"
           @click="router.push('/userDetails?userId=' + item.id)"
         >
-          <a-image :src="baseImgPrefix + item.avatar" fit="cover" show-loader>
+          <a-image :src="baseImgPrefix + item.avatar" fit="cover" show-loader :preview="false">
             <template #loader>
               <div class="loader-animate" />
             </template>
