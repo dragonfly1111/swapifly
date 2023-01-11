@@ -174,34 +174,36 @@
                   />
                 </template>
               </a-input-search>
-              <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
-                <!--              <div class="search-suggest show-suggest">-->
-                <div class="white-wrap wrap">
-                  {{ $t("head.searchHis") }}
-                </div>
-                <template v-if="searchLog.length === 0">
-                  <a-empty />
-                </template>
-                <template v-else>
-                  <div
-                    class="gray-wrap wrap"
-                    v-for="item in searchLog"
-                    @click="handleHis(item.title)"
-                  >
-                    {{ item.title }}
+              <div :class="suggestDialogShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
+<!--                              <div class="search-suggest show-suggest">-->
+                <template v-if="suggestShow">
+                  <div class="white-wrap wrap">
+                    {{ $t("head.searchHis") }}
                   </div>
-                </template>
-                <div class="white-wrap wrap">
-                  {{ $t("head.collectionKey") }}
-                </div>
-                <template v-if="collectionList.length === 0">
-                  <a-empty />
-                </template>
-                <template v-else>
-                  <div class="gray-wrap wrap" v-for="item in collectionList">
-                    <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
-                    <icon-close @click.stop="deleteHis(item.id)" />
+                  <template v-if="searchLog.length === 0">
+                    <a-empty />
+                  </template>
+                  <template v-else>
+                    <div
+                        class="gray-wrap wrap"
+                        v-for="item in searchLog"
+                        @click="handleHis(item.title)"
+                    >
+                      {{ item.title }}
+                    </div>
+                  </template>
+                  <div class="white-wrap wrap">
+                    {{ $t("head.collectionKey") }}
                   </div>
+                  <template v-if="collectionList.length === 0">
+                    <a-empty />
+                  </template>
+                  <template v-else>
+                    <div class="gray-wrap wrap" v-for="item in collectionList">
+                      <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
+                      <icon-close @click.stop="deleteHis(item.id)" />
+                    </div>
+                  </template>
                 </template>
                 <div v-if="searchKey" class="wrap user-wrap" @click="toSearchUser">
                   <icon-user :size="20" />
@@ -256,34 +258,37 @@
               </template>
             </a-input-search>
             <div v-else>{{ dialogName || "" }}</div>
-            <div :class="suggestShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
-              <div class="white-wrap wrap">
-                {{ $t("head.searchHis") }}
-              </div>
-              <template v-if="searchLog.length === 0">
-                <a-empty />
-              </template>
-              <template v-else>
-                <div
-                  class="gray-wrap wrap"
-                  v-for="item in searchLog"
-                  @click="handleHis(item.title)"
-                >
-                  {{ item.title }}
+            <div :class="suggestDialogShow ? 'show-suggest' : 'hide-suggest'" class="search-suggest">
+              <template v-if="suggestShow">
+                <div class="white-wrap wrap">
+                  {{ $t("head.searchHis") }}
                 </div>
-              </template>
-              <div class="white-wrap wrap">
-                {{ $t("head.collectionKey") }}
-              </div>
-              <template v-if="collectionList.length === 0">
-                <a-empty />
-              </template>
-              <template v-else>
-                <div class="gray-wrap wrap" v-for="item in collectionList">
-                  <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
-                  <icon-close @click.stop="deleteHis(item.id)" />
+                <template v-if="searchLog.length === 0">
+                  <a-empty />
+                </template>
+                <template v-else>
+                  <div
+                      class="gray-wrap wrap"
+                      v-for="item in searchLog"
+                      @click="handleHis(item.title)"
+                  >
+                    {{ item.title }}
+                  </div>
+                </template>
+                <div class="white-wrap wrap">
+                  {{ $t("head.collectionKey") }}
                 </div>
+                <template v-if="collectionList.length === 0">
+                  <a-empty />
+                </template>
+                <template v-else>
+                  <div class="gray-wrap wrap" v-for="item in collectionList">
+                    <div class="his-title" @click="handleHis(item.title)">{{ item.title }}</div>
+                    <icon-close @click.stop="deleteHis(item.id)" />
+                  </div>
+                </template>
               </template>
+
               <div v-if="searchKey" class="wrap user-wrap" @click="toSearchUser">
                 <icon-user :size="15" />
                 <span>{{ $t("head.search") }} “{{ searchKey }}” {{ $t("head.user") }}</span>
@@ -385,6 +390,7 @@ const resetPwdModal = ref(null);
 const blockModal = ref(null);
 const mobilePersonCenterModal = ref(null);
 const dropShow = ref(false);
+const suggestDialogShow = ref(false);
 const suggestShow = ref(false);
 const sysData = useSysData();
 const searchLog = ref([]);
@@ -517,6 +523,7 @@ function toSearchResult() {
   inputSearchPc.value && inputSearchPc.value.blur();
   inputSearchM.value && inputSearchM.value.blur();
   suggestShow.value = false;
+  suggestDialogShow.value = false;
   router.push({
     path: "/searchResult",
     query: {
@@ -531,15 +538,22 @@ function changeSearchKey(e) {
 
 function openHisPanel() {
   // 如果未登录 不展示搜索下拉框
-  if (!userInfo.token) return;
-  searchLog.value = sysData.searchLog;
-  collectionList.value = sysData.collectionList;
-  suggestShow.value = true;
+  if (!userInfo.token) {
+    suggestShow.value = false
+    suggestDialogShow.value = true
+  } else {
+    searchLog.value = sysData.searchLog;
+    collectionList.value = sysData.collectionList;
+    suggestShow.value = true;
+    suggestDialogShow.value = true
+  }
+  console.log(suggestDialogShow.value)
+  console.log(suggestShow.value)
 }
 
 function hideHisPanel() {
   setTimeout(() => {
-    suggestShow.value = false;
+    suggestDialogShow.value = false
   }, 200);
 }
 
@@ -624,6 +638,7 @@ function toSearchUser() {
     },
   });
   suggestShow.value = false;
+  suggestDialogShow.value = false
 }
 </script>
 <style lang="scss" scoped>
@@ -960,7 +975,7 @@ function toSearchUser() {
       }
 
       .show-suggest {
-        max-height: 330px;
+        max-height: 350px;
       }
 
       .hide-suggest {
@@ -1153,7 +1168,7 @@ function toSearchUser() {
           }
 
           .show-suggest {
-            max-height: 330px;
+            max-height: 350px;
           }
 
           .hide-suggest {
