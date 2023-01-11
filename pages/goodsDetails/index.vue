@@ -147,7 +147,7 @@
                         expandable: true,
                       }"
                       >
-                        {{ productInfo.describe }}
+                        <div style="white-space: pre-wrap">{{ productInfo.describe }}</div>
                         <template #expand-node="{ expanded }">
                           {{ expanded ? $t("pages.expanded") : $t("pages.unfoldMore") }}
                         </template>
