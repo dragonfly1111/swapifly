@@ -36,7 +36,7 @@
         <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
         <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
         <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
-                    v-if="form.shop == 1 && form.p_type == 2">
+                    v-if="form.p_type == 2">
         </a-tab-pane>
       </a-tabs>
       <div class="tab-content" v-if="hasMounted">
@@ -58,7 +58,7 @@
           <a-tab-pane key="goodsRow" :title="$t('pages.goods')"></a-tab-pane>
           <a-tab-pane key="evaluateRow" :title="$t('pages.evaluate')"></a-tab-pane>
           <a-tab-pane key="businessInformation" :title="$t('pages.businessInformation')"
-                      v-if="form.shop == 1 && form.p_type == 2">
+                      v-if="form.p_type == 2">
           </a-tab-pane>
         </a-tabs>
         <div class="right-content">
