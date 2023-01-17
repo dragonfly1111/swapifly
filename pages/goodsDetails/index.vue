@@ -323,7 +323,7 @@
                       >{{ $t("pages.viewtheResults") }}
                       </a-button>
                     </div>
-                    <AD width="86%" height="560px" :advert="googleAd.content"></AD>
+                    <AD width="86%" height="560px" :advert="googleAd.content_s"></AD>
                   </div>
                 </div>
                 <!-- 相似商品 -->
