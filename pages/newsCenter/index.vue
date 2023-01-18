@@ -47,6 +47,7 @@
               <a-image
                   :src="baseImgPrefix + item.img"
                   fit="cover"
+                  :preview="false"
                   show-loader>
                 <template #loader>
                   <div class="loader-animate"/>

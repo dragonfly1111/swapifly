@@ -1,7 +1,7 @@
 <template>
   <div class="global-content">
     <div class="news-head common-row">
-      <div class="left">{{ $t('newsCenter.title') }}</div>
+      <div class="left" @click="router.push('/newsCenter')">{{ $t('newsCenter.title') }}</div>
       <div class="right">
         <a-input-search class="search-input" v-model="searchKey" @search="searchHandle" @press-enter="searchHandle" :placeholder="$t('newsCenter.search')"
                         search-button/>
@@ -19,18 +19,22 @@
           <div class="title">{{ newsDataDetail.title }}</div>
           <div class="content" v-html="newsDataDetail.details"></div>
           <div class="recent">
-            <div>
+            <div class="recent-title">
               <span class="block-title">{{ $t('newsCenter.recent') }}</span>
+              <span class="more" @click="router.push('/newsCenter')">
+                {{ $t('newsCenter.more') }}
+                <icon-left style="transform: rotate(180deg)"></icon-left>
+              </span>
             </div>
             <div class="recent-wrap">
               <div class="news-block" v-for="item in recentNewsList.slice(0, 3)" @click="toNewsDetail(item)">
-                <a-image width="237" height="170" fit="cover" show-loader :src="baseImgPrefix + item.img">
+                <a-image :width="resize.screenType === 'MOBILE' ? '100%' : 237" height="170" :preview="false" fit="cover" show-loader :src="baseImgPrefix + item.img">
                   <template #loader>
                     <div class="loader-animate"/>
                   </template>
                 </a-image>
                 <div class="news-block-title">{{ item.title }}</div>
-                <div class="news-block-title">{{ item.news_time }}</div>
+                <div class="news-block-title news-block-time">{{ item.news_time }}</div>
               </div>
             </div>
             <div class="line"></div>
@@ -119,6 +123,8 @@ import {newsDetail, recentNews} from "~/api/newsCenter";
 import {Message} from "@arco-design/web-vue";
 import {parseTime} from "~/utils/time";
 import {watch} from "vue";
+import { useResize } from "~/stores/resize";
+
 const runtimeConfig = useRuntimeConfig();
 const baseImgPrefix =  runtimeConfig.VITE_OSS_PREFIX
 const router = useRouter()
@@ -130,7 +136,83 @@ let recentNewsList = ref([]);
 let preNews = ref({});
 let nextNews = ref({});
 const searchKey = ref('');
+const resize = useResize()
 
+// 服务端获取新闻数据 设置分享属性
+const newsData = await useAsyncData('newsData', () => newsDetail({
+  id: route.query.id
+}))
+console.log(newsData.data.value)
+const newsDataRef = newsData.data.value.code === 0 ? newsData.data.value.data.news : null
+console.log('newsDataRef')
+console.log(newsDataRef)
+console.log(newsDataRef.title)
+if(newsDataRef){
+  useHead({
+    meta: [
+      {
+        hid: "og:url",
+        property: "og:url",
+        content: `${runtimeConfig.VITE_DOMAIN}${runtimeConfig.VITE_PUBLIC_URL}newsCenter/detail?id=${route.query.id}`,
+      },
+      {
+        hid: "og:type",
+        property: "og:type",
+        content: 'website',
+      },
+      {
+        hid: "og:title",
+        property: "og:title",
+        content: newsDataRef.title,
+      },
+      {
+        hid: "og:description",
+        property: "og:description",
+        content: newsDataRef.abstract,
+      },
+      {
+        hid: "og:image",
+        property: "og:image",
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${newsDataRef.img}?x-oss-process=image/resize,m_fixed,h_200,w_300,1/format,jpg`,
+      },
+      {
+        hid: "og:image:width",
+        property: "og:image:width",
+        content: 300,
+      },
+      {
+        hid: "og:image:height",
+        property: "og:image:height",
+        content: 200,
+      },
+      {
+        hid: "twitter:card",
+        name: "twitter:card",
+        content: 'summary',
+      },
+      {
+        hid: "twitter:title",
+        name: "twitter:title",
+        content: newsDataRef.title,
+      },
+      {
+        hid: "twitter:description",
+        name: "twitter:description",
+        content: newsDataRef.abstract,
+      },
+      {
+        hid: "twitter:image",
+        name: "twitter:image",
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${newsDataRef.img}?x-oss-process=image/resize,m_fixed,h_200,w_300,1/format,jpg`,
+      },
+      {
+        hid: "twitter:image:src",
+        name: "twitter:image:src",
+        content: `${runtimeConfig.VITE_OSS_PREFIX}${newsDataRef.img}?x-oss-process=image/resize,m_fixed,h_200,w_300,1/format,jpg`,
+      },
+    ],
+  });
+}
 
 const searchHandle = (e) => {
   console.log(e)
@@ -243,20 +325,27 @@ getNewsRecent()
 
     .recent {
       margin-top: 113px;
-
-      .block-title {
+      .recent-title{
+        display: flex;
+        justify-content: space-between;
         color: $main-grey;
         font-size: 12px;
-        position: relative;
-
-        &::before {
-          content: '';
-          height: 1px;
-          width: 100%;
-          position: absolute;
-          background: $main-grey;
-          top: -8px;
-          left: 0;
+        .more{
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+        .block-title {
+          position: relative;
+          &::before {
+            content: '';
+            height: 1px;
+            width: 100%;
+            position: absolute;
+            background: $main-grey;
+            top: -8px;
+            left: 0;
+          }
         }
       }
 
@@ -278,12 +367,16 @@ getNewsRecent()
           }
 
           .news-block-title {
+            margin-top: 12px;
             height: 21px;
             line-height: 21px;
             width: 237px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+          }
+          .news-block-time{
+            margin-top: 0;
           }
         }
       }
@@ -420,12 +513,13 @@ getNewsRecent()
       }
       .content {
         margin-top: 12px;
-
+        overflow-x: hidden;
         :deep(*) {
           max-width: calc(100vw - 30px);
         }
         :deep(img){
           object-fit: cover;
+          height: unset;
         }
       }
       .recent{
@@ -441,9 +535,12 @@ getNewsRecent()
           .news-block{
             width: 100%;
             .news-block-title{
-              margin-top: 6px;
+              margin-top: 12px;
               width: 100%;
               max-width: 100%;
+            }
+            .news-block-time{
+              margin-top: 0;
             }
           }
         }

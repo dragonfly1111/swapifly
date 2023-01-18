@@ -82,7 +82,7 @@
 
       span {
         cursor: pointer;
-        font-size: 20px;
+        font-size: 17px;
         margin-left: 12px;
         font-weight: 600;
       }

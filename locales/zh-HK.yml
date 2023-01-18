@@ -268,7 +268,7 @@ exposure:
   countriesRegions: 国家或地区
   exposureNums: 曝光量
   exposureDays: 天
-  paySuc: 多謝選購Swapifly曝光推廣! 
+  paySuc: 多謝選購Swapifly曝光推廣!
   paySucTip: 你所選購的曝光數量已經成功設置到您的商品, 並會在未來數天完成所有流量。請立即查看商品左上角是否加上了 ”推介商品” 的標籤, 這代表曝光推廣已經生效。 如有查詢請點擊商品內頁的 ”檢視成果” 與我們聯絡。
   payFail: 支付失敗
   payFailTip: 未能完成支付
@@ -321,6 +321,7 @@ newsCenter:
   preNews: 上一篇文章
   nextNews: 下一篇文章
   noNews: 沒有了～
+  more: 更多
 dialogue:
   newMsg: 新消息
   imgMsg: 【圖片】

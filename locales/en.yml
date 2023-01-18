@@ -155,7 +155,7 @@ pages:
   reviews: Reviews
   searchResult: search results
   has: ''
-  searchUser: User search result for 
+  searchUser: User search result for
   searchUserEmpty: No User
   searchUserEmptyTip: Sorry, we couldn’t find anyone
 profile:
@@ -268,7 +268,7 @@ exposure:
   countriesRegions: Country or Area
   exposureNums: Impressions
   exposureDays: Days
-  paySuc: Thank you for choosing Swapifly’s Purchase Visits! 
+  paySuc: Thank you for choosing Swapifly’s Purchase Visits!
   paySucTip: Your chosen number of impressions has been successfully setup to your item and will complete deliver within the next few days. Please check if you will find “Recommended items” label at the upper left of your item, this implies that the Purchase Visits is effective. If you have any questions, please click your item page’s button “Review Results” to contact us.
   payFail: Payment failed
   payFailTip: Failure to complete payment
@@ -321,6 +321,7 @@ newsCenter:
   preNews: Previous article
   nextNews: Next article
   noNews: No content
+  more: More
 dialogue:
   newMsg: News
   imgMsg: 【image】
