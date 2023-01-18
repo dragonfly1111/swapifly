@@ -274,6 +274,7 @@ getNewsRecent()
 
   .left {
     font-size: 48px;
+    cursor: pointer;
   }
 
   .right {
