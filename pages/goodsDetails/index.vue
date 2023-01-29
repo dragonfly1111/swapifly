@@ -5,7 +5,15 @@
       <div class="mobile-extra-box" @click="drawerVisible = true" v-if="userInfo && p_type == 2"></div>
 
       <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
-
+      <div>
+        <!-- 横向-1208 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6048577945842361"
+             data-ad-slot="5561165518"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
       <template v-if="pageLoading">
         <div>
           <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">
@@ -870,6 +878,7 @@ watch(
 );
 
 onMounted(async () => {
+  // (adsbygoogle = window.adsbygoogle || []).push({});
   await nextTick();
   initData();
 });
