@@ -607,10 +607,6 @@ const handleQuery = () => {
 const getAD = () => {
   detailAD().then((res) => {
     googleAd.value = res.data;
-    nextTick(()=>{
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    })
   });
 };
 // 跳转分类
