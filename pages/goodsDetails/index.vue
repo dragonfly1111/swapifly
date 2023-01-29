@@ -5,13 +5,6 @@
       <div class="mobile-extra-box" @click="drawerVisible = true" v-if="userInfo && p_type == 2"></div>
 
       <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
-      <div>
-        <!-- 商品详情-横版 -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:900px;height:160px"
-             data-ad-client="ca-pub-6048577945842361"
-             data-ad-slot="5561165518"></ins>
-      </div>
       <template v-if="pageLoading">
         <div>
           <a-skeleton :animation="true" :loading="pageLoading" class="skeleton">

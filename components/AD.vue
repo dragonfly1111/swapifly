@@ -32,6 +32,10 @@ const props = defineProps({
     default:''
   }
 });
+
+onMounted(async () => {
+  (adsbygoogle = window.adsbygoogle || []).push({});
+});
 </script>
 <style scoped lang="scss">
 .ad-wrapper {

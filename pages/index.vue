@@ -456,10 +456,6 @@ useHead({
   ]
 })
 
-onMounted(()=>{
-  (adsbygoogle = window.adsbygoogle || []).push({})
-})
-
 </script>
 
 <style lang="scss" scoped>
