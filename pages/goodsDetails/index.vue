@@ -869,7 +869,7 @@ watch(
 );
 
 onMounted(async () => {
-  // (adsbygoogle = window.adsbygoogle || []).push({});
+  (adsbygoogle = window.adsbygoogle || []).push({});
   await nextTick();
   initData();
 });
