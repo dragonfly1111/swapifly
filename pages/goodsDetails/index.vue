@@ -607,6 +607,10 @@ const handleQuery = () => {
 const getAD = () => {
   detailAD().then((res) => {
     googleAd.value = res.data;
+    nextTick(()=>{
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    })
   });
 };
 // 跳转分类
@@ -869,7 +873,6 @@ watch(
 );
 
 onMounted(async () => {
-  (adsbygoogle = window.adsbygoogle || []).push({});
   await nextTick();
   initData();
 });
