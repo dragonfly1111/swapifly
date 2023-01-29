@@ -6,13 +6,11 @@
 
       <AD class="head-ad" height="160px" :advert="googleAd.content"></AD>
       <div>
-        <!-- 横向-1208 -->
+        <!-- 商品详情-横版 -->
         <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
+             style="display:inline-block;width:900px;height:160px"
              data-ad-client="ca-pub-6048577945842361"
-             data-ad-slot="5561165518"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+             data-ad-slot="5561165518"></ins>
       </div>
       <template v-if="pageLoading">
         <div>
