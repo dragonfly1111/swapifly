@@ -8,7 +8,7 @@
       <div>
         <!-- 横向-1208 -->
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:inline-block;width:728px;height:90px"
              data-ad-client="ca-pub-6048577945842361"
              data-ad-slot="5561165518"
              data-ad-format="auto"
